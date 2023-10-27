@@ -116,7 +116,6 @@ export default function EditDoing({
       setShowLoader(false);
       if (response.data.status) {
         APIDATA();
-        // setData(response.data.data);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -127,12 +126,13 @@ export default function EditDoing({
           progress: undefined,
           theme: "light",
         });
-        aRef.current.value = null;
+        // aRef.current.value = null;
         setServicesDescription("");
         setServicesName("");
         handleCanclebtn();
       }
     } catch (error) {
+      console.log(error);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         window.location.href = "/login";

@@ -1,11 +1,10 @@
 /* eslint-disable eqeqeq */
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Swal from "sweetalert2";
 
 export default function Footer({ Data, card_url }) {
-  const [Token, setToken] = useState("");
   const handleLOGOUT = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("url");
@@ -24,9 +23,6 @@ export default function Footer({ Data, card_url }) {
       }
     });
   };
-  useEffect(() => {
-    setToken(localStorage.getItem("url"));
-  }, [Token]);
 
   return (
     <>
@@ -55,20 +51,21 @@ export default function Footer({ Data, card_url }) {
               Get your PopiCard
             </Link>
           </button>
-          {card_url == Token || Token === null ? (
-            <Link href={"/edit/" + card_url}>
-              <button className="footer-btn text-white">
-                <span>Login to PopiCard</span>
-              </button>
-            </Link>
-          ) : (
+          {/* {card_url == localStorage.getItem("url") ||
+          localStorage.getItem("url") === null ? ( */}
+          <Link href={"/edit/" + card_url}>
+            <button className="footer-btn text-white">
+              <span>Login to PopiCard</span>
+            </button>
+          </Link>
+          {/* ) : (
             <button
               className="footer-btn text-white"
               onClick={HandleLogOutPopup}
             >
               <span>Login To PopiCard</span>
             </button>
-          )}
+          )} */}
         </div>
         <p className="m-0 mt-4 pb-3 text-center footer-copyright">
           Copyright © 2023 All Rights Reserved.

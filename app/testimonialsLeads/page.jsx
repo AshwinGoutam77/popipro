@@ -17,12 +17,13 @@ import { Modal } from "react-bootstrap";
 import Link from "next/link";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function TestimonialsLeads() {
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [Token, setToken] = useState("");
+  const { token } = useAuthContext();
 
   const handleTestimonialsData = async () => {
     try {
@@ -49,7 +50,6 @@ export default function TestimonialsLeads() {
   };
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     handleTestimonialsData();
   }, []);
 
@@ -101,7 +101,7 @@ export default function TestimonialsLeads() {
     });
   };
 
-  return Token ? (
+  return token ? (
     <div>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header>

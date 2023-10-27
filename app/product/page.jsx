@@ -18,17 +18,17 @@ import { GetInshights } from "@services/Routes";
 import SimpleBackdrop from "@components/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function DashboardProducts({ TitleData }) {
+  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
-  const [Token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
   }, []);
 
@@ -88,7 +88,7 @@ export default function DashboardProducts({ TitleData }) {
     }
   };
 
-  return Token ? (
+  return token ? (
     <>
       <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer
@@ -185,7 +185,6 @@ export default function DashboardProducts({ TitleData }) {
                     </tr>
                   ) : (
                     Data?.product_states?.map((item, index) => {
-                      console.log(item);
                       return (
                         <tr key={index} className="cursor-pointer">
                           <td data-column="Name">{item.name}</td>

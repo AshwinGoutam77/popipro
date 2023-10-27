@@ -29,7 +29,7 @@ import SimpleBackdrop from "@components/Backdrop";
 import { useAuthContext } from "@context/AuthContext";
 
 const Page = () => {
-  const {token} = useAuthContext();
+  const { token } = useAuthContext();
   const params = useParams();
   const { profile } = params;
   const [isVisible, setIsVisible] = useState(false);
@@ -42,25 +42,30 @@ const Page = () => {
   const [AddMoreVedios, setAddMoreVedios] = useState([1]);
   const pathname = usePathname();
   let card_url = pathname.split("/").pop();
-  const [Token, setToken] = useState("");
 
   const getProfileData = async () => {
-    setShowLoader(true);
-    const response = await Api(EditData, {}, "?card_url=" + card_url);
-    if (response?.data?.status) {
-      setShowLoader(false);
-      setCardData(response?.data?.data);
-      setAddMoreBlogs(response.data.data.card.card_blogs);
-      setAddMoreProduct(response.data.data.card.card_products);
-      setAddMoreVedios(response.data.data.card.card_videos);
-    } else {
-      setErrorDataMessage(response.data.message);
-      setNoData(true);
+    try {
+      setShowLoader(true);
+      const response = await Api(EditData, {}, "?card_url=" + card_url);
+      if (response?.data?.status) {
+        setShowLoader(false);
+        setCardData(response?.data?.data);
+        setAddMoreBlogs(response.data.data.card.card_blogs);
+        setAddMoreProduct(response.data.data.card.card_products);
+        setAddMoreVedios(response.data.data.card.card_videos);
+      } else {
+        setErrorDataMessage(response.data.message);
+        setNoData(true);
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     }
   };
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     getProfileData();
   }, []);
 

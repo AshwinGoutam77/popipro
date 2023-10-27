@@ -14,15 +14,15 @@ import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function AppointmentLead() {
+  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [Token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
   }, []);
 
@@ -33,7 +33,7 @@ export default function AppointmentLead() {
     }
   };
 
-  return Token ? (
+  return token ? (
     <div>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header>

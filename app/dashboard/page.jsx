@@ -31,6 +31,7 @@ import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
+import { redirect } from "next/navigation";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -100,9 +101,9 @@ export default function Dashboard() {
   }, []);
 
   const handleLogout = () => {
+    window.location.href = "/" + localStorage.getItem("url");
     localStorage.removeItem("token");
     localStorage.removeItem("url");
-    window.location.href = "/" + card_url;
   };
   const handleFreeTrail = async () => {
     try {

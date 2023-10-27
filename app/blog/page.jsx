@@ -18,19 +18,17 @@ import Link from "next/link";
 import SimpleBackdrop from "@components/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function DashboardBlogs() {
+  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
-  const [Token, setToken] = useState("");
-
-
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
   }, []);
 
@@ -89,7 +87,7 @@ export default function DashboardBlogs() {
       });
     }
   };
-  return Token ? (
+  return token ? (
     <>
       <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer

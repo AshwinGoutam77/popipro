@@ -24,8 +24,10 @@ import Api from "@services/Api";
 import { EditData, GetInshights } from "@services/Routes";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 const Insights = () => {
+  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -33,10 +35,7 @@ const Insights = () => {
   const [ShowLoader, setShowLoader] = useState(false);
   const [UserData, setUserData] = useState("");
   const [FiltterData, setFiltterData] = useState(false);
-  const [Token, setToken] = useState("");
-
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
     APIDATA();
   }, []);
@@ -172,7 +171,7 @@ const Insights = () => {
     }
   };
 
-  return Token ? (
+  return token ? (
     <>
       <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer

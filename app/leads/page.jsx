@@ -17,8 +17,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 const Leads = () => {
+  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -26,10 +28,8 @@ const Leads = () => {
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [Token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
   }, []);
 
@@ -118,7 +118,7 @@ const Leads = () => {
     newLink.click();
   };
 
-  return Token ? (
+  return token ? (
     <>
       <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer

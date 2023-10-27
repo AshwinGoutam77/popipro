@@ -19,15 +19,15 @@ import Link from "next/link";
 import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function ProductEnquiry() {
+  const {token} = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [Token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
     api();
   }, []);
 
@@ -42,7 +42,7 @@ export default function ProductEnquiry() {
     setShowModal(true);
   };
 
-  return Token ? (
+  return token ? (
     <div>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header>
