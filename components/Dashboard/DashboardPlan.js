@@ -1,6 +1,6 @@
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 
 import Api from "@services/Api";
@@ -11,6 +11,10 @@ import { UpgradePlan } from "@services/Routes";
 
 export default function DashboardPlan({ Data, PlanData, APIDATA }) {
   const [ShowLoader, setShowLoader] = useState(false);
+  useEffect(() => {
+    APIDATA();
+  }, []);
+
   const handleFreeTrail = async () => {
     try {
       Swal.fire({

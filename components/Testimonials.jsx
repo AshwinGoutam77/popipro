@@ -129,8 +129,8 @@ const Testimonials = ({
         autoclose={1000}
         hideprogressbar={"false"}
         newestontop={"false"}
-        closeonclick={"false"}
-        rtl={"false"}
+        closeonclick={"true"}
+        rtl={"true"}
         pauseonfocusloss={"true"}
         draggable
         pauseonhover={"true"}
