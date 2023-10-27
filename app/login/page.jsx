@@ -24,6 +24,18 @@ const LoginPage = () => {
   const [ShowLoader, setShowLoader] = useState(false);
   const { token, userLogin } = useAuthContext();
 
+  const checkLogin = () => {
+    if (localStorage.getItem("token") && localStorage.getItem("url")) {
+      userLogin({
+        token: localStorage.getItem("token"),
+        current_url: localStorage.getItem("url"),
+      });
+    }
+  };
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await loginUser({
@@ -48,7 +60,7 @@ const LoginPage = () => {
     }
     setShowLoader(false);
   };
-  return token != '' && token != undefined ? (
+  return token != "" && token != undefined ? (
     redirect("/dashboard")
   ) : (
     <>

@@ -60,17 +60,18 @@ export default function TestimonialsLeads() {
     };
     Swal.fire({
       title: "Are you sure?",
-      text: "Once you active this testimonial it will show in your profile",
+      text: "Once you approve this request, it will show in your profile.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(99 171 187)",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Active",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const response = await Api(ActiveTestimonials, data);
         if (response.data.status) {
-          Swal.fire("Testimonial Activated!", "", "success");
+          Swal.fire("Request Approved!", "", "success");
           handleTestimonialsData();
         }
       }
@@ -84,17 +85,18 @@ export default function TestimonialsLeads() {
     };
     Swal.fire({
       title: "Are you sure?",
-      text: "Once you delete this testimonial request, you can't revert it!",
+      text: "Once you reject this request, you can't revert it!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(99 171 187)",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Delete",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const response = await Api(ActiveTestimonials, data);
         if (response.data.status) {
-          Swal.fire("Testimonial Activated!", "", "success");
+          Swal.fire("Request Rejected!", "", "success");
           handleTestimonialsData();
         }
       }

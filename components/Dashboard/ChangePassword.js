@@ -124,7 +124,7 @@ export default function ChangePassword({ active, handleClose }) {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <form className="changePassword-form-section text-center px-0 pt-1 mb-4">
+              <form className="changePassword-form-section px-0 pt-1 mb-4">
                 <input
                   type="password"
                   name="number"

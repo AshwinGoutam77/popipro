@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useAuthContext } from "@context/AuthContext";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -7,18 +7,17 @@ export default function Home() {
   const { token, userLogin } = useAuthContext();
 
   const checkLogin = () => {
-    console.log('called')
     if (localStorage.getItem("token") && localStorage.getItem("url")) {
       userLogin({
         token: localStorage.getItem("token"),
         current_url: localStorage.getItem("url"),
       });
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     checkLogin();
-  },[])
+  }, []);
 
   return (
     <>

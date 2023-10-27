@@ -81,7 +81,7 @@ export default function Suggestions({ active, handleClose }) {
         pauseOnHover
         theme="light"
       />
-      <Modal show={active} onHide={() => handleClose('')} centered>
+      <Modal show={active} onHide={() => handleClose("")} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -92,7 +92,11 @@ export default function Suggestions({ active, handleClose }) {
             </h5>
           </Modal.Title>
 
-          <button type="button" className="close" onClick={() => handleClose('')}>
+          <button
+            type="button"
+            className="close"
+            onClick={() => handleClose("")}
+          >
             <span aria-hidden="true">×</span>
             <span className="sr-only">Close alert</span>
           </button>
@@ -125,62 +129,6 @@ export default function Suggestions({ active, handleClose }) {
           </div>
         </Modal.Body>
       </Modal>
-      {/* <div
-        className="modal fade"
-        id="SuggestionModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="SuggestionModal"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style={{ borderRadius: "10px" }}>
-            <div className="modal-header">
-              <h5
-                className="title title--h1 first-title title__separate mb-0"
-                id="BlogModalTitle"
-              >
-                Suggestions
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body" style={{ padding: "30px 25px" }}>
-              <div>
-                
-                <textarea
-                  type="password"
-                  name="number"
-                  placeholder="Drop a suggestion*"
-                  className="mt-2 form-control"
-                  value={Message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  style={{ minHeight: "150px" }}
-                  required
-                />
-                <button
-                  className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
-                  data-wow-delay=".6s"
-                  style={{
-                    visibility: "visible",
-                    animationDelay: "0.6s",
-                    animationName: "fadeInUp",
-                  }}
-                  onClick={handlecontinue}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

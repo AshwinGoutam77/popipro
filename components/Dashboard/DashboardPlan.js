@@ -1,20 +1,14 @@
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React from "react";
 import Swal from "sweetalert2";
-
-import Api from "@services/Api";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
-import SimpleBackdrop from "@components/SimpleBackDrop";
 import { UpgradePlan } from "@services/Routes";
+import Api from "@services/Api";
 
 export default function DashboardPlan({ Data, PlanData, APIDATA }) {
   const [ShowLoader, setShowLoader] = useState(false);
-  useEffect(() => {
-    APIDATA();
-  }, []);
-
   const handleFreeTrail = async () => {
     try {
       Swal.fire({
@@ -79,7 +73,6 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
   };
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer
         position="bottom-right"
         autoClose={1000}
@@ -102,14 +95,14 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
           rel="noreferrer"
           className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
         >
-          <span className="text-white font-weight-bold text-center d-flex align-items-center">
+          <p className="text-white font-weight-bold text-center d-flex align-items-center">
             <FontAwesomeIcon
               icon={faLock}
               className="text-white mr-2"
               style={{ fontSize: "20px" }}
             />
-            <span className="text-left">Renew your plan</span>
-          </span>
+            <p className="text-left">Renew your plan</p>
+          </p>
         </a>
       ) : PlanData?.subscription?.plan_id == 1 ||
         PlanData?.subscription?.plan_id == null ? (
@@ -118,14 +111,14 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
             className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
             onClick={() => handleFreeTrail()}
           >
-            <span className="text-white font-weight-bold text-left d-flex align-items-center">
+            <p className="text-white font-weight-bold text-left d-flex align-items-center">
               <FontAwesomeIcon
                 icon={faLock}
                 className="text-white mr-2"
                 style={{ fontSize: "15px" }}
               />
               <span style={{ fontSize: "12px" }}>Premium Feature</span>
-            </span>
+            </p>
           </p>
         </>
       ) : (
