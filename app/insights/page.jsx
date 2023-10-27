@@ -475,53 +475,45 @@ const Insights = () => {
           Social Analytics
         </h5>
 
-//         <div className="row w-100 m-0 mb-4 justify-content-left">
-//           {Data?.card_states?.social_links.length === 0 ? (
-//             <p className="mx-4 font-weight-bold mb-4">No data available</p>
-//           ) : (
-//             Data?.card_states?.social_links?.map((item, index) => {
-//               return (
-//                 <>
-//                   <div className="col-12 col-lg-3 p-0 mb-2">
-//                     <p
-//                       className={
-//                         index === 1
-//                           ? "font-weight-bold leads-para"
-//                           : "font-weight-bold leads-para ml-lg-4"
-//                       }
-//                     >
-//                       <i
-//                         className={`fa-brands fa-${item.label?.toLowerCase()} mr-2`}
-//                         style={{ fontSize: "15px" }}
-//                       ></i>
-//                       {item?.hit} People reach out through the{" "}
-//                       <span className="Varcolor">{item?.label}</span>
-//                     </p>
-//                   </div>
-//                 </>
-//               );
-//             })
-//           )}
-//         </div>
-//       </div>
-//       <div
-//         className="w-100 text-center text-white p-2 mt-3"
-//         style={{ bottom: "0", background: "black" }}
-//       >
-//         <p> © 2023. All Rights Reserved By Popipro.</p>
-//       </div>
-//     </>
-//   ) : (
-//     redirect("/login")
-//   );
-// };
+        <div className="row w-100 m-0 mb-4 justify-content-left">
+          {Data?.card_states?.social_links.length === 0 ? (
+            <p className="mx-4 font-weight-bold mb-4">No data available</p>
+          ) : (
+            Data?.card_states?.social_links?.map((item, index) => {
+              return (
+                <>
+                  <div className="col-12 col-lg-3 p-0 mb-2">
+                    <p
+                      className={
+                        index === 1
+                          ? "font-weight-bold leads-para"
+                          : "font-weight-bold leads-para ml-lg-4"
+                      }
+                    >
+                      <i
+                        className={`fa-brands fa-${item.label?.toLowerCase()} mr-2`}
+                        style={{ fontSize: "15px" }}
+                      ></i>
+                      {item?.hit} People reach out through the{" "}
+                      <span className="Varcolor">{item?.label}</span>
+                    </p>
+                  </div>
+                </>
+              );
+            })
+          )}
+        </div>
+      </div>
+      <div
+        className="w-100 text-center text-white p-2 mt-3"
+        style={{ bottom: "0", background: "black" }}
+      >
+        <p> © 2023. All Rights Reserved By Popipro.</p>
+      </div>
+    </>
+  ) : (
+    redirect("/login")
+  );
+};
 
-// export default Insights;
-import React from 'react'
-
-export default function page() {
-  return (
-    <div>page</div>
-  )
-}
-
+export default Insights;
