@@ -19,26 +19,15 @@ import Footer from "@components/Footer";
 import Alternateno from "@components/Alternateno";
 import { redirect } from "next/navigation";
 
-export default async function Main({ profile }) {
-  const data = (await getProfileData(profile)) || {};
-  // const HitApi = (await hitClickApi(data?.data?.id)) || {};
+export default async function Main({ profile, data }) {
   let card = data?.data?.card || {};
-  // let API = HitApi || {};
   let MainData = data?.data;
   let permission = data?.data?.permission;
   let titles = data?.data?.titles;
   let headers = data?.data?.headers;
-  let currency = data?.data?.currency;
   let company_setting = data?.data?.company_setting;
-  let hit_type = data?.data?.hit_type;
-  let landing_mode = data?.data?.landing_mode;
-  let custom_forms = data?.data?.custom_forms;
-  let card_social_links = data?.data?.card_social_links;
-  let card_clients = data?.data?.card_clients;
-  let forms = data?.data?.forms;
   let plan = data?.data?.plan;
   let pagination_data = data?.data?.pagination_data;
-  let is_individual = data?.data?.is_individual;
   let AddMoreBlogs = data?.data?.card?.card_blogs;
   let Products = data?.data?.card?.card_products;
   let is_onboarding = data?.data?.card?.is_onboarding;
@@ -166,32 +155,3 @@ export default async function Main({ profile }) {
     )
   );
 }
-const getProfileData = async (profile) => {
-  const response = await fetch(
-    `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-    }
-  );
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-  }
-};
-// const hitClickApi = async (id) => {
-//   const response = await fetch(`https://admin.popipro.com/api/hit-click`, {
-//     method: "post",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       card: id,
-//       type: "card",
-//       device_id: navigator.userAgent,
-//       object_base: id,
-//       hit_type: "direct",
-//     }),
-//   });
-//   const API = await response.json();
-//   return API;
-// };

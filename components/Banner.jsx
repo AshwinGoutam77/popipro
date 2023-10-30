@@ -17,17 +17,23 @@ const Banner = ({
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
+  const [Loader, setLoader] = useState(false);
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--color", card?.color_code);
-    document.documentElement.style.setProperty(
-      "--header-color",
-      card.banner_color
-    );
-    document.documentElement.style.setProperty(
-      "--themecolor",
-      card.background_color
-    );
+    if (card) {
+      setLoader(true);
+      document.documentElement.style.setProperty("--color", card?.color_code);
+      document.documentElement.style.setProperty(
+        "--header-color",
+        card.banner_color
+      );
+      document.documentElement.style.setProperty(
+        "--themecolor",
+        card.background_color
+      );
+    } else {
+      setLoader(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -161,7 +167,14 @@ const Banner = ({
     if (response.data.status) {
     }
   };
-  return (
+  return Loader == false ? (
+    <h5
+      className="d-flex align-items-center justify-content-center text-center"
+      style={{ height: "100vh" }}
+    >
+      Loading...
+    </h5>
+  ) : (
     <>
       {permission[0]?.visible_field === "logo" ||
       permission[0]?.visible_field === "name" ||

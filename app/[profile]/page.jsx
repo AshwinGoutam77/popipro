@@ -17,6 +17,7 @@ export async function generateMetadata({ params, searchParams }) {
 
 const ProfilePage = async ({ params }) => {
   const { profile } = params;
+  const data = (await getProfileData(profile)) || {};
   return (
     <>
       <Suspense
@@ -29,7 +30,7 @@ const ProfilePage = async ({ params }) => {
           </h5>
         }
       >
-        <Main profile={profile} />
+        <Main profile={profile} data={data} />
       </Suspense>
     </>
   );
