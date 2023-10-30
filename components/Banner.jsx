@@ -185,7 +185,11 @@ const Banner = ({
     if (response.data.status) {
     }
   };
-  if (FunctionState == false && card?.landing_mode === "save-contact") {
+  if (
+    typeof window === "object" &&
+    FunctionState == false &&
+    card?.landing_mode === "save-contact"
+  ) {
     shareContact();
     setFunctionState(true);
   } else if (
