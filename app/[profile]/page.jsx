@@ -23,7 +23,7 @@ export async function generateMetadata({ params, searchParams }) {
       type: "website",
       images: data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path
     },
-  };
+  }; 
 }
 
 const ProfilePage = async ({ params }) => {
