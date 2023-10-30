@@ -22,10 +22,12 @@ const PlanManagment = () => {
     api();
   }, []);
 
-  let card_url = "ashwin-goutam";
-
   const api = async () => {
-    const response = await Api(EditData, {}, "?card_url=" + card_url);
+    const response = await Api(
+      EditData,
+      {},
+      "?card_url=" + localStorage.getItem("url")
+    );
     if (response.data.status) {
       setData(response.data.data);
     }

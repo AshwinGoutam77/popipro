@@ -7,14 +7,9 @@
   transition: box-shadow 0.3s ease-in-out !important;
 }
 
-.contact-btnn {
-  width: 100%;
-  padding: 10px 10px;
-  background-color: var(--themecolor);
-  color: white;
-  border: 1px solid #ddd;
-  font-weight: 600;
-  border-radius: 100px;
+
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
 .edit-header {
@@ -26,18 +21,6 @@
   color: white;
   border: none;
   padding: 20px 20px;
-}
-
-.contact-btn {
-  border: 1px solid transparent !important;
-  padding: 6px 19px;
-  background-color: var(--color);
-  color: white;
-  border: 1px solid #ddd;
-  font-weight: 600;
-  border-radius: 100px;
-  margin-top: 8px;
-  width: 100%;
 }
 
 .contact-delete-btn {
@@ -234,21 +217,6 @@
   .mobile-social-view {
     display: block;
   }
-
-  .contact-btn {
-    margin-top: 20px;
-  }
-
-  .contact-btn {
-    width: 100%;
-    padding: 10px 19px;
-    background-color: var(--color);
-    color: white;
-    border: 1px solid transparent !important;
-    font-weight: 600;
-    border-radius: 100px;
-  }
-
   .contact-delete-btn {
     border: 1px solid transparent !important;
     padding: 6px 15px;
@@ -257,10 +225,6 @@
     border: 1px solid #ddd;
     font-weight: 600;
     border-radius: 100px;
-    margin-top: 20px;
-  }
-
-  .contact-btnn {
     margin-top: 20px;
   }
 
@@ -277,33 +241,18 @@
   margin-bottom: 0 !important;
 }
 
-.contact-btn:hover,
-.contact-delete-btn:hover {
-  /* transition: all 0.2s ease-in-out;
-  transform: scale(1.1); */
-}
 
 .header__contact li a svg {
   color: var(--color);
 }
 
 @media (max-width: 1200px) and (min-width: 994px) {
-  .contact-btn {
-    width: 100% !important;
-    padding: 7px 13px !important;
-    font-size: 12px !important;
-  }
-
   .upgrade-contact-btn {
     width: 25% !important;
   }
 }
 
 @media (max-width: 390px) and (min-width: 360px) {
-  .contact-btn {
-    font-size: 13px !important;
-  }
-
   .send-btnn {
     /* padding: 10px !important; */
     font-size: 12px !important;

@@ -75,7 +75,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              {Titles.card_blogs?.visible_name}
+              {Titles?.card_blogs?.visible_name}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleClose}>
@@ -162,9 +162,9 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       PlanData?.subscription !== null ? (
         <div className="mt-3 box-content boxxx" id="card_blogs">
           <div className="pb-2">
-            <h1 className="title title--h1 first-title title__separate">
+            <h2 className="title title--h1 first-title title__separate">
               {Titles && Titles.card_blogs?.visible_name}
-            </h1>
+            </h2>
           </div>
 
           <div className="row">

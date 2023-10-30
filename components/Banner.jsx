@@ -6,14 +6,7 @@ import { HitClickApi } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Banner = ({
-  permission,
-  card,
-  subscription,
-  CardLinks,
-  Titles,
-  is_onboarding,
-}) => {
+const Banner = ({ permission, card, subscription, CardLinks, Titles, id }) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
@@ -37,9 +30,10 @@ const Banner = ({
   }, []);
 
   useEffect(() => {
+    directHitClick();
     window.addEventListener("scroll", listenToScroll);
     return () => window.removeEventListener("scroll", listenToScroll);
-  }, []);
+  }, [card?.id]);
 
   const listenToScroll = () => {
     let heightToHideFrom = 200;
@@ -167,6 +161,20 @@ const Banner = ({
     if (response.data.status) {
     }
   };
+
+  const directHitClick = async () => {
+    let payload = {
+      card: id,
+      type: "card",
+      device_id: navigator.userAgent,
+      object_base: id,
+      hit_type: "direct",
+    };
+
+    const response = await Api(HitClickApi, payload);
+    if (response.data.status) {
+    }
+  };
   return Loader == false ? (
     <h5
       className="d-flex align-items-center justify-content-center text-center"
@@ -212,8 +220,7 @@ const Banner = ({
                 target="_blank"
                 onClick={() => HitClick("direct")}
               >
-                {/* <i className="fa-brands  fa-whatsapp my-float"></i> */}
-                <img src="./static/img/whatsapp.png" />
+                <img src="./static/img/whatsapp.png" alt="whatsaap" />
               </a>
             ) : (
               ""
@@ -341,8 +348,7 @@ const Banner = ({
                 target="_blank"
                 onClick={() => HitClick("direct")}
               >
-                {/* <i className="fa-brands  fa-whatsapp my-float"></i> */}
-                <img src="./static/img/whatsapp.png" />
+                <img src="./static/img/whatsapp.png" alt="whatsaap" />
               </a>
             ) : (
               ""

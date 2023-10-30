@@ -481,9 +481,9 @@ label {
 .title-section-input::before,
 .title-section-input::after {
   content: "";
-  background-color: #304cfd;
+  background-color: var(--color);
   border-radius: 0.5rem;
-  height: 5px;
+  height: 3px;
   position: absolute;
   bottom: -1.125rem;
   left: 0;
@@ -721,7 +721,7 @@ input:checked + .slider:before {
     line-height: 1;
   }
 
-  .nav__item a.active:hover {
+  .nav__item span.active:hover {
     color: var(--color) !important;
   }
 

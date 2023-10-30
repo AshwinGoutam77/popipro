@@ -512,3 +512,6 @@ code {
 input:focus-visible {
   outline: none !important;
 }
+.VarColor{
+  color: var(--color);
+}

@@ -13,9 +13,9 @@ const QuickLinks = ({ card,subscription,Titles }) => {
       subscription?.subscription !== null ? (
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">
-            <h1 className="title title--h1 first-title title__separate">
+            <h2 className="title title--h1 first-title title__separate">
               {CustomLinkTitle?.visible_name}
-            </h1>
+            </h2>
           </div>
           <div>
             {card?.card_custom_url?.map((item, index) => {

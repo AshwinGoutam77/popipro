@@ -28,9 +28,9 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
       PlanData?.subscription !== null ? (
         <div className="mb-3 box-content boxxx mt-0" id="about_us">
           <div className="flex-header">
-            <h1 className="title title--h1 first-title title__separate">
+            <h2 className="title title--h1 first-title title__separate">
               {Titles?.card_alternate_phone?.visible_name}
-            </h1>
+            </h2>
           </div>
           {Data?.card_alternate_phone?.map((item, index) => {
             return (

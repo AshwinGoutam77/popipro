@@ -44,7 +44,7 @@ iframe {
 .header__left > *,
 .header__right > *,
 .header__social > *,
-.nav__item a > *,
+.nav__item span > *,
 .news-grid > *,
 .preloader > *,
 .progress .progress-text > *,
@@ -181,12 +181,12 @@ html.is-scroll-disabled body {
   color: #000;
 }
 
-.header__social a:hover,
+/* .header__social a:hover,
 .title--tone,
 a,
 a:hover {
-  color: #304cfd;
-}
+  color: inherit !important;
+} */
 
 .no-scroll {
   overflow: hidden;
@@ -281,9 +281,9 @@ a:hover {
 .title__separate::after,
 .title__separate::before {
   content: "";
-  background-color: #304cfd;
+  background-color: var(--color);
   border-radius: 0.5rem;
-  height: 5px;
+  height: 3px;
   position: absolute;
   left: 0;
   width: 3.125rem;
@@ -291,7 +291,7 @@ a:hover {
 }
 
 .title__separate::after {
-  background-color: #ff965d;
+  background-color: var(--color);
   width: 1rem;
 }
 
@@ -299,7 +299,7 @@ a:hover {
   font-weight: 400;
 }
 
-.nav__item a,
+.nav__item span,
 .weight--500 {
   font-weight: 500;
 }
@@ -385,7 +385,7 @@ a:hover {
 .comment-box__details a,
 .footer-post__share:hover,
 .header__social a,
-.nav__item a,
+.nav__item span,
 .social__link,
 .social__link:hover,
 a.decoration--none {
@@ -582,7 +582,7 @@ select:focus {
 
 .custom-select option,
 .dropdown-menu,
-.nav__item a,
+.nav__item span,
 select option {
   color: black;
 }
@@ -941,7 +941,7 @@ button:focus {
 }
 
 .footer,
-.nav__item a,
+.nav__item span,
 .social__link,
 .status {
   font-size: 0.875rem;
@@ -989,9 +989,13 @@ button:focus {
 }
 
 .map,
-.nav__item a,
+.nav__item span,
 .news-item {
   background-color: #f7f9fa;
+}
+.nav__item span:hover span {
+  background-color: var(--color);
+  transition: 0.4s;
 }
 
 .box__border {
@@ -1218,12 +1222,12 @@ button:focus {
 }
 
 .case-item,
-.nav__item a {
+.nav__item span {
   display: flex;
   position: relative;
 }
 
-.nav__item a {
+.nav__item span {
   border-radius: 1.25rem;
   flex-direction: column;
   align-items: center;
@@ -1232,12 +1236,12 @@ button:focus {
   transition: none;
 }
 
-.nav__item a:hover {
+.nav__item span:hover {
   color: var(--themecolor);
 }
 
-.nav__item a.active,
-.nav__item a.active:hover {
+.nav__item span.active,
+.nav__item span.active:hover {
   color: var(--color);
 }
 
@@ -1257,7 +1261,7 @@ button:focus {
     height: 5.125rem;
   }
 
-  .nav__item a {
+  .nav__item span {
     border-radius: 1rem;
     font-size: 0.75rem;
   }
@@ -1458,6 +1462,11 @@ button:focus {
     overflow: hidden;
     position: relative;
   }
+
+  .nav__item span:hover span {
+    background-color: none !important;
+    transition: 0.4s;
+  }
 }
 
 .select .placeholder,
@@ -1573,21 +1582,21 @@ button:focus {
     width: calc(20% - 0rem);
   }
 
-  .nav__item a {
+  .nav__item span {
     background-color: transparent;
   }
 
-  .nav__item a.active {
+  .nav__item span.active {
     background-image: none;
     box-shadow: none;
     color: var(--color);
   }
 
-  .nav__item a.active:hover {
+  .nav__item span.active:hover {
     color: var(--themecolor);
   }
 
-  .nav__item a.active::before {
+  .nav__item span.active::before {
     content: "";
     background-color: var(--themecolor);
     height: 0.125rem;
@@ -1656,7 +1665,7 @@ button:focus {
 }
 
 @media only screen and (max-width: 768px) {
-  .nav__item a {
+  .nav__item span {
     font-size: 0.6875rem;
   }
 
@@ -2625,7 +2634,8 @@ button:focus {
   border-radius: 100px;
   display: inline-block;
   position: relative;
-  color: #fff;
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 .login-btn-main:hover {

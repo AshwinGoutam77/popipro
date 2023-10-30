@@ -19,7 +19,7 @@ import Footer from "@components/Footer";
 import Alternateno from "@components/Alternateno";
 import { redirect } from "next/navigation";
 
-export default async function Main({ profile, data }) {
+export default async function Main({ profile, data, id }) {
   let card = data?.data?.card || {};
   let MainData = data?.data;
   let permission = data?.data?.permission;
@@ -43,6 +43,7 @@ export default async function Main({ profile, data }) {
               subscription={plan}
               CardLinks={card?.card_social_links}
               Titles={titles}
+              id={id}
             />
             <main className="main">
               <div className="container gutter-top">

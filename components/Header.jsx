@@ -470,7 +470,6 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
         </Modal.Body>
       </Modal>
 
-      {/* <Share Data={Data} card={card} /> */}
       <header className="header header-box mb-3">
         <button
           className="edit-header"
@@ -502,9 +501,9 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
             />
           </div>
           <div className="header__base-info">
-            <h1 className="title titl--h4">
+            <h2 className="title titl--h4">
               {card.first_name == null ? "Name" : card.first_name}
-            </h1>
+            </h2>
             <div className="status">
               <p>
                 {" "}
@@ -763,9 +762,9 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
         {/* LINKS SECTION */}
         <div style={{ display: "none" }}>
           <div className="mt-4 mobile-social-view">
-            <h1 className="title title--h1 first-title title__separate">
+            <h2 className="title title--h1 first-title title__separate">
               Social Network
-            </h1>
+            </h2>
             <div
               className="d-flex flex-wrap align-items-center gap-2"
               style={{ gap: "10px" }}
@@ -811,9 +810,9 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
       </header>
       {/* LINKS SECTION */}
       <div className="box-content boxxx mb-3 mt-0 d-none">
-        <h1 className="title title--h1 first-title title__separate">
+        <h2 className="title title--h1 first-title title__separate">
           {Titles?.card_social_links?.visible_name}
-        </h1>
+        </h2>
         <div
           className="d-flex flex-wrap align-items-center"
           style={{ gap: "15px" }}

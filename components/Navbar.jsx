@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   faChevronLeft,
   faChevronRight,
@@ -58,23 +58,18 @@ const Navbar = ({ card, HeaderData }) => {
               HeaderData?.map((el, i) => {
                 return (
                   <li
-                    className="nav__item"
+                    className="nav__item cursor-pointer"
                     key={i}
                     onClick={() => handleScroll(el.attribute)}
                   >
-                    <a
-                      activeclass="active"
-                      // href={`#${el.attribute}`}
-                      // scroll={true}
-                    >
+                    <span activeclass="active">
                       <span
                         style={{ fontSize: "16px" }}
                         dangerouslySetInnerHTML={{
                           __html: el.icon,
                         }}
                       ></span>
-                      {/* {el.menu_name} */}
-                    </a>
+                    </span>
                   </li>
                 );
               })}

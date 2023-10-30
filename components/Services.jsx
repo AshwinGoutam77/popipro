@@ -18,12 +18,12 @@ const Services = ({ Titles, card, subscription }) => {
           Titles?.card_services.is_active &&
           card?.card_services?.length !== 0 ? (
             <div className="mt-0">
-              <h1 className="title title--h1 first-title title__separate">
+              <h2 className="title title--h1 first-title title__separate">
                 {Titles &&
                 Titles?.card_services.visible_name === "card_services"
                   ? "Card Services"
                   : Titles?.card_services.visible_name}
-              </h1>
+              </h2>
               <div className="row">
                 {/* <!-- Case Item --> */}
                 <SwiperComponent

@@ -22,11 +22,11 @@ const AboutMe = ({ card, Titles }) => {
           card?.card_description !== null ? (
             <div className="pb-0 pb-sm-2">
               <div className="flex-header">
-                <h1 className="title title--h1 first-title title__separate">
+                <h2 className="title title--h1 first-title title__separate">
                   {Titles.card_description?.visible_name
                     ? Titles.card_description?.visible_name
                     : "About Yourself"}
-                </h1>
+                </h2>
               </div>
               <div
                 id="p_wrap mb-0"

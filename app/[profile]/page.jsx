@@ -12,7 +12,7 @@ export async function generateMetadata({ params, searchParams }) {
     ? card?.first_name + " - " + card?.card_profession
     : "Popipro";
   let description = card?.card_description;
-  description = description.replace(/<(.|\n)*?>/g, "").substring(0, 159);
+  description = description?.replace(/<(.|\n)*?>/g, "").substring(0, 159);
 
   return {
     title,
@@ -20,7 +20,7 @@ export async function generateMetadata({ params, searchParams }) {
     openGraph: {
       title,
       description,
-      type: 'website',
+      type: "website",
       images:
         "https://admin.popipro.com/assets/user/logos/prafull-gupta-logo-240823072612000000000000820342.jpg",
     },
@@ -42,7 +42,7 @@ const ProfilePage = async ({ params }) => {
           </h5>
         }
       >
-        <Main profile={profile} data={data} />
+        <Main profile={profile} data={data} id={data?.data?.card?.id} />
       </Suspense>
     </>
   );

@@ -4,7 +4,7 @@ import { useAuthContext } from "@context/AuthContext";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 async function loginUser(credentials) {
   return fetch("https://admin.popipro.com/api/login-user", {
@@ -48,7 +48,7 @@ const LoginPage = () => {
       window.location.href = "/dashboard";
     } else {
       toast.error(response.message, {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
