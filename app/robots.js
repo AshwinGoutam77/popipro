@@ -1,8 +1,4 @@
-import { MetadataRoute } from "next";
-
-export default function robots({ urls }) {
-  
-
+export default function robots() {
   return {
     rules: {
       userAgent: "*",
@@ -18,15 +14,7 @@ export default function robots({ urls }) {
         "/testimonialsLeads/",
         "/blog/",
         "/appointment-lead/",
-        JSON.stringify(urls),
       ],
     },
-  };
-}
-export async function getServerSideProps({ res }) {
-  
-  let urls = await fetch(`https://admin.popipro.com/api/published-url`);
-  return {
-    props: { urls },
   };
 }
