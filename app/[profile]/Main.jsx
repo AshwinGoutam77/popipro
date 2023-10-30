@@ -44,6 +44,7 @@ export default async function Main({ profile, data, id }) {
               CardLinks={card?.card_social_links}
               Titles={titles}
               id={id}
+              MainData={MainData}
             />
             <main className="main">
               <div className="container gutter-top">
@@ -53,6 +54,7 @@ export default async function Main({ profile, data, id }) {
                   company_setting={company_setting}
                   Titles={titles}
                   CardLinks={card?.card_social_links}
+                  PlanData={plan}
                 />
                 <div className="row sticky-parent">
                   <aside className="col-12 col-md-12 col-lg-2">

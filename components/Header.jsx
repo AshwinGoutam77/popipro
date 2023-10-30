@@ -19,7 +19,14 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 
-const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
+const Header = ({
+  profile,
+  card,
+  company_setting,
+  Titles,
+  CardLinks,
+  PlanData,
+}) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -34,6 +41,7 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
   const [ShowLoader, setShowLoader] = useState(false);
   const [SendWhatsaap, setSendWhatsaap] = useState(false);
   const [modalShow, setModalShow] = useState("");
+  const [sharePopup, setsharePopup] = useState(false);
 
   const handleCanclebtn = () => {
     handleClose();
@@ -265,6 +273,10 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
     if (response.data.status) {
     }
   };
+  if (sharePopup == false && card?.landing_mode === "share-contact") {
+    setShow(true);
+    setsharePopup(true);
+  }
 
   return (
     <>
@@ -526,7 +538,8 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
               </button>
             </div>
             <div className="d-flex sm-class" style={{ gap: "8px" }}>
-              {company_setting?.show_testimonial_button !== 0 ? (
+              {company_setting?.show_testimonial_button !== 0 ||
+              PlanData?.is_expired !== false ? (
                 ""
               ) : (
                 <button
@@ -542,10 +555,10 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
                   Get Reviews
                 </button>
               )}
-              {Titles?.card_booking?.is_active == 0 ? (
+              {Titles?.card_booking?.is_active == 0 ||
+              PlanData?.is_expired !== false ? (
                 ""
               ) : (
-                // <a href="#card_booking" className="w-100">
                 <button
                   className="contact-btn mt-2"
                   style={{
@@ -556,7 +569,6 @@ const Header = ({ profile, card, company_setting, Titles, CardLinks }) => {
                 >
                   Appointment
                 </button>
-                // </a>
               )}
             </div>
           </div>

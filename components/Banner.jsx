@@ -6,11 +6,21 @@ import { HitClickApi } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Banner = ({ permission, card, subscription, CardLinks, Titles, id }) => {
+const Banner = ({
+  permission,
+  card,
+  subscription,
+  CardLinks,
+  Titles,
+  id,
+  MainData,
+}) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
   const [Loader, setLoader] = useState(false);
+  const [FunctionState, setFunctionState] = useState(false);
+  const [GoogleReviewState, setGoogleReviewState] = useState(false);
 
   useEffect(() => {
     if (card) {
@@ -175,6 +185,27 @@ const Banner = ({ permission, card, subscription, CardLinks, Titles, id }) => {
     if (response.data.status) {
     }
   };
+  if (FunctionState == false && card?.landing_mode === "save-contact") {
+    shareContact();
+    setFunctionState(true);
+  } else if (
+    typeof window === "object" &&
+    card?.landing_mode === "appointment"
+  ) {
+    var elem = document.getElementById("card_booking");
+    elem?.scrollIntoView();
+  } else if (
+    GoogleReviewState !== false &&
+    card?.landing_mode === "open-google-review"
+  ) {
+    typeof window === "object" && card?.card_google_review !== null
+      ? (window.location.href = card?.card_google_review)
+      : (window.location.href = card?.vcard_url);
+    setGoogleReviewState(true);
+  } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
+    window.location =
+      "https://api.whatsapp.com/send?phone=" + card.card_contact;
+  }
   return Loader == false ? (
     <h5
       className="d-flex align-items-center justify-content-center text-center"
