@@ -16,5 +16,6 @@ export default function robots() {
         "/appointment-lead/",
       ],
     },
+    sitemap: "https://front.popipro.com/sitemap.xml",
   };
 }
