@@ -91,8 +91,8 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
       PlanData?.is_trial_taken !== 0 ? (
         <a
           href="https://www.popipro.com/order"
-          target="_blank"
-          rel="noreferrer"
+          // target="_blank"
+          // rel="noreferrer"
           className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
         >
           <p className="text-white font-weight-bold text-center d-flex align-items-center">

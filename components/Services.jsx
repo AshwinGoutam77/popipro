@@ -58,7 +58,7 @@ const Services = ({ Titles, card, subscription }) => {
                             ) : (
                               <img
                                 className="case-item__icon"
-                                src="../../assets/img/picture-1.jpg"
+                                src="../static/img/picture-1.jpg"
                                 alt="photos"
                               />
                             )}

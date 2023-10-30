@@ -374,7 +374,13 @@ export default function Dashboard() {
                 }
                 data-target="#MultimodesModal"
                 onClick={() => {
-                  setModalShow("MultimodesModal");
+                  PlanData?.is_expired !== false &&
+                  PlanData?.is_trial_taken !== 0
+                    ? ""
+                    : PlanData?.subscription?.plan_id !== 1 &&
+                      PlanData?.subscription !== null
+                    ? setModalShow("MultimodesModal")
+                    : "";
                 }}
               >
                 {Data ? (
