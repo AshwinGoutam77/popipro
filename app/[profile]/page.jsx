@@ -6,12 +6,24 @@ import Main from "./Main";
 export async function generateMetadata({ params, searchParams }) {
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
+
   let card = data?.data?.card || {};
+  let title = card?.first_name
+    ? card?.first_name + " - " + card?.card_profession
+    : "Popipro";
+  let description = card?.card_description;
+  description = description.replace(/<(.|\n)*?>/g, "").substring(0, 159);
+
   return {
-    title: card?.first_name
-      ? card?.first_name + " - " + card?.card_profession
-      : "Popipro",
-    description: card?.card_description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      images:
+        "https://admin.popipro.com/assets/user/logos/prafull-gupta-logo-240823072612000000000000820342.jpg",
+    },
   };
 }
 
