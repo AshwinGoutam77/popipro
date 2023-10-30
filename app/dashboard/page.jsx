@@ -430,13 +430,13 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* My subscription */}
+            {/* My subscription */} 
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
               <Link
                 href={
                   PlanData?.is_expired !== false &&
                   PlanData?.is_trial_taken !== 0
-                    ? ""
+                    ? "https://www.popipro.com/order"
                     : PlanData?.subscription?.plan_id !== 1 &&
                       PlanData?.subscription !== null
                     ? "/plan"

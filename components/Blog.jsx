@@ -190,7 +190,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                 <img
                                   className="coverr lazyload"
                                   //   src="../../assets/img/demo.jpg"
-                                  src="./static/img/demo.jpg"
+                                  src="./static/img/picture-1.jpg"
                                   alt="photos"
                                 />
                               )}
