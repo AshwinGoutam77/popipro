@@ -5,7 +5,7 @@ export default async function sitemap() {
   let profiles = urls?.data?.map((url) => {
     return {
       key: url,
-      url: "https://front.popipro.com/" + url+ '/',
+      url: "https://front.popipro.com/" + url+ '/', 
       lastModified: new Date().toISOString(),
     };
   });
