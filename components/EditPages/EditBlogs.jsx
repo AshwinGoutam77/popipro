@@ -51,10 +51,14 @@ export default function EditBlogs({
   const [BlogName, setBlogName] = useState("");
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [BlogShow, setBlogShow] = useState(false);
   const handleClose = () => setShow(false);
+  const hanldeBlogClose = () => setBlogShow(false);
   const handleEditClose = () => setShowEdit(false);
   const handleShow = () => setShow(true);
+  const handleShowBlog = () => setBlogShow(true);
   const handleEditShow = () => setShowEdit(true);
+  const handleBlogShow = () => setBlogShow(true);
 
   useEffect(() => {
     setBlogName(TitleData?.card_blogs?.visible_name);
@@ -62,6 +66,7 @@ export default function EditBlogs({
 
   const ShowModalID = (id) => {
     setModalId(id);
+    handleShowBlog();
   };
 
   useEffect(() => {
@@ -566,110 +571,93 @@ export default function EditBlogs({
       </Modal>
 
       {/* Detail modal */}
-      <div
-        className="modal fade"
-        id="BlogModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="BlogModalTitle"
-        aria-hidden="true"
-      >
-        {AddMoreBlogs &&
-          AddMoreBlogs?.map((item, index) => {
-            return (
-              <>
-                {ModalId == item.id ? (
-                  <div
-                    className="modal-dialog modal-dialog-centered"
-                    role="document"
-                    key={index}
-                  >
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5
-                          className="title title--h1 first-title title__separate mb-0"
-                          id="BlogModalTitle"
+      <Modal show={BlogShow} onHide={handleBlogShow} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              class="title title--h1 first-title title__separate mb-1 mb-0"
+              id="BlogModalTitle"
+            >
+              {BlogName}
+            </h5>
+          </Modal.Title>
+          <button type="button" class="close" onClick={hanldeBlogClose}>
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          {AddMoreBlogs &&
+            AddMoreBlogs?.map((item, index) => {
+              return (
+                <>
+                  {ModalId == item.id ? (
+                    <div
+                      className="modal-body"
+                      style={{ padding: "30px 25px" }}
+                    >
+                      <div>
+                        {item?.image?.path ? (
+                          <img
+                            className="coverr-modal lazyload"
+                            src={Data?.base_url + item?.image?.path}
+                            alt="blogs"
+                          />
+                        ) : (
+                          <img
+                            className="coverr-modal lazyload"
+                            src="../static/img/picture-1.jpg"
+                            alt="blogs"
+                          />
+                        )}
+                        <p
+                          className="mt-3 font-weight-bold mb-3"
+                          style={{ color: "black", fontSize: "14px" }}
                         >
-                          {BlogName}
-                        </h5>
-
-                        <button
-                          type="button"
-                          className="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                          onClick={handleCanclebtn}
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div
-                        className="modal-body"
-                        style={{ padding: "30px 25px" }}
-                      >
-                        <div>
-                          {item?.image?.path ? (
-                            <img
-                              className="coverr-modal lazyload"
-                              src={Data?.base_url + item?.image?.path}
-                              alt="blogs"
-                            />
-                          ) : (
-                            <img
-                              className="coverr-modal lazyload"
-                              src="../../assets/img/demo.jpg"
-                              alt="blogs"
-                            />
-                          )}
-                          <p
-                            className="mt-3 font-weight-bold mb-3"
-                            style={{ color: "black", fontSize: "14px" }}
-                          >
-                            {item.name}
-                          </p>
-                          <p
-                            id="p_wrap"
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
+                          {item.name}
+                        </p>
+                        <p
+                          id="p_wrap"
+                          dangerouslySetInnerHTML={{
+                            __html: item.description,
+                          }}
+                        ></p>
+                        {item.url !== "" ? (
+                          <a
+                            href={
+                              item?.url?.includes("http://") ||
+                              item?.url?.includes("https://")
+                                ? item?.url
+                                : "https://" + item?.url
+                            }
+                            target="_blank"
+                            className="mt-3 product-modal-btn mx-auto"
+                            style={{
+                              background: "var(--color)",
+                              width: "40%",
                             }}
-                          ></p>
-                          {item.url !== "" ? (
-                            <a
-                              href={
-                                item?.url?.includes("http://") ||
-                                item?.url?.includes("https://")
-                                  ? item?.url
-                                  : "https://" + item?.url
-                              }
-                              target="_blank"
-                              className="mt-3 product-modal-btn mx-auto"
+                          >
+                            <i
+                              className="fa fa-link mr-2"
                               style={{
-                                background: "var(--color)",
-                                width: "40%",
+                                fontSize: "16px",
                               }}
-                            >
-                              <i
-                                className="fa fa-link mr-2"
-                                style={{
-                                  fontSize: "16px",
-                                }}
-                              ></i>
-                              Visit Site{" "}
-                            </a>
-                          ) : (
-                            ""
-                          )}
-                        </div>
+                            ></i>
+                            Visit Site{" "}
+                          </a>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </>
-            );
-          })}
-      </div>
+                  ) : (
+                    ""
+                  )}
+                </>
+              );
+            })}
+        </Modal.Body>
+      </Modal>
 
       {TitleData?.card_blogs?.source !== 0 ? (
         <div className="position-relative">
@@ -805,7 +793,7 @@ export default function EditBlogs({
                                   ) : (
                                     <img
                                       className="coverr lazyload"
-                                      src="../../assets/img/demo.jpg"
+                                      src="../static/img/picture-1.jpg"
                                       alt="photos"
                                     />
                                   )}
