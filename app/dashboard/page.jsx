@@ -436,7 +436,7 @@ export default function Dashboard() {
                 href={
                   PlanData?.is_expired !== false &&
                   PlanData?.is_trial_taken !== 0
-                    ? ""
+                    ? "https://www.popipro.com/order"
                     : PlanData?.subscription?.plan_id !== 1 &&
                       PlanData?.subscription !== null
                     ? "/plan"
