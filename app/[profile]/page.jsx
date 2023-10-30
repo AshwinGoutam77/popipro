@@ -21,10 +21,9 @@ export async function generateMetadata({ params, searchParams }) {
       title,
       description,
       type: "website",
-      images:
-        "https://admin.popipro.com/assets/user/logos/prafull-gupta-logo-240823072612000000000000820342.jpg",
+      images: data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path
     },
-  };
+  }; 
 }
 
 const ProfilePage = async ({ params }) => {
