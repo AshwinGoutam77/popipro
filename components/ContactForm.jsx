@@ -17,7 +17,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
     if (Name == "") {
       toast.error("Name is requried", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -29,7 +29,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
     } else if (Contact == "") {
       toast.error("Mobile/Phone number is requried", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -96,8 +96,8 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   return (
     <>
       <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
+        position="top-right"
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

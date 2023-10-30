@@ -118,7 +118,7 @@ export default function Product({
           progress: undefined,
           theme: "light",
         });
-        window["closeModal"]();
+        setShowProduct(false);
         setName("");
         setEmail("");
         setContact("");
