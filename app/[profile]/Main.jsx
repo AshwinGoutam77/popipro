@@ -18,6 +18,7 @@ import ContactForm from "@components/ContactForm";
 import Footer from "@components/Footer";
 import Alternateno from "@components/Alternateno";
 import { redirect } from "next/navigation";
+import { ToastContainer } from "react-toastify";
 
 export default async function Main({ profile, data, id }) {
   let card = data?.data?.card || {};

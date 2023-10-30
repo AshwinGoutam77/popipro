@@ -95,19 +95,6 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   };
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
       {Titles.card_booking?.is_active === 1 &&
       PlanData?.is_expired == false &&
       PlanData?.subscription?.plan_id !== 1 &&

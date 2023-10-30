@@ -124,18 +124,6 @@ const Testimonials = ({
   };
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoclose={1000}
-        hideprogressbar={"false"}
-        newestontop={"false"}
-        closeonclick={"true"}
-        rtl={"true"}
-        pauseonfocusloss={"true"}
-        draggable
-        pauseonhover={"true"}
-        theme="light"
-      />
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
