@@ -27,6 +27,7 @@ import { EditData } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "@components/Backdrop";
 import { useAuthContext } from "@context/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -85,6 +86,18 @@ const Page = () => {
     <>
       {cardData ? (
         <>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <EditBanner
             card={cardData.card}
             Permission={cardData?.permission}

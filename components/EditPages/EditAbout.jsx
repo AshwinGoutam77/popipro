@@ -171,18 +171,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   };
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {TitleData?.card_description?.source !== 0 ? (
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">

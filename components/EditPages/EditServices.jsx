@@ -288,19 +288,6 @@ export default function EditDoing({
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
       {/* Add More MODAL */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
@@ -668,7 +655,7 @@ export default function EditDoing({
                                 ) : (
                                   <img
                                     className="case-item__icon"
-                                    src="../../assets/img/picture-1.jpg"
+                                    src="../static/img/picture-1.jpg"
                                     alt="services"
                                   />
                                 )}

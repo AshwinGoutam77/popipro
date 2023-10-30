@@ -353,18 +353,6 @@ export default function EditTestimonials({
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {/* Add More MODAL */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>

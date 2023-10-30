@@ -390,6 +390,7 @@ label {
 #p_wrap {
   white-space: pre-line;
   color: black;
+  word-wrap: break-word;
 }
 
 .blogTextHeight {

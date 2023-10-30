@@ -798,14 +798,6 @@ export default function EditWorks({
                   }}
                   modules={[Pagination, Navigation]}
                 >
-                  {/* {Card_photos?.length == 0 ? (
-                    <div>
-                      <p className="m-0">
-                        Images are empty, you can upload files by clicking plus
-                        icon
-                      </p>
-                    </div>
-                  ) : ( */}
                   <div>
                     {Card_photos &&
                       Card_photos.map((photo, i) => {
@@ -815,7 +807,6 @@ export default function EditWorks({
                             <div className="swiper-slide review-items position-relative">
                               <div
                                 className="position-absolute top-0 zoom-icon-images"
-                                onClick={() => openImagePopup(i)}
                                 style={{
                                   right: "0px",
                                   left: "0px",
@@ -824,6 +815,7 @@ export default function EditWorks({
                               >
                                 <FontAwesomeIcon
                                   icon={faMagnifyingGlass}
+                                  onClick={() => openImagePopup(i)}
                                   className="zIndex-1"
                                 />
                               </div>
@@ -839,7 +831,9 @@ export default function EditWorks({
                                     color: "rgb(213, 51, 51)",
                                     fontSize: "20px",
                                   }}
-                                  onClick={() => openImagePopup(i)}
+                                  onClick={() =>
+                                    handleDelteImages(photo.path, 3, photo.id)
+                                  }
                                 />
                               ) : (
                                 ""
@@ -849,7 +843,7 @@ export default function EditWorks({
                                 src={Data?.base_url + photo.path}
                                 data-zoom
                                 alt="images"
-                                onClick={() => openImagePopup(i)}
+                                // onClick={() => openImagePopup(i)}
                               />
                             </div>
                           </SwiperSlide>
@@ -1015,18 +1009,18 @@ export default function EditWorks({
                     {AddMoreVedios &&
                       AddMoreVedios.map((item, i) => {
                         return (
-                            <div className="mb-3" key={i}>
-                              <input
-                                type="text"
-                                name="url"
-                                className="form-control"
-                                defaultValue={item || ""}
-                                autoFocus
-                                id="file"
-                                multiple
-                                onChange={(evnt) => handleTestiChange(i, evnt)}
-                              />
-                            </div>
+                          <div className="mb-3" key={i}>
+                            <input
+                              type="text"
+                              name="url"
+                              className="form-control"
+                              defaultValue={item || ""}
+                              autoFocus
+                              id="file"
+                              multiple
+                              onChange={(evnt) => handleTestiChange(i, evnt)}
+                            />
+                          </div>
                         );
                       })}
                   </div>

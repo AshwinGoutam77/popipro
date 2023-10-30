@@ -51,7 +51,7 @@ const EditBanner = ({
                 }}
               >
                 <img
-                  src="../../assets/img/trustpilot.png"
+                  src="../static/img/trustpilot.png"
                   style={{
                     width: "30px",
                     height: "30px",
@@ -91,7 +91,7 @@ const EditBanner = ({
                 }}
               >
                 <img
-                  src="../assets/img/google.png"
+                  src="../static/img/google.png"
                   style={{ width: "25px" }}
                   alt="photos"
                 />
@@ -179,7 +179,7 @@ const EditBanner = ({
                 }}
               >
                 <img
-                  src="../../assets/img/trustpilot.png"
+                  src="../static/img/trustpilot.png"
                   style={{
                     width: "30px",
                     height: "30px",

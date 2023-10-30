@@ -278,120 +278,7 @@ export default function EditAlternateNo({
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
-      <div
-        className="modal fade"
-        id="AlternateNumberModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="AlternateNumberModal"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style={{ borderRadius: "25px" }}>
-            <div className="modal-header">
-              <h5
-                className="title title--h1 first-title title__separate mb-0"
-                id="BlogModalTitle"
-              >
-                {AlterNumber}
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body" style={{ padding: "30px 25px" }}>
-              <div>
-                <lable className="modalFormLable">Label</lable>
-                <input
-                  type="text"
-                  name="number"
-                  rows="4"
-                  cols="50"
-                  className="form-control mb-4 mt-1"
-                  value={NumberLabel}
-                  placeholder="Enter label for Alternate number"
-                  style={{ height: "40px", border: "1px solid #ccc" }}
-                  onChange={(e) => setNumberLabel(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <lable className="modalFormLable">Phone Number</lable>
-                <div
-                  className="d-flex align-items-center"
-                  style={{ gap: "8px" }}
-                >
-                  <input
-                    type="text"
-                    name="number"
-                    rows="4"
-                    cols="50"
-                    className="form-control mb-4 mt-1 w-50"
-                    value={CountryCode}
-                    placeholder="+91"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                  ></input>
-                  <input
-                    type="number"
-                    name="number"
-                    rows="4"
-                    cols="50"
-                    className="form-control mb-4 mt-1"
-                    value={MobileNumber}
-                    placeholder="xxxxxxxxxx"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                  ></input>
-                  <input
-                    type="text"
-                    name="number"
-                    rows="4"
-                    cols="50"
-                    className="form-control mb-4 mt-1 w-50"
-                    value={Extension}
-                    placeholder="xxxx"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
-                    onChange={(e) => setExtension(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-
-              <div
-                className="d-flex align-items-center mt-3"
-                style={{ gap: "10px" }}
-              >
-                <button
-                  className="send-btnn"
-                  onClick={() => handleSaveDetails()}
-                >
-                  Save
-                </button>
-                <button className="delete-button m-0" onClick={handleCanclebtn}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -448,7 +335,7 @@ export default function EditAlternateNo({
                 onChange={(e) => setMobileNumber(e.target.value)}
               ></input>
               <input
-                type="text"
+                type="number"
                 name="number"
                 rows="4"
                 cols="50"
@@ -684,7 +571,7 @@ export default function EditAlternateNo({
                           onChange={(e) => setMobileNumber(e.target.value)}
                         ></input>
                         <input
-                          type="text"
+                          type="number"
                           name="number"
                           rows="4"
                           cols="50"

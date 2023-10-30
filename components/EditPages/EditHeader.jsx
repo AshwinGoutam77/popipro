@@ -80,7 +80,7 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
   // };
 
   const cancleChanges = () => {
-    window["closeModal"]();
+    handleClose();
     setShow(true);
     if (Show) {
       setShow(false);
@@ -103,14 +103,22 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
       whatsapp_number: WhatsaapNumber,
       trustpilot_url: TrustPilot,
     };
-    // console.log(info);
-    // return;
     setShowLoader(true);
     try {
       const response = await Api(CardData, info);
       setShowLoader(true);
       if (response.data?.status) {
         APIDATA();
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         handleClose();
         setShow(true);
         if (Show) {
@@ -189,18 +197,6 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {/* <SimpleBackdrop visible={ShowLoader} />
       <Share Data={Data} /> */}
       <Modal show={showModal} onHide={handleClose} centered>
@@ -330,7 +326,7 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
               <>
                 <span className="overhead">Phone</span>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Phone number"
                   onChange={(e) => setPhone(e.target.value)}
                   defaultValue={Phone || ""}
@@ -363,7 +359,7 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
                   </span>
                 </span>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Whatsaap number"
                   onChange={(e) => setWhatsaapNumber(e.target.value)}
                   defaultValue={WhatsaapNumber || ""}

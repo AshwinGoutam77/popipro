@@ -25,7 +25,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Tooltip } from "@mui/material";
 import Api from "@services/Api";
-import { EditData } from "@services/Routes";
+import { CardData, EditData, UpgradePlan } from "@services/Routes";
 import DashboardPlan from "@components/Dashboard/DashboardPlan";
 import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
@@ -106,6 +106,7 @@ export default function Dashboard() {
     localStorage.removeItem("url");
   };
   const handleFreeTrail = async () => {
+    console.log("kldsk");
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -284,7 +285,7 @@ export default function Dashboard() {
                     {MainData?.plan?.subscription?.end_date}
                   </span>
                 </p>
-                {Data && Data?.is_onboarding !== "1" ? (
+                {Data && Data?.is_onboarding == 1 ? (
                   <p className="mt-2 font-weight-bold subscrition-p cursor-pointer">
                     <span
                       className="text-white"
@@ -338,7 +339,15 @@ export default function Dashboard() {
                     : ""
                 }
                 data-target="#BackgroundColorDiv"
-                onClick={() => setModalShow("theme")}
+                onClick={() =>
+                  PlanData?.is_expired !== false &&
+                  PlanData?.is_trial_taken !== 0
+                    ? ""
+                    : PlanData?.subscription?.plan_id !== 1 &&
+                      PlanData?.subscription !== null
+                    ? setModalShow("theme")
+                    : ""
+                }
               >
                 {Data ? (
                   <DashboardPlan
@@ -423,7 +432,18 @@ export default function Dashboard() {
 
             {/* My subscription */}
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link href="/plan" className="w-100">
+              <Link
+                href={
+                  PlanData?.is_expired !== false &&
+                  PlanData?.is_trial_taken !== 0
+                    ? ""
+                    : PlanData?.subscription?.plan_id !== 1 &&
+                      PlanData?.subscription !== null
+                    ? "/plan"
+                    : ""
+                }
+                className="w-100"
+              >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
                     <DashboardPlan
