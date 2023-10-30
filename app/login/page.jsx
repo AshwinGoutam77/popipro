@@ -142,7 +142,7 @@ const LoginPage = () => {
                 Sign In
               </button>
               <div className="align-bottom col-sm-12 d-flex justify-content-center text-center mt-3">
-                <Link href={"/forgot"}>
+                <Link href={"/forgot"} className="VarColor">
                   <p className="m-0">Forgot Password?</p>
                 </Link>
                 <br />
