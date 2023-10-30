@@ -272,7 +272,7 @@ export default function Product({
                         )}
                         {MainData?.company_setting
                           ?.show_product_enquiry_button == 0 ? (
-                          <a
+                          <span
                             className="mt-1 product-modal-btn w-auto text-white d-block"
                             style={{ background: "var(--color)" }}
                             onClick={() => HitClick(item?.id)}
@@ -284,7 +284,7 @@ export default function Product({
                               className="user-select-auto mr-2"
                             />
                             Enquire Now
-                          </a>
+                          </span>
                         ) : (
                           ""
                         )}
@@ -309,6 +309,7 @@ export default function Product({
                             ></i> */}
                             <img
                               src="./static/img/whatsapp.png"
+                              alt="whatsaap"
                               style={{
                                 width: "23px",
                                 marginBottom: "1px",
@@ -473,6 +474,7 @@ export default function Product({
                                     {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                     <img
                                       src="./static/img/whatsapp.png"
+                                      alt="whatsaap"
                                       className="Whatsaapsvg"
                                     />
                                   </a>
@@ -481,18 +483,17 @@ export default function Product({
                                 )}
                                 {MainData?.company_setting
                                   ?.show_product_enquiry_button == 0 ? (
-                                  <a
+                                  <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                     onClick={() => handleModal(items?.id)}
-                                    // onClick={() => HitClick(items?.id)}
                                   >
                                     <FontAwesomeIcon
                                       icon={faEnvelope}
                                       className="user-select-auto"
                                     />
-                                  </a>
+                                  </span>
                                 ) : (
                                   ""
                                 )}
@@ -575,6 +576,7 @@ export default function Product({
                                     {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                     <img
                                       src="./static/img/whatsapp.png"
+                                      alt="whatsaap"
                                       className="Whatsaapsvg"
                                     />
                                   </a>
@@ -583,7 +585,7 @@ export default function Product({
                                 )}
                                 {MainData?.company_setting
                                   ?.show_product_enquiry_button == 0 ? (
-                                  <a
+                                  <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
@@ -593,7 +595,7 @@ export default function Product({
                                       icon={faEnvelope}
                                       className="user-select-auto"
                                     />
-                                  </a>
+                                  </span>
                                 ) : (
                                   ""
                                 )}
@@ -645,7 +647,7 @@ export default function Product({
 
             {PaginationData?.total_product !== Products?.length ? (
               <div className="mx-auto text-center">
-                <a
+                <span
                   className="text-center cursor-pointer mx-auto"
                   style={{
                     textDecoration: "underline",
@@ -655,7 +657,7 @@ export default function Product({
                   onClick={LoadMoreFunction}
                 >
                   Load More
-                </a>
+                </span>
               </div>
             ) : (
               ""

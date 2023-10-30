@@ -5,7 +5,18 @@ export default function robots() {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/private/",
+      disallow: [
+        "/login/",
+        "/dashboard/",
+        "/insights/",
+        "/leads/",
+        "/plan/",
+        "/products/",
+        "/product-enquiry/",
+        "/testimonialsLeads/",
+        "/blog/",
+        "/appointment-lead/",
+      ],
     },
   };
 }
