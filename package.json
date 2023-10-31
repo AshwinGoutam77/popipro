@@ -28,6 +28,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^4.21.0",
     "react-dom": "^18",
+    "react-easy-crop": "^5.0.2",
     "react-modal": "^3.16.1",
     "react-player": "^2.13.0",
     "react-scroll": "^1.9.0",

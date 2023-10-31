@@ -101,9 +101,9 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       PlanData?.subscription !== null ? (
         <div className="mt-3 box-content boxxx" id="card_booking">
           <div className="pb-2">
-            <h2 className="title title--h1 first-title title__separate">
+            <h3 className="title title--h1 first-title title__separate">
               {Titles && Titles.card_booking?.visible_name}
-            </h2>
+            </h3>
           </div>
 
           <div className="row">
@@ -139,7 +139,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   {/* <label className="ml-2 font-weight-normal">
                     Appointment Date
                   </label> */}
-                  <input
+                  {/* <input
                     type="date"
                     className="form-control"
                     placeholder="Date"
@@ -147,6 +147,12 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                     autoComplete="on"
                     value={Date}
                     onChange={(e) => setDate(e.target.value)}
+                  /> */}
+                  <input
+                    type="date"
+                    value={Date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="date-time-input"
                   />
                   <div className="help-block with-errors"></div>
                 </div>
@@ -154,7 +160,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   {/* <label className="ml-2 font-weight-normal">
                     Appointment Time
                   </label> */}
-                  <input
+                  {/* <input
                     type="time"
                     className="form-control"
                     placeholder="Date"
@@ -162,6 +168,12 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                     autoComplete="on"
                     value={Time}
                     onChange={(e) => setTime(e.target.value)}
+                  /> */}
+                  <input
+                    type="time"
+                    value={Time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="date-time-input"
                   />
                   <div className="help-block with-errors"></div>
                 </div>

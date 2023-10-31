@@ -12,9 +12,9 @@ const Resume = ({ Titles, subscription, card_experience }) => {
           <div>
             <div className="mt-3 box-content boxxx" id="card_experience">
               <div className="pb-2">
-                <h2 className="title title--h1 first-title title__separate">
+                <h3 className="title title--h1 first-title title__separate">
                   {Titles && Titles.card_experience.visible_name}
-                </h2>
+                </h3>
               </div>
 
               {/* <!-- Experience --> */}

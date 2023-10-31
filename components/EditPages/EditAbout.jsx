@@ -8,6 +8,7 @@ import {
   faCircleInfo,
   faInfo,
   faPencil,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,6 +17,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CardData } from "@services/Routes";
 import Api from "@services/Api";
+import { Modal } from "react-bootstrap";
 
 export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [TextArea, setTextArea] = useState(false);
@@ -25,6 +27,9 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [AboutMe, setAboutMe] = useState("");
   const [Description, setDescription] = useState("");
+  const [showChatModal, setShowshowChatModal] = useState(false);
+  const handleCloseshowChatModal = () => setShowshowChatModal(false);
+  const handleShowshowChatModal = () => setShowshowChatModal(true);
 
   useEffect(() => {
     setAboutMe(TitleData?.card_description?.visible_name);
@@ -169,8 +174,159 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       }
     });
   };
+
+  // chatapi code
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      message: "",
+      sender: "ChatGPT",
+    },
+  ]);
+  const [Loading, setLoading] = useState(false);
+
+  const handleSend = async (event) => {
+    if (!Description) {
+      toast.error("Please fill the message to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    // event.preventDefault();
+    const newMessage = {
+      message: Description,
+      sender: "user",
+    };
+
+    const newMessages = [...messages, newMessage];
+
+    setMessages(newMessages);
+
+    setInput("");
+
+    await processMessageToChatGPT(newMessages);
+  };
+
+  async function processMessageToChatGPT(chatMessages) {
+    setLoading(true);
+    const API_KEY = "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";
+    let apiMessages = chatMessages.map((messageObject) => {
+      let role = "";
+      if (messageObject.sender === "ChatGPT") {
+        role = "assistant";
+      } else {
+        role = "user";
+      }
+      return { role: role, content: messageObject.message };
+    });
+
+    const systemMessage = {
+      role: "system",
+      content: "Explain all concept like i am 10 year old",
+    };
+
+    const apiRequestBody = {
+      model: "gpt-3.5-turbo-0613",
+      messages: [systemMessage, ...apiMessages],
+    };
+
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiRequestBody),
+    })
+      .then((response) => {
+        return setLoading(false), response.json();
+      })
+      .then((data) => {
+        // console.log(data.choices[0].message.content);
+        setMessages([
+          ...chatMessages,
+          {
+            message: data.choices[0].message.content,
+            sender: "ChatGPT",
+          },
+        ]);
+      });
+  }
+
+  const handleChatModal = () => {
+    if (Description == "") {
+      toast.error("please fill the detail to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    handleSend();
+    handleShowshowChatModal();
+  };
+
   return (
     <>
+      {/* ChatAPi Modal */}
+      <Modal
+        show={showChatModal}
+        onHide={() => handleCloseshowChatModal()}
+        centered
+        style={{ background: "rgba(0,0,0,0.7)" }}
+      >
+        <Modal.Body>
+          <div className="text-right">
+            <button
+              type="button"
+              className="chat-modal-btn"
+              onClick={() => {
+                handleCloseshowChatModal();
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="response-area">
+            {messages.map((message, index) => {
+              return (
+                <div
+                  className={
+                    message.sender === "ChatGPT"
+                      ? "gpt-message message"
+                      : "user-message message d-none"
+                  }
+                  key={index}
+                >
+                  {Loading ? (
+                    "Loading please wait..."
+                  ) : (
+                    <p id="copyTEXT">{message.message}</p>
+                  )}
+                </div>
+              );
+            })}
+            <button
+              className="send-btnn mt-3"
+              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+            >
+              Copy text
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
       {TitleData?.card_description?.source !== 0 ? (
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">
@@ -193,7 +349,15 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               )}
             </div>
             {TextArea ? (
-              ""
+              <div className="">
+                <p onClick={handleChatModal} className="cursor-pointer">
+                  Suggestion from ai{" "}
+                  <FontAwesomeIcon
+                    icon={faWandMagicSparkles}
+                    className="ml-2"
+                  />
+                </p>
+              </div>
             ) : (
               <div>
                 {TitleData?.card_description?.source == "2" ? (

@@ -67,8 +67,8 @@ code {
 }
 
 .reactEasyCrop_Container {
-  top: -58px !important;
-  border-radius: 19px;
+  top: -62px !important;
+  border-radius: 7px;
 }
 
 .cropper-controls {
@@ -89,7 +89,8 @@ code {
 
 .reactEasyCrop_CropArea {
   height: 230px !important;
-  width: 190px !important;
+  width: 230px !important;
+  border-radius: 100% !important;
 }
 
 .send-btn {
@@ -512,6 +513,22 @@ code {
 input:focus-visible {
   outline: none !important;
 }
-.VarColor{
+.VarColor {
   color: var(--color);
+}
+.date-time-input {
+  width: 100% !important;
+  height: 53px;
+  background: var(--themecolor);
+  border: none;
+  padding: 0 11px;
+}
+.chat-modal-btn {
+  border: none;
+  background: none;
+  color: red;
+  font-size: 36px;
+  position: absolute;
+  top: -16px;
+  right: 0;
 }

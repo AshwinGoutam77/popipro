@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,13 +15,25 @@ import {
   faPencil,
   faPhoneAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CardData, GetCardData } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
+import EasyCrop from "@components/EasyCrop";
+import getCroppedImg from "@components/Crop";
+import axios from "axios";
+import Image from "next/image";
 
-function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
+function EditHeader({
+  Data,
+  setData,
+  TitleData,
+  PlanData,
+  card,
+  APIDATA,
+  updateImage,
+}) {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState();
   const [Email, setEmail] = useState("");
@@ -48,23 +60,115 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const [showModal, setShowModal] = useState(false);
+  const [time, setTime] = useState(new Date().getTime() / 1000);
 
-  const getBlobData = () => {
-    axios({
-      method: "get",
-      url: croppedImage,
-      responseType: "blob",
-    }).then(function (response) {
-      var reader = new FileReader();
-      reader.readAsDataURL(response.data);
-      reader.onloadend = function () {
-        var base64data = reader.result;
-        const formData = new FormData();
-        formData.append("file", base64data);
-        console.log(base64data);
-        setBase64Image(base64data);
+  const getBlobData = async () => {
+    console.log(croppedImage);
+    if (croppedImage) {
+      axios({
+        method: "get",
+        url: croppedImage,
+        responseType: "blob",
+      }).then(function (response) {
+        var reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onloadend = async function () {
+          let info = {
+            first_name: FirstName,
+            last_name: LastName,
+            email: TitleData.card_email?.source == 1 ? "" : Email,
+            profession: Profession,
+            phone: Phone,
+            address: Address,
+            // image: ProfileImage[0],
+            image: reader.result
+              ? reader.result.replace("data:image/jpeg;base64,", "")
+              : "",
+            color_code: ColorCode,
+            website: WebUrl,
+            google_review_url: GoogleReview,
+            whatsapp_number: WhatsaapNumber,
+            trustpilot_url: TrustPilot,
+          };
+          setShowLoader(true);
+          try {
+            const response = await Api(CardData, info);
+            setShowLoader(true);
+            if (response.data?.status) {
+              APIDATA();
+              setTime(new Date().getTime() / 1000);
+              setImage([]);
+              handleClose();
+              setShow(true);
+              if (Show) {
+                setShow(false);
+              }
+            }
+          } catch (error) {
+            if (error.request.status == "401") {
+              localStorage.removeItem("token");
+              window.location.href = "/login";
+            }
+            toast(error.response.data.message, {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        };
+      });
+    } else {
+      let info = {
+        first_name: FirstName,
+        last_name: LastName,
+        email: TitleData.card_email?.source == 1 ? "" : Email,
+        profession: Profession,
+        phone: Phone,
+        address: Address,
+        // image: ProfileImage[0],
+        image: "",
+        color_code: ColorCode,
+        website: WebUrl,
+        google_review_url: GoogleReview,
+        whatsapp_number: WhatsaapNumber,
+        trustpilot_url: TrustPilot,
       };
-    });
+      setShowLoader(true);
+      try {
+        const response = await Api(CardData, info);
+        setShowLoader(true);
+        if (response.data?.status) {
+          APIDATA();
+          handleClose();
+          setShow(true);
+          if (Show) {
+            setShow(false);
+          }
+        }
+      } catch (error) {
+        setShowLoader(false);
+        if (error.request.status == "401") {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      setShowLoader(false);
+    }
   };
 
   const handleImageUpload = async (e) => {
@@ -72,12 +176,6 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
   };
 
   const tokenString = localStorage.getItem("url");
-  let card_url = tokenString;
-
-  // const APIDATA = async () => {
-  //   const response = await Api(GetCardData, {}, "?card_url=" + card);
-  //   setCardStatus(response.data.data.is);
-  // };
 
   const cancleChanges = () => {
     handleClose();
@@ -179,26 +277,15 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
         croppedAreaPixels,
         rotation
       );
-      // console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
     } catch (e) {
       console.error(e);
     }
   }, [croppedAreaPixels, rotation, image]);
 
-  function blobToBase64(croppedImage) {
-    return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(croppedImage);
-      console.log(croppedImage);
-    });
-  }
 
   return (
     <>
-      {/* <SimpleBackdrop visible={ShowLoader} />
-      <Share Data={Data} /> */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -222,10 +309,7 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
             <input
               type="file"
               placeholder="Name"
-              onChange={(e) => {
-                setProfileImage(e.target.files);
-              }}
-              // onChange={handleImageUpload}
+              onChange={handleImageUpload}
               accept="image/png, image/gif, image/jpeg"
               className="form-control  mt-1  w-100 text-left"
               style={{
@@ -233,19 +317,19 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
                 borderRadius: "20px",
               }}
             />
-            {/* <EasyCrop
-                  image={image}
-                  setRotation={setRotation}
-                  setZoom={setZoom}
-                  onCropComplete={onCropComplete}
-                  setCrop={setCrop}
-                  zoom={zoom}
-                  rotation={rotation}
-                  crop={crop}
-                  showCroppedImage={showCroppedImage}
-                  croppedImage={croppedImage}
-                  setCroppedImage={setCroppedImage}
-                /> */}
+            <EasyCrop
+              image={image}
+              setRotation={setRotation}
+              setZoom={setZoom}
+              onCropComplete={onCropComplete}
+              setCrop={setCrop}
+              zoom={zoom}
+              rotation={rotation}
+              crop={crop}
+              showCroppedImage={showCroppedImage}
+              croppedImage={croppedImage}
+              setCroppedImage={setCroppedImage}
+            />
           </div>
           <div className="mt-3">
             <span className="overhead text-left mb-0">Name</span>
@@ -499,7 +583,7 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
           >
             <button
               className={"contact-btn w-100"}
-              onClick={SaveDataApi}
+              onClick={getBlobData}
               defaultValue="1"
               style={{ padding: "7px 20px" }}
             >
@@ -532,15 +616,20 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
         <div className="header__left">
           <div className="header__photo">
             <div style={{ position: "relative", height: "100%" }}>
-              <img
+              <Image
                 className="header__photo-img"
                 value={Data && Data.profile_picture.path}
                 src={
                   Data?.profile_picture?.path
-                    ? Data?.base_url + Data?.profile_picture?.path
+                    ? "https://admin.popipro.com/" +
+                      Data?.profile_picture?.path +
+                      "?ver=" +
+                      time
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 alt="images"
+                width={0}
+                height={0}
               />
             </div>
           </div>

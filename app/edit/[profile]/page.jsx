@@ -114,6 +114,7 @@ const Page = () => {
                 PlanData={cardData?.plan}
                 card={profile}
                 APIDATA={getProfileData}
+                updateImage={()=>{}}
               />
               <div className="row sticky-parent">
                 <aside

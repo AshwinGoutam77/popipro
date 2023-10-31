@@ -128,7 +128,7 @@ const Testimonials = ({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Leave a Review
+              Leave A Review
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleClose}>
@@ -297,7 +297,7 @@ const Testimonials = ({
                     data-target="#AddTestimonialsModal"
                     onClick={handleShow}
                   >
-                    Leave a Review
+                    Leave A Review
                   </button>
                 </div>
               )}

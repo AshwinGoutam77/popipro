@@ -2136,11 +2136,13 @@ button:focus {
   margin-bottom: 0;
   position: relative;
   top: -0.3125rem;
+  word-wrap: break-word;
 }
 
 .timeline__period {
   color: rgba(94, 110, 128, 0.8);
   font-size: 0.875rem;
+  word-wrap: break-word;
 }
 
 .timeline__description {

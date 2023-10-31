@@ -13,7 +13,7 @@ import React, { useState } from "react";
 // import Share from "./Share";
 import "../styles/header.css";
 import Link from "next/link";
-import { HitClickApi, contactUs } from "@services/Routes";
+import { AddTestimonials, HitClickApi, contactUs } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
@@ -42,6 +42,107 @@ const Header = ({
   const [SendWhatsaap, setSendWhatsaap] = useState(false);
   const [modalShow, setModalShow] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
+
+  const [Image, setImage] = useState("");
+  const [ReviewName, setReviewName] = useState("");
+  const [ReviewSubTitle, setReviewSubTitle] = useState("");
+  const [ReviewNumber, setReviewNumber] = useState("");
+  const [ReviewDescription, setReviewDescription] = useState("");
+
+  const [time,setTime] = useState(new Date().getTime() / 1000)
+
+  const handleReviewSubmit = async () => {
+    if (ReviewName == "") {
+      toast.error("Name is requried", {
+        position: "top-right",
+        autoclose: 2000,
+        hideprogressbar: "false",
+        closeonclick: "true",
+        pauseonhover: "true",
+        draggable: "true",
+        progress: "undefined",
+        theme: "light",
+      });
+      return;
+    } else if (ReviewDescription == "") {
+      toast.error("Description is requried", {
+        position: "top-right",
+        autoclose: 2000,
+        hideprogressbar: "false",
+        closeonclick: "true",
+        pauseonhover: "true",
+        draggable: "true",
+        progress: "undefined",
+        theme: "light",
+      });
+      return;
+    } else if (ReviewSubTitle == "") {
+      toast.error("SubTitile is requried", {
+        position: "top-right",
+        autoclose: 2000,
+        hideprogressbar: "false",
+        closeonclick: "true",
+        pauseonhover: "true",
+        draggable: "true",
+        progress: "undefined",
+        theme: "light",
+      });
+      return;
+    } else if (ReviewNumber == "") {
+      toast.error("Number is requried", {
+        position: "top-right",
+        autoclose: 2000,
+        hideprogressbar: "false",
+        closeonclick: "true",
+        pauseonhover: "true",
+        draggable: "true",
+        progress: "undefined",
+        theme: "light",
+      });
+      return;
+    }
+    try {
+      let payload = {
+        testimonial_image: Image,
+        card_url: profile,
+        name: ReviewName,
+        company_name: ReviewSubTitle,
+        description: ReviewDescription,
+        phone: ReviewNumber,
+      };
+      const response = await Api(AddTestimonials, payload);
+      if (response.data.status) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoclose: 2000,
+          hideprogressbar: "false",
+          closeonclick: "true",
+          pauseonhover: "true",
+          draggable: "true",
+          progress: "undefined",
+          theme: "light",
+        });
+        handleCloseReview();
+        setReviewName("");
+        setReviewNumber("");
+        setReviewDescription("");
+        setImage("");
+        setReviewSubTitle("");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message, {
+        position: "top-right",
+        autoclose: 2000,
+        hideprogressbar: "false",
+        closeonclick: "true",
+        pauseonhover: "true",
+        draggable: "true",
+        progress: "undefined",
+        theme: "light",
+      });
+    }
+  };
 
   const handleCanclebtn = () => {
     handleClose();
@@ -250,12 +351,6 @@ const Header = ({
     }
   };
 
-  let Name = "";
-  let SubTitle = "";
-  let phoneNumber = "";
-  let Description = "";
-  const handleSubmit = () => {};
-
   const handleAppointment = () => {
     var elem = document.getElementById("card_booking");
     elem?.scrollIntoView();
@@ -278,6 +373,7 @@ const Header = ({
     setsharePopup(true);
   }
 
+  
   return (
     <>
       <Share
@@ -417,8 +513,8 @@ const Header = ({
                 className="form-control"
                 accept="image/png, image/gif, image/jpeg"
                 style={{ border: "1px solid #ccc" }}
-                /* ref={aRef} */
-                /* onChange={(e) => setImage(e.target.files[0])} */
+                // ref={aRef}
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
             <div className="form-group col-lg-6 col-md-6 mb-3">
@@ -428,8 +524,10 @@ const Header = ({
                 placeholder="Name*"
                 required="required"
                 autoComplete="on"
-                value={Name}
-                onChange={(e) => {}}
+                value={ReviewName}
+                onChange={(e) => {
+                  setReviewName(e.target.value);
+                }}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -440,8 +538,10 @@ const Header = ({
                 placeholder="Sub-Title"
                 required="required"
                 autoComplete="on"
-                value={SubTitle}
-                onChange={(e) => {}}
+                value={ReviewSubTitle}
+                onChange={(e) => {
+                  setReviewSubTitle(e.target.value);
+                }}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -452,8 +552,10 @@ const Header = ({
                 placeholder="Phone Number"
                 required="required"
                 autoComplete="on"
-                value={phoneNumber}
-                onChange={(e) => {}}
+                value={ReviewNumber}
+                onChange={(e) => {
+                  setReviewNumber(e.target.value);
+                }}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -463,8 +565,10 @@ const Header = ({
                 placeholder="Your message*"
                 rows="4"
                 required="required"
-                value={Description}
-                onChange={(e) => {}}
+                value={ReviewDescription}
+                onChange={(e) => {
+                  setReviewDescription(e.target.value);
+                }}
               ></textarea>
               <div className="help-block with-errors"></div>
             </div>
@@ -473,7 +577,7 @@ const Header = ({
                 type="submit"
                 className="contact-btn mt-0 w-auto"
                 style={{ padding: "10px 60px" }}
-                onClick={handleSubmit}
+                onClick={handleReviewSubmit}
               >
                 Send
               </button>
@@ -506,7 +610,7 @@ const Header = ({
               value={card?.profile_picture?.path}
               src={
                 card.profile_picture?.path
-                  ? card.base_url + card.profile_picture?.path
+                  ? card.base_url + card.profile_picture?.path+'?ver='+time
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="avtar"
