@@ -21,9 +21,10 @@ export async function generateMetadata({ params, searchParams }) {
       title,
       description,
       type: "website",
-      images: data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path
+      images:
+        data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path,
     },
-  }; 
+  };
 }
 
 const ProfilePage = async ({ params }) => {
@@ -51,11 +52,7 @@ export default ProfilePage;
 
 const getProfileData = async (profile) => {
   const response = await fetch(
-    `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-    }
+    `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`
   );
   if (response.ok) {
     const data = await response.json();
