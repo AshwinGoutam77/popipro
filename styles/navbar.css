@@ -128,6 +128,7 @@
 
     .sidebarr {
         margin-bottom: 0px;
+        padding: 15px 0px;
         top: auto;
         position: fixed;
         overflow-x: scroll;

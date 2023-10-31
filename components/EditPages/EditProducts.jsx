@@ -1016,12 +1016,12 @@ export default function EditProducts({
                         }}
                       >
                         <lable className="modalFormLable">Description*</lable>
-                        <ChatbotApp
+                        {/* <ChatbotApp
                           ServicesDescription={ServicesDescription}
                           setServicesDescription={setServicesDescription}
                           active={modalShow == "chatApi" ? true : false}
                           handleCloseModal={() => setModalShow(false)}
-                        />
+                        /> */}
                       </div>
                       <CKEditor
                         editor={ClassicEditor}
