@@ -7,6 +7,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Poppins } from "next/font/google";
 import AuthContextProvider from "@context/AuthContextProvider";
+import Head from "next/head";
+import Script from "next/script";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,6 +24,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-JGP54SPWQQ" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date()); gtag('config', 'G-JGP54SPWQQ');
+          `}
+        </Script>
+      </Head>
       <body className={poppins.className + " p-0"}>
         <AuthContextProvider>{children}</AuthContextProvider>
       </body>

@@ -49,6 +49,8 @@ const Header = ({
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
 
+  const [time,setTime] = useState(new Date().getTime() / 1000)
+
   const handleReviewSubmit = async () => {
     if (ReviewName == "") {
       toast.error("Name is requried", {
@@ -371,6 +373,7 @@ const Header = ({
     setsharePopup(true);
   }
 
+  
   return (
     <>
       <Share
@@ -607,7 +610,7 @@ const Header = ({
               value={card?.profile_picture?.path}
               src={
                 card.profile_picture?.path
-                  ? card.base_url + card.profile_picture?.path
+                  ? card.base_url + card.profile_picture?.path+'?ver='+time
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="avtar"

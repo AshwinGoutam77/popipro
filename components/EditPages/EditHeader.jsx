@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,8 +23,17 @@ import { Modal } from "react-bootstrap";
 import EasyCrop from "@components/EasyCrop";
 import getCroppedImg from "@components/Crop";
 import axios from "axios";
+import Image from "next/image";
 
-function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
+function EditHeader({
+  Data,
+  setData,
+  TitleData,
+  PlanData,
+  card,
+  APIDATA,
+  updateImage,
+}) {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState();
   const [Email, setEmail] = useState("");
@@ -51,8 +60,10 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const [showModal, setShowModal] = useState(false);
+  const [time, setTime] = useState(new Date().getTime() / 1000);
 
   const getBlobData = async () => {
+    console.log(croppedImage);
     if (croppedImage) {
       axios({
         method: "get",
@@ -62,10 +73,6 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
         var reader = new FileReader();
         reader.readAsDataURL(response.data);
         reader.onloadend = async function () {
-          // var base64data = reader.result;
-          // const formData = new FormData();
-          // formData.append("file", base64data);
-          // setBase64Image(base64data);
           let info = {
             first_name: FirstName,
             last_name: LastName,
@@ -89,6 +96,8 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
             setShowLoader(true);
             if (response.data?.status) {
               APIDATA();
+              setTime(new Date().getTime() / 1000);
+              setImage([]);
               handleClose();
               setShow(true);
               if (Show) {
@@ -268,21 +277,12 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
         croppedAreaPixels,
         rotation
       );
-      // console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
     } catch (e) {
       console.error(e);
     }
   }, [croppedAreaPixels, rotation, image]);
 
-  function blobToBase64(croppedImage) {
-    return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(croppedImage);
-      console.log(croppedImage);
-    });
-  }
 
   return (
     <>
@@ -309,9 +309,6 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
             <input
               type="file"
               placeholder="Name"
-              // onChange={(e) => {
-              //   setProfileImage(e.target.files);
-              // }}
               onChange={handleImageUpload}
               accept="image/png, image/gif, image/jpeg"
               className="form-control  mt-1  w-100 text-left"
@@ -619,15 +616,20 @@ function EditHeader({ Data, setData, TitleData, PlanData, card, APIDATA }) {
         <div className="header__left">
           <div className="header__photo">
             <div style={{ position: "relative", height: "100%" }}>
-              <img
+              <Image
                 className="header__photo-img"
                 value={Data && Data.profile_picture.path}
                 src={
                   Data?.profile_picture?.path
-                    ? Data?.base_url + Data?.profile_picture?.path
+                    ? "https://admin.popipro.com/" +
+                      Data?.profile_picture?.path +
+                      "?ver=" +
+                      time
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 alt="images"
+                width={0}
+                height={0}
               />
             </div>
           </div>
