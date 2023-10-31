@@ -24,18 +24,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-JGP54SPWQQ" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-JGP54SPWQQ" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){
               dataLayer.push(arguments);
             }
             gtag('js', new Date()); gtag('config', 'G-JGP54SPWQQ');
           `}
-        </Script>
-      </Head>
+      </Script>
+
       <body className={poppins.className + " p-0"}>
         <AuthContextProvider>{children}</AuthContextProvider>
       </body>
