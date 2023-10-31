@@ -476,7 +476,7 @@ export default function Product({
                                 {MainData?.company_setting
                                   ?.show_product_enquiry_button == 0 ? (
                                   <span
-                                    data-toggle="modal"
+                                    data-toggle="modal" 
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                     onClick={() => handleModal(items?.id)}
