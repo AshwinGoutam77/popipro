@@ -289,7 +289,7 @@ const Banner = ({
             subscription?.is_expired == false ? (
               <a href={card.card_trustpilot} className="float" target="_blank">
                 <img
-                  src="../../assets/img/trustpilot.png"
+                  src="./static/img/trustpilot.png"
                   style={{
                     width: "30px",
                     height: "30px",
