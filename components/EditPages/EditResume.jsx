@@ -70,7 +70,7 @@ export default function EditResume({
       error = true;
       mess =
         ExpDesignation == ""
-          ? "Designation field is required"
+          ? "Steps field is required"
           : "Description field is required";
     } else {
       id !== null
@@ -93,8 +93,8 @@ export default function EditResume({
     // });
 
     if (error) {
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

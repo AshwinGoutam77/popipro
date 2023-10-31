@@ -84,8 +84,8 @@ export default function EditBlogs({
       error = true;
       mess =
         ServicesName == ""
-          ? "Blog heading field is required"
-          : "Blog Description is required";
+          ? "Heading field is required"
+          : "Description is required";
     } else {
       id !== null
         ? (data = [
@@ -108,8 +108,8 @@ export default function EditBlogs({
     }
     if (error) {
       setShowLoader(false);
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

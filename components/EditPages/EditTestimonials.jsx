@@ -80,7 +80,7 @@ export default function EditTestimonials({
       error = true;
       mess =
         ServicesName === ""
-          ? "Testimonial heading is required"
+          ? "Heading is required"
           : "Description is requied";
     } else {
       id !== null
@@ -104,8 +104,8 @@ export default function EditTestimonials({
     }
     if (error) {
       setShowLoader(false);
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

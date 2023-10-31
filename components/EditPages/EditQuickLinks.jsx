@@ -66,7 +66,7 @@ export default function EditCustomLink({
     // BlogFeild.map(async (o, i) => {
     if (LinkLabel == "" || LinkName == "") {
       error = true;
-      mess = LinkLabel == "" ? "Label is required" : "Link is required";
+      mess = LinkLabel == "" ? "Lable is required" : "Link is required";
     } else {
       id !== null
         ? (custom_urls = [
@@ -88,8 +88,8 @@ export default function EditCustomLink({
     // });
     if (error) {
       // setShowLoader(false);
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
