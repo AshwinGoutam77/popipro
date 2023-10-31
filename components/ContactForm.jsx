@@ -150,7 +150,6 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   /> */}
                   <input
                     type="date"
-                    placeholder="yyyy-mm-dd"
                     value={Date}
                     onChange={(e) => setDate(e.target.value)}
                     className="date-time-input"
@@ -172,7 +171,6 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   /> */}
                   <input
                     type="time"
-                    placeholder="Date"
                     value={Time}
                     onChange={(e) => setTime(e.target.value)}
                     className="date-time-input"
