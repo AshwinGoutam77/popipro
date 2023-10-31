@@ -162,6 +162,10 @@ export default function Product({
     if (response.data.status) {
     }
   };
+  const handleShowModal = (id) => {
+    HitClick(id);
+    handleShowProduct();
+  };
   const handleModal = (id) => {
     HitClick(id);
     handleShowProduct();
@@ -261,9 +265,9 @@ export default function Product({
                         {MainData?.company_setting
                           ?.show_product_enquiry_button == 0 ? (
                           <span
-                            className="mt-1 product-modal-btn w-auto text-white d-block"
+                            className="mt-1 product-modal-btn w-auto text-white d-block cursor-pointer"
                             style={{ background: "var(--color)" }}
-                            onClick={() => HitClick(item?.id)}
+                            onClick={() => handleModal(item?.id)}
                             data-toggle="modal"
                             data-target="#ProductEnquireModal"
                           >
@@ -474,7 +478,7 @@ export default function Product({
                                   <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                     onClick={() => handleModal(items?.id)}
                                   >
                                     <FontAwesomeIcon
@@ -576,8 +580,8 @@ export default function Product({
                                   <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                                    onClick={() => HitClick(items?.id)}
+                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                    onClick={() => handleShowModal(items?.id)}
                                   >
                                     <FontAwesomeIcon
                                       icon={faEnvelope}
