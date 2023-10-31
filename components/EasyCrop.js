@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./Crop";
 
@@ -58,7 +57,7 @@ const EasyCrop = ({
             onRotationChange={setRotation}
           />
         </div>
-        <div className="cropper-controls">
+        {/* <div className="cropper-controls">
           <label>
             Rotate
             <Slider
@@ -83,7 +82,7 @@ const EasyCrop = ({
               className="range"
             />
           </label>
-        </div>
+        </div> */}
       </div>
       <div className="cropped-image-container d-none">
         {croppedImage && (
