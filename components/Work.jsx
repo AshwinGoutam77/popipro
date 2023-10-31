@@ -76,9 +76,9 @@ const Work = ({
           {Titles && Titles?.card_photos?.is_active ? (
             <div>
               <div className="pb-2">
-                <h2 className="title title--h1 first-title title__separate">
+                <h3 className="title title--h1 first-title title__separate">
                   {Titles?.card_photos?.visible_name}
-                </h2>
+                </h3>
               </div>
 
               {/* <!-- Images-slider --> */}
@@ -169,9 +169,9 @@ const Work = ({
             <>
               <div>
                 <div className="">
-                  <h2 className="title title--h1 first-title title__separate">
+                  <h3 className="title title--h1 first-title title__separate">
                     {Titles?.card_videos?.visible_name}
-                  </h2>
+                  </h3>
                 </div>
 
                 {/* <!-- Videos-slider --> */}

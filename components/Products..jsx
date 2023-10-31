@@ -411,12 +411,12 @@ export default function Product({
         <div className="box-content boxxx mb-3" id="card_products">
           <div className="mt-0 product-section-div">
             <div className="d-flex align-items-start justify-content-between">
-              <h2 className="title title--h1 first-title title__separate">
+              <h3 className="title title--h1 first-title title__separate">
                 {Titles &&
                 Titles.card_products?.visible_name === "card_products"
                   ? "card_products"
                   : Titles?.card_products?.visible_name}
-              </h2>
+              </h3>
             </div>
             {Products &&
               Products?.map((items, index, { length }) => {

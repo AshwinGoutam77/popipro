@@ -14,6 +14,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
@@ -29,6 +30,7 @@ import {
 } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import ChatbotApp from "./Chat";
 
 export default function EditProducts({
   APIDATA,
@@ -72,6 +74,9 @@ export default function EditProducts({
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
   const handleProductShow = () => setShowProductModal(true);
+  const [showChatModal, setShowshowChatModal] = useState(false);
+  const handleCloseshowChatModal = () => setShowshowChatModal(false);
+  const handleShowshowChatModal = () => setShowshowChatModal(true);
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -394,6 +399,96 @@ export default function EditProducts({
     }
   };
 
+  // chatapi code
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      message: "",
+      sender: "ChatGPT",
+    },
+  ]);
+  const [Loading, setLoading] = useState(false);
+
+  const handleSend = async (event) => {
+    if (!ServicesDescription) {
+      toast.error("Please fill the message to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    // event.preventDefault();
+    const newMessage = {
+      message: ServicesDescription,
+      sender: "user",
+    };
+
+    const newMessages = [...messages, newMessage];
+
+    setMessages(newMessages);
+
+    setInput("");
+
+    await processMessageToChatGPT(newMessages);
+  };
+
+  async function processMessageToChatGPT(chatMessages) {
+    setLoading(true);
+    const API_KEY = "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";
+    let apiMessages = chatMessages.map((messageObject) => {
+      let role = "";
+      if (messageObject.sender === "ChatGPT") {
+        role = "assistant";
+      } else {
+        role = "user";
+      }
+      return { role: role, content: messageObject.message };
+    });
+
+    const systemMessage = {
+      role: "system",
+      content: "Explain all concept like i am 10 year old",
+    };
+
+    const apiRequestBody = {
+      model: "gpt-3.5-turbo-0613",
+      messages: [systemMessage, ...apiMessages],
+    };
+
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiRequestBody),
+    })
+      .then((response) => {
+        return setLoading(false), response.json();
+      })
+      .then((data) => {
+        // console.log(data.choices[0].message.content);
+        setMessages([
+          ...chatMessages,
+          {
+            message: data.choices[0].message.content,
+            sender: "ChatGPT",
+          },
+        ]);
+      });
+  }
+
+  const handleChatModal = () => {
+    handleShowshowChatModal();
+    handleSend();
+  };
+
   return (
     <>
       <Modal show={ShowProductModal} onHide={handleProductShow} centered>
@@ -692,7 +787,18 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
-            <lable className="modalFormLable">Description</lable>
+            <div className="d-flex align-items-center justify-content-between">
+              <lable className="modalFormLable">Description*</lable>
+              <p
+                onClick={handleChatModal}
+                data-toggle={ServicesDescription ? "modal" : ""}
+                data-target="#chatapimodal"
+                className="cursor-pointer"
+              >
+                Suggestion from ai{" "}
+                <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
+              </p>
+            </div>
             <CKEditor
               editor={ClassicEditor}
               config={{
@@ -902,7 +1008,21 @@ export default function EditProducts({
                           ></input>
                         </div>
                       </div>
-                      <lable className="modalFormLable">Description</lable>
+                      <div
+                        className="d-flex align-items-center justify-content-between"
+                        onClick={() => {
+                          console.log("abc");
+                          setModalShow("chatApi");
+                        }}
+                      >
+                        <lable className="modalFormLable">Description*</lable>
+                        <ChatbotApp
+                          ServicesDescription={ServicesDescription}
+                          setServicesDescription={setServicesDescription}
+                          active={modalShow == "chatApi" ? true : false}
+                          handleCloseModal={() => setModalShow(false)}
+                        />
+                      </div>
                       <CKEditor
                         editor={ClassicEditor}
                         config={{
@@ -963,6 +1083,54 @@ export default function EditProducts({
                 </>
               );
             })}
+        </Modal.Body>
+      </Modal>
+
+      {/* ChatAPi Modal */}
+      <Modal
+        show={showChatModal}
+        onHide={() => handleCloseshowChatModal()}
+        centered
+        style={{ background: "rgba(0,0,0,0.7)" }}
+      >
+        <Modal.Body>
+          <div className="text-right">
+            <button
+              type="button"
+              className="chat-modal-btn"
+              onClick={() => {
+                handleCloseshowChatModal();
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="response-area">
+            {messages.map((message, index) => {
+              return (
+                <div
+                  className={
+                    message.sender === "ChatGPT"
+                      ? "gpt-message message"
+                      : "user-message message d-none"
+                  }
+                  key={index}
+                >
+                  {Loading ? (
+                    "Loading please wait..."
+                  ) : (
+                    <p id="copyTEXT">{message.message}</p>
+                  )}
+                </div>
+              );
+            })}
+            <button
+              className="send-btnn mt-3"
+              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+            >
+              Copy text
+            </button>
+          </div>
         </Modal.Body>
       </Modal>
 
@@ -1118,7 +1286,6 @@ export default function EditProducts({
                                         target="_blank"
                                         className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                       >
-                                        {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                         <img src="../static/img/whatsapp.png" />
                                       </a>
                                     ) : (
@@ -1170,14 +1337,8 @@ export default function EditProducts({
                               }
                               style={{ textAlign: "initial" }}
                             >
-                              <a
-                                href={
-                                  items?.url?.includes("http://") ||
-                                  items?.url?.includes("https://")
-                                    ? items?.url
-                                    : "https://" + items?.url
-                                }
-                                style={{ fontSize: "16px" }}
+                              <p
+                                style={{ fontSize: "26px" }}
                                 className={
                                   items?.description?.length <= "0"
                                     ? "title title--h5 font-weight-bolder product-heading2 m-0"
@@ -1185,7 +1346,7 @@ export default function EditProducts({
                                 }
                               >
                                 {items.name}
-                              </a>
+                              </p>
                               <p
                                 id="p_wrap"
                                 className="review-item__caption text-left products-review mt-1"

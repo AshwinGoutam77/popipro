@@ -23,6 +23,7 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, TestimonialButton, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import ChatbotApp from "./Chat";
 
 export default function EditTestimonials({
   TitleData,
@@ -51,6 +52,9 @@ export default function EditTestimonials({
   const handleEditClose = () => setShowEdit(false);
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
+  const [showChatModal, setShowshowChatModal] = useState(false);
+  const handleCloseshowChatModal = () => setShowshowChatModal(false);
+  const handleShowshowChatModal = () => setShowshowChatModal(true);
 
   // useEffect(() => {
   //   handelOpenTesti();
@@ -79,9 +83,7 @@ export default function EditTestimonials({
     if (ServicesName === "" || ServicesDescription === "") {
       error = true;
       mess =
-        ServicesName === ""
-          ? "Heading is required"
-          : "Description is requied";
+        ServicesName === "" ? "Heading is required" : "Description is requied";
     } else {
       id !== null
         ? (data = [
@@ -351,6 +353,96 @@ export default function EditTestimonials({
     }
   };
 
+  // chatapi code
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      message: "",
+      sender: "ChatGPT",
+    },
+  ]);
+  const [Loading, setLoading] = useState(false);
+
+  const handleSend = async (event) => {
+    if (!ServicesDescription) {
+      toast.error("Please fill the message to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    // event.preventDefault();
+    const newMessage = {
+      message: ServicesDescription,
+      sender: "user",
+    };
+
+    const newMessages = [...messages, newMessage];
+
+    setMessages(newMessages);
+
+    setInput("");
+
+    await processMessageToChatGPT(newMessages);
+  };
+
+  async function processMessageToChatGPT(chatMessages) {
+    setLoading(true);
+    const API_KEY = "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";
+    let apiMessages = chatMessages.map((messageObject) => {
+      let role = "";
+      if (messageObject.sender === "ChatGPT") {
+        role = "assistant";
+      } else {
+        role = "user";
+      }
+      return { role: role, content: messageObject.message };
+    });
+
+    const systemMessage = {
+      role: "system",
+      content: "Explain all concept like i am 10 year old",
+    };
+
+    const apiRequestBody = {
+      model: "gpt-3.5-turbo-0613",
+      messages: [systemMessage, ...apiMessages],
+    };
+
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiRequestBody),
+    })
+      .then((response) => {
+        return setLoading(false), response.json();
+      })
+      .then((data) => {
+        // console.log(data.choices[0].message.content);
+        setMessages([
+          ...chatMessages,
+          {
+            message: data.choices[0].message.content,
+            sender: "ChatGPT",
+          },
+        ]);
+      });
+  }
+
+  const handleChatModal = () => {
+    handleShowshowChatModal();
+    handleSend();
+  };
+
   return (
     <>
       {/* Add More MODAL */}
@@ -405,7 +497,18 @@ export default function EditTestimonials({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setCompanyName(e.target.value)}
             ></input>
-            <lable className="modalFormLable">Description*</lable>
+            <div className="d-flex align-items-center justify-content-between">
+              <lable className="modalFormLable">Description*</lable>
+              <p
+                onClick={handleChatModal}
+                data-toggle={ServicesDescription ? "modal" : ""}
+                data-target="#chatapimodal"
+                className="cursor-pointer"
+              >
+                Suggestion from ai{" "}
+                <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
+              </p>
+            </div>
             <CKEditor
               editor={ClassicEditor}
               config={{
@@ -580,6 +683,54 @@ export default function EditTestimonials({
                 </>
               );
             })}
+        </Modal.Body>
+      </Modal>
+
+      {/* ChatAPi Modal */}
+      <Modal
+        show={showChatModal}
+        onHide={() => handleCloseshowChatModal()}
+        centered
+        style={{ background: "rgba(0,0,0,0.7)" }}
+      >
+        <Modal.Body>
+          <div className="text-right">
+            <button
+              type="button"
+              className="chat-modal-btn"
+              onClick={() => {
+                handleCloseshowChatModal();
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="response-area">
+            {messages.map((message, index) => {
+              return (
+                <div
+                  className={
+                    message.sender === "ChatGPT"
+                      ? "gpt-message message"
+                      : "user-message message d-none"
+                  }
+                  key={index}
+                >
+                  {Loading ? (
+                    "Loading please wait..."
+                  ) : (
+                    <p id="copyTEXT">{message.message}</p>
+                  )}
+                </div>
+              );
+            })}
+            <button
+              className="send-btnn mt-3"
+              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+            >
+              Copy text
+            </button>
+          </div>
         </Modal.Body>
       </Modal>
 

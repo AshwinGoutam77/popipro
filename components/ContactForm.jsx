@@ -101,9 +101,9 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       PlanData?.subscription !== null ? (
         <div className="mt-3 box-content boxxx" id="card_booking">
           <div className="pb-2">
-            <h2 className="title title--h1 first-title title__separate">
+            <h3 className="title title--h1 first-title title__separate">
               {Titles && Titles.card_booking?.visible_name}
-            </h2>
+            </h3>
           </div>
 
           <div className="row">

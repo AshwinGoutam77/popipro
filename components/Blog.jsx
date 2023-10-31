@@ -162,9 +162,9 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       PlanData?.subscription !== null ? (
         <div className="mt-3 box-content boxxx" id="card_blogs">
           <div className="pb-2">
-            <h2 className="title title--h1 first-title title__separate">
+            <h3 className="title title--h1 first-title title__separate">
               {Titles && Titles.card_blogs?.visible_name}
-            </h2>
+            </h3>
           </div>
 
           <div className="row">
