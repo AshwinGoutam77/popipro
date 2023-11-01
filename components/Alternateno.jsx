@@ -6,6 +6,7 @@ import { HitClickApi } from "@services/Routes";
 import React from "react";
 
 export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
+  console.log(Data);
   const HitClick = async (type, social, id) => {
     let payload = {
       card: Data?.id,

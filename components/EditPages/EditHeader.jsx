@@ -741,7 +741,7 @@ function EditHeader({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-3"
+                      className="user-select-auto mr-"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
@@ -816,11 +816,10 @@ function EditHeader({
                       <div className="align-div">
                         <FontAwesomeIcon
                           icon={faLink}
-                          className="user-select-auto"
+                          className="user-select-auto mr-3"
                           style={{
                             fontSize: "15px",
                             transform: "rotateY(180deg)",
-                            marginRight:'10px'
                           }}
                         />
                         {/* <a
