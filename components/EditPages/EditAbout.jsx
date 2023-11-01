@@ -196,7 +196,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             },
             {
               role: "user",
-              content: ServicesDescription,
+              content: Description,
             },
           ],
         },
