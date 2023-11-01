@@ -346,7 +346,7 @@ function EditHeader({
             />
           </div>
           <div className="mt-3">
-            {TitleData?.card_website?.source !== 1 ? (
+            {TitleData?.card_profession?.source == 2 ? (
               <div className="mt-2 w-100">
                 <span className="overhead text-left">Profession</span>
                 <input

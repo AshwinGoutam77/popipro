@@ -540,8 +540,8 @@ export default function EditWorks({
         window.location.href = "/login";
       }
       setShowLoader(false);
-      toast(error.response.data.message, {
-        position: "bottom-right",
+      toast.error(error.response.data.message, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -644,6 +644,7 @@ export default function EditWorks({
                     cols="50"
                     className="title-section-input"
                     onChange={(e) => setPhotoTitle(e.target.value)}
+                    accept="image/*"
                     defaultValue={
                       TitleData &&
                       TitleData.card_photos?.visible_name == "card_photos"

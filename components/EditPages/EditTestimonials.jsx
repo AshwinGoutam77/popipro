@@ -988,6 +988,7 @@ export default function EditTestimonials({
               <div className="d-flex align-items-start">
                 <input
                   type="checkbox"
+                  id="testimonials"
                   className="mt-1"
                   value={
                     MainData?.company_setting?.show_testimonial_button === 0
@@ -1001,9 +1002,12 @@ export default function EditTestimonials({
                       : false
                   }
                 />
-                <p className="ml-2 Varcolor font-weight-bold">
+                <label
+                  for="testimonials"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
                   Click the box to allow clients to leave a review.
-                </p>
+                </label>
               </div>
             </div>
           </div>

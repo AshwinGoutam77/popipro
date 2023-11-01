@@ -169,7 +169,7 @@ const Header = ({
       });
       return;
     } else if (Number === "") {
-      toast.error("Number is required", {
+      toast.error("Mobile/Phone is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -535,7 +535,7 @@ const Header = ({
               <input
                 type="text"
                 className="form-control"
-                placeholder="Sub-Title"
+                placeholder="Sub-Title*"
                 required="required"
                 autoComplete="on"
                 value={ReviewSubTitle}
@@ -549,7 +549,7 @@ const Header = ({
               <input
                 type="number"
                 className="form-control"
-                placeholder="Phone Number"
+                placeholder="Phone Number*"
                 required="required"
                 autoComplete="on"
                 value={ReviewNumber}

@@ -161,6 +161,7 @@ export default function EditProducts({
         setServicesName("");
         setProductUrl("");
         setProductPrice("");
+        setAddLabel("");
         handleCanclebtn();
       }
     } catch (error) {
@@ -1368,7 +1369,7 @@ export default function EditProducts({
                                 }}
                               ></p>
                               <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
-                                {items.price !== 0 ? (
+                                {items.price !== 0 && items.price !== "" ? (
                                   <span className="product-price">
                                     {items.currency} {items.price}
                                   </span>
@@ -1505,6 +1506,7 @@ export default function EditProducts({
                     <div className="d-flex align-items-start">
                       <input
                         type="checkbox"
+                        id="product-whatsaap"
                         className="mt-1"
                         value={
                           MainData?.company_setting?.show_product_wp_button ===
@@ -1519,13 +1521,17 @@ export default function EditProducts({
                             : false
                         }
                       />
-                      <p className="ml-2 Varcolor font-weight-bold">
+                      <label
+                        for="product-whatsaap"
+                        className="ml-2 Varcolor font-weight-bold"
+                      >
                         Via whatsaap only?
-                      </p>
+                      </label>
                     </div>
                     <div className="d-flex align-items-start">
                       <input
                         type="checkbox"
+                        id="product-enq"
                         className="mt-1"
                         value={
                           MainData?.company_setting
@@ -1541,9 +1547,12 @@ export default function EditProducts({
                             : false
                         }
                       />
-                      <p className="ml-2 Varcolor font-weight-bold">
+                      <label
+                        for="product-enq"
+                        className="ml-2 Varcolor font-weight-bold"
+                      >
                         Via inquiry form?
-                      </p>
+                      </label>
                     </div>
                   </div>
                 </div>

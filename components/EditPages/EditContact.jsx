@@ -281,6 +281,7 @@ export default function EditContact({
             <div className="d-flex align-items-start justify-content-start form-group col-lg-6 col-md-6 mb-2 px-4">
               <input
                 type="checkbox"
+                id="contact"
                 className="mr-2 mt-1"
                 value={
                   MainData?.company_setting?.show_appointment_button !== 0
@@ -294,9 +295,9 @@ export default function EditContact({
                     : false
                 }
               />
-              <p className="Varcolor">
+              <label for="contact" className="Varcolor">
                 Do you want to show date and time field?
-              </p>
+              </label>
             </div>
             <div className="form-group col-lg-12 col-md-12 mb-2">
               {/* <label className="ml-2 font-weight-normal">Email address</label> */}

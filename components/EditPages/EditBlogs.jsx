@@ -244,7 +244,7 @@ export default function EditBlogs({
     setServicesDescription(description);
   };
   const HandleEmptyFeilds = () => {
-    aRef.current.value = null;
+    // aRef.current.value = null;
     setServicesName("");
     setServicesDescription("");
     setBlogUrl("");

@@ -260,6 +260,7 @@ export default function EditClients({
                 {EditFields ? (
                   <input
                     type="text"
+                    accept="image/*"
                     className="title-section-input"
                     placeholder="Clients Images"
                     onChange={(e) => setClientName(e.target.value)}
