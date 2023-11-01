@@ -15,11 +15,14 @@ import {
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { CardData, deleteFiles } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditClients({
   APIDATA,

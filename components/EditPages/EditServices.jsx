@@ -24,7 +24,9 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
-import ChatbotApp from "./Chat";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditDoing({
   TitleData,
@@ -330,6 +332,8 @@ export default function EditDoing({
     setLoading(true);
     const API_KEY = "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";
     let apiMessages = chatMessages.map((messageObject) => {
+      console.log(messageObject);
+      return;
       let role = "";
       if (messageObject.sender === "ChatGPT") {
         role = "assistant";
@@ -348,7 +352,7 @@ export default function EditDoing({
       model: "gpt-3.5-turbo-0613",
       messages: [systemMessage, ...apiMessages],
     };
-
+    return;
     await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {

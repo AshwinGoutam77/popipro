@@ -23,7 +23,9 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, TestimonialButton, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
-import ChatbotApp from "./Chat";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditTestimonials({
   TitleData,

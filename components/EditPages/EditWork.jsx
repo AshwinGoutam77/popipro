@@ -29,6 +29,9 @@ import { toast } from "react-toastify";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
 import EditPlan from "./EditPlan";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditWorks({
   APIDATA,
