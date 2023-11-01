@@ -354,7 +354,7 @@ export default function EditProducts({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
   const handleRadioBTN = (e) => {
@@ -485,6 +485,19 @@ export default function EditProducts({
   }
 
   const handleChatModal = () => {
+    if (ServicesDescription == "") {
+      toast.error("please fill the detail to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     handleShowshowChatModal();
     handleSend();
   };

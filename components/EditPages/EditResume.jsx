@@ -385,6 +385,19 @@ export default function EditResume({
   }
 
   const handleChatModal = () => {
+    if (ExpDescription == "") {
+      toast.error("please fill the detail to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     handleShowshowChatModal();
     handleSend();
   };

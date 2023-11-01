@@ -327,7 +327,7 @@ export default function EditBlogs({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
 
