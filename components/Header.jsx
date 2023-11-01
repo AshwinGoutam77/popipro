@@ -18,6 +18,7 @@ import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
+import Image from "next/image";
 
 const Header = ({
   profile,
@@ -43,13 +44,13 @@ const Header = ({
   const [modalShow, setModalShow] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
 
-  const [Image, setImage] = useState("");
+  const [Imagee, setImage] = useState("");
   const [ReviewName, setReviewName] = useState("");
   const [ReviewSubTitle, setReviewSubTitle] = useState("");
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
 
-  const [time,setTime] = useState(new Date().getTime() / 1000)
+  const [time, setTime] = useState(new Date().getTime() / 1000);
 
   const handleReviewSubmit = async () => {
     if (ReviewName == "") {
@@ -103,7 +104,7 @@ const Header = ({
     }
     try {
       let payload = {
-        testimonial_image: Image,
+        testimonial_image: Imagee,
         card_url: profile,
         name: ReviewName,
         company_name: ReviewSubTitle,
@@ -266,7 +267,7 @@ const Header = ({
       var contact = {
         website: card?.card_website,
         address: card?.card_address,
-        image: response.data.data.base_image?.replace(
+        Imagee: response.data.data.base_image?.replace(
           "data:image/png;base64,",
           ""
         ),
@@ -297,8 +298,8 @@ const Header = ({
         "\nURL;TYPE=Popipro - Digital Business Card:" +
         contact.url;
 
-      vcard += contact.image
-        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.image
+      vcard += contact.Imagee
+        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.Imagee
         : "";
       vcard += contact.card_website
         ? "\nURL;Website URL=UTF-8:" + contact.website
@@ -373,7 +374,6 @@ const Header = ({
     setsharePopup(true);
   }
 
-  
   return (
     <>
       <Share
@@ -504,9 +504,9 @@ const Header = ({
         <Modal.Body>
           <div className="row">
             <div className="form-group col-lg-12 col-md-12 mb-3">
-              <lable className="modalFormLable">
+              <label className="modalFormLable">
                 Upload Image (*Prefered size in ration of 100x100)
-              </lable>
+              </label>
               <input
                 type="file"
                 name="image"
@@ -605,7 +605,7 @@ const Header = ({
         </button>
         <div className="header__left position-relative">
           <div className="header__photo">
-            <img
+            {/* <Image
               className="header__photo-img"
               value={card?.profile_picture?.path}
               src={
@@ -614,6 +614,21 @@ const Header = ({
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="avtar"
+            /> */}
+            <Image
+              className="header__photo-img"
+              value={card?.profile_picture?.path}
+              src={
+                card?.profile_picture?.path
+                  ? "https://admin.popipro.com/" +
+                    card?.profile_picture?.path +
+                    "?ver=" +
+                    time
+                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
+              }
+              alt="images"
+              width={0}
+              height={0}
             />
           </div>
           <div className="header__base-info">

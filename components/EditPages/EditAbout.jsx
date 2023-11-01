@@ -307,7 +307,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             {TextArea ? (
               <div className="">
                 <p onClick={handleChatModal} className="cursor-pointer text-right">
-                  Suggestion from ai{" "}
+                   Suggestion From AI{" "}
                   <img
                     src="../static/img/ai-stick.png"
                     alt="stick"

@@ -36,7 +36,7 @@ export default async function Main({ profile, data, id }) {
   return (
     data && (
       <>
-        {is_onboarding !== 1 ? (
+        {is_onboarding == 2 ? (
           <>
             <Banner
               card={card}

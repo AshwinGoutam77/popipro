@@ -229,7 +229,7 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* <Share Data={Data} /> */}
 
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -295,7 +295,7 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
       </Modal>
 
       {/* Edit Model */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5

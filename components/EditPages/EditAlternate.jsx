@@ -279,7 +279,7 @@ export default function EditAlternateNo({
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -296,7 +296,7 @@ export default function EditAlternateNo({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">Label</lable>
+            <label className="modalFormLable">Label</label>
             <input
               type="text"
               name="number"
@@ -310,7 +310,7 @@ export default function EditAlternateNo({
             ></input>
           </div>
           <div>
-            <lable className="modalFormLable">Phone Number</lable>
+            <label className="modalFormLable">Phone Number</label>
             <div className="d-flex align-items-center" style={{ gap: "8px" }}>
               <input
                 type="text"
@@ -363,134 +363,7 @@ export default function EditAlternateNo({
       </Modal>
 
       {/* Edit model */}
-      <div
-        className="modal fade"
-        id="AlternateNumberModalEdit"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="AlternateNumberModalEdit"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style={{ borderRadius: "25px" }}>
-            <div className="modal-header">
-              <h5
-                className="title title--h1 first-title title__separate mb-0"
-                id="AlternateNumberModalEdit"
-              >
-                {AlterNumber}
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                onClick={handleCanclebtn}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body" style={{ padding: "30px 25px" }}>
-              <>
-                {Data?.card_alternate_phone?.map((item, index) => {
-                  return ModalId === item.id ? (
-                    <div key={index}>
-                      <div>
-                        <lable className="modalFormLable">Label</lable>
-                        <input
-                          type="text"
-                          name="number"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1"
-                          value={NumberLabel}
-                          placeholder="Enter label for Alternate number"
-                          style={{
-                            height: "40px",
-                            border: "1px solid #ccc",
-                          }}
-                          onChange={(e) => setNumberLabel(e.target.value)}
-                        ></input>
-                      </div>
-                      <div>
-                        <lable className="modalFormLable">Phone Number</lable>
-                        <div
-                          className="d-flex align-items-center"
-                          style={{ gap: "8px" }}
-                        >
-                          <input
-                            type="text"
-                            name="number"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1 w-50"
-                            value={CountryCode}
-                            placeholder="+91"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setCountryCode(e.target.value)}
-                          ></input>
-                          <input
-                            type="number"
-                            name="number"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1"
-                            value={MobileNumber}
-                            placeholder="xxxxxxxxxx"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setMobileNumber(e.target.value)}
-                          ></input>
-                          <input
-                            type="text"
-                            name="number"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1 w-50"
-                            value={Extension}
-                            placeholder="xxxx"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setExtension(e.target.value)}
-                          ></input>
-                        </div>
-                      </div>
-
-                      <div
-                        className="d-flex align-items-center mt-3"
-                        style={{ gap: "10px" }}
-                      >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveDetails(item.id)}
-                        >
-                          Save
-                        </button>
-                        <button
-                          className="delete-button m-0"
-                          onClick={handleCanclebtn}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  );
-                })}
-              </>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -510,7 +383,7 @@ export default function EditAlternateNo({
             return ModalId === item.id ? (
               <div key={index}>
                 <div>
-                  <lable className="modalFormLable">Label</lable>
+                  <label className="modalFormLable">Label</label>
                   <input
                     type="text"
                     name="number"
@@ -527,7 +400,7 @@ export default function EditAlternateNo({
                   ></input>
                 </div>
                 <div>
-                  <lable className="modalFormLable">Phone Number</lable>
+                  <label className="modalFormLable">Phone Number</label>
                   <div
                     className="d-flex align-items-center"
                     style={{ gap: "8px" }}

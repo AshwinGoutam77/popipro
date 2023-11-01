@@ -73,6 +73,9 @@ export default function EditDoing({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
+    setServicesDescription("");
+    setServicesName("");
+    setImage("");
   };
 
   const handleEditWhat = async (id = null) => {
@@ -374,7 +377,7 @@ export default function EditDoing({
   return (
     <>
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -422,7 +425,7 @@ export default function EditDoing({
                 data-target="#chatapimodal"
                 className="cursor-pointer text-right"
               >
-                Suggestion from ai{" "}
+                Suggestion From AI{" "}
                 <img
                   src="../static/img/ai-stick.png"
                   alt="stick"
@@ -482,7 +485,7 @@ export default function EditDoing({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5

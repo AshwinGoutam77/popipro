@@ -242,7 +242,9 @@ export default function EditResume({
     setExpDesignation("");
   };
   const handleCanclebtn = () => {
-    // window["closeModal"]();
+    handleClose();
+    handleEditClose();
+    HandleEmptyFeilds()
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -372,7 +374,7 @@ export default function EditResume({
   return (
     <>
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -389,7 +391,7 @@ export default function EditResume({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">Title*</lable>
+            <label className="modalFormLable">Title*</label>
             <div>
               <input
                 name="designation"
@@ -401,7 +403,7 @@ export default function EditResume({
                 style={{ height: "40px" }}
                 onChange={(evnt) => setExpDesignation(evnt.target.value)}
               ></input>
-              <lable className="modalFormLable">Steps</lable>
+              <label className="modalFormLable">Steps</label>
               <input
                 name="years"
                 rows="4"
@@ -413,14 +415,14 @@ export default function EditResume({
                 onChange={(evnt) => setExpYears(evnt.target.value)}
               ></input>
               <div className="d-flex align-items-center justify-content-between">
-                <lable className="modalFormLable">Description*</lable>
+                <label className="modalFormLable">Description*</label>
                 <p
                   onClick={handleChatModal}
                   data-toggle={ExpDescription ? "modal" : ""}
                   data-target="#chatapimodal"
                   className="cursor-pointer text-right"
                 >
-                  Suggestion from ai{" "}
+                  Suggestion From AI{" "}
                   <img
                     src="../static/img/ai-stick.png"
                     alt="stick"
@@ -481,7 +483,7 @@ export default function EditResume({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -507,7 +509,7 @@ export default function EditResume({
                     name="hiddenId"
                     key={i}
                   />
-                  <lable className="modalFormLable">Title*</lable>
+                  <label className="modalFormLable">Title*</label>
                   <input
                     name="designation"
                     rows="4"
@@ -518,7 +520,7 @@ export default function EditResume({
                     style={{ height: "40px" }}
                     onChange={(evnt) => setExpDesignation(evnt.target.value)}
                   ></input>
-                  <lable className="modalFormLable">Steps</lable>
+                  <label className="modalFormLable">Steps</label>
                   <input
                     name="years"
                     rows="4"
@@ -529,7 +531,7 @@ export default function EditResume({
                     style={{ height: "40px" }}
                     onChange={(evnt) => setExpYears(evnt.target.value)}
                   ></input>
-                  <lable className="modalFormLable">Description*</lable>
+                  <label className="modalFormLable">Description*</label>
                   <CKEditor
                     editor={ClassicEditor}
                     config={{

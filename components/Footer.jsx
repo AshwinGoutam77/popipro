@@ -23,12 +23,6 @@ export default function Footer({ Data, card_url }) {
       }
     });
   };
-  let item;
-  useEffect(() => {
-    item = localStorage.getItem("url");
-    // console.log(item === null);
-    console.log("...",card_url === item);
-  }, []);
   return (
     <>
       <div className="w-100 footer-div text-center">

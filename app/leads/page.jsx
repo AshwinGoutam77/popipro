@@ -219,7 +219,7 @@ const Leads = () => {
           <div className="mx-3">
             <div className="row w-100 m-0 p-0 mb-4 align-items-end">
               <div className="col-6 col-lg-2 p-0 px-2">
-                <lable className="ml-1">From</lable>
+                <label className="ml-1">From</label>
                 <DatePicker
                   dateFormat="MM/dd/yyyy"
                   selected={StartDate}
@@ -230,7 +230,7 @@ const Leads = () => {
                 />
               </div>
               <div className="col-6 col-lg-2 p-0 px-2">
-                <lable className="ml-1">To</lable>
+                <label className="ml-1">To</label>
                 <DatePicker
                   dateFormat="MM/dd/yyyy"
                   selected={EndDate}

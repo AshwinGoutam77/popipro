@@ -24,9 +24,9 @@ export default function ShareContact() {
         <Modal.Body>
           <div className="row">
             <div className="form-group col-lg-12 col-md-12 mb-3">
-              <lable className="modalFormLable">
+              <label className="modalFormLable">
                 Upload Image (*Prefered size in ration of 100x100)
-              </lable>
+              </label>
               <input
                 type="file"
                 name="image"

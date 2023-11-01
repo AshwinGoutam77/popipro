@@ -56,6 +56,7 @@ export default function EditCustomLink({
     handleEditClose();
     setLinkLabel("");
     setLinkName("");
+    setLinkLabel("");
   };
 
   const handleSaveDetails = async (id = null) => {
@@ -66,7 +67,7 @@ export default function EditCustomLink({
     // BlogFeild.map(async (o, i) => {
     if (LinkLabel == "" || LinkName == "") {
       error = true;
-      mess = LinkLabel == "" ? "Lable is required" : "Link is required";
+      mess = LinkLabel == "" ? "label is required" : "Link is required";
     } else {
       id !== null
         ? (custom_urls = [
@@ -280,7 +281,7 @@ export default function EditCustomLink({
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -297,7 +298,7 @@ export default function EditCustomLink({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">Label</lable>
+            <label className="modalFormLable">Label</label>
             <input
               type="text"
               name="number"
@@ -311,7 +312,7 @@ export default function EditCustomLink({
             ></input>
           </div>
           <div>
-            <lable className="modalFormLable">Link</lable>
+            <label className="modalFormLable">Link</label>
             <input
               type="text"
               name="number"
@@ -325,7 +326,7 @@ export default function EditCustomLink({
             ></input>
           </div>
           <div>
-            <lable className="modalFormLable">Tags (Max-word limit 10)</lable>
+            <label className="modalFormLable">Tags (Max-word limit 10)</label>
             <input
               type="text"
               name="number"
@@ -354,7 +355,7 @@ export default function EditCustomLink({
       </Modal>
 
       {/* Edit Model */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -374,7 +375,7 @@ export default function EditCustomLink({
             return ModalId === item.id ? (
               <div key={index}>
                 <div>
-                  <lable className="modalFormLable">Label</lable>
+                  <label className="modalFormLable">Label</label>
                   <input
                     type="text"
                     name="number"
@@ -388,7 +389,7 @@ export default function EditCustomLink({
                   ></input>
                 </div>
                 <div>
-                  <lable className="modalFormLable">Link</lable>
+                  <label className="modalFormLable">Link</label>
                   <input
                     type="text"
                     name="number"
@@ -402,7 +403,7 @@ export default function EditCustomLink({
                   ></input>
                 </div>
                 <div>
-                  <lable className="modalFormLable">Tags</lable>
+                  <label className="modalFormLable">Tags</label>
                   <input
                     type="text"
                     name="number"

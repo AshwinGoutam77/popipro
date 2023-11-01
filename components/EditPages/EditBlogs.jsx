@@ -257,6 +257,7 @@ export default function EditBlogs({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
+    HandleEmptyFeilds()
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -408,7 +409,7 @@ export default function EditBlogs({
   return (
     <>
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -425,9 +426,9 @@ export default function EditBlogs({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Upload Image (*Recommended Size 347x160)
-            </lable>
+            </label>
             <input
               type="file"
               name="image"
@@ -437,7 +438,7 @@ export default function EditBlogs({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
-            <lable className="modalFormLable">Heading*</lable>
+            <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
@@ -448,7 +449,7 @@ export default function EditBlogs({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
-            <lable className="modalFormLable">Url</lable>
+            <label className="modalFormLable">Url</label>
             <input
               name="name"
               rows="4"
@@ -460,14 +461,14 @@ export default function EditBlogs({
               onChange={(e) => setBlogUrl(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
-              <lable className="modalFormLable">Description*</lable>
+              <label className="modalFormLable">Description*</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
                 className="cursor-pointer text-right"
               >
-                Suggestion from ai{" "}
+                 Suggestion From AI{" "}
                 {/* <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" /> */}
                 <img src="../static/img/ai-stick.png" alt="stick" style={{width:'13%'}}/>
               </p>
@@ -528,7 +529,7 @@ export default function EditBlogs({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -554,9 +555,9 @@ export default function EditBlogs({
                     name="hiddenId"
                     key={i}
                   />
-                  <lable className="modalFormLable">
+                  <label className="modalFormLable">
                     Upload Image (*Recommended Size 347x160)
-                  </lable>
+                  </label>
                   <input
                     type="file"
                     name="image"
@@ -566,7 +567,7 @@ export default function EditBlogs({
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setImage(e.target.files[0])}
                   />
-                  <lable className="modalFormLable">Heading*</lable>
+                  <label className="modalFormLable">Heading*</label>
                   <input
                     name="name"
                     rows="4"
@@ -578,7 +579,7 @@ export default function EditBlogs({
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
-                  <lable className="modalFormLable">Url</lable>
+                  <label className="modalFormLable">Url</label>
                   <input
                     name="url"
                     rows="4"
@@ -590,7 +591,7 @@ export default function EditBlogs({
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setBlogUrl(e.target.value)}
                   ></input>
-                  <lable className="modalFormLable">Description*</lable>
+                  <label className="modalFormLable">Description*</label>
                   <CKEditor
                     editor={ClassicEditor}
                     config={{

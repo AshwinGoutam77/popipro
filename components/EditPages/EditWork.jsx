@@ -255,7 +255,7 @@ export default function EditWorks({
     let titles = [
       {
         name: "card_photos",
-        visible_name: PhotosName?.visible_name,
+        visible_name: PhotoTitle,
         is_featured: Active ? "0" : "1",
         is_active: Active ? "0" : "1",
       },
@@ -490,67 +490,6 @@ export default function EditWorks({
       confirmButtonText:
         '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
-  };
-  const handleFreeTrail = async () => {
-    try {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You want to activate 30 days Free trial for Premium Features? ",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "rgb(24 123 249)",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await Api(UpgradePlan, {
-            total_month: "1",
-            is_trial: "1",
-          });
-          setShowLoader(false);
-          if (response.data.status) {
-            APIDATA();
-            toast(response.data.message, {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else {
-            toast.error(response.data.message, {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        }
-      });
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-      setShowLoader(false);
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
   };
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 

@@ -282,6 +282,7 @@ export default function EditProducts({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
+    HandleEmptyFeilds()
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -472,7 +473,7 @@ export default function EditProducts({
 
   return (
     <>
-      <Modal show={ShowProductModal} onHide={handleProductShow} centered>
+      <Modal show={ShowProductModal} onHide={handleProductClose} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -613,7 +614,7 @@ export default function EditProducts({
       </Modal>
 
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -630,9 +631,9 @@ export default function EditProducts({
         </Modal.Header>
         <Modal.Body>
           <div className="">
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Upload Image (*Recommended Size 137x108)
-            </lable>
+            </label>
             <input
               type="file"
               name="image"
@@ -642,7 +643,7 @@ export default function EditProducts({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
-            <lable className="modalFormLable">Heading*</lable>
+            <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
@@ -680,7 +681,7 @@ export default function EditProducts({
 
             {PriceRadio ? (
               <div>
-                <lable className="modalFormLable">Price</lable>
+                <label className="modalFormLable">Price</label>
                 <div className="d-flex" style={{ gap: "10px" }}>
                   <select
                     style={{
@@ -713,7 +714,7 @@ export default function EditProducts({
               </div>
             ) : (
               <div>
-                <lable className="modalFormLable">Text</lable>
+                <label className="modalFormLable">Text</label>
                 <input
                   type="text"
                   name="price"
@@ -733,7 +734,7 @@ export default function EditProducts({
               style={{ gap: "10px" }}
             >
               <div className="w-100">
-                <lable className="modalFormLable">Label for url / link</lable>
+                <label className="modalFormLable">Label for url / link</label>
                 <input
                   name="url"
                   rows="4"
@@ -746,7 +747,7 @@ export default function EditProducts({
                 ></input>
               </div>
               <div className="w-100">
-                <lable className="modalFormLable">Url / Links</lable>
+                <label className="modalFormLable">Url / Links</label>
                 <input
                   name="url"
                   rows="4"
@@ -760,14 +761,14 @@ export default function EditProducts({
               </div>
             </div>
             <div className="d-flex align-items-center justify-content-between">
-              <lable className="modalFormLable">Description*</lable>
+              <label className="modalFormLable">Description*</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
                 className="cursor-pointer"
               >
-                Suggestion from ai{" "}
+                 Suggestion From AI{" "}
                 <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
               </p>
             </div>
@@ -826,7 +827,7 @@ export default function EditProducts({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -852,9 +853,9 @@ export default function EditProducts({
                     name="hiddenId"
                     key={i}
                   />
-                  <lable className="modalFormLable">
+                  <label className="modalFormLable">
                     Update Image (*Recommended Size 137x108)
-                  </lable>
+                  </label>
                   <input
                     type="file"
                     name="image"
@@ -863,7 +864,7 @@ export default function EditProducts({
                     style={{ border: "1px solid #ccc" }}
                     onChange={(e) => setImage(e.target.files[0])}
                   />
-                  <lable className="modalFormLable">Heading*</lable>
+                  <label className="modalFormLable">Heading*</label>
                   <input
                     name="name"
                     rows="4"
@@ -876,7 +877,7 @@ export default function EditProducts({
                   ></input>
                   {isFinite(items.price) ? (
                     <>
-                      <lable className="modalFormLable">Price</lable>
+                      <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
                         <select
                           style={{
@@ -914,7 +915,7 @@ export default function EditProducts({
                   ) : (
                     <>
                       <div>
-                        <lable className="modalFormLable">Text</lable>
+                        <label className="modalFormLable">Text</label>
                         <input
                           type="text"
                           name="price"
@@ -938,9 +939,9 @@ export default function EditProducts({
                     style={{ gap: "10px" }}
                   >
                     <div className="w-100">
-                      <lable className="modalFormLable">
+                      <label className="modalFormLable">
                         Label for url / link
-                      </lable>
+                      </label>
                       <input
                         name="url"
                         rows="4"
@@ -956,7 +957,7 @@ export default function EditProducts({
                       ></input>
                     </div>
                     <div className="w-100">
-                      <lable className="modalFormLable">Url / Links</lable>
+                      <label className="modalFormLable">Url / Links</label>
                       <input
                         name="url"
                         rows="4"
@@ -979,7 +980,7 @@ export default function EditProducts({
                       setModalShow("chatApi");
                     }}
                   >
-                    <lable className="modalFormLable">Description*</lable>
+                    <label className="modalFormLable">Description*</label>
                     {/* <ChatbotApp
                           ServicesDescription={ServicesDescription}
                           setServicesDescription={setServicesDescription}
