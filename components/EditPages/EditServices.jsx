@@ -376,6 +376,17 @@ export default function EditDoing({
     handleShowshowChatModal();
     handleSend();
   };
+  const handleUpgradePlan = () => {
+    Swal.fire({
+      title:
+        "You have reached your storage limit, to increase your limit please upgrade your plan.",
+      icon: "info",
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
+    });
+  };
 
   return (
     <>
