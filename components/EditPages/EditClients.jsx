@@ -399,17 +399,15 @@ export default function EditClients({
                 </div>
                 <div className="image-box">
                   {photos &&
-                    Object.keys(photos).map(function (key) {
+                    Object.keys(photos).map(function (key, i) {
                       return (
-                        <>
-                          <div style={{ position: "relative" }}>
-                            <img
-                              className="viewimage"
-                              src={URL.createObjectURL(photos[key])}
-                              alt="clients"
-                            />
-                          </div>
-                        </>
+                        <div style={{ position: "relative" }} key={i}>
+                          <img
+                            className="viewimage"
+                            src={URL.createObjectURL(photos[key])}
+                            alt="clients"
+                          />
+                        </div>
                       );
                     })}
                 </div>

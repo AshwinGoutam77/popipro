@@ -393,104 +393,96 @@ export default function EditAlternateNo({
             <div className="modal-body" style={{ padding: "30px 25px" }}>
               <>
                 {Data?.card_alternate_phone?.map((item, index) => {
-                  return (
-                    <>
-                      {ModalId === item.id ? (
-                        <div key={index}>
-                          <div>
-                            <lable className="modalFormLable">Label</lable>
-                            <input
-                              type="text"
-                              name="number"
-                              rows="4"
-                              cols="50"
-                              className="form-control mb-4 mt-1"
-                              value={NumberLabel}
-                              placeholder="Enter label for Alternate number"
-                              style={{
-                                height: "40px",
-                                border: "1px solid #ccc",
-                              }}
-                              onChange={(e) => setNumberLabel(e.target.value)}
-                            ></input>
-                          </div>
-                          <div>
-                            <lable className="modalFormLable">
-                              Phone Number
-                            </lable>
-                            <div
-                              className="d-flex align-items-center"
-                              style={{ gap: "8px" }}
-                            >
-                              <input
-                                type="text"
-                                name="number"
-                                rows="4"
-                                cols="50"
-                                className="form-control mb-4 mt-1 w-50"
-                                value={CountryCode}
-                                placeholder="+91"
-                                style={{
-                                  height: "40px",
-                                  border: "1px solid #ccc",
-                                }}
-                                onChange={(e) => setCountryCode(e.target.value)}
-                              ></input>
-                              <input
-                                type="number"
-                                name="number"
-                                rows="4"
-                                cols="50"
-                                className="form-control mb-4 mt-1"
-                                value={MobileNumber}
-                                placeholder="xxxxxxxxxx"
-                                style={{
-                                  height: "40px",
-                                  border: "1px solid #ccc",
-                                }}
-                                onChange={(e) =>
-                                  setMobileNumber(e.target.value)
-                                }
-                              ></input>
-                              <input
-                                type="text"
-                                name="number"
-                                rows="4"
-                                cols="50"
-                                className="form-control mb-4 mt-1 w-50"
-                                value={Extension}
-                                placeholder="xxxx"
-                                style={{
-                                  height: "40px",
-                                  border: "1px solid #ccc",
-                                }}
-                                onChange={(e) => setExtension(e.target.value)}
-                              ></input>
-                            </div>
-                          </div>
-
-                          <div
-                            className="d-flex align-items-center mt-3"
-                            style={{ gap: "10px" }}
-                          >
-                            <button
-                              className="send-btnn"
-                              onClick={() => handleSaveDetails(item.id)}
-                            >
-                              Save
-                            </button>
-                            <button
-                              className="delete-button m-0"
-                              onClick={handleCanclebtn}
-                            >
-                              Cancel
-                            </button>
-                          </div>
+                  return ModalId === item.id ? (
+                    <div key={index}>
+                      <div>
+                        <lable className="modalFormLable">Label</lable>
+                        <input
+                          type="text"
+                          name="number"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          value={NumberLabel}
+                          placeholder="Enter label for Alternate number"
+                          style={{
+                            height: "40px",
+                            border: "1px solid #ccc",
+                          }}
+                          onChange={(e) => setNumberLabel(e.target.value)}
+                        ></input>
+                      </div>
+                      <div>
+                        <lable className="modalFormLable">Phone Number</lable>
+                        <div
+                          className="d-flex align-items-center"
+                          style={{ gap: "8px" }}
+                        >
+                          <input
+                            type="text"
+                            name="number"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1 w-50"
+                            value={CountryCode}
+                            placeholder="+91"
+                            style={{
+                              height: "40px",
+                              border: "1px solid #ccc",
+                            }}
+                            onChange={(e) => setCountryCode(e.target.value)}
+                          ></input>
+                          <input
+                            type="number"
+                            name="number"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1"
+                            value={MobileNumber}
+                            placeholder="xxxxxxxxxx"
+                            style={{
+                              height: "40px",
+                              border: "1px solid #ccc",
+                            }}
+                            onChange={(e) => setMobileNumber(e.target.value)}
+                          ></input>
+                          <input
+                            type="text"
+                            name="number"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1 w-50"
+                            value={Extension}
+                            placeholder="xxxx"
+                            style={{
+                              height: "40px",
+                              border: "1px solid #ccc",
+                            }}
+                            onChange={(e) => setExtension(e.target.value)}
+                          ></input>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                    </>
+                      </div>
+
+                      <div
+                        className="d-flex align-items-center mt-3"
+                        style={{ gap: "10px" }}
+                      >
+                        <button
+                          className="send-btnn"
+                          onClick={() => handleSaveDetails(item.id)}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="delete-button m-0"
+                          onClick={handleCanclebtn}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
                   );
                 })}
               </>
@@ -515,100 +507,96 @@ export default function EditAlternateNo({
         </Modal.Header>
         <Modal.Body>
           {Data?.card_alternate_phone?.map((item, index) => {
-            return (
-              <>
-                {ModalId === item.id ? (
-                  <div key={index}>
-                    <div>
-                      <lable className="modalFormLable">Label</lable>
-                      <input
-                        type="text"
-                        name="number"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        value={NumberLabel}
-                        placeholder="Enter label for Alternate number"
-                        style={{
-                          height: "40px",
-                          border: "1px solid #ccc",
-                        }}
-                        onChange={(e) => setNumberLabel(e.target.value)}
-                      ></input>
-                    </div>
-                    <div>
-                      <lable className="modalFormLable">Phone Number</lable>
-                      <div
-                        className="d-flex align-items-center"
-                        style={{ gap: "8px" }}
-                      >
-                        <input
-                          type="text"
-                          name="number"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1 w-50"
-                          value={CountryCode}
-                          placeholder="+91"
-                          style={{
-                            height: "40px",
-                            border: "1px solid #ccc",
-                          }}
-                          onChange={(e) => setCountryCode(e.target.value)}
-                        ></input>
-                        <input
-                          type="number"
-                          name="number"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1"
-                          value={MobileNumber}
-                          placeholder="xxxxxxxxxx"
-                          style={{
-                            height: "40px",
-                            border: "1px solid #ccc",
-                          }}
-                          onChange={(e) => setMobileNumber(e.target.value)}
-                        ></input>
-                        <input
-                          type="number"
-                          name="number"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1 w-50"
-                          value={Extension}
-                          placeholder="xxxx"
-                          style={{
-                            height: "40px",
-                            border: "1px solid #ccc",
-                          }}
-                          onChange={(e) => setExtension(e.target.value)}
-                        ></input>
-                      </div>
-                    </div>
-
-                    <div
-                      className="d-flex align-items-center mt-3"
-                      style={{ gap: "10px" }}
-                    >
-                      <button
-                        className="send-btnn"
-                        onClick={() => handleSaveDetails(item.id)}
-                      >
-                        Save
-                      </button>
-                      <button
-                        className="delete-button m-0"
-                        onClick={handleCanclebtn}
-                      >
-                        Cancel
-                      </button>
-                    </div>
+            return ModalId === item.id ? (
+              <div key={index}>
+                <div>
+                  <lable className="modalFormLable">Label</lable>
+                  <input
+                    type="text"
+                    name="number"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={NumberLabel}
+                    placeholder="Enter label for Alternate number"
+                    style={{
+                      height: "40px",
+                      border: "1px solid #ccc",
+                    }}
+                    onChange={(e) => setNumberLabel(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  <lable className="modalFormLable">Phone Number</lable>
+                  <div
+                    className="d-flex align-items-center"
+                    style={{ gap: "8px" }}
+                  >
+                    <input
+                      type="text"
+                      name="number"
+                      rows="4"
+                      cols="50"
+                      className="form-control mb-4 mt-1 w-50"
+                      value={CountryCode}
+                      placeholder="+91"
+                      style={{
+                        height: "40px",
+                        border: "1px solid #ccc",
+                      }}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                    ></input>
+                    <input
+                      type="number"
+                      name="number"
+                      rows="4"
+                      cols="50"
+                      className="form-control mb-4 mt-1"
+                      value={MobileNumber}
+                      placeholder="xxxxxxxxxx"
+                      style={{
+                        height: "40px",
+                        border: "1px solid #ccc",
+                      }}
+                      onChange={(e) => setMobileNumber(e.target.value)}
+                    ></input>
+                    <input
+                      type="number"
+                      name="number"
+                      rows="4"
+                      cols="50"
+                      className="form-control mb-4 mt-1 w-50"
+                      value={Extension}
+                      placeholder="xxxx"
+                      style={{
+                        height: "40px",
+                        border: "1px solid #ccc",
+                      }}
+                      onChange={(e) => setExtension(e.target.value)}
+                    ></input>
                   </div>
-                ) : (
-                  ""
-                )}
-              </>
+                </div>
+
+                <div
+                  className="d-flex align-items-center mt-3"
+                  style={{ gap: "10px" }}
+                >
+                  <button
+                    className="send-btnn"
+                    onClick={() => handleSaveDetails(item.id)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="delete-button m-0"
+                    onClick={handleCanclebtn}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
             );
           })}
         </Modal.Body>
@@ -718,92 +706,90 @@ export default function EditAlternateNo({
           )}
           {Data?.card_alternate_phone?.map((item, index) => {
             return (
-              <>
-                <div className="alternate-number-div" key={index}>
-                  {TitleData?.card_alternate_phone?.source == "2" &&
+              <div className="alternate-number-div" key={index}>
+                {TitleData?.card_alternate_phone?.source == "2" &&
+                PlanData?.is_expired == false &&
+                PlanData?.subscription?.plan_id !== 1 ? (
+                  <FontAwesomeIcon
+                    icon={faXmarkCircle}
+                    className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
+                    style={{
+                      top: "0",
+                      right: "0",
+                      cursor: "pointer",
+                      color: "var(--color)",
+                      fontSize: "20px",
+                      zIndex: "1",
+                      background: "white",
+                    }}
+                    onClick={() => handleDeleteNumber(item.id, 9, Data?.id)}
+                  />
+                ) : (
+                  ""
+                )}
+                <div
+                  className="d-flex align-items-center justify-content-between mt-1 mb-1"
+                  key={index}
+                >
+                  <a href={"tel:" + item.number}>
+                    <div className="d-flex align-items-center flex-wrap">
+                      <FontAwesomeIcon
+                        icon={faPhone}
+                        className="pe-auto Iconcolor-black"
+                        style={{ fontSize: "15px" }}
+                      />
+                      <p
+                        className="ml-2 font-weight-bold"
+                        style={{ color: "black" }}
+                      >
+                        {item.title} :
+                      </p>
+                      <a
+                        href={
+                          "tel:" +
+                          item.country_code +
+                          "-" +
+                          item?.number +
+                          "-" +
+                          item?.extension
+                        }
+                        className="ml-1"
+                        style={{ color: "black" }}
+                      >
+                        {item?.country_code}
+                        {item?.country_code ? "-" : ""} {item?.number}
+                        {item?.extension ? "-" : ""} {item?.extension}
+                      </a>
+                    </div>
+                  </a>
+                  {TitleData?.card_services?.source == "2" &&
                   PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
+                  PlanData?.current_plan?.plan_name !== "basic" ? (
                     <FontAwesomeIcon
-                      icon={faXmarkCircle}
-                      className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
+                      data-toggle="modal"
+                      data-target="#AlternateNumberModalEdit"
+                      icon={faPencil}
+                      className="pe-auto cursor-pointer"
                       style={{
-                        top: "0",
-                        right: "0",
-                        cursor: "pointer",
+                        fontSize: "15px",
                         color: "var(--color)",
-                        fontSize: "20px",
-                        zIndex: "1",
-                        background: "white",
+                        marginRight: "35px",
                       }}
-                      onClick={() => handleDeleteNumber(item.id, 9, Data?.id)}
+                      onClick={() =>
+                        handleSetId(
+                          item.id,
+                          item.title,
+                          item.number,
+                          item?.country_code,
+                          item?.extension
+                        )
+                      }
                     />
                   ) : (
                     ""
                   )}
-                  <div
-                    className="d-flex align-items-center justify-content-between mt-1 mb-1"
-                    key={index}
-                  >
-                    <a href={"tel:" + item.number}>
-                      <div className="d-flex align-items-center flex-wrap">
-                        <FontAwesomeIcon
-                          icon={faPhone}
-                          className="pe-auto Iconcolor-black"
-                          style={{ fontSize: "15px" }}
-                        />
-                        <p
-                          className="ml-2 font-weight-bold"
-                          style={{ color: "black" }}
-                        >
-                          {item.title} :
-                        </p>
-                        <a
-                          href={
-                            "tel:" +
-                            item.country_code +
-                            "-" +
-                            item?.number +
-                            "-" +
-                            item?.extension
-                          }
-                          className="ml-1"
-                          style={{ color: "black" }}
-                        >
-                          {item?.country_code}
-                          {item?.country_code ? "-" : ""} {item?.number}
-                          {item?.extension ? "-" : ""} {item?.extension}
-                        </a>
-                      </div>
-                    </a>
-                    {TitleData?.card_services?.source == "2" &&
-                    PlanData?.is_expired == false &&
-                    PlanData?.current_plan?.plan_name !== "basic" ? (
-                      <FontAwesomeIcon
-                        data-toggle="modal"
-                        data-target="#AlternateNumberModalEdit"
-                        icon={faPencil}
-                        className="pe-auto cursor-pointer"
-                        style={{
-                          fontSize: "15px",
-                          color: "var(--color)",
-                          marginRight: "35px",
-                        }}
-                        onClick={() =>
-                          handleSetId(
-                            item.id,
-                            item.title,
-                            item.number,
-                            item?.country_code,
-                            item?.extension
-                          )
-                        }
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
                 </div>
-              </>
+              </div>
             );
           })}
         </div>

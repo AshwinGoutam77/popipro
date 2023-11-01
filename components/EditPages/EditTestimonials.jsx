@@ -26,6 +26,7 @@ import EditPlan from "./EditPlan";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import axios from "axios";
 
 export default function EditTestimonials({
   TitleData,
@@ -356,89 +357,41 @@ export default function EditTestimonials({
   };
 
   // chatapi code
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      message: "",
-      sender: "ChatGPT",
-    },
-  ]);
-  const [Loading, setLoading] = useState(false);
 
-  const handleSend = async (event) => {
-    if (!ServicesDescription) {
-      toast.error("Please fill the message to generate the data from ai", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    // event.preventDefault();
-    const newMessage = {
-      message: ServicesDescription,
-      sender: "user",
-    };
-
-    const newMessages = [...messages, newMessage];
-
-    setMessages(newMessages);
-
-    setInput("");
-
-    await processMessageToChatGPT(newMessages);
-  };
-
-  async function processMessageToChatGPT(chatMessages) {
-    setLoading(true);
-    const API_KEY = "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";
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    const systemMessage = {
-      role: "system",
-      content: "Explain all concept like i am 10 year old",
-    };
-
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo-0613",
-      messages: [systemMessage, ...apiMessages],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((response) => {
-        return setLoading(false), response.json();
-      })
-      .then((data) => {
-        // console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [IsTyping, setIsTyping] = useState(false);
+  const apiKey = "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";
+  const handleButtonClick = async () => {
+    setIsTyping(true);
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: ServicesDescription,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
           },
-        ]);
-      });
-  }
+        }
+      );
+      setSuggestions(response.data.choices[0].message.content);
+      setIsTyping(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
 
   const handleChatModal = () => {
     if (ServicesDescription == "") {
@@ -455,7 +408,21 @@ export default function EditTestimonials({
       return;
     }
     handleShowshowChatModal();
-    handleSend();
+    handleButtonClick();
+  };
+  const handleCopyMessage = () => {
+    toast.success("Message copied succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigator.clipboard.writeText(suggestions);
+    setShowshowChatModal(false);
   };
 
   return (
@@ -478,9 +445,9 @@ export default function EditTestimonials({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Upload Image (*Prefered size in ration of 100x100)
-            </lable>
+            </label>
             <input
               type="file"
               name="image"
@@ -490,7 +457,7 @@ export default function EditTestimonials({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
-            <lable className="modalFormLable">Heading*</lable>
+            <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
@@ -501,7 +468,7 @@ export default function EditTestimonials({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
-            <lable className="modalFormLable">Company Name</lable>
+            <label className="modalFormLable">Company Name</label>
             <input
               name="name"
               rows="4"
@@ -513,15 +480,19 @@ export default function EditTestimonials({
               onChange={(e) => setCompanyName(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
-              <lable className="modalFormLable">Description*</lable>
+              <label className="modalFormLable">Description*</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
-                className="cursor-pointer"
+                className="cursor-pointer text-right"
               >
                 Suggestion from ai{" "}
-                <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
+                <img
+                  src="../static/img/ai-stick.png"
+                  alt="stick"
+                  style={{ width: "13%" }}
+                />
               </p>
             </div>
             <CKEditor
@@ -604,9 +575,9 @@ export default function EditTestimonials({
                         name="hiddenId"
                         key={i}
                       />
-                      <lable className="modalFormLable">
+                      <label className="modalFormLable">
                         Upload Image (*Prefered size in ration of 100x100)
-                      </lable>
+                      </label>
                       <input
                         type="file"
                         name="image"
@@ -615,7 +586,7 @@ export default function EditTestimonials({
                         style={{ border: "1px solid #ccc" }}
                         onChange={(e) => setImage(e.target.files[0])}
                       />
-                      <lable className="modalFormLable">Heading*</lable>
+                      <label className="modalFormLable">Heading*</label>
                       <input
                         name="name"
                         rows="4"
@@ -626,7 +597,7 @@ export default function EditTestimonials({
                         style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setServicesName(e.target.value)}
                       ></input>
-                      <lable className="modalFormLable">Company Name</lable>
+                      <label className="modalFormLable">Company Name</label>
                       <input
                         name="name"
                         rows="4"
@@ -637,7 +608,7 @@ export default function EditTestimonials({
                         style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setCompanyName(e.target.value)}
                       ></input>
-                      <lable className="modalFormLable">Description*</lable>
+                      <label className="modalFormLable">Description*</label>
                       <CKEditor
                         editor={ClassicEditor}
                         config={{
@@ -708,7 +679,7 @@ export default function EditTestimonials({
         centered
         style={{ background: "rgba(0,0,0,0.7)" }}
       >
-        <Modal.Body>
+        <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
             <button
               type="button"
@@ -720,32 +691,21 @@ export default function EditTestimonials({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="response-area">
-            {messages.map((message, index) => {
-              return (
-                <div
-                  className={
-                    message.sender === "ChatGPT"
-                      ? "gpt-message message"
-                      : "user-message message d-none"
-                  }
-                  key={index}
-                >
-                  {Loading ? (
-                    "Loading please wait..."
-                  ) : (
-                    <p id="copyTEXT">{message.message}</p>
-                  )}
-                </div>
-              );
-            })}
+          {IsTyping ? (
+            <p className="ml-2">Loading...</p>
+          ) : (
+            <p className="ml-2">{suggestions}</p>
+          )}
+          {IsTyping ? (
+            ""
+          ) : (
             <button
               className="send-btnn mt-3"
-              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+              onClick={() => handleCopyMessage()}
             >
               Copy text
             </button>
-          </div>
+          )}
         </Modal.Body>
       </Modal>
 

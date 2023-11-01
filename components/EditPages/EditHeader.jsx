@@ -283,7 +283,6 @@ function EditHeader({
     }
   }, [croppedAreaPixels, rotation, image]);
 
-
   return (
     <>
       <Modal show={showModal} onHide={handleClose} centered>
@@ -651,25 +650,25 @@ function EditHeader({
             <li className="col-sm-6 col-12">
               <a
                 href={"mailto:" + Data?.card_email}
-                className="d-flex align-items-center justify-content-between"
+                className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
               >
                 <div className="align-div">
                   <FontAwesomeIcon
                     icon={faEnvelope}
-                    className="user-select-auto mr-2"
+                    className="user-select-auto mr-3"
                     style={{
                       fontSize: "15px",
                       transform: "rotateY(180deg)",
                     }}
                   />
-                  <a
+                  {/* <a
                     href={"mailto:" + Data?.card_email}
                     className="overhead_a text-dark text-decoration-none"
                     target="_blank"
                   >
-                    {" "}
-                    {Data && Data.card_email}
-                  </a>
+                    {" "} */}
+                  {Data && Data.card_email}
+                  {/* </a> */}
                 </div>
                 <FontAwesomeIcon
                   icon={faChevronRight}
@@ -684,24 +683,25 @@ function EditHeader({
               {Data?.card_contact !== null ? (
                 <a
                   href={"tel:" + Data?.card_contact}
-                  className="d-flex align-items-center justify-content-between"
+                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                  // style={{ marginLeft: "5px" }}
                 >
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faPhoneAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-3"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    <a
+                    {/* <a
                       href={"tel:" + Data?.card_contact}
                       className="overhead_a text-dark text-decoration-none"
                       style={{ marginLeft: "5px" }}
-                    >
-                      {Data && Data.card_contact}
-                    </a>
+                    > */}
+                    {Data && Data.card_contact}
+                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}
@@ -727,18 +727,18 @@ function EditHeader({
                       : "https://www.google.com/maps/place/" +
                         Data?.card_address
                   }
-                  className="d-flex align-items-center justify-content-between"
+                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                 >
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-4"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    <a
+                    {/* <a
                       href={
                         Data &&
                         Data?.card_address &&
@@ -751,9 +751,9 @@ function EditHeader({
                       target="_blank"
                       className="overhead_a text-dark text-decoration-none"
                       style={{ marginLeft: "9px" }}
-                    >
-                      {Data && Data?.card_address}
-                    </a>
+                    > */}
+                    {Data && Data?.card_address}
+                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}
@@ -802,18 +802,18 @@ function EditHeader({
                           ? Data.card_website
                           : Data.card_website
                       }
-                      className="d-flex align-items-center justify-content-between"
+                      className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                     >
                       <div className="align-div">
                         <FontAwesomeIcon
                           icon={faLink}
-                          className="user-select-auto mr-2"
+                          className="user-select-auto mr-3"
                           style={{
                             fontSize: "15px",
                             transform: "rotateY(180deg)",
                           }}
                         />
-                        <a
+                        {/* <a
                           href={
                             Data &&
                             Data?.card_website &&
@@ -825,14 +825,14 @@ function EditHeader({
                           target="_blank"
                           className="overhead_a text-dark text-decoration-none"
                           style={{ marginLeft: "2px" }}
-                        >
-                          {Data &&
-                          Data?.card_website &&
-                          (Data?.card_website?.includes("http://") ||
-                            Data?.card_website?.includes("https://"))
-                            ? Data.card_website
-                            : Data.card_website}
-                        </a>
+                        > */}
+                        {Data &&
+                        Data?.card_website &&
+                        (Data?.card_website?.includes("http://") ||
+                          Data?.card_website?.includes("https://"))
+                          ? Data.card_website
+                          : Data.card_website}
+                        {/* </a> */}
                       </div>
                       <FontAwesomeIcon
                         icon={faChevronRight}

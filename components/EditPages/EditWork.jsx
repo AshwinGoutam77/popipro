@@ -596,11 +596,11 @@ export default function EditWorks({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Add your video URL.
               <br />
               <span className="ml-2">*Please upload youtube urls only.</span>
-            </lable>
+            </label>
             <input
               type="text"
               name="url"

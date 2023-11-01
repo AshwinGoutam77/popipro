@@ -12,6 +12,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +23,7 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, LoadMoreApi, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import axios from "axios";
 
 export default function EditBlogs({
   APIDATA,
@@ -59,6 +61,9 @@ export default function EditBlogs({
   const handleShowBlog = () => setBlogShow(true);
   const handleEditShow = () => setShowEdit(true);
   const handleBlogShow = () => setBlogShow(true);
+  const [showChatModal, setShowshowChatModal] = useState(false);
+  const handleCloseshowChatModal = () => setShowshowChatModal(false);
+  const handleShowshowChatModal = () => setShowshowChatModal(true);
 
   useEffect(() => {
     setBlogName(TitleData?.card_blogs?.visible_name);
@@ -331,6 +336,75 @@ export default function EditBlogs({
     });
   };
 
+  // chatapi code
+
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [IsTyping, setIsTyping] = useState(false);
+  const apiKey = "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";
+  const handleButtonClick = async () => {
+    setIsTyping(true);
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: ServicesDescription,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+      setSuggestions(response.data.choices[0].message.content);
+      setIsTyping(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const handleChatModal = () => {
+    if (ServicesDescription == "") {
+      toast.error("please fill the detail to generate the data from ai", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    handleShowshowChatModal();
+    handleButtonClick();
+  };
+  const handleCopyMessage = () => {
+    toast.success("Message copied succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigator.clipboard.writeText(suggestions);
+    setShowshowChatModal(false);
+  };
+
   return (
     <>
       {/* Add More MODAL */}
@@ -385,7 +459,19 @@ export default function EditBlogs({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setBlogUrl(e.target.value)}
             ></input>
-            <lable className="modalFormLable">Description*</lable>
+            <div className="d-flex align-items-center justify-content-between">
+              <lable className="modalFormLable">Description*</lable>
+              <p
+                onClick={handleChatModal}
+                data-toggle={ServicesDescription ? "modal" : ""}
+                data-target="#chatapimodal"
+                className="cursor-pointer text-right"
+              >
+                Suggestion from ai{" "}
+                {/* <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" /> */}
+                <img src="../static/img/ai-stick.png" alt="stick" style={{width:'13%'}}/>
+              </p>
+            </div>
             <CKEditor
               editor={ClassicEditor}
               config={{
@@ -460,111 +546,107 @@ export default function EditBlogs({
         <Modal.Body>
           {AddMoreBlogs &&
             AddMoreBlogs?.map((items, i) => {
-              return (
-                <>
-                  {BlogModalId === items.id ? (
-                    <div>
-                      <input
-                        type="hidden"
-                        defaultValue={items.id}
-                        name="hiddenId"
-                        key={i}
-                      />
-                      <lable className="modalFormLable">
-                        Upload Image (*Recommended Size 347x160)
-                      </lable>
-                      <input
-                        type="file"
-                        name="image"
-                        className="form-control mb-4 p-1 mt-1"
-                        accept="image/png, image/gif, image/jpeg"
-                        style={{ border: "1px solid #ccc" }}
-                        // onChange={(evnt) => handleWhatImChange(i, evnt)}
-                        onChange={(e) => setImage(e.target.files[0])}
-                      />
-                      <lable className="modalFormLable">Heading*</lable>
-                      <input
-                        name="name"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        defaultValue={items.name || ""}
-                        placeholder="Heading"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        // onChange={(evnt) => handleWhatImChange(i, evnt)}
-                        onChange={(e) => setServicesName(e.target.value)}
-                      ></input>
-                      <lable className="modalFormLable">Url</lable>
-                      <input
-                        name="url"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        defaultValue={items.url || ""}
-                        placeholder="url"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        // onChange={(evnt) => handleWhatImChange(i, evnt)}
-                        onChange={(e) => setBlogUrl(e.target.value)}
-                      ></input>
-                      <lable className="modalFormLable">Description*</lable>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Heading",
-                            "Emoji",
-                          ],
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
-                                },
-                              },
+              return BlogModalId === items.id ? (
+                <div key={i}>
+                  <input
+                    type="hidden"
+                    defaultValue={items.id}
+                    name="hiddenId"
+                    key={i}
+                  />
+                  <lable className="modalFormLable">
+                    Upload Image (*Recommended Size 347x160)
+                  </lable>
+                  <input
+                    type="file"
+                    name="image"
+                    className="form-control mb-4 p-1 mt-1"
+                    accept="image/png, image/gif, image/jpeg"
+                    style={{ border: "1px solid #ccc" }}
+                    // onChange={(evnt) => handleWhatImChange(i, evnt)}
+                    onChange={(e) => setImage(e.target.files[0])}
+                  />
+                  <lable className="modalFormLable">Heading*</lable>
+                  <input
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    defaultValue={items.name || ""}
+                    placeholder="Heading"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    // onChange={(evnt) => handleWhatImChange(i, evnt)}
+                    onChange={(e) => setServicesName(e.target.value)}
+                  ></input>
+                  <lable className="modalFormLable">Url</lable>
+                  <input
+                    name="url"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    defaultValue={items.url || ""}
+                    placeholder="url"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    // onChange={(evnt) => handleWhatImChange(i, evnt)}
+                    onChange={(e) => setBlogUrl(e.target.value)}
+                  ></input>
+                  <lable className="modalFormLable">Description*</lable>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      removePlugins: [
+                        "EasyImage",
+                        "ImageUpload",
+                        "MediaEmbed",
+                        "Table",
+                        "TableToolbar",
+                        "Indent",
+                        "BlockQuote",
+                        "Heading",
+                        "Emoji",
+                      ],
+                      link: {
+                        decorators: {
+                          addTargetToExternalLinks: {
+                            mode: "automatic",
+                            callback: (url) => /^(https?:)?\/\//.test(url),
+                            attributes: {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
                             },
                           },
-                        }}
-                        data={ServicesDescription || ""}
-                        onReady={(editor) => {}}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setServicesDescription(data);
-                        }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
-                      />
-                      <div
-                        className="d-flex align-items-center mt-3"
-                        style={{ gap: "10px" }}
-                      >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveBlogDetail(items.id)}
-                        >
-                          Update
-                        </button>
-                        <button
-                          className="delete-button m-0"
-                          onClick={handleCanclebtn}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </>
+                        },
+                      },
+                    }}
+                    data={ServicesDescription || ""}
+                    onReady={(editor) => {}}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      setServicesDescription(data);
+                    }}
+                    onBlur={(event, editor) => {}}
+                    onFocus={(event, editor) => {}}
+                  />
+                  <div
+                    className="d-flex align-items-center mt-3"
+                    style={{ gap: "10px" }}
+                  >
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveBlogDetail(items.id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-button m-0"
+                      onClick={handleCanclebtn}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
               );
             })}
         </Modal.Body>
@@ -589,73 +671,107 @@ export default function EditBlogs({
         <Modal.Body>
           {AddMoreBlogs &&
             AddMoreBlogs?.map((item, index) => {
-              return (
-                <>
-                  {ModalId == item.id ? (
-                    <div
-                      className="modal-body"
-                      style={{ padding: "30px 25px" }}
+              return ModalId == item.id ? (
+                <div
+                  className="modal-body"
+                  key={index}
+                  style={{ padding: "30px 25px" }}
+                >
+                  <div>
+                    {item?.image?.path ? (
+                      <img
+                        className="coverr-modal lazyload"
+                        src={Data?.base_url + item?.image?.path}
+                        alt="blogs"
+                      />
+                    ) : (
+                      <img
+                        className="coverr-modal lazyload"
+                        src="../static/img/picture-1.jpg"
+                        alt="blogs"
+                      />
+                    )}
+                    <p
+                      className="mt-3 font-weight-bold mb-3"
+                      style={{ color: "black", fontSize: "14px" }}
                     >
-                      <div>
-                        {item?.image?.path ? (
-                          <img
-                            className="coverr-modal lazyload"
-                            src={Data?.base_url + item?.image?.path}
-                            alt="blogs"
-                          />
-                        ) : (
-                          <img
-                            className="coverr-modal lazyload"
-                            src="../static/img/picture-1.jpg"
-                            alt="blogs"
-                          />
-                        )}
-                        <p
-                          className="mt-3 font-weight-bold mb-3"
-                          style={{ color: "black", fontSize: "14px" }}
-                        >
-                          {item.name}
-                        </p>
-                        <p
-                          id="p_wrap"
-                          dangerouslySetInnerHTML={{
-                            __html: item.description,
+                      {item.name}
+                    </p>
+                    <p
+                      id="p_wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: item.description,
+                      }}
+                    ></p>
+                    {item.url !== "" ? (
+                      <a
+                        href={
+                          item?.url?.includes("http://") ||
+                          item?.url?.includes("https://")
+                            ? item?.url
+                            : "https://" + item?.url
+                        }
+                        target="_blank"
+                        className="mt-3 product-modal-btn mx-auto"
+                        style={{
+                          background: "var(--color)",
+                          width: "40%",
+                        }}
+                      >
+                        <i
+                          className="fa fa-link mr-2"
+                          style={{
+                            fontSize: "16px",
                           }}
-                        ></p>
-                        {item.url !== "" ? (
-                          <a
-                            href={
-                              item?.url?.includes("http://") ||
-                              item?.url?.includes("https://")
-                                ? item?.url
-                                : "https://" + item?.url
-                            }
-                            target="_blank"
-                            className="mt-3 product-modal-btn mx-auto"
-                            style={{
-                              background: "var(--color)",
-                              width: "40%",
-                            }}
-                          >
-                            <i
-                              className="fa fa-link mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i>
-                            Visit Site{" "}
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </>
+                        ></i>
+                        Visit Site{" "}
+                      </a>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              ) : (
+                ""
               );
             })}
+        </Modal.Body>
+      </Modal>
+
+      {/* ChatAPi Modal */}
+      <Modal
+        show={showChatModal}
+        onHide={() => handleCloseshowChatModal()}
+        centered
+        style={{ background: "rgba(0,0,0,0.7)" }}
+      >
+        <Modal.Body style={{ minHeight: "100px" }}>
+          <div className="text-right">
+            <button
+              type="button"
+              className="chat-modal-btn"
+              onClick={() => {
+                handleCloseshowChatModal();
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {IsTyping ? (
+            <p className="ml-2">Loading...</p>
+          ) : (
+            <p className="ml-2">{suggestions}</p>
+          )}
+          {IsTyping ? (
+            ""
+          ) : (
+            <button
+              className="send-btnn mt-3"
+              onClick={() => handleCopyMessage()}
+            >
+              Copy text
+            </button>
+          )}
         </Modal.Body>
       </Modal>
 
@@ -877,98 +993,96 @@ export default function EditBlogs({
                     {AddMoreBlogs &&
                       AddMoreBlogs.map((item, index, { length }) => {
                         return (
-                          <>
-                            <div key={index} className="blog-position col-lg-6">
-                              <div
-                                className={
-                                  index === 0
-                                    ? "flex-blog border-0 w-100 mt-0"
-                                    : "flex-blog border-0 w-100 mt-0"
-                                }
-                              >
-                                <div className="w-100">
-                                  {item?.image?.path ? (
-                                    <img
-                                      className="coverr lazyload"
-                                      src={Data?.base_url + item?.image?.path}
-                                      alt="blogs"
-                                    />
-                                  ) : (
-                                    <img
-                                      className="coverr lazyload"
-                                      src="../static/img/picture-1.jpg"
-                                      alt="blogs"
-                                    />
-                                  )}
-                                </div>
-                                <div className="content-div mt-3">
-                                  <h2 className="title title--h4 mt-2">
-                                    {item.name}
-                                  </h2>
-                                  <p
-                                    id="p_wrap"
-                                    dangerouslySetInnerHTML={{
-                                      __html: item.description,
+                          <div key={index} className="blog-position col-lg-6">
+                            <div
+                              className={
+                                index === 0
+                                  ? "flex-blog border-0 w-100 mt-0"
+                                  : "flex-blog border-0 w-100 mt-0"
+                              }
+                            >
+                              <div className="w-100">
+                                {item?.image?.path ? (
+                                  <img
+                                    className="coverr lazyload"
+                                    src={Data?.base_url + item?.image?.path}
+                                    alt="blogs"
+                                  />
+                                ) : (
+                                  <img
+                                    className="coverr lazyload"
+                                    src="../static/img/picture-1.jpg"
+                                    alt="blogs"
+                                  />
+                                )}
+                              </div>
+                              <div className="content-div mt-3">
+                                <h2 className="title title--h4 mt-2">
+                                  {item.name}
+                                </h2>
+                                <p
+                                  id="p_wrap"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                  }}
+                                  className="blogTextHeight mt-2"
+                                ></p>
+                                <div className="mt-2 d-flex align-items-center justify-content-end">
+                                  <span
+                                    style={{
+                                      fontSize: "13px",
+                                      cursor: "pointer",
                                     }}
-                                    className="blogTextHeight mt-2"
-                                  ></p>
-                                  <div className="mt-2 d-flex align-items-center justify-content-end">
-                                    <span
+                                    data-toggle="modal"
+                                    data-target="#BlogModal"
+                                    onClick={() => ShowModalID(item.id)}
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faArrowRight}
+                                      className="user-select-auto mr-2"
                                       style={{
-                                        fontSize: "13px",
-                                        cursor: "pointer",
+                                        fontSize: "19px",
+                                        color: "var(--color)",
                                       }}
-                                      data-toggle="modal"
-                                      data-target="#BlogModal"
-                                      onClick={() => ShowModalID(item.id)}
-                                    >
-                                      <FontAwesomeIcon
-                                        icon={faArrowRight}
-                                        className="user-select-auto mr-2"
-                                        style={{
-                                          fontSize: "19px",
-                                          color: "var(--color)",
-                                        }}
-                                      />
-                                    </span>
-                                  </div>
+                                    />
+                                  </span>
                                 </div>
                               </div>
-                              {TitleData?.card_blogs?.source == "2" &&
-                              PlanData?.is_expired == false &&
-                              PlanData?.subscription?.plan_id !== 1 ? (
-                                <div
-                                  className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
-                                  style={{ gap: "10px" }}
-                                >
-                                  <button
-                                    className="send-btnn m-0"
-                                    data-toggle="modal"
-                                    data-target="#EditBlogModal"
-                                    onClick={() =>
-                                      handleSetId(
-                                        item.id,
-                                        item.name,
-                                        item.description
-                                      )
-                                    }
-                                  >
-                                    Edit
-                                  </button>
-                                  <button
-                                    className="delete-button m-0"
-                                    onClick={() =>
-                                      handleDelteBlogs(item.id, 5, Data?.id)
-                                    }
-                                  >
-                                    Delete
-                                  </button>
-                                </div>
-                              ) : (
-                                ""
-                              )}
                             </div>
-                          </>
+                            {TitleData?.card_blogs?.source == "2" &&
+                            PlanData?.is_expired == false &&
+                            PlanData?.subscription?.plan_id !== 1 ? (
+                              <div
+                                className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
+                                style={{ gap: "10px" }}
+                              >
+                                <button
+                                  className="send-btnn m-0"
+                                  data-toggle="modal"
+                                  data-target="#EditBlogModal"
+                                  onClick={() =>
+                                    handleSetId(
+                                      item.id,
+                                      item.name,
+                                      item.description
+                                    )
+                                  }
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  className="delete-button m-0"
+                                  onClick={() =>
+                                    handleDelteBlogs(item.id, 5, Data?.id)
+                                  }
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </div>
                         );
                       })}
                   </div>

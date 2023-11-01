@@ -26,6 +26,8 @@ export default function Footer({ Data, card_url }) {
   let item;
   useEffect(() => {
     item = localStorage.getItem("url");
+    // console.log(item === null);
+    console.log("...",card_url === item);
   }, []);
   return (
     <>
@@ -54,20 +56,20 @@ export default function Footer({ Data, card_url }) {
               Get your PopiCard
             </Link>
           </button>
-          {card_url == item || item === null ? (
-            <Link href={"/edit/" + card_url}>
+          {/* {card_url !== item ? ( */}
+            <Link href={"/login"}>
               <button className="footer-btn text-white">
                 <span>Login to PopiCard</span>
               </button>
             </Link>
-          ) : (
+          {/* ) : (
             <button
               className="footer-btn text-white"
               onClick={HandleLogOutPopup}
             >
               <span>Login To PopiCard</span>
             </button>
-          )}
+          )} */}
         </div>
         <p className="m-0 mt-4 pb-3 text-center footer-copyright">
           Copyright © 2023 All Rights Reserved.

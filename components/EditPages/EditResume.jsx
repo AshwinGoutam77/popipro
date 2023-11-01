@@ -19,6 +19,7 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import axios from "axios";
 
 export default function EditResume({
   APIDATA,
@@ -171,7 +172,7 @@ export default function EditResume({
         if (response.data.status) {
           Swal.fire("Deleted!", "", "success");
           APIDATA();
-          handleEditExperience();
+          // handleEditExperience();
         }
       }
     });
@@ -300,89 +301,41 @@ export default function EditResume({
     });
   };
   // chatapi code
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      message: "",
-      sender: "ChatGPT",
-    },
-  ]);
-  const [Loading, setLoading] = useState(false);
 
-  const handleSend = async (event) => {
-    if (!ExpDescription) {
-      toast.error("Please fill the message to generate the data from ai", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    // event.preventDefault();
-    const newMessage = {
-      message: ExpDescription,
-      sender: "user",
-    };
-
-    const newMessages = [...messages, newMessage];
-
-    setMessages(newMessages);
-
-    setInput("");
-
-    await processMessageToChatGPT(newMessages);
-  };
-
-  async function processMessageToChatGPT(chatMessages) {
-    setLoading(true);
-    const API_KEY = "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";
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    const systemMessage = {
-      role: "system",
-      content: "Explain all concept like i am 10 year old",
-    };
-
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo-0613",
-      messages: [systemMessage, ...apiMessages],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((response) => {
-        return setLoading(false), response.json();
-      })
-      .then((data) => {
-        // console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [IsTyping, setIsTyping] = useState(false);
+  const apiKey = "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";
+  const handleButtonClick = async () => {
+    setIsTyping(true);
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: ExpDescription,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
           },
-        ]);
-      });
-  }
+        }
+      );
+      setSuggestions(response.data.choices[0].message.content);
+      setIsTyping(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
 
   const handleChatModal = () => {
     if (ExpDescription == "") {
@@ -399,7 +352,21 @@ export default function EditResume({
       return;
     }
     handleShowshowChatModal();
-    handleSend();
+    handleButtonClick();
+  };
+  const handleCopyMessage = () => {
+    toast.success("Message copied succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigator.clipboard.writeText(suggestions);
+    setShowshowChatModal(false);
   };
 
   return (
@@ -451,12 +418,13 @@ export default function EditResume({
                   onClick={handleChatModal}
                   data-toggle={ExpDescription ? "modal" : ""}
                   data-target="#chatapimodal"
-                  className="cursor-pointer"
+                  className="cursor-pointer text-right"
                 >
                   Suggestion from ai{" "}
-                  <FontAwesomeIcon
-                    icon={faWandMagicSparkles}
-                    className="ml-2"
+                  <img
+                    src="../static/img/ai-stick.png"
+                    alt="stick"
+                    style={{ width: "13%" }}
                   />
                 </p>
               </div>
@@ -531,99 +499,93 @@ export default function EditResume({
         <Modal.Body>
           {AddMoreExp &&
             AddMoreExp?.map((item, i) => {
-              return (
-                <>
-                  {ModalId === item.id ? (
-                    <div>
-                      <input
-                        type="hidden"
-                        defaultValue={item.id}
-                        name="hiddenId"
-                        key={i}
-                      />
-                      <lable className="modalFormLable">Title*</lable>
-                      <input
-                        name="designation"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1 border border-#ccc"
-                        placeholder="Title"
-                        defaultValue={item.designation}
-                        style={{ height: "40px" }}
-                        onChange={(evnt) =>
-                          setExpDesignation(evnt.target.value)
-                        }
-                      ></input>
-                      <lable className="modalFormLable">Steps</lable>
-                      <input
-                        name="years"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1 border border-#ccc"
-                        placeholder="Steps"
-                        defaultValue={item.years}
-                        style={{ height: "40px" }}
-                        onChange={(evnt) => setExpYears(evnt.target.value)}
-                      ></input>
-                      <lable className="modalFormLable">Description*</lable>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Heading",
-                            "Emoji",
-                          ],
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
-                                },
-                              },
+              return ModalId === item.id ? (
+                <div>
+                  <input
+                    type="hidden"
+                    defaultValue={item.id}
+                    name="hiddenId"
+                    key={i}
+                  />
+                  <lable className="modalFormLable">Title*</lable>
+                  <input
+                    name="designation"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 border border-#ccc"
+                    placeholder="Title"
+                    defaultValue={item.designation}
+                    style={{ height: "40px" }}
+                    onChange={(evnt) => setExpDesignation(evnt.target.value)}
+                  ></input>
+                  <lable className="modalFormLable">Steps</lable>
+                  <input
+                    name="years"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 border border-#ccc"
+                    placeholder="Steps"
+                    defaultValue={item.years}
+                    style={{ height: "40px" }}
+                    onChange={(evnt) => setExpYears(evnt.target.value)}
+                  ></input>
+                  <lable className="modalFormLable">Description*</lable>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      removePlugins: [
+                        "EasyImage",
+                        "ImageUpload",
+                        "MediaEmbed",
+                        "Table",
+                        "TableToolbar",
+                        "Indent",
+                        "BlockQuote",
+                        "Heading",
+                        "Emoji",
+                      ],
+                      link: {
+                        decorators: {
+                          addTargetToExternalLinks: {
+                            mode: "automatic",
+                            callback: (url) => /^(https?:)?\/\//.test(url),
+                            attributes: {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
                             },
                           },
-                        }}
-                        data={ExpDescription || ""}
-                        onReady={(editor) => {}}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setExpDescription(data);
-                        }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
-                      />
-                      <div
-                        className="d-flex align-items-center mt-3"
-                        style={{ gap: "10px" }}
-                      >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveExp(item.id)}
-                        >
-                          Update
-                        </button>
-                        <button
-                          className="delete-button m-0"
-                          onClick={handleCanclebtn}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </>
+                        },
+                      },
+                    }}
+                    data={ExpDescription || ""}
+                    onReady={(editor) => {}}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      setExpDescription(data);
+                    }}
+                    onBlur={(event, editor) => {}}
+                    onFocus={(event, editor) => {}}
+                  />
+                  <div
+                    className="d-flex align-items-center mt-3"
+                    style={{ gap: "10px" }}
+                  >
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveExp(item.id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-button m-0"
+                      onClick={handleCanclebtn}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
               );
             })}
         </Modal.Body>
@@ -636,7 +598,7 @@ export default function EditResume({
         centered
         style={{ background: "rgba(0,0,0,0.7)" }}
       >
-        <Modal.Body>
+        <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
             <button
               type="button"
@@ -648,32 +610,21 @@ export default function EditResume({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="response-area">
-            {messages.map((message, index) => {
-              return (
-                <div
-                  className={
-                    message.sender === "ChatGPT"
-                      ? "gpt-message message"
-                      : "user-message message d-none"
-                  }
-                  key={index}
-                >
-                  {Loading ? (
-                    "Loading please wait..."
-                  ) : (
-                    <p id="copyTEXT">{message.message}</p>
-                  )}
-                </div>
-              );
-            })}
+          {IsTyping ? (
+            <p className="ml-2">Loading...</p>
+          ) : (
+            <p className="ml-2">{suggestions}</p>
+          )}
+          {IsTyping ? (
+            ""
+          ) : (
             <button
               className="send-btnn mt-3"
-              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+              onClick={() => handleCopyMessage()}
             >
               Copy text
             </button>
-          </div>
+          )}
         </Modal.Body>
       </Modal>
 
