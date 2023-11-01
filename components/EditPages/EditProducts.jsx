@@ -31,6 +31,8 @@ import {
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import ChatbotApp from "./Chat";
+import axios from "axios";
+import SimpleBackdrop from "@components/SimpleBackDrop";
 
 export default function EditProducts({
   APIDATA,
@@ -97,7 +99,7 @@ export default function EditProducts({
     let mess = "";
     if (ServicesName === "") {
       error = true;
-      mess = ServicesName === "" ? "Product heading field is required" : "";
+      mess = ServicesName === "" ? "heading field is required" : "";
     } else {
       id !== null
         ? (data = [
@@ -161,6 +163,7 @@ export default function EditProducts({
         setServicesName("");
         setProductUrl("");
         setProductPrice("");
+        setAddLabel("");
         handleCanclebtn();
       }
     } catch (error) {
@@ -259,7 +262,8 @@ export default function EditProducts({
       }
     });
   };
-  const handleSetId = (id, name, description, price, url, currency) => {
+  const handleSetId = (id, name, description, price, url, currency, label) => {
+    console.log(url);
     handleEditShow();
     setProductModalId(id);
     setServicesName(name);
@@ -267,19 +271,20 @@ export default function EditProducts({
     setProductPrice(price);
     setProductUrl(url);
     setProductPriceValue(currency);
+    setAddLabel(label);
   };
   const HandleEmptyFeilds = () => {
-    // handleShow();
-    // aRef.current.value = null;
     setImage("");
     setServicesName("");
     setServicesDescription("");
     setProductPrice("");
     setProductUrl("");
+    setAddLabel("")
   };
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
+    HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -354,7 +359,7 @@ export default function EditProducts({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
   const handleRadioBTN = (e) => {
@@ -400,18 +405,45 @@ export default function EditProducts({
   };
 
   // chatapi code
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      message: "",
-      sender: "ChatGPT",
-    },
-  ]);
-  const [Loading, setLoading] = useState(false);
 
-  const handleSend = async (event) => {
-    if (!ServicesDescription) {
-      toast.error("Please fill the message to generate the data from ai", {
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [IsTyping, setIsTyping] = useState(false);
+  const apiKey = "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";
+  const handleButtonClick = async () => {
+    setIsTyping(true);
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: ServicesDescription,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+      setSuggestions(response.data.choices[0].message.content);
+      setIsTyping(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const handleChatModal = () => {
+    if (ServicesDescription == "") {
+      toast.error("please fill the detail to generate the data from ai", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -423,75 +455,28 @@ export default function EditProducts({
       });
       return;
     }
-    // event.preventDefault();
-    const newMessage = {
-      message: ServicesDescription,
-      sender: "user",
-    };
-
-    const newMessages = [...messages, newMessage];
-
-    setMessages(newMessages);
-
-    setInput("");
-
-    await processMessageToChatGPT(newMessages);
-  };
-
-  async function processMessageToChatGPT(chatMessages) {
-    setLoading(true);
-    const API_KEY = "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";
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    const systemMessage = {
-      role: "system",
-      content: "Explain all concept like i am 10 year old",
-    };
-
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo-0613",
-      messages: [systemMessage, ...apiMessages],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((response) => {
-        return setLoading(false), response.json();
-      })
-      .then((data) => {
-        // console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
-          },
-        ]);
-      });
-  }
-
-  const handleChatModal = () => {
     handleShowshowChatModal();
-    handleSend();
+    handleButtonClick();
+  };
+  const handleCopyMessage = () => {
+    toast.success("Message copied succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigator.clipboard.writeText(suggestions);
+    setShowshowChatModal(false);
   };
 
   return (
     <>
-      <Modal show={ShowProductModal} onHide={handleProductShow} centered>
+      <SimpleBackdrop visible={ShowLoader} />
+      <Modal show={ShowProductModal} onHide={handleProductClose} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -509,135 +494,130 @@ export default function EditProducts({
         <Modal.Body style={{ padding: "30px" }}>
           {AddMoreProduct &&
             AddMoreProduct?.map((item, index) => {
-              return (
-                <>
-                  {ModalId === item.id ? (
-                    <div>
-                      {item?.image?.path ? (
-                        <img
-                          className="coverr-modal lazyload"
-                          src={Data?.base_url + item?.image?.path}
-                          alt="product"
-                        />
-                      ) : (
-                        <img
-                          className="coverr lazyload"
-                          src="../static/img/picture-1.jpg"
-                          style={{ width: "100%", height: "190px" }}
-                          alt="product"
-                        />
-                      )}
-                      <div className="d-flex align-items-center justify-content-between">
-                        <span
-                          className="mt-3 mb-0 font-weight-bold"
-                          style={{ color: "black", fontSize: "14px" }}
-                        >
-                          {item.name}
-                        </span>
-                        {item.price !== "0" ? (
-                          <p
-                            className="mt-3 font-weight-bold"
-                            style={{ color: "var(--color)" }}
-                          >
-                            {item.currency} {item.price}
-                          </p>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <p
-                        id="p_wrap"
-                        className="review-item__caption text-left mt-1 mb-1"
-                        dangerouslySetInnerHTML={{
-                          __html: item.description,
-                        }}
-                      ></p>
-                      <div
-                        className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
-                        style={{ gap: "10px" }}
-                      >
-                        {item.url !== "" ? (
-                          <a
-                            href={
-                              item?.url?.includes("http://") ||
-                              item?.url?.includes("https://")
-                                ? item?.url
-                                : "https://" + item?.url
-                            }
-                            target="_blank"
-                            className="mt-1 product-modal-btn w-auto"
-                            style={{ background: "var(--color)" }}
-                            // onClick={() => handleHitClick()}
-                          >
-                            <i
-                              className="fa fa-link mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i>
-                            {Data?.id == "TrxF"
-                              ? "Watch Video"
-                              : item.button_placeholder
-                              ? item.button_placeholder
-                              : "Visit Site"}
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                        {MainData?.company_setting
-                          ?.show_product_enquiry_button == 0 ? (
-                          <a
-                            className="mt-1 product-modal-btn w-auto text-white d-block"
-                            style={{ background: "var(--color)" }}
-                            data-toggle="modal"
-                            data-target="#ProductEnquireModal"
-                          >
-                            <FontAwesomeIcon
-                              icon={faEnvelope}
-                              className="user-select-auto mr-2"
-                            />
-                            Enquire Now
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                        {MainData?.company_setting?.show_product_wp_button ==
-                        0 ? (
-                          <a
-                            href={
-                              "https://api.whatsapp.com/send?phone=" +
-                              Data?.card_contact +
-                              "&" +
-                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
-                            }
-                            target="_blank"
-                            className="mt-1 product-modal-btn w-auto d-block"
-                          >
-                            <img
-                              src="../static/img/whatsapp.png"
-                              style={{
-                                width: "23px",
-                                marginBottom: "1px",
-                              }}
-                            />
-                            Quick Connect
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
+              return ModalId === item.id ? (
+                <div key={index}>
+                  {item?.image?.path ? (
+                    <img
+                      className="coverr-modal lazyload"
+                      src={Data?.base_url + item?.image?.path}
+                      alt="product"
+                    />
                   ) : (
-                    ""
+                    <img
+                      className="coverr lazyload"
+                      src="../static/img/picture-1.jpg"
+                      style={{ width: "100%", height: "190px" }}
+                      alt="product"
+                    />
                   )}
-                </>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span
+                      className="mt-3 mb-0 font-weight-bold"
+                      style={{ color: "black", fontSize: "14px" }}
+                    >
+                      {item.name}
+                    </span>
+                    {item.price !== "0" ? (
+                      <p
+                        className="mt-3 font-weight-bold"
+                        style={{ color: "var(--color)" }}
+                      >
+                        {item.currency} {item.price}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <p
+                    id="p_wrap"
+                    className="review-item__caption text-left mt-1 mb-1"
+                    dangerouslySetInnerHTML={{
+                      __html: item.description,
+                    }}
+                  ></p>
+                  <div
+                    className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
+                    style={{ gap: "10px" }}
+                  >
+                    {item.url !== "" ? (
+                      <a
+                        href={
+                          item?.url?.includes("http://") ||
+                          item?.url?.includes("https://")
+                            ? item?.url
+                            : "https://" + item?.url
+                        }
+                        target="_blank"
+                        className="mt-1 product-modal-btn w-auto"
+                        style={{ background: "var(--color)" }}
+                        // onClick={() => handleHitClick()}
+                      >
+                        <i
+                          className="fa fa-link mr-2"
+                          style={{
+                            fontSize: "16px",
+                          }}
+                        ></i>
+                        {Data?.id == "TrxF"
+                          ? "Watch Video"
+                          : item.button_placeholder
+                          ? item.button_placeholder
+                          : "Visit Site"}
+                      </a>
+                    ) : (
+                      ""
+                    )}
+                    {MainData?.company_setting?.show_product_enquiry_button ==
+                    0 ? (
+                      <a
+                        className="mt-1 product-modal-btn w-auto text-white d-block"
+                        style={{ background: "var(--color)" }}
+                        data-toggle="modal"
+                        data-target="#ProductEnquireModal"
+                      >
+                        <FontAwesomeIcon
+                          icon={faEnvelope}
+                          className="user-select-auto mr-2"
+                        />
+                        Enquire Now
+                      </a>
+                    ) : (
+                      ""
+                    )}
+                    {MainData?.company_setting?.show_product_wp_button == 0 ? (
+                      <a
+                        href={
+                          "https://api.whatsapp.com/send?phone=" +
+                          Data?.card_contact +
+                          "&" +
+                          `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
+                        }
+                        target="_blank"
+                        className="mt-1 product-modal-btn w-auto d-block"
+                      >
+                        <img
+                          src="../static/img/whatsapp.png"
+                          style={{
+                            width: "23px",
+                            marginBottom: "1px",
+                          }}
+                        />
+                        Quick Connect
+                      </a>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              ) : (
+                ""
               );
             })}
         </Modal.Body>
       </Modal>
 
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -647,16 +627,16 @@ export default function EditProducts({
               Add {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
           <div className="">
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Upload Image (*Recommended Size 137x108)
-            </lable>
+            </label>
             <input
               type="file"
               name="image"
@@ -666,7 +646,7 @@ export default function EditProducts({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
-            <lable className="modalFormLable">Heading*</lable>
+            <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
@@ -704,7 +684,7 @@ export default function EditProducts({
 
             {PriceRadio ? (
               <div>
-                <lable className="modalFormLable">Price</lable>
+                <label className="modalFormLable">Price</label>
                 <div className="d-flex" style={{ gap: "10px" }}>
                   <select
                     style={{
@@ -719,11 +699,7 @@ export default function EditProducts({
                     <option value="">Select currency</option>
                     {Currency &&
                       Currency?.map((item, index) => {
-                        return (
-                          <>
-                            <option key={index}>{item}</option>
-                          </>
-                        );
+                        return <option key={index}>{item}</option>;
                       })}
                   </select>
                   <input
@@ -741,7 +717,7 @@ export default function EditProducts({
               </div>
             ) : (
               <div>
-                <lable className="modalFormLable">Text</lable>
+                <label className="modalFormLable">Text</label>
                 <input
                   type="text"
                   name="price"
@@ -761,7 +737,7 @@ export default function EditProducts({
               style={{ gap: "10px" }}
             >
               <div className="w-100">
-                <lable className="modalFormLable">Label for url / link</lable>
+                <label className="modalFormLable">Label for url / link</label>
                 <input
                   name="url"
                   rows="4"
@@ -774,7 +750,7 @@ export default function EditProducts({
                 ></input>
               </div>
               <div className="w-100">
-                <lable className="modalFormLable">Url / Links</lable>
+                <label className="modalFormLable">Url / Links</label>
                 <input
                   name="url"
                   rows="4"
@@ -788,14 +764,14 @@ export default function EditProducts({
               </div>
             </div>
             <div className="d-flex align-items-center justify-content-between">
-              <lable className="modalFormLable">Description*</lable>
+              <label className="modalFormLable">Description*</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
                 className="cursor-pointer"
               >
-                Suggestion from ai{" "}
+                Suggestion From AI{" "}
                 <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
               </p>
             </div>
@@ -854,7 +830,7 @@ export default function EditProducts({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -864,7 +840,7 @@ export default function EditProducts({
               Edit {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleEditClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -872,215 +848,205 @@ export default function EditProducts({
         <Modal.Body>
           {AddMoreProduct &&
             AddMoreProduct?.map((items, i) => {
-              return (
-                <>
-                  {ProductModalId === items.id ? (
-                    <div>
+              return ProductModalId === items.id ? (
+                <div key={i}>
+                  <input
+                    type="hidden"
+                    defaultValue={items.id}
+                    name="hiddenId"
+                    key={i}
+                  />
+                  <label className="modalFormLable">
+                    Update Image (*Recommended Size 137x108)
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    className="form-control mb-4 p-1 mt-1"
+                    accept="image/png, image/gif, image/jpeg"
+                    style={{ border: "1px solid #ccc" }}
+                    onChange={(e) => setImage(e.target.files[0])}
+                  />
+                  <label className="modalFormLable">Heading*</label>
+                  <input
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    defaultValue={items.name || ""}
+                    placeholder="Heading"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    onChange={(e) => setServicesName(e.target.value)}
+                  ></input>
+                  {isFinite(items.price) ? (
+                    <>
+                      <label className="modalFormLable">Price</label>
+                      <div className="d-flex" style={{ gap: "10px" }}>
+                        <select
+                          style={{
+                            height: "40px",
+                            padding: "6px 18px",
+                            background: "#f7f9fa",
+                            border: "1px solid #ccc",
+                          }}
+                          onChange={(e) => setProductPriceValue(e.target.value)}
+                          defaultValue={items.currency || ""}
+                          className="mt-1"
+                        >
+                          <option value="">Select currency</option>
+                          {Currency &&
+                            Currency?.map((item, index) => {
+                              return <option key={index}>{item}</option>;
+                            })}
+                        </select>
+                        <input
+                          type="number"
+                          name="price"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          defaultValue={items.price}
+                          placeholder="Price"
+                          style={{
+                            height: "40px",
+                            border: "1px solid #ccc",
+                          }}
+                          onChange={(e) => setProductPrice(e.target.value)}
+                        ></input>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        <label className="modalFormLable">Text</label>
+                        <input
+                          type="text"
+                          name="price"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          value={ProductPrice}
+                          placeholder="Text"
+                          style={{
+                            height: "40px",
+                            border: "1px solid #ccc",
+                          }}
+                          onChange={(e) => setProductPrice(e.target.value)}
+                          maxlength="12"
+                        ></input>
+                      </div>
+                    </>
+                  )}
+                  <div
+                    className="d-flex align-items-center w-100"
+                    style={{ gap: "10px" }}
+                  >
+                    <div className="w-100">
+                      <label className="modalFormLable">
+                        Label for url / link
+                      </label>
                       <input
-                        type="hidden"
-                        defaultValue={items.id}
-                        name="hiddenId"
-                        key={i}
-                      />
-                      <lable className="modalFormLable">
-                        Update Image (*Recommended Size 137x108)
-                      </lable>
-                      <input
-                        type="file"
-                        name="image"
-                        className="form-control mb-4 p-1 mt-1"
-                        accept="image/png, image/gif, image/jpeg"
-                        style={{ border: "1px solid #ccc" }}
-                        onChange={(e) => setImage(e.target.files[0])}
-                      />
-                      <lable className="modalFormLable">Heading*</lable>
-                      <input
-                        name="name"
+                        name="url"
                         rows="4"
                         cols="50"
                         className="form-control mb-4 mt-1"
-                        defaultValue={items.name || ""}
-                        placeholder="Heading"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        onChange={(e) => setServicesName(e.target.value)}
-                      ></input>
-                      {isFinite(items.price) ? (
-                        <>
-                          <lable className="modalFormLable">Price</lable>
-                          <div className="d-flex" style={{ gap: "10px" }}>
-                            <select
-                              style={{
-                                height: "40px",
-                                padding: "6px 18px",
-                                background: "#f7f9fa",
-                                border: "1px solid #ccc",
-                              }}
-                              onChange={(e) =>
-                                setProductPriceValue(e.target.value)
-                              }
-                              defaultValue={items.currency || ""}
-                              className="mt-1"
-                            >
-                              <option value="">Select currency</option>
-                              {Currency &&
-                                Currency?.map((item, index) => {
-                                  return (
-                                    <>
-                                      <option key={index}>{item}</option>
-                                    </>
-                                  );
-                                })}
-                            </select>
-                            <input
-                              type="number"
-                              name="price"
-                              rows="4"
-                              cols="50"
-                              className="form-control mb-4 mt-1"
-                              defaultValue={items.price}
-                              placeholder="Price"
-                              style={{
-                                height: "40px",
-                                border: "1px solid #ccc",
-                              }}
-                              onChange={(e) => setProductPrice(e.target.value)}
-                            ></input>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div>
-                            <lable className="modalFormLable">Text</lable>
-                            <input
-                              type="text"
-                              name="price"
-                              rows="4"
-                              cols="50"
-                              className="form-control mb-4 mt-1"
-                              value={ProductPrice}
-                              placeholder="Text"
-                              style={{
-                                height: "40px",
-                                border: "1px solid #ccc",
-                              }}
-                              onChange={(e) => setProductPrice(e.target.value)}
-                              maxlength="12"
-                            ></input>
-                          </div>
-                        </>
-                      )}
-                      <div
-                        className="d-flex align-items-center w-100"
-                        style={{ gap: "10px" }}
-                      >
-                        <div className="w-100">
-                          <lable className="modalFormLable">
-                            Label for url / link
-                          </lable>
-                          <input
-                            name="url"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1"
-                            value={AddLabel}
-                            placeholder="Label"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setAddLabel(e.target.value)}
-                          ></input>
-                        </div>
-                        <div className="w-100">
-                          <lable className="modalFormLable">Url / Links</lable>
-                          <input
-                            name="url"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1 w-100"
-                            value={ProductUrl}
-                            placeholder="Url"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setProductUrl(e.target.value)}
-                          ></input>
-                        </div>
-                      </div>
-                      <div
-                        className="d-flex align-items-center justify-content-between"
-                        onClick={() => {
-                          console.log("abc");
-                          setModalShow("chatApi");
+                        value={AddLabel}
+                        placeholder="Label"
+                        style={{
+                          height: "40px",
+                          border: "1px solid #ccc",
                         }}
-                      >
-                        <lable className="modalFormLable">Description*</lable>
-                        {/* <ChatbotApp
+                        onChange={(e) => setAddLabel(e.target.value)}
+                      ></input>
+                    </div>
+                    <div className="w-100">
+                      <label className="modalFormLable">Url / Links</label>
+                      <input
+                        name="url"
+                        rows="4"
+                        cols="50"
+                        className="form-control mb-4 mt-1 w-100"
+                        value={ProductUrl}
+                        placeholder="Url"
+                        style={{
+                          height: "40px",
+                          border: "1px solid #ccc",
+                        }}
+                        onChange={(e) => setProductUrl(e.target.value)}
+                      ></input>
+                    </div>
+                  </div>
+                  <div
+                    className="d-flex align-items-center justify-content-between"
+                    onClick={() => {
+                      console.log("abc");
+                      setModalShow("chatApi");
+                    }}
+                  >
+                    <label className="modalFormLable">Description*</label>
+                    {/* <ChatbotApp
                           ServicesDescription={ServicesDescription}
                           setServicesDescription={setServicesDescription}
                           active={modalShow == "chatApi" ? true : false}
                           handleCloseModal={() => setModalShow(false)}
                         /> */}
-                      </div>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Heading",
-                            "Emoji",
-                          ],
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
-                                },
-                              },
+                  </div>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      removePlugins: [
+                        "EasyImage",
+                        "ImageUpload",
+                        "MediaEmbed",
+                        "Table",
+                        "TableToolbar",
+                        "Indent",
+                        "BlockQuote",
+                        "Heading",
+                        "Emoji",
+                      ],
+                      link: {
+                        decorators: {
+                          addTargetToExternalLinks: {
+                            mode: "automatic",
+                            callback: (url) => /^(https?:)?\/\//.test(url),
+                            attributes: {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
                             },
                           },
-                        }}
-                        data={ServicesDescription || ""}
-                        onReady={(editor) => {}}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setServicesDescription(data);
-                        }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
-                      />
-                      <div
-                        className="d-flex align-items-center mt-3"
-                        style={{ gap: "10px" }}
-                      >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveBlogDetail(items.id)}
-                        >
-                          Update
-                        </button>
-                        <button
-                          className="delete-button m-0"
-                          onClick={handleCanclebtn}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </>
+                        },
+                      },
+                    }}
+                    data={ServicesDescription || ""}
+                    onReady={(editor) => {}}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      setServicesDescription(data);
+                    }}
+                    onBlur={(event, editor) => {}}
+                    onFocus={(event, editor) => {}}
+                  />
+                  <div
+                    className="d-flex align-items-center mt-3"
+                    style={{ gap: "10px" }}
+                  >
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveBlogDetail(items.id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-button m-0"
+                      onClick={handleCanclebtn}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
               );
             })}
         </Modal.Body>
@@ -1093,7 +1059,7 @@ export default function EditProducts({
         centered
         style={{ background: "rgba(0,0,0,0.7)" }}
       >
-        <Modal.Body>
+        <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
             <button
               type="button"
@@ -1105,32 +1071,21 @@ export default function EditProducts({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="response-area">
-            {messages.map((message, index) => {
-              return (
-                <div
-                  className={
-                    message.sender === "ChatGPT"
-                      ? "gpt-message message"
-                      : "user-message message d-none"
-                  }
-                  key={index}
-                >
-                  {Loading ? (
-                    "Loading please wait..."
-                  ) : (
-                    <p id="copyTEXT">{message.message}</p>
-                  )}
-                </div>
-              );
-            })}
+          {IsTyping ? (
+            <p className="ml-2">Loading...</p>
+          ) : (
+            <p className="ml-2">{suggestions}</p>
+          )}
+          {IsTyping ? (
+            ""
+          ) : (
             <button
               className="send-btnn mt-3"
-              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+              onClick={() => handleCopyMessage()}
             >
               Copy text
             </button>
-          </div>
+          )}
         </Modal.Body>
       </Modal>
 
@@ -1355,7 +1310,7 @@ export default function EditProducts({
                                 }}
                               ></p>
                               <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
-                                {items.price !== 0 ? (
+                                {items.price !== 0 && items.price !== "" ? (
                                   <span className="product-price">
                                     {items.currency} {items.price}
                                   </span>
@@ -1464,7 +1419,8 @@ export default function EditProducts({
                                     items.description,
                                     items.price,
                                     items.url,
-                                    items.currency
+                                    items.currency,
+                                    items.button_placeholder
                                   )
                                 }
                               >
@@ -1492,6 +1448,7 @@ export default function EditProducts({
                     <div className="d-flex align-items-start">
                       <input
                         type="checkbox"
+                        id="product-whatsaap"
                         className="mt-1"
                         value={
                           MainData?.company_setting?.show_product_wp_button ===
@@ -1506,13 +1463,17 @@ export default function EditProducts({
                             : false
                         }
                       />
-                      <p className="ml-2 Varcolor font-weight-bold">
+                      <label
+                        for="product-whatsaap"
+                        className="ml-2 Varcolor font-weight-bold"
+                      >
                         Via whatsaap only?
-                      </p>
+                      </label>
                     </div>
                     <div className="d-flex align-items-start">
                       <input
                         type="checkbox"
+                        id="product-enq"
                         className="mt-1"
                         value={
                           MainData?.company_setting
@@ -1528,9 +1489,12 @@ export default function EditProducts({
                             : false
                         }
                       />
-                      <p className="ml-2 Varcolor font-weight-bold">
+                      <label
+                        for="product-enq"
+                        className="ml-2 Varcolor font-weight-bold"
+                      >
                         Via inquiry form?
-                      </p>
+                      </label>
                     </div>
                   </div>
                 </div>

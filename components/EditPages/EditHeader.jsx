@@ -50,7 +50,7 @@ function EditHeader({
   const [WhatsaapNumber, setWhatsaapNumber] = useState("");
   const [TrustPilot, setTrustPilot] = useState("");
   const [image, setImage] = useState(null);
-
+  const [CountryCode, setCountryCode] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -256,6 +256,7 @@ function EditHeader({
       setEmail(response.data.data.card.card_email);
       setProfession(response.data.data.card.card_profession);
       setPhone(response.data.data.card.card_contact);
+      setCountryCode(response.data.data.card.contact_country_code);
       setAddress(response.data.data.card.card_address);
       setGoogleReview(response.data.data.card.card_google_review);
       setWebUrl(response.data.data.card.card_website);
@@ -282,7 +283,6 @@ function EditHeader({
       console.error(e);
     }
   }, [croppedAreaPixels, rotation, image]);
-
 
   return (
     <>
@@ -346,7 +346,7 @@ function EditHeader({
             />
           </div>
           <div className="mt-3">
-            {TitleData?.card_website?.source !== 1 ? (
+            {TitleData?.card_profession?.source == 2 ? (
               <div className="mt-2 w-100">
                 <span className="overhead text-left">Profession</span>
                 <input
@@ -413,7 +413,9 @@ function EditHeader({
                   type="number"
                   placeholder="Phone number"
                   onChange={(e) => setPhone(e.target.value)}
-                  defaultValue={Phone || ""}
+                  defaultValue={
+                    CountryCode !== "" ? CountryCode + "-" + Phone : Phone || ""
+                  }
                   className="email-input"
                 />
               </>
@@ -424,7 +426,11 @@ function EditHeader({
                   type="text"
                   placeholder="Phone number"
                   onChange={(e) => setPhone(e.target.value)}
-                  defaultValue={Phone || ""}
+                  defaultValue={
+                    CountryCode !== ""
+                      ? CountryCode + "-" + Phone
+                      : Phone || "" || ""
+                  }
                   className="email-input"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
@@ -520,7 +526,7 @@ function EditHeader({
             )}
           </div>
           <div className="mt-3">
-            {TitleData?.card_website?.source !== 1 &&
+            {TitleData?.card_google_review?.source !== 1 &&
             PlanData?.subscription?.plan_id !== 1 &&
             PlanData?.is_expired == false ? (
               <>
@@ -549,7 +555,7 @@ function EditHeader({
             )}
           </div>
           <div className="mt-3 mb-3">
-            {TitleData?.card_website?.source !== 1 &&
+            {TitleData?.card_trustpilot?.source !== 1 &&
             PlanData?.subscription?.plan_id !== 1 &&
             PlanData?.is_expired == false ? (
               <>
@@ -651,25 +657,25 @@ function EditHeader({
             <li className="col-sm-6 col-12">
               <a
                 href={"mailto:" + Data?.card_email}
-                className="d-flex align-items-center justify-content-between"
+                className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
               >
                 <div className="align-div">
                   <FontAwesomeIcon
                     icon={faEnvelope}
-                    className="user-select-auto mr-2"
+                    className="user-select-auto mr-3"
                     style={{
                       fontSize: "15px",
                       transform: "rotateY(180deg)",
                     }}
                   />
-                  <a
+                  {/* <a
                     href={"mailto:" + Data?.card_email}
                     className="overhead_a text-dark text-decoration-none"
                     target="_blank"
                   >
-                    {" "}
-                    {Data && Data.card_email}
-                  </a>
+                    {" "} */}
+                  {Data && Data.card_email}
+                  {/* </a> */}
                 </div>
                 <FontAwesomeIcon
                   icon={faChevronRight}
@@ -684,24 +690,27 @@ function EditHeader({
               {Data?.card_contact !== null ? (
                 <a
                   href={"tel:" + Data?.card_contact}
-                  className="d-flex align-items-center justify-content-between"
+                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                  // style={{ marginLeft: "5px" }}
                 >
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faPhoneAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-3"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    <a
+                    {/* <a
                       href={"tel:" + Data?.card_contact}
                       className="overhead_a text-dark text-decoration-none"
                       style={{ marginLeft: "5px" }}
-                    >
-                      {Data && Data.card_contact}
-                    </a>
+                    > */}
+                    {Data && Data.contact_country_code
+                      ? Data?.contact_country_code + "-" + Data?.card_contact
+                      : Data?.card_contact}
+                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}
@@ -727,18 +736,18 @@ function EditHeader({
                       : "https://www.google.com/maps/place/" +
                         Data?.card_address
                   }
-                  className="d-flex align-items-center justify-content-between"
+                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                 >
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-3"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    <a
+                    {/* <a
                       href={
                         Data &&
                         Data?.card_address &&
@@ -751,9 +760,9 @@ function EditHeader({
                       target="_blank"
                       className="overhead_a text-dark text-decoration-none"
                       style={{ marginLeft: "9px" }}
-                    >
-                      {Data && Data?.card_address}
-                    </a>
+                    > */}
+                    {Data && Data?.card_address}
+                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}
@@ -802,18 +811,19 @@ function EditHeader({
                           ? Data.card_website
                           : Data.card_website
                       }
-                      className="d-flex align-items-center justify-content-between"
+                      className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                     >
                       <div className="align-div">
                         <FontAwesomeIcon
                           icon={faLink}
-                          className="user-select-auto mr-2"
+                          className="user-select-auto"
                           style={{
                             fontSize: "15px",
                             transform: "rotateY(180deg)",
+                            marginRight:'10px'
                           }}
                         />
-                        <a
+                        {/* <a
                           href={
                             Data &&
                             Data?.card_website &&
@@ -825,14 +835,14 @@ function EditHeader({
                           target="_blank"
                           className="overhead_a text-dark text-decoration-none"
                           style={{ marginLeft: "2px" }}
-                        >
-                          {Data &&
-                          Data?.card_website &&
-                          (Data?.card_website?.includes("http://") ||
-                            Data?.card_website?.includes("https://"))
-                            ? Data.card_website
-                            : Data.card_website}
-                        </a>
+                        > */}
+                        {Data &&
+                        Data?.card_website &&
+                        (Data?.card_website?.includes("http://") ||
+                          Data?.card_website?.includes("https://"))
+                          ? Data.card_website
+                          : Data.card_website}
+                        {/* </a> */}
                       </div>
                       <FontAwesomeIcon
                         icon={faChevronRight}

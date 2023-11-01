@@ -56,6 +56,7 @@ export default function EditCustomLink({
     handleEditClose();
     setLinkLabel("");
     setLinkName("");
+    setLinkLabel("");
   };
 
   const handleSaveDetails = async (id = null) => {
@@ -66,7 +67,7 @@ export default function EditCustomLink({
     // BlogFeild.map(async (o, i) => {
     if (LinkLabel == "" || LinkName == "") {
       error = true;
-      mess = LinkLabel == "" ? "Lable is required" : "Link is required";
+      mess = LinkLabel == "" ? "label is required" : "Link is required";
     } else {
       id !== null
         ? (custom_urls = [
@@ -274,13 +275,13 @@ export default function EditCustomLink({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -297,7 +298,7 @@ export default function EditCustomLink({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">Label</lable>
+            <label className="modalFormLable">Label</label>
             <input
               type="text"
               name="number"
@@ -311,7 +312,7 @@ export default function EditCustomLink({
             ></input>
           </div>
           <div>
-            <lable className="modalFormLable">Link</lable>
+            <label className="modalFormLable">Link</label>
             <input
               type="text"
               name="number"
@@ -325,7 +326,7 @@ export default function EditCustomLink({
             ></input>
           </div>
           <div>
-            <lable className="modalFormLable">Tags (Max-word limit 10)</lable>
+            <label className="modalFormLable">Tags (Max-word limit 10)</label>
             <input
               type="text"
               name="number"
@@ -354,7 +355,7 @@ export default function EditCustomLink({
       </Modal>
 
       {/* Edit Model */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -371,74 +372,70 @@ export default function EditCustomLink({
         </Modal.Header>
         <Modal.Body>
           {Data?.card_custom_url?.map((item, index) => {
-            return (
-              <>
-                {ModalId === item.id ? (
-                  <div key={index}>
-                    <div>
-                      <lable className="modalFormLable">Label</lable>
-                      <input
-                        type="text"
-                        name="number"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        value={LinkLabel}
-                        placeholder="Enter label"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        onChange={(e) => setLinkLabel(e.target.value)}
-                      ></input>
-                    </div>
-                    <div>
-                      <lable className="modalFormLable">Link</lable>
-                      <input
-                        type="text"
-                        name="number"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        value={LinkName}
-                        placeholder="Enter Link"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        onChange={(e) => setLinkName(e.target.value)}
-                      ></input>
-                    </div>
-                    <div>
-                      <lable className="modalFormLable">Tags</lable>
-                      <input
-                        type="text"
-                        name="number"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        value={Tags}
-                        placeholder="Enter Tags"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
-                        onChange={(e) => setTags(e.target.value)}
-                      ></input>
-                    </div>
-                    <div
-                      className="d-flex align-items-center mt-3"
-                      style={{ gap: "10px" }}
-                    >
-                      <button
-                        className="send-btnn"
-                        onClick={() => handleSaveDetails(item.id)}
-                      >
-                        Save
-                      </button>
-                      <button
-                        className="delete-button m-0"
-                        onClick={handleCanclebtn}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </>
+            return ModalId === item.id ? (
+              <div key={index}>
+                <div>
+                  <label className="modalFormLable">Label</label>
+                  <input
+                    type="text"
+                    name="number"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={LinkLabel}
+                    placeholder="Enter label"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    onChange={(e) => setLinkLabel(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  <label className="modalFormLable">Link</label>
+                  <input
+                    type="text"
+                    name="number"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={LinkName}
+                    placeholder="Enter Link"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    onChange={(e) => setLinkName(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  <label className="modalFormLable">Tags</label>
+                  <input
+                    type="text"
+                    name="number"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={Tags}
+                    placeholder="Enter Tags"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    onChange={(e) => setTags(e.target.value)}
+                  ></input>
+                </div>
+                <div
+                  className="d-flex align-items-center mt-3"
+                  style={{ gap: "10px" }}
+                >
+                  <button
+                    className="send-btnn"
+                    onClick={() => handleSaveDetails(item.id)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="delete-button m-0"
+                    onClick={handleCanclebtn}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
             );
           })}
         </Modal.Body>
@@ -547,100 +544,93 @@ export default function EditCustomLink({
           <div>
             {Data?.card_custom_url?.map((item, index) => {
               return (
-                <>
-                  <div className="alternate-number-div" key={index}>
-                    {TitleData?.card_custom_url?.source == "2" &&
+                <div className="alternate-number-div" key={index}>
+                  {TitleData?.card_custom_url?.source == "2" &&
+                  PlanData?.is_expired == false &&
+                  PlanData?.subscription?.plan_id !== 1 ? (
+                    <FontAwesomeIcon
+                      icon={faXmarkCircle}
+                      className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
+                      style={{
+                        top: "0",
+                        right: "0",
+                        cursor: "pointer",
+                        color: "var(--color)",
+                        fontSize: "20px",
+                        zIndex: "1",
+                        background: "white",
+                      }}
+                      onClick={() => handleDeleteNumber(item.id, 8, Data?.id)}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <div
+                    className="d-flex align-items-center justify-content-between mt-1 mb-1"
+                    key={index}
+                  >
+                    <a
+                      href={
+                        item &&
+                        item.link &&
+                        (item.link?.includes("http://") ||
+                          item.link?.includes("https://"))
+                          ? item.link
+                          : "https://" + item.link
+                      }
+                      target="_blank"
+                    >
+                      <div className="d-flex align-items-center position-relative">
+                        <FontAwesomeIcon
+                          icon={faLink}
+                          className="pe-auto Iconcolor-black"
+                          style={{ fontSize: "15px" }}
+                        />
+                        <a
+                          href={
+                            item &&
+                            item.link &&
+                            (item.link?.includes("http://") ||
+                              item.link?.includes("https://"))
+                              ? item.link
+                              : "https://" + item.link
+                          }
+                          target="_blank"
+                          className="ml-3 font-weight-bold"
+                          style={{ color: "black" }}
+                        >
+                          {item.title}
+                          <span
+                            class="badge badge-pill badge-warning ml-2"
+                            style={{ top: "-15px", right: "0" }}
+                          >
+                            {item.tag}
+                          </span>
+                        </a>
+                      </div>
+                    </a>
+                    {TitleData?.card_services?.source == "2" &&
                     PlanData?.is_expired == false &&
                     PlanData?.subscription?.plan_id !== 1 ? (
                       <FontAwesomeIcon
-                        icon={faXmarkCircle}
-                        className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
+                        data-toggle="modal"
+                        data-target="#CustomLinkModalEdit"
+                        icon={faPencil}
+                        className="pe-auto cursor-pointer"
                         style={{
-                          top: "0",
-                          right: "0",
-                          cursor: "pointer",
+                          fontSize: "15px",
                           color: "var(--color)",
-                          fontSize: "20px",
-                          zIndex: "1",
-                          background: "white",
+                          marginRight: "35px",
                         }}
-                        onClick={() => handleDeleteNumber(item.id, 8, Data?.id)}
+                        onClick={() =>
+                          handleSetId(item.id, item.title, item.link, item.tag)
+                        }
                       />
                     ) : (
                       ""
                     )}
-                    <div
-                      className="d-flex align-items-center justify-content-between mt-1 mb-1"
-                      key={index}
-                    >
-                      <a
-                        href={
-                          item &&
-                          item.link &&
-                          (item.link?.includes("http://") ||
-                            item.link?.includes("https://"))
-                            ? item.link
-                            : "https://" + item.link
-                        }
-                        target="_blank"
-                      >
-                        <div className="d-flex align-items-center position-relative">
-                          <FontAwesomeIcon
-                            icon={faLink}
-                            className="pe-auto Iconcolor-black"
-                            style={{ fontSize: "15px" }}
-                          />
-                          <a
-                            href={
-                              item &&
-                              item.link &&
-                              (item.link?.includes("http://") ||
-                                item.link?.includes("https://"))
-                                ? item.link
-                                : "https://" + item.link
-                            }
-                            target="_blank"
-                            className="ml-3 font-weight-bold"
-                            style={{ color: "black" }}
-                          >
-                            {item.title}
-                            <span
-                              class="badge badge-pill badge-warning ml-2"
-                              style={{ top: "-15px", right: "0" }}
-                            >
-                              {item.tag}
-                            </span>
-                          </a>
-                        </div>
-                      </a>
-                      {TitleData?.card_services?.source == "2" &&
-                      PlanData?.is_expired == false &&
-                      PlanData?.subscription?.plan_id !== 1 ? (
-                        <FontAwesomeIcon
-                          data-toggle="modal"
-                          data-target="#CustomLinkModalEdit"
-                          icon={faPencil}
-                          className="pe-auto cursor-pointer"
-                          style={{
-                            fontSize: "15px",
-                            color: "var(--color)",
-                            marginRight: "35px",
-                          }}
-                          onClick={() =>
-                            handleSetId(
-                              item.id,
-                              item.title,
-                              item.link,
-                              item.tag
-                            )
-                          }
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>

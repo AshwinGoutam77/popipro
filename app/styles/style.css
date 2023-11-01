@@ -2075,8 +2075,8 @@ button:focus {
   background: #ebf0f2;
   border-radius: 1rem;
   opacity: 1;
-  height: 0.625rem;
-  width: 0.625rem;
+  width: 8px !important;
+  height: 8px !important;
   transition: width 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 

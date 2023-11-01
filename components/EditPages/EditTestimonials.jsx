@@ -23,7 +23,10 @@ import Modal from "react-bootstrap/Modal";
 import { CardData, TestimonialButton, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
-import ChatbotApp from "./Chat";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import axios from "axios";
 
 export default function EditTestimonials({
   TitleData,
@@ -267,6 +270,7 @@ export default function EditTestimonials({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
+    HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -320,7 +324,7 @@ export default function EditTestimonials({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
   const handleGetReview = async (e) => {
@@ -354,18 +358,45 @@ export default function EditTestimonials({
   };
 
   // chatapi code
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      message: "",
-      sender: "ChatGPT",
-    },
-  ]);
-  const [Loading, setLoading] = useState(false);
 
-  const handleSend = async (event) => {
-    if (!ServicesDescription) {
-      toast.error("Please fill the message to generate the data from ai", {
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [IsTyping, setIsTyping] = useState(false);
+  const apiKey = "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";
+  const handleButtonClick = async () => {
+    setIsTyping(true);
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: ServicesDescription,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+      setSuggestions(response.data.choices[0].message.content);
+      setIsTyping(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const handleChatModal = () => {
+    if (ServicesDescription == "") {
+      toast.error("please fill the detail to generate the data from ai", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -377,76 +408,28 @@ export default function EditTestimonials({
       });
       return;
     }
-    // event.preventDefault();
-    const newMessage = {
-      message: ServicesDescription,
-      sender: "user",
-    };
-
-    const newMessages = [...messages, newMessage];
-
-    setMessages(newMessages);
-
-    setInput("");
-
-    await processMessageToChatGPT(newMessages);
-  };
-
-  async function processMessageToChatGPT(chatMessages) {
-    setLoading(true);
-    const API_KEY = "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";
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    const systemMessage = {
-      role: "system",
-      content: "Explain all concept like i am 10 year old",
-    };
-
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo-0613",
-      messages: [systemMessage, ...apiMessages],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((response) => {
-        return setLoading(false), response.json();
-      })
-      .then((data) => {
-        // console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
-          },
-        ]);
-      });
-  }
-
-  const handleChatModal = () => {
     handleShowshowChatModal();
-    handleSend();
+    handleButtonClick();
+  };
+  const handleCopyMessage = () => {
+    toast.success("Message copied succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigator.clipboard.writeText(suggestions);
+    setShowshowChatModal(false);
   };
 
   return (
     <>
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -463,9 +446,9 @@ export default function EditTestimonials({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <lable className="modalFormLable">
+            <label className="modalFormLable">
               Upload Image (*Prefered size in ration of 100x100)
-            </lable>
+            </label>
             <input
               type="file"
               name="image"
@@ -475,7 +458,7 @@ export default function EditTestimonials({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
-            <lable className="modalFormLable">Heading*</lable>
+            <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
@@ -486,7 +469,7 @@ export default function EditTestimonials({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
-            <lable className="modalFormLable">Company Name</lable>
+            <label className="modalFormLable">Company Name</label>
             <input
               name="name"
               rows="4"
@@ -498,15 +481,19 @@ export default function EditTestimonials({
               onChange={(e) => setCompanyName(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
-              <lable className="modalFormLable">Description*</lable>
+              <label className="modalFormLable">Description*</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
-                className="cursor-pointer"
+                className="cursor-pointer text-right"
               >
-                Suggestion from ai{" "}
-                <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
+                Suggestion From AI{" "}
+                <img
+                  src="../static/img/ai-stick.png"
+                  alt="stick"
+                  style={{ width: "13%" }}
+                />
               </p>
             </div>
             <CKEditor
@@ -561,7 +548,7 @@ export default function EditTestimonials({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleEditClose} centered>
+      <Modal show={showEdit} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -589,9 +576,9 @@ export default function EditTestimonials({
                         name="hiddenId"
                         key={i}
                       />
-                      <lable className="modalFormLable">
+                      <label className="modalFormLable">
                         Upload Image (*Prefered size in ration of 100x100)
-                      </lable>
+                      </label>
                       <input
                         type="file"
                         name="image"
@@ -600,7 +587,7 @@ export default function EditTestimonials({
                         style={{ border: "1px solid #ccc" }}
                         onChange={(e) => setImage(e.target.files[0])}
                       />
-                      <lable className="modalFormLable">Heading*</lable>
+                      <label className="modalFormLable">Heading*</label>
                       <input
                         name="name"
                         rows="4"
@@ -611,7 +598,7 @@ export default function EditTestimonials({
                         style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setServicesName(e.target.value)}
                       ></input>
-                      <lable className="modalFormLable">Company Name</lable>
+                      <label className="modalFormLable">Company Name</label>
                       <input
                         name="name"
                         rows="4"
@@ -622,7 +609,7 @@ export default function EditTestimonials({
                         style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setCompanyName(e.target.value)}
                       ></input>
-                      <lable className="modalFormLable">Description*</lable>
+                      <label className="modalFormLable">Description*</label>
                       <CKEditor
                         editor={ClassicEditor}
                         config={{
@@ -693,7 +680,7 @@ export default function EditTestimonials({
         centered
         style={{ background: "rgba(0,0,0,0.7)" }}
       >
-        <Modal.Body>
+        <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
             <button
               type="button"
@@ -705,32 +692,21 @@ export default function EditTestimonials({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="response-area">
-            {messages.map((message, index) => {
-              return (
-                <div
-                  className={
-                    message.sender === "ChatGPT"
-                      ? "gpt-message message"
-                      : "user-message message d-none"
-                  }
-                  key={index}
-                >
-                  {Loading ? (
-                    "Loading please wait..."
-                  ) : (
-                    <p id="copyTEXT">{message.message}</p>
-                  )}
-                </div>
-              );
-            })}
+          {IsTyping ? (
+            <p className="ml-2">Loading...</p>
+          ) : (
+            <p className="ml-2">{suggestions}</p>
+          )}
+          {IsTyping ? (
+            ""
+          ) : (
             <button
               className="send-btnn mt-3"
-              // onClick={() => navigator.clipboard.writeText(CopyMessage)}
+              onClick={() => handleCopyMessage()}
             >
               Copy text
             </button>
-          </div>
+          )}
         </Modal.Body>
       </Modal>
 
@@ -973,6 +949,7 @@ export default function EditTestimonials({
               <div className="d-flex align-items-start">
                 <input
                   type="checkbox"
+                  id="testimonials"
                   className="mt-1"
                   value={
                     MainData?.company_setting?.show_testimonial_button === 0
@@ -986,9 +963,12 @@ export default function EditTestimonials({
                       : false
                   }
                 />
-                <p className="ml-2 Varcolor font-weight-bold">
+                <label
+                  for="testimonials"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
                   Click the box to allow clients to leave a review.
-                </p>
+                </label>
               </div>
             </div>
           </div>

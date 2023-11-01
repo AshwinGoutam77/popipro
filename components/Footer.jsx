@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function Footer({ Data, card_url }) {
@@ -12,7 +12,7 @@ export default function Footer({ Data, card_url }) {
   };
   const HandleLogOutPopup = () => {
     Swal.fire({
-      title: `You are not authorize to access this area.`,
+      title: `Opps! It seems like you are already login with another profile.`,
       icon: "info",
       showCancelButton: true,
       focusConfirm: false,
@@ -23,7 +23,6 @@ export default function Footer({ Data, card_url }) {
       }
     });
   };
-
   return (
     <>
       <div className="w-100 footer-div text-center">
@@ -51,13 +50,12 @@ export default function Footer({ Data, card_url }) {
               Get your PopiCard
             </Link>
           </button>
-          {/* {card_url == localStorage.getItem("url") ||
-          localStorage.getItem("url") === null ? ( */}
-          <Link href={"/edit/" + card_url}>
-            <button className="footer-btn text-white">
-              <span>Login to PopiCard</span>
-            </button>
-          </Link>
+          {/* {card_url !== item ? ( */}
+            <Link href={"/login"}>
+              <button className="footer-btn text-white">
+                <span>Login to PopiCard</span>
+              </button>
+            </Link>
           {/* ) : (
             <button
               className="footer-btn text-white"

@@ -785,7 +785,7 @@ a:hover {
 
 .swiper,
 swiper-container {
-  display: flex !important;
+  /* display: flex !important; */
 }
 
 .swiper-wrapper {

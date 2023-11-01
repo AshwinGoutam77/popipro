@@ -114,7 +114,7 @@ const Page = () => {
                 PlanData={cardData?.plan}
                 card={profile}
                 APIDATA={getProfileData}
-                updateImage={()=>{}}
+                updateImage={() => {}}
               />
               <div className="row sticky-parent">
                 <aside
@@ -201,13 +201,12 @@ const Page = () => {
                     MainData={cardData}
                     TitleData={cardData?.titles}
                     VideoTitle={cardData?.titles?.Card_videos?.visible_name}
-                    AddMoreVedios={cardData?.card?.card_videos}
                     Card_videos={cardData?.card?.card_videos}
                     Card_photos={cardData?.card?.card_photos}
                     APIDATA={getProfileData}
                     PaginationData={cardData?.pagination_data}
                     PlanData={cardData?.plan}
-                    AddMoreVedio={AddMoreVedios}
+                    AddMoreVedios={AddMoreVedios}
                     setAddMoreVedios={setAddMoreVedios}
                     card={profile}
                   />

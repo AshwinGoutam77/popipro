@@ -130,7 +130,7 @@ const ChatbotApp = ({
             data-target="#chatapimodal"
             className="cursor-pointer"
           >
-            Suggestion from ai{" "}
+             Suggestion From AI{" "}
             <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
           </p>
         </div>

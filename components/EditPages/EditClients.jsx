@@ -15,11 +15,14 @@ import {
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { CardData, deleteFiles } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditClients({
   APIDATA,
@@ -193,7 +196,7 @@ export default function EditClients({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
   const handleChnageTitle = async () => {
@@ -257,6 +260,7 @@ export default function EditClients({
                 {EditFields ? (
                   <input
                     type="text"
+                    accept="image/*"
                     className="title-section-input"
                     placeholder="Clients Images"
                     onChange={(e) => setClientName(e.target.value)}
@@ -395,17 +399,15 @@ export default function EditClients({
                 </div>
                 <div className="image-box">
                   {photos &&
-                    Object.keys(photos).map(function (key) {
+                    Object.keys(photos).map(function (key, i) {
                       return (
-                        <>
-                          <div style={{ position: "relative" }}>
-                            <img
-                              className="viewimage"
-                              src={URL.createObjectURL(photos[key])}
-                              alt="clients"
-                            />
-                          </div>
-                        </>
+                        <div style={{ position: "relative" }} key={i}>
+                          <img
+                            className="viewimage"
+                            src={URL.createObjectURL(photos[key])}
+                            alt="clients"
+                          />
+                        </div>
                       );
                     })}
                 </div>
