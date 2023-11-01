@@ -381,10 +381,10 @@ export default function EditWorks({
       "?card_url=" + card + "&type=card_videos" + "&current_page=" + Page
     );
     if (response.data.status) {
-      console.log(response?.data?.data?.next_page_data);
       setLoadMoreData(response?.data?.data?.next_page_data?.next_page_url);
       // setShowLoader(false);
       setAddMoreVedios((prevData) => [
+        console.log(prevData),
         ...prevData,
         ...response?.data?.data?.next_page_data,
       ]);

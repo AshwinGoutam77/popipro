@@ -4,7 +4,7 @@ export default async function sitemap() {
   let profiles = urls?.data?.map((url) => {
     return {
       key: url,
-      url: "https://app.popipro.com/" + url + "/",
+      url: "https://app.popipro.com/" + url,
       lastModified: new Date().toISOString(),
     };
   });

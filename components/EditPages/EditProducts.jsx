@@ -32,6 +32,7 @@ import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import ChatbotApp from "./Chat";
 import axios from "axios";
+import SimpleBackdrop from "@components/SimpleBackDrop";
 
 export default function EditProducts({
   APIDATA,
@@ -98,7 +99,7 @@ export default function EditProducts({
     let mess = "";
     if (ServicesName === "") {
       error = true;
-      mess = ServicesName === "" ? "Product heading field is required" : "";
+      mess = ServicesName === "" ? "heading field is required" : "";
     } else {
       id !== null
         ? (data = [
@@ -261,7 +262,8 @@ export default function EditProducts({
       }
     });
   };
-  const handleSetId = (id, name, description, price, url, currency) => {
+  const handleSetId = (id, name, description, price, url, currency, label) => {
+    console.log(url);
     handleEditShow();
     setProductModalId(id);
     setServicesName(name);
@@ -269,20 +271,20 @@ export default function EditProducts({
     setProductPrice(price);
     setProductUrl(url);
     setProductPriceValue(currency);
+    setAddLabel(label);
   };
   const HandleEmptyFeilds = () => {
-    // handleShow();
-    // aRef.current.value = null;
     setImage("");
     setServicesName("");
     setServicesDescription("");
     setProductPrice("");
     setProductUrl("");
+    setAddLabel("")
   };
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
-    HandleEmptyFeilds()
+    HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -473,6 +475,7 @@ export default function EditProducts({
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Modal show={ShowProductModal} onHide={handleProductClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -624,7 +627,7 @@ export default function EditProducts({
               Add {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -768,7 +771,7 @@ export default function EditProducts({
                 data-target="#chatapimodal"
                 className="cursor-pointer"
               >
-                 Suggestion From AI{" "}
+                Suggestion From AI{" "}
                 <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
               </p>
             </div>
@@ -837,7 +840,7 @@ export default function EditProducts({
               Edit {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleEditClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -1416,7 +1419,8 @@ export default function EditProducts({
                                     items.description,
                                     items.price,
                                     items.url,
-                                    items.currency
+                                    items.currency,
+                                    items.button_placeholder
                                   )
                                 }
                               >
