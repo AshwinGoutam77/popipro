@@ -384,7 +384,6 @@ export default function EditWorks({
       setLoadMoreData(response?.data?.data?.next_page_data?.next_page_url);
       // setShowLoader(false);
       setAddMoreVedios((prevData) => [
-        console.log(prevData),
         ...prevData,
         ...response?.data?.data?.next_page_data,
       ]);
