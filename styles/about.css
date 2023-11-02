@@ -727,3 +727,10 @@ textarea:invalid {
   width: 40%;
   background: var(--color);
 }
+@media (max-width: 767px) {
+  .date-mobile {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 15px
+  }
+}
