@@ -154,7 +154,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   value={Time}
                   onChange={(e) => setTime(e.target.value)}
                   className="date-time-input"
-                  style={{ display: "-webkit-inline-box" }}
+                  style={{ minWidth: '100%' }}
                 />
                 <div className="help-block with-errors"></div>
               </div>
