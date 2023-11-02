@@ -135,7 +135,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
             </div>
             <div className="row">
               {MainData?.company_setting?.show_appointment_button !== 0 ? (
-                <div className="form-group col-lg-6 col-md-6 mb-2">
+                <div className="form-group col-lg-6 col-md-6 col-12 mb-2">
                   <input
                     type="date"
                     value={Date}
@@ -149,7 +149,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                 ""
               )}
               {MainData?.company_setting?.show_appointment_button !== 0 ? (
-                <div className="form-group col-lg-6 col-md-6 mb-2">
+                <div className="form-group col-lg-6 col-md-6 col-12 mb-2">
                   <input
                     type="time"
                     value={Time}
