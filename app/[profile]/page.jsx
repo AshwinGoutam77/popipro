@@ -52,7 +52,9 @@ export default ProfilePage;
 
 const getProfileData = async (profile) => {
   const response = await fetch(
-    `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`
+    `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
+    { cache: "no-store" },
+    { next: { revalidate: 3600 } }
   );
   if (response.ok) {
     const data = await response.json();

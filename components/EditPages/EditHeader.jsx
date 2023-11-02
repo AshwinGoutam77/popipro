@@ -62,8 +62,8 @@ function EditHeader({
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
+
   const getBlobData = async () => {
-    console.log(croppedImage);
     if (croppedImage) {
       axios({
         method: "get",

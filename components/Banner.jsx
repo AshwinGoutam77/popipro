@@ -38,6 +38,7 @@ const Banner = ({
       setLoader(false);
     }
   }, []);
+  
 
   useEffect(() => {
     directHitClick();
