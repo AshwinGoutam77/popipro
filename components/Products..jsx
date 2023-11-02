@@ -37,7 +37,13 @@ export default function Product({
   const [Products, setProducts] = useState("");
   const [showProduct, setShowProduct] = useState(false);
   const handleShowProduct = () => setShowProduct(true);
-  const handleCloseProduct = () => setShowProduct(false);
+  const handleCloseProduct = () => {
+    setName("");
+    setContact("");
+    setMessage("");
+    setEmail("");
+    setShowProduct(false);
+  };
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Contact, setContact] = useState("");
@@ -248,12 +254,10 @@ export default function Product({
                             style={{ background: "var(--color)" }}
                             onClick={() => handleHitClick()}
                           >
-                            <i
-                              className="fa fa-link mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i>
+                            <FontAwesomeIcon
+                              icon={faLink}
+                              className="user-select-auto mr-2"
+                            />
                             {Data?.id == "TrxF"
                               ? "Watch Video"
                               : item.button_placeholder
@@ -294,12 +298,6 @@ export default function Product({
                             className="mt-1 product-modal-btn w-auto d-block"
                             onClick={() => HitClick(item?.id)}
                           >
-                            {/* <i
-                              className="fa-brands  fa-whatsapp mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i> */}
                             <img
                               src="./static/img/whatsapp.png"
                               alt="whatsaap"
@@ -324,6 +322,7 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
+      {/* Enquiry Modal */}
       <Modal show={showProduct} onHide={handleCloseProduct} centered>
         <Modal.Header>
           <Modal.Title>
