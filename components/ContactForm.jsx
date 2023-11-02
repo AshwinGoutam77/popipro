@@ -133,34 +133,36 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
               />
               <div className="help-block with-errors"></div>
             </div>
-            {MainData?.company_setting?.show_appointment_button !== 0 ? (
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                <input
-                  type="date"
-                  value={Date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="date-time-input"
-                  style={{ minWidth: "100%" }}
-                />
-                <div className="help-block with-errors"></div>
-              </div>
-            ) : (
-              ""
-            )}
-            {MainData?.company_setting?.show_appointment_button !== 0 ? (
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                <input
-                  type="time"
-                  value={Time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="date-time-input"
-                  style={{ minWidth: "100%" }}
-                />
-                <div className="help-block with-errors"></div>
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="row">
+              {MainData?.company_setting?.show_appointment_button !== 0 ? (
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  <input
+                    type="date"
+                    value={Date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="date-time-input"
+                    style={{ minWidth: "100%" }}
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+              ) : (
+                ""
+              )}
+              {MainData?.company_setting?.show_appointment_button !== 0 ? (
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  <input
+                    type="time"
+                    value={Time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="date-time-input"
+                    style={{ minWidth: "100%" }}
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
 
             <div className="form-group col-lg-12 col-md-12 mb-2">
               {/* <label className="ml-2 font-weight-normal">Email address*</label> */}
