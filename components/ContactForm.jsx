@@ -140,6 +140,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   value={Date}
                   onChange={(e) => setDate(e.target.value)}
                   className="date-time-input"
+                  style={{ display: "-webkit-flex" }}
                 />
                 <div className="help-block with-errors"></div>
               </div>
@@ -153,6 +154,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   value={Time}
                   onChange={(e) => setTime(e.target.value)}
                   className="date-time-input"
+                  style={{ display: "-webkit-inline-box" }}
                 />
                 <div className="help-block with-errors"></div>
               </div>
