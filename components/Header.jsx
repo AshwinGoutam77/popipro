@@ -629,9 +629,7 @@ const Header = ({
               src={
                 card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
-                    card?.profile_picture?.path +
-                    "?ver=" +
-                    time
+                    card?.profile_picture?.path
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="images"
