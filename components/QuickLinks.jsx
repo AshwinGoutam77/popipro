@@ -1,8 +1,23 @@
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+"use client";
+import { faArrowRight, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Api from "@services/Api";
+import { HitClickApi } from "@services/Routes";
 import React from "react";
 
-const QuickLinks = ({ card,subscription,Titles }) => {
+const QuickLinks = ({ card, subscription, Titles }) => {
+  const HitClick = async (id) => {
+    let payload = {
+      card: card?.id,
+      type: "direct",
+      device_id: navigator.userAgent,
+      object_base: id,
+      hit_type: "custom_url",
+    };
+    const response = await Api(HitClickApi, payload);
+    if (response.data.status) {
+    }
+  };
   return (
     <>
       {Titles?.card_custom_url?.source !== 0 &&
@@ -14,7 +29,7 @@ const QuickLinks = ({ card,subscription,Titles }) => {
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">
-              {CustomLinkTitle?.visible_name}
+              {Titles?.card_custom_url?.visible_name}
             </h2>
           </div>
           <div>
@@ -31,7 +46,7 @@ const QuickLinks = ({ card,subscription,Titles }) => {
                         : "https://" + item.link
                     }
                     target="_blank"
-                    onClick={() => HitClick("direct", "custom_url", item.id)}
+                    onClick={() => HitClick(item.id)}
                   >
                     <div
                       className="d-flex align-items-center justify-content-between mt-1 mb-1"
