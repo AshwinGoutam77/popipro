@@ -523,6 +523,10 @@ input:focus-visible {
   border: none;
   padding: 0 11px;
 }
+input.date-time-input::-webkit-date-and-time-value {
+  text-align: left;
+  color: #000;
+}
 .chat-modal-btn {
   border: none;
   background: none;
