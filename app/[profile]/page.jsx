@@ -54,7 +54,7 @@ const getProfileData = async (profile) => {
   const response = await fetch(
     `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
     { cache: "no-store" },
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 0 } }
   );
   if (response.ok) {
     const data = await response.json();
