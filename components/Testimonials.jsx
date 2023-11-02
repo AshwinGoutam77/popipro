@@ -10,6 +10,7 @@ import { AddTestimonials } from "@services/Routes";
 import Api from "@services/Api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-bootstrap";
+import Image from "next/image";
 
 const Testimonials = ({
   InquiryModal,
@@ -24,7 +25,7 @@ const Testimonials = ({
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const [Image, setImage] = useState("");
+  const [Imagee, setImageee] = useState("");
   const [Name, setName] = useState("");
   const [SubTitle, setSubTitle] = useState("");
   const [Number, setNumber] = useState("");
@@ -82,7 +83,7 @@ const Testimonials = ({
     }
     try {
       let payload = {
-        testimonial_image: Image,
+        testimonial_image: Imagee,
         card_url: profile,
         name: Name,
         company_name: SubTitle,
@@ -105,7 +106,7 @@ const Testimonials = ({
         setName("");
         setNumber("");
         setDescription("");
-        setImage("");
+        setImagee("");
         setSubTitle("");
       }
     } catch (error) {
@@ -146,10 +147,10 @@ const Testimonials = ({
                 type="file"
                 name="image"
                 className="form-control"
-                accept="image/png, image/gif, image/jpeg"
+                accept="image/png, image/jpeg"
                 style={{ border: "1px solid #ccc" }}
                 /* ref={aRef} */
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => setImagee(e.target.files[0])}
               />
             </div>
             <div className="form-group col-lg-6 col-md-6 mb-3">
@@ -248,17 +249,23 @@ const Testimonials = ({
                       <div className="swiper-slide review-item review-item-testimonials d-block">
                         <div className="d-flex align-items-center w-100">
                           {items.image.path ? (
-                            <img
+                            <Image
                               className="case-item__icon"
-                              src={card.base_url + items.image.path}
+                              src={
+                                "https://admin.popipro.com/" + items.image.path
+                              }
                               alt="photos"
+                              width={0}
+                              height={0}
                             />
                           ) : (
-                            <img
+                            <Image
                               className="case-item__icon"
                               src="./static/img/demo.jpg"
                               alt="photos"
                               style={{ borderRadius: "100%" }}
+                              width={0}
+                              height={0}
                             />
                           )}
                           <div className="pt-0">

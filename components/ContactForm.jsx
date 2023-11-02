@@ -134,53 +134,32 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
               <div className="help-block with-errors"></div>
             </div>
             {MainData?.company_setting?.show_appointment_button !== 0 ? (
-              <div className="row w-100 mx-0">
-                <div className="form-group col-lg-6 col-md-6 mb-2">
-                  {/* <label className="ml-2 font-weight-normal">
-                    Appointment Date
-                  </label> */}
-                  {/* <input
-                    type="date"
-                    className="form-control"
-                    placeholder="Date"
-                    required="required"
-                    autoComplete="on"
-                    value={Date}
-                    onChange={(e) => setDate(e.target.value)}
-                  /> */}
-                  <input
-                    type="date"
-                    value={Date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="date-time-input"
-                  />
-                  <div className="help-block with-errors"></div>
-                </div>
-                <div className="form-group col-lg-6 col-md-6 mb-2">
-                  {/* <label className="ml-2 font-weight-normal">
-                    Appointment Time
-                  </label> */}
-                  {/* <input
-                    type="time"
-                    className="form-control"
-                    placeholder="Date"
-                    required="required"
-                    autoComplete="on"
-                    value={Time}
-                    onChange={(e) => setTime(e.target.value)}
-                  /> */}
-                  <input
-                    type="time"
-                    value={Time}
-                    onChange={(e) => setTime(e.target.value)}
-                    className="date-time-input"
-                  />
-                  <div className="help-block with-errors"></div>
-                </div>
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                <input
+                  type="date"
+                  value={Date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="date-time-input"
+                />
+                <div className="help-block with-errors"></div>
               </div>
             ) : (
               ""
             )}
+            {MainData?.company_setting?.show_appointment_button !== 0 ? (
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                <input
+                  type="time"
+                  value={Time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className="date-time-input"
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+            ) : (
+              ""
+            )}
+
             <div className="form-group col-lg-12 col-md-12 mb-2">
               {/* <label className="ml-2 font-weight-normal">Email address*</label> */}
               <input

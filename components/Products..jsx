@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 
 export default function Product({
   Titles,
@@ -433,16 +434,28 @@ export default function Product({
                         <div className="col-6 col-sm-6 col-lg-4">
                           <div className="position-relative">
                             {items?.image?.path ? (
-                              <img
+                              // <img
+                              //   className="case-item__icon-products"
+                              //   src={Data?.base_url + items?.image?.path}
+                              //   alt="product"
+                              // />
+                              <Image
                                 className="case-item__icon-products"
-                                src={Data?.base_url + items?.image?.path}
-                                alt="product"
+                                src={
+                                  "https://admin.popipro.com/" +
+                                  items.image.path
+                                }
+                                alt="products"
+                                width={0}
+                                height={0}
                               />
                             ) : (
-                              <img
+                              <Image
                                 className="case-item__icon-products"
                                 src="./static/img/picture-1.jpg"
-                                alt="product"
+                                alt="products"
+                                width={0}
+                                height={0}
                               />
                             )}
                             {items?.description?.length <= "0" ? (
@@ -476,7 +489,7 @@ export default function Product({
                                 {MainData?.company_setting
                                   ?.show_product_enquiry_button == 0 ? (
                                   <span
-                                    data-toggle="modal" 
+                                    data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                     onClick={() => handleModal(items?.id)}

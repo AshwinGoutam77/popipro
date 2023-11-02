@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
 
 const Work = ({
   card,
@@ -110,12 +111,14 @@ const Work = ({
                               className="zIndex-1"
                             />
                           </div>
-                          <img
+                          <Image
                             className="gallery-grid__image cover lazyload"
-                            src={card.base_url + photo.path}
+                            src={"https://admin.popipro.com/" + photo.path}
                             data-zoom
                             alt="photos"
                             onClick={() => openImagePopup(i)}
+                            width={0}
+                            height={0}
                           />
                         </div>
                       </SwiperSlide>
@@ -150,11 +153,6 @@ const Work = ({
           ) : (
             ""
           )}
-          {/* <ImageModal
-            isOpen={modalIsOpen}
-            onClose={closeModal}
-            imageUrl={selectedImage}
-          /> */}
         </div>
       ) : (
         ""

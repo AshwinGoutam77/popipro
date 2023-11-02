@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import Image from "next/image";
 
 const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
   return (
@@ -50,10 +50,12 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                   return (
                     <SwiperSlide key={index}>
                       <div className="w-100" key={index}>
-                        <img
+                        <Image
                           className="slider-images w-100"
-                          src={card.base_url + item.path}
+                          src={"https://admin.popipro.com/" + item.path}
                           alt="Logo"
+                          width={0}
+                          height={0}
                         />
                       </div>
                     </SwiperSlide>

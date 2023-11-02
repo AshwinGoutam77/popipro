@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
+import Image from "next/image";
 
 function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const [ModalId, setModalId] = useState("");
@@ -181,17 +182,23 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                           <div className="col-sm-12 col-lg-6 pr-0">
                             <div>
                               {item?.image?.path ? (
-                                <img
+                                <Image
                                   className="coverr lazyload"
-                                  src={Data?.base_url + item?.image?.path}
-                                  alt="photos"
+                                  src={
+                                    "https://admin.popipro.com/" +
+                                    item.image.path
+                                  }
+                                  alt="blog"
+                                  width={0}
+                                  height={0}
                                 />
                               ) : (
-                                <img
+                                <Image
                                   className="coverr lazyload"
-                                  //   src="../../assets/img/demo.jpg"
                                   src="./static/img/picture-1.jpg"
-                                  alt="photos"
+                                  alt="products"
+                                  width={0}
+                                  height={0}
                                 />
                               )}
                             </div>

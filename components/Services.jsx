@@ -2,6 +2,7 @@
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
+import Image from "next/image";
 
 const Services = ({ Titles, card, subscription }) => {
   return (
@@ -50,10 +51,15 @@ const Services = ({ Titles, card, subscription }) => {
                         <div className="case-item pt-3">
                           <div className="w-100">
                             {item.image.path ? (
-                              <img
+                              <Image
                                 className="case-item__icon"
-                                src={card.base_url + item.image.path}
+                                src={
+                                  "https://admin.popipro.com/" +
+                                  item.image.path
+                                }
                                 alt="photos"
+                                width={0}
+                                height={0}
                               />
                             ) : (
                               <img

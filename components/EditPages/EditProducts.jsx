@@ -148,6 +148,7 @@ export default function EditProducts({
         HandleEmptyFeilds();
         handleClose();
         handleEditClose();
+        setPriceRadio(true);
         setPage(2);
         toast.success(response.data.message, {
           position: "top-right",
@@ -279,7 +280,7 @@ export default function EditProducts({
     setServicesDescription("");
     setProductPrice("");
     setProductUrl("");
-    setAddLabel("")
+    setAddLabel("");
   };
   const handleCanclebtn = () => {
     handleClose();

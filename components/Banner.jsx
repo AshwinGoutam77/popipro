@@ -5,6 +5,7 @@ import Api from "@services/Api";
 import { HitClickApi } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import SimpleBackdrop from "./Backdrop";
 
 const Banner = ({
   permission,
@@ -38,7 +39,6 @@ const Banner = ({
       setLoader(false);
     }
   }, []);
-  
 
   useEffect(() => {
     directHitClick();
@@ -219,6 +219,7 @@ const Banner = ({
       Loading...
     </h5>
   ) : (
+    // <SimpleBackdrop visible={Loader} />
     <>
       {permission[0]?.visible_field === "logo" ||
       permission[0]?.visible_field === "name" ||
