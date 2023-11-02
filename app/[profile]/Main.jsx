@@ -151,7 +151,7 @@ export default async function Main({ profile, data, id }) {
                 </div>
               </div>
 
-              <BuilderForm
+              {/* <BuilderForm
                 jsonData={[
                   {
                     type: "text",
@@ -267,7 +267,7 @@ export default async function Main({ profile, data, id }) {
                     rows: 4,
                   },
                 ]}
-              />
+              /> */}
             </main>
             <Footer card_url={profile} />
           </>
