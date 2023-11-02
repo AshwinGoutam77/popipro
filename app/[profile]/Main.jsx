@@ -76,7 +76,7 @@ export default async function Main({ profile, data, id }) {
                     <AboutMe Titles={titles} card={card} />
 
                     <QuickLinks
-                      subscription={plan?.subscription}
+                      subscription={plan}
                       card={card}
                       Titles={titles}
                     />

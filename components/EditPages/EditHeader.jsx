@@ -62,8 +62,8 @@ function EditHeader({
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
+
   const getBlobData = async () => {
-    console.log(croppedImage);
     if (croppedImage) {
       axios({
         method: "get",
@@ -741,8 +741,9 @@ function EditHeader({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-3"
+                      className="user-select-auto"
                       style={{
+                        marginRight:'21px',
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
@@ -816,11 +817,10 @@ function EditHeader({
                       <div className="align-div">
                         <FontAwesomeIcon
                           icon={faLink}
-                          className="user-select-auto"
+                          className="user-select-auto mr-3"
                           style={{
                             fontSize: "15px",
                             transform: "rotateY(180deg)",
-                            marginRight:'10px'
                           }}
                         />
                         {/* <a

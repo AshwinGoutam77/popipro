@@ -9,7 +9,7 @@ import {
   faShareSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Share from "./Share";
 import "../styles/header.css";
 import Link from "next/link";
@@ -51,6 +51,10 @@ const Header = ({
   const [ReviewDescription, setReviewDescription] = useState("");
 
   const [time, setTime] = useState(new Date().getTime() / 1000);
+
+  useEffect(() => {
+    setTime(new Date().getTime() / 1000);
+  }, [card]);
 
   const handleReviewSubmit = async () => {
     if (ReviewName == "") {
