@@ -222,288 +222,137 @@ export default function Multimodes({
 
   return (
     <>
-      {/* <div
-        className="modal fade"
-        id="MultimodesModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="MultimodesModal"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style={{ borderRadius: "10px" }}>
-            <div className="modal-header">
-              <h5
-                className="title title--h1 first-title title__separate mb-0"
-                id="BlogModalTitle"
-              >
-                Multi Mode Settings
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body" style={{ padding: "25px" }}>
-              <div>
-                <h6 className="text-center mb-2 Varcolor font-weight-normal">
-                  Change your default card tap behaviour.
-                </h6>
-                <ul className="m-0 p-0 multimodes-ul">
-                  <li className="d-flex align-items-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Profile</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ActiveProfile}
-                        data-active={ActiveProfile}
-                        checked={ActiveProfile}
-                        type="checkbox"
-                        name="hello"
-                        onChange={() => handleLandingMode("profile-preview")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Save Contact</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ActiveContact}
-                        data-active={ActiveContact}
-                        checked={ActiveContact}
-                        type="checkbox"
-                        name="hello"
-                        onChange={() => handleLandingMode("save-contact")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                  {Data?.card_google_review !== null ? (
-                    <li className="d-flex align-item-center justify-content-between mb-2">
-                      <h6 className="mb-0">Open Google Review Page</h6>
-                      <label className="switch">
-                        <input
-                          data-status={ActiveGoogleReview}
-                          data-active={ActiveGoogleReview}
-                          checked={ActiveGoogleReview}
-                          type="checkbox"
-                          onChange={() =>
-                            handleLandingMode("open-google-review")
-                          }
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                  {Data?.whatsapp_number !== null ? (
-                    <li className="d-flex align-item-center justify-content-between mb-2">
-                      <h6 className="mb-0">Open Whatsapp</h6>
-                      <label className="switch">
-                        <input
-                          data-status={ActiveWhatsapp}
-                          data-active={ActiveWhatsapp}
-                          checked={ActiveWhatsapp}
-                          type="checkbox"
-                          onChange={() => handleLandingMode("whatsapp")}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Share Contact</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ActiveShareContact}
-                        data-active={ActiveShareContact}
-                        checked={ActiveShareContact}
-                        type="checkbox"
-                        onChange={() => handleLandingMode("share-contact")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Appointment</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ShowAppointment}
-                        data-active={ShowAppointment}
-                        checked={ShowAppointment}
-                        type="checkbox"
-                        onChange={() => handleLandingMode("appointment")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Review</h6>
-                    <label className="switch">
-                      <input
-                        data-status={Active}
-                        data-active={Active}
-                        checked={Active}
-                        type="checkbox"
-                        onChange={() => handleLandingMode("enquiry")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      <div
-        className="modal fade"
-        id="MultimodesModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="MultimodesModal"
-        aria-hidden="true"
-      >
-        <Modal show={active} onHide={() => handleClose("")} centered>
-          <Modal.Header>
-            <Modal.Title>
-              <h5
-                className="title title--h1 first-title title__separate mb-0"
-                id="MultimodesModal"
-              >
-                Multi Mode Settings
-              </h5>
-            </Modal.Title>
-
-            <button
-              type="button"
-              className="close"
-              onClick={() => handleClose("")}
+      <Modal show={active} onHide={() => handleClose("")} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              className="title title--h1 first-title title__separate mb-0"
+              id="MultimodesModal"
             >
-              <span aria-hidden="true">×</span>
-              <span className="sr-only">Close alert</span>
-            </button>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <h6 className="text-center mb-2 Varcolor font-weight-normal">
-                Change your default card tap behaviour.
-              </h6>
-              <ul className="m-0 p-0 multimodes-ul">
-                <li className="d-flex align-items-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Profile</h6>
-                  <label className="switch">
-                    <input
-                      data-status={ActiveProfile}
-                      data-active={ActiveProfile}
-                      checked={ActiveProfile}
-                      type="checkbox"
-                      name="hello"
-                      onChange={() => handleLandingMode("profile-preview")}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
+              Multi Mode Settings
+            </h5>
+          </Modal.Title>
+
+          <button
+            type="button"
+            className="close"
+            onClick={() => handleClose("")}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <h6 className="text-center mb-2 Varcolor font-weight-normal">
+              Change your default card tap behaviour.
+            </h6>
+            <ul className="m-0 p-0 multimodes-ul">
+              <li className="d-flex align-items-center justify-content-between mb-2">
+                <h6 className="mb-0">Open Profile</h6>
+                <label className="switch">
+                  <input
+                    data-status={ActiveProfile}
+                    data-active={ActiveProfile}
+                    checked={ActiveProfile}
+                    type="checkbox"
+                    name="hello"
+                    onChange={() => handleLandingMode("profile-preview")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+              <li className="d-flex align-item-center justify-content-between mb-2">
+                <h6 className="mb-0">Open Save Contact</h6>
+                <label className="switch">
+                  <input
+                    data-status={ActiveContact}
+                    data-active={ActiveContact}
+                    checked={ActiveContact}
+                    type="checkbox"
+                    name="hello"
+                    onChange={() => handleLandingMode("save-contact")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+              {Data?.card_google_review !== null ? (
                 <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Save Contact</h6>
+                  <h6 className="mb-0">Open Google Review Page</h6>
                   <label className="switch">
                     <input
-                      data-status={ActiveContact}
-                      data-active={ActiveContact}
-                      checked={ActiveContact}
+                      data-status={ActiveGoogleReview}
+                      data-active={ActiveGoogleReview}
+                      checked={ActiveGoogleReview}
                       type="checkbox"
-                      name="hello"
-                      onChange={() => handleLandingMode("save-contact")}
+                      onChange={() => handleLandingMode("open-google-review")}
                     />
                     <span className="slider round"></span>
                   </label>
                 </li>
-                {Data?.card_google_review !== null ? (
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Google Review Page</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ActiveGoogleReview}
-                        data-active={ActiveGoogleReview}
-                        checked={ActiveGoogleReview}
-                        type="checkbox"
-                        onChange={() => handleLandingMode("open-google-review")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                ) : (
-                  ""
-                )}
-                {Data?.whatsapp_number !== null ? (
-                  <li className="d-flex align-item-center justify-content-between mb-2">
-                    <h6 className="mb-0">Open Whatsapp</h6>
-                    <label className="switch">
-                      <input
-                        data-status={ActiveWhatsapp}
-                        data-active={ActiveWhatsapp}
-                        checked={ActiveWhatsapp}
-                        type="checkbox"
-                        onChange={() => handleLandingMode("whatsapp")}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
-                ) : (
-                  ""
-                )}
+              ) : (
+                ""
+              )}
+              {Data?.whatsapp_number !== null ? (
                 <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Share Contact</h6>
+                  <h6 className="mb-0">Open Whatsapp</h6>
                   <label className="switch">
                     <input
-                      data-status={ActiveShareContact}
-                      data-active={ActiveShareContact}
-                      checked={ActiveShareContact}
+                      data-status={ActiveWhatsapp}
+                      data-active={ActiveWhatsapp}
+                      checked={ActiveWhatsapp}
                       type="checkbox"
-                      onChange={() => handleLandingMode("share-contact")}
+                      onChange={() => handleLandingMode("whatsapp")}
                     />
                     <span className="slider round"></span>
                   </label>
                 </li>
-                <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Appointment</h6>
-                  <label className="switch">
-                    <input
-                      data-status={ShowAppointment}
-                      data-active={ShowAppointment}
-                      checked={ShowAppointment}
-                      type="checkbox"
-                      onChange={() => handleLandingMode("appointment")}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
-                <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Review</h6>
-                  <label className="switch">
-                    <input
-                      data-status={Active}
-                      data-active={Active}
-                      checked={Active}
-                      type="checkbox"
-                      onChange={() => handleLandingMode("enquiry")}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
-              </ul>
-            </div>
-          </Modal.Body>
-        </Modal>
-      </div>
+              ) : (
+                ""
+              )}
+              <li className="d-flex align-item-center justify-content-between mb-2">
+                <h6 className="mb-0">Open Share Contact</h6>
+                <label className="switch">
+                  <input
+                    data-status={ActiveShareContact}
+                    data-active={ActiveShareContact}
+                    checked={ActiveShareContact}
+                    type="checkbox"
+                    onChange={() => handleLandingMode("share-contact")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+              <li className="d-flex align-item-center justify-content-between mb-2">
+                <h6 className="mb-0">Open Appointment</h6>
+                <label className="switch">
+                  <input
+                    data-status={ShowAppointment}
+                    data-active={ShowAppointment}
+                    checked={ShowAppointment}
+                    type="checkbox"
+                    onChange={() => handleLandingMode("appointment")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+              <li className="d-flex align-item-center justify-content-between mb-2">
+                <h6 className="mb-0">Open Review</h6>
+                <label className="switch">
+                  <input
+                    data-status={Active}
+                    data-active={Active}
+                    checked={Active}
+                    type="checkbox"
+                    onChange={() => handleLandingMode("enquiry")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

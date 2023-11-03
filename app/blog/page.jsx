@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { GetInshights } from "@services/Routes";
+import { EditData, GetInshights } from "@services/Routes";
 import Api from "@services/Api";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -28,13 +28,47 @@ export default function DashboardBlogs() {
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
+
   useEffect(() => {
     api();
+    APIDATA();
   }, []);
 
+  const APIDATA = async () => {
+    setShowLoader(true);
+    try {
+      const response = await Api(
+        EditData,
+        {},
+        "?card_url=" + localStorage.getItem("url")
+      );
+      if (response.data.status) {
+        setShowLoader(false);
+        document.documentElement.style.setProperty(
+          "--color",
+          response.data.data.card.color_code
+        );
+        document.documentElement.style.setProperty(
+          "--themecolor",
+          response.data.data.card.background_color
+        );
+        const color = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--color");
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    }
+    setShowLoader(false);
+  };
   const api = async () => {
+    setShowLoader(true);
     const response = await Api(GetInshights, {});
     if (response.data.status) {
+      setShowLoader(false);
       setData(response.data.data);
     }
   };
@@ -108,13 +142,13 @@ export default function DashboardBlogs() {
           style={{ background: "black" }}
         >
           <h5 className="text-white m-0">
-            <FontAwesomeIcon icon={faNewspaper} className="text-white mr-2" />{" "}
+            <FontAwesomeIcon icon={faNewspaper} className="text-white mr-2" width="20"/>{" "}
             {Data?.title_array?.card_blogs?.visible_name}
           </h5>
           <Link href="/dashboard">
             <h6 className="text-white m-0">
               {" "}
-              <FontAwesomeIcon icon={faAngleLeft} className="text-white mr-2" />
+              <FontAwesomeIcon icon={faAngleLeft} className="text-white mr-2" width="20"/>
               Back
             </h6>
           </Link>

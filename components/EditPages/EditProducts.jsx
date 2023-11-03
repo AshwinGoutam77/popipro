@@ -713,6 +713,7 @@ export default function EditProducts({
                     placeholder="Price"
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setProductPrice(e.target.value)}
+                    maxlength="12"
                   ></input>
                 </div>
               </div>

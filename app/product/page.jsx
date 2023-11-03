@@ -14,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Api from "@services/Api";
-import { GetInshights } from "@services/Routes";
+import { EditData, GetInshights } from "@services/Routes";
 import SimpleBackdrop from "@components/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
@@ -30,11 +30,45 @@ export default function DashboardProducts({ TitleData }) {
 
   useEffect(() => {
     api();
+    APIDATA();
   }, []);
 
+  const APIDATA = async () => {
+    setShowLoader(true);
+    try {
+      const response = await Api(
+        EditData,
+        {},
+        "?card_url=" + localStorage.getItem("url")
+      );
+      if (response.data.status) {
+        setShowLoader(false);
+        document.documentElement.style.setProperty(
+          "--color",
+          response.data.data.card.color_code
+        );
+        document.documentElement.style.setProperty(
+          "--themecolor",
+          response.data.data.card.background_color
+        );
+        const color = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--color");
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    }
+    setShowLoader(false);
+  };
+
   const api = async () => {
+    setShowLoader(true);
     const response = await Api(GetInshights, {});
     if (response.data.status) {
+      setShowLoader(false);
       setData(response.data.data);
     }
   };
@@ -90,121 +124,128 @@ export default function DashboardProducts({ TitleData }) {
 
   return token ? (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <div
-        className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
-        style={{ height: "calc(100vh - 58px)" }}
-      >
-        <div className="w-100">
+      {Data ? (
+        <>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <div
-            className="login-header p-3 text-center d-flex align-items-center justify-content-between"
-            style={{ background: "black" }}
+            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
+            style={{ height: "calc(100vh - 58px)" }}
           >
-            <h5 className="text-white m-0 text-left">
-              <FontAwesomeIcon
-                icon={faBagShopping}
-                className="text-white mr-2"
-              />{" "}
-              {Data?.title_array?.card_products?.visible_name}
-            </h5>
-            <Link href="/dashboard">
-              <h6 className="text-white m-0">
-                {" "}
-                <FontAwesomeIcon
-                  icon={faAngleLeft}
-                  className="text-white mr-2"
-                />
-                Back
-              </h6>
-            </Link>
-          </div>
-          <div>
-            <h5 className="first-title title__separate mx-4 mt-4 text-black">
-              Your last one month{" "}
-              {Data?.title_array?.card_products?.visible_name} Analytics
-            </h5>
+            <div className="w-100">
+              <div
+                className="login-header p-3 text-center d-flex align-items-center justify-content-between"
+                style={{ background: "black" }}
+              >
+                <h5 className="text-white m-0 text-left">
+                  <FontAwesomeIcon
+                    icon={faBagShopping}
+                    className="text-white mr-2"
+                    width="20"
+                  />{" "}
+                  {Data?.title_array?.card_products?.visible_name}
+                </h5>
+                <Link href="/dashboard">
+                  <h6 className="text-white m-0">
+                    {" "}
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      className="text-white mr-2"
+                      width="20"
+                    />
+                    Back
+                  </h6>
+                </Link>
+              </div>
+              <div>
+                <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                  Your last one month{" "}
+                  {Data?.title_array?.card_products?.visible_name} Analytics
+                </h5>
 
-            <div className="mx-3">
-              <div className="row w-100 m-0 p-0 mb-4 align-items-end">
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">From</label>
-                  <DatePicker
-                    selected={StartDate}
-                    onChange={(Date) => setStartDate(Date)}
-                    maxDate={new Date()}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
+                <div className="mx-3">
+                  <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">From</label>
+                      <DatePicker
+                        selected={StartDate}
+                        onChange={(Date) => setStartDate(Date)}
+                        maxDate={new Date()}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">To</label>
+                      <DatePicker
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
+                        maxDate={new Date()}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <button
+                        className="insight-search w-100 mt-3"
+                        onClick={handleSearchData}
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">To</label>
-                  <DatePicker
-                    selected={EndDate}
-                    defaultValue={EndDate}
-                    onChange={(Date) => setEndDate(Date)}
-                    maxDate={new Date()}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <button
-                    className="insight-search w-100 mt-3"
-                    onClick={handleSearchData}
-                  >
-                    Search
-                  </button>
+
+                <div className="box-shadow-leads">
+                  <table className="insight-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Views</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Data?.product_states?.length === 0 ? (
+                        <tr>
+                          <td className="p-3">No data available</td>
+                        </tr>
+                      ) : (
+                        Data?.product_states?.map((item, index) => {
+                          return (
+                            <tr key={index} className="cursor-pointer">
+                              <td data-column="Name">{item.name}</td>
+                              <td data-column="Email">{item.count}</td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-
-            <div className="box-shadow-leads">
-              <table className="insight-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Views</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Data?.product_states?.length === 0 ? (
-                    <tr>
-                      <td className="p-3">No data available</td>
-                    </tr>
-                  ) : (
-                    Data?.product_states?.map((item, index) => {
-                      return (
-                        <tr key={index} className="cursor-pointer">
-                          <td data-column="Name">{item.name}</td>
-                          <td data-column="Email">{item.count}</td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+            <div
+              className="w-100 text-center text-white p-2 position-absolute mt-3"
+              style={{ bottom: "0", background: "black" }}
+            >
+              <p> © 2023. All Rights Reserved By Popipro.</p>
             </div>
           </div>
-        </div>
-        <div
-          className="w-100 text-center text-white p-2 position-absolute mt-3"
-          style={{ bottom: "0", background: "black" }}
-        >
-          <p> © 2023. All Rights Reserved By Popipro.</p>
-        </div>
-      </div>
+        </>
+      ) : (
+        <SimpleBackdrop visible={ShowLoader} />
+      )}
     </>
   ) : (
     redirect("/login")

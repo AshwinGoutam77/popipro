@@ -246,7 +246,10 @@ export default function Dashboard() {
               You can manage all your data and analytics from this dashboard.
             </p>
             {Data?.is_onboarding == "1" ? (
-              <p className="text-center mt-1 font-weight-bold cursor-pointer" onClick={SaveStatusApi}>
+              <p
+                className="text-center mt-1 font-weight-bold cursor-pointer"
+                onClick={SaveStatusApi}
+              >
                 Your profile is private and not visible on tap.
                 <br /> Once you fills information, don&apos;t forget to make it
                 public..
@@ -430,7 +433,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* My subscription */} 
+            {/* My subscription */}
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
               <Link
                 href={

@@ -75,7 +75,7 @@ export default function EditResume({
       error = true;
       mess =
         ExpDesignation == ""
-          ? "Steps field is required"
+          ? "Heading field is required"
           : "Description field is required";
     } else {
       id !== null
@@ -244,7 +244,7 @@ export default function EditResume({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
-    HandleEmptyFeilds()
+    HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);

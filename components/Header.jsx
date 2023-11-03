@@ -71,7 +71,7 @@ const Header = ({
       });
       return;
     } else if (ReviewDescription == "") {
-      toast.error("Description is requried", {
+      toast.error("Message is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",
@@ -83,7 +83,7 @@ const Header = ({
       });
       return;
     } else if (ReviewSubTitle == "") {
-      toast.error("SubTitile is requried", {
+      toast.error("SubTitle is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",

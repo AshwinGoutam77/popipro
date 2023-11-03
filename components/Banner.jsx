@@ -38,6 +38,7 @@ const Banner = ({
       setLoader(false);
     }
   }, []);
+  
 
   useEffect(() => {
     directHitClick();
@@ -199,7 +200,7 @@ const Banner = ({
     var elem = document.getElementById("card_booking");
     elem?.scrollIntoView();
   } else if (
-    GoogleReviewState !== false &&
+    GoogleReviewState == false &&
     card?.landing_mode === "open-google-review"
   ) {
     typeof window === "object" && card?.card_google_review !== null

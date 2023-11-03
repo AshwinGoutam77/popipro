@@ -201,6 +201,7 @@ const Insights = () => {
             pauseOnHover
             theme="light"
           />
+
           {/* Header */}
 
           <div
@@ -225,290 +226,266 @@ const Insights = () => {
               </h6>
             </Link>
           </div>
-          {/* Quick Analytics */}
 
-          <h5 className="first-title title__separate mx-4 mt-4 text-black">
-            Quick Analytics
-          </h5>
-          <div className="mx-2">
-            <div className="row mt-4 px-2 w-100 mx-0" style={{ gap: "0px" }}>
-              <div className="col-6 col-lg-3 mb-2 p-0 px-1">
-                <div className="text-left insights-dashboard-boxes">
-                  <div className="d-flex align-items-center mb-1">
-                    <FontAwesomeIcon icon={faEye} className="text-white mr-2" />
-                    <p className="text-white font-weight-bold">Profile Views</p>
-                  </div>
-                  <h5 className="text-white ml-4">{Data?.total_click_hits}</h5>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 mb-2 p-0 px-1">
-                <div className="text-left insights-dashboard-boxes">
-                  <div className="d-flex align-items-center mb-1">
-                    <FontAwesomeIcon
-                      icon={faDownload}
-                      className="text-white mr-2"
-                    />
-                    <p className="text- font-weight-bold">Save Contacts</p>
-                  </div>
-                  <h5 className="text-white ml-4">
-                    {Data?.total_saved_contact}
-                  </h5>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 mb-2 p-0 px-1">
-                <div className="text-left insights-dashboard-boxes">
-                  <div className="d-flex align-items-center mb-1">
-                    <FontAwesomeIcon
-                      icon={faBagShopping}
-                      className="text-white mr-2"
-                    />
-                    <p className="text-white font-weight-bold">Product Views</p>
-                  </div>
-                  <h5 className="text-white ml-4">
-                    {Data?.card_states?.product_views}
-                  </h5>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 mb-2 p-0 px-1">
-                <div className="text-left insights-dashboard-boxes">
-                  <div className="d-flex align-items-center mb-1">
-                    <FontAwesomeIcon
-                      icon={faShare}
-                      className="text-white mr-2"
-                    />
-                    <p className="text-white font-weight-bold">Your Leads</p>
-                  </div>
-                  <h5 className="text-white ml-4">
-                    {Data?.total_share_contact}
-                  </h5>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className="pt-4 bg-white">
+            {/* Quick Analytics */}
 
-          {/* Chart */}
-
-          <div className="row w-100 m-0">
-            <div className="col-12 col-lg-6 mt-4 px-0">
-              <div className="barchart-div mx-4">
-                <Bar data={data} />
-              </div>
-            </div>
-            <div className="col-12 col-lg-6 mt-4 px-0">
-              <div className="barchart-div mx-4">
-                <Bar data={data2} />
-              </div>
-            </div>
-          </div>
-
-          {/* Product */}
-
-          <h5 className="first-title title__separate mx-4 mt-4 text-black">
-            {UserData?.titles?.card_products?.visible_name} Analytics
-          </h5>
-          <div className="row w-100 m-0">
-            <div className="col-12 col-lg-12 p-0 mb-2">
-              <Link href="/product" className="VarColor">
-                {Data?.card_states?.product_views == 0 ? (
-                  <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                    No data found
-                  </p>
-                ) : (
-                  <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                    <span>
-                      <FontAwesomeIcon
-                        icon={faBagShopping}
-                        className="mr-2"
-                        style={{ fontSize: "15px" }}
-                      />
-                      You got
-                      <span className="Varcolor">
-                        {" " + Data?.card_states?.product_views + " "}
-                      </span>
-                      clicks on Products, click here to see complete report
-                    </span>
-                    <FontAwesomeIcon
-                      icon={faChevronRight}
-                      className="mx-2 cursor-pointer ml-3"
-                      style={{ fontSize: "15px", color: "var(--color)" }}
-                    />
-                  </p>
-                )}
-              </Link>
-            </div>
-          </div>
-
-          {/* Blog Analysis */}
-          <h5 className="first-title title__separate mx-4 mt-3 text-black">
-            {UserData?.titles?.card_blogs?.visible_name} Analytics
-          </h5>
-          <div className="row w-100 m-0">
-            <div className="col-12 col-lg-12 p-0 mb-2">
-              <Link href="/blog" className="Varcolor">
-                {Data?.card_states?.blog_views == 0 ? (
-                  <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                    No data found
-                  </p>
-                ) : (
-                  <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                    <span>
-                      <FontAwesomeIcon
-                        icon={faBagShopping}
-                        className="mr-2"
-                        style={{ fontSize: "15px" }}
-                      />
-                      You have total
-                      <span className="Varcolor">
-                        {" " + Data?.card_states?.blog_views + " "}
-                      </span>
-                      leads click here to see more.
-                    </span>
-                    <FontAwesomeIcon
-                      icon={faChevronRight}
-                      className="mx-2 cursor-pointer ml-3"
-                      style={{ fontSize: "15px", color: "var(--color)" }}
-                    />
-                  </p>
-                )}
-              </Link>
-            </div>
-          </div>
-
-          {/* Filter */}
-
-          <div className="filter-section">
-            <article className="article">
-              <h5 className="first-title mx-4 mt-4 text-black">Filter</h5>
-            </article>
-            <div className="mx-3 mt-3 filter-div">
-              <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-center">
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">From</label>
-                  <DatePicker
-                    selected={StartDate}
-                    onChange={(Date) => setStartDate(Date)}
-                    maxDate={new Date()}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">To</label>
-                  <DatePicker
-                    selected={EndDate}
-                    defaultValue={EndDate}
-                    onChange={(Date) => setEndDate(Date)}
-                    maxDate={new Date()}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <button
-                    className="insight-search w-100 mt-3"
-                    onClick={handleSearchData}
-                  >
-                    Search
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* Contact Analysis */}
-
-            <h5 className="first-title title__separate mx-4 mt-4 text-black">
-              Contact Analytics
+            <h5 className="first-title title__separate mx-4  text-black">
+              Quick Analytics
             </h5>
+            <div className="mx-2">
+              <div className="row mt-4 px-2 w-100 mx-0" style={{ gap: "0px" }}>
+                <div className="col-6 col-lg-3 mb-2 p-0 px-1">
+                  <div className="text-left insights-dashboard-boxes">
+                    <div className="d-flex align-items-center mb-1">
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="text-white mr-2"
+                      />
+                      <p className="text-white font-weight-bold">
+                        Profile Views
+                      </p>
+                    </div>
+                    <h5 className="text-white ml-4">
+                      {Data?.total_click_hits}
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-6 col-lg-3 mb-2 p-0 px-1">
+                  <div className="text-left insights-dashboard-boxes">
+                    <div className="d-flex align-items-center mb-1">
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="text-white mr-2"
+                      />
+                      <p className="text- font-weight-bold">Save Contacts</p>
+                    </div>
+                    <h5 className="text-white ml-4">
+                      {Data?.total_saved_contact}
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-6 col-lg-3 mb-2 p-0 px-1">
+                  <div className="text-left insights-dashboard-boxes">
+                    <div className="d-flex align-items-center mb-1">
+                      <FontAwesomeIcon
+                        icon={faBagShopping}
+                        className="text-white mr-2"
+                      />
+                      <p className="text-white font-weight-bold">
+                        Product Views
+                      </p>
+                    </div>
+                    <h5 className="text-white ml-4">
+                      {Data?.card_states?.product_views}
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-6 col-lg-3 mb-2 p-0 px-1">
+                  <div className="text-left insights-dashboard-boxes">
+                    <div className="d-flex align-items-center mb-1">
+                      <FontAwesomeIcon
+                        icon={faShare}
+                        className="text-white mr-2"
+                      />
+                      <p className="text-white font-weight-bold">Your Leads</p>
+                    </div>
+                    <h5 className="text-white ml-4">
+                      {Data?.total_share_contact}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Chart */}
 
             <div className="row w-100 m-0">
-              <div className="col-12 col-lg-3 p-0 mb-2">
-                <p className="font-weight-bold leads-para ml-lg-4">
-                  <FontAwesomeIcon
-                    icon={faPhone}
-                    className="mr-2"
-                    style={{ fontSize: "15px" }}
-                  />
-                  <span className="Varcolor">{Data?.card_states?.contact}</span>{" "}
-                  People reached you through your contact number.
-                </p>
+              <div className="col-12 col-lg-6 mt-4 px-0">
+                <div className="barchart-div mx-4">
+                  <Bar data={data} />
+                </div>
               </div>
-              <div className="col-12 col-lg-3 p-0 mb-2">
-                <p className="font-weight-bold leads-para">
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className="mr-2"
-                    style={{ fontSize: "15px" }}
-                  />
-                  <span className="Varcolor">{Data?.card_states?.email}</span>{" "}
-                  People reached you through your Email ID.
-                </p>
+              <div className="col-12 col-lg-6 mt-4 px-0">
+                <div className="barchart-div mx-4">
+                  <Bar data={data2} />
+                </div>
               </div>
-              <div className="col-12 col-lg-3 p-0 mb-2">
-                <p className="font-weight-bold leads-para">
-                  <FontAwesomeIcon
-                    icon={faLink}
-                    className="mr-2"
-                    style={{ fontSize: "15px" }}
-                  />
-                  <span className="Varcolor">{Data?.card_states?.website}</span>{" "}
-                  People reached you through your Website.
-                </p>
-              </div>
-              <div className="col-12 col-lg-3 p-0 mb-2">
-                <p className="font-weight-bold leads-para mr-lg-4">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    className="mr-2"
-                    style={{ fontSize: "15px" }}
-                  />
-                  <span className="Varcolor">{Data?.card_states?.address}</span>{" "}
-                  People reached you through the your Address.
-                </p>
-              </div>
-              {Data?.alternate_phone_states?.map((item, index) => {
-                return (
-                  <>
-                    <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
-                      <p
-                        className={
-                          index === 1
-                            ? "font-weight-bold leads-para"
-                            : "font-weight-bold leads-para ml-lg-4"
-                        }
-                      >
+            </div>
+
+            {/* Product */}
+
+            <h5 className="first-title title__separate mx-4 mt-4 text-black">
+              {UserData?.titles?.card_products?.visible_name} Analytics
+            </h5>
+            <div className="row w-100 m-0">
+              <div className="col-12 col-lg-12 p-0 mb-2">
+                <Link href="/product" className="VarColor">
+                  {Data?.card_states?.product_views == 0 ? (
+                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
+                      No data found
+                    </p>
+                  ) : (
+                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
+                      <span>
                         <FontAwesomeIcon
-                          icon={faPhone}
+                          icon={faBagShopping}
                           className="mr-2"
                           style={{ fontSize: "15px" }}
                         />
-                        <span className="Varcolor">{item?.count}</span> People
-                        reached you through the contact number{" "}
+                        You got
                         <span className="Varcolor">
-                          {item?.country_code
-                            ? item.country_code + "-" + item.number
-                            : item.number}
-                        </span>{" "}
-                        ({item.name}).
-                      </p>
-                    </div>
-                  </>
-                );
-              })}
+                          {" " + Data?.card_states?.product_views + " "}
+                        </span>
+                        clicks on Products, click here to see complete report
+                      </span>
+                      <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="mx-2 cursor-pointer ml-3"
+                        style={{ fontSize: "15px", color: "var(--color)" }}
+                      />
+                    </p>
+                  )}
+                </Link>
+              </div>
             </div>
 
-            {/* Social Analytics */}
-
+            {/* Blog Analysis */}
             <h5 className="first-title title__separate mx-4 mt-3 text-black">
-              Social Analytics
+              {UserData?.titles?.card_blogs?.visible_name} Analytics
             </h5>
+            <div className="row w-100 m-0">
+              <div className="col-12 col-lg-12 p-0 mb-2">
+                <Link href="/blog" className="Varcolor">
+                  {Data?.card_states?.blog_views == 0 ? (
+                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
+                      No data found
+                    </p>
+                  ) : (
+                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
+                      <span>
+                        <FontAwesomeIcon
+                          icon={faBagShopping}
+                          className="mr-2"
+                          style={{ fontSize: "15px" }}
+                        />
+                        You have total
+                        <span className="Varcolor">
+                          {" " + Data?.card_states?.blog_views + " "}
+                        </span>
+                        leads click here to see more.
+                      </span>
+                      <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="mx-2 cursor-pointer ml-3"
+                        style={{ fontSize: "15px", color: "var(--color)" }}
+                      />
+                    </p>
+                  )}
+                </Link>
+              </div>
+            </div>
 
-            <div className="row w-100 m-0 mb-4 justify-content-left">
-              {Data?.card_states?.social_links.length === 0 ? (
-                <p className="mx-4 font-weight-bold mb-4">No data available</p>
-              ) : (
-                Data?.card_states?.social_links?.map((item, index) => {
+            {/* Filter */}
+
+            <div className="filter-section">
+              <article className="article">
+                <h5 className="first-title mx-4 mt-4 text-black">Filter</h5>
+              </article>
+              <div className="mx-3 mt-3 filter-div">
+                <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-center">
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">From</label>
+                    <DatePicker
+                      selected={StartDate}
+                      onChange={(Date) => setStartDate(Date)}
+                      maxDate={new Date()}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">To</label>
+                    <DatePicker
+                      selected={EndDate}
+                      defaultValue={EndDate}
+                      onChange={(Date) => setEndDate(Date)}
+                      maxDate={new Date()}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <button
+                      className="insight-search w-100 mt-3"
+                      onClick={handleSearchData}
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* Contact Analysis */}
+
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Contact Analytics
+              </h5>
+
+              <div className="row w-100 m-0">
+                <div className="col-12 col-lg-3 p-0 mb-2">
+                  <p className="font-weight-bold leads-para ml-lg-4">
+                    <FontAwesomeIcon
+                      icon={faPhone}
+                      className="mr-2"
+                      style={{ fontSize: "15px" }}
+                    />
+                    <span className="Varcolor">
+                      {Data?.card_states?.contact}
+                    </span>{" "}
+                    People reached you through your Contact Number.
+                  </p>
+                </div>
+                <div className="col-12 col-lg-3 p-0 mb-2">
+                  <p className="font-weight-bold leads-para">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="mr-2"
+                      style={{ fontSize: "15px" }}
+                    />
+                    <span className="Varcolor">{Data?.card_states?.email}</span>{" "}
+                    People reached you through your Email ID.
+                  </p>
+                </div>
+                <div className="col-12 col-lg-3 p-0 mb-2">
+                  <p className="font-weight-bold leads-para">
+                    <FontAwesomeIcon
+                      icon={faLink}
+                      className="mr-2"
+                      style={{ fontSize: "15px" }}
+                    />
+                    <span className="Varcolor">
+                      {Data?.card_states?.website}
+                    </span>{" "}
+                    People reached you through your Website.
+                  </p>
+                </div>
+                <div className="col-12 col-lg-3 p-0 mb-2">
+                  <p className="font-weight-bold leads-para mr-lg-4">
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="mr-2"
+                      style={{ fontSize: "15px" }}
+                    />
+                    <span className="Varcolor">
+                      {Data?.card_states?.address}
+                    </span>{" "}
+                    People reached you through the your Address.
+                  </p>
+                </div>
+                {Data?.alternate_phone_states?.map((item, index) => {
                   return (
                     <>
-                      <div className="col-12 col-lg-3 p-0 mb-2">
+                      <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
                         <p
                           className={
                             index === 1
@@ -516,25 +493,69 @@ const Insights = () => {
                               : "font-weight-bold leads-para ml-lg-4"
                           }
                         >
-                          <i
-                            className={`fa-brands fa-${item.label?.toLowerCase()} mr-2`}
+                          <FontAwesomeIcon
+                            icon={faPhone}
+                            className="mr-2"
                             style={{ fontSize: "15px" }}
-                          ></i>
-                          {item?.hit} People reach out through the{" "}
-                          <span className="Varcolor">{item?.label}</span>
+                          />
+                          <span className="Varcolor">{item?.count}</span> People
+                          reached you through the contact number{" "}
+                          <span className="Varcolor">
+                            {item?.country_code
+                              ? item.country_code + "-" + item.number
+                              : item.number}
+                          </span>{" "}
+                          ({item.name}).
                         </p>
                       </div>
                     </>
                   );
-                })
-              )}
+                })}
+              </div>
+
+              {/* Social Analytics */}
+
+              <h5 className="first-title title__separate mx-4 mt-3 text-black">
+                Social Analytics
+              </h5>
+
+              <div className="row w-100 m-0 mb-4 justify-content-left">
+                {Data?.card_states?.social_links.length === 0 ? (
+                  <p className="mx-4 font-weight-bold mb-4">
+                    No data available
+                  </p>
+                ) : (
+                  Data?.card_states?.social_links?.map((item, index) => {
+                    return (
+                      <>
+                        <div className="col-12 col-lg-3 p-0 mb-2">
+                          <p
+                            className={
+                              index === 1
+                                ? "font-weight-bold leads-para"
+                                : "font-weight-bold leads-para ml-lg-4"
+                            }
+                          >
+                            <i
+                              className={`fa-brands fa-${item.label?.toLowerCase()} mr-2`}
+                              style={{ fontSize: "15px" }}
+                            ></i>
+                            {item?.hit} People reach out through the{" "}
+                            <span className="Varcolor">{item?.label}</span>
+                          </p>
+                        </div>
+                      </>
+                    );
+                  })
+                )}
+              </div>
             </div>
-          </div>
-          <div
-            className="w-100 text-center text-white p-2 mt-3"
-            style={{ bottom: "0", background: "black" }}
-          >
-            <p> © 2023. All Rights Reserved By Popipro.</p>
+            <div
+              className="w-100 text-center text-white p-2 mt-3"
+              style={{ bottom: "0", background: "black" }}
+            >
+              <p> © 2023. All Rights Reserved By Popipro.</p>
+            </div>
           </div>
         </>
       )}
