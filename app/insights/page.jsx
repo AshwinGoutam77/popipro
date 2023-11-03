@@ -212,6 +212,7 @@ const Insights = () => {
               <FontAwesomeIcon
                 icon={faChartSimple}
                 className="text-white mr-2"
+                width="20"
               />{" "}
               Overall Insights
             </h5>
@@ -221,6 +222,7 @@ const Insights = () => {
                 <FontAwesomeIcon
                   icon={faAngleLeft}
                   className="text-white mr-2"
+                  width="20"
                 />
                 Back
               </h6>
@@ -241,6 +243,7 @@ const Insights = () => {
                       <FontAwesomeIcon
                         icon={faEye}
                         className="text-white mr-2"
+                        width="20"
                       />
                       <p className="text-white font-weight-bold">
                         Profile Views
@@ -257,6 +260,7 @@ const Insights = () => {
                       <FontAwesomeIcon
                         icon={faDownload}
                         className="text-white mr-2"
+                        width="20"
                       />
                       <p className="text- font-weight-bold">Save Contacts</p>
                     </div>
@@ -271,6 +275,7 @@ const Insights = () => {
                       <FontAwesomeIcon
                         icon={faBagShopping}
                         className="text-white mr-2"
+                        width="20"
                       />
                       <p className="text-white font-weight-bold">
                         Product Views
@@ -287,6 +292,7 @@ const Insights = () => {
                       <FontAwesomeIcon
                         icon={faShare}
                         className="text-white mr-2"
+                        width="20"
                       />
                       <p className="text-white font-weight-bold">Your Leads</p>
                     </div>
@@ -336,6 +342,7 @@ const Insights = () => {
                           icon={faBagShopping}
                           className="mr-2"
                           style={{ fontSize: "15px" }}
+                          width="20"
                         />
                         You got
                         <span className="Varcolor">
@@ -347,6 +354,7 @@ const Insights = () => {
                         icon={faChevronRight}
                         className="mx-2 cursor-pointer ml-3"
                         style={{ fontSize: "15px", color: "var(--color)" }}
+                        width="20"
                       />
                     </p>
                   )}
@@ -372,6 +380,7 @@ const Insights = () => {
                           icon={faBagShopping}
                           className="mr-2"
                           style={{ fontSize: "15px" }}
+                          width="20"
                         />
                         You have total
                         <span className="Varcolor">
@@ -383,6 +392,7 @@ const Insights = () => {
                         icon={faChevronRight}
                         className="mx-2 cursor-pointer ml-3"
                         style={{ fontSize: "15px", color: "var(--color)" }}
+                        width="20"
                       />
                     </p>
                   )}
@@ -442,6 +452,7 @@ const Insights = () => {
                       icon={faPhone}
                       className="mr-2"
                       style={{ fontSize: "15px" }}
+                      width="20"
                     />
                     <span className="Varcolor">
                       {Data?.card_states?.contact}
@@ -455,6 +466,7 @@ const Insights = () => {
                       icon={faEnvelope}
                       className="mr-2"
                       style={{ fontSize: "15px" }}
+                      width="20"
                     />
                     <span className="Varcolor">{Data?.card_states?.email}</span>{" "}
                     People reached you through your Email ID.
@@ -466,6 +478,7 @@ const Insights = () => {
                       icon={faLink}
                       className="mr-2"
                       style={{ fontSize: "15px" }}
+                      width="20"
                     />
                     <span className="Varcolor">
                       {Data?.card_states?.website}
@@ -479,6 +492,7 @@ const Insights = () => {
                       icon={faLocationDot}
                       className="mr-2"
                       style={{ fontSize: "15px" }}
+                      width="20"
                     />
                     <span className="Varcolor">
                       {Data?.card_states?.address}
@@ -501,6 +515,7 @@ const Insights = () => {
                             icon={faPhone}
                             className="mr-2"
                             style={{ fontSize: "15px" }}
+                            width="20"
                           />
                           <span className="Varcolor">{item?.count}</span> People
                           reached you through the contact number{" "}

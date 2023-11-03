@@ -168,26 +168,26 @@ export default function TestimonialsLeads() {
               Data?.map((item, index) => {
                 return item.id == ModalId ? (
                   <div className="leads-custom-table mb-1" key={index}>
-                    <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Name</p>
-                      <p className="w-100">{item.name}</p>
+                    <div className="d-flex align-items-start w-100">
+                      <p className="font-weight-bold Heading-row">Name</p>
+                      <p className="content-row">{item.name}</p>
                     </div>
-                    <div className="d-flex align-items-start flex-wrap text-break">
-                      <p className="w-100 font-weight-bold">Sub Title</p>
-                      <p className="w-100">{item.company_name}</p>
+                    <div className="d-flex align-items-start w-100">
+                      <p className="font-weight-bold Heading-row">Sub Title</p>
+                      <p className="content-row">{item.company_name}</p>
                     </div>
-                    <div className="d-flex align-items-start flex-wrap text-break">
-                      <p className="w-100 font-weight-bold">Contact Number</p>
-                      <p className="w-100">{item.user_contact_number}</p>
+                    <div className="d-flex align-items-start w-100">
+                      <p className="Heading-row font-weight-bold">Contact Number</p>
+                      <p className="content-row">{item.user_contact_number}</p>
                     </div>
-                    <div className="d-flex align-items-start flex-wrap text-break">
-                      <p className="w-100 font-weight-bold">Date</p>
-                      <p className="w-100">{item.created_at}</p>
+                    <div className="d-flex align-items-start w-100">
+                      <p className="Heading-row font-weight-bold">Date</p>
+                      <p className="content-row">{item.created_at}</p>
                     </div>
                     {item.description ? (
-                      <div className="d-flex align-items-start flex-wrap text-break">
-                        <p className="w-100 font-weight-bold">Message</p>
-                        <p className="w-100">{item.description}</p>
+                      <div className="d-flex align-items-start w-100">
+                        <p className="Heading-row font-weight-bold">Message</p>
+                        <p className="content-row">{item.description}</p>
                       </div>
                     ) : (
                       ""

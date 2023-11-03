@@ -55,12 +55,11 @@ const PlanManagment = () => {
             </h6>
           </Link>
         </div>
-        <div>
-          {/* <h5 className="first-title title__separate mx-4 mt-4 text-black">
-            My Subscription
-          </h5> */}
-
-          <div className="box-shadow-leads mt-4">
+        <div
+          className="w-100 bg-white"
+          style={{ height: "calc(100vh - 58px)" }}
+        >
+          <div className="box-shadow-leads pt-4">
             <table className="insight-table">
               <thead>
                 <tr>
@@ -99,13 +98,13 @@ const PlanManagment = () => {
               </tbody>
             </table>
           </div>
+          <div
+            className="w-100 text-center text-white p-2 position-absolute mt-3"
+            style={{ bottom: "0", background: "black" }}
+          >
+            <p> © 2023. All Rights Reserved By Popipro.</p>
+          </div>
         </div>
-      </div>
-      <div
-        className="w-100 text-center text-white p-2 position-absolute mt-3"
-        style={{ bottom: "0", background: "black" }}
-      >
-        <p> © 2023. All Rights Reserved By Popipro.</p>
       </div>
     </div>
   );
