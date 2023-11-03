@@ -3,10 +3,9 @@ import $ from "jquery"; //Load jquery
 import React, { Component, createRef, useEffect, useRef } from "react"; //For react component
 import ReactDOM from "react-dom";
 // import "./App.css";
-if (typeof window !== "undefined") {
-  window.jQuery = $; //JQuery alias
-  window.$ = $; //JQuery alias
-}
+
+window.jQuery = $; //JQuery alias
+window.$ = $; //JQuery alias
 
 require("jquery-ui-sortable"); //For FormBuilder Element Drag and Drop
 require("formBuilder"); // For FormBuilder
