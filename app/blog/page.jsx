@@ -123,110 +123,126 @@ export default function DashboardBlogs() {
   };
   return token ? (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <div>
-        <div
-          className="login-header p-3 text-center d-flex align-items-center justify-content-between"
-          style={{ background: "black" }}
-        >
-          <h5 className="text-white m-0">
-            <FontAwesomeIcon icon={faNewspaper} className="text-white mr-2" width="20"/>{" "}
-            {Data?.title_array?.card_blogs?.visible_name}
-          </h5>
-          <Link href="/dashboard">
-            <h6 className="text-white m-0">
-              {" "}
-              <FontAwesomeIcon icon={faAngleLeft} className="text-white mr-2" width="20"/>
-              Back
-            </h6>
-          </Link>
-        </div>
-        <div>
-          <h5 className="first-title title__separate mx-4 mt-4 text-black">
-            Your last one month {Data?.title_array?.card_blogs?.visible_name}{" "}
-            Analytics
-          </h5>
+      {Data ? (
+        <>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          <div>
+            <div
+              className="login-header p-3 text-center d-flex align-items-center justify-content-between"
+              style={{ background: "black" }}
+            >
+              <h5 className="text-white m-0">
+                <FontAwesomeIcon
+                  icon={faNewspaper}
+                  className="text-white mr-2"
+                  width="20"
+                />{" "}
+                {Data?.title_array?.card_blogs?.visible_name}
+              </h5>
+              <Link href="/dashboard">
+                <h6 className="text-white m-0">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faAngleLeft}
+                    className="text-white mr-2"
+                    width="20"
+                  />
+                  Back
+                </h6>
+              </Link>
+            </div>
+            <div
+              className="w-100 bg-white"
+              style={{ height: "calc(100vh - 58px)" }}
+            >
+              <h5 className="first-title title__separate mx-4 pt-4 text-black">
+                Your last one month{" "}
+                {Data?.title_array?.card_blogs?.visible_name} Analytics
+              </h5>
 
-          <div className="mx-3">
-            <div className="row w-100 m-0 p-0 mb-4 align-items-end">
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">From</label>
-                <DatePicker
-                  selected={StartDate}
-                  onChange={(Date) => setStartDate(Date)}
-                  maxDate={new Date()}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
+              <div className="mx-3">
+                <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">From</label>
+                    <DatePicker
+                      selected={StartDate}
+                      onChange={(Date) => setStartDate(Date)}
+                      maxDate={new Date()}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">To</label>
+                    <DatePicker
+                      selected={EndDate}
+                      defaultValue={EndDate}
+                      onChange={(Date) => setEndDate(Date)}
+                      maxDate={new Date()}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <button
+                      className="insight-search w-100 mt-3"
+                      onClick={handleSearchData}
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">To</label>
-                <DatePicker
-                  selected={EndDate}
-                  defaultValue={EndDate}
-                  onChange={(Date) => setEndDate(Date)}
-                  maxDate={new Date()}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <button
-                  className="insight-search w-100 mt-3"
-                  onClick={handleSearchData}
-                >
-                  Search
-                </button>
+
+              <div className="box-shadow-leads">
+                <table className="insight-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Views</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Data?.blog_states?.length === 0 ? (
+                      <tr>
+                        <td className="p-3">No data available</td>
+                      </tr>
+                    ) : (
+                      Data?.blog_states?.map((item, index) => {
+                        return (
+                          <tr key={index} className="cursor-pointer">
+                            <td data-column="Name">{item.name}</td>
+                            <td data-column="Email">{item.count}</td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
+            <div
+              className="w-100 text-center text-white p-2 position-absolute mt-3"
+              style={{ bottom: "0", background: "black" }}
+            >
+              <p> © 2023. All Rights Reserved By Popipro.</p>
+            </div>
           </div>
-
-          <div className="box-shadow-leads">
-            <table className="insight-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Views</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Data?.blog_states?.length === 0 ? (
-                  <tr>
-                    <td className="p-3">No data available</td>
-                  </tr>
-                ) : (
-                  Data?.blog_states?.map((item, index) => {
-                    return (
-                      <tr key={index} className="cursor-pointer">
-                        <td data-column="Name">{item.name}</td>
-                        <td data-column="Email">{item.count}</td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div
-        className="w-100 text-center text-white p-2 position-absolute mt-3"
-        style={{ bottom: "0", background: "black" }}
-      >
-        <p> © 2023. All Rights Reserved By Popipro.</p>
-      </div>
+        </>
+      ) : (
+        <SimpleBackdrop visible={ShowLoader} />
+      )}
     </>
   ) : (
     redirect("/login")

@@ -167,8 +167,11 @@ export default function DashboardProducts({ TitleData }) {
                   </h6>
                 </Link>
               </div>
-              <div>
-                <h5 className="first-title title__separate mx-4 mt-4 text-black">
+              <div
+                className=" w-100 bg-white"
+                style={{ height: "calc(100vh - 58px)" }}
+              >
+                <h5 className="first-title title__separate mx-4 pt-4 text-black">
                   Your last one month{" "}
                   {Data?.title_array?.card_products?.visible_name} Analytics
                 </h5>
@@ -233,13 +236,13 @@ export default function DashboardProducts({ TitleData }) {
                     </tbody>
                   </table>
                 </div>
+                <div
+                  className="w-100 text-center text-white p-2 position-absolute mt-3"
+                  style={{ bottom: "0", background: "black" }}
+                >
+                  <p> © 2023. All Rights Reserved By Popipro.</p>
+                </div>
               </div>
-            </div>
-            <div
-              className="w-100 text-center text-white p-2 position-absolute mt-3"
-              style={{ bottom: "0", background: "black" }}
-            >
-              <p> © 2023. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </>

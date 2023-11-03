@@ -99,25 +99,29 @@ const EditBanner = ({
             ) : (
               ""
             )}
-            <Link href={"/" + card_url}>
-              <p
-                className="float"
-                style={{
-                  background: "var(--color)",
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faEye}
-                  className="ml-1"
+            {Data?.is_onboarding == 2 ? (
+              <Link href={"/" + card_url}>
+                <p
+                  className="float"
                   style={{
-                    position: "relative",
-                    right: "1px",
-                    fontSize: "20px",
-                    color: "white",
+                    background: "var(--color)",
                   }}
-                />
-              </p>
-            </Link>
+                >
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="ml-1"
+                    style={{
+                      position: "relative",
+                      right: "1px",
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  />
+                </p>
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="pt-2">
@@ -227,45 +231,29 @@ const EditBanner = ({
             ) : (
               ""
             )}
-            {/* <a
-              onClick={() => handleRedirect()}
-              className="float"
-              style={{
-                background: "var(--color)",
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faArrowRightFromBracket}
-                className="ml-1"
-                style={{
-                  position: "relative",
-                  right: "1px",
-                  fontSize: "20px",
-                  color: "white",
-                }}
-              />
-            </a> */}
-            <Link href={"/" + card_url}>
-              <p
-                // href={"/" + card_url}
-                // onClick={() => handleRedirect()}
-                className="float"
-                style={{
-                  background: "var(--color)",
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faEye}
-                  className="ml-1"
+            {Data?.is_onboarding == 2 ? (
+              <Link href={"/" + card_url}>
+                <p
+                  className="float"
                   style={{
-                    position: "relative",
-                    right: "1px",
-                    fontSize: "20px",
-                    color: "white",
+                    background: "var(--color)",
                   }}
-                />
-              </p>
-            </Link>
+                >
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="ml-1"
+                    style={{
+                      position: "relative",
+                      right: "1px",
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  />
+                </p>
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="pt-2">

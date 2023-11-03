@@ -93,6 +93,8 @@ export default function EditProducts({
   const aRef = useRef(null);
 
   const handleSaveBlogDetail = async (id = null) => {
+    console.log(ProductPrice.length);
+    // return
     setShowLoader(true);
     let data = [];
     let error = false;
@@ -123,13 +125,14 @@ export default function EditProducts({
               products_price: ProductPrice,
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
+              is_label: PriceRadio ? 0 : 1,
             },
           ]);
     }
     if (error) {
       setShowLoader(false);
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -658,28 +661,33 @@ export default function EditProducts({
               style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
+
             <div className="d-flex align-items-center mb-3 mt-1 ml-2">
               <div className="d-flex align-items-center">
                 <input
                   type="radio"
                   id="price"
                   name="product"
-                  value={PriceRadio}
+                  value={0}
                   checked={PriceRadio}
                   onChange={(e) => handleRadioBTN(e.target.value)}
                 />{" "}
-                <label className="ml-2 mb-0">Show Price</label>
+                <label htmlFor="price" className="ml-2 mb-0">
+                  Show Price
+                </label>
               </div>
               <div className="d-flex align-items-center ml-3">
                 <input
                   type="radio"
                   id="css"
                   name="product"
-                  value={LabelRadio}
+                  value={1}
                   // checked={LabelRadio}
                   onChange={(e) => handleLabelRadio(e.target.value)}
                 />{" "}
-                <label className="ml-2 mb-0">Show Text</label>
+                <label htmlFor="css" className="ml-2 mb-0">
+                  Show Text
+                </label>
               </div>
             </div>
 
@@ -713,7 +721,7 @@ export default function EditProducts({
                     placeholder="Price"
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setProductPrice(e.target.value)}
-                    maxlength="12"
+                    maxlength="10"
                   ></input>
                 </div>
               </div>
@@ -739,14 +747,14 @@ export default function EditProducts({
               style={{ gap: "10px" }}
             >
               <div className="w-100">
-                <label className="modalFormLable">Label for url / link</label>
+                <label className="modalFormLable">Label for URL / link</label>
                 <input
                   name="url"
                   rows="4"
                   cols="50"
                   className="form-control mb-4 mt-1"
                   value={AddLabel}
-                  placeholder="Label"
+                  placeholder="URL / link"
                   style={{ height: "40px", border: "1px solid #ccc" }}
                   onChange={(e) => setAddLabel(e.target.value)}
                 ></input>
@@ -771,10 +779,14 @@ export default function EditProducts({
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
-                className="cursor-pointer"
+                className="cursor-pointer text-right"
               >
                 Suggestion From AI{" "}
-                <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
+                <img
+                  src="../static/img/ai-stick.png"
+                  alt="stick"
+                  style={{ width: "13%" }}
+                />
               </p>
             </div>
             <CKEditor
@@ -880,7 +892,7 @@ export default function EditProducts({
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
-                  {isFinite(items.price) ? (
+                  {items?.is_label == 0 ? (
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
@@ -962,14 +974,14 @@ export default function EditProducts({
                       ></input>
                     </div>
                     <div className="w-100">
-                      <label className="modalFormLable">Url / Links</label>
+                      <label className="modalFormLable">URL / link</label>
                       <input
                         name="url"
                         rows="4"
                         cols="50"
                         className="form-control mb-4 mt-1 w-100"
                         value={ProductUrl}
-                        placeholder="Url"
+                        placeholder="URL / link"
                         style={{
                           height: "40px",
                           border: "1px solid #ccc",

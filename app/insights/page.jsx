@@ -306,11 +306,15 @@ const Insights = () => {
                   <Bar data={data} />
                 </div>
               </div>
-              <div className="col-12 col-lg-6 mt-4 px-0">
-                <div className="barchart-div mx-4">
-                  <Bar data={data2} />
+              {Data?.users_social_link?.length !== 0 ? (
+                <div className="col-12 col-lg-6 mt-4 px-0">
+                  <div className="barchart-div mx-4">
+                    <Bar data={data2} />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
             </div>
 
             {/* Product */}

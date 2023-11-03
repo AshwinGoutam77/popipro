@@ -250,7 +250,7 @@ const Leads = () => {
             </Modal.Body>
           </Modal>
           <div
-            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
+            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
             style={{ height: "calc(100vh - 58px)" }}
           >
             <div className="w-100">
