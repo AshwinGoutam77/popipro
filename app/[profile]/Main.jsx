@@ -148,13 +148,13 @@ export default async function Main({ profile, data, id }) {
                       PlanData={plan}
                     />
 
-                    <div className="mb-3 box-content boxxx mt-0" id="about_us">
+                    {/* <div className="mb-3 box-content boxxx mt-0" id="about_us">
                       <div className="flex-header">
                         <h2 className="title title--h1 first-title title__separate">
                           Custom Form
                         </h2>
                       </div>
-                      {/* <BuilderForm
+                      <BuilderForm
                         jsonData={[
                           {
                             type: "text",
@@ -275,8 +275,8 @@ export default async function Main({ profile, data, id }) {
                             rows: 4,
                           },
                         ]}
-                      /> */}
-                    </div>
+                      />
+                    </div> */}
                   </div>
                 </div>
               </div>
