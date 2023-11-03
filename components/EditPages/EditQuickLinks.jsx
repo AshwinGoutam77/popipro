@@ -56,7 +56,7 @@ export default function EditCustomLink({
     handleEditClose();
     setLinkLabel("");
     setLinkName("");
-    setLinkLabel("");
+    setTags("");
   };
 
   const handleSaveDetails = async (id = null) => {

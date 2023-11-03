@@ -312,6 +312,12 @@ div:where(.swal2-icon).swal2-info {
 .Varcolor {
   color: var(--color);
 }
+.VarColor:hover {
+  color: var(--color) !important;
+}
+.Varcolor:hover {
+  color: var(--color) !important;
+}
 
 .insight-filter {
   padding: 8px 13px;
@@ -726,4 +732,18 @@ textarea:invalid {
   right: 0;
   width: 40%;
   background: var(--color);
+}
+@media (max-width: 767px) {
+  .date-mobile {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 15px;
+  }
+}
+.content-row {
+  width: 66%;
+  word-wrap: break-word;
+}
+.Heading-row {
+  width: 35% !important;
 }

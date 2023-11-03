@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 
 export default function Product({
   Titles,
@@ -36,7 +37,13 @@ export default function Product({
   const [Products, setProducts] = useState("");
   const [showProduct, setShowProduct] = useState(false);
   const handleShowProduct = () => setShowProduct(true);
-  const handleCloseProduct = () => setShowProduct(false);
+  const handleCloseProduct = () => {
+    setName("");
+    setContact("");
+    setMessage("");
+    setEmail("");
+    setShowProduct(false);
+  };
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Contact, setContact] = useState("");
@@ -247,12 +254,10 @@ export default function Product({
                             style={{ background: "var(--color)" }}
                             onClick={() => handleHitClick()}
                           >
-                            <i
-                              className="fa fa-link mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i>
+                            <FontAwesomeIcon
+                              icon={faLink}
+                              className="user-select-auto mr-2"
+                            />
                             {Data?.id == "TrxF"
                               ? "Watch Video"
                               : item.button_placeholder
@@ -293,12 +298,6 @@ export default function Product({
                             className="mt-1 product-modal-btn w-auto d-block"
                             onClick={() => HitClick(item?.id)}
                           >
-                            {/* <i
-                              className="fa-brands  fa-whatsapp mr-2"
-                              style={{
-                                fontSize: "16px",
-                              }}
-                            ></i> */}
                             <img
                               src="./static/img/whatsapp.png"
                               alt="whatsaap"
@@ -323,6 +322,7 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
+      {/* Enquiry Modal */}
       <Modal show={showProduct} onHide={handleCloseProduct} centered>
         <Modal.Header>
           <Modal.Title>
@@ -433,16 +433,28 @@ export default function Product({
                         <div className="col-6 col-sm-6 col-lg-4">
                           <div className="position-relative">
                             {items?.image?.path ? (
-                              <img
+                              // <img
+                              //   className="case-item__icon-products"
+                              //   src={Data?.base_url + items?.image?.path}
+                              //   alt="product"
+                              // />
+                              <Image
                                 className="case-item__icon-products"
-                                src={Data?.base_url + items?.image?.path}
-                                alt="product"
+                                src={
+                                  "https://admin.popipro.com/" +
+                                  items.image.path
+                                }
+                                alt="products"
+                                width={0}
+                                height={0}
                               />
                             ) : (
-                              <img
+                              <Image
                                 className="case-item__icon-products"
                                 src="./static/img/picture-1.jpg"
-                                alt="product"
+                                alt="products"
+                                width={0}
+                                height={0}
                               />
                             )}
                             {items?.description?.length <= "0" ? (
@@ -476,7 +488,7 @@ export default function Product({
                                 {MainData?.company_setting
                                   ?.show_product_enquiry_button == 0 ? (
                                   <span
-                                    data-toggle="modal" 
+                                    data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                     onClick={() => handleModal(items?.id)}

@@ -263,6 +263,7 @@ export default function EditTestimonials({
   };
   const HandleEmptyFeilds = () => {
     // aRef.current.value = null;
+    setImage("");
     setServicesName(" ");
     setServicesDescription(" ");
     setCompanyName("");

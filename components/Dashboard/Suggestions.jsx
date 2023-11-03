@@ -11,7 +11,7 @@ export default function Suggestions({ active, handleClose }) {
 
   const handlecontinue = async () => {
     if (Message === "") {
-      toast.error("Message field is requried", {
+      toast.error("Suggestion is requried", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -114,7 +114,7 @@ export default function Suggestions({ active, handleClose }) {
               required
             />
             <button
-              className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
+              className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
               data-wow-delay=".6s"
               style={{
                 visibility: "visible",

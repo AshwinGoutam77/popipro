@@ -628,9 +628,7 @@ function EditHeader({
                 src={
                   Data?.profile_picture?.path
                     ? "https://admin.popipro.com/" +
-                      Data?.profile_picture?.path +
-                      "?ver=" +
-                      time
+                      Data?.profile_picture?.path 
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 alt="images"

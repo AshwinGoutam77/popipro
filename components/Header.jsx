@@ -19,6 +19,7 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 import Image from "next/image";
+import SimpleBackdrop from "./SimpleBackDrop";
 
 const Header = ({
   profile,
@@ -70,7 +71,7 @@ const Header = ({
       });
       return;
     } else if (ReviewDescription == "") {
-      toast.error("Description is requried", {
+      toast.error("Message is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",
@@ -82,7 +83,7 @@ const Header = ({
       });
       return;
     } else if (ReviewSubTitle == "") {
-      toast.error("SubTitile is requried", {
+      toast.error("SubTitle is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",
@@ -94,7 +95,7 @@ const Header = ({
       });
       return;
     } else if (ReviewNumber == "") {
-      toast.error("Number is requried", {
+      toast.error("Phone Number is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",
@@ -107,6 +108,7 @@ const Header = ({
       return;
     }
     try {
+      setShowLoader(true);
       let payload = {
         testimonial_image: Imagee,
         card_url: profile,
@@ -117,6 +119,7 @@ const Header = ({
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
+        setShowLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoclose: 2000,
@@ -380,6 +383,7 @@ const Header = ({
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Share
         Data={card}
         card={profile}
@@ -625,9 +629,7 @@ const Header = ({
               src={
                 card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
-                    card?.profile_picture?.path +
-                    "?ver=" +
-                    time
+                    card?.profile_picture?.path
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="images"
