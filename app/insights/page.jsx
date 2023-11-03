@@ -551,16 +551,26 @@ const Insights = () => {
                           <p
                             className={
                               index === 1
-                                ? "font-weight-bold leads-para"
-                                : "font-weight-bold leads-para ml-lg-4"
+                                ? "font-weight-bold leads-para d-flex align-items-center justify-content-center"
+                                : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center justify-content-center"
                             }
                           >
-                            <i
-                              className={`fa-brands fa-${item.label?.toLowerCase()} mr-2`}
-                              style={{ fontSize: "15px" }}
-                            ></i>
+                            {console.log(`fa${item.label}`)}
+                            <img
+                              src={
+                                "../static/img/" +
+                                item.label?.toLowerCase() +
+                                ".png"
+                              }
+                              alt={`${item.label?.toLowerCase()}`}
+                              style={{
+                                width: "20px",
+                                borderRadius: "100%",
+                                marginRight: "10px",
+                              }}
+                            />
                             {item?.hit} People reach out through the{" "}
-                            <span className="Varcolor">{item?.label}</span>
+                            <span className="Varcolor ml-1">{item?.label}</span>
                           </p>
                         </div>
                       </>
