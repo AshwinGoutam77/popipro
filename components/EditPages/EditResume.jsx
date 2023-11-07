@@ -338,8 +338,8 @@ export default function EditResume({
       );
       const suggestedText = response.data.choices[0].message.content;
       const suggestionList = suggestedText.split("\n");
-      const suggestionData = suggestionList.replace(/[0-9]./g, "");
-      setSuggestions(suggestionData);
+      // setSuggestions(response.data.choices[0].message.content);
+      setSuggestions(suggestionList);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -374,7 +374,7 @@ export default function EditResume({
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(InputState);
+    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));F
     setShowshowChatModal(false);
   };
 

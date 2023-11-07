@@ -372,8 +372,8 @@ export default function EditBlogs({
       );
       const suggestedText = response.data.choices[0].message.content;
       const suggestionList = suggestedText.split("\n");
-      const suggestionData = suggestionList.replace(/[0-9]./g, "");
-      setSuggestions(suggestionData);
+      // setSuggestions(response.data.choices[0].message.content);
+      setSuggestions(suggestionList);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -408,7 +408,7 @@ export default function EditBlogs({
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(InputState);
+    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
 
@@ -548,7 +548,7 @@ export default function EditBlogs({
               Edit {BlogName}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleCanclebtn}>
+          <button type="button" class="close" onClick={handleEditClose}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
