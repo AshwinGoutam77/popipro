@@ -251,7 +251,7 @@ export default function Dashboard() {
             </p>
             {Data?.is_onboarding == "1" ? (
               <p
-                className="text-center mt-1 font-weight-bold cursor-pointer"
+                className="text-center mt-1 font-weight-bold cursor-pointer blink-para"
                 onClick={SaveStatusApi}
               >
                 Your profile is private and not visible on tap.
