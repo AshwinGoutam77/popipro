@@ -62,7 +62,6 @@ function EditHeader({
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
-
   const getBlobData = async () => {
     if (croppedImage) {
       axios({
@@ -144,6 +143,7 @@ function EditHeader({
         setShowLoader(true);
         if (response.data?.status) {
           APIDATA();
+          setTime(new Date().getTime() / 1000);
           handleClose();
           setShow(true);
           if (Show) {
@@ -628,7 +628,9 @@ function EditHeader({
                 src={
                   Data?.profile_picture?.path
                     ? "https://admin.popipro.com/" +
-                      Data?.profile_picture?.path 
+                      Data?.profile_picture?.path +
+                      "?ver=" +
+                      time
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 alt="images"
@@ -741,27 +743,12 @@ function EditHeader({
                       icon={faMapMarkerAlt}
                       className="user-select-auto"
                       style={{
-                        marginRight:'21px',
+                        marginRight: "21px",
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    {/* <a
-                      href={
-                        Data &&
-                        Data?.card_address &&
-                        (Data?.card_address?.includes("http://") ||
-                          Data?.card_address?.includes("https://"))
-                          ? Data?.card_address
-                          : "https://www.google.com/maps/place/" +
-                            Data?.card_address
-                      }
-                      target="_blank"
-                      className="overhead_a text-dark text-decoration-none"
-                      style={{ marginLeft: "9px" }}
-                    > */}
                     {Data && Data?.card_address}
-                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}

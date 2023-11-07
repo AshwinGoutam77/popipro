@@ -1374,3 +1374,46 @@ input[type="radio" i] {
 .badge {
   padding-bottom: 4px;
 }
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.dnd-icon {
+  width: 18px;
+  height: 18px;
+  cursor: row-resize;
+  user-select: none;
+  margin-left: 10px;
+}
+
+.delete-icon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 10px;
+}
+
+.dnd-icon img,
+.delete-icon img {
+  width: inherit;
+  height: inherit;
+  pointer-events: none;
+}
+
+.color-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: row-resize;
+  user-select: none;
+}
+
+.custom-divider {
+  background-color: black !important;
+}

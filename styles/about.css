@@ -747,3 +747,36 @@ textarea:invalid {
 .Heading-row {
   width: 35% !important;
 }
+.react-datepicker__header {
+  background-color: var(--themecolor) !important;
+  border-bottom: 1px solid var(--themecolor) !important;
+}
+.main_content {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+[data-rbd-droppable-context-id="0"],
+#droppable {
+  background: var(--themecolor) !important;
+  padding: 8px;
+  width: 100% !important;
+}
+[data-rbd-drag-handle-context-id="0"] {
+  user-select: none;
+  padding: 16px;
+  margin: 0px 0px 8px;
+  background: var(--color) !important;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+.main_content div {
+  width: 100% !important;
+  /* background: var(--themecolor) !important; */
+}
+.ck .ck-placeholder:before,
+.ck.ck-placeholder:before {
+  color: #a1aab5 !important;
+  cursor: text;
+}

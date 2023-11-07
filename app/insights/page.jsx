@@ -278,7 +278,7 @@ const Insights = () => {
                         width="20"
                       />
                       <p className="text-white font-weight-bold">
-                        Product Views
+                        {UserData?.titles?.card_products?.visible_name} Views
                       </p>
                     </div>
                     <h5 className="text-white ml-4">
@@ -348,7 +348,9 @@ const Insights = () => {
                         <span className="Varcolor">
                           {" " + Data?.card_states?.product_views + " "}
                         </span>
-                        clicks on Products, click here to see complete report
+                        clicks on{" "}
+                        {UserData?.titles?.card_products?.visible_name}, click
+                        here to see complete report
                       </span>
                       <FontAwesomeIcon
                         icon={faChevronRight}
@@ -551,11 +553,10 @@ const Insights = () => {
                           <p
                             className={
                               index === 1
-                                ? "font-weight-bold leads-para d-flex align-items-center justify-content-center"
-                                : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center justify-content-center"
+                                ? "font-weight-bold leads-para d-flex align-items-center"
+                                : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center"
                             }
                           >
-                            {console.log(`fa${item.label}`)}
                             <img
                               src={
                                 "../static/img/" +

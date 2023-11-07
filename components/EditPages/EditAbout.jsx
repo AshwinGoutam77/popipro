@@ -31,6 +31,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [InputState, setInputState] = useState("");
 
   useEffect(() => {
     setAboutMe(TitleData?.card_description?.visible_name);
@@ -196,7 +197,9 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             },
             {
               role: "user",
-              content: Description,
+              content:
+                Description +
+                "rewrite this sentence and give five suggestions.",
             },
           ],
         },
@@ -206,7 +209,10 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
           },
         }
       );
-      setSuggestions(response.data.choices[0].message.content);
+      const suggestedText = response.data.choices[0].message.content;
+      const suggestionList = suggestedText.split("\n");
+      const suggestionData = suggestionList.replace(/[0-9]./g, "");
+      setSuggestions(suggestionData);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -241,7 +247,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(suggestions);
+    navigator.clipboard.writeText(InputState);
     setShowshowChatModal(false);
   };
 
@@ -266,21 +272,36 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {IsTyping ? (
-            <p className="ml-2">Loading...</p>
-          ) : (
-            <p className="ml-2">{suggestions}</p>
-          )}
-          {IsTyping ? (
-            ""
-          ) : (
-            <button
-              className="send-btnn mt-3"
-              onClick={() => handleCopyMessage()}
-            >
-              Copy text
-            </button>
-          )}
+          <div id="suggestions">
+            {IsTyping ? (
+              <p>Loading...</p>
+            ) : (
+              suggestions.map((suggestion, index) => (
+                <div key={index}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="suggestion"
+                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
+                      value={suggestion}
+                      onChange={(e) => setInputState(e.target.value)}
+                    />
+                    {suggestion.replace(/[0-9]./g, "")}
+                  </label>
+                </div>
+              ))
+            )}
+            {IsTyping ? (
+              ""
+            ) : (
+              <button
+                className="send-btnn mt-3"
+                onClick={() => handleCopyMessage()}
+              >
+                Copy text
+              </button>
+            )}
+          </div>
         </Modal.Body>
       </Modal>
       {TitleData?.card_description?.source !== 0 ? (
@@ -306,12 +327,15 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             </div>
             {TextArea ? (
               <div className="">
-                <p onClick={handleChatModal} className="cursor-pointer text-right">
-                   Suggestion From AI{" "}
+                <p
+                  onClick={handleChatModal}
+                  className="cursor-pointer text-right"
+                >
+                  Use AI{" "}
                   <img
                     src="../static/img/ai-stick.png"
                     alt="stick"
-                    style={{ width: "13%" }}
+                    style={{ width: "20%" }}
                   />
                 </p>
               </div>
@@ -373,6 +397,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                     "Heading",
                     "Emoji",
                   ],
+                  placeholder:
+                    "Insert a text and take advantage of AI to enrich the content you've written.",
                   link: {
                     decorators: {
                       addTargetToExternalLinks: {

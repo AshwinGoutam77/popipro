@@ -64,6 +64,7 @@ export default function EditBlogs({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [InputState, setInputState] = useState("");
 
   useEffect(() => {
     setBlogName(TitleData?.card_blogs?.visible_name);
@@ -257,7 +258,7 @@ export default function EditBlogs({
   const handleCanclebtn = () => {
     handleClose();
     handleEditClose();
-    HandleEmptyFeilds()
+    HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
     setShowLoader(true);
@@ -357,7 +358,9 @@ export default function EditBlogs({
             },
             {
               role: "user",
-              content: ServicesDescription,
+              content:
+                ServicesDescription +
+                "rewrite this sentence and give five suggestions.",
             },
           ],
         },
@@ -367,7 +370,10 @@ export default function EditBlogs({
           },
         }
       );
-      setSuggestions(response.data.choices[0].message.content);
+      const suggestedText = response.data.choices[0].message.content;
+      const suggestionList = suggestedText.split("\n");
+      const suggestionData = suggestionList.replace(/[0-9]./g, "");
+      setSuggestions(suggestionData);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -402,7 +408,7 @@ export default function EditBlogs({
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(suggestions);
+    navigator.clipboard.writeText(InputState);
     setShowshowChatModal(false);
   };
 
@@ -468,9 +474,12 @@ export default function EditBlogs({
                 data-target="#chatapimodal"
                 className="cursor-pointer text-right"
               >
-                 Suggestion From AI{" "}
-                {/* <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" /> */}
-                <img src="../static/img/ai-stick.png" alt="stick" style={{width:'13%'}}/>
+                Use AI{" "}
+                <img
+                  src="../static/img/ai-stick.png"
+                  alt="stick"
+                  style={{ width: "20%" }}
+                />
               </p>
             </div>
             <CKEditor
@@ -539,7 +548,7 @@ export default function EditBlogs({
               Edit {BlogName}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleEditClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -591,7 +600,22 @@ export default function EditBlogs({
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setBlogUrl(e.target.value)}
                   ></input>
-                  <label className="modalFormLable">Description*</label>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <label className="modalFormLable">Description*</label>
+                    <p
+                      onClick={handleChatModal}
+                      data-toggle={ServicesDescription ? "modal" : ""}
+                      data-target="#chatapimodal"
+                      className="cursor-pointer text-right"
+                    >
+                      Use AI{" "}
+                      <img
+                        src="../static/img/ai-stick.png"
+                        alt="stick"
+                        style={{ width: "20%" }}
+                      />
+                    </p>
+                  </div>
                   <CKEditor
                     editor={ClassicEditor}
                     config={{
@@ -758,21 +782,36 @@ export default function EditBlogs({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {IsTyping ? (
-            <p className="ml-2">Loading...</p>
-          ) : (
-            <p className="ml-2">{suggestions}</p>
-          )}
-          {IsTyping ? (
-            ""
-          ) : (
-            <button
-              className="send-btnn mt-3"
-              onClick={() => handleCopyMessage()}
-            >
-              Copy text
-            </button>
-          )}
+          <div id="suggestions">
+            {IsTyping ? (
+              <p>Loading...</p>
+            ) : (
+              suggestions.map((suggestion, index) => (
+                <div key={index}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="suggestion"
+                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
+                      value={suggestion}
+                      onChange={(e) => setInputState(e.target.value)}
+                    />
+                    {suggestion.replace(/[0-9]./g, "")}
+                  </label>
+                </div>
+              ))
+            )}
+            {IsTyping ? (
+              ""
+            ) : (
+              <button
+                className="send-btnn mt-3"
+                onClick={() => handleCopyMessage()}
+              >
+                Copy text
+              </button>
+            )}
+          </div>
         </Modal.Body>
       </Modal>
 
