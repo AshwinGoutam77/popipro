@@ -549,3 +549,6 @@ input.date-time-input::-webkit-date-and-time-value {
   align-items: center;
   justify-content: center;
 }
+.chat-api-p {
+  white-space: pre-line;
+}

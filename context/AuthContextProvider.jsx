@@ -7,9 +7,8 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState([]);
   const userLogin = (info) => {
     setToken(info.token);
-    
-      localStorage.setItem("url", info.current_url);
-      localStorage.setItem("token", info.token);
+    localStorage.setItem("url", info.current_url);
+    localStorage.setItem("token", info.token);
   };
   return (
     <AuthContext.Provider

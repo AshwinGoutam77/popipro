@@ -20,6 +20,8 @@ export const UpgradeLandingMode = { path: "update-card-mode", method: "POST" };
 export const ChangePasswordApi = { path: "change-password", method: "POST" };
 export const GetInshights = { path: "get-front-reports", method: "GET" };
 export const AddTestimonials = { path: "add-testimonials", method: "POST" };
+export const CardSequence = { path: "update-card-sequence", method: "POST" };
+export const GetCardSequence = { path: "get-card-sequence", method: "GET" };
 export const GetTestimonials = {
   path: "get-testimonial-requests",
   method: "GET",

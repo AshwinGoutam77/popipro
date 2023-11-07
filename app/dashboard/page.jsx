@@ -46,6 +46,7 @@ export default function Dashboard() {
   const [modalShow, setModalShow] = useState("");
   const [ModalShowMulti, setModalShowMulti] = useState("");
   const [card_url, setCard_url] = useState("");
+  const [time, setTime] = useState(new Date().getTime() / 1000);
 
   const APIDATA = async () => {
     if (localStorage.getItem("url")) {
@@ -232,7 +233,10 @@ export default function Dashboard() {
             <img
               src={
                 Data?.profile_picture?.path
-                  ? Data?.base_url + Data?.profile_picture?.path
+                  ? Data?.base_url +
+                    Data?.profile_picture?.path +
+                    "?ver=" +
+                    time
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="imagee"
