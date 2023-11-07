@@ -254,9 +254,9 @@ export default function Dashboard() {
                 className="text-center mt-1 font-weight-bold cursor-pointer blink-para"
                 onClick={SaveStatusApi}
               >
-                Your profile is private and not visible on tap.
-                <br /> Once you fills information, don&apos;t forget to make it
-                public..
+                Your profile is in <strong>DRAFT MODE </strong>
+                <br />
+                Please <u>click here</u> to make it public
               </p>
             ) : (
               ""
