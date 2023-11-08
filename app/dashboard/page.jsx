@@ -251,7 +251,7 @@ export default function Dashboard() {
             </p>
             {Data?.is_onboarding == "1" ? (
               <p
-                className="text-center mt-1 font-weight-bold cursor-pointer blink-para"
+                className="text-center mt-1 font-weight-bold cursor-pointer blink-para cursor-pointer"
                 onClick={SaveStatusApi}
               >
                 Your profile is in <strong>DRAFT MODE </strong>
@@ -292,7 +292,8 @@ export default function Dashboard() {
                     {MainData?.plan?.subscription?.end_date}
                   </span>
                 </p>
-                {Data && Data?.is_onboarding == 1 ? (
+
+                {/* {Data && Data?.is_onboarding == 1 ? (
                   <p className="mt-2 font-weight-bold subscrition-p cursor-pointer">
                     <span
                       className="text-white"
@@ -304,7 +305,7 @@ export default function Dashboard() {
                   </p>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
             ) : (
               ""
