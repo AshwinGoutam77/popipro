@@ -2,6 +2,7 @@
 import {
   faArrowRight,
   faBuilding,
+  faDownload,
   faEnvelope,
   faLink,
   faMapMarkerAlt,
@@ -21,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
+import QRCode from "qrcode.react";
 
 const Header = ({
   profile,
@@ -675,15 +677,75 @@ const Header = ({
           </button>
         </Modal.Header>
         <Modal.Body className="text-center">
-          <img
-            src={
-              "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-              imageSrc +
-              "END%3AVCARD%0A"
-            }
-            className="qr-img"
-            alt="we"
-          />
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <img
+              src={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              className="qr-img"
+              alt="we"
+            />
+            <a
+              href={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              target="_blank"
+              download={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              className="contact-btn w-auto mt-4 scanner-a"
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="user-select-auto mr-2"
+                style={{
+                  fontSize: "16px",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+              Download Qr
+            </a>
+          </div>
+          <p className="text-center mb-3 underline-or my-4">
+            <span>OR</span>
+          </p>
+          <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
+            Share your profile via Qr
+          </h5>
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <QRCode
+              value={"app.popipro.com/" + profile}
+              renderAs="svg"
+              style={{
+                width: "30vmin",
+                height: "30vmin",
+              }}
+            />
+            <a
+              href={"app.popipro.com/" + profile}
+              target="_blank"
+              download={"app.popipro.com/" + profile}
+              className="contact-btn w-auto mt-4 scanner-a"
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="user-select-auto mr-2"
+                style={{
+                  fontSize: "16px",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+              Download Qr
+            </a>
+          </div>
         </Modal.Body>
       </Modal>
 

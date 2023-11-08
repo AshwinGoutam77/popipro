@@ -787,3 +787,6 @@ textarea:invalid {
 }
 @-webkit-keyframes blink { 50% { color: red; }}
       @keyframes blink { 50% { color: red; }}
+.scanner-a:hover{
+  color: white !important;
+}
