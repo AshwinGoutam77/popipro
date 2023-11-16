@@ -783,10 +783,18 @@ textarea:invalid {
 .blink-para {
   color: var(--color);
   -webkit-animation: blink 1200ms step-end infinite;
-          animation: blink 1200ms step-end infinite;
+  animation: blink 1200ms step-end infinite;
 }
-@-webkit-keyframes blink { 50% { color: red; }}
-      @keyframes blink { 50% { color: red; }}
-.scanner-a:hover{
+@-webkit-keyframes blink {
+  50% {
+    color: red;
+  }
+}
+@keyframes blink {
+  50% {
+    color: red;
+  }
+}
+.scanner-a:hover {
   color: white !important;
 }

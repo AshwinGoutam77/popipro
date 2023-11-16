@@ -31,7 +31,6 @@ import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
-import { redirect } from "next/navigation";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
