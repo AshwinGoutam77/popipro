@@ -552,3 +552,6 @@ input.date-time-input::-webkit-date-and-time-value {
 .chat-api-p {
   white-space: pre-line;
 }
+.chrome.webkit.win.x1.Locale_en_GB{
+  overflow: hidden !important;
+}
