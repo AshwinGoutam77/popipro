@@ -96,12 +96,13 @@ const Order = () => {
       console.log(response);
     }
   };
+
   useEffect(() => {
     APIDATA();
   }, []);
 
   const onDragEnd = (result) => {
-    handleSq()
+    handleSq();
     console.log(result);
     // console.log(items);
     handleSequence();

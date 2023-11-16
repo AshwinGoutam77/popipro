@@ -14,6 +14,7 @@ export default function robots() {
         "/testimonialsLeads/",
         "/blog/",
         "/appointment-lead/",
+        "/edit/",
       ],
     },
     sitemap: "https://app.popipro.com/sitemap.xml",

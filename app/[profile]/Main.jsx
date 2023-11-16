@@ -162,7 +162,7 @@ export default async function Main({ profile, data, id }) {
                         </div>
                         <BuilderForm
                           card_url={profile}
-                          JsonData={MainData.forms.json}
+                          JsonData={MainData?.forms?.json}
                         />
                       </div>
                     ) : (

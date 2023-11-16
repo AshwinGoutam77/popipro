@@ -31,7 +31,6 @@ import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
-import { redirect } from "next/navigation";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -251,7 +250,7 @@ export default function Dashboard() {
             </p>
             {Data?.is_onboarding == "1" ? (
               <p
-                className="text-center mt-1 font-weight-bold cursor-pointer blink-para"
+                className="text-center mt-1 font-weight-bold cursor-pointer blink-para cursor-pointer"
                 onClick={SaveStatusApi}
               >
                 Your profile is in <strong>DRAFT MODE </strong>
@@ -292,7 +291,8 @@ export default function Dashboard() {
                     {MainData?.plan?.subscription?.end_date}
                   </span>
                 </p>
-                {Data && Data?.is_onboarding == 1 ? (
+
+                {/* {Data && Data?.is_onboarding == 1 ? (
                   <p className="mt-2 font-weight-bold subscrition-p cursor-pointer">
                     <span
                       className="text-white"
@@ -304,7 +304,7 @@ export default function Dashboard() {
                   </p>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
             ) : (
               ""

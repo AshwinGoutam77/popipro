@@ -526,7 +526,7 @@ const Insights = () => {
                               ? item.country_code + "-" + item.number
                               : item.number}
                           </span>{" "}
-                          ({item.name}).
+                          ({item.name})
                         </p>
                       </div>
                     </>

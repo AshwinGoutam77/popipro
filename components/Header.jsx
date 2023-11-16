@@ -2,10 +2,12 @@
 import {
   faArrowRight,
   faBuilding,
+  faDownload,
   faEnvelope,
   faLink,
   faMapMarkerAlt,
   faPhoneAlt,
+  faQrcode,
   faShareSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
+import QRCode from "qrcode.react";
 
 const Header = ({
   profile,
@@ -50,6 +53,15 @@ const Header = ({
   const [ReviewSubTitle, setReviewSubTitle] = useState("");
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
+  const [imageSrc, setImageSrc] = useState();
+
+  const [showQr, setShowQr] = useState(false);
+  const handleShowQr = () => setShowQr(true);
+  const handleCloseQr = () => setShowQr(false);
+
+  // const changeImageSrc = () => {
+  //   setImageSrc("new-image-src.jpg");
+  // };
 
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
@@ -356,6 +368,65 @@ const Header = ({
       newLink.href = url;
 
       newLink.click();
+
+      setImageSrc(contact.name + contact.phone);
+    }
+  };
+
+  const handleSaveQr = async () => {
+    setShowQr(true);
+    let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
+    let payload = {
+      card: card?.id,
+      type: "card",
+      device_id: navigator.userAgent,
+      object_base: card?.id,
+      hit_type: "contact-download",
+    };
+    const response = await Api(HitClickApi, payload);
+    if (response.data.status) {
+      setProfileImage(response.data.data.base_image);
+
+      var contact = {
+        website: card?.card_website,
+        address: card?.card_address,
+        Imagee: response.data.data.base_image?.replace(
+          "data:image/png;base64,",
+          ""
+        ),
+        name: card?.first_name,
+        phone: card?.card_contact,
+        email: card.card_email,
+        url: "app.popipro.com/" + profile,
+        location: card.card_address,
+        links: links,
+        title: card?.card_profession,
+        about: text,
+        alternate_no: card?.card_alternate_phone?.map((item) => {
+          return item.country_code
+            ? item.title + item.country_code + " " + item.number
+            : item.title + item.number + " ";
+        }),
+      };
+
+      let fnVal = "FN%3A" + contact.name + "%0A";
+      let posTitleVal = "TITLE%3A" + contact.title + "%0A";
+      let phoneMobileVal = "TEL%3BCELL%3A" + contact.phone + "%0A";
+      let emailPersonalVal =
+        "EMAIL%3BHOME%3BINTERNET%3A" + contact.email + "%0A";
+      let websiteVal = "URL%3A" + contact.website + "%0A";
+      let addyStreetVal = "ADR%3A%3B%3B" + contact.address + "%3B";
+      let qrImage = "PHOTO;ENCODING=b;TYPE=JPEG%3A" + contact.Imagee + "%0A";
+
+      setImageSrc(
+        fnVal +
+          posTitleVal +
+          phoneMobileVal +
+          emailPersonalVal +
+          websiteVal +
+          addyStreetVal
+      );
+      console.log(imageSrc);
     }
   };
 
@@ -593,6 +664,90 @@ const Header = ({
           </div>
         </Modal.Body>
       </Modal>
+      <Modal show={showQr} onHide={handleCloseQr} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5 className="title title--h1 first-title title__separate mb-1">
+              Add Contact Via Qr
+            </h5>
+          </Modal.Title>
+          <button type="button" className="close" onClick={handleCloseQr}>
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body className="text-center">
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <img
+              src={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              className="qr-img"
+              alt="we"
+            />
+            <a
+              href={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              target="_blank"
+              download={
+                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A"
+              }
+              className="contact-btn w-auto mt-4 scanner-a"
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="user-select-auto mr-2"
+                style={{
+                  fontSize: "16px",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+              Download Qr
+            </a>
+          </div>
+          <p className="text-center mb-3 underline-or my-4">
+            <span>OR</span>
+          </p>
+          <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
+            Share your profile via Qr
+          </h5>
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <QRCode
+              value={"app.popipro.com/" + profile}
+              renderAs="svg"
+              style={{
+                width: "30vmin",
+                height: "30vmin",
+              }}
+            />
+            <a
+              href={"app.popipro.com/" + profile}
+              target="_blank"
+              download={"app.popipro.com/" + profile}
+              className="contact-btn w-auto mt-4 scanner-a"
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="user-select-auto mr-2"
+                style={{
+                  fontSize: "16px",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+              Download Qr
+            </a>
+          </div>
+        </Modal.Body>
+      </Modal>
 
       <header className="header header-box mb-3">
         <button
@@ -603,6 +758,22 @@ const Header = ({
         >
           <FontAwesomeIcon
             icon={faShareSquare}
+            className="user-select-auto mr-2"
+            style={{
+              fontSize: "16px",
+              color: "var(--color)",
+              cursor: "pointer",
+            }}
+          />
+        </button>
+        <button
+          className="edit-header mr-5"
+          data-toggle="modal"
+          data-target="#exampleModalCenter"
+          onClick={() => handleSaveQr()}
+        >
+          <FontAwesomeIcon
+            icon={faQrcode}
             className="user-select-auto mr-2"
             style={{
               fontSize: "16px",
@@ -628,7 +799,10 @@ const Header = ({
               value={card?.profile_picture?.path}
               src={
                 card?.profile_picture?.path
-                  ? "https://admin.popipro.com/" + card?.profile_picture?.path +'?ver='+time
+                  ? "https://admin.popipro.com/" +
+                    card?.profile_picture?.path +
+                    "?ver=" +
+                    time
                   : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="images"
@@ -893,55 +1067,6 @@ const Header = ({
               ""
             )}
           </ul>
-        </div>
-
-        {/* LINKS SECTION */}
-        <div style={{ display: "none" }}>
-          <div className="mt-4 mobile-social-view">
-            <h2 className="title title--h1 first-title title__separate">
-              Social Network
-            </h2>
-            <div
-              className="d-flex flex-wrap align-items-center gap-2"
-              style={{ gap: "10px" }}
-            >
-              {CardLinks &&
-                CardLinks.map((item, i) => {
-                  links[item?.parent?.platform_name] = item.link;
-                  return (
-                    <div key={i}>
-                      {!item.link?.includes("https://") ? (
-                        <Link
-                          href={item.parent.target_url + item.link}
-                          target="_blank"
-                          key={i}
-                        >
-                          <div className="media-icon-div">
-                            <span
-                              className="social-media-icons"
-                              dangerouslySetInnerHTML={{
-                                __html: item.parent.platform_icon,
-                              }}
-                            ></span>
-                          </div>
-                        </Link>
-                      ) : (
-                        <Link href={item.link} target="_blank" key={i}>
-                          <div className="media-icon-div">
-                            <span
-                              className="social-media-icons"
-                              dangerouslySetInnerHTML={{
-                                __html: item.parent.platform_icon,
-                              }}
-                            ></span>
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
         </div>
       </header>
       {/* LINKS SECTION */}
