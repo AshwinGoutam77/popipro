@@ -35,6 +35,10 @@ export default async function Main({ profile, data, id }) {
   let is_onboarding = data?.data?.card?.is_onboarding;
   let FormData = data?.data?.forms;
 
+  if(profile == "happy-helathy-homes"){
+    redirect('happy-healthy-homes')
+  }
+
   return (
     data && (
       <>
