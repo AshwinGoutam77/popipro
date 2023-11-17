@@ -20,7 +20,7 @@ export default function EmbedPost({ card, Titles, PlanData }) {
             <div>
               <div className="">
                 <h3 className="title title--h1 first-title title__separate">
-                  Post from social media
+                  Instagram Feeds
                 </h3>
               </div>
 
