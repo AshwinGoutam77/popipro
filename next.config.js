@@ -7,6 +7,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
+    nextScriptWorkers: true,
   },
   reactStrictMode: false,
   images: {

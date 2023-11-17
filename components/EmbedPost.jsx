@@ -55,7 +55,7 @@ export default function EmbedPost({
 
             {/* <!-- Videos-slider --> */}
             <div className="flex-edit-class" style={{ gap: "10px" }}>
-              <div className="swiper-slide review-items mt-3 col-sm-12 col-md-6 col-lg-6">
+              {/* <div className="swiper-slide review-items mt-3 col-sm-12 col-md-6 col-lg-6">
                 <div className="w-100">
                   <iframe
                     width="320"
@@ -68,22 +68,22 @@ export default function EmbedPost({
                     }}
                   ></iframe>
                 </div>
-              </div>
-              <div className="swiper-slide review-items mt-3 col-sm-12 col-md-6 col-lg-6">
-                <div className="w-100">
-                  <iframe
-                    width="320"
-                    height="630"
-                    src="https://www.instagram.com/p/B2q3jYKAymx/embed"
+              </div> */}
+              {/* <div className="swiper-slide review-items mt-3 col-sm-12 col-md-6 col-lg-6">
+                <div className="w-100"> */}
+                  {/* <iframe
+                    src="https://widget.elfsig.ht/275fdadf-217a-4c14-b434-a71acc71ebf4"
+                    width="100%"
+                    height="700"
                     frameborder="0"
-                    style={{
-                      height: "610px",
-                      border: "1px solid var(--color)",
-                    }}
-                  ></iframe>
+                  ></iframe> */}
+                  <div
+                    class="elfsight-app-da7260a2-29a8-4705-b40f-e46d13c29e57"
+                    data-elfsight-app-lazy
+                  ></div>
                 </div>
-              </div>
-            </div>
+              {/* </div>
+            </div> */}
           </div>
         </>
       ) : (

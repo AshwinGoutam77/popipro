@@ -32,6 +32,12 @@ const ProfilePage = async ({ params }) => {
   const data = (await getProfileData(profile)) || {};
   return (
     <>
+      <script
+        src="https://static.elfsight.com/platform/platform.js"
+        data-use-service-core
+        defer
+        strategy="worker"
+      ></script>
       <Suspense
         fallback={
           <h5
