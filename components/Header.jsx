@@ -367,7 +367,8 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      setModalShowUiModal("shareUiModal");
+      // setModalShowUiModal("shareUiModal");
+      handleShow();
     }
   };
 
@@ -775,7 +776,8 @@ const Header = ({
           className="edit-header mr-5"
           data-toggle="modal"
           data-target="#exampleModalCenter"
-          onClick={() => handleSaveQr()}
+          // onClick={() => handleSaveQr()}
+          onClick={() => setModalShowUiModal("shareUiModal")}
         >
           <FontAwesomeIcon
             icon={faQrcode}
