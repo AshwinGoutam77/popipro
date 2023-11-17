@@ -552,6 +552,12 @@ input.date-time-input::-webkit-date-and-time-value {
 .chat-api-p {
   white-space: pre-line;
 }
-.chrome.webkit.win.x1.Locale_en_GB{
-  overflow: hidden !important;
+.flex-edit-class iframe {
+  height: 100vh;
+}
+@media (max-width: 767px) {
+  .flex-edit-class iframe {
+    height: 40vh;
+    min-width: 226px !important;
+  }
 }

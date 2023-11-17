@@ -33,8 +33,14 @@ const ProfilePage = async ({ params }) => {
   return (
     <>
       <script
-        src="https://static.elfsight.com/platform/platform.js"
-        data-use-service-core
+        async
+        src="//www.instagram.com/embed.js"
+        strategy="worker"
+      ></script>
+      <script
+        type="text/javascript"
+        src="https://platform.linkedin.com/badges/js/profile.js"
+        async
         defer
         strategy="worker"
       ></script>
