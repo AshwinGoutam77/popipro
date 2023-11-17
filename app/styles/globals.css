@@ -561,3 +561,7 @@ input.date-time-input::-webkit-date-and-time-value {
     min-width: 226px !important;
   }
 }
+.qr-div svg{
+ width: 125px !important;
+ height: 125px !important;
+}

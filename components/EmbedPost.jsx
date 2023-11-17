@@ -1,11 +1,6 @@
 "use client";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
 import InstagramProfileEmbed from "./InstagramProfileEmbed";
-import FacebookPage from "./LinkedinProfile";
-import FacebookPageWidget from "./LinkedinProfile";
 
 export default function EmbedPost({ card, Titles, PlanData }) {
   const [Card_videos, setCard_videos] = useState("");
@@ -14,7 +9,6 @@ export default function EmbedPost({ card, Titles, PlanData }) {
     setCard_videos(card?.card_videos);
   }, []);
   const instagramProfileUrl = "https://www.instagram.com/prafullgupta87/";
-  const username = "prafullgupta87";
   return Card_videos?.length !== 0 &&
     Titles?.card_videos?.source !== 0 &&
     Titles?.card_videos?.is_active !== 0 &&
