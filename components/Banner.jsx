@@ -218,10 +218,10 @@ const Banner = ({
     }
   }
   function showPosition(position) {
-    console.log(
-      "Latitude: " + position.coords.latitude,
-      "Longitude: " + position.coords.longitude
-    );
+    // console.log(
+    //   "Latitude: " + position.coords.latitude,
+    //   "Longitude: " + position.coords.longitude
+    // );
   }
   useEffect(() => {
     getLocation();

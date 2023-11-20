@@ -791,19 +791,16 @@ const Header = ({
         </button>
         <div className="header__left position-relative">
           <div className="header__photo">
-            {/* <Image
-              className="header__photo-img"
-              value={card?.profile_picture?.path}
-              src={
-                card.profile_picture?.path
-                  ? card.base_url + card.profile_picture?.path+'?ver='+time
-                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
-              }
-              alt="avtar"
-            /> */}
             <Image
               className="header__photo-img"
-              value={card?.profile_picture?.path}
+              value={
+                card?.profile_picture?.path
+                  ? "https://admin.popipro.com/" +
+                    card?.profile_picture?.path +
+                    "?ver=" +
+                    time
+                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
+              }
               src={
                 card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
@@ -815,6 +812,7 @@ const Header = ({
               alt="images"
               width={0}
               height={0}
+              priority={true}
             />
           </div>
           <div className="header__base-info">

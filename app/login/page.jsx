@@ -34,6 +34,7 @@ const LoginPage = () => {
   };
   useEffect(() => {
     checkLogin();
+    console.log(process.env.NEXT_PUBLIC_MODE)
   }, []);
 
   const handleSubmit = async (e) => {
