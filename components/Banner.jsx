@@ -38,7 +38,6 @@ const Banner = ({
       setLoader(false);
     }
   }, []);
-  
 
   useEffect(() => {
     directHitClick();
@@ -211,6 +210,23 @@ const Banner = ({
     window.location =
       "https://api.whatsapp.com/send?phone=" + card.card_contact;
   }
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+  function showPosition(position) {
+    // console.log(
+    //   "Latitude: " + position.coords.latitude,
+    //   "Longitude: " + position.coords.longitude
+    // );
+  }
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return Loader == false ? (
     <h5
       className="d-flex align-items-center justify-content-center text-center"

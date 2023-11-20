@@ -23,6 +23,7 @@ import Share from "./Share";
 import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
 import QRCode from "qrcode.react";
+import ShareUi from "./ShareUi";
 
 const Header = ({
   profile,
@@ -46,6 +47,7 @@ const Header = ({
   const [ShowLoader, setShowLoader] = useState(false);
   const [SendWhatsaap, setSendWhatsaap] = useState(false);
   const [modalShow, setModalShow] = useState("");
+  const [modalShowUiModal, setModalShowUiModal] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
 
   const [Imagee, setImage] = useState("");
@@ -56,12 +58,7 @@ const Header = ({
   const [imageSrc, setImageSrc] = useState();
 
   const [showQr, setShowQr] = useState(false);
-  const handleShowQr = () => setShowQr(true);
   const handleCloseQr = () => setShowQr(false);
-
-  // const changeImageSrc = () => {
-  //   setImageSrc("new-image-src.jpg");
-  // };
 
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
@@ -370,6 +367,8 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
+      // setModalShowUiModal("shareUiModal");
+      handleShow();
     }
   };
 
@@ -460,6 +459,13 @@ const Header = ({
         card={profile}
         active={modalShow == "share" ? true : false}
         handleClose={setModalShow}
+      />
+      <ShareUi
+        Data={card}
+        profile={profile}
+        active={modalShowUiModal == "shareUiModal" ? true : false}
+        handleCloseUiModal={setModalShowUiModal}
+        CardLinks={CardLinks}
       />
       <ToastContainer
         position="bottom-right"
@@ -770,7 +776,8 @@ const Header = ({
           className="edit-header mr-5"
           data-toggle="modal"
           data-target="#exampleModalCenter"
-          onClick={() => handleSaveQr()}
+          // onClick={() => handleSaveQr()}
+          onClick={() => setModalShowUiModal("shareUiModal")}
         >
           <FontAwesomeIcon
             icon={faQrcode}
@@ -784,19 +791,16 @@ const Header = ({
         </button>
         <div className="header__left position-relative">
           <div className="header__photo">
-            {/* <Image
-              className="header__photo-img"
-              value={card?.profile_picture?.path}
-              src={
-                card.profile_picture?.path
-                  ? card.base_url + card.profile_picture?.path+'?ver='+time
-                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
-              }
-              alt="avtar"
-            /> */}
             <Image
               className="header__photo-img"
-              value={card?.profile_picture?.path}
+              value={
+                card?.profile_picture?.path
+                  ? "https://admin.popipro.com/" +
+                    card?.profile_picture?.path +
+                    "?ver=" +
+                    time
+                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
+              }
               src={
                 card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
@@ -808,6 +812,7 @@ const Header = ({
               alt="images"
               width={0}
               height={0}
+              priority={true}
             />
           </div>
           <div className="header__base-info">
@@ -1092,7 +1097,6 @@ const Header = ({
                         href={item.parent.target_url + item.link}
                         target="_blank"
                         key={i}
-                        /* onClick={() => HitClick("direct", "social", item.id)} */
                       >
                         <div className="media-icon-div">
                           <span className="social-media-icons">
@@ -1112,12 +1116,7 @@ const Header = ({
                         </div>
                       </Link>
                     ) : (
-                      <Link
-                        href={item.link}
-                        target="_blank"
-                        key={i}
-                        /* onClick={() => HitClick("direct", "social", item.id)} */
-                      >
+                      <Link href={item.link} target="_blank" key={i}>
                         <div className="media-icon-div">
                           <span className="social-media-icons">
                             <img

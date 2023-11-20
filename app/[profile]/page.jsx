@@ -32,6 +32,18 @@ const ProfilePage = async ({ params }) => {
   const data = (await getProfileData(profile)) || {};
   return (
     <>
+      <script
+        async
+        src="//www.instagram.com/embed.js"
+        strategy="worker"
+      ></script>
+      <script
+        type="text/javascript"
+        src="https://platform.linkedin.com/badges/js/profile.js"
+        async
+        defer
+        strategy="worker"
+      ></script>
       <Suspense
         fallback={
           <h5

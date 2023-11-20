@@ -20,6 +20,7 @@ import Alternateno from "@components/Alternateno";
 import { redirect } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import BuilderForm from "@components/Builder";
+import EmbedPost from "@components/EmbedPost";
 
 export default async function Main({ profile, data, id }) {
   let card = data?.data?.card || {};
@@ -34,6 +35,10 @@ export default async function Main({ profile, data, id }) {
   let Products = data?.data?.card?.card_products;
   let is_onboarding = data?.data?.card?.is_onboarding;
   let FormData = data?.data?.forms;
+
+  if (profile == "happy-helathy-homes") {
+    redirect("happy-healthy-homes");
+  }
 
   return (
     data && (
@@ -117,7 +122,6 @@ export default async function Main({ profile, data, id }) {
                       Data={card}
                       card={card}
                       PaginationData={pagination_data}
-                      /* openModal={openModal} */
                       PlanData={plan}
                       card_url={profile}
                     />
@@ -140,6 +144,20 @@ export default async function Main({ profile, data, id }) {
                       AddMoreBlogs={AddMoreBlogs}
                       card_url={profile}
                     />
+                    {/* {card.id === "S7ZG" ? (
+                      <EmbedPost
+                        Card_videos={card?.card_videos}
+                        Card_photos={card?.card_photos}
+                        Titles={titles}
+                        Data={card}
+                        card={card}
+                        PaginationData={pagination_data}
+                        PlanData={plan}
+                        card_url={profile}
+                      />
+                    ) : (
+                      ""
+                    )} */}
                     <ContactForm
                       card_url={profile}
                       Titles={titles}

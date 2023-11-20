@@ -2610,7 +2610,7 @@ button:focus {
 
 .login-screen-div {
   background-color: var(--secondary-color);
-  height: calc(100vh - 70px);
+  height: calc(100vh - 60px);
 }
 
 .login-section h3 {

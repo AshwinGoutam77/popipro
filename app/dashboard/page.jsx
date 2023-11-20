@@ -4,6 +4,7 @@ import {
   faCalendarCheck,
   faCartShopping,
   faChartSimple,
+  faEnvelope,
   faGear,
   faLightbulb,
   faMoneyBill1Wave,
@@ -487,6 +488,22 @@ export default function Dashboard() {
               </div>
               {/* </Link> */}
             </div>
+
+            {/* Signature */}
+            {/* <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+              <Link href="/signature" className="w-100">
+                <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className="text-white mb-2"
+                    style={{ fontSize: "20px" }}
+                  />
+                  <h6 className="text-white text-center mb-0">
+                    Email Signature
+                  </h6>
+                </div>
+              </Link>
+            </div> */}
           </div>
 
           {/* ........... */}
