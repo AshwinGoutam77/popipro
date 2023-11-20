@@ -1,10 +1,10 @@
 export default async function sitemap() {
   let data = await fetch(`https://admin.popipro.com/api/published-url`);
   let urls = await data.json();
-  let profiles = urls?.data?.map((url) => {
+  let profiles = urls?.data?.map((data,i) => {
     return {
-      key: 1,
-      url: "https://app.popipro.com/prafull-gupta"
+      key: i,
+      url: `https://app.popipro.com/${data.url}`
     };
   });
 
