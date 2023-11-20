@@ -144,7 +144,7 @@ export default async function Main({ profile, data, id }) {
                       AddMoreBlogs={AddMoreBlogs}
                       card_url={profile}
                     />
-                    {card.id === "S7ZG" ? (
+                    {/* {card.id === "S7ZG" ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}
@@ -157,7 +157,7 @@ export default async function Main({ profile, data, id }) {
                       />
                     ) : (
                       ""
-                    )}
+                    )} */}
                     <ContactForm
                       card_url={profile}
                       Titles={titles}
