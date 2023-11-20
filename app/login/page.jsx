@@ -24,7 +24,7 @@ const LoginPage = () => {
   const [ShowLoader, setShowLoader] = useState(false);
   const { token, userLogin } = useAuthContext();
 
-  const checkLogin = async () => {
+  const checkLogin = () => {
     if (localStorage.getItem("token") && localStorage.getItem("url")) {
       userLogin({
         token: localStorage.getItem("token"),

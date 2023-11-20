@@ -31,7 +31,6 @@ export async function generateMetadata({ params, searchParams }) {
 const ProfilePage = async ({ params }) => {
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
-  const ref = await getReferer();
   return (
     <>
       <script
@@ -56,21 +55,13 @@ const ProfilePage = async ({ params }) => {
           </h5>
         }
       >
-        <>
-        <span style={{display: 'none'}}>{JSON.stringify(ref)}</span>
-          <Main profile={profile} data={data} id={data?.data?.card?.id} />
-        </>
+        <Main profile={profile} data={data} id={data?.data?.card?.id} />
       </Suspense>
     </>
   );
 };
 
 export default ProfilePage;
-
-const getReferer = async () => {
-  const resp = await fetch("/api/dummy");
-  return await resp.json();
-};
 
 const getProfileData = async (profile) => {
   const response = await fetch(
