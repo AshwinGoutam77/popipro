@@ -34,8 +34,14 @@ const LoginPage = () => {
   };
   useEffect(() => {
     checkLogin();
-    console.log(process.env.NEXT_PUBLIC_MODE)
+    dumy();
   }, []);
+
+  const dumy = async () => {
+    let data = await fetch(`https://admin.popipro.com/api/published-url`);
+    let urls = await data.json();
+    console.log(urls);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,7 +135,9 @@ const LoginPage = () => {
               <br />
               <div className="d-flex align-items-center justify-content-start mt-2">
                 <input id="remember" type="checkbox" className="w-auto mr-2" />
-                <label htmlFor="remember" className="m-0">Remember me</label>
+                <label htmlFor="remember" className="m-0">
+                  Remember me
+                </label>
               </div>
               <button
                 className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
