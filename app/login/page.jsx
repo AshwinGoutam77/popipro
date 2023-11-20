@@ -34,23 +34,23 @@ const LoginPage = () => {
   };
   useEffect(() => {
     checkLogin();
-    dumy();
+    // dumy();
   }, []);
 
   const dumy = async () => {
     // let data = await fetch(`https://admin.popipro.com/api/published-url`);
     // let urls = await data.json();
     // console.log(urls);
-    let data = await fetch(`https://admin.popipro.com/api/published-url`);
-    let urls = await data.json();
-    let profiles = urls?.data?.map((url) => {
-      return {
-        key: url.url,
-        url: "https://app.popipro.com/" + url.url,
-        lastModified: url.date,
-      };
-    });
-    console.log(JSON.stringify(profiles));
+    // let data = await fetch(`https://admin.popipro.com/api/published-url`);
+    // let urls = await data.json();
+    // let profiles = urls?.data?.map((url) => {
+    //   return {
+    //     key: url.url,
+    //     url: "https://app.popipro.com/" + url.url,
+    //     lastModified: url.date,
+    //   };
+    // });
+    // console.log(JSON.stringify(profiles));
   };
 
   const handleSubmit = async (e) => {
