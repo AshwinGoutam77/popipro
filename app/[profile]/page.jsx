@@ -31,7 +31,7 @@ export async function generateMetadata({ params, searchParams }) {
 const ProfilePage = async ({ params }) => {
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
-  const ref = getReferer();
+  const ref = await getReferer();
   return (
     <>
       <script
