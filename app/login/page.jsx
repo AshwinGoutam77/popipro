@@ -25,9 +25,9 @@ const LoginPage = () => {
   const { token, userLogin } = useAuthContext();
 
   const checkLogin = async () => {
-
+  /* 
     const resp = await fetch('/api/dummy');
-    console.log(resp);
+    console.log(resp); */
     if (localStorage.getItem("token") && localStorage.getItem("url")) {
       userLogin({
         token: localStorage.getItem("token"),
