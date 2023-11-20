@@ -29,6 +29,10 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 const ProfilePage = async ({ params }) => {
+  
+  const resp = await fetch('/api/dummy');
+  console.log(resp);
+  
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
   return (
