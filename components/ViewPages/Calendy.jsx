@@ -4,8 +4,10 @@ import { Modal } from "react-bootstrap";
 
 const CalendlyComponent = () => {
   const [Show, setShow] = useState(false);
-  useEffect(() => {
-    // Inject the Calendly script when the component mounts
+  useEffect(() => {}, []);
+
+  const handleShowCalendly = () => {
+    setShow(true);
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = "https://assets.calendly.com/assets/external/widget.js";
@@ -14,7 +16,7 @@ const CalendlyComponent = () => {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  };
 
   return (
     <>
@@ -36,10 +38,10 @@ const CalendlyComponent = () => {
         </Modal.Header>
         <Modal.Body>
           <div
-          className="calendly-inline-widget"
-          data-url="https://calendly.com/devdevgoutam/test"
-          style={{height: "101vh" }}
-        ></div>
+            className="calendly-inline-widget"
+            data-url="https://calendly.com/devdevgoutam/test"
+            style={{ height: "101vh" }}
+          ></div>
         </Modal.Body>
       </Modal>
       <div className="box-content boxxx mb-3 mt-0" id="">
@@ -50,7 +52,7 @@ const CalendlyComponent = () => {
             </h2>
             <button
               className="contact-btn w-auto"
-              onClick={() => setShow(true)}
+              onClick={() => handleShowCalendly()}
             >
               Book Appointment via Calendly
             </button>
