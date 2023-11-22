@@ -1,6 +1,12 @@
+"use client";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Realestate() {
   return (
@@ -13,11 +19,44 @@ export default function Realestate() {
         </div>
         <div className="row realestaterow">
           <div className="col-lg-4 col-sm-12">
-            <img
+            {/* <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Townhouses_in_Victoria_Australia.jpg/800px-Townhouses_in_Victoria_Australia.jpg"
               alt="realestate_image"
               className="realEstateImage w-100"
-            />
+            /> */}
+            <SwiperComponent
+              slidesPerView={1}
+              spaceBetween={10}
+              style={{ cursor: "pointer" }}
+              className="mySwiper"
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              <SwiperSlide>
+                <div className="swiper-slide review-items position-relative">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Townhouses_in_Victoria_Australia.jpg/800px-Townhouses_in_Victoria_Australia.jpg"
+                    alt="realestate_image"
+                    className="realEstateImage w-100"
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="swiper-slide review-items position-relative">
+                  <img
+                    src="https://prafullgupta.com/connectwork/assets/chat/groups/221123114455images(2).jpg"
+                    alt="realestate_image"
+                    className="realEstateImage w-100"
+                  />
+                </div>
+              </SwiperSlide>
+            </SwiperComponent>
           </div>
           <div className="col-lg-8 col-sm-12">
             <div className="d-flex align-items-center justify-content-between verify-div-sm">
@@ -99,7 +138,10 @@ export default function Realestate() {
                 <p className="pl-2 color-black">Semi-Furnished</p>
               </div>
             </div>
-            <div className="mt-3 d-flex flex-wrap align-items-center justify-content-between" style={{gap:'10px'}}>
+            <div
+              className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+              style={{ gap: "10px" }}
+            >
               <p className="font-weight-bold color-black">$2000/ per month</p>
               <div>
                 <button className="real-map-btn">Open Map</button>
@@ -110,11 +152,44 @@ export default function Realestate() {
         </div>
         <div className="row realestaterow mt-2">
           <div className="col-lg-4 col-sm-12">
-            <img
+            {/* <img
               src="https://prafullgupta.com/connectwork/assets/chat/groups/221123114455images(2).jpg"
               alt="realestate_image"
               className="realEstateImage w-100"
-            />
+            /> */}
+            <SwiperComponent
+              slidesPerView={1}
+              spaceBetween={10}
+              style={{ cursor: "pointer" }}
+              className="mySwiper"
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              <SwiperSlide>
+                <div className="swiper-slide review-items position-relative">
+                  <img
+                    src="https://prafullgupta.com/connectwork/assets/chat/groups/221123114455images(2).jpg"
+                    alt="realestate_image"
+                    className="realEstateImage w-100"
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="swiper-slide review-items position-relative">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Townhouses_in_Victoria_Australia.jpg/800px-Townhouses_in_Victoria_Australia.jpg"
+                    alt="realestate_image"
+                    className="realEstateImage w-100"
+                  />
+                </div>
+              </SwiperSlide>
+            </SwiperComponent>
           </div>
           <div className="col-lg-8 col-sm-12">
             <div className="d-flex align-items-center justify-content-between verify-div-sm">
@@ -196,7 +271,10 @@ export default function Realestate() {
                 <p className="pl-2 color-black">Semi-Furnished</p>
               </div>
             </div>
-            <div className="mt-3 d-flex flex-wrap align-items-center justify-content-between" style={{gap:'10px'}}>
+            <div
+              className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+              style={{ gap: "10px" }}
+            >
               <p className="font-weight-bold color-black">$6000/ per month</p>
               <div>
                 <button className="real-map-btn">Open Map</button>
