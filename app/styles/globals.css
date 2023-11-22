@@ -552,11 +552,11 @@ input.date-time-input::-webkit-date-and-time-value {
 .chat-api-p {
   white-space: pre-line;
 }
-/* .flex-edit-class iframe {
+.iframe-class iframe {
   height: 100vh;
 }
 @media (max-width: 767px) {
-  .flex-edit-class iframe {
+  .iframe-class iframe {
     height: 40vh;
     min-width: 226px !important;
   }
@@ -564,7 +564,7 @@ input.date-time-input::-webkit-date-and-time-value {
 .qr-div svg{
  width: 125px !important;
  height: 125px !important;
-} */
+}
 
 .realestaterow {
   border: 1px solid #dddcdc;
