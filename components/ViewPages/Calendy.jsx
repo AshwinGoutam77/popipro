@@ -46,13 +46,13 @@ const CalendlyComponent = () => {
         <div className="pb-0 pb-sm-2">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">
-              Calendy
+              Calendly
             </h2>
             <button
               className="contact-btn w-auto"
               onClick={() => setShow(true)}
             >
-              Book Appointment via Calendy
+              Book Appointment via Calendly
             </button>
           </div>
         </div>
