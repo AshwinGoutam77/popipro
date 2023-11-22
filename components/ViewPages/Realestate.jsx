@@ -19,11 +19,6 @@ export default function Realestate() {
         </div>
         <div className="row realestaterow">
           <div className="col-lg-4 col-sm-12">
-            {/* <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Townhouses_in_Victoria_Australia.jpg/800px-Townhouses_in_Victoria_Australia.jpg"
-              alt="realestate_image"
-              className="realEstateImage w-100"
-            /> */}
             <SwiperComponent
               slidesPerView={1}
               spaceBetween={10}
@@ -146,17 +141,13 @@ export default function Realestate() {
               <div>
                 <button className="real-map-btn">Open Map</button>
                 <button className="real-tour-btn">Visit Tour</button>
+                <button className="real-tour-btn">Enquiry</button>
               </div>
             </div>
           </div>
         </div>
         <div className="row realestaterow mt-2">
           <div className="col-lg-4 col-sm-12">
-            {/* <img
-              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123114455images(2).jpg"
-              alt="realestate_image"
-              className="realEstateImage w-100"
-            /> */}
             <SwiperComponent
               slidesPerView={1}
               spaceBetween={10}
@@ -279,6 +270,7 @@ export default function Realestate() {
               <div>
                 <button className="real-map-btn">Open Map</button>
                 <button className="real-tour-btn">Visit Tour</button>
+                <button className="real-tour-btn">Enquiry</button>
               </div>
             </div>
           </div>
