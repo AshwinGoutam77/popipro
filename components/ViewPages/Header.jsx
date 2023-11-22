@@ -670,6 +670,7 @@ const Header = ({
           </div>
         </Modal.Body>
       </Modal>
+      {/* Qr Modal */}
       <Modal show={showQr} onHide={handleCloseQr} centered>
         <Modal.Header>
           <Modal.Title>

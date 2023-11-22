@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
+import CalendlyComponent from "@components/ViewPages/Calendy";
 
 export default async function Main({ profile, data, id }) {
   let card = data?.data?.card || {};
@@ -160,6 +161,7 @@ export default async function Main({ profile, data, id }) {
                     ) : (
                       ""
                     )}
+                    <CalendlyComponent/>
                     <ContactForm
                       card_url={profile}
                       Titles={titles}

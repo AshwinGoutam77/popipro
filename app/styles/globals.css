@@ -556,6 +556,9 @@ input.date-time-input::-webkit-date-and-time-value {
   height: 100vh;
 }
 @media (max-width: 767px) {
+  .responsive-row-signature{
+    gap: 15px;
+  }
   .iframe-class iframe {
     height: 40vh;
     min-width: 226px !important;

@@ -433,11 +433,6 @@ export default function Product({
                         <div className="col-6 col-sm-6 col-lg-4">
                           <div className="position-relative">
                             {items?.image?.path ? (
-                              // <img
-                              //   className="case-item__icon-products"
-                              //   src={Data?.base_url + items?.image?.path}
-                              //   alt="product"
-                              // />
                               <Image
                                 className="case-item__icon-products"
                                 src={
