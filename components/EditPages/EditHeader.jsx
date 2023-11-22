@@ -20,8 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { CardData, GetCardData } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
-import EasyCrop from "@components/EasyCrop";
-import getCroppedImg from "@components/Crop";
+import EasyCrop from "@components/ViewPages/EasyCrop";
+import getCroppedImg from "@components/ViewPages/Crop";
 import axios from "axios";
 import Image from "next/image";
 

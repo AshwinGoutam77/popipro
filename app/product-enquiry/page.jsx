@@ -20,7 +20,7 @@ import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function ProductEnquiry() {
   const { token } = useAuthContext();

@@ -1,5 +1,5 @@
 "use client";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { useAuthContext } from "@context/AuthContext";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";

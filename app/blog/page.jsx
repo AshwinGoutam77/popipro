@@ -15,7 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";

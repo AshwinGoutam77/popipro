@@ -565,3 +565,37 @@ input.date-time-input::-webkit-date-and-time-value {
  width: 125px !important;
  height: 125px !important;
 } */
+
+.realestaterow {
+  border: 1px solid #dddcdc;
+  border-radius: 10px;
+  padding: 12px 0;
+}
+.realEstateImage {
+  width: 240px;
+  height: 190px;
+  border-radius: 10px;
+}
+.color-black {
+  color: #000 !important;
+}
+.real-map-btn {
+  background-color: transparent;
+  border: 1px solid #dfdcdc;
+  border-radius: 5px;
+  padding: 3px 10px;
+  color: var(--color);
+}
+.real-tour-btn {
+  background-color: var(--color);
+  border: 1px solid var(--color);
+  border-radius: 5px;
+  padding: 3px 10px;
+  color: white;
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  .verify-div-sm {
+    margin-top: 10px;
+  }
+}

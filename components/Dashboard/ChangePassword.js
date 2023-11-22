@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { ChangePasswordApi } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";

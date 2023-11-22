@@ -22,7 +22,7 @@ import Link from "next/link";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function TestimonialsLeads() {
   const [Data, setData] = useState("");

@@ -17,7 +17,7 @@ import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 const Leads = () => {
   const { token } = useAuthContext();

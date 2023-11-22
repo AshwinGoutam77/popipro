@@ -1,5 +1,5 @@
 "use client";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import {
   faAngleLeft,
   faBagShopping,

@@ -32,7 +32,7 @@ import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import ChatbotApp from "./Chat";
 import axios from "axios";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function EditProducts({
   APIDATA,

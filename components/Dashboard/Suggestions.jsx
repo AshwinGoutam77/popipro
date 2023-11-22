@@ -3,7 +3,7 @@ import Api from "@services/Api";
 import { HitSuggestion } from "@services/Routes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { Modal } from "react-bootstrap";
 
 export default function Suggestions({ active, handleClose }) {
