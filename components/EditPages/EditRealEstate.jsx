@@ -375,7 +375,6 @@ export default function EditRealEstate() {
                 <p className="font-weight-bold color-black">$2000/ per month</p>
                 <div>
                   <button className="real-map-btn">Open Map</button>
-                  <button className="real-tour-btn">Visit Tour</button>
                   <button className="real-tour-btn">Enquiry</button>
                 </div>
               </div>
@@ -538,7 +537,6 @@ export default function EditRealEstate() {
                 <p className="font-weight-bold color-black">$6000/ per month</p>
                 <div>
                   <button className="real-map-btn">Open Map</button>
-                  <button className="real-tour-btn">Visit Tour</button>
                   <button className="real-tour-btn">Enquiry</button>
                 </div>
               </div>
