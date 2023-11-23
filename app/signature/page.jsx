@@ -219,7 +219,7 @@ export default function Signature() {
             </table>
 
             <button
-              className="contact-btn w-auto"
+              className="contact-btn w-auto mt-5"
               data-clipboard-target=".signature"
             >
               Copy Email Signature
@@ -528,7 +528,7 @@ export default function Signature() {
         </div>
       </div>
       <div
-        className="row w-100 pt-4 responsive-row-signature"
+        className="row w-100 pt-4 responsive-row-signature pb-4"
         style={{ paddingLeft: "30px" }}
       >
         <div className="col-sm-12 col-lg-6">
@@ -801,7 +801,7 @@ export default function Signature() {
                     </table>
                   </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td
                     colSpan={3}
                     style={{
@@ -825,7 +825,7 @@ export default function Signature() {
                     to debugging that important new product being readied for
                     the production line.
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
             <button className="contact-btn w-auto">Copy Email Signature</button>
@@ -967,7 +967,7 @@ export default function Signature() {
                     </a>
                   </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td
                     colSpan={3}
                     style={{
@@ -991,12 +991,12 @@ export default function Signature() {
                     to debugging that important new product being readied for
                     the production line.
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
 
             <button
-              className="contact-btn w-auto"
+              className="contact-btn w-auto mt-5"
               data-clipboard-target=".signature"
             >
               Copy Email Signature
@@ -1004,6 +1004,12 @@ export default function Signature() {
           </div>
         </div>
       </div>
+      <div
+          className="w-100 text-center text-white p-2 mt-0"
+          style={{ bottom: "0", background: "black" }}
+        >
+          <p> © 2023. All Rights Reserved By Popipro.</p>
+        </div>
     </>
   );
 }

@@ -1,5 +1,9 @@
 "use client";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpWideShort,
+  faSortAlphaDownAlt,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -7,6 +11,9 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Realestate() {
   return (
@@ -16,6 +23,26 @@ export default function Realestate() {
           <h2 className="title title--h1 first-title title__separate">
             Real Estate
           </h2>
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              split
+              variant="success"
+              id="dropdown-split-basic"
+              style={{ background: "none", color: "black", boxShadow: "none",padding:'0',margin:'0',height:'0'}}
+            >
+              {" "}
+              <FontAwesomeIcon
+                icon={faArrowUpWideShort}
+                style={{ fontSize: "20px" }}
+              />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu style={{margin:'2.125rem 0 0'}}>
+              <Dropdown.Item href="">Lease</Dropdown.Item>
+              <Dropdown.Item href="">Rented</Dropdown.Item>
+              <Dropdown.Item href="">Sold</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
         <div className="row realestaterow">
           <div className="col-lg-4 col-sm-12">
@@ -140,7 +167,6 @@ export default function Realestate() {
               <p className="font-weight-bold color-black">$2000/ per month</p>
               <div>
                 <button className="real-map-btn">Open Map</button>
-                <button className="real-tour-btn">Visit Tour</button>
                 <button className="real-tour-btn">Enquiry</button>
               </div>
             </div>
@@ -269,7 +295,6 @@ export default function Realestate() {
               <p className="font-weight-bold color-black">$6000/ per month</p>
               <div>
                 <button className="real-map-btn">Open Map</button>
-                <button className="real-tour-btn">Visit Tour</button>
                 <button className="real-tour-btn">Enquiry</button>
               </div>
             </div>

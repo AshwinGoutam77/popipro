@@ -6,6 +6,7 @@ import {
   faChartSimple,
   faEnvelope,
   faGear,
+  faImage,
   faLightbulb,
   faMoneyBill1Wave,
   faNewspaper,
@@ -486,21 +487,42 @@ export default function Dashboard() {
               {/* </Link> */}
             </div>
 
-            {/* Signature */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link href="/signature" className="w-100">
-                <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">
-                    Email Signature
-                  </h6>
+            {Data.id === "S7ZG" ? (
+              <>
+                {/* Signature */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/signature" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Email Signature
+                      </h6>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-            </div>
+                {/* Background */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/background" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faImage}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Virtual Background
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* ........... */}

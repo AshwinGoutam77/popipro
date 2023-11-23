@@ -28,6 +28,7 @@ import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/Backdrop";
 import { useAuthContext } from "@context/AuthContext";
 import { ToastContainer } from "react-toastify";
+import EditRealEstate from "@components/EditPages/EditRealEstate";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -233,6 +234,7 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
+                  {cardData?.card.id === "S7ZG" ?<EditRealEstate />:""}
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}
