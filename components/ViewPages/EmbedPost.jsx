@@ -24,7 +24,7 @@ export default function EmbedPost({ card, Titles, PlanData }) {
                 </h3>
               </div>
 
-              <div className="flex-edit-class" style={{ gap: "10px" }}>
+              <div className="flex-edit-class iframe-class" style={{ gap: "10px" }}>
                 <InstagramProfileEmbed url={instagramProfileUrl} />
               </div>
             </div>

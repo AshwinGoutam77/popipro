@@ -1,4 +1,4 @@
-import Builder from '@components/Builder'
+import Builder from '@components/ViewPages/Builder'
 import React from 'react'
 
 const Page = () => {

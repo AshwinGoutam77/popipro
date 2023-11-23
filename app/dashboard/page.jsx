@@ -21,7 +21,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "../../styles/edit.css";
 import "../../styles/about.css";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Tooltip } from "@mui/material";
@@ -204,10 +204,7 @@ export default function Dashboard() {
         pauseOnHover
         theme="light"
       />
-      <div
-        className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
-        // style={{ height: "100vh" }}
-      >
+      <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white">
         <div
           className="login-header p-2 text-center d-flex align-items-center justify-content-between px-4 w-100"
           style={{ background: "black" }}
@@ -490,7 +487,7 @@ export default function Dashboard() {
             </div>
 
             {/* Signature */}
-            {/* <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
               <Link href="/signature" className="w-100">
                 <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   <FontAwesomeIcon
@@ -503,7 +500,7 @@ export default function Dashboard() {
                   </h6>
                 </div>
               </Link>
-            </div> */}
+            </div>
           </div>
 
           {/* ........... */}

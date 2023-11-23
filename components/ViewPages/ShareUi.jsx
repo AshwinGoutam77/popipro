@@ -1,6 +1,8 @@
 import {
   faChevronLeft,
   faChevronRight,
+  faClose,
+  faDownload,
   faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,27 +23,17 @@ export default function ShareUi({
         className="p-2 d-flex align-items-center px-3"
         style={{ background: "var(--themecolor)" }}
       >
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          className="user-select-auto mr-2"
-          style={{
-            fontSize: "13px",
-            color: "var(--color)",
-            cursor: "pointer",
-          }}
-          onClick={() => handleCloseUiModal("")}
-        />
         <Modal.Title>
           <span
             className="title title--h1 mb-0 font-weight-bold"
             id="shareUiModal"
             style={{ fontSize: "16px" }}
           >
-            Share This Card
+            Share This Profile
           </span>
         </Modal.Title>
         <FontAwesomeIcon
-          icon={faShareAlt}
+          icon={faClose}
           className="user-select-auto mr-2"
           style={{
             fontSize: "13px",
@@ -76,23 +68,43 @@ export default function ShareUi({
           className="mt-4 font-weight-bold"
           style={{ fontSize: "12px", color: "black" }}
         >
-          Point your camera at the OR code, or visit www.popipro.com
+          Point your camera at the QR code to view this profile.
         </span>
-        <button
-          className="bg-white px-3 py-2 mt-4 border-0 border-round font-weight-bold"
-          style={{ borderRadius: "50px", fontSize: "13px" }}
-        >
-          <FontAwesomeIcon
-            icon={faShareAlt}
-            className="user-select-auto mr-2"
-            style={{
-              fontSize: "13px",
-              color: "var(--color)",
-              cursor: "pointer",
-            }}
-          />{" "}
-          Share this card
-        </button>
+        <div className="d-flex align-items-center">
+          <button
+            className="bg-white px-3 py-2 mt-4 border-0 border-round font-weight-bold"
+            style={{ borderRadius: "50px", fontSize: "13px" }}
+          >
+            <FontAwesomeIcon
+              icon={faShareAlt}
+              className="user-select-auto mr-2"
+              style={{
+                fontSize: "13px",
+                color: "var(--color)",
+                cursor: "pointer",
+              }}
+            />{" "}
+            Share this profile
+          </button>
+          <a
+            className="bg-white px-3 py-2 mt-4 border-0 border-round font-weight-bold ml-3 color-black"
+            style={{ borderRadius: "50px", fontSize: "13px" }}
+            href={`https://app.popipro.com/${profile}`}
+            target="_blank"
+            download={`https://app.popipro.com/${profile}`}
+          >
+            <FontAwesomeIcon
+              icon={faDownload}
+              className="user-select-auto mr-2"
+              style={{
+                fontSize: "13px",
+                color: "var(--color)",
+                cursor: "pointer",
+              }}
+            />{" "}
+            Download Qr
+          </a>
+        </div>
         <span
           className="mt-4 font-weight-bold"
           style={{ fontSize: "12px", color: "black" }}

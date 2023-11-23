@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Api from "@services/Api";
 import { EditData, GetInshights } from "@services/Routes";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";

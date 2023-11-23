@@ -1,5 +1,5 @@
 "use client";
-import SimpleBackdrop from "@components/SimpleBackDrop";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { useAuthContext } from "@context/AuthContext";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
@@ -24,10 +24,7 @@ const LoginPage = () => {
   const [ShowLoader, setShowLoader] = useState(false);
   const { token, userLogin } = useAuthContext();
 
-  const checkLogin = async () => {
-
-    const resp = await fetch('/api/dummy');
-    console.log(resp);
+  const checkLogin = () => {
     if (localStorage.getItem("token") && localStorage.getItem("url")) {
       userLogin({
         token: localStorage.getItem("token"),

@@ -17,6 +17,7 @@ export async function generateMetadata({ params, searchParams }) {
   return {
     title,
     description,
+    //robots: 'noindex',
     openGraph: {
       title,
       description,

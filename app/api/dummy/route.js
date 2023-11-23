@@ -1,3 +1,3 @@
 export async function GET(request) {
-    return new Response(`Hello, Next.js! ${JSON.stringify(request)}`)
+    return new Response(`Hello, Next.js! ${request.headers.get('referer') }`)
 }

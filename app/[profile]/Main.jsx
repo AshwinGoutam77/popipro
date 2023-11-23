@@ -1,26 +1,28 @@
 import React from "react";
-import Header from "@components/Header";
+import Header from "@components/ViewPages/Header";
 import "../../styles/about.css";
 import "../../styles/edit.css";
-import Banner from "@components/Banner";
-import Navbar from "@components/Navbar";
-import SocialMedia from "@components/SocialMedia";
-import AboutMe from "@components/AboutMe";
-import QuickLinks from "@components/QuickLinks";
-import Services from "@components/Services";
-import Testimonials from "@components/Testimonials";
-import Clients from "@components/Clients";
-import Resume from "@components/Resume";
-import Work from "@components/Work";
-import Blog from "@components/Blog";
-import Product from "@components/Products.";
-import ContactForm from "@components/ContactForm";
-import Footer from "@components/Footer";
-import Alternateno from "@components/Alternateno";
+import Banner from "@components/ViewPages/Banner";
+import Navbar from "@components/ViewPages/Navbar";
+import SocialMedia from "@components/ViewPages/SocialMedia";
+import AboutMe from "@components/ViewPages/AboutMe";
+import QuickLinks from "@components/ViewPages/QuickLinks";
+import Services from "@components/ViewPages/Services";
+import Testimonials from "@components/ViewPages/Testimonials";
+import Clients from "@components/ViewPages/Clients";
+import Resume from "@components/ViewPages/Resume";
+import Work from "@components/ViewPages/Work";
+import Blog from "@components/ViewPages/Blog";
+import Product from "@components/ViewPages/Products.";
+import ContactForm from "@components/ViewPages/ContactForm";
+import Footer from "@components/ViewPages/Footer";
+import Alternateno from "@components/ViewPages/Alternateno";
 import { redirect } from "next/navigation";
 import { ToastContainer } from "react-toastify";
-import BuilderForm from "@components/Builder";
-import EmbedPost from "@components/EmbedPost";
+import BuilderForm from "@components/ViewPages/Builder";
+import EmbedPost from "@components/ViewPages/EmbedPost";
+import Realestate from "@components/ViewPages/Realestate";
+import CalendlyComponent from "@components/ViewPages/Calendy";
 
 export default async function Main({ profile, data, id }) {
   let card = data?.data?.card || {};
@@ -144,7 +146,8 @@ export default async function Main({ profile, data, id }) {
                       AddMoreBlogs={AddMoreBlogs}
                       card_url={profile}
                     />
-                    {/* {card.id === "S7ZG" ? (
+                    {card.id === "S7ZG" ? <Realestate /> : ""}
+                    {card.id === "S7ZG" ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}
@@ -157,7 +160,8 @@ export default async function Main({ profile, data, id }) {
                       />
                     ) : (
                       ""
-                    )} */}
+                    )}
+                    {card.id === "S7ZG" ? <CalendlyComponent /> : ""}
                     <ContactForm
                       card_url={profile}
                       Titles={titles}

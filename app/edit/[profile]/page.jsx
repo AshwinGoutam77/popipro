@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/edit.css";
 import "../../../styles/about.css";
 import "../../styles/style.css";
-import Navbar from "@components/Navbar";
+import Navbar from "@components/ViewPages/Navbar";
 import EditCustomLink from "@components/EditPages/EditQuickLinks";
 import EditAbout from "@components/EditPages/EditAbout";
 import EditLinks from "@components/EditPages/EditSocialMedia";
@@ -25,7 +25,7 @@ import EditBanner from "@components/EditPages/EditBanner";
 import EditContact from "@components/EditPages/EditContact";
 import { EditData } from "@services/Routes";
 import Api from "@services/Api";
-import SimpleBackdrop from "@components/Backdrop";
+import SimpleBackdrop from "@components/ViewPages/Backdrop";
 import { useAuthContext } from "@context/AuthContext";
 import { ToastContainer } from "react-toastify";
 
