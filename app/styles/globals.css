@@ -556,7 +556,7 @@ input.date-time-input::-webkit-date-and-time-value {
   height: 100vh;
 }
 @media (max-width: 767px) {
-  .responsive-row-signature{
+  .responsive-row-signature {
     gap: 15px;
   }
   .iframe-class iframe {
@@ -564,9 +564,9 @@ input.date-time-input::-webkit-date-and-time-value {
     min-width: 226px !important;
   }
 }
-.qr-div svg{
- width: 125px !important;
- height: 125px !important;
+.qr-div svg {
+  width: 125px !important;
+  height: 125px !important;
 }
 
 .realestaterow {
@@ -602,3 +602,31 @@ input.date-time-input::-webkit-date-and-time-value {
     margin-top: 10px;
   }
 }
+/* .google-insights-div {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
+}
+.google-insights-inner-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.google-insights-inner-div div {
+  background: var(--color);
+  color: white;
+  font-weight: bold;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+.google-insights-inner-div p {
+  margin-top: 10px !important;
+  color: black;
+  font-size: 15px !important;
+} */

@@ -33,6 +33,8 @@ import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -216,14 +218,68 @@ export default function Dashboard() {
             className="login-logo"
             style={{ width: "135px" }}
           />
-          <Tooltip title="Logout">
-            <FontAwesomeIcon
-              icon={faRightFromBracket}
-              className="text-white cursor-pointer"
-              style={{ fontSize: "20px" }}
-              onClick={handleLogout}
-            />
-          </Tooltip>
+          <div className="d-flex align-items-start">
+            <Dropdown as={ButtonGroup}>
+              <Dropdown.Toggle
+                split
+                variant="success"
+                id="dropdown-split-basic"
+                style={{
+                  color: "black",
+                  boxShadow: "none",
+                  padding: "0",
+                  margin: "0",
+                  height: "0",
+                }}
+              >
+                {" "}
+                <Tooltip title="Permission Setting">
+                  <FontAwesomeIcon
+                    icon={faGear}
+                    className="text-white cursor-pointer mr-4"
+                    style={{ fontSize: "20px" }}
+                  />
+                </Tooltip>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                <Dropdown.Item href="">
+                  Allow Location{" "}
+                  <label className="switch" style={{marginLeft:'40px'}}>
+                    <input
+                      data-status={true}
+                      data-active={true}
+                      checked={true}
+                      type="checkbox"
+                      name="hello"
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </Dropdown.Item>
+                <Dropdown.Item href="">
+                  Allow Notification{" "}
+                  <label className="switch ml-4">
+                    <input
+                      data-status={true}
+                      data-active={true}
+                      checked={true}
+                      type="checkbox"
+                      name="hello"
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Tooltip title="Logout">
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                className="text-white cursor-pointer"
+                style={{ fontSize: "19px" }}
+                onClick={handleLogout}
+              />
+            </Tooltip>
+          </div>
         </div>
 
         <div className="p-4 dashboard-section">
