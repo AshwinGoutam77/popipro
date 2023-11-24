@@ -15,13 +15,8 @@ import { ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
-import { Modal } from "react-bootstrap";
-import { redirect } from "next/navigation";
-import { useAuthContext } from "@context/AuthContext";
-import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function page() {
-  const { token } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
