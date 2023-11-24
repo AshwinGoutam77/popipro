@@ -22,12 +22,19 @@ export default function Realestate() {
           <h2 className="title title--h1 first-title title__separate">
             Real Estate
           </h2>
-          <Dropdown as={ButtonGroup}>
+          {/* <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle
               split
               variant="success"
               id="dropdown-split-basic"
-              style={{ background: "none", color: "black", boxShadow: "none",padding:'0',margin:'0',height:'0'}}
+              style={{
+                background: "none",
+                color: "black",
+                boxShadow: "none",
+                padding: "0",
+                margin: "0",
+                height: "0",
+              }}
             >
               {" "}
               <FontAwesomeIcon
@@ -36,12 +43,16 @@ export default function Realestate() {
               />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu style={{margin:'2.125rem 0 0'}}>
+            <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
               <Dropdown.Item href="">Lease</Dropdown.Item>
               <Dropdown.Item href="">Rented</Dropdown.Item>
               <Dropdown.Item href="">Sold</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
+        </div>
+        <div className="d-flex align-items-center mb-2" style={{gap:'10px'}}>
+          <button className="w-auto realestate-filter-btns">Rented</button>
+          <button className="w-auto realestate-filter-btns">Sold</button>
         </div>
         <div className="row realestaterow">
           <div className="col-lg-4 col-sm-12">

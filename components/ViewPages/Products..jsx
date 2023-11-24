@@ -488,6 +488,8 @@ export default function Product({
                   <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                     <Dropdown.Item href="">Short By Name</Dropdown.Item>
                     <Dropdown.Item href="">Short By Price</Dropdown.Item>
+                    <Dropdown.Item href="">Short By Latest</Dropdown.Item>
+                    <Dropdown.Item href="">Short By Popularity</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
@@ -499,19 +501,19 @@ export default function Product({
                 <div className="slider-product" data-slider>
                   <ul className="slider__track-product" data-slider-track>
                     <li>
-                      <div className="slide-product">T-shirt</div>
+                      <div className="realestate-filter-btns text-center cursor-pointer">T-shirt</div>
                     </li>
                     <li>
-                      <div className="slide-product">Cap</div>
+                      <div className="realestate-filter-btns text-center cursor-pointer">Cap</div>
                     </li>
                     <li>
-                      <div className="slide-product">Mugs</div>
+                      <div className="realestate-filter-btns text-center cursor-pointer">Mugs</div>
                     </li>
                     <li>
-                      <div className="slide-product">Pens</div>
+                      <div className="realestate-filter-btns text-center cursor-pointer">Pens</div>
                     </li>
                     <li>
-                      <div className="slide-product">Shoes</div>
+                      <div className="realestate-filter-btns text-center cursor-pointer">Shoes</div>
                     </li>
                   </ul>
                   <div className="slider__buttons text-right">

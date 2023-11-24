@@ -630,3 +630,37 @@ input.date-time-input::-webkit-date-and-time-value {
   color: black;
   font-size: 15px !important;
 } */
+.address-book-add-contact-div {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
+}
+.add-contact-btn {
+  background-color: var(--color);
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.address-book-svg svg {
+  font-size: 22px;
+}
+.realestate-filter-btns {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 6px 19px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.realestate-filter-btns:hover {
+  background-color: var(--color);
+  color: white;
+  transition: 0.3s;
+  border: 1px solid transparent;
+}

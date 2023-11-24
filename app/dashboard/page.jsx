@@ -1,5 +1,6 @@
 "use client";
 import {
+  faAddressBook,
   faBagShopping,
   faCalendarCheck,
   faCartShopping,
@@ -245,7 +246,7 @@ export default function Dashboard() {
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                 <Dropdown.Item href="">
                   Allow Location{" "}
-                  <label className="switch" style={{marginLeft:'40px'}}>
+                  <label className="switch" style={{ marginLeft: "40px" }}>
                     <input
                       data-status={true}
                       data-active={true}
@@ -571,6 +572,21 @@ export default function Dashboard() {
                       />
                       <h6 className="text-white text-center mb-0">
                         Virtual Background
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+                {/* Address Book */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/address-book" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faAddressBook}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Address Book
                       </h6>
                     </div>
                   </Link>
