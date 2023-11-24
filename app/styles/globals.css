@@ -662,5 +662,5 @@ input.date-time-input::-webkit-date-and-time-value {
   background-color: var(--color);
   color: white;
   transition: 0.3s;
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
 }
