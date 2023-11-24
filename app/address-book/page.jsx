@@ -10,11 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function page() {
-  const [show, setShow] = useState(false);
+  //   const [show, setShow] = useState(false);
+  const show = "";
+  const setShow = "";
   return (
     <>
       <Modal show={show} onHide={() => setShow(false)} centered>
@@ -70,7 +71,10 @@ export default function page() {
       </div>
       <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
         <h5 className="color-black mb-0">Create Contact Group</h5>
-        <div className="add-contact-btn" onClick={() => setShow(true)}>
+        <div
+          className="add-contact-btn"
+          //  onClick={() => setShow(true)}
+        >
           <FontAwesomeIcon
             className="text-white font-weight-bold cursor-pointer"
             icon={faPlus}
