@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDownShortWide,
   faArrowRight,
+  faArrowUpWideShort,
   faChevronLeft,
   faChevronRight,
   faEnvelope,
@@ -19,6 +20,8 @@ import { HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Product({
   Titles,
@@ -177,6 +180,49 @@ export default function Product({
     HitClick(id);
     handleShowProduct();
   };
+  if (typeof window !== "undefined") {
+    const slider = document.querySelector("[data-slider]");
+
+    const track = slider?.querySelector("[data-slider-track]");
+    const prev = slider?.querySelector("[data-slider-prev]");
+    const next = slider?.querySelector("[data-slider-next]");
+
+    if (track) {
+      prev.addEventListener("click", () => {
+        next.removeAttribute("disabled");
+
+        track.scrollTo({
+          left: track.scrollLeft - track.firstElementChild.offsetWidth,
+          behavior: "smooth",
+        });
+      });
+
+      next.addEventListener("click", () => {
+        prev.removeAttribute("disabled");
+
+        track.scrollTo({
+          left: track.scrollLeft + track.firstElementChild.offsetWidth,
+          behavior: "smooth",
+        });
+      });
+
+      track.addEventListener("scroll", () => {
+        const trackScrollWidth = track.scrollWidth;
+        const trackOuterWidth = track.clientWidth;
+
+        prev.removeAttribute("disabled");
+        next.removeAttribute("disabled");
+
+        if (track.scrollLeft <= 0) {
+          prev.setAttribute("disabled", "");
+        }
+
+        if (track.scrollLeft === trackScrollWidth - trackOuterWidth) {
+          next.setAttribute("disabled", "");
+        }
+      });
+    }
+  }
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
@@ -417,7 +463,82 @@ export default function Product({
                   ? "card_products"
                   : Titles?.card_products?.visible_name}
               </h3>
+              {card.id === "S7ZG" ? (
+                <Dropdown as={ButtonGroup}>
+                  <Dropdown.Toggle
+                    split
+                    variant="success"
+                    id="dropdown-split-basic"
+                    style={{
+                      background: "none",
+                      color: "black",
+                      boxShadow: "none",
+                      padding: "0",
+                      margin: "0",
+                      height: "0",
+                    }}
+                  >
+                    {" "}
+                    <FontAwesomeIcon
+                      icon={faArrowUpWideShort}
+                      style={{ fontSize: "20px" }}
+                    />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                    <Dropdown.Item href="">Short By Name</Dropdown.Item>
+                    <Dropdown.Item href="">Short By Price</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                ""
+              )}
             </div>
+            {card.id === "S7ZG" ? (
+              <div className="container-product">
+                <div className="slider-product" data-slider>
+                  <ul className="slider__track-product" data-slider-track>
+                    <li>
+                      <div className="slide-product">T-shirt</div>
+                    </li>
+                    <li>
+                      <div className="slide-product">Cap</div>
+                    </li>
+                    <li>
+                      <div className="slide-product">Mugs</div>
+                    </li>
+                    <li>
+                      <div className="slide-product">Pens</div>
+                    </li>
+                    <li>
+                      <div className="slide-product">Shoes</div>
+                    </li>
+                  </ul>
+                  <div className="slider__buttons text-right">
+                    <button
+                      className="slider__button-product"
+                      data-slider-prev
+                      disabled
+                    >
+                      <FontAwesomeIcon
+                        icon={faChevronLeft}
+                        className=""
+                        style={{ fontSize: "20px" }}
+                      />
+                    </button>
+                    <button className="slider__button-product" data-slider-next>
+                      <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className=""
+                        style={{ fontSize: "20px" }}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             {Products &&
               Products?.map((items, index, { length }) => {
                 return (
