@@ -164,13 +164,13 @@ export default function Page() {
           </h6>
         </Link>
       </div>
-      <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
+      <div className="m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
         <h5 className="color-black mb-0">Create Contact Group</h5>
-        <div className="add-contact-btn" onClick={() => setShow(true)}>
-          <FontAwesomeIcon
-            className="text-white font-weight-bold cursor-pointer"
-            icon={faPlus}
-            width={20}
+        <div className="" onClick={() => setShow(true)}>
+          <img
+            src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+            alt="images"
+            width={25}
           />
         </div>
       </div>
