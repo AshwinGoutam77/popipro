@@ -589,6 +589,10 @@ export default function Product({
               >
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative filter-div">
+                    {/* <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      className="filter-btn-x-mark"
+                    /> */}
                     <button className="filter-btns">Caps</button>
                   </div>
                 </SwiperSlide>
@@ -619,10 +623,6 @@ export default function Product({
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      className="filter-btn-x-mark"
-                    />
                     <button className="filter-btns">All</button>
                   </div>
                 </SwiperSlide>
