@@ -771,3 +771,17 @@ input.date-time-input::-webkit-date-and-time-value {
 .swiper-container-rtl .swiper-button-prev {
   background-image: none !important;
 }
+@media (max-width: 768px) {
+  .swiper-button-prev:after,
+  .swiper-rtl .swiper-button-next:after {
+    content: "prev";
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+  .swiper-button-next:after,
+  .swiper-rtl .swiper-button-prev:after {
+    content: "next";
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+}

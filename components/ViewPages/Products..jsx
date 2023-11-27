@@ -576,7 +576,7 @@ export default function Product({
                     slidesPerView: 10,
                   },
                   300: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                   },
                 }}
                 spaceBetween={20}
