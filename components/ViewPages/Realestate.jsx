@@ -14,6 +14,13 @@ export default function Realestate() {
   const [ShowInquiry, setShowInquiry] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [Search, setSearch] = useState(false);
+  const handleSearch = () => {
+    setSearch(true);
+    if (Search) {
+      setSearch(false);
+    }
+  };
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
@@ -215,53 +222,75 @@ export default function Realestate() {
       </Modal>
       <div className="box-content boxxx mb-3 mt-0" id="card_realstate">
         <div className="pb-0 pb-sm-2">
-          <div className="flex-header">
-            <h2 className="title title--h1 first-title title__separate">
-              Real Estate
-            </h2>
-            <div className="d-flex flex-wrap" style={{ gap: "20px" }}>
-              <div className="search-box">
-                <input
-                  className="search-text"
-                  type="text"
-                  placeholder="Search"
+          {Search ? (
+            <div className="d-flex align-items-baseline position-relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="form-control mb-4"
+              />
+              <FontAwesomeIcon
+                icon={faSearch}
+                style={{ fontSize: "18px" }}
+                className="color-black cursor-pointer mobile-search-icon"
+                onClick={() => handleSearch()}
+              />
+            </div>
+          ) : (
+            <div className="flex-header">
+              <h2 className="title title--h1 first-title title__separate">
+                Real Estate
+              </h2>
+              <div className="d-flex flex-wrap" style={{ gap: "20px" }}>
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  style={{ fontSize: "18px" }}
+                  className="color-black cursor-pointer mobile-search"
+                  onClick={() => handleSearch()}
                 />
-                <span className="search-btn">
-                  <FontAwesomeIcon
-                    icon={faSearch}
-                    style={{ fontSize: "18px" }}
-                    className="color-black cursor-pointer"
+                <div className="search-box">
+                  <input
+                    className="search-text"
+                    type="text"
+                    placeholder="Search"
                   />
-                </span>
-              </div>
-              <Dropdown as={ButtonGroup}>
-                <Dropdown.Toggle
-                  split
-                  variant="success"
-                  id="dropdown-split-basic"
-                  style={{
-                    background: "none",
-                    color: "black",
-                    boxShadow: "none",
-                    padding: "0",
-                    margin: "0",
-                    height: "0",
-                    fontSize: "22px",
-                  }}
-                >
-                  {/* <FontAwesomeIcon
+                  <span className="search-btn">
+                    <FontAwesomeIcon
+                      icon={faSearch}
+                      style={{ fontSize: "18px" }}
+                      className="color-black cursor-pointer web-search"
+                    />
+                  </span>
+                </div>
+                <Dropdown as={ButtonGroup}>
+                  <Dropdown.Toggle
+                    split
+                    variant="success"
+                    id="dropdown-split-basic"
+                    style={{
+                      background: "none",
+                      color: "black",
+                      boxShadow: "none",
+                      padding: "0",
+                      margin: "0",
+                      height: "0",
+                      fontSize: "22px",
+                    }}
+                  >
+                    {/* <FontAwesomeIcon
                       icon={faArrowUpWideShort}
                       style={{ fontSize: "20px" }}
                     /> */}
-                </Dropdown.Toggle>
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                  <Dropdown.Item href="">Sort By Zip Code</Dropdown.Item>
-                  <Dropdown.Item href="">Sort By Location</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                    <Dropdown.Item href="">Sort By Zip Code</Dropdown.Item>
+                    <Dropdown.Item href="">Sort By Location</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
-          </div>
+          )}
           <SwiperComponent
             breakpoints={{
               1110: {
@@ -271,7 +300,7 @@ export default function Realestate() {
                 slidesPerView: 3,
               },
             }}
-            spaceBetween={20}
+            spaceBetween={10}
             style={{ cursor: "pointer" }}
             className="mySwiper"
             navigation={{
@@ -279,31 +308,31 @@ export default function Realestate() {
             }}
             modules={[Pagination, Navigation]}
           >
-            <SwiperSlide>
+            <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative filter-div">
-                <FontAwesomeIcon
+                {/* <FontAwesomeIcon
                   icon={faCircleXmark}
                   className="filter-btn-x-mark"
-                />
+                /> */}
                 <button className="filter-btns">All</button>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative filter-div">
                 <button className="filter-btns">Buy</button>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative">
                 <button className="filter-btns">Rent</button>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative">
                 <button className="filter-btns">Plot</button>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative">
                 <button className="filter-btns">commercial</button>
               </div>

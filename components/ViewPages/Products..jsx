@@ -59,6 +59,7 @@ export default function Product({
   const [Contact, setContact] = useState("");
   const [Message, setMessage] = useState("");
   const [MessageId, setMessageId] = useState("");
+  const [Search, setSearch] = useState(false);
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -230,6 +231,12 @@ export default function Product({
       });
     }
   }
+  const handleSearch = () => {
+    setSearch(true);
+    if (Search) {
+      setSearch(false);
+    }
+  };
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
@@ -463,66 +470,88 @@ export default function Product({
       PlanData?.subscription !== null ? (
         <div className="box-content boxxx mb-3" id="card_products">
           <div className="mt-0 product-section-div">
-            <div className="d-flex align-items-start justify-content-between">
-              <h3 className="title title--h1 first-title title__separate">
-                {Titles &&
-                Titles.card_products?.visible_name === "card_products"
-                  ? "card_products"
-                  : Titles?.card_products?.visible_name}
-              </h3>
-              <div className="d-flex" style={{ gap: "20px" }}>
-                {card.id === "S7ZG" ? (
-                  <>
-                    <div className="search-box">
-                      <input
-                        className="search-text"
-                        type="text"
-                        placeholder="Search"
+            {Search ? (
+              <div className="d-flex align-items-baseline position-relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="form-control mb-4"
+                />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  style={{ fontSize: "18px" }}
+                  className="color-black cursor-pointer mobile-search-icon"
+                  onClick={() => handleSearch()}
+                />
+              </div>
+            ) : (
+              <div className="d-flex align-items-start justify-content-between">
+                <h3 className="title title--h1 first-title title__separate">
+                  {Titles &&
+                  Titles.card_products?.visible_name === "card_products"
+                    ? "card_products"
+                    : Titles?.card_products?.visible_name}
+                </h3>
+                <div className="d-flex" style={{ gap: "20px" }}>
+                  {card.id === "S7ZG" ? (
+                    <>
+                      <FontAwesomeIcon
+                        icon={faSearch}
+                        style={{ fontSize: "18px" }}
+                        className="color-black cursor-pointer mobile-search"
+                        onClick={() => handleSearch()}
                       />
-                      <span className="search-btn">
-                        <FontAwesomeIcon
-                          icon={faSearch}
-                          style={{ fontSize: "18px" }}
-                          className="color-black cursor-pointer"
+                      <div className="search-box">
+                        <input
+                          className="search-text"
+                          type="text"
+                          placeholder="Search"
                         />
-                      </span>
-                    </div>
-                    <Dropdown as={ButtonGroup}>
-                      <Dropdown.Toggle
-                        split
-                        variant="success"
-                        id="dropdown-split-basic"
-                        style={{
-                          background: "none",
-                          color: "black",
-                          boxShadow: "none",
-                          padding: "0",
-                          margin: "0",
-                          height: "0",
-                          fontSize: "22px",
-                        }}
-                      >
-                        {/* <FontAwesomeIcon
+                        <span className="search-btn">
+                          <FontAwesomeIcon
+                            icon={faSearch}
+                            style={{ fontSize: "18px" }}
+                            className="color-black cursor-pointer web-search"
+                          />
+                        </span>
+                      </div>
+                      <Dropdown as={ButtonGroup}>
+                        <Dropdown.Toggle
+                          split
+                          variant="success"
+                          id="dropdown-split-basic"
+                          style={{
+                            background: "none",
+                            color: "black",
+                            boxShadow: "none",
+                            padding: "0",
+                            margin: "0",
+                            height: "0",
+                            fontSize: "22px",
+                          }}
+                        >
+                          {/* <FontAwesomeIcon
                       icon={faArrowUpWideShort}
                       style={{ fontSize: "20px" }}
                     /> */}
-                      </Dropdown.Toggle>
+                        </Dropdown.Toggle>
 
-                      <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                        <Dropdown.Item href="">Sort By Name</Dropdown.Item>
-                        <Dropdown.Item href="">Sort By Price</Dropdown.Item>
-                        <Dropdown.Item href="">Sort By Latest</Dropdown.Item>
-                        <Dropdown.Item href="">
-                          Sort By Popularity
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </>
-                ) : (
-                  ""
-                )}
+                        <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                          <Dropdown.Item href="">Sort By Name</Dropdown.Item>
+                          <Dropdown.Item href="">Sort By Price</Dropdown.Item>
+                          <Dropdown.Item href="">Sort By Latest</Dropdown.Item>
+                          <Dropdown.Item href="">
+                            Sort By Popularity
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-            </div>
+            )}
             {card.id === "S7ZG" ? (
               <SwiperComponent
                 breakpoints={{
@@ -533,7 +562,7 @@ export default function Product({
                     slidesPerView: 3,
                   },
                 }}
-                spaceBetween={20}
+                spaceBetween={10}
                 style={{ cursor: "pointer" }}
                 className="mySwiper"
                 navigation={{
@@ -541,41 +570,41 @@ export default function Product({
                 }}
                 modules={[Pagination, Navigation]}
               >
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faCircleXmark}
                       className="filter-btn-x-mark"
-                    />
+                    /> */}
                     <button className="filter-btns">All</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative filter-div">
                     <button className="filter-btns">Caps</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">Mugs</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">T-shirt</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">Shoes</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">Shirts</button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">Phone</button>
                   </div>

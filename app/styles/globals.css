@@ -636,17 +636,17 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
 }
-.address-book-add-contact-div div{
+.address-book-add-contact-div div {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
   cursor: pointer;
   border-radius: 8px;
-  padding:8px 20px;
+  padding: 8px 20px;
 }
-.address-book-add-contact-div div:hover{
+.address-book-add-contact-div div:hover {
   /* background-color: var(--themecolor); */
 }
-.address-book-add-contact-div div:last-child{
+.address-book-add-contact-div div:last-child {
   border: none;
 }
 .add-contact-btn {
@@ -784,7 +784,22 @@ input.date-time-input::-webkit-date-and-time-value {
 .swiper-container-rtl .swiper-button-prev {
   background-image: none !important;
 }
+.mobile-search {
+  display: none;
+}
 @media (max-width: 768px) {
+  .web-search {
+    display: none;
+  }
+  .mobile-search {
+    display: block !important;
+  }
+  .mobile-search-icon {
+    position: absolute;
+    right: 20px;
+    top: 14px;
+    bottom: 0;
+  }
   .swiper-button-next:after,
   .swiper-button-prev:after {
     font-size: 16px !important;
@@ -795,5 +810,15 @@ input.date-time-input::-webkit-date-and-time-value {
     content: "next";
     font-size: 16px !important;
     font-weight: bold;
+  }
+  .swiper-button-prev.swiper-button-disabled,
+  .swiper-button-next.swiper-button-disabled,
+  .swiper-button-prev,
+  .swiper-rtl .swiper-button-next {
+    left: -9px !important;
+  }
+  .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
+    right: -7px !important;
   }
 }

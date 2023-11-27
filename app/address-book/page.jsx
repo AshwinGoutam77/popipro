@@ -165,7 +165,7 @@ export default function Page() {
         </Link>
       </div>
       <div className="m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
-        <h5 className="color-black mb-0">Create Contact Group</h5>
+        <h6 className="color-black mb-0">Create Contact Group</h6>
         <div className="" onClick={() => setShow(true)}>
           <img
             src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
@@ -176,10 +176,10 @@ export default function Page() {
       </div>
 
       <div>
-        <h5 className="title title--h1 first-title title__separate mx-4">
-          Groups
-        </h5>
         <div className="address-book-add-contact-div mx-4">
+          <h5 className="title title--h1 first-title title__separate mx-2">
+            Groups
+          </h5>
           <div className="m-1 p-2  d-flex align-items-center justify-content-between">
             <h6 className="color-black mb-0">Doctors</h6>
             <div
