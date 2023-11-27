@@ -10,6 +10,7 @@ import {
   faArrowUpWideShort,
   faChevronLeft,
   faChevronRight,
+  faCircleXmark,
   faEnvelope,
   faLink,
   faSearch,
@@ -572,56 +573,57 @@ export default function Product({
               <SwiperComponent
                 breakpoints={{
                   1110: {
-                    slidesPerView:4
+                    slidesPerView: 10,
                   },
                   300: {
-                    slidesPerView:3,
+                    slidesPerView: 3,
                   },
                 }}
-                spaceBetween={10}
+                spaceBetween={20}
                 style={{ cursor: "pointer" }}
                 className="mySwiper"
-                // pagination={{
-                //   clickable: true,
-                // }}
                 navigation={{
                   clickable: true,
                 }}
                 modules={[Pagination, Navigation]}
               >
                 <SwiperSlide>
-                  <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">Cap</button>
+                  <div className="swiper-slide review-items position-relative filter-div">
+                    <button className="filter-btns">Caps</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">Mugs</button>
+                    <button className="filter-btns">Mugs</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">T-shirt</button>
+                    <button className="filter-btns">T-shirt</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">Shoes</button>
+                    <button className="filter-btns">Shoes</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">Shirts</button>
+                    <button className="filter-btns">Shirts</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">Phone</button>
+                    <button className="filter-btns">Phone</button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
-                    <button className="contact-btn">All</button>
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      className="filter-btn-x-mark"
+                    />
+                    <button className="filter-btns">All</button>
                   </div>
                 </SwiperSlide>
               </SwiperComponent>

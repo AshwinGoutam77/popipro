@@ -209,8 +209,8 @@ export default function Realestate() {
             className="d-flex align-items-center mb-2"
             style={{ gap: "10px" }}
           >
-            <button className="w-auto realestate-filter-btns">Rented</button>
-            <button className="w-auto realestate-filter-btns">Sold</button>
+            <button className="w-auto filter-btns">Rented</button>
+            <button className="w-auto filter-btns">Sold</button>
           </div>
           <div className="row realestaterow">
             <div className="col-lg-4 col-sm-12">

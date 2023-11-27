@@ -651,18 +651,30 @@ input.date-time-input::-webkit-date-and-time-value {
 .address-book-svg svg {
   font-size: 22px;
 }
-.realestate-filter-btns {
+.filter-btns {
   background-color: white;
   border: 1px solid #ccc;
   padding: 6px 19px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 100px;
+  width: max-content;
 }
-.realestate-filter-btns:hover {
+.filter-btns:hover {
   background-color: var(--color);
   color: white;
   transition: 0.3s;
   /* border: 1px solid transparent; */
+}
+.filter-btns:focus {
+  background: var(--color);
+  color: white;
+  transition: 0.3s;
+  /* border: 1px solid transparent; */
+}
+.filter-btn-x-mark {
+  position: absolute;
+  right: 0;
+  color: red;
 }
 .dropdown-menu::before {
   content: none !important;
@@ -729,7 +741,7 @@ input.date-time-input::-webkit-date-and-time-value {
     justify-content: center;
   }
   .virtual-images {
-    width: 160px;
+    width: 155px;
     height: 160px;
   }
 }
@@ -737,9 +749,9 @@ input.date-time-input::-webkit-date-and-time-value {
 .swiper-button-prev {
   width: 22px !important;
   height: 22px !important;
-  background: white;
+  background: var(--color);
   border-radius: 100px;
-  color: var(--color) !important;
+  color: var(--themecolor) !important;
 }
 .swiper-button-prev:after,
 .swiper-rtl .swiper-button-next:after {
