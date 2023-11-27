@@ -479,13 +479,13 @@ export default function Product({
                         type="text"
                         placeholder="Search"
                       />
-                      <a href="#" className="search-btn">
+                      <span className="search-btn">
                         <FontAwesomeIcon
                           icon={faSearch}
                           style={{ fontSize: "18px" }}
                           className="color-black cursor-pointer"
                         />
-                      </a>
+                      </span>
                     </div>
                     <Dropdown as={ButtonGroup}>
                       <Dropdown.Toggle

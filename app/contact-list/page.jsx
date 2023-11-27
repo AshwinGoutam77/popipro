@@ -1,3 +1,4 @@
+"use client";
 import {
   faAddressBook,
   faAngleLeft,
@@ -6,12 +7,69 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/about.css";
+import "../../styles/edit.css";
+import { Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export default function page() {
+  const [showContact, setShowContact] = useState(false);
+  const handleDeleteNumber = async () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this group!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "", "success");
+      }
+    });
+  };
   return (
     <>
+      <Modal show={showContact} onHide={() => setShowContact(false)} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5 class="title title--h1 first-title title__separate mb-1 mb-0">
+              Add Contact
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            class="close"
+            onClick={() => setShowContact(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          <label className="modalFormLable">Contact Name*</label>
+          <input
+            name="name"
+            rows="4"
+            cols="50"
+            className="form-control mb-4 mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "40px", border: "1px solid #ccc" }}
+          ></input>
+          <label className="modalFormLable">Contact Number*</label>
+          <input
+            type="number"
+            name="text"
+            rows="4"
+            cols="50"
+            className="form-control mb-4 mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "40px", border: "1px solid #ccc" }}
+          ></input>
+        </Modal.Body>
+      </Modal>
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
@@ -41,7 +99,10 @@ export default function page() {
       </h2>
       <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
         <button className="contact-btn w-auto">Send message</button>
-        <button className="contact-btn w-auto">
+        <button
+          className="contact-btn w-auto"
+          onClick={() => setShowContact(true)}
+        >
           <FontAwesomeIcon
             className="text-white font-weight-bold cursor-pointer"
             icon={faPlus}
@@ -55,7 +116,6 @@ export default function page() {
             <tr>
               <th className="d-flex align-items-center">
                 <input type="checkbox" className="mr-2" />
-                Select All
               </th>
               <th>Name</th>
               <th>Contact</th>
@@ -69,7 +129,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -79,7 +142,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -89,7 +155,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -99,7 +168,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -109,7 +181,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -119,7 +194,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -129,7 +207,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>
@@ -139,7 +220,10 @@ export default function page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
-              <td data-column="created date">
+              <td
+                data-column="created date"
+                onClick={() => handleDeleteNumber()}
+              >
                 <FontAwesomeIcon icon={faTrash} width={15} />
               </td>
             </tr>

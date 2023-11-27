@@ -1,5 +1,5 @@
 "use client";
-import {} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -163,7 +163,7 @@ export default function Realestate() {
             <h2 className="title title--h1 first-title title__separate">
               Real Estate
             </h2>
-            {/* <div className="search-box">
+            <div className="search-box">
             <input
               className="search-text"
               type="text"
@@ -176,7 +176,7 @@ export default function Realestate() {
                 className="color-black cursor-pointer"
               />
             </a>
-          </div> */}
+          </div>
             {/* <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle
               split

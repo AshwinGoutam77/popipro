@@ -741,8 +741,8 @@ input.date-time-input::-webkit-date-and-time-value {
     justify-content: center;
   }
   .virtual-images {
-    width: 155px;
-    height: 160px;
+    width: 130px;
+    height: 130px;
   }
 }
 .swiper-button-next,

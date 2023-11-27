@@ -44,7 +44,7 @@ export default function page() {
         </Link>
       </div>
 
-      <div className="row w-100">
+      <div className="row m-0">
         <div className="col-sm-12 col-lg-6">
           <div className="p-4 position-relative">
             <img
