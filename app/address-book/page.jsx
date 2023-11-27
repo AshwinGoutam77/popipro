@@ -15,7 +15,7 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "../../styles/edit.css";
 
-export default function page() {
+export default function Page() {
   const [show, setShow] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);

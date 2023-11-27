@@ -13,7 +13,7 @@ import "../../styles/edit.css";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-export default function page() {
+export default function Page() {
   const [showContact, setShowContact] = useState(false);
   const handleDeleteNumber = async () => {
     Swal.fire({
