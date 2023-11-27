@@ -51,16 +51,7 @@ export default function page() {
               src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
               className="qr-background-image"
             />
-            <img
-              //   src="https://cdn.hihello.me/NFMZRek9G4ieektJSVWK/backgrounds/6483e1f6-7155-440f-a1d8-7e610c6270ed.jpg-small-background"
-              src={Image}
-              // width={100}
-              alt="image"
-              style={{
-                boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-                borderRadius: "10px",
-              }}
-            />
+            <img src={Image} alt="image" className="virtal-bg-main-image" />
           </div>
         </div>
 
@@ -81,24 +72,18 @@ export default function page() {
         <h5>Featured Backgrounds</h5>
 
         <div
-          className="pt-4 d-flex align-items-center flex-wrap justify-content-center"
+          className="pt-4 d-flex align-items-center flex-wrap vb-div"
           style={{ gap: "10px" }}
         >
           <img
             src="https://cdn.hihello.me/common/backgrounds/Indoor/9797b06e-aca4-47a0-88e2-5b6d507a6ea8.png-variants/small-background"
             alt="image"
+            className="virtual-images"
             onClick={() =>
               setImage(
                 "https://cdn.hihello.me/common/backgrounds/Indoor/9797b06e-aca4-47a0-88e2-5b6d507a6ea8.png-variants/small-background"
               )
             }
-            style={{
-              width: "235px",
-              height: "200px",
-              borderRadius: "10px",
-              boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-              cursor: "pointer",
-            }}
           />
           <img
             src="https://cdn.hihello.me/common/backgrounds/City/1623a7af-7af0-48d7-be08-b262a2ea6ddc.png-variants/small-background"
@@ -108,13 +93,7 @@ export default function page() {
                 "https://cdn.hihello.me/common/backgrounds/City/1623a7af-7af0-48d7-be08-b262a2ea6ddc.png-variants/small-background"
               )
             }
-            style={{
-              width: "235px",
-              height: "200px",
-              borderRadius: "10px",
-              boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-              cursor: "pointer",
-            }}
+            className="virtual-images"
           />
           <img
             src="https://cdn.hihello.me/common/backgrounds/Indoor/88cd4c6b-63d7-4f79-9e62-b70614e60d16.png-variants/small-background"
@@ -124,13 +103,7 @@ export default function page() {
                 "https://cdn.hihello.me/common/backgrounds/Indoor/88cd4c6b-63d7-4f79-9e62-b70614e60d16.png-variants/small-background"
               )
             }
-            style={{
-              width: "235px",
-              height: "200px",
-              borderRadius: "10px",
-              boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-              cursor: "pointer",
-            }}
+            className="virtual-images"
           />
           <img
             src="https://cdn.hihello.me/common/backgrounds/Nature/ca97106d-298d-4919-a05a-3a4d231cc5ad.png-variants/small-background"
@@ -140,13 +113,7 @@ export default function page() {
                 "https://cdn.hihello.me/common/backgrounds/Nature/ca97106d-298d-4919-a05a-3a4d231cc5ad.png-variants/small-background"
               )
             }
-            style={{
-              width: "235px",
-              height: "200px",
-              borderRadius: "10px",
-              boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-              cursor: "pointer",
-            }}
+            className="virtual-images"
           />
           <img
             src="https://cdn.hihello.me/common/backgrounds/Indoor/e99a2cab-96b4-4cfc-a1ec-e5394168b476.png-variants/small-background"
@@ -156,13 +123,17 @@ export default function page() {
                 "https://cdn.hihello.me/common/backgrounds/Indoor/e99a2cab-96b4-4cfc-a1ec-e5394168b476.png-variants/small-background"
               )
             }
-            style={{
-              width: "235px",
-              height: "200px",
-              borderRadius: "10px",
-              boxShadow: " rgba(99, 99, 99, 0.2) 0px 2px 8px ",
-              cursor: "pointer",
-            }}
+            className="virtual-images"
+          />
+          <img
+            src="https://prafullgupta.com/connectwork/assets/chat/groups/271123121724Zoom_BG2_Office-View-jpg.webp"
+            alt="image"
+            onClick={() =>
+              setImage(
+                "https://prafullgupta.com/connectwork/assets/chat/groups/271123121724Zoom_BG2_Office-View-jpg.webp"
+              )
+            }
+            className="virtual-images"
           />
         </div>
       </div>

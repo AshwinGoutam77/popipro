@@ -12,6 +12,7 @@ import {
   faChevronRight,
   faEnvelope,
   faLink,
+  faSearch,
   faSort,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
@@ -22,6 +23,11 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Product({
   Titles,
@@ -463,81 +469,162 @@ export default function Product({
                   ? "card_products"
                   : Titles?.card_products?.visible_name}
               </h3>
-              {card.id === "S7ZG" ? (
-                <Dropdown as={ButtonGroup}>
-                  <Dropdown.Toggle
-                    split
-                    variant="success"
-                    id="dropdown-split-basic"
-                    style={{
-                      background: "none",
-                      color: "black",
-                      boxShadow: "none",
-                      padding: "0",
-                      margin: "0",
-                      height: "0",
-                    }}
-                  >
-                    {" "}
-                    <FontAwesomeIcon
+              <div className="d-flex" style={{ gap: "20px" }}>
+                {card.id === "S7ZG" ? (
+                  <>
+                    <div className="search-box">
+                      <input
+                        className="search-text"
+                        type="text"
+                        placeholder="Search"
+                      />
+                      <a href="#" className="search-btn">
+                        <FontAwesomeIcon
+                          icon={faSearch}
+                          style={{ fontSize: "18px" }}
+                          className="color-black cursor-pointer"
+                        />
+                      </a>
+                    </div>
+                    <Dropdown as={ButtonGroup}>
+                      <Dropdown.Toggle
+                        split
+                        variant="success"
+                        id="dropdown-split-basic"
+                        style={{
+                          background: "none",
+                          color: "black",
+                          boxShadow: "none",
+                          padding: "0",
+                          margin: "0",
+                          height: "0",
+                          fontSize: "22px",
+                        }}
+                      >
+                        {/* <FontAwesomeIcon
                       icon={faArrowUpWideShort}
                       style={{ fontSize: "20px" }}
-                    />
-                  </Dropdown.Toggle>
+                    /> */}
+                      </Dropdown.Toggle>
 
-                  <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                    <Dropdown.Item href="">Short By Name</Dropdown.Item>
-                    <Dropdown.Item href="">Short By Price</Dropdown.Item>
-                    <Dropdown.Item href="">Short By Latest</Dropdown.Item>
-                    <Dropdown.Item href="">Short By Popularity</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                ""
-              )}
+                      <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                        <Dropdown.Item href="">Sort By Name</Dropdown.Item>
+                        <Dropdown.Item href="">Sort By Price</Dropdown.Item>
+                        <Dropdown.Item href="">Sort By Latest</Dropdown.Item>
+                        <Dropdown.Item href="">
+                          Sort By Popularity
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             {card.id === "S7ZG" ? (
-              <div className="container-product">
-                <div className="slider-product" data-slider>
-                  <ul className="slider__track-product" data-slider-track>
-                    <li>
-                      <div className="realestate-filter-btns text-center cursor-pointer">T-shirt</div>
-                    </li>
-                    <li>
-                      <div className="realestate-filter-btns text-center cursor-pointer">Cap</div>
-                    </li>
-                    <li>
-                      <div className="realestate-filter-btns text-center cursor-pointer">Mugs</div>
-                    </li>
-                    <li>
-                      <div className="realestate-filter-btns text-center cursor-pointer">Pens</div>
-                    </li>
-                    <li>
-                      <div className="realestate-filter-btns text-center cursor-pointer">Shoes</div>
-                    </li>
-                  </ul>
-                  <div className="slider__buttons text-right">
-                    <button
-                      className="slider__button-product"
-                      data-slider-prev
-                      disabled
-                    >
-                      <FontAwesomeIcon
-                        icon={faChevronLeft}
-                        className=""
-                        style={{ fontSize: "20px" }}
-                      />
-                    </button>
-                    <button className="slider__button-product" data-slider-next>
-                      <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className=""
-                        style={{ fontSize: "20px" }}
-                      />
-                    </button>
+              // <div className="container-product">
+              //   <div className="slider-product" data-slider>
+              //     <ul className="slider__track-product" data-slider-track>
+              //       <li>
+              //         <div className="realestate-filter-btns text-center cursor-pointer">
+              //           T-shirt
+              //         </div>
+              //       </li>
+              //       <li>
+              //         <div className="realestate-filter-btns text-center cursor-pointer">
+              //           Cap
+              //         </div>
+              //       </li>
+              //       <li>
+              //         <div className="realestate-filter-btns text-center cursor-pointer">
+              //           Mugs
+              //         </div>
+              //       </li>
+              //       <li>
+              //         <div className="realestate-filter-btns text-center cursor-pointer">
+              //           Pens
+              //         </div>
+              //       </li>
+              //     </ul>
+              //     <div className="slider__buttons text-right">
+              //       <button
+              //         className="slider__button-product"
+              //         data-slider-prev
+              //         disabled
+              //       >
+              //         <FontAwesomeIcon
+              //           icon={faChevronLeft}
+              //           className=""
+              //           style={{ fontSize: "20px" }}
+              //         />
+              //       </button>
+              //       <button className="slider__button-product" data-slider-next>
+              //         <FontAwesomeIcon
+              //           icon={faChevronRight}
+              //           className=""
+              //           style={{ fontSize: "20px" }}
+              //         />
+              //       </button>
+              //     </div>
+              //   </div>
+              // </div>
+              <SwiperComponent
+                breakpoints={{
+                  1110: {
+                    slidesPerView:4
+                  },
+                  300: {
+                    slidesPerView:3,
+                  },
+                }}
+                spaceBetween={10}
+                style={{ cursor: "pointer" }}
+                className="mySwiper"
+                // pagination={{
+                //   clickable: true,
+                // }}
+                navigation={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation]}
+              >
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">Cap</button>
                   </div>
-                </div>
-              </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">Mugs</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">T-shirt</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">Shoes</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">Shirts</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">Phone</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative">
+                    <button className="contact-btn">All</button>
+                  </div>
+                </SwiperSlide>
+              </SwiperComponent>
             ) : (
               ""
             )}

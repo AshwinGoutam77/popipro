@@ -24,6 +24,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NEXT_PUBLIC_MODE !== "development" ? (
+          <meta
+            name="google-site-verification"
+            content="0WVIx5gDG1k-9nYt0gHCFJPjrlYeRIjIr2asTHblQcQ"
+          />
+        ) : (
+          ""
+        )}
+      </head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-JGP54SPWQQ" />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
