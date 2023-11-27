@@ -576,7 +576,7 @@ export default function Product({
                     slidesPerView: 10,
                   },
                   300: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                   },
                 }}
                 spaceBetween={20}
@@ -589,10 +589,10 @@ export default function Product({
               >
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative filter-div">
-                    {/* <FontAwesomeIcon
+                    <FontAwesomeIcon
                       icon={faCircleXmark}
                       className="filter-btn-x-mark"
-                    /> */}
+                    />
                     <button className="filter-btns">Caps</button>
                   </div>
                 </SwiperSlide>

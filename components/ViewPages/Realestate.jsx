@@ -7,7 +7,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Modal } from "react-bootstrap";
+import { ButtonGroup, Dropdown, Modal } from "react-bootstrap";
 
 export default function Realestate() {
   const [show, setShow] = useState(false);
@@ -163,47 +163,48 @@ export default function Realestate() {
             <h2 className="title title--h1 first-title title__separate">
               Real Estate
             </h2>
-            <div className="search-box">
-            <input
-              className="search-text"
-              type="text"
-              placeholder="Search"
-            />
-            <a href="#" className="search-btn">
-              <FontAwesomeIcon
-                icon={faSearch}
-                style={{ fontSize: "18px" }}
-                className="color-black cursor-pointer"
-              />
-            </a>
-          </div>
-            {/* <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle
-              split
-              variant="success"
-              id="dropdown-split-basic"
-              style={{
-                background: "none",
-                color: "black",
-                boxShadow: "none",
-                padding: "0",
-                margin: "0",
-                height: "0",
-              }}
-            >
-              {" "}
-              <FontAwesomeIcon
-                icon={faArrowUpWideShort}
-                style={{ fontSize: "20px" }}
-              />
-            </Dropdown.Toggle>
+            <div className="d-flex flex-wrap" style={{ gap: "20px" }}>
+              <div className="search-box">
+                <input
+                  className="search-text"
+                  type="text"
+                  placeholder="Search"
+                />
+                <span className="search-btn">
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    style={{ fontSize: "18px" }}
+                    className="color-black cursor-pointer"
+                  />
+                </span>
+              </div>
+              <Dropdown as={ButtonGroup}>
+                <Dropdown.Toggle
+                  split
+                  variant="success"
+                  id="dropdown-split-basic"
+                  style={{
+                    background: "none",
+                    color: "black",
+                    boxShadow: "none",
+                    padding: "0",
+                    margin: "0",
+                    height: "0",
+                    fontSize: "22px",
+                  }}
+                >
+                  {/* <FontAwesomeIcon
+                      icon={faArrowUpWideShort}
+                      style={{ fontSize: "20px" }}
+                    /> */}
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-              <Dropdown.Item href="">Lease</Dropdown.Item>
-              <Dropdown.Item href="">Rented</Dropdown.Item>
-              <Dropdown.Item href="">Sold</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown> */}
+                <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                  <Dropdown.Item href="">Sort By Zip Code</Dropdown.Item>
+                  <Dropdown.Item href="">Sort By Location</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </div>
           <div
             className="d-flex align-items-center mb-2"
