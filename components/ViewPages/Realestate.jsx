@@ -1,5 +1,5 @@
 "use client";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -28,7 +28,7 @@ export default function Realestate() {
             <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ padding: "20px" }}>
           <SwiperComponent
             slidesPerView={1}
             spaceBetween={10}
@@ -62,13 +62,69 @@ export default function Realestate() {
               </div>
             </SwiperSlide>
           </SwiperComponent>
-          <div className="mt-2 color-black">
+          <div className="mt-2 color-black mb-3">
             <h6 className="mb-0">Emerald Oasis Mansion</h6>
             <p>
               2ne Themridge Cr. Syracuse Connecticut 35524 Lorem Ipsum is simply
               dummy text of the printing and typesetting industry. Lorem Ipsum
               is simply dummy text of the printing and typesetting industry.{" "}
             </p>
+            <div
+              className="d-flex flex-wrap mt-3"
+              style={{ gap: "10px", lineHeight: "0" }}
+            >
+              <div className="d-flex align-items-baseline">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
+                  alt="image"
+                  width={15}
+                  height={15}
+                />
+                <p className="pl-2 color-black">4 Bedroom</p>
+              </div>
+              <div className="d-flex align-items-baseline">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
+                  alt="image"
+                  width={15}
+                  height={15}
+                />
+                <p className="pl-2 color-black">3 Bathroom</p>
+              </div>
+              <div className="d-flex align-items-baseline">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
+                  alt="image"
+                  width={15}
+                  height={15}
+                />
+                <p className="pl-2 color-black">1 Garage</p>
+              </div>
+              <div className="d-flex align-items-baseline">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
+                  alt="image"
+                  width={15}
+                  height={15}
+                />
+                <p className="pl-2 color-black">Semi-Furnished</p>
+              </div>
+            </div>
+            <div
+              className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
+              style={{ gap: "10px" }}
+            >
+              <p className="font-weight-bold color-black">$2000/ per month</p>
+              <div>
+                <button className="real-map-btn">Open Map</button>
+                <button
+                  className="real-tour-btn"
+                  onClick={() => setShowInquiry(true)}
+                >
+                  Enquiry
+                </button>
+              </div>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -206,13 +262,53 @@ export default function Realestate() {
               </Dropdown>
             </div>
           </div>
-          <div
-            className="d-flex align-items-center mb-2"
-            style={{ gap: "10px" }}
+          <SwiperComponent
+            breakpoints={{
+              1110: {
+                slidesPerView: 10,
+              },
+              300: {
+                slidesPerView: 3,
+              },
+            }}
+            spaceBetween={20}
+            style={{ cursor: "pointer" }}
+            className="mySwiper"
+            navigation={{
+              clickable: true,
+            }}
+            modules={[Pagination, Navigation]}
           >
-            <button className="w-auto filter-btns">Rented</button>
-            <button className="w-auto filter-btns">Sold</button>
-          </div>
+            <SwiperSlide>
+              <div className="swiper-slide review-items position-relative filter-div">
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  className="filter-btn-x-mark"
+                />
+                <button className="filter-btns">All</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="swiper-slide review-items position-relative filter-div">
+                <button className="filter-btns">Buy</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="swiper-slide review-items position-relative">
+                <button className="filter-btns">Rent</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="swiper-slide review-items position-relative">
+                <button className="filter-btns">Plot</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="swiper-slide review-items position-relative">
+                <button className="filter-btns">commercial</button>
+              </div>
+            </SwiperSlide>
+          </SwiperComponent>
           <div className="row realestaterow">
             <div className="col-lg-4 col-sm-12">
               <SwiperComponent

@@ -135,6 +135,9 @@ export default function Page() {
             placeholder=""
             style={{ height: "140px", border: "1px solid #ccc" }}
           ></textarea>
+          <div className="mb-2">
+            <button className="contact-btn w-auto">Send</button>
+          </div>
         </Modal.Body>
       </Modal>
       <div
@@ -176,156 +179,171 @@ export default function Page() {
         <h5 className="title title--h1 first-title title__separate mx-4">
           Groups
         </h5>
-
-        <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
-          <h6 className="color-black mb-0">1. Doctors</h6>
-          <div className="d-flex align-items-center address-book-svg address-book-svg">
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faPlus}
-              width={17}
-              onClick={() => setShowContact(true)}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faTrash}
-              width={13}
-              onClick={handleDeleteNumber}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faMessage}
-              width={15}
-              onClick={() => setShowSendMessage(true)}
-            />
-            <Link href="/contact-list" className="d-flex">
-              <FontAwesomeIcon
-                className="text-dark font-weight-bold cursor-pointer "
-                icon={faChevronRight}
-                width={13}
+        <div className="address-book-add-contact-div mx-4">
+          <div className="m-1 p-2  d-flex align-items-center justify-content-between">
+            <h6 className="color-black mb-0">Doctors</h6>
+            <div
+              className="d-flex align-items-center address-book-svg address-book-svg"
+              style={{ gap: "10px" }}
+            >
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowContact(true)}
               />
-            </Link>
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
+                alt="images"
+                width={25}
+                onClick={() => handleDeleteNumber()}
+              />
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/271123060450messenger.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowSendMessage(true)}
+              />
+              <Link href="/contact-list" className="d-flex">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/271123055204right.png"
+                  alt="images"
+                  width={25}
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-
-        <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
-          <h6 className="color-black mb-0">2. Hotels and restaurant</h6>
-          <div className="d-flex align-items-center address-book-svg">
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faPlus}
-              width={17}
-              onClick={() => setShowContact(true)}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faTrash}
-              width={13}
-              onClick={handleDeleteNumber}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faMessage}
-              width={15}
-              onClick={() => setShowSendMessage(true)}
-            />
-            <Link href="/contact-list" className="d-flex">
-              <FontAwesomeIcon
-                className="text-dark font-weight-bold cursor-pointer "
-                icon={faChevronRight}
-                width={13}
+          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+            <h6 className="color-black mb-0">Restaurant</h6>
+            <div
+              className="d-flex align-items-center address-book-svg address-book-svg"
+              style={{ gap: "10px" }}
+            >
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowContact(true)}
               />
-            </Link>
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
+                alt="images"
+                width={25}
+                onClick={() => handleDeleteNumber()}
+              />
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/271123060450messenger.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowSendMessage(true)}
+              />
+              <Link href="/contact-list" className="d-flex">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/271123055204right.png"
+                  alt="images"
+                  width={25}
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
-          <h6 className="color-black mb-0">3. Furniture</h6>
-          <div className="d-flex align-items-center address-book-svg">
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faPlus}
-              width={17}
-              onClick={() => setShowContact(true)}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faTrash}
-              width={13}
-              onClick={handleDeleteNumber}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faMessage}
-              width={15}
-              onClick={() => setShowSendMessage(true)}
-            />
-            <Link href="/contact-list" className="d-flex">
-              <FontAwesomeIcon
-                className="text-dark font-weight-bold cursor-pointer "
-                icon={faChevronRight}
-                width={13}
+          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+            <h6 className="color-black mb-0">Furniture</h6>
+            <div
+              className="d-flex align-items-center address-book-svg address-book-svg"
+              style={{ gap: "10px" }}
+            >
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowContact(true)}
               />
-            </Link>
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
+                alt="images"
+                width={25}
+                onClick={() => handleDeleteNumber()}
+              />
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/271123060450messenger.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowSendMessage(true)}
+              />
+              <Link href="/contact-list" className="d-flex">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/271123055204right.png"
+                  alt="images"
+                  width={25}
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
-          <h6 className="color-black mb-0">4. Electrician </h6>
-          <div className="d-flex align-items-center address-book-svg">
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faPlus}
-              width={17}
-              onClick={() => setShowContact(true)}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faTrash}
-              width={13}
-              onClick={handleDeleteNumber}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faMessage}
-              width={15}
-              onClick={() => setShowSendMessage(true)}
-            />
-            <Link href="/contact-list" className="d-flex">
-              <FontAwesomeIcon
-                className="text-dark font-weight-bold cursor-pointer "
-                icon={faChevronRight}
-                width={13}
+          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+            <h6 className="color-black mb-0">Electrician </h6>
+            <div
+              className="d-flex align-items-center address-book-svg address-book-svg"
+              style={{ gap: "10px" }}
+            >
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowContact(true)}
               />
-            </Link>
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
+                alt="images"
+                width={25}
+                onClick={() => handleDeleteNumber()}
+              />
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/271123060450messenger.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowSendMessage(true)}
+              />
+              <Link href="/contact-list" className="d-flex">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/271123055204right.png"
+                  alt="images"
+                  width={25}
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className=" m-4 address-book-add-contact-div d-flex align-items-center justify-content-between flex-wrap">
-          <h6 className="color-black mb-0">5. Plumbers</h6>
-          <div className="d-flex align-items-center address-book-svg">
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faPlus}
-              width={17}
-              onClick={() => setShowContact(true)}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faTrash}
-              width={13}
-              onClick={handleDeleteNumber}
-            />
-            <FontAwesomeIcon
-              className="text-dark font-weight-bold cursor-pointer mr-4"
-              icon={faMessage}
-              width={15}
-              onClick={() => setShowSendMessage(true)}
-            />
-            <Link href="/contact-list" className="d-flex">
-              <FontAwesomeIcon
-                className="text-dark font-weight-bold cursor-pointer "
-                icon={faChevronRight}
-                width={13}
+          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+            <h6 className="color-black mb-0">Plumbers</h6>
+            <div
+              className="d-flex align-items-center address-book-svg address-book-svg"
+              style={{ gap: "10px" }}
+            >
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowContact(true)}
               />
-            </Link>
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
+                alt="images"
+                width={25}
+                onClick={() => handleDeleteNumber()}
+              />
+              <img
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/271123060450messenger.png"
+                alt="images"
+                width={25}
+                onClick={() => setShowSendMessage(true)}
+              />
+              <Link href="/contact-list" className="d-flex">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/271123055204right.png"
+                  alt="images"
+                  width={25}
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

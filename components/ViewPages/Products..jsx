@@ -524,52 +524,6 @@ export default function Product({
               </div>
             </div>
             {card.id === "S7ZG" ? (
-              // <div className="container-product">
-              //   <div className="slider-product" data-slider>
-              //     <ul className="slider__track-product" data-slider-track>
-              //       <li>
-              //         <div className="realestate-filter-btns text-center cursor-pointer">
-              //           T-shirt
-              //         </div>
-              //       </li>
-              //       <li>
-              //         <div className="realestate-filter-btns text-center cursor-pointer">
-              //           Cap
-              //         </div>
-              //       </li>
-              //       <li>
-              //         <div className="realestate-filter-btns text-center cursor-pointer">
-              //           Mugs
-              //         </div>
-              //       </li>
-              //       <li>
-              //         <div className="realestate-filter-btns text-center cursor-pointer">
-              //           Pens
-              //         </div>
-              //       </li>
-              //     </ul>
-              //     <div className="slider__buttons text-right">
-              //       <button
-              //         className="slider__button-product"
-              //         data-slider-prev
-              //         disabled
-              //       >
-              //         <FontAwesomeIcon
-              //           icon={faChevronLeft}
-              //           className=""
-              //           style={{ fontSize: "20px" }}
-              //         />
-              //       </button>
-              //       <button className="slider__button-product" data-slider-next>
-              //         <FontAwesomeIcon
-              //           icon={faChevronRight}
-              //           className=""
-              //           style={{ fontSize: "20px" }}
-              //         />
-              //       </button>
-              //     </div>
-              //   </div>
-              // </div>
               <SwiperComponent
                 breakpoints={{
                   1110: {
@@ -588,11 +542,16 @@ export default function Product({
                 modules={[Pagination, Navigation]}
               >
                 <SwiperSlide>
-                  <div className="swiper-slide review-items position-relative filter-div">
+                  <div className="swiper-slide review-items position-relative">
                     <FontAwesomeIcon
                       icon={faCircleXmark}
                       className="filter-btn-x-mark"
                     />
+                    <button className="filter-btns">All</button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide review-items position-relative filter-div">
                     <button className="filter-btns">Caps</button>
                   </div>
                 </SwiperSlide>
@@ -619,11 +578,6 @@ export default function Product({
                 <SwiperSlide>
                   <div className="swiper-slide review-items position-relative">
                     <button className="filter-btns">Phone</button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">All</button>
                   </div>
                 </SwiperSlide>
               </SwiperComponent>

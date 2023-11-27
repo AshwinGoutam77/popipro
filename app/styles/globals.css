@@ -636,6 +636,19 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
 }
+.address-book-add-contact-div div{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  padding:8px 20px;
+}
+.address-book-add-contact-div div:hover{
+  /* background-color: var(--themecolor); */
+}
+.address-book-add-contact-div div:last-child{
+  border: none;
+}
 .add-contact-btn {
   background-color: var(--color);
   width: 30px;
@@ -772,9 +785,8 @@ input.date-time-input::-webkit-date-and-time-value {
   background-image: none !important;
 }
 @media (max-width: 768px) {
-  .swiper-button-prev:after,
-  .swiper-rtl .swiper-button-next:after {
-    content: "prev";
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
     font-size: 16px !important;
     font-weight: bold;
   }
