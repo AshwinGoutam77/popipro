@@ -451,6 +451,20 @@ const Header = ({
     setsharePopup(true);
   }
 
+  const [Show, setShowModal] = useState(false);
+
+  const handleShowCalendly = () => {
+    setShowModal(true);
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -756,6 +770,31 @@ const Header = ({
         </Modal.Body>
       </Modal>
 
+      <Modal show={Show} onHide={() => setShowModal(false)} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5 className="title title--h1 first-title title__separate mb-0">
+              Book Appointment
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowModal(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            className="calendly-inline-widget"
+            data-url="https://calendly.com/devdevgoutam/test"
+            style={{ height: "101vh" }}
+          ></div>
+        </Modal.Body>
+      </Modal>
+
       <header className="header header-box mb-3">
         <button
           className="edit-header"
@@ -869,7 +908,8 @@ const Header = ({
                     backgroundColor: "var(--themecolor)",
                     color: "black",
                   }}
-                  onClick={handleAppointment}
+                  // onClick={handleAppointment}
+                  onClick={handleShowCalendly}
                 >
                   Appointment
                 </button>

@@ -161,7 +161,6 @@ export default async function Main({ profile, data, id }) {
                     ) : (
                       ""
                     )}
-                    {card.id === "S7ZG" ? <CalendlyComponent /> : ""}
                     <ContactForm
                       card_url={profile}
                       Titles={titles}
