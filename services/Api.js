@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const baseURL =
-  process.env.NEXT_PUBLIC_MODE == "development"
+  process.env.NEXT_PUBLIC_MODE == "developement"
     ? "https://dev.popipro.com/api/"
     : "https://admin.popipro.com/api/";
 
