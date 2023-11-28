@@ -90,8 +90,9 @@ export default function Dashboard() {
       } catch (error) {
         console.log(error);
         if (error?.request?.status == "401") {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
+          // localStorage.removeItem("token");
+          // window.location.href = "/login";
+          console.log(error);
         }
       }
       setShowLoader(false);
