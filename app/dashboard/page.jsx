@@ -90,13 +90,13 @@ export default function Dashboard() {
       } catch (error) {
         console.log(error);
         if (error?.request?.status == "401") {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
+          // localStorage.removeItem("token");
+          // window.location.href = "/login";
         }
       }
       setShowLoader(false);
     } else {
-      window.location.href = "/login";
+      // window.location.href = "/login";
     }
   };
 
