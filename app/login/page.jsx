@@ -7,14 +7,19 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 async function loginUser(credentials) {
-  return fetch("https://admin.popipro.com/api/login-user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  return fetch(
+    process.env.NEXT_PUBLIC_MODE == "development"
+      ? "https://dev.popipro.com/api/login-user"
+      : "https://admin.popipro.com/api/login-user",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
 }
 
 const LoginPage = () => {
