@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 
-const baseURL = "https://admin.popipro.com/api/";
+const baseURL =
+  process.env.NEXT_PUBLIC_MODE == "development"
+    ? "https://dev.popipro.com/api/"
+    : "https://admin.popipro.com/api/";
 
 const Api = async (
   url,
