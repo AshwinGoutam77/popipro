@@ -14,20 +14,32 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Dropdown from "react-bootstrap/Dropdown";
 import { Modal } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function EditRealEstate() {
   const [show, setshow] = useState(false);
+  const [PriceRadio, setPriceRadio] = useState(true);
+  const [LabelRadio, setLabelRadio] = useState(false);
   const handleCanclebtn = () => {
     setshow(false);
   };
+  const handleRadioBTN = (e) => {
+    setLabelRadio(false);
+    if (PriceRadio == false) {
+      setPriceRadio(true);
+    }
+  };
+  const handleLabelRadio = () => {
+    setPriceRadio(false);
+    if (LabelRadio == false) {
+      setLabelRadio(true);
+    }
+  };
   return (
     <>
-      <Modal show={show} onHide={handleCanclebtn} centered>
+      <Modal size="md" show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -45,7 +57,7 @@ export default function EditRealEstate() {
         <Modal.Body>
           <div>
             <label className="modalFormLable">
-              Upload Images (*Recommended Size 347x160)
+              Featured Image (*Recommended Size 347x160)
             </label>
             <input
               type="file"
@@ -53,6 +65,19 @@ export default function EditRealEstate() {
               className="form-control mb-4 p-1"
               accept="image/png, image/gif, image/jpeg"
               style={{ border: "1px solid #ccc" }}
+              //   ref={aRef}
+              //   onChange={(e) => setImage(e.target.files[0])}
+            />
+            <label className="modalFormLable">
+              Other Images (*Recommended Size 347x160)
+            </label>
+            <input
+              type="file"
+              name="image"
+              className="form-control mb-4 p-1"
+              accept="image/png, image/gif, image/jpeg"
+              style={{ border: "1px solid #ccc" }}
+              multiple
               //   ref={aRef}
               //   onChange={(e) => setImage(e.target.files[0])}
             />
@@ -67,25 +92,15 @@ export default function EditRealEstate() {
               style={{ height: "40px", border: "1px solid #ccc" }}
               //   onChange={(e) => setServicesName(e.target.value)}
             ></input>
-            <label className="modalFormLable">About*</label>
-            <input
-              name="name"
-              rows="4"
-              cols="50"
-              className="form-control mb-4 mt-1"
-              //   value={ServicesName}
-              placeholder="About"
-              style={{ height: "40px", border: "1px solid #ccc" }}
-              //   onChange={(e) => setServicesName(e.target.value)}
-            ></input>
             <div
-              className="d-flex align-items-center flex-wrap"
+              className="d-flex align-items-center w-100 flex-wrap mt-3"
               style={{ gap: "10px" }}
             >
               <div>
                 <label className="modalFormLable">Bedroom*</label>
                 <br />
                 <input
+                  type="number"
                   name="name"
                   rows="4"
                   cols="50"
@@ -99,6 +114,7 @@ export default function EditRealEstate() {
               <div>
                 <label className="modalFormLable">Bathroom*</label>
                 <input
+                  type="number"
                   name="name"
                   rows="4"
                   cols="50"
@@ -112,6 +128,7 @@ export default function EditRealEstate() {
               <div>
                 <label className="modalFormLable">Garage*</label>
                 <input
+                  type="number"
                   name="name"
                   rows="4"
                   cols="50"
@@ -127,6 +144,7 @@ export default function EditRealEstate() {
                   Furnished/ SemiFrunished*
                 </label>
                 <input
+                  type="number"
                   name="name"
                   rows="4"
                   cols="50"
@@ -138,14 +156,97 @@ export default function EditRealEstate() {
                 ></input>
               </div>
             </div>
-            <label className="modalFormLable">Price</label>
+            <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+              <div className="d-flex align-items-center">
+                <input
+                  type="radio"
+                  id="price"
+                  name="product"
+                  value={0}
+                  checked={PriceRadio}
+                  onChange={(e) => handleRadioBTN(e.target.value)}
+                />{" "}
+                <label htmlFor="price" className="ml-2 mb-0">
+                  Show Price
+                </label>
+              </div>
+              <div className="d-flex align-items-center ml-3">
+                <input
+                  type="radio"
+                  id="css"
+                  name="product"
+                  value={1}
+                  // checked={LabelRadio}
+                  onChange={(e) => handleLabelRadio(e.target.value)}
+                />{" "}
+                <label htmlFor="css" className="ml-2 mb-0">
+                  Show Text
+                </label>
+              </div>
+            </div>
+            {PriceRadio ? (
+              <div>
+                <label className="modalFormLable">Price</label>
+                <div className="d-flex" style={{ gap: "10px" }}>
+                  <select
+                    style={{
+                      height: "40px",
+                      padding: "6px 18px",
+                      background: "#f7f9fa",
+                      border: "1px solid #ccc",
+                    }}
+                    // onChange={(e) => setProductPriceValue(e.target.value)}
+                    className="mt-1"
+                  >
+                    <option value="">Select currency</option>
+                    <option value="">$</option>
+                    <option value="">₹</option>
+                    <option value="">AU$</option>
+                    <option value="">SGD$</option>
+                    {/* {Currency &&
+                      Currency?.map((item, index) => {
+                        return <option key={index}>{item}</option>;
+                      })} */}
+                  </select>
+                  <input
+                    type="number"
+                    name="price"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    // value={ProductPrice}
+                    placeholder="Price"
+                    style={{ height: "40px", border: "1px solid #ccc" }}
+                    // onChange={(e) => setProductPrice(e.target.value)}
+                    maxlength="10"
+                  ></input>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <label className="modalFormLable">Text</label>
+                <input
+                  type="text"
+                  name="price"
+                  rows="4"
+                  cols="50"
+                  className="form-control mb-4 mt-1"
+                  // value={ProductPrice}
+                  placeholder="Text"
+                  style={{ height: "40px", border: "1px solid #ccc" }}
+                  onChange={(e) => setProductPrice(e.target.value)}
+                  maxlength="12"
+                ></input>
+              </div>
+            )}
+            <label className="modalFormLable">Category*</label>
             <input
               name="name"
               rows="4"
               cols="50"
               className="form-control mb-4 mt-1"
               //   value={ServicesName}
-              placeholder="Price"
+              placeholder="Category"
               style={{ height: "40px", border: "1px solid #ccc" }}
               //   onChange={(e) => setServicesName(e.target.value)}
             ></input>
@@ -160,6 +261,45 @@ export default function EditRealEstate() {
               style={{ height: "40px", border: "1px solid #ccc" }}
               //   onChange={(e) => setServicesName(e.target.value)}
             ></input>
+            <label className="modalFormLable">Description*</label>
+            <CKEditor
+              editor={ClassicEditor}
+              config={{
+                removePlugins: [
+                  "EasyImage",
+                  "ImageUpload",
+                  "MediaEmbed",
+                  "Table",
+                  "TableToolbar",
+                  "Indent",
+                  "BlockQuote",
+                  "Heading",
+                  "Emoji",
+                ],
+                placeholder:
+                  "Insert a text and take advantage of AI to enrich the content you've written.",
+                link: {
+                  decorators: {
+                    addTargetToExternalLinks: {
+                      mode: "automatic",
+                      callback: (url) => /^(https?:)?\/\//.test(url),
+                      attributes: {
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      },
+                    },
+                  },
+                },
+              }}
+              data={"" || ""}
+              onReady={(editor) => {}}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                // setServicesDescription(data);
+              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
+            />
           </div>
           <div
             className="d-flex align-items-center mt-3"
@@ -289,41 +429,6 @@ export default function EditRealEstate() {
               </SwiperComponent>
             </div>
             <div className="col-lg-8 col-sm-12">
-              <div className="d-flex align-items-center justify-content-between verify-div-sm">
-                <div className="d-flex align-items-center">
-                  <img
-                    src="https://prafullgupta.com/connectwork/assets/chat/groups/221123110412icons8-verified-48.png"
-                    alt="verify_png"
-                    width={15}
-                  />
-                  <span
-                    className="pl-1"
-                    style={{
-                      fontSize: "12px",
-                      color: "green",
-                      paddingTop: "2px",
-                    }}
-                  >
-                    Verified
-                  </span>
-                </div>
-                <div className="d-flex align-items-center">
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    className=""
-                    style={{ color: "#c7c700", fontSize: "13px" }}
-                  />
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      paddingTop: "3px",
-                    }}
-                    className="pl-1"
-                  >
-                    4.5 Rating
-                  </span>
-                </div>
-              </div>
               <div className="mt-2">
                 <h6 className="mb-0 color-black">Emerald Oasis Mansion</h6>
                 <p className="color-black">
@@ -451,41 +556,6 @@ export default function EditRealEstate() {
               </SwiperComponent>
             </div>
             <div className="col-lg-8 col-sm-12">
-              <div className="d-flex align-items-center justify-content-between verify-div-sm">
-                <div className="d-flex align-items-center">
-                  <img
-                    src="https://prafullgupta.com/connectwork/assets/chat/groups/221123110412icons8-verified-48.png"
-                    alt="verify_png"
-                    width={15}
-                  />
-                  <span
-                    className="pl-1"
-                    style={{
-                      fontSize: "12px",
-                      color: "green",
-                      paddingTop: "2px",
-                    }}
-                  >
-                    Verified
-                  </span>
-                </div>
-                <div className="d-flex align-items-center">
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    className=""
-                    style={{ color: "#c7c700", fontSize: "13px" }}
-                  />
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      paddingTop: "3px",
-                    }}
-                    className="pl-1"
-                  >
-                    4.5 Rating
-                  </span>
-                </div>
-              </div>
               <div className="mt-2">
                 <h6 className="mb-0 color-black">Paradise Cove Mansion</h6>
                 <p className="color-black">
@@ -574,6 +644,59 @@ export default function EditRealEstate() {
               >
                 Delete
               </button>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h6 className="font-weight-bold">
+              How you want to recive inquiry:
+            </h6>
+            <div className="d-flex align-items-start">
+              <input
+                type="checkbox"
+                id="product-whatsaap2"
+                className="mt-1"
+                // value={
+                //   MainData?.company_setting?.show_product_wp_button === 0
+                //     ? true
+                //     : false
+                // }
+                // onChange={() => handleProductsbtn("wp")}
+                // checked={
+                //   MainData?.company_setting?.show_product_wp_button == 0
+                //     ? true
+                //     : false
+                // }
+              />
+              <label
+                for="product-whatsaap2"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via whatsaap only?
+              </label>
+            </div>
+            <div className="d-flex align-items-start">
+              <input
+                type="checkbox"
+                id="product-enq2"
+                className="mt-1"
+                // value={
+                //   MainData?.company_setting?.show_product_enquiry_button === 0
+                //     ? true
+                //     : false
+                // }
+                // onChange={() => handleProductsbtn("enq")}
+                // checked={
+                //   MainData?.company_setting?.show_product_enquiry_button == 0
+                //     ? true
+                //     : false
+                // }
+              />
+              <label
+                for="product-enq2"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via inquiry form?
+              </label>
             </div>
           </div>
         </div>

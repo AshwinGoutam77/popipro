@@ -104,10 +104,11 @@ export default function Page() {
           onClick={() => setShowContact(true)}
         >
           <FontAwesomeIcon
-            className="text-white font-weight-bold cursor-pointer"
+            className="text-white font-weight-bold cursor-pointer mr-2"
             icon={faPlus}
             width={12}
           />
+          Add Contact
         </button>
       </div>
       <div className="box-shadow-leads pt-2">

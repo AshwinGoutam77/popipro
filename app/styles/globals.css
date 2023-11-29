@@ -595,7 +595,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 5px;
   padding: 3px 10px;
   color: white;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 @media (max-width: 768px) {
   .verify-div-sm {
@@ -821,4 +821,13 @@ input.date-time-input::-webkit-date-and-time-value {
   .swiper-rtl .swiper-button-prev {
     right: -7px !important;
   }
+}
+.share-modal-url-btn {
+  position: absolute;
+  right: 12px;
+  background: var(--color);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 15px;
 }

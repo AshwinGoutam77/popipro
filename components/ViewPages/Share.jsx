@@ -42,9 +42,23 @@ import {
   WeiboIcon,
   HatenaIcon,
 } from "react-share";
+import { toast } from "react-toastify";
 
 export default function Share({ Data, card, active, handleClose }) {
   let title = "";
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText("https://app.popipro.com/" + card);
+    toast.success("Your email signature is copied to clipboard", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   return (
     <div>
       <Modal show={active} onHide={() => handleClose("")} centered>
@@ -309,6 +323,23 @@ export default function Share({ Data, card, active, handleClose }) {
                       className="Demo__some-network__share-count"
                     />
                   </div> */}
+            </div>
+          </div>
+          <h6 className="color-black px-2 mt-4">Or copy link</h6>
+          <div>
+            <div className="d-flex align-items-center position-relative">
+              <input
+                type="url"
+                className="form-control w-100 color-black cursor-pointer"
+                value={"https://app.popipro.com/" + card}
+                disabled
+              />
+              <button
+                className="w-auto m-0 share-modal-url-btn"
+                onClick={handleCopyToClipboard}
+              >
+                Copy Link
+              </button>
             </div>
           </div>
         </Modal.Body>

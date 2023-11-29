@@ -833,14 +833,7 @@ const Header = ({
           <div className="header__photo">
             <Image
               className="header__photo-img"
-              value={
-                card?.profile_picture?.path
-                  ? "https://admin.popipro.com/" +
-                    card?.profile_picture?.path +
-                    "?ver=" +
-                    time
-                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
-              }
+              value={"image"}
               src={
                 card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
@@ -852,7 +845,6 @@ const Header = ({
               alt="images"
               width={0}
               height={0}
-              priority={true}
             />
           </div>
           <div className="header__base-info">
@@ -899,7 +891,8 @@ const Header = ({
                 </button>
               )}
               {Titles?.card_booking?.is_active == 0 ||
-              PlanData?.is_expired !== false || card?.id !== "S7ZG"? (
+              PlanData?.is_expired !== false ||
+              card?.id !== "S7ZG" ? (
                 ""
               ) : (
                 <button

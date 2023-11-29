@@ -237,7 +237,7 @@ const Banner = ({
   ) : (
     <>
       {permission[0]?.visible_field === "logo" ||
-      permission[0]?.visible_field === "name" ||
+      card.card_cover === "name" ||
       card.card_cover === "logo" ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
@@ -323,16 +323,16 @@ const Banner = ({
 
           <div className="pt-0">
             <div>
-              {permission[0]?.visible_field !== "name" ? (
+              {card.card_cover !== "name" ? (
                 <img
                   src={card.base_url + card.card_company_logo?.path}
                   className="Logo-icon"
                   style={{ width: "110px" }}
-                  alt="photos"
+                  alt="Logo"
                 />
               ) : (
                 <h1 className="text-white" style={{ fontSize: "16px" }}>
-                  {card?.card_name}
+                  {card?.card_company_logo}
                 </h1>
               )}
             </div>
@@ -458,9 +458,9 @@ const Banner = ({
 
           <div className="mt-2">
             <div>
-              {permission[0]?.visible_field === "name" ? (
+              {card.card_cover === "name" ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
-                  {card?.card_name}
+                  {card?.card_company_logo}
                 </h5>
               ) : (
                 ""

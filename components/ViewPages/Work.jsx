@@ -113,7 +113,11 @@ const Work = ({
                           </div>
                           <Image
                             className="gallery-grid__image cover lazyload"
-                            src={"https://admin.popipro.com/" + photo.path}
+                            src={
+                              process.env.NEXT_PUBLIC_MODE == "development"
+                                ? "https://dev.popipro.com/" + photo.path
+                                : "https://admin.popipro.com/" + photo.path
+                            }
                             data-zoom
                             alt="photos"
                             onClick={() => openImagePopup(i)}

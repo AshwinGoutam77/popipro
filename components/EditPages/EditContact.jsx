@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { Appointmentbtns, CardData } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
+import { Modal } from "react-bootstrap";
 
 export default function EditContact({
   APIDATA,
@@ -24,6 +25,7 @@ export default function EditContact({
   const [EditFields, setEditFields] = useState(false);
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [Appointment, setAppointment] = useState("");
+  const [Show, setShow] = useState(false);
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -149,9 +151,44 @@ export default function EditContact({
       });
     }
   };
+  const handleClose = () => {
+    setShow(false);
+  };
 
   return (
     <>
+      <Modal show={Show} onHide={() => handleClose("")} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              className="title title--h1 first-title title__separate mb-0"
+              id="shareModal"
+            >
+              Calendly Url
+            </h5>
+          </Modal.Title>
+
+          <button
+            type="button"
+            className="close"
+            onClick={() => handleClose("")}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <lable className="modalFormLable">Your calendly url:</lable>
+          <input
+            type="url"
+            className="form-control mt-2"
+            style={{ height: "40px", border: "1px solid #ccc" }}
+          />
+          <div>
+            <button className="contact-btn w-auto">Save</button>
+          </div>
+        </Modal.Body>
+      </Modal>
       <div className="position-relative">
         {Data ? (
           <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
@@ -226,6 +263,64 @@ export default function EditContact({
               ) : (
                 ""
               )}
+            </div>
+          </div>
+          <div className="">
+            <h6 className="font-weight-bold">
+              How you want to recive appointment:
+            </h6>
+            <div className="d-flex align-items-start">
+              <input
+                type="radio"
+                id="product-whatsaap3"
+                className="mt-1"
+                name="real-estate-radio"
+                // value={
+                //   MainData?.company_setting?.show_product_wp_button === 0
+                //     ? true
+                //     : false
+                // }
+                // onChange={() => handleProductsbtn("wp")}
+                // checked={
+                //   MainData?.company_setting?.show_product_wp_button == 0
+                //     ? true
+                //     : false
+                // }
+              />
+              <label
+                for="product-whatsaap3"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via Appointemnt Form?
+              </label>
+            </div>
+            <div
+              className="d-flex align-items-start"
+              onClick={() => setShow(true)}
+            >
+              <input
+                type="radio"
+                id="product-enq3"
+                className="mt-1"
+                name="real-estate-radio"
+                // value={
+                //   MainData?.company_setting?.show_product_enquiry_button === 0
+                //     ? true
+                //     : false
+                // }
+                // onChange={() => handleProductsbtn("enq")}
+                // checked={
+                //   MainData?.company_setting?.show_product_enquiry_button == 0
+                //     ? true
+                //     : false
+                // }
+              />
+              <label
+                for="product-enq3"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via Calendly?
+              </label>
             </div>
           </div>
           <div className="row align-items-center justify-content-center mb-3"></div>

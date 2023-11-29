@@ -52,7 +52,11 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                       <div className="w-100" key={index}>
                         <Image
                           className="slider-images w-100"
-                          src={"https://admin.popipro.com/" + item.path}
+                          src={
+                            process.env.NEXT_PUBLIC_MODE == "development"
+                              ? "https://dev.popipro.com/" + item.path
+                              : "https://admin.popipro.com/" + item.path
+                          }
                           alt="Logo"
                           width={0}
                           height={0}

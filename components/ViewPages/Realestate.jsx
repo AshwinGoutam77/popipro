@@ -427,7 +427,7 @@ export default function Realestate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
-                <div>
+                <div className="d-flex flex-wrap" style={{ gap: "10px" }}>
                   <button className="real-map-btn">Open Map</button>
                   <button
                     className="real-tour-btn"
@@ -435,6 +435,7 @@ export default function Realestate() {
                   >
                     Enquiry
                   </button>
+                  <button className="real-tour-btn">Whatsaap Enquiry</button>
                 </div>
               </div>
             </div>
@@ -528,9 +529,10 @@ export default function Realestate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$6000/ per month</p>
-                <div>
+                <div className="d-flex flex-wrap" style={{ gap: "10px" }}>
                   <button className="real-map-btn">Open Map</button>
                   <button className="real-tour-btn">Enquiry</button>
+                  <button className="real-tour-btn">Whatsaap Enquiry</button>
                 </div>
               </div>
             </div>

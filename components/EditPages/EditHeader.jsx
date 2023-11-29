@@ -51,6 +51,7 @@ function EditHeader({
   const [TrustPilot, setTrustPilot] = useState("");
   const [image, setImage] = useState(null);
   const [CountryCode, setCountryCode] = useState("");
+  const [Extension, setExtension] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -128,6 +129,8 @@ function EditHeader({
         email: TitleData.card_email?.source == 1 ? "" : Email,
         profession: Profession,
         phone: Phone,
+        contact_country_code: CountryCode,
+        contact_extension: Extension,
         address: Address,
         // image: ProfileImage[0],
         image: "",
@@ -263,6 +266,7 @@ function EditHeader({
       setColorCode(response.data.data.card.color_code);
       setWhatsaapNumber(response.data.data.card.whatsapp_number);
       setTrustPilot(response.data.data.card.card_trustpilot);
+      setExtension(response.data.data.card.contact_extension);
     }
     setShowLoader(false);
   };
@@ -405,19 +409,33 @@ function EditHeader({
               </>
             )}
           </div>
-          <div className="mt-3">
+          <div className="mt-3 ">
             {TitleData?.card_contact?.source == "2" ? (
               <>
                 <span className="overhead">Phone</span>
-                <input
-                  type="number"
-                  placeholder="Phone number"
-                  onChange={(e) => setPhone(e.target.value)}
-                  defaultValue={
-                    CountryCode !== "" ? CountryCode + "-" + Phone : Phone || ""
-                  }
-                  className="email-input"
-                />
+                <div className="d-flex" style={{ gap: "16px" }}>
+                  <input
+                    type="number"
+                    placeholder="Country COde"
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    defaultValue={CountryCode}
+                    className="email-input"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Phone number"
+                    onChange={(e) => setPhone(e.target.value)}
+                    defaultValue={Phone}
+                    className="email-input"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Phone Extension"
+                    onChange={(e) => setExtension(e.target.value)}
+                    defaultValue={Extension}
+                    className="email-input"
+                  />
+                </div>
               </>
             ) : (
               <>

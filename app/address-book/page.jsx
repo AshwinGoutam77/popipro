@@ -62,6 +62,14 @@ export default function Page() {
             placeholder=""
             style={{ height: "40px", border: "1px solid #ccc" }}
           ></input>
+          <div>
+            <button
+              className="contact-btn w-auto"
+              onClick={() => setShow(false)}
+            >
+              Save
+            </button>
+          </div>
         </Modal.Body>
       </Modal>
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>

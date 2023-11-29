@@ -20,6 +20,7 @@ const EditBanner = ({
   PlanData,
 }) => {
   useEffect(() => {
+    console.log(Data?.card_company_logo);
     document.documentElement.style.setProperty("--color", card?.color_code);
     document.documentElement.style.setProperty(
       "--header-color",
@@ -35,7 +36,7 @@ const EditBanner = ({
   return (
     <>
       {(Permission && Permission[0]?.visible_field === "logo") ||
-      (Permission && Permission[0]?.visible_field === "name") ||
+      Data.card_cover === "name" ||
       Data?.card_cover === "logo" ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
@@ -126,7 +127,7 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
-              {Permission[0]?.visible_field !== "name" ? (
+              {Data.card_cover !== "name" ? (
                 <img
                   src={Data?.base_url + Data?.card_company_logo?.path}
                   className="Logo-icon"
@@ -135,7 +136,7 @@ const EditBanner = ({
                 />
               ) : (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
-                  {Data?.card_name}
+                  {Data?.card_company_logo}
                 </h5>
               )}
             </div>
@@ -258,9 +259,9 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
-              {Permission && Permission[0]?.visible_field == "name" ? (
+              {Data.card_cover === "name" ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
-                  {Data?.card_name}
+                  {card?.card_company_logo}
                 </h5>
               ) : (
                 ""

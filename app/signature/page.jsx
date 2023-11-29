@@ -6,12 +6,50 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import "../../styles/about.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Signature() {
+  const signatureRef1 = useRef(null);
+  const signatureRef2 = useRef(null);
+
+  const copyToClipboard = (type) => {
+    const signatureElement = type.current;
+    if (signatureElement) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(signatureElement);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.execCommand("copy");
+      selection.removeAllRanges();
+      toast.success("Your email signature is copied to clipboard", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
@@ -66,6 +104,7 @@ export default function Signature() {
             }}
           >
             <table
+              ref={signatureRef1}
               className="signature"
               width="100%"
               cellspacing="0"
@@ -221,6 +260,7 @@ export default function Signature() {
             <button
               className="contact-btn w-auto mt-5"
               data-clipboard-target=".signature"
+              onClick={() => copyToClipboard(signatureRef1)}
             >
               Copy Email Signature
             </button>
@@ -236,6 +276,7 @@ export default function Signature() {
             }}
           >
             <table
+              ref={signatureRef2}
               style={{
                 width: "100%",
                 fontSize: "10pt",
@@ -523,7 +564,12 @@ export default function Signature() {
                 </tr>
               </tbody>
             </table>
-            <button className="contact-btn w-auto">Copy Email Signature</button>
+            <button
+              className="contact-btn w-auto"
+              onClick={() => copyToClipboard(signatureRef2)}
+            >
+              Copy Email Signature
+            </button>
           </div>
         </div>
       </div>
@@ -1005,11 +1051,11 @@ export default function Signature() {
         </div>
       </div>
       <div
-          className="w-100 text-center text-white p-2 mt-0"
-          style={{ bottom: "0", background: "black" }}
-        >
-          <p> © 2023. All Rights Reserved By Popipro.</p>
-        </div>
+        className="w-100 text-center text-white p-2 mt-0"
+        style={{ bottom: "0", background: "black" }}
+      >
+        <p> © 2023. All Rights Reserved By Popipro.</p>
+      </div>
     </>
   );
 }
