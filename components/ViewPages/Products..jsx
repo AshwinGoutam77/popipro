@@ -493,7 +493,8 @@ export default function Product({
                     : Titles?.card_products?.visible_name}
                 </h3>
                 <div className="d-flex" style={{ gap: "20px" }}>
-                  {card.id === "S7ZG" ? (
+                  {card.id === "S7ZG" &&
+                  process.env.NEXT_PUBLIC_MODE === "development" ? (
                     <>
                       <FontAwesomeIcon
                         icon={faSearch}
@@ -552,7 +553,8 @@ export default function Product({
                 </div>
               </div>
             )}
-            {card.id === "S7ZG" ? (
+            {card.id === "S7ZG" &&
+            process.env.NEXT_PUBLIC_MODE === "development" ? (
               <SwiperComponent
                 breakpoints={{
                   1110: {

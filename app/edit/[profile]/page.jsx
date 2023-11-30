@@ -234,7 +234,12 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  {cardData?.card.id === "S7ZG" ?<EditRealEstate />:""}
+                  {cardData?.card.id === "S7ZG" &&
+                  process.env.NEXT_PUBLIC_MODE === "development" ? (
+                    <EditRealEstate />
+                  ) : (
+                    ""
+                  )}
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}

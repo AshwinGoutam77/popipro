@@ -146,8 +146,14 @@ export default async function Main({ profile, data, id, referer }) {
                       AddMoreBlogs={AddMoreBlogs}
                       card_url={profile}
                     />
-                    {card.id === "S7ZG" ? <Realestate /> : ""}
-                    {card.id === "S7ZG" ? (
+                    {card.id === "S7ZG" &&
+                    process.env.NEXT_PUBLIC_MODE === "development" ? (
+                      <Realestate />
+                    ) : (
+                      ""
+                    )}
+                    {card.id === "S7ZG" &&
+                    process.env.NEXT_PUBLIC_MODE === "development" ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}

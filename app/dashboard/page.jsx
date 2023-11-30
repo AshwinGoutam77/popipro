@@ -529,7 +529,6 @@ export default function Dashboard() {
 
             {/* Chnage password */}
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              {/* <Link href="/change-password" className="w-100"> */}
               <div
                 className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                 onClick={() => setModalShow("password")}
@@ -541,10 +540,10 @@ export default function Dashboard() {
                 />
                 <h6 className="text-white text-center mb-0">Password</h6>
               </div>
-              {/* </Link> */}
             </div>
 
-            {Data.id === "S7ZG" ? (
+            {Data.id === "S7ZG" &&
+            process.env.NEXT_PUBLIC_MODE === "development" ? (
               <>
                 {/* Signature */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
@@ -597,7 +596,8 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* ........... */}
+          {/* Analytics & Data */}
+
           <h6 className="text-center dashboard-mt font-weight-bold text-black">
             Analytics & Data
           </h6>

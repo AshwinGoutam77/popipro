@@ -901,8 +901,8 @@ const Header = ({
                     backgroundColor: "var(--themecolor)",
                     color: "black",
                   }}
-                  // onClick={handleAppointment}
-                  onClick={handleShowCalendly}
+                  onClick={handleAppointment}
+                  // onClick={handleShowCalendly}
                 >
                   Appointment
                 </button>

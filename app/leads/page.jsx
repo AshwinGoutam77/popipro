@@ -303,7 +303,11 @@ const Leads = () => {
                       <th>Date</th>
                       <th></th>
                       <th></th>
-                      <th></th>
+                      {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                        <th></th>
+                      ) : (
+                        ""
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -326,13 +330,6 @@ const Leads = () => {
                             >
                               {item.full_name} ({item?.contact_number})
                             </td>
-                            {/* <td
-                          data-column="Email"
-                          data-toggle="modal"
-                          data-target="#LeadsModal"
-                        >
-                          {item.contact_number}
-                        </td> */}
                             <td
                               className="leads-short-para"
                               onClick={() => setShowModal(true)}
@@ -358,7 +355,11 @@ const Leads = () => {
                                 className="text-dark ml-4"
                               />
                             </td>
-                            <td>Add To Address Book</td>
+                            {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                              <td>Add To Address Book</td>
+                            ) : (
+                              ""
+                            )}
                           </tr>
                         );
                       })
