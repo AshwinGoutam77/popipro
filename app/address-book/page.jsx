@@ -13,6 +13,7 @@ export default function Page() {
   const [ShowContactsModal, setShowContactsModal] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);
   const [SelectedContacts, setSelectedContacts] = useState("");
+  const [AddressBookRadio, setAddressBookRadio] = useState(false);
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -36,13 +37,10 @@ export default function Page() {
     if (supported) {
       getContacts();
     } else {
-      // alert(
-      //   "Contact list API not supported!. Only for android mobile chrome and chrome version > 80"
-      // );
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "This feature only supported for android mobile chrome and chrome version > 80",
+        text: "This feature only supported htmlFor android mobile chrome and chrome version > 80",
       });
     }
   }
@@ -52,7 +50,6 @@ export default function Page() {
 
     try {
       const contacts = await navigator.contacts.select(props, opts);
-      // alert(JSON.stringify(contacts));
       setSelectedContacts(JSON.stringify(contacts));
       setShowContactsModal(true);
     } catch (err) {
@@ -171,7 +168,7 @@ export default function Page() {
             placeholder=""
             style={{ height: "40px", border: "1px solid #ccc" }}
           ></input>
-          <button className="contact-btn w-auto">Save Contact</button>
+          <button className="contact-btn w-auto mb-2">Save Contact</button>
         </Modal.Body>
       </Modal>
       <Modal
@@ -252,7 +249,41 @@ export default function Page() {
           <h5 className="title title--h1 first-title title__separate mx-2">
             Groups
           </h5>
-          <div className="m-1 p-2  d-flex align-items-center justify-content-between">
+          <div className="mt-4 px-4">
+            <h6 className="font-weight-bold">How you want to add contacts:</h6>
+            <div className="d-flex align-items-start">
+              <input
+                type="radio"
+                name="radio-book"
+                id="product-whatsaap2"
+                className="mt-1"
+                onChange={() => setAddressBookRadio(false)}
+                defaultValue="checked"
+              />
+              <label
+                htmlFor="product-whatsaap2"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via Address Book?
+              </label>
+            </div>
+            <div className="d-flex align-items-start">
+              <input
+                type="radio"
+                name="radio-book"
+                id="product-enq2"
+                className="mt-1"
+                onChange={() => setAddressBookRadio(true)}
+              />
+              <label
+                htmlFor="product-enq2"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Add Manualy?
+              </label>
+            </div>
+          </div>
+          <div className="m-1 p-3  d-flex align-items-center justify-content-between groups-div">
             <h6 className="color-black mb-0">Doctors</h6>
             <div
               className="d-flex align-items-center address-book-svg address-book-svg"
@@ -262,8 +293,9 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                // onClick={() => setShowContact(true)}
-                onClick={openContactPicker}
+                onClick={() =>
+                  AddressBookRadio ? setShowContact(true) : openContactPicker()
+                }
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
@@ -286,7 +318,7 @@ export default function Page() {
               </Link>
             </div>
           </div>
-          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+          <div className="m-1 p-3 d-flex align-items-center justify-content-between  groups-div">
             <h6 className="color-black mb-0">Restaurant</h6>
             <div
               className="d-flex align-items-center address-book-svg address-book-svg"
@@ -296,7 +328,9 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                onClick={() => setShowContact(true)}
+                onClick={() =>
+                  AddressBookRadio ? setShowContact(true) : openContactPicker()
+                }
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
@@ -319,7 +353,7 @@ export default function Page() {
               </Link>
             </div>
           </div>
-          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+          <div className="m-1 p-3 d-flex align-items-center justify-content-between  groups-div">
             <h6 className="color-black mb-0">Furniture</h6>
             <div
               className="d-flex align-items-center address-book-svg address-book-svg"
@@ -329,7 +363,9 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                onClick={() => setShowContact(true)}
+                onClick={() =>
+                  AddressBookRadio ? setShowContact(true) : openContactPicker()
+                }
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
@@ -352,7 +388,7 @@ export default function Page() {
               </Link>
             </div>
           </div>
-          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+          <div className="m-1 p-3 d-flex align-items-center justify-content-between  groups-div">
             <h6 className="color-black mb-0">Electrician </h6>
             <div
               className="d-flex align-items-center address-book-svg address-book-svg"
@@ -362,7 +398,9 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                onClick={() => setShowContact(true)}
+                onClick={() =>
+                  AddressBookRadio ? setShowContact(true) : openContactPicker()
+                }
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
@@ -385,7 +423,7 @@ export default function Page() {
               </Link>
             </div>
           </div>
-          <div className="m-1 p-2 d-flex align-items-center justify-content-between">
+          <div className="m-1 p-3 d-flex align-items-center justify-content-between  groups-div">
             <h6 className="color-black mb-0">Plumbers</h6>
             <div
               className="d-flex align-items-center address-book-svg address-book-svg"
@@ -395,7 +433,9 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                onClick={() => setShowContact(true)}
+                onClick={() =>
+                  AddressBookRadio ? setShowContact(true) : openContactPicker()
+                }
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"

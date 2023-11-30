@@ -15,6 +15,10 @@ import Swal from "sweetalert2";
 
 export default function Page() {
   const [showContact, setShowContact] = useState(false);
+  const [SelectedContacts, setSelectedContacts] = useState("");
+  const [AddressBookRadio, setAddressBookRadio] = useState(false);
+  const [ShowSendMessage, setShowSendMessage] = useState(false);
+
   const handleDeleteNumber = async () => {
     Swal.fire({
       title: "Are you sure?",
@@ -30,6 +34,32 @@ export default function Page() {
       }
     });
   };
+
+  function openContactPicker() {
+    const supported = "contacts" in navigator && "ContactsManager" in window;
+
+    if (supported) {
+      getContacts();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This feature only supported htmlFor android mobile chrome and chrome version > 80",
+      });
+    }
+  }
+  async function getContacts() {
+    const props = ["name", "email", "tel"];
+    const opts = { multiple: true };
+
+    try {
+      const contacts = await navigator.contacts.select(props, opts);
+      setSelectedContacts(JSON.stringify(contacts));
+      setShowContactsModal(true);
+    } catch (err) {
+      alert(err);
+    }
+  }
   return (
     <>
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>
@@ -68,6 +98,47 @@ export default function Page() {
             placeholder=""
             style={{ height: "40px", border: "1px solid #ccc" }}
           ></input>
+          <button className="contact-btn w-auto mb-2">Save Contact</button>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={ShowSendMessage}
+        onHide={() => setShowSendMessage(false)}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              className="title title--h1 first-title title__separate mb-1 mb-0"
+              id="BlogModalTitle"
+            >
+              Send message
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowSendMessage(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          <label className="modalFormLable">
+            Send message to selected users*
+          </label>
+          <textarea
+            name="name"
+            rows="4"
+            cols="50"
+            className="form-control mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "140px", border: "1px solid #ccc" }}
+          ></textarea>
+          <div className="mb-2">
+            <button className="contact-btn w-auto">Send Message</button>
+          </div>
         </Modal.Body>
       </Modal>
       <div
@@ -97,11 +168,52 @@ export default function Page() {
       <h2 className="title title--h1 first-title title__separate mx-4 mt-4">
         Group Name
       </h2>
+      <div className="mt-4 px-4">
+        <h6 className="font-weight-bold">How you want to add contacts:</h6>
+        <div className="d-flex align-items-start">
+          <input
+            type="radio"
+            name="radio-book"
+            id="product-whatsaap2"
+            className="mt-1"
+            onChange={() => setAddressBookRadio(false)}
+            defaultValue="checked"
+          />
+          <label
+            htmlFor="product-whatsaap2"
+            className="ml-2 Varcolor font-weight-bold"
+          >
+            Via Address Book?
+          </label>
+        </div>
+        <div className="d-flex align-items-start">
+          <input
+            type="radio"
+            name="radio-book"
+            id="product-enq2"
+            className="mt-1"
+            onChange={() => setAddressBookRadio(true)}
+          />
+          <label
+            htmlFor="product-enq2"
+            className="ml-2 Varcolor font-weight-bold"
+          >
+            Add Manualy?
+          </label>
+        </div>
+      </div>
       <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
-        <button className="contact-btn w-auto">Send message</button>
         <button
           className="contact-btn w-auto"
-          onClick={() => setShowContact(true)}
+          onClick={() => setShowSendMessage(true)}
+        >
+          Send message
+        </button>
+        <button
+          className="contact-btn w-auto"
+          onClick={() =>
+            AddressBookRadio ? setShowContact(true) : openContactPicker()
+          }
         >
           <FontAwesomeIcon
             className="text-white font-weight-bold cursor-pointer mr-2"

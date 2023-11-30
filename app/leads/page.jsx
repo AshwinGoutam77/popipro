@@ -303,6 +303,7 @@ const Leads = () => {
                       <th>Date</th>
                       <th></th>
                       <th></th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -357,6 +358,7 @@ const Leads = () => {
                                 className="text-dark ml-4"
                               />
                             </td>
+                            <td>Add To Address Book</td>
                           </tr>
                         );
                       })

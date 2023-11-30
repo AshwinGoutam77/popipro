@@ -636,7 +636,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
 }
-.address-book-add-contact-div div {
+.address-book-add-contact-div .groups-div {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
   cursor: pointer;
