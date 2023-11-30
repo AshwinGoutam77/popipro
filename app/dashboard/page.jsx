@@ -9,6 +9,7 @@ import {
   faGear,
   faImage,
   faLightbulb,
+  faMagnifyingGlassChart,
   faMoneyBill1Wave,
   faNewspaper,
   faPalette,
@@ -586,6 +587,21 @@ export default function Dashboard() {
                       />
                       <h6 className="text-white text-center mb-0">
                         Address Book
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+                {/* Google Analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/google-analytics" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlassChart}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Google Analytics
                       </h6>
                     </div>
                   </Link>
