@@ -36,9 +36,14 @@ export default function Page() {
     if (supported) {
       getContacts();
     } else {
-      alert(
-        "Contact list API not supported!. Only for android mobile chrome and chrome version > 80"
-      );
+      // alert(
+      //   "Contact list API not supported!. Only for android mobile chrome and chrome version > 80"
+      // );
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This feature only supported for android mobile chrome and chrome version > 80",
+      });
     }
   }
   async function getContacts() {
@@ -80,7 +85,14 @@ export default function Page() {
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
-          <p className="p-2">{SelectedContacts}</p>
+          {/* <p className="p-2">{SelectedContacts}</p> */}
+          {SelectedContacts && SelectedContacts?.map((item,index)=>{
+            return(
+              <>
+              <p>Email: {item.tel}</p>
+              </>
+            )
+          })}
         </Modal.Body>
       </Modal>
       <Modal show={show} onHide={() => setShow(false)} centered>
