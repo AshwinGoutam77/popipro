@@ -85,7 +85,7 @@ export default function Page() {
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
-          <p className="p-2">{SelectedContacts}</p>
+          <p className="p-4">{SelectedContacts}</p>
           {/* {SelectedContacts &&
             SelectedContacts?.map((item, index) => {
               return (
