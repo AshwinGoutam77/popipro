@@ -1,13 +1,5 @@
 "use client";
-import {
-  faAddressBook,
-  faAngleLeft,
-  faChevronLeft,
-  faChevronRight,
-  faMessage,
-  faPlus,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,7 +10,9 @@ import "../../styles/edit.css";
 export default function Page() {
   const [show, setShow] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [ShowContactsModal, setShowContactsModal] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);
+  const [SelectedContacts, setSelectedContacts] = useState("");
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -53,13 +47,47 @@ export default function Page() {
 
     try {
       const contacts = await navigator.contacts.select(props, opts);
-      alert(JSON.stringify(contacts));
+      // alert(JSON.stringify(contacts));
+      setSelectedContacts(JSON.stringify(contacts));
+      setShowContactsModal(true);
     } catch (err) {
       alert(err);
     }
   }
   return (
     <>
+      <Modal
+        show={ShowContactsModal}
+        onHide={() => setShowContactsModal(false)}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              className="title title--h1 first-title title__separate mb-1 mb-0"
+              id="BlogModalTitle"
+            >
+              Add Group
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShow(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          {SelectedContacts &&
+            SelectedContacts.map((item, index) => {
+              <div className="d-flex align-items-center jsutify-content-between">
+                <p>{item}</p>
+              </div>;
+            })}
+        </Modal.Body>
+      </Modal>
       <Modal show={show} onHide={() => setShow(false)} centered>
         <Modal.Header>
           <Modal.Title>
