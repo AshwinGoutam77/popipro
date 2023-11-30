@@ -67,7 +67,7 @@ export default function Page() {
               className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
-              Add Group
+              Selected Contacts
             </h5>
           </Modal.Title>
           <button
@@ -80,7 +80,7 @@ export default function Page() {
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
-          {SelectedContacts}
+          <p className="p-2">{SelectedContacts}</p>
         </Modal.Body>
       </Modal>
       <Modal show={show} onHide={() => setShow(false)} centered>
