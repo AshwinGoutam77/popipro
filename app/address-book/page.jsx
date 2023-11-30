@@ -73,19 +73,14 @@ export default function Page() {
           <button
             type="button"
             className="close"
-            onClick={() => setShow(false)}
+            onClick={() => setShowContactsModal(false)}
           >
             <span aria-hidden="true">×</span>
             <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
-          {SelectedContacts &&
-            SelectedContacts.map((item, index) => {
-              <div className="d-flex align-items-center jsutify-content-between">
-                <p>{item}</p>
-              </div>;
-            })}
+          {SelectedContacts}
         </Modal.Body>
       </Modal>
       <Modal show={show} onHide={() => setShow(false)} centered>
