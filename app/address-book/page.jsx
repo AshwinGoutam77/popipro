@@ -86,14 +86,14 @@ export default function Page() {
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
           <p className="p-4">{SelectedContacts}</p>
-          {/* {SelectedContacts &&
+          {SelectedContacts &&
             SelectedContacts?.map((item, index) => {
               return (
                 <>
-                  <p>Email: {item.tel}</p>
+                  <p>Email: {item.name}</p>
                 </>
               );
-            })} */}
+            })}
         </Modal.Body>
       </Modal>
       <Modal show={show} onHide={() => setShow(false)} centered>
