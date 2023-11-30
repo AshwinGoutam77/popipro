@@ -816,8 +816,8 @@ const Header = ({
           className="edit-header mr-5"
           data-toggle="modal"
           data-target="#exampleModalCenter"
-          // onClick={() => handleSaveQr()}
-          onClick={() => setModalShowUiModal("shareUiModal")}
+          onClick={() => handleSaveQr()}
+          // onClick={() => setModalShowUiModal("shareUiModal")}
         >
           <FontAwesomeIcon
             icon={faQrcode}

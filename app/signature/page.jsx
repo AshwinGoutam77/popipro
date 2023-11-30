@@ -160,13 +160,16 @@ export default function Signature() {
                     </span>
                     <br />
                     {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
-                    <span style={{ marginBottom: "16px", color: "#4C4C4C;" }}>
-                      Founder at Popipro & DevWings{" "}
+                    <span style={{ marginBottom: "16px" }}>
+                      Founder at Popipro & {" "}
                       <a
                         href="https://front.popipro.com/prafull-gupta"
                         data-external="true"
                         // style="text-decoration:none;color:#17A956"
-                        style={{ textDecoration: "none", color: "#17A956" }}
+                        style={{
+                          textDecoration: "none",
+                          color: "var(--color)",
+                        }}
                       >
                         DevWings
                       </a>
