@@ -265,64 +265,69 @@ export default function EditContact({
               )}
             </div>
           </div>
-          <div className="">
-            <h6 className="font-weight-bold">
-              How you want to recive appointment:
-            </h6>
-            <div className="d-flex align-items-start">
-              <input
-                type="radio"
-                id="product-whatsaap3"
-                className="mt-1"
-                name="real-estate-radio"
-                // value={
-                //   MainData?.company_setting?.show_product_wp_button === 0
-                //     ? true
-                //     : false
-                // }
-                // onChange={() => handleProductsbtn("wp")}
-                // checked={
-                //   MainData?.company_setting?.show_product_wp_button == 0
-                //     ? true
-                //     : false
-                // }
-              />
-              <label
-                for="product-whatsaap3"
-                className="ml-2 Varcolor font-weight-bold"
+          {Data.id === "S7ZG" &&
+          process.env.NEXT_PUBLIC_MODE === "development" ? (
+            <div className="">
+              <h6 className="font-weight-bold">
+                How you want to recive appointment:
+              </h6>
+              <div className="d-flex align-items-start">
+                <input
+                  type="radio"
+                  id="product-whatsaap3"
+                  className="mt-1"
+                  name="real-estate-radio"
+                  // value={
+                  //   MainData?.company_setting?.show_product_wp_button === 0
+                  //     ? true
+                  //     : false
+                  // }
+                  // onChange={() => handleProductsbtn("wp")}
+                  // checked={
+                  //   MainData?.company_setting?.show_product_wp_button == 0
+                  //     ? true
+                  //     : false
+                  // }
+                />
+                <label
+                  for="product-whatsaap3"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via Appointemnt Form?
+                </label>
+              </div>
+              <div
+                className="d-flex align-items-start"
+                onClick={() => setShow(true)}
               >
-                Via Appointemnt Form?
-              </label>
+                <input
+                  type="radio"
+                  id="product-enq3"
+                  className="mt-1"
+                  name="real-estate-radio"
+                  // value={
+                  //   MainData?.company_setting?.show_product_enquiry_button === 0
+                  //     ? true
+                  //     : false
+                  // }
+                  // onChange={() => handleProductsbtn("enq")}
+                  // checked={
+                  //   MainData?.company_setting?.show_product_enquiry_button == 0
+                  //     ? true
+                  //     : false
+                  // }
+                />
+                <label
+                  for="product-enq3"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via Calendly?
+                </label>
+              </div>
             </div>
-            <div
-              className="d-flex align-items-start"
-              onClick={() => setShow(true)}
-            >
-              <input
-                type="radio"
-                id="product-enq3"
-                className="mt-1"
-                name="real-estate-radio"
-                // value={
-                //   MainData?.company_setting?.show_product_enquiry_button === 0
-                //     ? true
-                //     : false
-                // }
-                // onChange={() => handleProductsbtn("enq")}
-                // checked={
-                //   MainData?.company_setting?.show_product_enquiry_button == 0
-                //     ? true
-                //     : false
-                // }
-              />
-              <label
-                for="product-enq3"
-                className="ml-2 Varcolor font-weight-bold"
-              >
-                Via Calendly?
-              </label>
-            </div>
-          </div>
+          ) : (
+            ""
+          )}
           <div className="row align-items-center justify-content-center mb-3"></div>
           <div className="row">
             <div className="form-group col-lg-6 col-md-6 mb-2">
