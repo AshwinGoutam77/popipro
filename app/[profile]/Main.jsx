@@ -23,7 +23,7 @@ import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
 
-export default async function Main({ profile, data, id }) {
+export default async function Main({ profile, data, id, referer }) {
   let card = data?.data?.card || {};
   let MainData = data?.data;
   let permission = data?.data?.permission;
@@ -54,6 +54,7 @@ export default async function Main({ profile, data, id }) {
               Titles={titles}
               id={id}
               MainData={MainData}
+              referer={referer}
             />
             <main className="main">
               <div className="container gutter-top">

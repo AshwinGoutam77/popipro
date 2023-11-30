@@ -14,6 +14,7 @@ const Banner = ({
   Titles,
   id,
   MainData,
+  referer,
 }) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
@@ -179,6 +180,7 @@ const Banner = ({
       device_id: navigator.userAgent,
       object_base: id,
       hit_type: "direct",
+      referer,
     };
 
     const response = await Api(HitClickApi, payload);

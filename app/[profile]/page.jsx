@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { headers } from "next/headers";
 import "../../styles/about.css";
 import "../../styles/edit.css";
 import Main from "./Main";
@@ -29,6 +30,8 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 const ProfilePage = async ({ params }) => {
+  const headersList = headers();
+  const referer = headersList.get("referer");
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
   return (
@@ -55,7 +58,12 @@ const ProfilePage = async ({ params }) => {
           </h5>
         }
       >
-        <Main profile={profile} data={data} id={data?.data?.card?.id} />
+        <Main
+          profile={profile}
+          data={data}
+          id={data?.data?.card?.id}
+          referer={referer}
+        />
       </Suspense>
     </>
   );
