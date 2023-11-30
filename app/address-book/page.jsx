@@ -35,21 +35,48 @@ export default function Page() {
       }
     });
   };
+
+  function openContactPicker() {
+    const supported = "contacts" in navigator && "ContactsManager" in window;
+
+    if (supported) {
+      getContacts();
+    } else {
+      alert(
+        "Contact list API not supported!. Only for android mobile chrome and chrome version > 80"
+      );
+    }
+  }
+  async function getContacts() {
+    const props = ["name", "email", "tel"];
+    const opts = { multiple: true };
+
+    try {
+      const contacts = await navigator.contacts.select(props, opts);
+      alert(JSON.stringify(contacts));
+    } catch (err) {
+      alert(err);
+    }
+  }
   return (
     <>
       <Modal show={show} onHide={() => setShow(false)} centered>
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Add Group
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={() => setShow(false)}>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShow(false)}
+          >
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
@@ -58,7 +85,7 @@ export default function Page() {
             name="name"
             rows="4"
             cols="50"
-            className="form-control mb-4 mt-1 rounded-0"
+            className="form-control mt-1 rounded-0"
             placeholder=""
             style={{ height: "40px", border: "1px solid #ccc" }}
           ></input>
@@ -67,7 +94,7 @@ export default function Page() {
               className="contact-btn w-auto"
               onClick={() => setShow(false)}
             >
-              Save
+              Save Group
             </button>
           </div>
         </Modal.Body>
@@ -75,17 +102,17 @@ export default function Page() {
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>
         <Modal.Header>
           <Modal.Title>
-            <h5 class="title title--h1 first-title title__separate mb-1 mb-0">
+            <h5 className="title title--h1 first-title title__separate mb-1 mb-0">
               Add Contact
             </h5>
           </Modal.Title>
           <button
             type="button"
-            class="close"
+            className="close"
             onClick={() => setShowContact(false)}
           >
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
@@ -104,10 +131,11 @@ export default function Page() {
             name="text"
             rows="4"
             cols="50"
-            className="form-control mb-4 mt-1 rounded-0"
+            className="form-control mt-1 rounded-0"
             placeholder=""
             style={{ height: "40px", border: "1px solid #ccc" }}
           ></input>
+          <button className="contact-btn w-auto">Save Contact</button>
         </Modal.Body>
       </Modal>
       <Modal
@@ -118,7 +146,7 @@ export default function Page() {
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Send message
@@ -126,11 +154,11 @@ export default function Page() {
           </Modal.Title>
           <button
             type="button"
-            class="close"
+            className="close"
             onClick={() => setShowSendMessage(false)}
           >
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 15px" }}>
@@ -139,7 +167,7 @@ export default function Page() {
             name="name"
             rows="4"
             cols="50"
-            className="form-control mb-4 mt-1 rounded-0"
+            className="form-control mt-1 rounded-0"
             placeholder=""
             style={{ height: "140px", border: "1px solid #ccc" }}
           ></textarea>
@@ -198,7 +226,8 @@ export default function Page() {
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
                 alt="images"
                 width={25}
-                onClick={() => setShowContact(true)}
+                // onClick={() => setShowContact(true)}
+                onClick={openContactPicker}
               />
               <img
                 src="https://prafullgupta.com/connectwork/assets/chat/groups/271123060257remove.png"
