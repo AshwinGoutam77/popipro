@@ -107,7 +107,10 @@ export default function Realestate() {
             </SwiperSlide>
           </SwiperComponent>
           <div className="mt-2 color-black mb-3">
-            <h6 className="mb-0">Emerald Oasis Mansion</h6>
+            <h6 className="mb-0 color-black cursor-pointer d-flex align-items-center">
+              Emerald Oasis Mansion
+              <span className="real-estate-badge">Commercial</span>
+            </h6>
             <p>
               2ne Themridge Cr. Syracuse Connecticut 35524 Lorem Ipsum is simply
               dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -159,7 +162,6 @@ export default function Realestate() {
               style={{ gap: "10px" }}
             >
               <p className="font-weight-bold color-black">$2000/ per month</p>{" "}
-              <span className="real-estate-badge">Commercial</span>
             </div>
             <div
               className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
@@ -515,7 +517,6 @@ export default function Realestate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
-                <span className="real-estate-badge">Commercial</span>
               </div>
               <div
                 className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
@@ -667,7 +668,6 @@ export default function Realestate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
-                <span className="real-estate-badge">Sold</span>
               </div>
               <div
                 className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
