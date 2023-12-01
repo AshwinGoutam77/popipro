@@ -329,100 +329,104 @@ export default function EditContact({
             ""
           )}
           <div className="row align-items-center justify-content-center mb-3"></div>
-          <div className="row">
-            <div className="form-group col-lg-6 col-md-6 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Name</label> */}
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Name*"
-                required="required"
-                autoComplete="on"
-                readOnly
-              />
-              <div className="help-block with-errors"></div>
+          {Show ? (
+            ""
+          ) : (
+            <div className="row">
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Name</label> */}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Name*"
+                  required="required"
+                  autoComplete="on"
+                  readOnly
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Contact number</label> */}
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Mobile/Phone"
+                  required="required"
+                  autoComplete="on"
+                  readOnly
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Meeting Date</label> */}
+                <input
+                  type="date"
+                  className="form-control"
+                  placeholder="Date"
+                  required="required"
+                  autoComplete="on"
+                  readOnly
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+              <div className="form-group col-lg-6 col-md-6 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Meeting Time</label> */}
+                <input
+                  type="time"
+                  className="form-control"
+                  placeholder="time"
+                  required="required"
+                  autoComplete="on"
+                  readOnly
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+              <div className="d-flex align-items-start justify-content-start form-group col-lg-6 col-md-6 mb-2 px-4">
+                <input
+                  type="checkbox"
+                  id="contact"
+                  className="mr-2 mt-1"
+                  value={
+                    MainData?.company_setting?.show_appointment_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={(e) => handleShowAppointment(e.target.checked)}
+                  checked={
+                    MainData?.company_setting?.show_appointment_button !== 0
+                      ? true
+                      : false
+                  }
+                />
+                <label for="contact" className="Varcolor">
+                  Do you want to show date and time field?
+                </label>
+              </div>
+              <div className="form-group col-lg-12 col-md-12 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Email address</label> */}
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Email address"
+                  required="required"
+                  autoComplete="on"
+                  readOnly
+                />
+                <div className="help-block with-errors"></div>
+              </div>
+              <div className="form-group col-12 col-md-12 mb-2">
+                {/* <label className="ml-2 font-weight-normal">Your message</label> */}
+                <textarea
+                  className="textarea form-control"
+                  placeholder="Your message"
+                  rows="4"
+                  required="required"
+                  readOnly
+                ></textarea>
+                <div className="help-block with-errors"></div>
+              </div>
             </div>
-            <div className="form-group col-lg-6 col-md-6 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Contact number</label> */}
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Mobile/Phone"
-                required="required"
-                autoComplete="on"
-                readOnly
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-lg-6 col-md-6 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Meeting Date</label> */}
-              <input
-                type="date"
-                className="form-control"
-                placeholder="Date"
-                required="required"
-                autoComplete="on"
-                readOnly
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-lg-6 col-md-6 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Meeting Time</label> */}
-              <input
-                type="time"
-                className="form-control"
-                placeholder="time"
-                required="required"
-                autoComplete="on"
-                readOnly
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="d-flex align-items-start justify-content-start form-group col-lg-6 col-md-6 mb-2 px-4">
-              <input
-                type="checkbox"
-                id="contact"
-                className="mr-2 mt-1"
-                value={
-                  MainData?.company_setting?.show_appointment_button !== 0
-                    ? true
-                    : false
-                }
-                onChange={(e) => handleShowAppointment(e.target.checked)}
-                checked={
-                  MainData?.company_setting?.show_appointment_button !== 0
-                    ? true
-                    : false
-                }
-              />
-              <label for="contact" className="Varcolor">
-                Do you want to show date and time field?
-              </label>
-            </div>
-            <div className="form-group col-lg-12 col-md-12 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Email address</label> */}
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Email address"
-                required="required"
-                autoComplete="on"
-                readOnly
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-12 col-md-12 mb-2">
-              {/* <label className="ml-2 font-weight-normal">Your message</label> */}
-              <textarea
-                className="textarea form-control"
-                placeholder="Your message"
-                rows="4"
-                required="required"
-                readOnly
-              ></textarea>
-              <div className="help-block with-errors"></div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </>
