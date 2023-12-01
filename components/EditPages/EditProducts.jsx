@@ -1243,8 +1243,8 @@ export default function EditProducts({
                         <div
                           className={
                             index + 1 === length
-                              ? "swiper-slide review-item review-item-products d-block"
-                              : "swiper-slide review-item review-item-products review-item-products-border d-block"
+                              ? "swiper-slide review-item review-item-products d-block pb-0"
+                              : "swiper-slide review-item review-item-products review-item-products-border d-block pb-0"
                           }
                           key={index}
                         >

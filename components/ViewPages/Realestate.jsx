@@ -165,14 +165,23 @@ export default function Realestate() {
               className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
               style={{ gap: "5px" }}
             >
-              <button className="contact-btn w-auto m-0">Open Map</button>{" "}
+              <button className="contact-btn w-auto m-0">
+                <FontAwesomeIcon icon={faLocationDot} className="mr-1" /> Open
+                Map
+              </button>{" "}
               <button
                 className="contact-btn w-auto m-0"
                 onClick={() => setShowInquiry(true)}
               >
-                Enquiry
+                <FontAwesomeIcon icon={faEnvelope} className="mr-1" /> Enquiry
               </button>
-              <button className="contact-btn w-auto m-0">
+              <button className="contact-btn w-auto m-0 d-flex align-items-center">
+                <img
+                  src="./static/img/whatsapp.png"
+                  alt="whatsaap"
+                  className="Whatsaapsvg m-0"
+                  width={25}
+                />{" "}
                 Whatsaap Enquiry
               </button>
             </div>
@@ -185,7 +194,7 @@ export default function Realestate() {
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Enquire Now
+              Enquire on Emerald Oasis Mansion
             </h5>
           </Modal.Title>
           <button
@@ -449,7 +458,13 @@ export default function Realestate() {
             </div>
             <div className="col-lg-8 col-sm-12">
               <div className="mt-2 cursor-pointer" onClick={handleShow}>
-                <h6 className="mb-0 color-black">Emerald Oasis Mansion</h6>
+                <h6
+                  className="mb-0 color-black cursor-pointer d-flex align-items-center"
+                  onClick={() => setshow(true)}
+                >
+                  Emerald Oasis Mansion
+                  <span className="real-estate-badge">Commercial</span>
+                </h6>
                 <p className="color-black">
                   2ne Themridge Cr. Syracuse Connecticut 35524
                 </p>
@@ -595,7 +610,13 @@ export default function Realestate() {
             </div>
             <div className="col-lg-8 col-sm-12">
               <div className="mt-2 cursor-pointer" onClick={handleShow}>
-                <h6 className="mb-0 color-black">Paradise Cove Mansion</h6>
+                <h6
+                  className="mb-0 color-black cursor-pointer d-flex align-items-center"
+                  onClick={() => setshow(true)}
+                >
+                  Emerald Oasis Mansion
+                  <span className="real-estate-badge">Sold</span>
+                </h6>
                 <p className="color-black">
                   2ne Themridge Cr. Syracuse Connecticut 35524
                 </p>

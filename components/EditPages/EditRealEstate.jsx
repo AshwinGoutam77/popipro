@@ -188,14 +188,23 @@ export default function EditRealEstate() {
               className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
               style={{ gap: "5px" }}
             >
-              <button className="contact-btn w-auto m-0">Open Map</button>{" "}
+              <button className="contact-btn w-auto m-0">
+                <FontAwesomeIcon icon={faLocationDot} className="mr-1" /> Open
+                Map
+              </button>{" "}
               <button
                 className="contact-btn w-auto m-0"
-                // onClick={() => setShowInquiry(true)}
+                onClick={() => setShowInquiry(true)}
               >
-                Enquiry
+                <FontAwesomeIcon icon={faEnvelope} className="mr-1" /> Enquiry
               </button>
-              <button className="contact-btn w-auto m-0">
+              <button className="contact-btn w-auto m-0 d-flex align-items-center">
+                <img
+                  src="../static/img/whatsapp.png"
+                  alt="whatsaap"
+                  className="Whatsaapsvg m-0"
+                  width={25}
+                />{" "}
                 Whatsaap Enquiry
               </button>
             </div>
@@ -550,10 +559,10 @@ export default function EditRealEstate() {
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings2()}>
-                  Save
+                  Back
                 </button>
                 <button className="send-btnn" onClick={() => handleCanclebtn()}>
-                  Cancle
+                  Save
                 </button>
               </div>
             </div>
@@ -676,10 +685,11 @@ export default function EditRealEstate() {
             <div className="col-lg-8 col-sm-12">
               <div className="mt-2 cursor-pointer">
                 <h6
-                  className="mb-0 color-black cursor-pointer"
+                  className="mb-0 color-black cursor-pointer d-flex align-items-center"
                   onClick={() => setshow(true)}
                 >
                   Emerald Oasis Mansion
+                  <span className="real-estate-badge">Commercial</span>
                 </h6>
                 <p
                   className="color-black cursor-pointer"
@@ -734,7 +744,6 @@ export default function EditRealEstate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
-                <span className="real-estate-badge">Commercial</span>
               </div>
               <div
                 className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
@@ -788,7 +797,27 @@ export default function EditRealEstate() {
             </div>
           </div>
           <div
-            className="mt-1 mb-2"
+            className="d-flex align-items-center justify-content-start"
+            style={{
+              gap: "10px",
+              marginTop: "10px",
+              marginBottom: "18px",
+            }}
+          >
+            <button
+              className="send-btnn m-0"
+              data-toggle="modal"
+              data-target="#EditProductModal"
+              onClick={() => setShowModal(true)}
+            >
+              Edit
+            </button>
+            <button className="delete-button m-0" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
+          <div
+            className="mt-0 mb-2"
             style={{ borderBottom: "1px solid #ccc" }}
           ></div>
           <div className="row realestaterow mt-2">
@@ -830,10 +859,11 @@ export default function EditRealEstate() {
             <div className="col-lg-8 col-sm-12">
               <div className="mt-2 cursor-pointer">
                 <h6
-                  className="mb-0 color-black cursor-pointer"
+                  className="mb-0 color-black cursor-pointer d-flex align-items-center"
                   onClick={() => setshow(true)}
                 >
-                  Emerald Oasis Mansion
+                  Emerald Oasis Mansion{" "}
+                  <span className="real-estate-badge">Sold</span>
                 </h6>
                 <p
                   className="color-black cursor-pointer"
@@ -888,7 +918,6 @@ export default function EditRealEstate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
-                <span className="real-estate-badge">Sold</span>
               </div>
               <div
                 className="mt-3 d-flex flex-wrap align-items-center justify-content-between"

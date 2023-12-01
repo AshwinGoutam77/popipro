@@ -295,7 +295,7 @@ export default function EditContact({
                 >
                   Via Appointemnt Form?
                 </label>
-              </div> 
+              </div>
               <div
                 className="d-flex align-items-start"
                 onClick={() => setShow(true)}

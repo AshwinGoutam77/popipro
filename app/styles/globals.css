@@ -839,8 +839,10 @@ input.date-time-input::-webkit-date-and-time-value {
   border: 1px solid var(--color);
   background: var(--color);
   color: white;
-  padding: 0px 10px;
-  border-radius: 4px;
+  padding: 1px 5px;
+  border-radius: 6px;
+  font-size: 11px;
+  margin-left: 10px;
 }
 .object-fit-cover {
   object-fit: cover !important;
@@ -849,7 +851,7 @@ input.date-time-input::-webkit-date-and-time-value {
   color: black;
   /* border-bottom: 1px solid; */
 }
-.bg-varcolor{
+.bg-varcolor {
   background-color: var(--color);
   color: white;
 }
