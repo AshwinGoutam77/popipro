@@ -551,7 +551,6 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
                                 icon={faXmarkCircle}
                                 className="user-select-auto position-absolute top-0 end-0 link-minus-icon"
                                 style={{
-                                  top: "14",
                                   right: "-7",
                                   cursor: "pointer",
                                   color: "var(--color)",
@@ -582,14 +581,6 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
                               <p className="ml-2 text-black font-weight-bold">
                                 {item.parent.platform_name}
                               </p>
-                              {/* <input
-                                  type="text"
-                                  name={`${item.parent.platform_name?.toLowerCase()}_url`}
-                                  className="border-none w-100 cursor-pointer"
-                                  value={item.link}
-                                  placeholder={`Enter your ${item.parent.platform_name?.toLowerCase()} url`}
-                                  readOnly
-                                /> */}
                             </div>
                           </div>
                         </>

@@ -570,7 +570,7 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 
 .realestaterow {
-  border: 1px solid #dddcdc;
+  /* border: 1px solid #dddcdc; */
   border-radius: 10px;
   padding: 12px 0;
 }
@@ -679,16 +679,20 @@ input.date-time-input::-webkit-date-and-time-value {
   /* border: 1px solid transparent; */
 }
 .filter-btns:focus {
-  background: var(--color);
+  /* background: var(--color);
   color: white;
-  transition: 0.3s;
+  transition: 0.3s; */
   /* border: 1px solid transparent; */
 }
 .filter-btn-x-mark {
+  /* display: none; */
   position: absolute;
   right: 0;
   color: red;
 }
+/* .filter-btns:focus + .filter-btn-x-mark {
+  display: block;
+} */
 .dropdown-menu::before {
   content: none !important;
 }
@@ -830,4 +834,22 @@ input.date-time-input::-webkit-date-and-time-value {
   color: white;
   border-radius: 4px;
   padding: 5px 15px;
+}
+.real-estate-badge {
+  border: 1px solid var(--color);
+  background: var(--color);
+  color: white;
+  padding: 0px 10px;
+  border-radius: 4px;
+}
+.object-fit-cover {
+  object-fit: cover !important;
+}
+.realestate-active {
+  color: black;
+  /* border-bottom: 1px solid; */
+}
+.bg-varcolor{
+  background-color: var(--color);
+  color: white;
 }

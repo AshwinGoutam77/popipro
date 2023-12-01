@@ -60,6 +60,12 @@ export default function Product({
   const [Message, setMessage] = useState("");
   const [MessageId, setMessageId] = useState("");
   const [Search, setSearch] = useState(false);
+  const [ShowXMark, setShowXMark] = useState(false);
+  const [ShowXMark1, setShowXMark1] = useState(false);
+  const [ShowXMark2, setShowXMark2] = useState(false);
+  const [ShowXMark3, setShowXMark3] = useState(false);
+  const [ShowXMark4, setShowXMark4] = useState(false);
+  const [ShowXMark5, setShowXMark5] = useState(false);
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -236,6 +242,72 @@ export default function Product({
     if (Search) {
       setSearch(false);
     }
+  };
+  const handleShowDelete = () => {
+    setShowXMark(true);
+    if (ShowXMark) {
+      setShowXMark(false);
+    }
+    setShowXMark1(false);
+    setShowXMark2(false);
+    setShowXMark3(false);
+    setShowXMark4(false);
+    setShowXMark5(false);
+  };
+  const handleShowDelete1 = () => {
+    setShowXMark1(true);
+    if (ShowXMark1) {
+      setShowXMark1(false);
+    }
+    setShowXMark(false);
+    setShowXMark2(false);
+    setShowXMark3(false);
+    setShowXMark4(false);
+    setShowXMark5(false);
+  };
+  const handleShowDelete2 = () => {
+    setShowXMark2(true);
+    if (ShowXMark2) {
+      setShowXMark2(false);
+    }
+    setShowXMark(false);
+    setShowXMark1(false);
+    setShowXMark3(false);
+    setShowXMark4(false);
+    setShowXMark5(false);
+  };
+  const handleShowDelete3 = () => {
+    setShowXMark3(true);
+    if (ShowXMark3) {
+      setShowXMark3(false);
+    }
+    setShowXMark(false);
+    setShowXMark1(false);
+    setShowXMark2(false);
+    setShowXMark4(false);
+    setShowXMark5(false);
+  };
+  const handleShowDelete4 = () => {
+    setShowXMark4(true);
+    if (ShowXMark4) {
+      setShowXMark4(false);
+    }
+    setShowXMark(false);
+    setShowXMark1(false);
+    setShowXMark2(false);
+    setShowXMark3(false);
+    setShowXMark5(false);
+  };
+  const handleShowDelete5 = () => {
+    setShowXMark5(true);
+    if (ShowXMark5) {
+      setShowXMark5(false);
+    }
+    setShowXMark(false);
+    setShowXMark(false);
+    setShowXMark2(false);
+    setShowXMark3(false);
+    setShowXMark4(false);
   };
   return (
     <>
@@ -574,41 +646,128 @@ export default function Product({
               >
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    {/* <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      className="filter-btn-x-mark"
-                    /> */}
-                    <button className="filter-btns">All</button>
+                    {ShowXMark ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete}
+                    >
+                      All
+                    </button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative filter-div">
-                    <button className="filter-btns">Caps</button>
+                    {ShowXMark1 ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark1 ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete1}
+                    >
+                      Caps
+                    </button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">Mugs</button>
+                    {ShowXMark2 ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark2 ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete2}
+                    >
+                      Mugs
+                    </button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">T-shirt</button>
+                    {ShowXMark3 ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark3 ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete3}
+                    >
+                      T-shirt
+                    </button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">Shoes</button>
+                    {ShowXMark4 ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark4 ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete4}
+                    >
+                      Shoes
+                    </button>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">Shirts</button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    <button className="filter-btns">Phone</button>
+                    {ShowXMark5 ? (
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="filter-btn-x-mark"
+                        onClick={handleShowDelete}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      className={
+                        ShowXMark5 ? "filter-btns bg-varcolor" : "filter-btns"
+                      }
+                      onClick={handleShowDelete5}
+                    >
+                      Shirts
+                    </button>
                   </div>
                 </SwiperSlide>
               </SwiperComponent>
@@ -729,18 +888,20 @@ export default function Product({
                             style={{ fontSize: "14px", color: "black" }}
                             className={
                               items?.description?.length <= "0"
-                                ? "title title--h5 font-weight-bolder product-heading2 m-0"
-                                : "title title--h5 font-weight-bolder product-heading m-0"
+                                ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer"
+                                : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer"
                             }
+                            onClick={() => ShowModalID(items.id)}
                           >
                             {items.name}
                           </p>
                           <p
                             id="p_wrap"
-                            className="review-item__caption text-left products-review m-0 mt-1"
+                            className="review-item__caption text-left products-review m-0 mt-1 cursor-pointer"
                             dangerouslySetInnerHTML={{
                               __html: items.description,
                             }}
+                            onClick={() => ShowModalID(items.id)}
                           ></p>
                           <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
                             {items.price != 0 ? (

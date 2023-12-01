@@ -1,5 +1,13 @@
 "use client";
-import { faCircleXmark, faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faCircleXmark,
+  faEnvelope,
+  faLocationDot,
+  faMapLocation,
+  faRightLong,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -15,11 +23,40 @@ export default function Realestate() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [Search, setSearch] = useState(false);
+  const [ShowXMark, setShowXMark] = useState(false);
+  const [ShowXMark1, setShowXMark1] = useState(false);
+  const [ShowXMark2, setShowXMark2] = useState(false);
+
   const handleSearch = () => {
     setSearch(true);
     if (Search) {
       setSearch(false);
     }
+  };
+
+  const handleShowDelete = () => {
+    setShowXMark(true);
+    if (ShowXMark) {
+      setShowXMark(false);
+    }
+    setShowXMark1(false);
+    setShowXMark2(false);
+  };
+  const handleShowDelete1 = () => {
+    setShowXMark1(true);
+    if (ShowXMark1) {
+      setShowXMark1(false);
+    }
+    setShowXMark(false);
+    setShowXMark2(false);
+  };
+  const handleShowDelete2 = () => {
+    setShowXMark2(true);
+    if (ShowXMark2) {
+      setShowXMark2(false);
+    }
+    setShowXMark(false);
+    setShowXMark1(false);
   };
   return (
     <>
@@ -55,7 +92,7 @@ export default function Realestate() {
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Townhouses_in_Victoria_Australia.jpg/800px-Townhouses_in_Victoria_Australia.jpg"
                   alt="realestate_image"
-                  className="realEstateImage w-100"
+                  className="realEstateImage w-100 object-fit-cover"
                 />
               </div>
             </SwiperSlide>
@@ -64,7 +101,7 @@ export default function Realestate() {
                 <img
                   src="https://prafullgupta.com/connectwork/assets/chat/groups/221123114455images(2).jpg"
                   alt="realestate_image"
-                  className="realEstateImage w-100"
+                  className="realEstateImage w-100 object-fit-cover"
                 />
               </div>
             </SwiperSlide>
@@ -121,16 +158,23 @@ export default function Realestate() {
               className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
               style={{ gap: "10px" }}
             >
-              <p className="font-weight-bold color-black">$2000/ per month</p>
-              <div>
-                <button className="real-map-btn">Open Map</button>
-                <button
-                  className="real-tour-btn"
-                  onClick={() => setShowInquiry(true)}
-                >
-                  Enquiry
-                </button>
-              </div>
+              <p className="font-weight-bold color-black">$2000/ per month</p>{" "}
+              <span className="real-estate-badge">Commercial</span>
+            </div>
+            <div
+              className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
+              style={{ gap: "5px" }}
+            >
+              <button className="contact-btn w-auto m-0">Open Map</button>{" "}
+              <button
+                className="contact-btn w-auto m-0"
+                onClick={() => setShowInquiry(true)}
+              >
+                Enquiry
+              </button>
+              <button className="contact-btn w-auto m-0">
+                Whatsaap Enquiry
+              </button>
             </div>
           </div>
         </Modal.Body>
@@ -276,12 +320,7 @@ export default function Realestate() {
                       height: "0",
                       fontSize: "22px",
                     }}
-                  >
-                    {/* <FontAwesomeIcon
-                      icon={faArrowUpWideShort}
-                      style={{ fontSize: "20px" }}
-                    /> */}
-                  </Dropdown.Toggle>
+                  ></Dropdown.Toggle>
 
                   <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                     <Dropdown.Item href="">Sort By Zip Code</Dropdown.Item>
@@ -310,31 +349,65 @@ export default function Realestate() {
           >
             <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative filter-div">
-                {/* <FontAwesomeIcon
-                  icon={faCircleXmark}
-                  className="filter-btn-x-mark"
-                /> */}
-                <button className="filter-btns">All</button>
+                {ShowXMark ? (
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    className="filter-btn-x-mark"
+                    onClick={handleShowDelete}
+                  />
+                ) : (
+                  ""
+                )}
+                <button
+                  className={
+                    ShowXMark ? "filter-btns bg-varcolor" : "filter-btns"
+                  }
+                  onClick={handleShowDelete}
+                >
+                  All
+                </button>
               </div>
             </SwiperSlide>
             <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative filter-div">
-                <button className="filter-btns">Buy</button>
+                {ShowXMark1 ? (
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    className="filter-btn-x-mark"
+                    onClick={handleShowDelete1}
+                  />
+                ) : (
+                  ""
+                )}
+                <button
+                  className={
+                    ShowXMark1 ? "filter-btns bg-varcolor" : "filter-btns"
+                  }
+                  onClick={handleShowDelete1}
+                >
+                  Buy
+                </button>
               </div>
             </SwiperSlide>
             <SwiperSlide className="w-auto">
               <div className="swiper-slide review-items position-relative">
-                <button className="filter-btns">Rent</button>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="w-auto">
-              <div className="swiper-slide review-items position-relative">
-                <button className="filter-btns">Plot</button>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="w-auto">
-              <div className="swiper-slide review-items position-relative">
-                <button className="filter-btns">commercial</button>
+                {ShowXMark2 ? (
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    className="filter-btn-x-mark"
+                    onClick={handleShowDelete2}
+                  />
+                ) : (
+                  ""
+                )}
+                <button
+                  className={
+                    ShowXMark2 ? "filter-btns bg-varcolor" : "filter-btns"
+                  }
+                  onClick={handleShowDelete2}
+                >
+                  Rent
+                </button>
               </div>
             </SwiperSlide>
           </SwiperComponent>
@@ -427,19 +500,63 @@ export default function Realestate() {
                 style={{ gap: "10px" }}
               >
                 <p className="font-weight-bold color-black">$2000/ per month</p>
+                <span className="real-estate-badge">Commercial</span>
+              </div>
+              <div
+                className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                style={{ gap: "10px" }}
+              >
                 <div className="d-flex flex-wrap" style={{ gap: "10px" }}>
-                  <button className="real-map-btn">Open Map</button>
-                  <button
-                    className="real-tour-btn"
+                  <a
+                    href={
+                      "https://api.whatsapp.com/send?phone=" +
+                      "9874563210" +
+                      "&" +
+                      `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
+                    }
+                    target="_blank"
+                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                  >
+                    <img
+                      src="./static/img/whatsapp.png"
+                      alt="whatsaap"
+                      className="Whatsaapsvg"
+                    />
+                  </a>
+                  <span
+                    data-toggle="modal"
+                    data-target="#ProductEnquireModal"
+                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                     onClick={() => setShowInquiry(true)}
                   >
-                    Enquiry
-                  </button>
-                  <button className="real-tour-btn">Whatsaap Enquiry</button>
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="user-select-auto"
+                    />
+                  </span>
+                  <a
+                    href="https://www.google.com/maps"
+                    target="_blank"
+                    className="whatsap-link-view d-flex align-items-center justify-content-center"
+                  >
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="user-select-auto"
+                    />
+                  </a>
                 </div>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="user-select-auto mr-2 viewmore-btn-product cursor-pointer"
+                  onClick={() => setShow(true)}
+                />
               </div>
             </div>
           </div>
+          <div
+            className="mt-1 mb-2"
+            style={{ borderBottom: "1px solid #ccc" }}
+          ></div>
           <div className="row realestaterow mt-2">
             <div className="col-lg-4 col-sm-12">
               <SwiperComponent
@@ -528,12 +645,57 @@ export default function Realestate() {
                 className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
                 style={{ gap: "10px" }}
               >
-                <p className="font-weight-bold color-black">$6000/ per month</p>
+                <p className="font-weight-bold color-black">$2000/ per month</p>
+                <span className="real-estate-badge">Sold</span>
+              </div>
+              <div
+                className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                style={{ gap: "10px" }}
+              >
                 <div className="d-flex flex-wrap" style={{ gap: "10px" }}>
-                  <button className="real-map-btn">Open Map</button>
-                  <button className="real-tour-btn">Enquiry</button>
-                  <button className="real-tour-btn">Whatsaap Enquiry</button>
+                  <a
+                    href={
+                      "https://api.whatsapp.com/send?phone=" +
+                      "9874563210" +
+                      "&" +
+                      `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
+                    }
+                    target="_blank"
+                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                  >
+                    <img
+                      src="./static/img/whatsapp.png"
+                      alt="whatsaap"
+                      className="Whatsaapsvg"
+                    />
+                  </a>
+                  <span
+                    data-toggle="modal"
+                    data-target="#ProductEnquireModal"
+                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                    onClick={() => setShowInquiry(true)}
+                  >
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="user-select-auto"
+                    />
+                  </span>
+                  <a
+                    href="https://www.google.com/maps"
+                    target="_blank"
+                    className="whatsap-link-view d-flex align-items-center justify-content-center"
+                  >
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="user-select-auto"
+                    />
+                  </a>
                 </div>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="user-select-auto mr-2 viewmore-btn-product cursor-pointer"
+                  onClick={() => setShow(true)}
+                />
               </div>
             </div>
           </div>
