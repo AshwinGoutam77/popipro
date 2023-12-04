@@ -10,6 +10,7 @@ import {
   faImage,
   faLightbulb,
   faMagnifyingGlassChart,
+  faMessage,
   faMoneyBill1Wave,
   faNewspaper,
   faPalette,
@@ -37,6 +38,7 @@ import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
+import SendMessage from "@components/Dashboard/SendMessage";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -591,6 +593,24 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div>
+                {/* Send Message */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      setModalShow("sendMessage");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faMessage}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">
+                      Send Message
+                    </h6>
+                  </div>
+                </div>
               </>
             ) : (
               ""
@@ -999,6 +1019,10 @@ export default function Dashboard() {
       />
       <Suggestions
         active={modalShow == "suggestion" ? true : false}
+        handleClose={setModalShow}
+      />
+      <SendMessage
+        active={modalShow == "sendMessage" ? true : false}
         handleClose={setModalShow}
       />
     </>

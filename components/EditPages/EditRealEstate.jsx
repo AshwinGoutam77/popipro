@@ -239,7 +239,7 @@ export default function EditRealEstate() {
               }
               onClick={handleSettings1}
             >
-              General info. <FontAwesomeIcon icon={faAngleDoubleRight} />
+              Basic<FontAwesomeIcon icon={faAngleDoubleRight} />
             </p>
             <p
               className={
@@ -249,7 +249,7 @@ export default function EditRealEstate() {
               }
               onClick={handleSettings2}
             >
-              Catagory info. <FontAwesomeIcon icon={faAngleDoubleRight} />
+              Property <FontAwesomeIcon icon={faAngleDoubleRight} />
             </p>
             <p
               className={
@@ -259,7 +259,7 @@ export default function EditRealEstate() {
               }
               onClick={handleSettings3}
             >
-              Location info.
+              Address
             </p>
           </div>
 

@@ -114,7 +114,6 @@ const ChatbotApp = ({
         theme="light"
       />
 
-      
       <div className="container text-right">
         <div className="prompt-area">
           <input
@@ -130,7 +129,7 @@ const ChatbotApp = ({
             data-target="#chatapimodal"
             className="cursor-pointer"
           >
-             Use AI{" "}
+            Use AI{" "}
             <FontAwesomeIcon icon={faWandMagicSparkles} className="ml-2" />
           </p>
         </div>

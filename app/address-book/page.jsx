@@ -1,5 +1,10 @@
 "use client";
-import { faAddressBook, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAddressBook,
+  faAngleLeft,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
@@ -235,7 +240,7 @@ export default function Page() {
       </div>
       <div className="m-4 address-book-add-contact-div d-flex align-items-center justify-content-between">
         <h6 className="color-black mb-0">Create Contact Group</h6>
-        <div className="" onClick={() => setShow(true)}>
+        <div className="cursor-pointer" onClick={() => setShow(true)}>
           <img
             src="https://prafullgupta.com/connectwork/assets/chat/groups/271123054957add.png"
             alt="images"
@@ -246,9 +251,16 @@ export default function Page() {
 
       <div>
         <div className="address-book-add-contact-div mx-4">
-          <h5 className="title title--h1 first-title title__separate mx-2">
-            Groups
-          </h5>
+          <div className="d-flex align-items-center justify-content-between">
+            <h5 className="title title--h1 first-title title__separate mx-2">
+              Groups
+            </h5>
+            <Link href="all-contacts">
+              <p className="font-weight-bold color-black">
+                View all contacts <FontAwesomeIcon icon={faArrowRight} />
+              </p>
+            </Link>
+          </div>
           <div className="mt-4 px-4">
             <h6 className="font-weight-bold">How you want to add contacts:</h6>
             <div className="d-flex align-items-start">

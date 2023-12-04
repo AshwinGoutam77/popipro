@@ -855,3 +855,10 @@ input.date-time-input::-webkit-date-and-time-value {
   background-color: var(--color);
   color: white;
 }
+.group-listing-section div{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+.group-listing-section div:last-child{
+  border: none;
+}
