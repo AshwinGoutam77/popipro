@@ -159,6 +159,7 @@ export default function Page() {
                 <input type="checkbox" className="mr-2" />
               </th>
               <th>Name</th>
+              <th>Group Name</th>
               <th>Contact</th>
               <th>Delete</th>
             </tr>
@@ -169,6 +170,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Doctors</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -182,6 +184,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Plumber</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -195,6 +198,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Doctors</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -208,6 +212,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Furnitures</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -221,6 +226,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Plumbers</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -234,6 +240,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Doctors</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -247,6 +254,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Doctors</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
@@ -260,6 +268,7 @@ export default function Page() {
                 <input type="checkbox" />
               </td>
               <td data-column="name">John Doe</td>
+              <td data-column="name">Electrician</td>
               <td data-column="name">9874561323</td>
               <td
                 data-column="created date"
