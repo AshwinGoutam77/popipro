@@ -753,6 +753,17 @@ input.date-time-input::-webkit-date-and-time-value {
   cursor: pointer;
   border-radius: 10px;
 }
+.history-user-list {
+  line-height: 2.5;
+}
+.history-user-list p {
+  border-bottom: 1px solid #ccc;
+  font-size: 16px !important;
+}
+.history-user-list p:last-child {
+  border: 0;
+}
+
 @media (max-width: 768px) {
   .vb-div {
     justify-content: center;
@@ -830,10 +841,11 @@ input.date-time-input::-webkit-date-and-time-value {
     font-size: 10px !important;
     height: 20px !important;
   }
-  .swiper-button-next, .swiper-rtl .swiper-button-prev {
+  .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
     font-size: 10px !important;
     height: 20px !important;
-}
+  }
 }
 .share-modal-url-btn {
   position: absolute;

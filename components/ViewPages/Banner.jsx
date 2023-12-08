@@ -214,12 +214,12 @@ const Banner = ({
   }
   async function requestPermission() {
     // if (typeof window !== "undefined") {
-      const permission = await Notification.requestPermission();
-      if (permission === "granted") {
-        console.log("Notifications are allowed.");
-      } else if (permission === "denied") {
-        console.log("we have denied permission!, Please alow the permission.");
-      }
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      console.log("Notifications are allowed.");
+    } else if (permission === "denied") {
+      console.log("we have denied permission!, Please alow the permission.");
+    }
     // }
   }
   function getLocation() {

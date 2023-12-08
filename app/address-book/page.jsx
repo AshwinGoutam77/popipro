@@ -4,6 +4,7 @@ import {
   faAngleLeft,
   faArrowLeft,
   faArrowRight,
+  faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -264,11 +265,18 @@ export default function Page() {
             <h5 className="title title--h1 first-title title__separate mx-2">
               Groups
             </h5>
-            <Link href="all-contacts">
-              <p className="font-weight-bold color-black">
-                View all contacts <FontAwesomeIcon icon={faArrowRight} />
-              </p>
-            </Link>
+            <div className="d-flex align-items-center" style={{ gap: "20px" }}>
+              <Link href="message-history">
+                <p className="font-weight-bold color-black">
+                  View message history <FontAwesomeIcon icon={faMessage} />
+                </p>
+              </Link>
+              <Link href="all-contacts">
+                <p className="font-weight-bold color-black">
+                  View all contacts <FontAwesomeIcon icon={faArrowRight} />
+                </p>
+              </Link>
+            </div>
           </div>
           <div className="mt-1 px-4">
             <h6 className="font-weight-bold">How you want to add contacts:</h6>
