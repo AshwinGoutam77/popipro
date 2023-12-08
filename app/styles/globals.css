@@ -825,6 +825,15 @@ input.date-time-input::-webkit-date-and-time-value {
   .swiper-rtl .swiper-button-prev {
     right: -7px !important;
   }
+  .swiper-button-prev,
+  .swiper-rtl .swiper-button-next {
+    font-size: 10px !important;
+    height: 20px !important;
+  }
+  .swiper-button-next, .swiper-rtl .swiper-button-prev {
+    font-size: 10px !important;
+    height: 20px !important;
+}
 }
 .share-modal-url-btn {
   position: absolute;
@@ -855,10 +864,10 @@ input.date-time-input::-webkit-date-and-time-value {
   background-color: var(--color);
   color: white;
 }
-.group-listing-section div{
+.group-listing-section div {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
 }
-.group-listing-section div:last-child{
+.group-listing-section div:last-child {
   border: none;
 }
