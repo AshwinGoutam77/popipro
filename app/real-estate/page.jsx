@@ -2,6 +2,8 @@
 import {
   faAddressBook,
   faAngleLeft,
+  faChevronLeft,
+  faChevronRight,
   faHomeAlt,
   faPlus,
   faTrash,
@@ -22,6 +24,7 @@ export default function Page() {
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
+  const [show, setShow] = useState(false);
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -125,6 +128,54 @@ export default function Page() {
           </div>
         </Modal.Body>
       </Modal>
+      <Modal show={show} onHide={() => setShow(false)} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5 className="title title--h1 first-title title__separate mb-1 mb-0">
+              Users
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShow(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          <div className="leads-custom-table mb-1">
+            <div className="d-flex align-items-start">
+              <p className="w-100 font-weight-bold">Property Name</p>
+              <p className="w-100">Emerald Oasis Mansion</p>
+            </div>
+            <div className="d-flex align-items-start">
+              <p className="w-100 font-weight-bold">Location</p>
+              <p className="w-100">Jaipur</p>
+            </div>
+            <div className="d-flex align-items-start">
+              <p className="w-100 font-weight-bold">Contact Number</p>
+              <p className="w-100">9876543210</p>
+            </div>
+            <div className="d-flex align-items-start">
+              <p className="w-100 font-weight-bold">Date</p>
+              <p className="w-100">23/11/2023</p>
+            </div>
+            <div className="d-flex align-items-start">
+              <p className="w-100 font-weight-bold">Message</p>
+              <p className="w-100">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum is simply dummy text of the
+                printing and typesetting industry. Lorem Ipsum is simply dummy
+                text of the printing and typesetting industry. Lorem Ipsum is
+                simply dummy text of the printing and typesetting industry.{" "}
+              </p>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
 
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
@@ -183,8 +234,12 @@ export default function Page() {
               <div className="col-6 col-lg-2 p-0 px-2">
                 <label className="ml-1">Property</label>
                 <select className="form-control insight-filter w-100">
-                  <option>Rent</option>
-                  <option>Buy</option>
+                  <option>Emerald Oasis Mansion</option>
+                  <option>Emerald Oasis Mansion</option>
+                  <option>Emerald Oasis Mansion</option>
+                  <option>Emerald Oasis Mansion</option>
+                  <option>Emerald Oasis Mansion</option>
+                  <option>Emerald Oasis Mansion</option>
                 </select>
               </div>
               <div className="col-6 col-lg-2 p-0 px-2">
@@ -212,84 +267,120 @@ export default function Page() {
                   <th className="d-flex align-items-center">
                     <input type="checkbox" className="mr-2" />
                   </th>
-                  <th>Property Name</th>
+                  <th>Name</th>
                   <th>Date</th>
-                  <th>Time</th>
-                  <th>Location</th>
+                  <th>Message</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
+                  </td>
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </td>
                 </tr>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
+                  </td>
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </td>
                 </tr>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
+                  </td>
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </td>
                 </tr>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
+                  </td>
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </td>
                 </tr>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
+                  </td>
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </td>
                 </tr>
-                <tr data-column="Message" className="cursor-pointer">
+                <tr
+                  data-column="Message"
+                  className="cursor-pointer"
+                  onClick={() => setShow(true)}
+                >
                   <td className="d-flex align-items-center">
                     <input type="checkbox" />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">Tester</td>
                   <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
-                </tr>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
+                  <td data-column="name">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
-                </tr>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
+                  <td>
+                    <FontAwesomeIcon icon={faChevronRight} />
                   </td>
-                  <td data-column="name">Emerald Oasis Mansion</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">11:00pm</td>
-                  <td data-column="created date">Jaipur</td>
                 </tr>
               </tbody>
             </table>
