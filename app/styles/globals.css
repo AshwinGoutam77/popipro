@@ -673,8 +673,8 @@ input.date-time-input::-webkit-date-and-time-value {
   width: max-content;
 }
 .filter-btns:hover {
-  background-color: var(--color);
-  color: white;
+  background-color: var(--themecolor);
+  color: black;
   transition: 0.3s;
   /* border: 1px solid transparent; */
 }
@@ -688,7 +688,7 @@ input.date-time-input::-webkit-date-and-time-value {
   /* display: none; */
   position: absolute;
   right: 0;
-  color: red;
+  color: var(--color);
 }
 /* .filter-btns:focus + .filter-btn-x-mark {
   display: block;
@@ -861,8 +861,8 @@ input.date-time-input::-webkit-date-and-time-value {
   /* border-bottom: 1px solid; */
 }
 .bg-varcolor {
-  background-color: var(--color);
-  color: white;
+  /* background-color: var(--color); */
+  /* color: white; */
 }
 .group-listing-section div {
   border-bottom: 1px solid #ccc;

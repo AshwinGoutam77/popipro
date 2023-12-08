@@ -18,6 +18,7 @@ export default function Page() {
   const [SelectedContacts, setSelectedContacts] = useState("");
   const [AddressBookRadio, setAddressBookRadio] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);
+  const [AddBook, setAddBook] = useState(true);
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -60,6 +61,14 @@ export default function Page() {
       alert(err);
     }
   }
+  const handleAddManualy = () => {
+    setAddressBookRadio(true);
+    setAddBook(false);
+  };
+  const handleAddressBook = () => {
+    setAddressBookRadio(false);
+    setAddBook(true);
+  };
   return (
     <>
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>
@@ -153,7 +162,7 @@ export default function Page() {
           />{" "}
           Address Book
         </h5>
-        <Link href="/dashboard">
+        <Link href="/address-book">
           <h6 className="text-white m-0">
             {" "}
             <FontAwesomeIcon
@@ -176,8 +185,9 @@ export default function Page() {
             name="radio-book"
             id="product-whatsaap2"
             className="mt-1"
-            onChange={() => setAddressBookRadio(false)}
-            defaultValue="checked"
+            onChange={() => handleAddressBook()}
+            value={AddBook}
+            checked={AddBook ? true : false}
           />
           <label
             htmlFor="product-whatsaap2"
@@ -192,7 +202,7 @@ export default function Page() {
             name="radio-book"
             id="product-enq2"
             className="mt-1"
-            onChange={() => setAddressBookRadio(true)}
+            onChange={() => handleAddManualy()}
           />
           <label
             htmlFor="product-enq2"
@@ -232,6 +242,7 @@ export default function Page() {
               </th>
               <th>Name</th>
               <th>Contact</th>
+              <th>Notification</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -242,6 +253,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -255,6 +267,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Blocked</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -268,6 +281,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -281,6 +295,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -294,6 +309,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Blocked</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -307,6 +323,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -320,6 +337,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}
@@ -333,6 +351,7 @@ export default function Page() {
               </td>
               <td data-column="name">John Doe</td>
               <td data-column="name">9874561323</td>
+              <td data-column="name">Allowed</td>
               <td
                 data-column="created date"
                 onClick={() => handleDeleteNumber()}

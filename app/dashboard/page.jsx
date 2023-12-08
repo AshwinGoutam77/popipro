@@ -7,6 +7,7 @@ import {
   faChartSimple,
   faEnvelope,
   faGear,
+  faHomeAlt,
   faImage,
   faLightbulb,
   faMagnifyingGlassChart,
@@ -610,6 +611,21 @@ export default function Dashboard() {
                       Send Message
                     </h6>
                   </div>
+                </div>
+                {/* Address Book */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/address-book" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faHomeAlt}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Real Estate
+                      </h6>
+                    </div>
+                  </Link>
                 </div>
               </>
             ) : (

@@ -13,6 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Signature() {
   const signatureRef1 = useRef(null);
   const signatureRef2 = useRef(null);
+  const signatureRef3 = useRef(null);
+  const signatureRef4 = useRef(null);
 
   const copyToClipboard = (type) => {
     const signatureElement = type.current;
@@ -161,7 +163,7 @@ export default function Signature() {
                     <br />
                     {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
                     <span style={{ marginBottom: "16px" }}>
-                      Founder at Popipro & {" "}
+                      Founder at Popipro &{" "}
                       <a
                         href="https://front.popipro.com/prafull-gupta"
                         data-external="true"
@@ -590,6 +592,7 @@ export default function Signature() {
             }}
           >
             <table
+              ref={signatureRef3}
               style={{
                 width: "100%",
                 fontSize: "10pt",
@@ -877,7 +880,7 @@ export default function Signature() {
                 </tr> */}
               </tbody>
             </table>
-            <button className="contact-btn w-auto">Copy Email Signature</button>
+            <button className="contact-btn w-auto"  onClick={() => copyToClipboard(signatureRef3)}>Copy Email Signature</button>
           </div>
         </div>
 
@@ -892,6 +895,7 @@ export default function Signature() {
             }}
           >
             <table
+              ref={signatureRef4}
               className="signature"
               width="100%"
               cellspacing="0"
@@ -1047,6 +1051,7 @@ export default function Signature() {
             <button
               className="contact-btn w-auto mt-5"
               data-clipboard-target=".signature"
+              onClick={() => copyToClipboard(signatureRef4)}
             >
               Copy Email Signature
             </button>

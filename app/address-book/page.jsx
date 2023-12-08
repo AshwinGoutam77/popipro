@@ -19,6 +19,7 @@ export default function Page() {
   const [ShowSendMessage, setShowSendMessage] = useState(false);
   const [SelectedContacts, setSelectedContacts] = useState("");
   const [AddressBookRadio, setAddressBookRadio] = useState(false);
+  const [AddBook, setAddBook] = useState(true);
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -61,6 +62,14 @@ export default function Page() {
       alert(err);
     }
   }
+  const handleAddManualy = () => {
+    setAddressBookRadio(true);
+    setAddBook(false);
+  };
+  const handleAddressBook = () => {
+    setAddressBookRadio(false);
+    setAddBook(true);
+  };
   return (
     <>
       <Modal
@@ -261,7 +270,7 @@ export default function Page() {
               </p>
             </Link>
           </div>
-          <div className="mt-4 px-4">
+          <div className="mt-1 px-4">
             <h6 className="font-weight-bold">How you want to add contacts:</h6>
             <div className="d-flex align-items-start">
               <input
@@ -269,8 +278,9 @@ export default function Page() {
                 name="radio-book"
                 id="product-whatsaap2"
                 className="mt-1"
-                onChange={() => setAddressBookRadio(false)}
-                defaultValue="checked"
+                onChange={() => handleAddressBook()}
+                value={AddBook}
+                checked={AddBook ? true : false}
               />
               <label
                 htmlFor="product-whatsaap2"
@@ -285,7 +295,7 @@ export default function Page() {
                 name="radio-book"
                 id="product-enq2"
                 className="mt-1"
-                onChange={() => setAddressBookRadio(true)}
+                onChange={() => handleAddManualy()}
               />
               <label
                 htmlFor="product-enq2"

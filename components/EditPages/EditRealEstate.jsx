@@ -280,7 +280,7 @@ export default function EditRealEstate() {
                   //   onChange={(e) => setImage(e.target.files[0])}
                 />
                 <label className="modalFormLable">
-                  Other Images (*Recommended Size 347x160)
+                  Upload Upto 5 Images (*Recommended Size 347x160)
                 </label>
                 <input
                   type="file"
@@ -500,18 +500,18 @@ export default function EditRealEstate() {
                 cols="50"
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
-                placeholder="Category"
+                placeholder="Buy/ Rent/ Other"
                 style={{ height: "40px", border: "1px solid #ccc" }}
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
-              <label className="modalFormLable">Sub Category*</label>
+              <label className="modalFormLable">Tags*</label>
               <input
                 name="name"
                 rows="4"
                 cols="50"
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
-                placeholder="Category"
+                placeholder="Tags"
                 style={{ height: "40px", border: "1px solid #ccc" }}
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
@@ -534,7 +534,7 @@ export default function EditRealEstate() {
           {/* Location div */}
           {LocationSetting ? (
             <div>
-              <label className="modalFormLable">Address</label>
+              <label className="modalFormLable">Street Address</label>
               <input
                 name="name"
                 rows="4"
@@ -545,14 +545,14 @@ export default function EditRealEstate() {
                 style={{ height: "40px", border: "1px solid #ccc" }}
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
-              <label className="modalFormLable">Location</label>
+              <label className="modalFormLable">Google Url</label>
               <input
                 name="name"
                 rows="4"
                 cols="50"
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
-                placeholder="Location"
+                placeholder="Add your google map url"
                 style={{ height: "40px", border: "1px solid #ccc" }}
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
@@ -802,7 +802,7 @@ export default function EditRealEstate() {
             className="d-flex align-items-center justify-content-start"
             style={{
               gap: "10px",
-              marginTop: "10px",
+              marginTop: "0px",
               marginBottom: "18px",
             }}
           >
@@ -976,7 +976,7 @@ export default function EditRealEstate() {
             className="d-flex align-items-center justify-content-start"
             style={{
               gap: "10px",
-              marginTop: "10px",
+              marginTop: "0px",
               marginBottom: "18px",
             }}
           >

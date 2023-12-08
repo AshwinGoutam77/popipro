@@ -26,6 +26,7 @@ export default function EditContact({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [Appointment, setAppointment] = useState("");
   const [Show, setShow] = useState(false);
+  const [AppForm, setAppForm] = useState(true);
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -153,6 +154,7 @@ export default function EditContact({
   };
   const handleClose = () => {
     setShow(false);
+    setAppForm(true);
   };
 
   return (
@@ -288,6 +290,8 @@ export default function EditContact({
                   //     ? true
                   //     : false
                   // }
+                  value={AppForm}
+                  checked={AppForm ? true : false}
                 />
                 <label
                   for="product-whatsaap3"
@@ -316,6 +320,7 @@ export default function EditContact({
                   //     ? true
                   //     : false
                   // }
+                  onChange={() => setAppForm(false)}
                 />
                 <label
                   for="product-enq3"
