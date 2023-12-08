@@ -1,0 +1,301 @@
+"use client";
+import {
+  faAddressBook,
+  faAngleLeft,
+  faHomeAlt,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import React, { useState } from "react";
+import "../../styles/about.css";
+import "../../styles/edit.css";
+import { Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+export default function Page() {
+  const [showContact, setShowContact] = useState(false);
+  const [ShowSendMessage, setShowSendMessage] = useState(false);
+  let d = new Date();
+  const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
+  const [EndDate, setEndDate] = useState(new Date());
+
+  const handleDeleteNumber = async () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this group!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "", "success");
+      }
+    });
+  };
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  const handleSearchData = async () => {};
+  return (
+    <>
+      <Modal show={showContact} onHide={() => setShowContact(false)} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5 class="title title--h1 first-title title__separate mb-1 mb-0">
+              Add Contact
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            class="close"
+            onClick={() => setShowContact(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          <label className="modalFormLable">Contact Name*</label>
+          <input
+            name="name"
+            rows="4"
+            cols="50"
+            className="form-control mb-4 mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "40px", border: "1px solid #ccc" }}
+          ></input>
+          <label className="modalFormLable">Contact Number*</label>
+          <input
+            type="number"
+            name="text"
+            rows="4"
+            cols="50"
+            className="form-control mb-4 mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "40px", border: "1px solid #ccc" }}
+          ></input>
+          <button className="contact-btn w-auto mb-2">Save Contact</button>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={ShowSendMessage}
+        onHide={() => setShowSendMessage(false)}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              className="title title--h1 first-title title__separate mb-1 mb-0"
+              id="BlogModalTitle"
+            >
+              Send message
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowSendMessage(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span className="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 15px" }}>
+          <label className="modalFormLable">
+            Send message to selected users*
+          </label>
+          <textarea
+            name="name"
+            rows="4"
+            cols="50"
+            className="form-control mt-1 rounded-0"
+            placeholder=""
+            style={{ height: "140px", border: "1px solid #ccc" }}
+          ></textarea>
+          <div className="mb-2">
+            <button className="contact-btn w-auto">Send Message</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <div
+        className="login-header p-3 text-center d-flex align-items-center justify-content-between"
+        style={{ background: "black" }}
+      >
+        <h5 className="text-white m-0">
+          <FontAwesomeIcon
+            icon={faHomeAlt}
+            className="text-white mr-2"
+            width="20"
+          />{" "}
+          Real Estate
+        </h5>
+        <Link href="/dashboard">
+          <h6 className="text-white m-0">
+            {" "}
+            <FontAwesomeIcon
+              icon={faAngleLeft}
+              className="text-white mr-2"
+              width="10"
+            />
+            Back
+          </h6>
+        </Link>
+      </div>
+      <div
+        className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
+        style={{ height: "calc(100vh - 58px)" }}
+      >
+        <div className="w-100">
+          <div className="mx-3 mt-3">
+            <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <label className="ml-1">From</label>
+                <DatePicker
+                  dateFormat="MM/dd/yyyy"
+                  selected={StartDate}
+                  maxDate={new Date()}
+                  onChange={(date) => setStartDate(date)}
+                  placeholderText={"End Date"}
+                  className="form-control insight-filter w-100"
+                />
+              </div>
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <label className="ml-1">To</label>
+                <DatePicker
+                  dateFormat="MM/dd/yyyy"
+                  selected={EndDate}
+                  defaultValue={EndDate}
+                  onChange={(Date) => setEndDate(Date)}
+                  maxDate={new Date()}
+                  placeholderText={"End Date"}
+                  className="form-control insight-filter w-100"
+                />
+              </div>
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <label className="ml-1">Property</label>
+                <select className="form-control insight-filter w-100">
+                  <option>Rent</option>
+                  <option>Buy</option>
+                </select>
+              </div>
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <button
+                  className="insight-search w-100 mt-3"
+                  onClick={handleSearchData}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
+            <button
+              className="contact-btn w-auto"
+              onClick={() => setShowSendMessage(true)}
+            >
+              Send message
+            </button>
+          </div>
+          <div className="box-shadow-leads pt-2">
+            <table className="insight-table">
+              <thead>
+                <tr>
+                  <th className="d-flex align-items-center">
+                    <input type="checkbox" className="mr-2" />
+                  </th>
+                  <th>Property Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+                <tr data-column="Message" className="cursor-pointer">
+                  <td className="d-flex align-items-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td data-column="name">Emerald Oasis Mansion</td>
+                  <td data-column="name">23/11/2023</td>
+                  <td data-column="name">11:00pm</td>
+                  <td data-column="created date">Jaipur</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
