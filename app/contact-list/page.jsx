@@ -225,6 +225,7 @@ export default function Page() {
     setAddressBookRadio(false);
     setAddBook(true);
   };
+  const customProps = { id: 'my-table-id' };
   return (
     <>
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>
@@ -409,6 +410,7 @@ export default function Page() {
               />
             }
             subHeaderAlign="left"
+            getProps={() => customProps}
           />
         </div>
       </div>

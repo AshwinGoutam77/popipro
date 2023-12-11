@@ -763,7 +763,7 @@ input.date-time-input::-webkit-date-and-time-value {
 .history-user-list p:last-child {
   border: 0;
 }
-.cfvlby {
+.rdt_TableHeadRow {
   background-color: var(--color) !important;
   color: white !important;
   font-weight: bold !important;
