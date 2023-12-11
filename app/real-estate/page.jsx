@@ -349,7 +349,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="mt-4 d-flex align-items-center justify-content-between mx-4 mb-3">
+          <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
             <button
               className="contact-btn w-auto"
               onClick={() => setShowSendMessage(true)}
@@ -357,7 +357,7 @@ export default function Page() {
               Send message
             </button>
           </div>
-          <div className="box-shadow-leads pt-2">
+          <div className="box-shadow-leads">
             {/* <table className="insight-table">
               <thead>
                 <tr>
@@ -498,7 +498,7 @@ export default function Page() {
                   className="w-auto form-control mb-2"
                 />
               }
-              subHeaderAlign="left"
+              subHeaderAlign="right"
             />
           </div>
         </div>

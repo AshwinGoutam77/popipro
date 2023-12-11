@@ -288,7 +288,7 @@ export default function Page() {
             Send message
           </button>
         </div>
-        <div className="box-shadow-leads pt-2">
+        <div className="box-shadow-leads">
           <DataTable
             columns={column}
             data={DataTables}
@@ -306,7 +306,7 @@ export default function Page() {
                 className="w-auto form-control mb-2"
               />
             }
-            subHeaderAlign="left"
+            subHeaderAlign="right"
           />
         </div>
       </div>

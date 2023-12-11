@@ -409,7 +409,7 @@ export default function Page() {
                 className="w-auto form-control mb-2"
               />
             }
-            subHeaderAlign="left"
+            subHeaderAlign="right"
             getProps={() => customProps}
           />
         </div>

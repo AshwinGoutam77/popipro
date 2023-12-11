@@ -38,6 +38,7 @@ export default function Signature() {
       });
     }
   };
+
   return (
     <>
       <ToastContainer
@@ -880,7 +881,12 @@ export default function Signature() {
                 </tr> */}
               </tbody>
             </table>
-            <button className="contact-btn w-auto"  onClick={() => copyToClipboard(signatureRef3)}>Copy Email Signature</button>
+            <button
+              className="contact-btn w-auto"
+              onClick={() => copyToClipboard(signatureRef3)}
+            >
+              Copy Email Signature
+            </button>
           </div>
         </div>
 
@@ -917,10 +923,10 @@ export default function Signature() {
                     width="120"
                     style={{ verticalAlign: "top", padding: "0 16px" }}
                   >
-                      <img
-                        className="border-0 pt-3 signature-img"
-                        src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
-                      />
+                    <img
+                      className="border-0 pt-3 signature-img"
+                      src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                    />
                   </td>
                   <td
                     style={{ borderLeft: "1px solid #d4d4d4" }}

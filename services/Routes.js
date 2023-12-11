@@ -45,3 +45,4 @@ export const Appointmentbtns = {
   method: "GET",
 };
 export const HitSuggestion = { path: "hit-suggestion", method: "POST" };
+export const GoogleAnalytics = { path: "get-google-analytics", method: "GET" };

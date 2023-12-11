@@ -4,19 +4,47 @@ import {
   faMagnifyingGlassChart,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "../../styles/about.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
+import Api from "@services/Api";
+import { GoogleAnalytics } from "@services/Routes";
+import DataTable from "react-data-table-component";
 
 export default function Page() {
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
+  const [Data, setData] = useState("");
+
+  const handleGoogleData = async () => {
+    const res = await Api(GoogleAnalytics, {});
+    console.log(res.data.data);
+    setData(res.data.data);
+  };
+  useEffect(() => {
+    handleGoogleData();
+  }, []);
 
   const handleSearchData = () => {};
+  const column = [
+    {
+      name: "IP",
+      selector: (row) => row.ip_address,
+    },
+    {
+      name: "Browser",
+      selector: (row) => row.device_id,
+    },
+    {
+      name: "Date",
+      selector: (row) => row.created_at,
+    },
+  ];
+
   return (
     <>
       <div>
@@ -85,7 +113,7 @@ export default function Page() {
           </div>
 
           <div className="box-shadow-leads pt-2" style={{ overflowX: "auto" }}>
-            <table className="insight-table">
+            {/* <table className="insight-table">
               <thead>
                 <tr>
                   <th>IP</th>
@@ -125,14 +153,33 @@ export default function Page() {
                   <td data-column="created web">Mobile</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
+            <DataTable
+              columns={column}
+              data={Data}
+              pagination
+              fixedHeader
+              fixedHeaderScrollHeight="440px"
+              selectableRows
+              selectableRowsHighlight
+              highlightOnHover
+              subHeader
+              subHeaderComponent={
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-auto form-control mb-2"
+                />
+              }
+              subHeaderAlign="right"
+            />
           </div>
-          <div
-            className="w-100 text-center text-white p-2 position-absolute mt-3"
+          {/* <div
+            className="w-100 text-center text-white p-2 position-absolute mt-3 pt-4"
             style={{ bottom: "0", background: "black" }}
           >
             <p> © 2023. All Rights Reserved By Popipro.</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
