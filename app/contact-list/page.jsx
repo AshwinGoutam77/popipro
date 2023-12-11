@@ -7,11 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/about.css";
 import "../../styles/edit.css";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
+import DataTable from "react-data-table-component";
 
 export default function Page() {
   const [showContact, setShowContact] = useState(false);
@@ -19,6 +20,161 @@ export default function Page() {
   const [AddressBookRadio, setAddressBookRadio] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);
   const [AddBook, setAddBook] = useState(true);
+  const [DataTables, setDataTables] = useState([]);
+
+  const getDataTable = async () => {
+    setDataTables([
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+    ]);
+  };
+
+  const column = [
+    {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+    {
+      name: "Group Name",
+      selector: (row) => row.group_name,
+    },
+    {
+      name: "Contact No.",
+      selector: (row) => row.Contact,
+    },
+    {
+      name: "",
+      selector: (row) => (
+        <FontAwesomeIcon icon={faTrash} className="cursor-pointer" />
+      ),
+    },
+  ];
+  useEffect(() => {
+    getDataTable();
+  }, []);
 
   const handleDeleteNumber = async () => {
     Swal.fire({
@@ -174,193 +330,87 @@ export default function Page() {
           </h6>
         </Link>
       </div>
-      <h2 className="title title--h1 first-title title__separate mx-4 mt-4">
-        Group Name
-      </h2>
-      <div className="mt-4 px-4">
-        <h6 className="font-weight-bold">How you want to add contacts:</h6>
-        <div className="d-flex align-items-start">
-          <input
-            type="radio"
-            name="radio-book"
-            id="product-whatsaap2"
-            className="mt-1"
-            onChange={() => handleAddressBook()}
-            value={AddBook}
-            checked={AddBook ? true : false}
-          />
-          <label
-            htmlFor="product-whatsaap2"
-            className="ml-2 Varcolor font-weight-bold"
-          >
-            Via Address Book?
-          </label>
+      <div className="bg-white pt-4" style={{ height: "100vh" }}>
+        <h2 className="title title--h1 first-title title__separate mx-4">
+          Group Name
+        </h2>
+        <div className="mt-4 px-4">
+          <h6 className="font-weight-bold">How you want to add contacts:</h6>
+          <div className="d-flex align-items-start">
+            <input
+              type="radio"
+              name="radio-book"
+              id="product-whatsaap2"
+              className="mt-1"
+              onChange={() => handleAddressBook()}
+              value={AddBook}
+              checked={AddBook ? true : false}
+            />
+            <label
+              htmlFor="product-whatsaap2"
+              className="ml-2 Varcolor font-weight-bold"
+            >
+              Via Address Book?
+            </label>
+          </div>
+          <div className="d-flex align-items-start">
+            <input
+              type="radio"
+              name="radio-book"
+              id="product-enq2"
+              className="mt-1"
+              onChange={() => handleAddManualy()}
+            />
+            <label
+              htmlFor="product-enq2"
+              className="ml-2 Varcolor font-weight-bold"
+            >
+              Add Manualy?
+            </label>
+          </div>
         </div>
-        <div className="d-flex align-items-start">
-          <input
-            type="radio"
-            name="radio-book"
-            id="product-enq2"
-            className="mt-1"
-            onChange={() => handleAddManualy()}
-          />
-          <label
-            htmlFor="product-enq2"
-            className="ml-2 Varcolor font-weight-bold"
+        <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
+          <button
+            className="contact-btn w-auto"
+            onClick={() => setShowSendMessage(true)}
           >
-            Add Manualy?
-          </label>
+            Send message
+          </button>
+          <button
+            className="contact-btn w-auto"
+            onClick={() =>
+              AddressBookRadio ? setShowContact(true) : openContactPicker()
+            }
+          >
+            <FontAwesomeIcon
+              className="text-white font-weight-bold cursor-pointer mr-2"
+              icon={faPlus}
+              width={12}
+            />
+            Add Contact
+          </button>
         </div>
-      </div>
-      <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
-        <button
-          className="contact-btn w-auto"
-          onClick={() => setShowSendMessage(true)}
-        >
-          Send message
-        </button>
-        <button
-          className="contact-btn w-auto"
-          onClick={() =>
-            AddressBookRadio ? setShowContact(true) : openContactPicker()
-          }
-        >
-          <FontAwesomeIcon
-            className="text-white font-weight-bold cursor-pointer mr-2"
-            icon={faPlus}
-            width={12}
+        <div className="box-shadow-leads pt-2">
+          <DataTable
+            columns={column}
+            data={DataTables}
+            pagination
+            fixedHeader
+            fixedHeaderScrollHeight="440px"
+            selectableRows
+            selectableRowsHighlight
+            highlightOnHover
+            subHeader
+            subHeaderComponent={
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-auto form-control mb-2"
+              />
+            }
+            subHeaderAlign="left"
           />
-          Add Contact
-        </button>
-      </div>
-      <div className="box-shadow-leads pt-2">
-        <table className="insight-table">
-          <thead>
-            <tr>
-              <th className="d-flex align-items-center">
-                <input type="checkbox" className="mr-2" />
-              </th>
-              <th>Name</th>
-              <th>Contact</th>
-              <th>Notification</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Blocked</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Blocked</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">9874561323</td>
-              <td data-column="name">Allowed</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        </div>
       </div>
     </>
   );

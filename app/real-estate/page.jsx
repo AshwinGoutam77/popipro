@@ -10,13 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/about.css";
 import "../../styles/edit.css";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DataTable from "react-data-table-component";
 
 export default function Page() {
   const [showContact, setShowContact] = useState(false);
@@ -25,27 +26,123 @@ export default function Page() {
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [show, setShow] = useState(false);
+  const [DataTables, setDataTables] = useState([]);
 
-  const handleDeleteNumber = async () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this group!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", "", "success");
-      }
-    });
+  const getDataTable = async () => {
+    setDataTables([
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+      {
+        Name: "Tester",
+        Date: "23 / 11 / 2023",
+        Message:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        Number: "9874563210",
+      },
+    ]);
   };
-  function pad(n, width, z) {
-    z = z || "0";
-    n = n + "";
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-  }
+
+  const column = [
+    {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+    {
+      name: "Date",
+      selector: (row) => row.Date,
+    },
+    {
+      name: "Contact No.",
+      selector: (row) => row.Number,
+    },
+    {
+      name: "Message",
+      selector: (row) => row.Message,
+    },
+    {
+      name: "",
+      selector: (row) => (
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          onClick={() => setShow(true)}
+          className="cursor-pointer"
+        />
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    getDataTable();
+  }, []);
+
   const handleSearchData = async () => {};
   return (
     <>
@@ -252,7 +349,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
+          <div className="mt-4 d-flex align-items-center justify-content-between mx-4 mb-3">
             <button
               className="contact-btn w-auto"
               onClick={() => setShowSendMessage(true)}
@@ -261,7 +358,7 @@ export default function Page() {
             </button>
           </div>
           <div className="box-shadow-leads pt-2">
-            <table className="insight-table">
+            {/* <table className="insight-table">
               <thead>
                 <tr>
                   <th className="d-flex align-items-center">
@@ -383,7 +480,26 @@ export default function Page() {
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
+            <DataTable
+              columns={column}
+              data={DataTables}
+              pagination
+              fixedHeader
+              fixedHeaderScrollHeight="440px"
+              selectableRows
+              selectableRowsHighlight
+              highlightOnHover
+              subHeader
+              subHeaderComponent={
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-auto form-control mb-2"
+                />
+              }
+              subHeaderAlign="left"
+            />
           </div>
         </div>
       </div>
