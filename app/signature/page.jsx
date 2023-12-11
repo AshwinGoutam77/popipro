@@ -38,7 +38,6 @@ export default function Signature() {
       });
     }
   };
-
   return (
     <>
       <ToastContainer
@@ -132,7 +131,7 @@ export default function Signature() {
                     <a href="https://konghq.com/" data-external="true">
                       <img
                         width="100%"
-                        className="border-0 pt-3 signature-img"
+                        className="border-0 pt-3"
                         src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
                       />
                     </a>
@@ -881,12 +880,7 @@ export default function Signature() {
                 </tr> */}
               </tbody>
             </table>
-            <button
-              className="contact-btn w-auto"
-              onClick={() => copyToClipboard(signatureRef3)}
-            >
-              Copy Email Signature
-            </button>
+            <button className="contact-btn w-auto"  onClick={() => copyToClipboard(signatureRef3)}>Copy Email Signature</button>
           </div>
         </div>
 
@@ -923,10 +917,13 @@ export default function Signature() {
                     width="120"
                     style={{ verticalAlign: "top", padding: "0 16px" }}
                   >
-                    <img
-                      className="border-0 pt-3 signature-img"
-                      src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
-                    />
+                    <a href="https://konghq.com/" data-external="true">
+                      <img
+                        width="100%"
+                        className="border-0 pt-3"
+                        src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                      />
+                    </a>
                   </td>
                   <td
                     style={{ borderLeft: "1px solid #d4d4d4" }}
@@ -1008,6 +1005,7 @@ export default function Signature() {
                     <a
                       href="https://front.popipro.com/prafull-gupta"
                       data-external="true"
+                      // style="text-decoration:none;color: #FF8000;"
                       style={{ textDecoration: "none", color: "#FF8000" }}
                     >
                       <img
@@ -1022,6 +1020,31 @@ export default function Signature() {
                     </a>
                   </td>
                 </tr>
+                {/* <tr>
+                  <td
+                    colSpan={3}
+                    style={{
+                      paddingTop: 14,
+                      textAlign: "justify",
+                      fontSize: "10pt",
+                      color: "#929292",
+                      maxWidth: 370,
+                    }}
+                  >
+                    We are a digital transformation consulting and software
+                    development company that provides cutting edge engineering
+                    solutions. Our team is composed of passionate engineers who
+                    think and act as an extension to our customer’s product
+                    development teams. At Devwings, we aren’t afraid to get
+                    creative when it comes to finding a flexible business model
+                    or roll up our sleeves when it comes to debugging that
+                    important new product being readied for the production line.
+                    we aren’t afraid to get creative when it comes to finding a
+                    flexible business model or roll up our sleeves when it comes
+                    to debugging that important new product being readied for
+                    the production line.
+                  </td>
+                </tr> */}
               </tbody>
             </table>
 

@@ -654,7 +654,7 @@ export default function EditRealEstate() {
                 slidesPerView={1}
                 spaceBetween={10}
                 style={{ cursor: "pointer" }}
-                className="mySwiper"
+                className="mySwiper pb-0"
                 autoplay={{
                   delay: 2500,
                   disableOnInteraction: false,
