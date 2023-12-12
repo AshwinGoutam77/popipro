@@ -615,12 +615,6 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div>
-              </>
-            ) : (
-              ""
-            )}
-            {process.env.NEXT_PUBLIC_MODE === "development" ? (
-              <>
                 {/* Background */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link href="/background" className="w-100">
@@ -636,6 +630,12 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div>
+              </>
+            ) : (
+              ""
+            )}
+            {process.env.NEXT_PUBLIC_MODE === "development" ? (
+              <>
                 {/* Mega Title */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <div
@@ -649,7 +649,7 @@ export default function Dashboard() {
                       className="text-white mb-2"
                       style={{ fontSize: "20px" }}
                     />
-                    <h6 className="text-white text-center mb-0">Mega Tags</h6>
+                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
                   </div>
                 </div>
               </>
