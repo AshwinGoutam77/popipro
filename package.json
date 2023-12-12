@@ -25,6 +25,7 @@
     "bootstrap-next": "^1.0.5",
     "chart.js": "^4.4.0",
     "datatables.net": "^1.13.8",
+    "file-saver": "^2.0.5",
     "firebase": "^10.7.1",
     "formBuilder": "^3.16.12",
     "jquery": "^3.7.1",

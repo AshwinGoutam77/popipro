@@ -24,6 +24,7 @@ import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
 import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
+import { saveAs } from "file-saver";
 
 const Header = ({
   profile,
@@ -460,6 +461,18 @@ const Header = ({
     };
   };
 
+  const downloadImage = () => {
+    saveAs(imageSrc, "image.jpg"); // Put your image URL here.
+  };
+  const DownloadProfile = () => {
+    saveAs(
+      `https://chart.googleapis.com/chart?cht=qr&chl=${
+        "app.popipro.com/" + profile
+      }&chs=160x160&chld=L|0`,
+      "image.jpg"
+    ); // Put your image URL here.
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -702,18 +715,8 @@ const Header = ({
               className="qr-img"
               alt="we"
             />
-            <a
-              href={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A"
-              }
-              target="_blank"
-              download={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A"
-              }
+            <button
+              onClick={downloadImage}
               className="contact-btn w-auto mt-4 scanner-a"
             >
               <FontAwesomeIcon
@@ -726,7 +729,7 @@ const Header = ({
                 }}
               />
               Download Qr
-            </a>
+            </button>
           </div>
           <p className="text-center mb-3 underline-or my-4">
             <span>OR</span>
@@ -735,18 +738,16 @@ const Header = ({
             Share your profile via Qr
           </h5>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <QRCode
-              value={"app.popipro.com/" + profile}
-              renderAs="svg"
-              style={{
-                width: "250px",
-                height: "250px",
-              }}
+            <img
+              src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                "app.popipro.com/" + profile
+              }&chs=160x160&chld=L|0`}
+              className="qr-img"
+              alt="we"
+              style={{ width: "250px", height: "250px" }}
             />
-            <a
-              href={"app.popipro.com/" + profile}
-              target="_blank"
-              download={"https://app.popipro.com/" + profile}
+            <button
+              onClick={DownloadProfile}
               className="contact-btn w-auto mt-4 scanner-a"
             >
               <FontAwesomeIcon
@@ -759,7 +760,7 @@ const Header = ({
                 }}
               />
               Download Qr
-            </a>
+            </button>
           </div>
         </Modal.Body>
       </Modal>
