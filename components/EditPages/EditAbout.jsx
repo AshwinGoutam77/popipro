@@ -199,7 +199,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               role: "user",
               content:
                 Description +
-                " rewrite this sentence and give five suggestions.",
+                "rewrite this sentence and give five suggestions.",
             },
           ],
         },
@@ -211,8 +211,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       );
       const suggestedText = response.data.choices[0].message.content;
       const suggestionList = suggestedText.split("\n");
-      const suggestionData = suggestionList.replace(/[0-9]./g, "");
-      setSuggestions(suggestionData);
+      // setSuggestions(response.data.choices[0].message.content);
+      setSuggestions(suggestionList);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -247,13 +247,12 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(InputState);
+    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
 
   return (
     <>
-      {/* ChatAPi Modal */}
       <Modal
         show={showChatModal}
         onHide={() => handleCloseshowChatModal()}
@@ -310,6 +309,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
           </div>
         </Modal.Body>
       </Modal>
+
       {TitleData?.card_description?.source !== 0 ? (
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">

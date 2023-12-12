@@ -26,7 +26,7 @@ export default function SendMessage({ active, handleClose }) {
         </Modal.Header>
         <Modal.Body className="py-3 px-4">
           <div>
-            <div className="color-black mb-2 group-listing-section">
+            {/* <div className="color-black mb-2 group-listing-section">
               <h5 className="color-black mb-3">Contact Groups</h5>
               <div className="d-flex align-items-center justify-content-between mb-2">
                 <p className="font-weight-bold">1. Doctors</p>
@@ -48,7 +48,7 @@ export default function SendMessage({ active, handleClose }) {
                 <p className="font-weight-bold">5. Electrician</p>
                 <input type="checkbox" />
               </div>
-            </div>
+            </div> */}
             <textarea
               type="password"
               name="number"
@@ -60,7 +60,7 @@ export default function SendMessage({ active, handleClose }) {
               required
             />
             <button className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4">
-              Send Message
+              Send Notification
             </button>
             {/* </form> */}
           </div>

@@ -241,12 +241,23 @@ const Banner = ({
   }, []);
 
   return Loader == false ? (
-    <h5
-      className="d-flex align-items-center justify-content-center text-center"
-      style={{ height: "100vh" }}
-    >
-      Loading...
-    </h5>
+    <>
+      <h5
+        className="d-flex align-items-center justify-content-center text-center"
+        style={{
+          height: "100vh",
+          position: "fixed",
+          top: "0px",
+          left: "0px",
+          bottom: "0px",
+          right: "0px",
+          zIndex: "99999",
+          background: "white",
+        }}
+      >
+        Loading...
+      </h5>
+    </>
   ) : (
     <>
       {permission[0]?.visible_field === "logo" ||

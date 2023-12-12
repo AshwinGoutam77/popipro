@@ -648,20 +648,26 @@ export default function EditDoing({
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
