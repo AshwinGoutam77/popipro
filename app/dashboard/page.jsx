@@ -552,36 +552,6 @@ export default function Dashboard() {
             {Data.id === "S7ZG" &&
             process.env.NEXT_PUBLIC_MODE === "development" ? (
               <>
-                {/* Signature */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/signature" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faEnvelope}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Email Signature
-                      </h6>
-                    </div>
-                  </Link>
-                </div>
-                {/* Background */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/background" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faImage}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Virtual Background
-                      </h6>
-                    </div>
-                  </Link>
-                </div>
                 {/* Address Book */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link href="/address-book" className="w-100">
@@ -626,6 +596,42 @@ export default function Dashboard() {
                       />
                       <h6 className="text-white text-center mb-0">
                         Real Estate
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+                {/* Signature */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/signature" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Email Signature
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+            {process.env.NEXT_PUBLIC_MODE === "development" ? (
+              <>
+                {/* Background */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link href="/background" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faImage}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Virtual Background
                       </h6>
                     </div>
                   </Link>
@@ -920,8 +926,7 @@ export default function Dashboard() {
                 </span>
               </Link>
             </div>
-            {Data.id === "S7ZG" &&
-            process.env.NEXT_PUBLIC_MODE === "development" ? (
+            {process.env.NEXT_PUBLIC_MODE === "development" ? (
               <>
                 {/* Google Analytics */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">

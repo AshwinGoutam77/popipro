@@ -164,6 +164,10 @@ export default function Page() {
       selector: (row) => row.Contact,
     },
     {
+      name: "Notifications",
+      selector: (row) => "Allow",
+    },
+    {
       name: "",
       selector: (row) => (
         <FontAwesomeIcon icon={faTrash} className="cursor-pointer" />

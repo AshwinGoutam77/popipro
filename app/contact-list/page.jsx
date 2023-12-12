@@ -166,6 +166,10 @@ export default function Page() {
       selector: (row) => row.Contact,
     },
     {
+      name: "Notifications",
+      selector: (row) => 'Allow'
+    },
+    {
       name: "",
       selector: (row) => (
         <FontAwesomeIcon icon={faTrash} className="cursor-pointer" />
@@ -225,7 +229,7 @@ export default function Page() {
     setAddressBookRadio(false);
     setAddBook(true);
   };
-  const customProps = { id: 'my-table-id' };
+  const customProps = { id: "my-table-id" };
   return (
     <>
       <Modal show={showContact} onHide={() => setShowContact(false)} centered>
