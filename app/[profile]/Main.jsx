@@ -22,7 +22,6 @@ import { ToastContainer } from "react-toastify";
 import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
-import FacebookProfileEmbed from "@components/ViewPages/FacebookProfileEmbed";
 
 export default async function Main({ profile, data, id, referer }) {
   let card = data?.data?.card || {};
@@ -168,7 +167,6 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-                    <FacebookProfileEmbed />
                     <ContactForm
                       card_url={profile}
                       Titles={titles}

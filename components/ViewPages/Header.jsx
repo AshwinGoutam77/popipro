@@ -462,7 +462,7 @@ const Header = ({
   };
 
   const downloadImage = () => {
-    saveAs(imageSrc, "image.jpg"); // Put your image URL here.
+    saveAs(imageSrc, "image.jpg");
   };
   const DownloadProfile = () => {
     saveAs(
@@ -470,7 +470,7 @@ const Header = ({
         "app.popipro.com/" + profile
       }&chs=160x160&chld=L|0`,
       "image.jpg"
-    ); // Put your image URL here.
+    );
   };
 
   return (
