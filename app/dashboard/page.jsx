@@ -5,6 +5,7 @@ import {
   faCalendarCheck,
   faCartShopping,
   faChartSimple,
+  faCode,
   faEnvelope,
   faGear,
   faHomeAlt,
@@ -19,6 +20,7 @@ import {
   faSignal,
   faSliders,
   faStar,
+  faTag,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,6 +42,7 @@ import Suggestions from "@components/Dashboard/Suggestions";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import SendMessage from "@components/Dashboard/SendMessage";
+import MetaTags from "@components/Dashboard/MetaTags";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -627,6 +630,22 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div>
+                {/* Mega Title */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      setModalShow("metatags");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faCode}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Mega Tags</h6>
+                  </div>
+                </div>
               </>
             ) : (
               ""
@@ -1040,6 +1059,11 @@ export default function Dashboard() {
       <SendMessage
         active={modalShow == "sendMessage" ? true : false}
         handleClose={setModalShow}
+      />
+      <MetaTags
+        active={modalShow == "metatags" ? true : false}
+        handleClose={setModalShow}
+        Data={Data}
       />
     </>
   ) : (

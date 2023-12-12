@@ -54,8 +54,11 @@ const Services = ({ Titles, card, subscription }) => {
                               <Image
                                 className="case-item__icon"
                                 src={
-                                  "https://admin.popipro.com/" +
-                                  item.image.path
+                                  process.env.NEXT_PUBLIC_MODE == "development"
+                                    ? "https://dev.popipro.com/" +
+                                      item.image.path
+                                    : "https://admin.popipro.com/" +
+                                      item.image.path
                                 }
                                 alt="photos"
                                 width={0}

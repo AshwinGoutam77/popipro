@@ -178,8 +178,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   };
 
   // chatapi code
-
-  const [text, setText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
   const apiKey = "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";

@@ -792,8 +792,11 @@ export default function Product({
                               <Image
                                 className="case-item__icon-products"
                                 src={
-                                  "https://admin.popipro.com/" +
-                                  items.image.path
+                                  process.env.NEXT_PUBLIC_MODE == "development"
+                                    ? "https://dev.popipro.com/" +
+                                      items.image.path
+                                    : "https://admin.popipro.com/" +
+                                      items.image.path
                                 }
                                 alt="products"
                                 width={0}

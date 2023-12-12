@@ -644,7 +644,14 @@ function EditHeader({
                 className="header__photo-img"
                 value={Data && Data.profile_picture.path}
                 src={
-                  Data?.profile_picture?.path
+                  process.env.NEXT_PUBLIC_MODE == "development"
+                    ? Data?.profile_picture?.path
+                      ? "https://dev.popipro.com/" +
+                        Data?.profile_picture?.path +
+                        "?ver=" +
+                        time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : Data?.profile_picture?.path
                     ? "https://admin.popipro.com/" +
                       Data?.profile_picture?.path +
                       "?ver=" +

@@ -46,3 +46,4 @@ export const Appointmentbtns = {
 };
 export const HitSuggestion = { path: "hit-suggestion", method: "POST" };
 export const GoogleAnalytics = { path: "get-google-analytics", method: "GET" };
+export const UpdateMetaTags = { path: "update-meta-tags", method: "POST" };

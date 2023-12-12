@@ -740,14 +740,14 @@ const Header = ({
               value={"app.popipro.com/" + profile}
               renderAs="svg"
               style={{
-                width: "30vmin",
-                height: "30vmin",
+                width: "250px",
+                height: "250px",
               }}
             />
             <a
               href={"app.popipro.com/" + profile}
               target="_blank"
-              download={"app.popipro.com/" + profile}
+              download={"https://app.popipro.com/" + profile}
               className="contact-btn w-auto mt-4 scanner-a"
             >
               <FontAwesomeIcon
@@ -830,7 +830,14 @@ const Header = ({
               className="header__photo-img"
               value={"image"}
               src={
-                card?.profile_picture?.path
+                process.env.NEXT_PUBLIC_MODE == "development"
+                  ? card?.profile_picture?.path
+                    ? "https://dev.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                  : card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
                     card?.profile_picture?.path +
                     "?ver=" +

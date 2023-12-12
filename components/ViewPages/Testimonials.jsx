@@ -251,7 +251,11 @@ const Testimonials = ({
                             <Image
                               className="case-item__icon"
                               src={
-                                "https://admin.popipro.com/" + items.image.path
+                                process.env.NEXT_PUBLIC_MODE == "development"
+                                  ? "https://dev.popipro.com/" +
+                                    items.image.path
+                                  : "https://admin.popipro.com/" +
+                                    items.image.path
                               }
                               alt="photos"
                               width={0}
