@@ -598,15 +598,19 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
               </div>
             )}
 
-            <div className="mt-3 mx-3 d-flex align-items-center">
-              <input type="checkbox" name="insta" />
-              <label
-                className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
-                name="insta"
-              >
-                Would you like to display the Instagram feeds as well?
-              </label>
-            </div>
+            {process.env.NEXT_PUBLIC_MODE === "development" ? (
+              <div className="mt-3 mx-3 d-flex align-items-center">
+                <input type="checkbox" id="insta" />
+                <label
+                  className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
+                  htmlFor="insta"
+                >
+                  Would you like to display the Instagram feeds as well?
+                </label>
+              </div>
+            ) : (
+              ""
+            )}
           </>
         </div>
       ) : (

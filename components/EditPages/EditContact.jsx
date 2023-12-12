@@ -294,7 +294,7 @@ export default function EditContact({
                   checked={AppForm ? true : false}
                 />
                 <label
-                  for="product-whatsaap3"
+                  htmlFor="product-whatsaap3"
                   className="ml-2 Varcolor font-weight-bold"
                 >
                   Via Appointemnt Form?
