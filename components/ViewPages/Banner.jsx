@@ -465,7 +465,7 @@ const Banner = ({
                 }}
               >
                 <img
-                  src="../../assets/img/trustpilot.png"
+                  src="./static/img/trustpilot.png"
                   style={{
                     width: "30px",
                     height: "30px",

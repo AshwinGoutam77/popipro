@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { Appointmentbtns, CardData } from "@services/Routes";
+import { Appointmentbtns, CardData, ChangeAppointment } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import { Modal } from "react-bootstrap";
@@ -27,6 +27,7 @@ export default function EditContact({
   const [Appointment, setAppointment] = useState("");
   const [Show, setShow] = useState(false);
   const [AppForm, setAppForm] = useState(true);
+  const [CalendlyUrl, setCalendlyUrl] = useState("");
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -34,6 +35,7 @@ export default function EditContact({
 
   useEffect(() => {
     setAppointment(TitleData?.card_booking?.visible_name);
+    console.log(MainData);
   }, []);
 
   const handleActive = async () => {
@@ -157,6 +159,26 @@ export default function EditContact({
     setAppForm(true);
   };
 
+  const handleCalendly = async () => {
+    const res = await Api(ChangeAppointment, {
+      method: "calendly",
+      url: CalendlyUrl,
+    });
+    if (res.status) {
+      setShow(false);
+      setCalendlyUrl("");
+      APIDATA();
+    }
+  };
+  const handleForm = async () => {
+    const res = await Api(ChangeAppointment, {
+      method: "form",
+    });
+    if (res.status) {
+      APIDATA();
+    }
+  };
+
   return (
     <>
       <Modal show={Show} onHide={() => handleClose("")} centered>
@@ -184,10 +206,20 @@ export default function EditContact({
           <input
             type="url"
             className="form-control mt-2"
+            value={CalendlyUrl}
+            onChange={(e) => setCalendlyUrl(e.target.value)}
             style={{ height: "40px", border: "1px solid #ccc" }}
           />
           <div>
-            <button className="contact-btn w-auto">Save</button>
+            <button className="contact-btn w-auto" onClick={handleCalendly}>
+              Save Changes
+            </button>
+            <button
+              className="contact-btn w-auto ml-2"
+              onClick={() => setShow(false)}
+            >
+              Cancel Changes
+            </button>
           </div>
         </Modal.Body>
       </Modal>
@@ -273,25 +305,27 @@ export default function EditContact({
               <h6 className="font-weight-bold">
                 How you want to recive appointment:
               </h6>
-              <div className="d-flex align-items-start">
+              <div
+                className="d-flex align-items-start"
+                onClick={() => handleForm()}
+              >
                 <input
                   type="radio"
-                  id="product-whatsaap3"
+                  id="product-enq3"
                   className="mt-1"
                   name="real-estate-radio"
-                  // value={
-                  //   MainData?.company_setting?.show_product_wp_button === 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("wp")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_wp_button == 0
-                  //     ? true
-                  //     : false
-                  // }
-                  value={AppForm}
-                  checked={AppForm ? true : false}
+                  value={
+                    MainData?.company_setting?.appointment_enquiry_method ===
+                    "form"
+                      ? true
+                      : false
+                  }
+                  checked={
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "form"
+                      ? true
+                      : false
+                  }
                 />
                 <label
                   htmlFor="product-whatsaap3"
@@ -309,17 +343,21 @@ export default function EditContact({
                   id="product-enq3"
                   className="mt-1"
                   name="real-estate-radio"
-                  // value={
-                  //   MainData?.company_setting?.show_product_enquiry_button === 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("enq")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_enquiry_button == 0
-                  //     ? true
-                  //     : false
-                  // }
+                  value={
+                    MainData?.company_setting?.appointment_enquiry_method ===
+                    "calendly"
+                      ? true
+                      : false
+                  }
+                  // onChange={() => handleProductsbtn("wp")}
+                  checked={
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "calendly"
+                      ? true
+                      : false
+                  }
+                  // value={AppForm}
+                  // checked={AppForm ? true : false}
                   onChange={() => setAppForm(false)}
                 />
                 <label
@@ -334,7 +372,9 @@ export default function EditContact({
             ""
           )}
           <div className="row align-items-center justify-content-center mb-3"></div>
-          {Show ? (
+          {Show ||
+          MainData?.company_setting?.appointment_enquiry_method ==
+            "calendly" ? (
             ""
           ) : (
             <div className="row">

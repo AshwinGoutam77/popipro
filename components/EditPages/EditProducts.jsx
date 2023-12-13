@@ -93,8 +93,6 @@ export default function EditProducts({
   const aRef = useRef(null);
 
   const handleSaveBlogDetail = async (id = null) => {
-    console.log(ProductPrice.length);
-    // return
     setShowLoader(true);
     let data = [];
     let error = false;
@@ -113,6 +111,8 @@ export default function EditProducts({
               products_price: ProductPrice,
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
+              is_label: PriceRadio ? 0 : 1,
+              label: ProductPrice,
               saved_products: id,
             },
           ])
@@ -126,6 +126,7 @@ export default function EditProducts({
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
+              label: ProductPrice,
             },
           ]);
     }
@@ -266,13 +267,22 @@ export default function EditProducts({
       }
     });
   };
-  const handleSetId = (id, name, description, price, url, currency, label) => {
-    console.log(url);
+  const handleSetId = (
+    id,
+    name,
+    description,
+    price,
+    url,
+    currency,
+    label,
+    item_label
+  ) => {
+    console.log(price);
     handleEditShow();
     setProductModalId(id);
     setServicesName(name);
     setServicesDescription(description);
-    setProductPrice(price);
+    setProductPrice(price == null ? item_label : price);
     setProductUrl(url);
     setProductPriceValue(currency);
     setAddLabel(label);
@@ -1356,12 +1366,20 @@ export default function EditProducts({
                                 }}
                               ></p>
                               <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
-                                {items.price !== 0 && items.price !== "" ? (
+                                {items.label ? (
                                   <span className="product-price">
-                                    {items.currency} {items.price}
+                                    {items.label}
                                   </span>
                                 ) : (
-                                  ""
+                                  <div>
+                                    {items.price !== 0 && items.price !== "" ? (
+                                      <span className="product-price">
+                                        {items.currency} {items.price}
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </div>
                                 )}
                                 {items?.description?.length <= "0" ? (
                                   <div
@@ -1466,7 +1484,8 @@ export default function EditProducts({
                                     items.price,
                                     items.url,
                                     items.currency,
-                                    items.button_placeholder
+                                    items.button_placeholder,
+                                    items.label
                                   )
                                 }
                               >

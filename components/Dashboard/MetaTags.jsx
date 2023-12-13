@@ -49,7 +49,10 @@ export default function MetaTags({ active, handleClose, Data }) {
             },
             {
               role: "user",
-              content: "Write description as " + Data.card_profession,
+              content:
+                "Write meta description as " +
+                Data.card_profession +
+                "in 155 characters and give 5 suggestion",
             },
           ],
         },
@@ -132,7 +135,9 @@ export default function MetaTags({ active, handleClose, Data }) {
                       <input
                         type="radio"
                         name="suggestion"
-                        className="mr-2"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
                         value={suggestion}
                         onChange={(e) => setInputState(e.target.value)}
                       />

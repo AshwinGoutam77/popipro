@@ -4,6 +4,7 @@ import InstagramProfileEmbed from "./InstagramProfileEmbed";
 
 export default function EmbedPost({ card, Titles, PlanData }) {
   const [Card_videos, setCard_videos] = useState("");
+  console.log(card);
 
   useEffect(() => {
     setCard_videos(card?.card_videos);

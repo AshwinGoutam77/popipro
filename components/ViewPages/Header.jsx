@@ -33,6 +33,7 @@ const Header = ({
   Titles,
   CardLinks,
   PlanData,
+  MainData,
 }) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [show, setShow] = useState(false);
@@ -50,13 +51,14 @@ const Header = ({
   const [modalShow, setModalShow] = useState("");
   const [modalShowUiModal, setModalShowUiModal] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
-
   const [Imagee, setImage] = useState("");
   const [ReviewName, setReviewName] = useState("");
   const [ReviewSubTitle, setReviewSubTitle] = useState("");
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
   const [imageSrc, setImageSrc] = useState();
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const [showQr, setShowQr] = useState(false);
   const handleCloseQr = () => setShowQr(false);
@@ -205,6 +207,8 @@ const Header = ({
       email: Email,
       message: Message,
       card_url: profile,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     try {
       setShowLoader(true);
@@ -472,6 +476,21 @@ const Header = ({
       "image.jpg"
     );
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    // console.log(
+    //   "Latitude: " + position.coords.latitude,
+    //   "Longitude: " + position.coords.longitude
+    // );
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
 
   return (
     <>
@@ -583,9 +602,14 @@ const Header = ({
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
               <button
+                className="contact-btn mt-0 w-auto mr-2"
+                onClick={handleAllowNotif}
+              >
+                Allow Notification
+              </button>
+              <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                // style={{ padding: "10px 60px" }}
                 onClick={handleSaveData}
               >
                 Share Contact
@@ -784,7 +808,7 @@ const Header = ({
         <Modal.Body>
           <div
             className="calendly-inline-widget"
-            data-url="https://calendly.com/devdevgoutam/test"
+            data-url={MainData?.company_setting?.appointment_calendly_url}
             style={{ height: "101vh" }}
           ></div>
         </Modal.Body>
@@ -903,8 +927,14 @@ const Header = ({
                     backgroundColor: "var(--themecolor)",
                     color: "black",
                   }}
-                  onClick={handleAppointment}
+                  // onClick={handleAppointment}
                   // onClick={handleShowCalendly}
+                  onClick={
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "form"
+                      ? handleAppointment
+                      : handleShowCalendly
+                  }
                 >
                   Appointment
                 </button>

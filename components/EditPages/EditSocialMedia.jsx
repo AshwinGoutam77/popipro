@@ -13,10 +13,23 @@ import {
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import Api from "@services/Api";
-import { CardData, deleteSection, socialMedia } from "@services/Routes";
+import {
+  CardData,
+  ToogleInstaFeed,
+  deleteSection,
+  socialMedia,
+} from "@services/Routes";
 import Modal from "react-bootstrap/Modal";
 
-function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
+function EditLinks({
+  Data,
+  APIDATA,
+  TitleData,
+  PlanData,
+  CardLinks,
+  MainData,
+}) {
+  console.log(MainData);
   const [AddLinks, setAddLinks] = useState("");
   const [Links, setLinks] = useState(false);
   const [LinkFeild, setLinkFeild] = useState([]);
@@ -222,6 +235,12 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
     setModalId(id);
     setSelectOption(socail_id);
     setSocialType(type);
+  };
+  const handleToogleFeed = async () => {
+    const res = await Api(ToogleInstaFeed, {});
+    if (res.status) {
+      APIDATA();
+    }
   };
 
   return (
@@ -598,19 +617,29 @@ function EditLinks({ Data, setData, APIDATA, TitleData, PlanData, CardLinks }) {
               </div>
             )}
 
-            {process.env.NEXT_PUBLIC_MODE === "development" ? (
-              <div className="mt-3 mx-3 d-flex align-items-center">
-                <input type="checkbox" id="insta" />
-                <label
-                  className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
-                  htmlFor="insta"
-                >
-                  Would you like to display the Instagram feeds as well?
-                </label>
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="mt-3 mx-3 d-flex align-items-center">
+              <input
+                type="checkbox"
+                id="insta"
+                value={
+                  MainData?.company_setting?.show_insta_feed !== 0
+                    ? true
+                    : false
+                }
+                checked={
+                  MainData?.company_setting?.show_insta_feed !== 0
+                    ? true
+                    : false
+                }
+                onChange={() => handleToogleFeed()}
+              />
+              <label
+                className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
+                htmlFor="insta"
+              >
+                Would you like to display the Instagram feeds as well?
+              </label>
+            </div>
           </>
         </div>
       ) : (
