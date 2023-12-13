@@ -416,7 +416,7 @@ function EditHeader({
                 <div className="d-flex" style={{ gap: "16px" }}>
                   <input
                     type="number"
-                    placeholder="Country COde"
+                    placeholder="Country Code"
                     onChange={(e) => setCountryCode(e.target.value)}
                     defaultValue={CountryCode}
                     className="email-input"
@@ -460,7 +460,7 @@ function EditHeader({
             {TitleData?.card_contact?.source == "2" ? (
               <>
                 <span className="overhead">
-                  Whatsaap Number{" "}
+                  whatsapp Number{" "}
                   <span style={{ color: "var(--color)", fontWeight: "normal" }}>
                     (*Please enter number with country code and without any
                     spaces)
@@ -468,7 +468,7 @@ function EditHeader({
                 </span>
                 <input
                   type="number"
-                  placeholder="Whatsaap number"
+                  placeholder="Whatsapp number"
                   onChange={(e) => setWhatsaapNumber(e.target.value)}
                   defaultValue={WhatsaapNumber || ""}
                   className="email-input"
@@ -476,10 +476,10 @@ function EditHeader({
               </>
             ) : (
               <>
-                <span className="overhead">Whatsaap Number</span>
+                <span className="overhead">Whatsapp Number</span>
                 <input
                   type="text"
-                  placeholder="Whatsaap Number"
+                  placeholder="Whatsapp Number"
                   onChange={(e) => setWhatsaapNumber(e.target.value)}
                   defaultValue={WhatsaapNumber || ""}
                   className="email-input"
