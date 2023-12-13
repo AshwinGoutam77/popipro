@@ -634,28 +634,23 @@ export default function Dashboard() {
             ) : (
               ""
             )}
-            {process.env.NEXT_PUBLIC_MODE === "development" ? (
-              <>
-                {/* Mega Title */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      setModalShow("metatags");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faCode}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
-                  </div>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
+
+            {/* Mega Title */}
+            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+              <div
+                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                onClick={() => {
+                  setModalShow("metatags");
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faCode}
+                  className="text-white mb-2"
+                  style={{ fontSize: "20px" }}
+                />
+                <h6 className="text-white text-center mb-0">Meta Tags</h6>
+              </div>
+            </div>
           </div>
 
           {/* Analytics & Data */}
@@ -926,27 +921,21 @@ export default function Dashboard() {
                 </span>
               </Link>
             </div>
-            {process.env.NEXT_PUBLIC_MODE === "development" ? (
-              <>
-                {/* Google Analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/google-analytics" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faMagnifyingGlassChart}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Google Analytics
-                      </h6>
-                    </div>
-                  </Link>
+            {/* Google Analytics */}
+            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+              <Link href="/google-analytics" className="w-100">
+                <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlassChart}
+                    className="text-white mb-2"
+                    style={{ fontSize: "20px" }}
+                  />
+                  <h6 className="text-white text-center mb-0">
+                    Google Analytics
+                  </h6>
                 </div>
-              </>
-            ) : (
-              ""
-            )}
+              </Link>
+            </div>
           </div>
         </div>
         <div className="mt-0 pb-4 w-100 bg-white">

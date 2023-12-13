@@ -299,78 +299,75 @@ export default function EditContact({
               )}
             </div>
           </div>
-          {Data.id === "S7ZG" &&
-          process.env.NEXT_PUBLIC_MODE === "development" ? (
-            <div className="">
-              <h6 className="font-weight-bold">
-                How you want to recive appointment:
-              </h6>
-              <div
-                className="d-flex align-items-start"
-                onClick={() => handleForm()}
+
+          <div className="">
+            <h6 className="font-weight-bold">
+              How you want to recive appointment:
+            </h6>
+            <div
+              className="d-flex align-items-start"
+              onClick={() => handleForm()}
+            >
+              <input
+                type="radio"
+                id="product-enq3"
+                className="mt-1"
+                name="real-estate-radio"
+                value={
+                  MainData?.company_setting?.appointment_enquiry_method ===
+                  "form"
+                    ? true
+                    : false
+                }
+                checked={
+                  MainData?.company_setting?.appointment_enquiry_method ==
+                  "form"
+                    ? true
+                    : false
+                }
+              />
+              <label
+                htmlFor="product-whatsaap3"
+                className="ml-2 Varcolor font-weight-bold"
               >
-                <input
-                  type="radio"
-                  id="product-enq3"
-                  className="mt-1"
-                  name="real-estate-radio"
-                  value={
-                    MainData?.company_setting?.appointment_enquiry_method ===
-                    "form"
-                      ? true
-                      : false
-                  }
-                  checked={
-                    MainData?.company_setting?.appointment_enquiry_method ==
-                    "form"
-                      ? true
-                      : false
-                  }
-                />
-                <label
-                  htmlFor="product-whatsaap3"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Via Appointemnt Form?
-                </label>
-              </div>
-              <div
-                className="d-flex align-items-start"
-                onClick={() => setShow(true)}
-              >
-                <input
-                  type="radio"
-                  id="product-enq3"
-                  className="mt-1"
-                  name="real-estate-radio"
-                  value={
-                    MainData?.company_setting?.appointment_enquiry_method ===
-                    "calendly"
-                      ? true
-                      : false
-                  }
-                  // onChange={() => handleProductsbtn("wp")}
-                  checked={
-                    MainData?.company_setting?.appointment_enquiry_method ==
-                    "calendly"
-                      ? true
-                      : false
-                  }
-                  // value={AppForm}
-                  // checked={AppForm ? true : false}
-                  onChange={() => setAppForm(false)}
-                />
-                <label
-                  for="product-enq3"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Via Calendly?
-                </label>
-              </div>
+                Via Appointemnt Form?
+              </label>
             </div>
-          ) : (
-            ""
-          )}
+            <div
+              className="d-flex align-items-start"
+              onClick={() => setShow(true)}
+            >
+              <input
+                type="radio"
+                id="product-enq3"
+                className="mt-1"
+                name="real-estate-radio"
+                value={
+                  MainData?.company_setting?.appointment_enquiry_method ===
+                  "calendly"
+                    ? true
+                    : false
+                }
+                // onChange={() => handleProductsbtn("wp")}
+                checked={
+                  MainData?.company_setting?.appointment_enquiry_method ==
+                  "calendly"
+                    ? true
+                    : false
+                }
+                // value={AppForm}
+                // checked={AppForm ? true : false}
+                onChange={() => setAppForm(false)}
+              />
+              <label
+                for="product-enq3"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via Calendly?
+              </label>
+            </div>
+          </div>
+
           <div className="row align-items-center justify-content-center mb-3"></div>
           {Show ||
           MainData?.company_setting?.appointment_enquiry_method ==
