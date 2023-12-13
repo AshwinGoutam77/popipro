@@ -9,10 +9,7 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
     setCard_videos(card?.card_videos);
   }, []);
   const instagramProfileUrl = MainData?.company_setting?.insta_feed_url;
-  return Card_videos?.length !== 0 &&
-    Titles?.card_videos?.source !== 0 &&
-    Titles?.card_videos?.is_active !== 0 &&
-    PlanData?.is_expired == false ? (
+  return (
     <>
       <div className="mt-3 box-content boxxx">
         <>
@@ -33,7 +30,5 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
         </>
       </div>
     </>
-  ) : (
-    ""
   );
 }
