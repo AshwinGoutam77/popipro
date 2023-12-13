@@ -2,14 +2,13 @@
 import { useEffect, useState } from "react";
 import InstagramProfileEmbed from "./InstagramProfileEmbed";
 
-export default function EmbedPost({ card, Titles, PlanData }) {
+export default function EmbedPost({ card, Titles, PlanData ,MainData}) {
   const [Card_videos, setCard_videos] = useState("");
-  console.log(card);
 
   useEffect(() => {
     setCard_videos(card?.card_videos);
   }, []);
-  const instagramProfileUrl = "https://www.instagram.com/prafullgupta87/";
+  const instagramProfileUrl = MainData?.company_setting?.insta_feed_url;
   return Card_videos?.length !== 0 &&
     Titles?.card_videos?.source !== 0 &&
     Titles?.card_videos?.is_active !== 0 &&

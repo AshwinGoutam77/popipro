@@ -1,7 +1,7 @@
 "use client";
 import Api from "@services/Api";
 import { AppointmentBooking } from "@services/Routes";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -12,6 +12,8 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   const [Message, setMessage] = useState("");
   const [Date, setDate] = useState("");
   const [Time, setTime] = useState("");
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const handleAppointment = async () => {
     if (Name == "") {
@@ -60,6 +62,8 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
         message: Message,
         date: Date,
         time: Time,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(AppointmentBooking, data);
       if (response.data.status) {
@@ -93,6 +97,21 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       });
     }
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
   return (
     <>
       {Titles.card_booking?.is_active === 1 &&

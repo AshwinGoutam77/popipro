@@ -319,6 +319,8 @@ export default function TestimonialsLeads() {
                   <tr>
                     <th>Contact</th>
                     <th>Req. Date</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
@@ -351,6 +353,12 @@ export default function TestimonialsLeads() {
                             }}
                           >
                             {item.created_at}
+                          </td>
+                          <td data-column="created date">
+                            {item.latitude ? item.latitude : "----"}
+                          </td>
+                          <td data-column="created date">
+                            {item.longitude ? item.longitude : "----"}
                           </td>
                           <td
                             data-column="status"

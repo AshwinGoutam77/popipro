@@ -787,6 +787,9 @@ input.date-time-input::-webkit-date-and-time-value {
 .box-shadow-leads header{
   padding-left: 0px !important;
 }
+.box-shadow-leads{
+  overflow-x: auto;
+}
 
 .sc-dmlpXa::-webkit-scrollbar-track {
   background-color: #ebebeb;

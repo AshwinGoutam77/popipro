@@ -60,7 +60,6 @@ export default async function Main({ profile, data, id, referer }) {
               <div className="container gutter-top">
                 <Header
                   profile={profile}
-                  MainData={MainData}
                   card={card}
                   company_setting={company_setting}
                   Titles={titles}
@@ -153,7 +152,8 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-                    {MainData?.company_setting?.show_insta_feed == 0 ? (
+                    {card.id === "S7ZG" &&
+                    process.env.NEXT_PUBLIC_MODE === "development" ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}

@@ -4,7 +4,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddTestimonials } from "@services/Routes";
 import Api from "@services/Api";
 import { toast } from "react-toastify";
@@ -29,6 +29,8 @@ const Testimonials = ({
   const [SubTitle, setSubTitle] = useState("");
   const [Number, setNumber] = useState("");
   const [Description, setDescription] = useState("");
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const handleSubmit = async () => {
     if (Name == "") {
@@ -88,6 +90,8 @@ const Testimonials = ({
         company_name: SubTitle,
         description: Description,
         phone: Number,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
@@ -122,6 +126,21 @@ const Testimonials = ({
       });
     }
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>

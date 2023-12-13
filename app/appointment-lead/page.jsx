@@ -256,6 +256,8 @@ export default function AppointmentLead() {
                     <th>Name</th>
                     <th>Contact</th>
                     <th>Req. Date</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -280,6 +282,12 @@ export default function AppointmentLead() {
                             {item.contact ? item.contact : "-"}
                           </td>
                           <td data-column="created date">{item.created_at}</td>
+                          <td data-column="created date">
+                            {item.latitude ? item.latitude : "----"}
+                          </td>
+                          <td data-column="created date">
+                            {item.longitude ? item.longitude : "----"}
+                          </td>
                           <td className="d-flex align-items-center">
                             <FontAwesomeIcon
                               icon={faAngleRight}

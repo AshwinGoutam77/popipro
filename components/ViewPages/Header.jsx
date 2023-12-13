@@ -59,6 +59,7 @@ const Header = ({
   const [imageSrc, setImageSrc] = useState();
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
+  const [ShowBtn, setShowBtn] = useState(true);
 
   const [showQr, setShowQr] = useState(false);
   const handleCloseQr = () => setShowQr(false);
@@ -128,6 +129,8 @@ const Header = ({
         company_name: ReviewSubTitle,
         description: ReviewDescription,
         phone: ReviewNumber,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
@@ -484,13 +487,13 @@ const Header = ({
     }
   };
   function showPosition(position) {
-    // console.log(
-    //   "Latitude: " + position.coords.latitude,
-    //   "Longitude: " + position.coords.longitude
-    // );
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
 
   return (
     <>
@@ -601,12 +604,12 @@ const Header = ({
               </p>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
+              {/* <button
                 className="contact-btn mt-0 w-auto mr-2"
                 onClick={handleAllowNotif}
               >
                 Allow Notification
-              </button>
+              </button> */}
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"

@@ -66,6 +66,8 @@ export default function Product({
   const [ShowXMark3, setShowXMark3] = useState(false);
   const [ShowXMark4, setShowXMark4] = useState(false);
   const [ShowXMark5, setShowXMark5] = useState(false);
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -128,6 +130,8 @@ export default function Product({
         email: Email,
         message: Message,
         card_url: card_url,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(ProductEnquiry, data);
       if (response.data.status) {
@@ -309,6 +313,22 @@ export default function Product({
     setShowXMark3(false);
     setShowXMark4(false);
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
+
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
