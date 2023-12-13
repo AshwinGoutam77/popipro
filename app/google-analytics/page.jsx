@@ -13,6 +13,7 @@ import "../../styles/about.css";
 import Api from "@services/Api";
 import { GoogleAnalytics } from "@services/Routes";
 import DataTable from "react-data-table-component";
+import { toast } from "react-toastify";
 
 export default function Page() {
   let d = new Date();
@@ -22,14 +23,12 @@ export default function Page() {
 
   const handleGoogleData = async () => {
     const res = await Api(GoogleAnalytics, {});
-    console.log(res.data.data);
     setData(res.data.data);
   };
   useEffect(() => {
     handleGoogleData();
   }, []);
 
-  const handleSearchData = () => {};
   const column = [
     {
       name: "IP",
@@ -44,6 +43,52 @@ export default function Page() {
       selector: (row) => row.created_at,
     },
   ];
+
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  const handleSearchData = async () => {
+    try {
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GoogleAnalytics,
+        {},
+        "?start_date=" + startDt + "&end_date=" + endDt
+      );
+      if (response.data.status) {
+        setData(response.data.data);
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   return (
     <>
