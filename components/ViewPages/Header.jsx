@@ -920,8 +920,7 @@ const Header = ({
                 </button>
               )}
               {Titles?.card_booking?.is_active == 0 ||
-              PlanData?.is_expired !== false ||
-              card?.id !== "S7ZG" ? (
+              PlanData?.is_expired !== false ? (
                 ""
               ) : (
                 <button

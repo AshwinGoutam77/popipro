@@ -153,7 +153,6 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-
                     {MainData?.company_setting?.show_insta_feed == 1 ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}

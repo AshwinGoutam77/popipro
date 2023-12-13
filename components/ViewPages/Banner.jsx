@@ -262,7 +262,7 @@ const Banner = ({
     <>
       {permission[0]?.visible_field === "logo" ||
       card.card_cover === "name" ||
-      card.card_cover === "logo" || card.card_cover !== null ? (
+      card.card_cover === "logo" ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {!IsVisible && (
