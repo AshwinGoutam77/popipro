@@ -73,19 +73,6 @@ export default function MetaTags({ active, handleClose, Data }) {
   };
 
   const handleChatModal = () => {
-    // if (MetaDescription == "") {
-    //   toast.error("please fill the detail to generate the data from ai", {
-    //     position: "top-right",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   return;
-    // }
     handleShowshowChatModal();
     handleButtonClick();
   };
@@ -110,7 +97,7 @@ export default function MetaTags({ active, handleClose, Data }) {
         show={showChatModal}
         onHide={() => handleCloseshowChatModal()}
         centered
-        style={{ background: "rgba(0,0,0,0.7)" }}
+        style={{ background: "rgba(0,0,0,0.7)"}}
       >
         <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
@@ -189,7 +176,9 @@ export default function MetaTags({ active, handleClose, Data }) {
               type="text"
               className="form-control mb-3"
               placeholder="Enter meta title"
-              value={MetaTitle}
+              value={
+                Data?.meta_title ? Data?.meta_title : Data?.Data?.first_name
+              }
               onChange={(e) => setMetaTitle(e.target.value)}
             />
             <div className="d-flex align-items-center justify-content-between">
@@ -212,7 +201,11 @@ export default function MetaTags({ active, handleClose, Data }) {
               name="number"
               placeholder="Enter meta description*"
               className="mt-2 form-control"
-              value={MetaDescription}
+              value={
+                Data?.meta_description
+                  ? Data?.meta_description
+                  : Data?.description
+              }
               onChange={(e) => setMetaDescription(e.target.value)}
               style={{ minHeight: "100px" }}
               required

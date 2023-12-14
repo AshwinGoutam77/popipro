@@ -929,8 +929,6 @@ const Header = ({
                     backgroundColor: "var(--themecolor)",
                     color: "black",
                   }}
-                  // onClick={handleAppointment}
-                  // onClick={handleShowCalendly}
                   onClick={
                     MainData?.company_setting?.appointment_enquiry_method ==
                     "form"
