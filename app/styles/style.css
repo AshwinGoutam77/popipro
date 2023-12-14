@@ -2649,7 +2649,7 @@ button:focus {
 .login-form-section input {
   width: 100%;
   padding: 10px;
-  background-color: #fff !important;
+  background-color: var(--themecolor) !important;
   border-radius: 5px;
   border: none;
 }
