@@ -207,7 +207,7 @@ export default function MetaTags({ active, handleClose, Data }) {
               defaultValue={
                 Data?.meta_description !== null
                   ? Data?.meta_description
-                  : Data?.card_description.replace(regex, "")
+                  : Data?.card_description?.replace(regex, "")
               }
               onChange={(e) => setMetaDescription(e.target.value)}
               style={{ minHeight: "100px" }}
