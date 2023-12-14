@@ -630,8 +630,8 @@ export default function EditAlternateNo({
                         style={{ color: "black" }}
                       >
                         {item?.country_code}
-                        {item?.country_code ? "-" : ""} {item?.number}
-                        {item?.extension ? "-" : ""} {item?.extension}
+                        {item?.country_code ? "-" : ""}{item?.number}
+                        {item?.extension ? "-" : ""}{item?.extension}
                       </a>
                     </div>
                   </a>

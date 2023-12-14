@@ -182,7 +182,7 @@ export default function EditResume({
     let titles = [
       {
         name: "card_experience",
-        visible_name: ResumeName?.visible_name,
+        visible_name: ExpTitle,
         is_featured: Active ? "0" : "1",
         is_active: Active ? "0" : "1",
       },

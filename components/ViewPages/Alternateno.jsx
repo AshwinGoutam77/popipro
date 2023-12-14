@@ -71,14 +71,14 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                           style={{ color: "black" }}
                         >
                           {item?.country_code}
-                          {item?.country_code ? "-" : ""} {item?.number}
-                          {item?.extension ? "-" : ""} {item?.extension}
+                          {item?.country_code ? "-" : ""}{item?.number}
+                          {item?.extension ? "-" : ""}{item?.extension}
                         </p>
                       ) : (
                         <p className="ml-1" style={{ color: "black" }}>
                           {item?.country_code}
-                          {item?.country_code ? "-" : ""} {item?.number}
-                          {item?.extension ? "-" : ""} {item?.extension}
+                          {item?.country_code ? "-" : ""}{item?.number}
+                          {item?.extension ? "-" : ""}{item?.extension}
                         </p>
                       )}
                     </div>

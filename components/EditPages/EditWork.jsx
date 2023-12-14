@@ -304,7 +304,7 @@ export default function EditWorks({
     let titles = [
       {
         name: "card_videos",
-        visible_name: VideoName?.visible_name,
+        visible_name: VideoTitle,
         is_featured: ActiveVideo ? "0" : "1",
         is_active: ActiveVideo ? "0" : "1",
       },
