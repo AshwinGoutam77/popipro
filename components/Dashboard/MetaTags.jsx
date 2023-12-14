@@ -97,7 +97,7 @@ export default function MetaTags({ active, handleClose, Data }) {
         show={showChatModal}
         onHide={() => handleCloseshowChatModal()}
         centered
-        style={{ background: "rgba(0,0,0,0.7)"}}
+        style={{ background: "rgba(0,0,0,0.7)" }}
       >
         <Modal.Body style={{ minHeight: "100px" }}>
           <div className="text-right">
@@ -177,7 +177,9 @@ export default function MetaTags({ active, handleClose, Data }) {
               className="form-control mb-3"
               placeholder="Enter meta title"
               value={
-                Data?.meta_title ? Data?.meta_title : Data?.Data?.first_name
+                Data?.meta_title !== null
+                  ? Data?.meta_title
+                  : Data?.Data?.first_name
               }
               onChange={(e) => setMetaTitle(e.target.value)}
             />
@@ -202,7 +204,7 @@ export default function MetaTags({ active, handleClose, Data }) {
               placeholder="Enter meta description*"
               className="mt-2 form-control"
               value={
-                Data?.meta_description
+                Data?.meta_description !== null
                   ? Data?.meta_description
                   : Data?.description
               }
