@@ -2609,7 +2609,7 @@ button:focus {
 }
 
 .login-screen-div {
-  background-color: var(--secondary-color);
+  /* background-color: var(--secondary-color); */
   height: calc(100vh - 60px);
 }
 
@@ -2674,7 +2674,7 @@ button:focus {
   }
 
   .login-screen-div {
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
     height: auto;
   }
 
