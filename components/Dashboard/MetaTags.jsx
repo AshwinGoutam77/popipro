@@ -71,6 +71,7 @@ export default function MetaTags({ active, handleClose, Data }) {
       console.error("Error fetching suggestions:", error);
     }
   };
+  let regex = /(<([^>]+)>)/gi;
 
   const handleChatModal = () => {
     handleShowshowChatModal();
@@ -176,10 +177,8 @@ export default function MetaTags({ active, handleClose, Data }) {
               type="text"
               className="form-control mb-3"
               placeholder="Enter meta title"
-              value={
-                Data?.meta_title !== null
-                  ? Data?.meta_title
-                  : Data?.Data?.first_name
+              defaultValue={
+                Data?.meta_title !== null ? Data?.meta_title : Data?.first_name
               }
               onChange={(e) => setMetaTitle(e.target.value)}
             />
@@ -203,10 +202,10 @@ export default function MetaTags({ active, handleClose, Data }) {
               name="number"
               placeholder="Enter meta description*"
               className="mt-2 form-control"
-              value={
+              defaultValue={
                 Data?.meta_description !== null
                   ? Data?.meta_description
-                  : Data?.description
+                  : Data?.card_description.replace(regex, "")
               }
               onChange={(e) => setMetaDescription(e.target.value)}
               style={{ minHeight: "100px" }}
