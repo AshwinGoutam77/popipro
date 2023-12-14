@@ -39,8 +39,8 @@ export default function Page() {
       selector: (row) => row.device_id,
     },
     {
-      name: "Date",
-      selector: (row) => row.created_at,
+      name: "Date / Time",
+      selector: (row) => row.created_date_time,
     },
   ];
 
