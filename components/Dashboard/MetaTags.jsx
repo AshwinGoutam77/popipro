@@ -178,7 +178,9 @@ export default function MetaTags({ active, handleClose, Data }) {
               className="form-control mb-3"
               placeholder="Enter meta title"
               defaultValue={
-                Data?.meta_title !== null ? Data?.meta_title : Data?.first_name
+                Data?.meta_title !== null
+                  ? Data?.meta_title
+                  : Data?.first_name + " - " + Data?.card_profession
               }
               onChange={(e) => setMetaTitle(e.target.value)}
             />
