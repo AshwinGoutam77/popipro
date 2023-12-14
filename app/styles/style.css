@@ -100,7 +100,7 @@ html {
 }
 
 body {
-  background: var(--secondary-color) !important;
+  /* background: var(--secondary-color) !important; */
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: #5e6e80;

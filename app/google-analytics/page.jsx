@@ -119,7 +119,7 @@ export default function Page() {
         </div>
         <div
           className="w-100 bg-white"
-          style={{ height: "calc(100vh - 58px)" }}
+          // style={{ height: "calc(100vh - 58px)" }}
         >
           <div className="mx-3 pt-4">
             <div className="row w-100 m-0 p-0 mb-4 align-items-end">
@@ -204,19 +204,19 @@ export default function Page() {
               data={Data}
               pagination
               fixedHeader
-              fixedHeaderScrollHeight="440px"
+              // fixedHeaderScrollHeight="440px"
               selectableRows
               selectableRowsHighlight
               highlightOnHover
-              subHeader
-              subHeaderComponent={
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-auto form-control mb-2"
-                />
-              }
-              subHeaderAlign="right"
+              // subHeader
+              // subHeaderComponent={
+              //   <input
+              //     type="text"
+              //     placeholder="Search..."
+              //     className="w-auto form-control mb-2"
+              //   />
+              // }
+              // subHeaderAlign="right"
             />
           </div>
           {/* <div
