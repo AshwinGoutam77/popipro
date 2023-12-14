@@ -81,7 +81,9 @@ export default function Product({
 
   const LoadMoreFunction = async () => {
     const response = await fetch(
-      `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `,
+      process.env.NEXT_PUBLIC_MODE == "development"
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `,
       {
         method: "GET",
         cache: "no-cache",

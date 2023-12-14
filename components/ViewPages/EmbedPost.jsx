@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import InstagramProfileEmbed from "./InstagramProfileEmbed";
 
 export default function EmbedPost({ card, Titles, PlanData, MainData }) {
-  const [Card_videos, setCard_videos] = useState("");
+  const [SocailLinks, setSocailLinks] = useState("");
 
   useEffect(() => {
-    setCard_videos(card?.card_videos);
+    setSocailLinks(card?.card_social_links);
   }, []);
   const instagramProfileUrl = MainData?.company_setting?.insta_feed_url;
-  return Card_videos?.length !== 0 &&
-    Titles?.card_videos?.source !== 0 &&
-    Titles?.card_videos?.is_active !== 0 &&
+  return SocailLinks?.length !== 0 &&
+    Titles?.card_social_links?.source !== 0 &&
+    Titles?.card_social_links?.is_active !== 0 &&
     PlanData?.is_expired == false ? (
     <>
       <div className="mt-3 box-content boxxx">

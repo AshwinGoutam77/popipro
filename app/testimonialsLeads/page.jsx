@@ -197,6 +197,7 @@ export default function TestimonialsLeads() {
   return token ? (
     Data ? (
       <div>
+        <SimpleBackdrop visible={ShowLoader} />
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header>
             <Modal.Title>
@@ -238,6 +239,18 @@ export default function TestimonialsLeads() {
                     <div className="d-flex align-items-start w-100">
                       <p className="Heading-row font-weight-bold">Date</p>
                       <p className="content-row">{item.created_at}</p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Latitude</p>
+                      <p className="w-100">
+                        {item.latitude ? item.latitude : "----"}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Longitude</p>
+                      <p className="w-100">
+                        {item.longitude ? item.longitude : "----"}
+                      </p>
                     </div>
                     {item.description ? (
                       <div className="d-flex align-items-start w-100">

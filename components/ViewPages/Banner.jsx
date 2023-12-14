@@ -22,6 +22,8 @@ const Banner = ({
   const [Loader, setLoader] = useState(false);
   const [FunctionState, setFunctionState] = useState(false);
   const [GoogleReviewState, setGoogleReviewState] = useState(false);
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   useEffect(() => {
     if (card) {
@@ -167,6 +169,8 @@ const Banner = ({
       device_id: navigator.userAgent,
       object_base: id ? id : card?.id,
       hit_type: type,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -181,6 +185,8 @@ const Banner = ({
       object_base: id,
       hit_type: "direct",
       referer,
+      latitude: Latitude,
+      longitude: Longitude,
     };
 
     const response = await Api(HitClickApi, payload);
@@ -230,10 +236,8 @@ const Banner = ({
     }
   }
   function showPosition(position) {
-    // console.log(
-    //   "Latitude: " + position.coords.latitude,
-    //   "Longitude: " + position.coords.longitude
-    // );
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
   }
   useEffect(() => {
     requestPermission();

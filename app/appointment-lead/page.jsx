@@ -124,6 +124,7 @@ export default function AppointmentLead() {
   return token ? (
     Data ? (
       <div>
+        <SimpleBackdrop visible={ShowLoader} />
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header>
             <Modal.Title>
@@ -171,6 +172,18 @@ export default function AppointmentLead() {
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Created Date</p>
                       <p className="w-100">{item.created_at}</p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Latitude</p>
+                      <p className="w-100">
+                        {item.latitude ? item.latitude : "----"}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Longitude</p>
+                      <p className="w-100">
+                        {item.longitude ? item.longitude : "----"}
+                      </p>
                     </div>
                     {item.message ? (
                       <div className="d-flex align-items-start">

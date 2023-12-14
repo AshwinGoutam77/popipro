@@ -136,6 +136,7 @@ export default function ProductEnquiry() {
     <>
       {Data ? (
         <div>
+          <SimpleBackdrop visible={ShowLoader} />
           <Modal show={showModal} onHide={() => setShowModal(false)} centered>
             <Modal.Header>
               <Modal.Title>
@@ -175,6 +176,18 @@ export default function ProductEnquiry() {
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Date</p>
                         <p className="w-100">{item.created_at}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Latitude</p>
+                        <p className="w-100">
+                          {item.latitude ? item.latitude : "----"}
+                        </p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Longitude</p>
+                        <p className="w-100">
+                          {item.longitude ? item.longitude : "----"}
+                        </p>
                       </div>
                       {item.message ? (
                         <div className="d-flex align-items-start">
@@ -288,8 +301,12 @@ export default function ProductEnquiry() {
                             <td data-column="created date">
                               {item.created_at}
                             </td>
-                            <td data-column="created date">{item.latitude?item.latitude:"----"}</td>
-                            <td data-column="created date">{item.longitude?item.longitude:"----"}</td>
+                            <td data-column="created date">
+                              {item.latitude ? item.latitude : "----"}
+                            </td>
+                            <td data-column="created date">
+                              {item.longitude ? item.longitude : "----"}
+                            </td>
                             <td className="d-flex align-items-center">
                               <FontAwesomeIcon
                                 icon={faAngleRight}

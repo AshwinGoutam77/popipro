@@ -283,6 +283,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -444,6 +446,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: type,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {

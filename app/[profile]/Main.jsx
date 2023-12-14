@@ -168,7 +168,7 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-                    
+
                     <ContactForm
                       card_url={profile}
                       Titles={titles}

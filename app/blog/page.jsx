@@ -125,6 +125,7 @@ export default function DashboardBlogs() {
     <>
       {Data ? (
         <>
+          <SimpleBackdrop visible={ShowLoader} />
           <ToastContainer
             position="bottom-right"
             autoClose={1000}

@@ -14,12 +14,14 @@ import Api from "@services/Api";
 import { GoogleAnalytics } from "@services/Routes";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
+import SimpleBackdrop from "@components/ViewPages/Backdrop";
 
 export default function Page() {
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [Data, setData] = useState("");
+  const [ShowLoader, setShowLoader] = useState(false);
 
   const handleGoogleData = async () => {
     const res = await Api(GoogleAnalytics, {});
@@ -50,6 +52,7 @@ export default function Page() {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
   const handleSearchData = async () => {
+    setShowLoader(true);
     try {
       let startDateNew = new Date(StartDate);
       let startDt =
@@ -70,9 +73,11 @@ export default function Page() {
         "?start_date=" + startDt + "&end_date=" + endDt
       );
       if (response.data.status) {
+        setShowLoader(false);
         setData(response.data.data);
       }
     } catch (error) {
+      setShowLoader(false);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -92,6 +97,7 @@ export default function Page() {
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <div>
         <div
           className="login-header p-3 text-center d-flex align-items-center justify-content-between"
