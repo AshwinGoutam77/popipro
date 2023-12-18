@@ -1,6 +1,8 @@
 "use client";
+import Api from "@services/Api";
+import { CustomForm } from "@services/Routes";
 import $ from "jquery"; //Load jquery
-import React, { Component, createRef } from "react"; //For react component
+import React, { Component, createRef, useRef, useState } from "react"; //For react component
 
 if (typeof window !== "undefined") {
   window.jQuery = $; //JQuery alias
@@ -26,14 +28,33 @@ class FormBuilder extends Component {
 
 //Return Initialized formBuilder set it to HTML
 function Builder({ JsonData }) {
-  const handleSubmitForm = (e) => {
+  let url;
+  if (typeof window !== "undefined") {
+    url = localStorage.getItem("url");
+  }
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log(e);
+
+    const formData = new FormData(e.target);
+    const formFields = {};
+    for (let [name, value] of formData.entries()) {
+      if (!formFields[name]) {
+        formFields[name] = [value];
+      } else {
+        formFields[name].push(value);
+      }
+    }
+    // console.log("Form Fields:", formFields);
+
+    const res = await Api(CustomForm, formFields, url);
+    if (res.status) {
+      document.getElementById("form-builder-popipro").reset();
+    }
   };
   return (
     JsonData && (
       <>
-        <form onSubmit={(e) => handleSubmitForm(e)}>
+        <form onSubmit={(e) => handleSubmitForm(e)} id="form-builder-popipro">
           <FormBuilder JsonData={JsonData} />
           <button type="submit" className="contact-btn w-auto">
             Submit Form
