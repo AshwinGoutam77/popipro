@@ -999,13 +999,13 @@ export default function EditTestimonials({
                   id="testimonials"
                   className="mt-1"
                   value={
-                    MainData?.company_setting?.show_testimonial_button === 0
+                    MainData?.company_setting?.show_testimonial_button !== 0
                       ? true
                       : false
                   }
                   onChange={(e) => handleGetReview(e.target.checked)}
                   checked={
-                    MainData?.company_setting?.show_testimonial_button == 0
+                    MainData?.company_setting?.show_testimonial_button !== 0
                       ? true
                       : false
                   }

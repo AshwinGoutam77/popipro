@@ -906,7 +906,7 @@ const Header = ({
               </button>
             </div>
             <div className="d-flex sm-class" style={{ gap: "8px" }}>
-              {company_setting?.show_testimonial_button !== 0 ||
+              {company_setting?.show_testimonial_button == 0 ||
               PlanData?.is_expired !== false ? (
                 ""
               ) : (

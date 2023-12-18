@@ -538,15 +538,18 @@ export default function EditProducts({
                     >
                       {item.name}
                     </span>
-                    {item.price !== "0" ? (
-                      <p
-                        className="mt-3 font-weight-bold"
-                        style={{ color: "var(--color)" }}
-                      >
-                        {item.pcurrency?.currency} {item.price}
-                      </p>
+                    {item.label ? (
+                      <span className="product-price">{item.label}</span>
                     ) : (
-                      ""
+                      <div>
+                        {item.price !== 0 && item.price !== "" ? (
+                          <span className="product-price">
+                            {item.pcurrency?.currency} {item.price}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     )}
                   </div>
                   <p
@@ -588,7 +591,7 @@ export default function EditProducts({
                     ) : (
                       ""
                     )}
-                    {MainData?.company_setting?.show_product_enquiry_button ==
+                    {MainData?.company_setting?.show_product_enquiry_button !==
                     0 ? (
                       <a
                         className="mt-1 product-modal-btn w-auto text-white d-block"
@@ -605,7 +608,7 @@ export default function EditProducts({
                     ) : (
                       ""
                     )}
-                    {MainData?.company_setting?.show_product_wp_button == 0 ? (
+                    {MainData?.company_setting?.show_product_wp_button !== 0 ? (
                       <a
                         href={
                           "https://api.whatsapp.com/send?phone=" +
@@ -1288,7 +1291,7 @@ export default function EditProducts({
                                   <div className="product-icons-div">
                                     {Data?.whatsapp_number !== null &&
                                     MainData?.company_setting
-                                      ?.show_product_wp_button == 0 ? (
+                                      ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1305,7 +1308,7 @@ export default function EditProducts({
                                       ""
                                     )}
                                     {MainData?.company_setting
-                                      ?.show_product_enquiry_button == 0 ? (
+                                      ?.show_product_enquiry_button !== 0 ? (
                                       <a
                                         data-toggle="modal"
                                         data-target="#ProductEnquireModal"
@@ -1519,14 +1522,15 @@ export default function EditProducts({
                         id="product-whatsaap"
                         className="mt-1"
                         value={
-                          MainData?.company_setting?.show_product_wp_button ===
+                          MainData?.company_setting?.show_product_wp_button !==
                           0
                             ? true
                             : false
                         }
                         onChange={() => handleProductsbtn("wp")}
                         checked={
-                          MainData?.company_setting?.show_product_wp_button == 0
+                          MainData?.company_setting?.show_product_wp_button !==
+                          0
                             ? true
                             : false
                         }
@@ -1545,14 +1549,14 @@ export default function EditProducts({
                         className="mt-1"
                         value={
                           MainData?.company_setting
-                            ?.show_product_enquiry_button === 0
+                            ?.show_product_enquiry_button !== 0
                             ? true
                             : false
                         }
                         onChange={() => handleProductsbtn("enq")}
                         checked={
                           MainData?.company_setting
-                            ?.show_product_enquiry_button == 0
+                            ?.show_product_enquiry_button !== 0
                             ? true
                             : false
                         }

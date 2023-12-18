@@ -373,15 +373,18 @@ export default function Product({
                         >
                           {item.name}
                         </span>
-                        {item?.price !== 0 ? (
-                          <p
-                            className="mt-3 font-weight-bold"
-                            style={{ color: "var(--color)" }}
-                          >
-                            {item.pcurrency?.currency} {item.price}
-                          </p>
+                        {item.label ? (
+                          <span className="product-price">{item.label}</span>
                         ) : (
-                          ""
+                          <div>
+                            {item.price !== 0 && item.price !== "" ? (
+                              <span className="product-price">
+                                {item.pcurrency?.currency} {item.price}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </div>
                         )}
                       </div>
                       <p
@@ -422,7 +425,7 @@ export default function Product({
                           ""
                         )}
                         {MainData?.company_setting
-                          ?.show_product_enquiry_button == 0 ? (
+                          ?.show_product_enquiry_button !== 0 ? (
                           <span
                             className="mt-1 product-modal-btn w-auto text-white d-block cursor-pointer"
                             style={{ background: "var(--color)" }}
@@ -439,7 +442,7 @@ export default function Product({
                         ) : (
                           ""
                         )}
-                        {MainData?.company_setting?.show_product_wp_button ==
+                        {MainData?.company_setting?.show_product_wp_button !==
                         0 ? (
                           <a
                             href={
@@ -839,7 +842,7 @@ export default function Product({
                               <div className="product-icons-div">
                                 {Data?.whatsapp_number !== null &&
                                 MainData?.company_setting
-                                  ?.show_product_wp_button == 0 ? (
+                                  ?.show_product_wp_button !== 0 ? (
                                   <a
                                     href={
                                       "https://api.whatsapp.com/send?phone=" +
@@ -862,7 +865,7 @@ export default function Product({
                                   ""
                                 )}
                                 {MainData?.company_setting
-                                  ?.show_product_enquiry_button == 0 ? (
+                                  ?.show_product_enquiry_button !== 0 ? (
                                   <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
@@ -929,12 +932,20 @@ export default function Product({
                             onClick={() => ShowModalID(items.id)}
                           ></p>
                           <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
-                            {items.price != 0 ? (
+                            {items.label ? (
                               <span className="product-price">
-                                {items.pcurrency?.currency} {items.price}
+                                {items.label}
                               </span>
                             ) : (
-                              ""
+                              <div>
+                                {items.price !== 0 && items.price !== "" ? (
+                                  <span className="product-price">
+                                    {items.pcurrency?.currency} {items.price}
+                                  </span>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
                             )}
                             {items?.description?.length <= "0" ? (
                               <div

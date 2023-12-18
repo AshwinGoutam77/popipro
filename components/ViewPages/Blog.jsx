@@ -185,8 +185,12 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                 <Image
                                   className="coverr lazyload"
                                   src={
-                                    "https://admin.popipro.com/" +
-                                    item.image.path
+                                    process.env.NEXT_PUBLIC_MODE ==
+                                    "development"
+                                      ? "https://dev.popipro.com/" +
+                                        item.image.path
+                                      : "https://admin.popipro.com/" +
+                                        item.image.path
                                   }
                                   alt="blog"
                                   width={0}

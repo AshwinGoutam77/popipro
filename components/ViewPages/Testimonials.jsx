@@ -113,7 +113,6 @@ const Testimonials = ({
         setSubTitle("");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoclose: 2000,
@@ -315,7 +314,7 @@ const Testimonials = ({
                   );
                 })}
               </SwiperComponent>
-              {company_setting.show_testimonial_button !== 0 ? (
+              {company_setting.show_testimonial_button == 0 ? (
                 ""
               ) : (
                 <div className="d-flex justify-content-center">
