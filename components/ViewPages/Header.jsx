@@ -988,7 +988,15 @@ const Header = ({
               <>
                 <li className="col-sm-6 col-12">
                   <a
-                    href={"tel:" + card.card_contact}
+                    href={`tel: ${
+                      card.contact_country_code
+                        ? card?.contact_country_code + "-"
+                        : card?.contact_country_code
+                    } ${card?.card_contact} ${
+                      card?.contact_extension
+                        ? "- " + card?.contact_extension
+                        : ""
+                    }`}
                     className="d-flex align-items-center justify-content-between getCard-a"
                     onClick={() => handleHitClick("call")}
                   >
@@ -1006,7 +1014,19 @@ const Header = ({
                         className="overhead_a text-dark text-decoration-none"
                         style={{ marginLeft: "5px" }}
                       >
-                        {card.card_contact}
+                        {card &&
+                        card.contact_country_code &&
+                        card.contact_extension !== null
+                          ? card?.contact_country_code +
+                            "-" +
+                            card?.card_contact +
+                            "-" +
+                            card?.contact_extension
+                          : card?.contact_country_code
+                          ? card?.contact_country_code +
+                            "-" +
+                            card?.card_contact
+                          : card?.card_contact}
                       </span>
                     </div>
                     <FontAwesomeIcon

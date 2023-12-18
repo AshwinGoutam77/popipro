@@ -715,7 +715,15 @@ function EditHeader({
             <li className="col-sm-6 col-12">
               {Data?.card_contact !== null ? (
                 <a
-                  href={"tel:" + Data?.card_contact}
+                  href={`tel: ${
+                    Data.contact_country_code
+                      ? Data?.contact_country_code + "-"
+                      : Data?.contact_country_code
+                  } ${Data?.card_contact} ${
+                    Data?.contact_extension
+                      ? "- " + Data?.contact_extension
+                      : ""
+                  }`}
                   className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                   // style={{ marginLeft: "5px" }}
                 >
@@ -728,19 +736,17 @@ function EditHeader({
                         transform: "rotateY(180deg)",
                       }}
                     />
-                    {/* <a
-                      href={"tel:" + Data?.card_contact}
-                      className="overhead_a text-dark text-decoration-none"
-                      style={{ marginLeft: "5px" }}
-                    > */}
-                    {Data && Data.contact_country_code
+                    {Data &&
+                    Data.contact_country_code &&
+                    Data.contact_extension !== null
                       ? Data?.contact_country_code +
                         "-" +
                         Data?.card_contact +
                         "-" +
                         Data?.contact_extension
+                      : Data?.contact_country_code
+                      ? Data?.contact_country_code + "-" + Data?.card_contact
                       : Data?.card_contact}
-                    {/* </a> */}
                   </div>
                   <FontAwesomeIcon
                     icon={faChevronRight}
@@ -773,7 +779,7 @@ function EditHeader({
                       icon={faMapMarkerAlt}
                       className="user-select-auto"
                       style={{
-                        marginRight: "21px",
+                        marginRight: "20px",
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
