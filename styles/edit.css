@@ -1372,7 +1372,7 @@ input[type="radio" i] {
 }
 
 .badge {
-  padding-bottom: 4px;
+  padding-bottom: 3px;
 }
 .item {
   display: flex;
