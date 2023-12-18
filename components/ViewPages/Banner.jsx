@@ -264,9 +264,9 @@ const Banner = ({
     </>
   ) : (
     <>
-      {card.card_cover === "name" ||
-      card.card_cover === "label" ||
-      (card?.card_cover === "logo" && card?.card_company_logo?.length !== 0) ? (
+      {permission[0]?.visible_field === "logo" ||
+      card.card_cover === "name" ||
+      card.card_cover === "logo" ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {!IsVisible && (
@@ -351,7 +351,7 @@ const Banner = ({
 
           <div className="pt-0">
             <div>
-              {card.card_cover !== "name" && card.card_cover !== "label" ? (
+              {card.card_cover !== "name" ? (
                 <img
                   src={card.base_url + card.card_company_logo?.path}
                   className="Logo-icon"
@@ -491,7 +491,7 @@ const Banner = ({
                   {card?.card_company_logo}
                 </h5>
               ) : (
-                <h5 className="VarColor">Popipro</h5>
+                ""
               )}
             </div>
           </div>

@@ -28,7 +28,7 @@ class FormBuilder extends Component {
 function Builder({ JsonData }) {
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(e.target.id);
+    console.log(e);
   };
   return (
     JsonData && (
