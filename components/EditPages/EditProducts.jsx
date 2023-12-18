@@ -543,7 +543,7 @@ export default function EditProducts({
                         className="mt-3 font-weight-bold"
                         style={{ color: "var(--color)" }}
                       >
-                        {item.currency} {item.price}
+                        {item.pcurrency?.currency} {item.price}
                       </p>
                     ) : (
                       ""
@@ -725,7 +725,7 @@ export default function EditProducts({
                     <option value="">Select currency</option>
                     {Currency &&
                       Currency?.map((item, index) => {
-                        return <option key={index}>{item}</option>;
+                        return <option key={index}>{item?.currency}</option>;
                       })}
                   </select>
                   <input
@@ -738,7 +738,7 @@ export default function EditProducts({
                     placeholder="Price"
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setProductPrice(e.target.value)}
-                    maxlength="10"
+                    maxLength="10"
                   ></input>
                 </div>
               </div>
@@ -755,7 +755,7 @@ export default function EditProducts({
                   placeholder="Text"
                   style={{ height: "40px", border: "1px solid #ccc" }}
                   onChange={(e) => setProductPrice(e.target.value)}
-                  maxlength="12"
+                  maxLength="12"
                 ></input>
               </div>
             )}
@@ -791,7 +791,7 @@ export default function EditProducts({
               </div>
             </div>
             <div className="d-flex align-items-center justify-content-between">
-              <label className="modalFormLable">Description*</label>
+              <label className="modalFormLable">Description</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
@@ -929,7 +929,9 @@ export default function EditProducts({
                           <option value="">Select currency</option>
                           {Currency &&
                             Currency?.map((item, index) => {
-                              return <option key={index}>{item}</option>;
+                              return (
+                                <option key={index}>{item?.currency}</option>
+                              );
                             })}
                         </select>
                         <input
@@ -965,7 +967,7 @@ export default function EditProducts({
                             border: "1px solid #ccc",
                           }}
                           onChange={(e) => setProductPrice(e.target.value)}
-                          maxlength="12"
+                          maxLength="12"
                         ></input>
                       </div>
                     </>
@@ -1010,7 +1012,7 @@ export default function EditProducts({
                     </div>
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <label className="modalFormLable">Description*</label>
+                    <label className="modalFormLable">Description</label>
                     <p
                       onClick={handleChatModal}
                       data-toggle={ServicesDescription ? "modal" : ""}
@@ -1374,7 +1376,8 @@ export default function EditProducts({
                                   <div>
                                     {items.price !== 0 && items.price !== "" ? (
                                       <span className="product-price">
-                                        {items.currency} {items.price}
+                                        {items.pcurrency?.currency}{" "}
+                                        {items.price}
                                       </span>
                                     ) : (
                                       ""

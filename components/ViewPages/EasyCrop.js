@@ -27,7 +27,7 @@ const EasyCrop = ({
           zIndex: "999999999999",
           position: "absolute",
           right: "32px",
-          bottom: "95px",
+          bottom: "241px",
         }}
         onClick={showCroppedImage}
         className="send-btnn"

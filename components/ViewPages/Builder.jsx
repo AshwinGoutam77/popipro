@@ -26,7 +26,22 @@ class FormBuilder extends Component {
 
 //Return Initialized formBuilder set it to HTML
 function Builder({ JsonData }) {
-  return JsonData && <FormBuilder JsonData={JsonData} />;
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    console.log(e.target.id);
+  };
+  return (
+    JsonData && (
+      <>
+        <form onSubmit={(e) => handleSubmitForm(e)}>
+          <FormBuilder JsonData={JsonData} />
+          <button type="submit" className="contact-btn w-auto">
+            Submit Form
+          </button>
+        </form>
+      </>
+    )
+  );
 }
 
 export default Builder;

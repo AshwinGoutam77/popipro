@@ -296,7 +296,7 @@ export default function EditAlternateNo({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <label className="modalFormLable">Label</label>
+            <label className="modalFormLable">Label *</label>
             <input
               type="text"
               name="number"
@@ -310,7 +310,7 @@ export default function EditAlternateNo({
             ></input>
           </div>
           <div>
-            <label className="modalFormLable">Phone Number</label>
+            <label className="modalFormLable">Phone Number *</label>
             <div className="d-flex align-items-center" style={{ gap: "8px" }}>
               <input
                 type="text"
@@ -618,20 +618,29 @@ export default function EditAlternateNo({
                         {item.title} :
                       </p>
                       <a
-                        href={
-                          "tel:" +
-                          item.country_code +
-                          "-" +
-                          item?.number +
-                          "-" +
-                          item?.extension
-                        }
+                        // href={
+                        //   "tel:" +
+                        //   item.country_code +
+                        //   "-" +
+                        //   item?.number +
+                        //   "-" +
+                        //   item?.extension
+                        // }
+                        href={`tel: ${
+                          item.country_code
+                            ? item.country_code + "-"
+                            : item.country_code
+                        } ${item?.number} ${
+                          item?.extension ? "- " + item?.extension : ""
+                        }`}
                         className="ml-1"
                         style={{ color: "black" }}
                       >
                         {item?.country_code}
-                        {item?.country_code ? "-" : ""}{item?.number}
-                        {item?.extension ? "-" : ""}{item?.extension}
+                        {item?.country_code ? "-" : ""}
+                        {item?.number}
+                        {item?.extension ? "-" : ""}
+                        {item?.extension}
                       </a>
                     </div>
                   </a>

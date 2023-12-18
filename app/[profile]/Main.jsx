@@ -183,7 +183,7 @@ export default async function Main({ profile, data, id, referer }) {
                       ""
                     )}
 
-                    {/* {MainData?.custom_forms !== null &&
+                    {MainData?.custom_forms !== null &&
                     plan?.is_expired == false ? (
                       <div
                         className="mb-3 box-content boxxx mt-0"
@@ -201,8 +201,8 @@ export default async function Main({ profile, data, id, referer }) {
                       </div>
                     ) : (
                       ""
-                    )} */}
-                    {MainData?.custom_forms !== null ? (
+                    )}
+                    {/* {MainData?.custom_forms !== null ? (
                       <div className="custom-from-div mb-3" id="Form">
                         <iframe
                           frameBorder="1"
@@ -213,7 +213,7 @@ export default async function Main({ profile, data, id, referer }) {
                       </div>
                     ) : (
                       ""
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>

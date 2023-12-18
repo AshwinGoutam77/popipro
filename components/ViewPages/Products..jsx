@@ -378,7 +378,7 @@ export default function Product({
                             className="mt-3 font-weight-bold"
                             style={{ color: "var(--color)" }}
                           >
-                            {item.currency} {item.price}
+                            {item.pcurrency?.currency} {item.price}
                           </p>
                         ) : (
                           ""
@@ -931,7 +931,7 @@ export default function Product({
                           <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
                             {items.price != 0 ? (
                               <span className="product-price">
-                                {items.currency} {items.price}
+                                {items.pcurrency?.currency} {items.price}
                               </span>
                             ) : (
                               ""

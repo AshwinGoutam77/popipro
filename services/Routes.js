@@ -52,3 +52,5 @@ export const ChangeAppointment = {
   method: "POST",
 };
 export const ToogleInstaFeed = { path: "toggle-insta-feed", method: "GET" };
+export const CustomForm = { path: "submit-custom-form", method: "POST" };
+export const ProductCat = { path: "manage-product-category", method: "POST" };

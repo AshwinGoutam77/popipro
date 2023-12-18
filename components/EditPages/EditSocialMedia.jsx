@@ -276,7 +276,7 @@ function EditLinks({
               name="type"
               onChange={(e) => setSelectOption(e.target.value)}
             >
-              <option value="">Select a Social Media</option>
+              <option value="">Select a Social Media*</option>
               {AddLinks &&
                 AddLinks.map((obj, i) => (
                   <option value={obj.id} key={i}>
@@ -289,7 +289,7 @@ function EditLinks({
             <input
               type="text"
               name="name"
-              placeholder="Please Enter Your Complete Url"
+              placeholder="Please Enter Your Complete Url*"
               className="px-2 form-control border border-#ccc bg-white"
               style={{ height: "40px" }}
               value={SocialType}

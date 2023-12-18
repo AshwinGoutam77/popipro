@@ -95,6 +95,7 @@ function EditHeader({
             const response = await Api(CardData, info);
             setShowLoader(true);
             if (response.data?.status) {
+              location.reload();
               APIDATA();
               setTime(new Date().getTime() / 1000);
               setImage([]);
@@ -733,7 +734,11 @@ function EditHeader({
                       style={{ marginLeft: "5px" }}
                     > */}
                     {Data && Data.contact_country_code
-                      ? Data?.contact_country_code + "-" + Data?.card_contact
+                      ? Data?.contact_country_code +
+                        "-" +
+                        Data?.card_contact +
+                        "-" +
+                        Data?.contact_extension
                       : Data?.card_contact}
                     {/* </a> */}
                   </div>
@@ -759,7 +764,7 @@ function EditHeader({
                       Data?.card_address?.includes("https://"))
                       ? Data?.card_address
                       : "https://www.google.com/maps/place/" +
-                        Data?.card_address
+                        Data?.card_address.replace(/<[^>]*>?/gm, "")
                   }
                   className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                 >
