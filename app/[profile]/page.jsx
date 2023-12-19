@@ -15,8 +15,8 @@ export async function generateMetadata({ params, searchParams }) {
     ? card?.first_name + " - " + card?.card_profession
     : "Popipro";
   let description = card?.meta_description
-    ? card?.meta_description.replace(regex, "")
-    : card?.card_description.replace(regex, "");
+    ? card?.meta_description?.replace(regex, "")
+    : card?.card_description?.replace(regex, "");
   description = description?.replace(/<(.|\n)*?>/g, "").substring(0, 159);
 
   return {
