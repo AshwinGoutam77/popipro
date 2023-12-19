@@ -76,7 +76,7 @@ function EditLinks({
     let mess = "";
     if (SelectOption == "" || SocialType == "") {
       error = true;
-      mess = SelectOption == "" ? "Please select an option" : "Socail media url is required";
+      mess = SelectOption == "" ? "Please select an option" : "Social media url is required";
     } else {
       id !== null
         ? (links = [

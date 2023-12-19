@@ -215,7 +215,7 @@ export default function MetaTags({ active, handleClose, Data, APIDATA }) {
               className="mt-2 form-control"
               defaultValue={
                 Data?.meta_description !== null
-                  ? Data?.meta_description
+                  ? Data?.meta_description?.replace(regex, "")
                   : Description?.replace(regex, "")
               }
               onChange={(e) => setMetaDescription(e.target.value)}
