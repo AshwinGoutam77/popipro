@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-export default function MetaTags({ active, handleClose, Data }) {
+export default function MetaTags({ active, handleClose, Data, APIDATA }) {
   const [MetaTitle, setMetaTitle] = useState("");
   const [MetaDescription, setMetaDescription] = useState("");
   const [showChatModal, setShowshowChatModal] = useState(false);
@@ -18,15 +18,19 @@ export default function MetaTags({ active, handleClose, Data }) {
   useEffect(() => {
     setDescription(Data?.card_description);
     setTitle(Data?.first_name + " - " + Data?.card_profession);
+    setMetaDescription(Data?.meta_description);
+    setMetaTitle(Data?.meta_title);
   }, []);
 
   const handleUpdateMetaTags = async () => {
+    console.log(MetaTitle);
     let payload = {
-      meta_title: MetaTitle,
-      meta_desc: MetaDescription,
+      meta_title: MetaTitle ? MetaTitle : Title,
+      meta_desc: MetaDescription ? MetaDescription : Description,
     };
     const res = await Api(UpdateMetaTags, payload);
     if (res.status) {
+      APIDATA();
       handleClose();
       setMetaTitle("");
       setMetaDescription("");

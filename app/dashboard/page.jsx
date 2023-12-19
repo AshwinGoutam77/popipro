@@ -1058,6 +1058,7 @@ export default function Dashboard() {
         active={modalShow == "metatags" ? true : false}
         handleClose={setModalShow}
         Data={Data}
+        APIDATA={APIDATA}
       />
     </>
   ) : (
