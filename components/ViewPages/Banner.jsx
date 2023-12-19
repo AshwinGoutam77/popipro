@@ -491,7 +491,7 @@ const Banner = ({
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
-              ) : card?.card_cover !== "banner" ? (
+              ) : card?.card_cover !== "banner" || card?.card_company_logo?.length == 0  ? (
                 <h5 className="text-white">Popipro</h5>
               ) : (
                 ""
