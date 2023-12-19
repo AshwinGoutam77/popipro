@@ -158,7 +158,7 @@ const Testimonials = ({
           <div className="row">
             <div className="form-group col-lg-12 col-md-12 mb-3">
               <label className="modalFormLable">
-                Upload Image (*Prefered size in ration of 100x100)
+                Upload Image (*Preferred size in ratio of 100x100)
               </label>
               <input
                 type="file"
