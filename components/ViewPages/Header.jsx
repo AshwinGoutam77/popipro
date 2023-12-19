@@ -1051,7 +1051,7 @@ const Header = ({
                     (card.card_address?.includes("http://") ||
                       card.card_address?.includes("https://"))
                       ? card.card_address.replace(/<[^>]*>?/gm, "")
-                      : "https://www.google.com/maps/place/" +
+                      : "http://maps.google.com/?q=1200" +
                         card.card_address.replace(/<[^>]*>?/gm, "")
                   }
                   target="_blank"
