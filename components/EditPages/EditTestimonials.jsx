@@ -548,7 +548,7 @@ export default function EditTestimonials({
             <button className="send-btnn" onClick={() => handleSaveTesti()}>
               Save
             </button>
-            <button className="delete-button m-0" onClick={handleClose}>
+            <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
           </div>
