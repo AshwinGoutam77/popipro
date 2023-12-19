@@ -29,6 +29,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import SimpleBackdrop from "./SimpleBackDrop";
 
 export default function Product({
   Titles,
@@ -68,6 +69,7 @@ export default function Product({
   const [ShowXMark5, setShowXMark5] = useState(false);
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
+  const [ShowLoader, setShowLoader] = useState("");
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -124,6 +126,7 @@ export default function Product({
       });
       return;
     }
+    setShowLoader(true);
     try {
       let data = {
         product: MessageId,
@@ -138,6 +141,7 @@ export default function Product({
       const response = await Api(ProductEnquiry, data);
       if (response.data.status) {
         // APIDATA();
+        setShowLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -155,6 +159,7 @@ export default function Product({
         setMessage("");
       }
     } catch (error) {
+      setShowLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
@@ -333,6 +338,7 @@ export default function Product({
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>

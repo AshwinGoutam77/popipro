@@ -537,7 +537,7 @@ export default function EditWorks({
             <label className="modalFormLable">
               Add your video URL.
               <br />
-              <span className="ml-2">*Please upload youtube urls only.</span>
+              <span className="">*Please upload youtube urls only.</span>
             </label>
             <input
               type="text"

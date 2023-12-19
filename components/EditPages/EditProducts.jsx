@@ -576,12 +576,10 @@ export default function EditProducts({
                         style={{ background: "var(--color)" }}
                         // onClick={() => handleHitClick()}
                       >
-                        <i
-                          className="fa fa-link mr-2"
-                          style={{
-                            fontSize: "16px",
-                          }}
-                        ></i>
+                        <FontAwesomeIcon
+                          icon={faLink}
+                          className="user-select-auto mr-2"
+                        />
                         {Data?.id == "TrxF"
                           ? "Watch Video"
                           : item.button_placeholder
@@ -728,7 +726,11 @@ export default function EditProducts({
                     <option value="">Select currency</option>
                     {Currency &&
                       Currency?.map((item, index) => {
-                        return <option key={index} value={item?.id}>{item?.currency}</option>;
+                        return (
+                          <option key={index} value={item?.id}>
+                            {item?.currency}
+                          </option>
+                        );
                       })}
                   </select>
                   <input
@@ -933,7 +935,9 @@ export default function EditProducts({
                           {Currency &&
                             Currency?.map((item, index) => {
                               return (
-                                <option key={index} value={item?.id}>{item?.currency}</option>
+                                <option key={index} value={item?.id}>
+                                  {item?.currency}
+                                </option>
                               );
                             })}
                         </select>

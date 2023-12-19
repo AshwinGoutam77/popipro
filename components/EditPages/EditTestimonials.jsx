@@ -454,7 +454,7 @@ export default function EditTestimonials({
         <Modal.Body>
           <div>
             <label className="modalFormLable">
-              Upload Image (*Prefered size in ration of 100x100)
+              Upload Image (*Prefered size in ratio of 100x100)
             </label>
             <input
               type="file"
@@ -586,7 +586,7 @@ export default function EditTestimonials({
                         key={i}
                       />
                       <label className="modalFormLable">
-                        Upload Image (*Prefered size in ration of 100x100)
+                        Upload Image (*Prefered size in ratio of 100x100)
                       </label>
                       <input
                         type="file"

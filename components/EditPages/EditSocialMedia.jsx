@@ -77,7 +77,7 @@ function EditLinks({
     let mess = "";
     if (SelectOption == "" || SocialType == "") {
       error = true;
-      mess = SocialType == "" ? "Label is required" : "Link is required";
+      mess = SelectOption == "" ? "Please select an option" : "Socail media url is required";
     } else {
       id !== null
         ? (links = [
@@ -95,8 +95,8 @@ function EditLinks({
           ]);
     }
     if (error) {
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -114,8 +114,8 @@ function EditLinks({
         APIDATA();
         handleClose();
         handleEditClose();
-        toast(response.data.message, {
-          position: "bottom-right",
+        toast.success(response.data.message, {
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,

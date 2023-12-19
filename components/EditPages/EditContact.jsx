@@ -330,7 +330,7 @@ export default function EditContact({
                 htmlFor="product-whatsaap3"
                 className="ml-2 Varcolor font-weight-bold"
               >
-                Via Appointemnt Form?
+                Via Appointment Form?
               </label>
             </div>
             <div

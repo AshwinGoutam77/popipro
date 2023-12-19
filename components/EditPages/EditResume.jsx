@@ -75,7 +75,7 @@ export default function EditResume({
       error = true;
       mess =
         ExpDesignation == ""
-          ? "Heading field is required"
+          ? "Title field is required"
           : "Description field is required";
     } else {
       id !== null

@@ -202,7 +202,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
               {/* <label className="ml-2 font-weight-normal">Your message*</label> */}
               <textarea
                 className="textarea form-control contactform-class"
-                placeholder="Enter your message"
+                placeholder="Enter your message*"
                 rows="4"
                 required="required"
                 value={Message}

@@ -87,9 +87,7 @@ export default function EditDoing({
     if (ServicesName === "" || ServicesDescription === "") {
       error = true;
       mess =
-        ServicesName === ""
-          ? "Heading is required"
-          : "Descripotion is required";
+        ServicesName === "" ? "Heading is required" : "Description is required";
     } else {
       id !== null
         ? (data = [
@@ -400,7 +398,7 @@ export default function EditDoing({
         <Modal.Body>
           <div>
             <label className="modalFormlabel">
-              Upload Image (*Prefered size in ration of 100x100)
+              Upload Image (*Prefered size in ratio of 100x100)
             </label>
             <input
               type="file"
@@ -523,7 +521,7 @@ export default function EditDoing({
                         key={i}
                       />
                       <label className="modalFormLable">
-                        Upload Image (*Prefered size in ration of 100x100)
+                        Upload Image (*Prefered size in ratio of 100x100)
                       </label>
                       <input
                         type="file"

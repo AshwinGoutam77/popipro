@@ -20,7 +20,6 @@ const EditBanner = ({
   PlanData,
 }) => {
   useEffect(() => {
-    console.log(Data?.card_company_logo);
     document.documentElement.style.setProperty("--color", card?.color_code);
     document.documentElement.style.setProperty(
       "--header-color",

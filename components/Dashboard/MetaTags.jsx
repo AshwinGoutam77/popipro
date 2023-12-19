@@ -1,7 +1,7 @@
 import Api from "@services/Api";
 import { UpdateMetaTags } from "@services/Routes";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
@@ -12,6 +12,13 @@ export default function MetaTags({ active, handleClose, Data }) {
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Title, setTitle] = useState("");
+
+  useEffect(() => {
+    setDescription(Data?.card_description);
+    setTitle(Data?.first_name + " - " + Data?.card_profession);
+  }, []);
 
   const handleUpdateMetaTags = async () => {
     let payload = {
@@ -178,9 +185,7 @@ export default function MetaTags({ active, handleClose, Data }) {
               className="form-control mb-3"
               placeholder="Enter meta title"
               defaultValue={
-                Data?.meta_title !== null
-                  ? Data?.meta_title
-                  : Data?.first_name + " - " + Data?.card_profession
+                Data?.meta_title !== null ? Data?.meta_title : Title
               }
               onChange={(e) => setMetaTitle(e.target.value)}
             />
@@ -207,7 +212,7 @@ export default function MetaTags({ active, handleClose, Data }) {
               defaultValue={
                 Data?.meta_description !== null
                   ? Data?.meta_description
-                  : Data?.card_description?.replace(regex, "")
+                  : Description?.replace(regex, "")
               }
               onChange={(e) => setMetaDescription(e.target.value)}
               style={{ minHeight: "100px" }}
