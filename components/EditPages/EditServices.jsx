@@ -449,7 +449,6 @@ export default function EditDoing({
                   "BlockQuote",
                   "Heading",
                   "Emoji",
-                  "Link",
                 ],
                 placeholder:
                   "Insert a text and take advantage of AI to enrich the content you've written.",
