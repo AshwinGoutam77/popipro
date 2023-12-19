@@ -432,7 +432,6 @@ export default function EditTestimonials({
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
-
   return (
     <>
       {/* Add More MODAL */}
@@ -848,15 +847,13 @@ export default function EditTestimonials({
                         AddMoreTesti?.length ? (
                           <button
                             className="addmore"
-                            onClick={() => handleShow()}
+                            onClick={() => handleUpgradePlan()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>
                         ) : (
                           <button
                             className="addmore"
-                            // data-toggle="modal"
-                            // data-target="#AddMoreTestiModal"
                             onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />

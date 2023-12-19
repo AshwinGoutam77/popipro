@@ -29,7 +29,6 @@ function EditLinks({
   CardLinks,
   MainData,
 }) {
-  console.log(MainData);
   const [AddLinks, setAddLinks] = useState("");
   const [Links, setLinks] = useState(false);
   const [LinkFeild, setLinkFeild] = useState([]);

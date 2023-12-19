@@ -534,18 +534,18 @@ export default function EditAlternateNo({
                     )}
                   </div>
                   <>
-                    {MainData?.company_setting?.maximum_alternate_phone >=
+                    {MainData?.company_setting?.maximum_alternate_phone <=
                     Data?.card_alternate_phone?.length ? (
                       <button
                         className="addmore"
                         data-toggle="modal"
                         data-target="#AlternateNumberModal"
-                        onClick={handleShow}
+                        onClick={handleUpgradePlan}
                       >
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
                     ) : (
-                      <button className="addmore" onClick={handleUpgradePlan}>
+                      <button className="addmore" onClick={handleShow}>
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
                     )}

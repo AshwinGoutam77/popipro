@@ -299,9 +299,10 @@ export default function EditResume({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
+
   // chatapi code
 
   const [text, setText] = useState("");
@@ -753,8 +754,8 @@ export default function EditResume({
                         AddMoreExp?.length ? (
                           <button
                             className="addmore"
-                            // onClick={handleUpgradePlan}
-                            onClick={() => handleShow()}
+                            onClick={handleUpgradePlan}
+                            // onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>

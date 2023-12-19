@@ -1219,18 +1219,19 @@ export default function EditProducts({
                           />
                         )}
                       </div>
-                      {MainData?.company_setting?.maximum_products !==
+                      {MainData?.company_setting?.maximum_products <=
                       PaginationData?.total_product ? (
                         <button
                           className="addmore"
                           data-toggle="modal"
                           data-target="#AddProductModal"
-                          onClick={() => handleShow()}
+                          // onClick={() => handleShow()}
+                          onClick={handleUpgradePlan}
                         >
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       ) : (
-                        <button className="addmore" onClick={handleUpgradePlan}>
+                        <button className="addmore" onClick={() => handleShow()}>
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       )}
