@@ -728,7 +728,7 @@ export default function EditProducts({
                     <option value="">Select currency</option>
                     {Currency &&
                       Currency?.map((item, index) => {
-                        return <option key={index}>{item?.currency}</option>;
+                        return <option key={index} value={item?.id}>{item?.currency}</option>;
                       })}
                   </select>
                   <input
@@ -933,7 +933,7 @@ export default function EditProducts({
                           {Currency &&
                             Currency?.map((item, index) => {
                               return (
-                                <option key={index}>{item?.currency}</option>
+                                <option key={index} value={item?.id}>{item?.currency}</option>
                               );
                             })}
                         </select>

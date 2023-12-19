@@ -36,7 +36,7 @@ const EditBanner = ({
   return (
     <>
       {Data.card_cover === "name" ||
-      Data.card_cover === "label" ||
+      (Data.card_cover === "label" && Data?.card_company_logo !== null) ||
       (Data?.card_cover === "logo" && Data?.card_company_logo?.length !== 0) ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
@@ -259,12 +259,15 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
-              {Data.card_cover === "name" ? (
+              {Data.card_cover === "name" &&
+              Data?.card_company_logo !== null ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
+              ) : Data?.card_cover !== "banner" ? (
+                <h5 className="text-white">Popipro</h5>
               ) : (
-                <h5 className="VarColor">Popipro</h5>
+                ""
               )}
             </div>
           </div>
