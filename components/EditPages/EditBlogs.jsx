@@ -548,7 +548,7 @@ export default function EditBlogs({
               Edit {BlogName}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleEditClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>

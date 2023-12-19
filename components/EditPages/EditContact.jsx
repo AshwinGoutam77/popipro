@@ -160,6 +160,19 @@ export default function EditContact({
   };
 
   const handleCalendly = async () => {
+    if (CalendlyUrl == "") {
+      toast.error("Please enter the calendly URL.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     const res = await Api(ChangeAppointment, {
       method: "calendly",
       url: CalendlyUrl,
@@ -188,7 +201,7 @@ export default function EditContact({
               className="title title--h1 first-title title__separate mb-0"
               id="shareModal"
             >
-              Calendly Url
+              Calendly URL
             </h5>
           </Modal.Title>
 
@@ -202,10 +215,11 @@ export default function EditContact({
           </button>
         </Modal.Header>
         <Modal.Body>
-          <lable className="modalFormLable">Your calendly url:</lable>
+          <lable className="modalFormLable">Your calendly URL:</lable>
           <input
             type="url"
             className="form-control mt-2"
+            placeholder="Enter your calendly URL"
             value={CalendlyUrl}
             onChange={(e) => setCalendlyUrl(e.target.value)}
             style={{ height: "40px", border: "1px solid #ccc" }}

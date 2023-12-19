@@ -683,7 +683,7 @@ export default function EditTestimonials({
                         </button>
                         <button
                           className="delete-button m-0"
-                          onClick={handleEditClose}
+                          onClick={handleCanclebtn}
                         >
                           Cancel
                         </button>
