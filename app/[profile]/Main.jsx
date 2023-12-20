@@ -191,7 +191,9 @@ export default async function Main({ profile, data, id, referer }) {
                       >
                         <div className="flex-header">
                           <h2 className="title title--h1 first-title title__separate">
-                            {MainData?.custom_forms?.heading?MainData?.custom_forms?.heading:"Custom Form"}
+                            {MainData?.forms?.heading
+                              ? MainData?.forms?.heading
+                              : "Custom Form"}
                           </h2>
                         </div>
                         <BuilderForm

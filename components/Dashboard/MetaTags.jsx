@@ -20,7 +20,7 @@ export default function MetaTags({ active, handleClose, Data, APIDATA }) {
     setTitle(Data?.first_name + " - " + Data?.card_profession);
     setMetaDescription(Data?.meta_description);
     setMetaTitle(Data?.meta_title);
-    console.log('hello');
+    console.log("hello");
   }, []);
 
   const handleUpdateMetaTags = async () => {
