@@ -5,23 +5,36 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-export default function MetaTags({ active, handleClose, Data, APIDATA }) {
-  const [MetaTitle, setMetaTitle] = useState("");
-  const [MetaDescription, setMetaDescription] = useState("");
+export default function MetaTags({
+  active,
+  handleClose,
+  Data,
+  APIDATA,
+  setMetaDescription,
+  MetaDescription,
+  setMetaTitle,
+  MetaTitle,
+  setTitle,
+  Title,
+  setDescription,
+  Description,
+}) {
+  // const [MetaTitle, setMetaTitle] = useState("");
+  // const [MetaDescription, setMetaDescription] = useState("");
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Title, setTitle] = useState("");
+  // const [Description, setDescription] = useState("");
+  // const [Title, setTitle] = useState("");
 
-  useEffect(() => {
-    setDescription(Data?.card_description);
-    setTitle(Data?.first_name + " - " + Data?.card_profession);
-    setMetaDescription(Data?.meta_description);
-    setMetaTitle(Data?.meta_title);
-    console.log("hello");
-  }, []);
+  // useEffect(() => {
+  //   setDescription(Data?.card_description);
+  //   setTitle(Data?.first_name + " - " + Data?.card_profession);
+  //   setMetaDescription(Data?.meta_description);
+  //   setMetaTitle(Data?.meta_title);
+  //   console.log("hello");
+  // }, []);
 
   const handleUpdateMetaTags = async () => {
     console.log(MetaTitle);

@@ -76,7 +76,10 @@ function EditLinks({
     let mess = "";
     if (SelectOption == "" || SocialType == "") {
       error = true;
-      mess = SelectOption == "" ? "Please select an option" : "Social media url is required";
+      mess =
+        SelectOption == ""
+          ? "Please select an option"
+          : "Social media url is required";
     } else {
       id !== null
         ? (links = [
@@ -639,6 +642,10 @@ function EditLinks({
                 Would you like to display the Instagram feeds as well?
               </label>
             </div>
+            <p className="VarColor font-weight-bold ml-2 cursor-pointer m-0">
+              <span className="color-black">Note:</span> Only public profile
+              will be visible.
+            </p>
           </>
         </div>
       ) : (

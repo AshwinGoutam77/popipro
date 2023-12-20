@@ -59,6 +59,11 @@ export default function Dashboard() {
   const [card_url, setCard_url] = useState("");
   const [time, setTime] = useState(new Date().getTime() / 1000);
 
+  const [Description, setDescription] = useState("");
+  const [Title, setTitle] = useState("");
+  const [MetaTitle, setMetaTitle] = useState("");
+  const [MetaDescription, setMetaDescription] = useState("");
+
   const APIDATA = async () => {
     if (localStorage.getItem("url")) {
       setShowLoader(true);
@@ -202,6 +207,13 @@ export default function Dashboard() {
       APIDATA();
     }
     setShowLoader(false);
+  };
+  const handleShowMetaTags = () => {
+    setModalShow("metatags");
+    setDescription(Data?.card_description);
+    setTitle(Data?.first_name + " - " + Data?.card_profession);
+    setMetaDescription(Data?.meta_description);
+    setMetaTitle(Data?.meta_title);
   };
   return Data ? (
     <>
@@ -633,7 +645,7 @@ export default function Dashboard() {
               <div
                 className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                 onClick={() => {
-                  setModalShow("metatags");
+                  handleShowMetaTags();
                 }}
               >
                 <FontAwesomeIcon
@@ -1062,6 +1074,14 @@ export default function Dashboard() {
         handleClose={setModalShow}
         Data={Data}
         APIDATA={APIDATA}
+        Description={Description}
+        setDescription={setDescription}
+        Title={Title}
+        setTitle={setTitle}
+        MetaTitle={MetaTitle}
+        setMetaTitle={setMetaTitle}
+        MetaDescription={MetaDescription}
+        setMetaDescription={setMetaDescription}
       />
     </>
   ) : (
