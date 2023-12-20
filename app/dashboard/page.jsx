@@ -108,7 +108,6 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    // setCard_url(localStorage.getItem("url"));
     APIDATA();
   }, []);
 
@@ -118,15 +117,18 @@ export default function Dashboard() {
     localStorage.removeItem("url");
   };
   const handleFreeTrail = async () => {
-    console.log("kldsk");
     try {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
+        title: MainData?.is_individual == 0 ? "" : "Are you sure?",
+        text:
+          MainData?.is_individual == 0
+            ? "Kindly contact to your company to upgrade the plan."
+            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
         icon: "warning",
-        showCancelButton: true,
+        showCancelButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonColor: "rgb(24 123 249)",
         cancelButtonColor: "#d33",
+        showConfirmButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonText: "Yes",
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -227,7 +229,7 @@ export default function Dashboard() {
             style={{ width: "135px" }}
           />
           <div className="d-flex align-items-start">
-            <Dropdown as={ButtonGroup}>
+            {/* <Dropdown as={ButtonGroup}>
               <Dropdown.Toggle
                 split
                 variant="success"
@@ -278,7 +280,7 @@ export default function Dashboard() {
                   </label>
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
             <Tooltip title="Logout">
               <FontAwesomeIcon
                 icon={faRightFromBracket}
@@ -349,25 +351,13 @@ export default function Dashboard() {
                   className="mt-2 font-weight-bold subscrition-p cursor-pointer"
                   onClick={() => handleFreeTrail()}
                 >
-                  Click here to activate 30 Days Free Trial !!
+                  {MainData?.is_individual == 0
+                    ? "Kindly contact to your company to upgrade the plan."
+                    : "Click here to activate 30 Days Free Trial !!"}
                   <span className="font-weight-bold">
                     {MainData?.plan?.subscription?.end_date}
                   </span>
                 </p>
-
-                {/* {Data && Data?.is_onboarding == 1 ? (
-                  <p className="mt-2 font-weight-bold subscrition-p cursor-pointer">
-                    <span
-                      className="text-white"
-                      onClick={(e) => SaveStatusApi()}
-                    >
-                      {" "}
-                      Click here to make your profile available publically.
-                    </span>
-                  </p>
-                ) : (
-                  ""
-                )} */}
               </div>
             ) : (
               ""
@@ -383,7 +373,7 @@ export default function Dashboard() {
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
               <Link
                 href={"/edit/" + localStorage.getItem("url")}
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   <FontAwesomeIcon
@@ -424,6 +414,7 @@ export default function Dashboard() {
                     Data={Data}
                     PlanData={PlanData}
                     APIDATA={APIDATA}
+                    MainData={MainData}
                   />
                 ) : (
                   ""
@@ -467,6 +458,7 @@ export default function Dashboard() {
                     Data={Data}
                     PlanData={PlanData}
                     APIDATA={APIDATA}
+                    MainData={MainData}
                   />
                 ) : (
                   ""
@@ -512,7 +504,7 @@ export default function Dashboard() {
                     ? "/plan"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -520,6 +512,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -671,7 +664,7 @@ export default function Dashboard() {
                     ? "/insights"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -679,6 +672,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -708,7 +702,7 @@ export default function Dashboard() {
                     ? "/leads"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -716,6 +710,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -743,7 +738,7 @@ export default function Dashboard() {
                     ? "/product"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -751,6 +746,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -780,7 +776,7 @@ export default function Dashboard() {
                     ? "/blog"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -788,6 +784,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -818,7 +815,7 @@ export default function Dashboard() {
                     ? "/product-enquiry"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -826,6 +823,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -859,7 +857,7 @@ export default function Dashboard() {
                     ? "/appointment-lead"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -867,6 +865,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -896,7 +895,7 @@ export default function Dashboard() {
                     ? "/testimonialsLeads"
                     : ""
                 }
-                className="w-100"
+                className="w-100  text-decoration-none"
               >
                 <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   {Data ? (
@@ -904,6 +903,7 @@ export default function Dashboard() {
                       Data={Data}
                       PlanData={PlanData}
                       APIDATA={APIDATA}
+                      MainData={MainData}
                     />
                   ) : (
                     ""
@@ -923,7 +923,10 @@ export default function Dashboard() {
             </div>
             {/* Google Analytics */}
             <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link href="/google-analytics" className="w-100">
+              <Link
+                href="/google-analytics"
+                className="w-100  text-decoration-none"
+              >
                 <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassChart}

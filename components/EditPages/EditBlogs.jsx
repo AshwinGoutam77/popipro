@@ -824,7 +824,12 @@ export default function EditBlogs({
       {TitleData?.card_blogs?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}

@@ -1158,7 +1158,12 @@ export default function EditProducts({
         <>
           <div className="position-relative">
             {Data ? (
-              <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+              <EditPlan
+                Data={Data}
+                PlanData={PlanData}
+                APIDATA={APIDATA}
+                MainData={MainData}
+              />
             ) : (
               ""
             )}
@@ -1231,7 +1236,10 @@ export default function EditProducts({
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       ) : (
-                        <button className="addmore" onClick={() => handleShow()}>
+                        <button
+                          className="addmore"
+                          onClick={() => handleShow()}
+                        >
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       )}

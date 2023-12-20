@@ -443,7 +443,12 @@ export default function EditCustomLink({
 
       <div className="position-relative">
         {Data ? (
-          <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+          <EditPlan
+            Data={Data}
+            PlanData={PlanData}
+            APIDATA={APIDATA}
+            MainData={MainData}
+          />
         ) : (
           ""
         )}

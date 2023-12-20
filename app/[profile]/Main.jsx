@@ -187,11 +187,11 @@ export default async function Main({ profile, data, id, referer }) {
                     plan?.is_expired == false ? (
                       <div
                         className="mb-3 box-content boxxx mt-0"
-                        id="about_us"
+                        id="custom_form"
                       >
                         <div className="flex-header">
                           <h2 className="title title--h1 first-title title__separate">
-                            Custom Form
+                            {MainData?.custom_forms?.heading?MainData?.custom_forms?.heading:"Custom Form"}
                           </h2>
                         </div>
                         <BuilderForm
@@ -202,18 +202,6 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-                    {/* {MainData?.custom_forms !== null ? (
-                      <div className="custom-from-div mb-3" id="Form">
-                        <iframe
-                          frameBorder="1"
-                          width="420"
-                          src={MainData?.custom_forms}
-                          style={{ height: MainData?.forms?.height + "px" }}
-                        ></iframe>
-                      </div>
-                    ) : (
-                      ""
-                    )} */}
                   </div>
                 </div>
               </div>

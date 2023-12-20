@@ -250,7 +250,12 @@ export default function EditClients({
       {TitleData?.card_clients?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}

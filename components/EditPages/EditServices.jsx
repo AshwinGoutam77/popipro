@@ -684,7 +684,12 @@ export default function EditDoing({
       {TitleData?.card_services?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}

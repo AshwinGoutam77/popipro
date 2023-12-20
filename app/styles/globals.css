@@ -769,25 +769,25 @@ input.date-time-input::-webkit-date-and-time-value {
   font-weight: bold !important;
   font-size: 13.5px !important;
 }
-.rdt_TableRow{
+.rdt_TableRow {
   font-size: 13.5px !important;
   border: 0 !important;
 }
-.rdt_TableRow:nth-child(odd){
+.rdt_TableRow:nth-child(odd) {
   background-color: var(--themecolor) !important;
   border: 0;
 }
-.rdt_TableRow:nth-child(odd):hover{
+.rdt_TableRow:nth-child(odd):hover {
   background-color: #eeeeee !important;
   border: 0 !important;
 }
 .sc-dmlpXa::-webkit-scrollbar {
   width: 10px;
 }
-.box-shadow-leads header{
+.box-shadow-leads header {
   padding-left: 0px !important;
 }
-.box-shadow-leads{
+.box-shadow-leads {
   overflow-x: auto;
 }
 
@@ -804,10 +804,10 @@ input.date-time-input::-webkit-date-and-time-value {
   border-top-left-radius: 0px;
   background: #ccc;
 }
-.rdt_TableRow:hover{
+.rdt_TableRow:hover {
   background-color: var(--themecolor) !important;
 }
-.signature-img{
+.signature-img {
   width: 100% !important;
   margin-right: 10px;
 }
@@ -931,6 +931,16 @@ input.date-time-input::-webkit-date-and-time-value {
 .group-listing-section div:last-child {
   border: none;
 }
-.react-datepicker-popper[data-placement^=bottom]{
+.react-datepicker-popper[data-placement^="bottom"] {
   z-index: 9999999999;
+}
+.accordion-button:focus {
+  z-index: 3;
+  border-color: none !important;
+  outline: 0;
+  box-shadow: none !important;
+}
+.accordion-button:not(.collapsed){
+  background-color: var(--color) !important;
+  color: white !important;
 }

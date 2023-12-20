@@ -568,7 +568,12 @@ export default function EditWorks({
       {TitleData?.card_photos?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
@@ -837,7 +842,12 @@ export default function EditWorks({
       {TitleData?.card_videos?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
