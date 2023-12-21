@@ -21,7 +21,7 @@ import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
-export default function page() {
+export default function Page() {
   const [ShowLoader, setShowLoader] = useState(false);
   const [Data, setData] = useState("");
   const [PlanData, setPlanData] = useState("");
