@@ -672,6 +672,15 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 100px;
   width: max-content;
 }
+.filter-btns-active {
+  background-color: var(--color);
+  color: white;
+  border: 1px solid #ccc;
+  padding: 6px 19px;
+  font-weight: 600;
+  border-radius: 100px;
+  width: max-content;
+}
 .filter-btns:hover {
   background-color: var(--themecolor);
   color: black;
@@ -828,6 +837,7 @@ input.date-time-input::-webkit-date-and-time-value {
   background: var(--color);
   border-radius: 100px;
   color: var(--themecolor) !important;
+  margin-top: -25px !important;
 }
 .swiper-button-prev:after,
 .swiper-rtl .swiper-button-next:after {
@@ -846,6 +856,14 @@ input.date-time-input::-webkit-date-and-time-value {
 .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev {
   background-image: none !important;
+}
+.swiper-button-next {
+  left: auto;
+  right: 0px !important;
+}
+.swiper-button-prev {
+  right: auto;
+  left: 0px !important;
 }
 .mobile-search {
   display: none;
@@ -878,11 +896,11 @@ input.date-time-input::-webkit-date-and-time-value {
   .swiper-button-next.swiper-button-disabled,
   .swiper-button-prev,
   .swiper-rtl .swiper-button-next {
-    left: -9px !important;
+    left: 0px !important;
   }
   .swiper-button-next,
   .swiper-rtl .swiper-button-prev {
-    right: -7px !important;
+    right: 0px !important;
   }
   .swiper-button-prev,
   .swiper-rtl .swiper-button-next {
@@ -940,7 +958,119 @@ input.date-time-input::-webkit-date-and-time-value {
   outline: 0;
   box-shadow: none !important;
 }
-.accordion-button:not(.collapsed){
+.accordion-button:not(.collapsed) {
   background-color: var(--color) !important;
   color: white !important;
+}
+
+/* dashboard css */
+.dashboard-header {
+  background-color: var(--color);
+  height: 200px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  box-shadow: 1px 11px 15px 0 rgb(99 99 99 / 32%);
+  padding: 0 125px;
+}
+.dashboard-content-dev {
+  background-color: white;
+  height: 100vh;
+  position: absolute;
+  top: -61px;
+  right: 100px;
+  left: 100px;
+  bottom: 0;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);
+}
+.dashboard-image2 {
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);
+  border-radius: 100px;
+}
+.dashboard-heading-h1 {
+  font-size: 23px !important;
+  color: white;
+}
+.dashboard-heading-h6 {
+  color: white;
+  line-height: 0.8;
+}
+.dashboard-row-div {
+  padding: 20px 40px;
+}
+.dashboard-row-div2 {
+  padding: 20px 225px;
+}
+.Dashboard-plan-div {
+  background-color: var(--color);
+}
+.col-6-bg-image {
+  background-image: url("../../public/static/img/girl.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 180px;
+}
+.subscription-box {
+  background-color: var(--color);
+  margin: 0 30px;
+  border-radius: 20px;
+  color: white;
+  width: 30%;
+}
+.dashboard-tabs {
+  gap: 10px;
+  margin-top: 25px;
+}
+.dashboard-tabs p {
+  background: var(--color);
+  color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .dashboard-row-div2 {
+    padding: 20px 40px;
+    padding-top: 0px;
+  }
+  .dashboard-header {
+    background-color: var(--color);
+    height: 200px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: 1px 11px 15px 0 rgb(99 99 99 / 32%);
+    padding: 0 40px;
+  }
+  .dashboard-content-dev {
+    background-color: white;
+    height: 100vh;
+    position: absolute;
+    top: -61px;
+    right: 15px;
+    left: 15px;
+    bottom: 0;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);
+  }
+  .subscription-box {
+    background-color: var(--color);
+    margin: 0 30px;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+  }
+  .col-6-bg-image {
+    background-image: url("../../public/static/img/girl.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 120px;
+  }
 }

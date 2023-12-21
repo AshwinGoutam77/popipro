@@ -234,19 +234,54 @@ div:where(.swal2-icon).swal2-info {
   color: var(--color) !important;
 }
 
+.dashboard-boxes2 {
+  background-color: white !important;
+  color: white;
+  height: 120px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* padding: 0 15px; */
+}
 .dashboard-boxes {
   background-color: var(--color);
+  color: white;
   height: 150px;
   width: 100%;
   border-radius: 5px;
   cursor: pointer;
   position: relative;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   /* padding: 0 15px; */
+}
+.dashboard-boxes h6 {
+  color: black;
+  font-size: 14px !important;
+  padding-top: 5px;
 }
 
 .dashboard-boxes:hover {
-  background-color: black;
+  background-color: var(--color) !important;
   transition: all 0.3s;
+}
+.dashboard-boxes:hover h6 {
+  color: white !important;
+}
+
+.dashboard-boxes2 h6 {
+  color: black;
+  font-size: 14px !important;
+  padding-top: 5px;
+}
+
+.dashboard-boxes2:hover {
+  background-color: var(--color) !important;
+  transition: all 0.3s;
+}
+.dashboard-boxes2:hover h6 {
+  color: white !important;
 }
 
 /* .dashboard-boxes::before {
@@ -799,7 +834,7 @@ textarea:invalid {
 .scanner-a:hover {
   color: white !important;
 }
-.qr-background-image{
+.qr-background-image {
   background: white;
   border-radius: 10px;
   padding: 10px;

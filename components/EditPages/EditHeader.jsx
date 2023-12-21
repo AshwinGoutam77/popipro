@@ -56,11 +56,13 @@ function EditHeader({
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
   const [ShowCropper, setShowCropper] = useState(false);
+  const [ShowCropperBtn, setShowCropperBtn] = useState(false);
   const [cropDataImage, setCropDataImage] = useState("#");
   const cropperRef = createRef();
 
   const onChange = (e) => {
     setShowCropper(true);
+    setShowCropperBtn(true);
     e.preventDefault();
     let files;
     if (e.dataTransfer) {
@@ -75,7 +77,7 @@ function EditHeader({
     reader.readAsDataURL(files[0]);
   };
   const getCropData = () => {
-    setShowCropper(false);
+    setShowCropperBtn(false);
     if (typeof cropperRef.current?.cropper !== "undefined") {
       setCropDataImage(
         cropperRef.current?.cropper.getCroppedCanvas().toDataURL()
@@ -84,7 +86,7 @@ function EditHeader({
   };
 
   const getBlobData = async () => {
-    if (!ShowCropper) {
+    if (ShowCropper) {
       let info = {
         first_name: FirstName,
         last_name: LastName,
@@ -104,6 +106,7 @@ function EditHeader({
         const response = await Api(CardData, info);
         setShowLoader(true);
         if (response.data?.status) {
+          setShowCropper(false);
           APIDATA();
           setTime(new Date().getTime() / 1000);
           setImage([]);
@@ -247,7 +250,7 @@ function EditHeader({
                 borderRadius: "20px",
               }}
             />
-            {ShowCropper ? (
+            {ShowCropperBtn ? (
               <div className="mt-4">
                 <Cropper
                   ref={cropperRef}
