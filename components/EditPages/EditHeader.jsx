@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, createRef } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,10 +20,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { CardData, GetCardData } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
-import EasyCrop from "@components/ViewPages/EasyCrop";
-import getCroppedImg from "@components/ViewPages/Crop";
-import axios from "axios";
 import Image from "next/image";
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 function EditHeader({
   Data,
@@ -52,77 +51,84 @@ function EditHeader({
   const [image, setImage] = useState(null);
   const [CountryCode, setCountryCode] = useState("");
   const [Extension, setExtension] = useState("");
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [rotation, setRotation] = useState(0);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [croppedImage, setCroppedImage] = useState(null);
-  const [Base64Image, setBase64Image] = useState("");
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
+  const [ShowCropper, setShowCropper] = useState(false);
+  const [cropDataImage, setCropDataImage] = useState("#");
+  const cropperRef = createRef();
+
+  const onChange = (e) => {
+    setShowCropper(true);
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+  const getCropData = () => {
+    setShowCropper(false);
+    if (typeof cropperRef.current?.cropper !== "undefined") {
+      setCropDataImage(
+        cropperRef.current?.cropper.getCroppedCanvas().toDataURL()
+      );
+    }
+  };
 
   const getBlobData = async () => {
-    if (croppedImage) {
-      axios({
-        method: "get",
-        url: croppedImage,
-        responseType: "blob",
-      }).then(function (response) {
-        var reader = new FileReader();
-        reader.readAsDataURL(response.data);
-        reader.onloadend = async function () {
-          let info = {
-            first_name: FirstName,
-            last_name: LastName,
-            email: TitleData.card_email?.source == 1 ? "" : Email,
-            profession: Profession,
-            phone: Phone,
-            address: Address,
-            // image: ProfileImage[0],
-            image: reader.result
-              ? reader.result.replace("data:image/jpeg;base64,", "")
-              : "",
-            color_code: ColorCode,
-            website: WebUrl,
-            google_review_url: GoogleReview,
-            whatsapp_number: WhatsaapNumber,
-            trustpilot_url: TrustPilot,
-          };
-          setShowLoader(true);
-          try {
-            const response = await Api(CardData, info);
-            setShowLoader(true);
-            if (response.data?.status) {
-              location.reload();
-              APIDATA();
-              setTime(new Date().getTime() / 1000);
-              setImage([]);
-              handleClose();
-              setShow(true);
-              if (Show) {
-                setShow(false);
-              }
-            }
-          } catch (error) {
-            if (error.request.status == "401") {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }
-            toast(error.response.data.message, {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+    if (!ShowCropper) {
+      let info = {
+        first_name: FirstName,
+        last_name: LastName,
+        email: TitleData.card_email?.source == 1 ? "" : Email,
+        profession: Profession,
+        phone: Phone,
+        address: Address,
+        image: cropDataImage.replace("data:image/png;base64,", ""),
+        color_code: ColorCode,
+        website: WebUrl,
+        google_review_url: GoogleReview,
+        whatsapp_number: WhatsaapNumber,
+        trustpilot_url: TrustPilot,
+      };
+      setShowLoader(true);
+      try {
+        const response = await Api(CardData, info);
+        setShowLoader(true);
+        if (response.data?.status) {
+          APIDATA();
+          setTime(new Date().getTime() / 1000);
+          setImage([]);
+          handleClose();
+          setShow(true);
+          if (Show) {
+            setShow(false);
           }
-        };
-      });
+        }
+      } catch (error) {
+        if (error.request.status == "401") {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+        toast(error.response.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } else {
       let info = {
         first_name: FirstName,
@@ -133,7 +139,6 @@ function EditHeader({
         contact_country_code: CountryCode,
         contact_extension: Extension,
         address: Address,
-        // image: ProfileImage[0],
         image: "",
         color_code: ColorCode,
         website: WebUrl,
@@ -175,75 +180,12 @@ function EditHeader({
     }
   };
 
-  const handleImageUpload = async (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
-  };
-
-  const tokenString = localStorage.getItem("url");
-
   const cancleChanges = () => {
     handleClose();
     setShow(true);
     if (Show) {
       setShow(false);
     }
-  };
-  const SaveDataApi = async () => {
-    // getBlobData();
-    let info = {
-      first_name: FirstName,
-      last_name: LastName,
-      email: TitleData.card_email?.source == 1 ? "" : Email,
-      profession: Profession,
-      phone: Phone,
-      address: Address,
-      image: ProfileImage[0],
-      // image: Base64Image,
-      color_code: ColorCode,
-      website: WebUrl,
-      google_review_url: GoogleReview,
-      whatsapp_number: WhatsaapNumber,
-      trustpilot_url: TrustPilot,
-    };
-    setShowLoader(true);
-    try {
-      const response = await Api(CardData, info);
-      setShowLoader(true);
-      if (response.data?.status) {
-        APIDATA();
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        handleClose();
-        setShow(true);
-        if (Show) {
-          setShow(false);
-        }
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-      toast(error.response.data.message, {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    setShowLoader(false);
   };
   const editHandler = async () => {
     handleShow();
@@ -272,23 +214,6 @@ function EditHeader({
     setShowLoader(false);
   };
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
-
-  const showCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(
-        image,
-        croppedAreaPixels,
-        rotation
-      );
-      setCroppedImage(croppedImage);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [croppedAreaPixels, rotation, image]);
-
   return (
     <>
       <Modal show={showModal} onHide={handleClose} centered>
@@ -314,7 +239,7 @@ function EditHeader({
             <input
               type="file"
               placeholder="Name"
-              onChange={handleImageUpload}
+              onChange={onChange}
               accept="image/png, image/gif, image/jpeg"
               className="form-control  mt-1  w-100 text-left"
               style={{
@@ -322,19 +247,31 @@ function EditHeader({
                 borderRadius: "20px",
               }}
             />
-            <EasyCrop
-              image={image}
-              setRotation={setRotation}
-              setZoom={setZoom}
-              onCropComplete={onCropComplete}
-              setCrop={setCrop}
-              zoom={zoom}
-              rotation={rotation}
-              crop={crop}
-              showCroppedImage={showCroppedImage}
-              croppedImage={croppedImage}
-              setCroppedImage={setCroppedImage}
-            />
+            {ShowCropper ? (
+              <div className="mt-4">
+                <Cropper
+                  ref={cropperRef}
+                  style={{ height: 400, width: "100%" }}
+                  zoomTo={0.5}
+                  initialAspectRatio={1}
+                  preview=".img-preview"
+                  src={image}
+                  viewMode={1}
+                  minCropBoxHeight={10}
+                  minCropBoxWidth={10}
+                  background={false}
+                  responsive={true}
+                  autoCropArea={1}
+                  checkOrientation={false}
+                  guides={true}
+                />
+                <button className="contact-btn w-auto" onClick={getCropData}>
+                  Save Crop Image
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-3">
             <span className="overhead text-left mb-0">Name</span>
