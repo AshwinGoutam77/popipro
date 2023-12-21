@@ -181,11 +181,11 @@ export default function Page() {
       <div className="position-relative">
         <div className="dashboard-content-dev">
           <div className="d-flex align-items-center justify-content-center">
-            <div className="row p-4 mt-4 d-flex justify-content-center align-items-center subscription-box">
-              <div className="col-6">
+            <div className="row p-3 mt-4 d-flex justify-content-center align-items-center subscription-box">
+              <div className="col-4">
                 <img src="../static/img/girl.png" alt="image" width={"100%"} />
               </div>
-              <div className="col-6">
+              <div className="col-8">
                 <p>
                   Hello User, Welcome to popipro Your Subscrition will ends in{" "}
                   <span className="font-weight-bold">
