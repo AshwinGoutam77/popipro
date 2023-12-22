@@ -68,7 +68,7 @@ export default function Theme({
       color_code: "#24b1e6",
       background_color: "#dfeef8",
       banner_color: "#24b1e6",
-      text_color: "#fff",
+      text_color: "#000000",
     });
 
     if (response.data.status) {
@@ -77,7 +77,7 @@ export default function Theme({
       document.documentElement.style.setProperty("--color", "#24b1e6");
       document.documentElement.style.setProperty("--header-color", "#24b1e6");
       document.documentElement.style.setProperty("--themecolor", "#dfeef8");
-      document.documentElement.style.setProperty("--text-color", "#fff");
+      document.documentElement.style.setProperty("--text-color", "#000000");
       const color = getComputedStyle(document.documentElement).getPropertyValue(
         "--color"
       );
