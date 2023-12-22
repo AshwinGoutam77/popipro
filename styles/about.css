@@ -242,7 +242,7 @@ div:where(.swal2-icon).swal2-info {
   border-radius: 5px;
   cursor: pointer;
   position: relative;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   /* padding: 0 15px; */
 }
 .dashboard-boxes {
@@ -741,7 +741,7 @@ textarea:invalid {
 }
 
 .contactform-class::placeholder {
-  color: black;
+  color: var(--text-color);
 }
 
 .modal-content {
@@ -813,7 +813,7 @@ textarea:invalid {
 }
 .ck .ck-placeholder:before,
 .ck.ck-placeholder:before {
-  color: #a1aab5 !important;
+  color: var(--text-color) !important;
   cursor: text;
 }
 .blink-para {

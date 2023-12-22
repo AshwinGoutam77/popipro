@@ -292,7 +292,7 @@ function EditLinks({
               type="text"
               name="name"
               placeholder="Please Enter Your Complete Url*"
-              className="px-2 form-control border border-#ccc bg-white"
+              className="px-2 form-control border border-#ccc"
               style={{ height: "40px" }}
               value={SocialType}
               onChange={(e) => setSocialType(e.target.value)}

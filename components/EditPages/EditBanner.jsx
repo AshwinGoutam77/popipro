@@ -29,6 +29,10 @@ const EditBanner = ({
       "--themecolor",
       card?.background_color
     );
+    document.documentElement.style.setProperty(
+      "--text-color",
+      card?.text_color
+    );
   }, []);
 
   let isVisible = false;
@@ -263,7 +267,8 @@ const EditBanner = ({
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
-              ) : Data?.card_cover !== "banner" || Data?.card_company_logo?.length == 0 ? (
+              ) : Data?.card_cover !== "banner" ||
+                Data?.card_company_logo?.length == 0 ? (
                 <h5 className="text-white">Popipro</h5>
               ) : (
                 ""

@@ -911,14 +911,10 @@ const Header = ({
                 ""
               ) : (
                 <button
-                  className="contact-btn mt-2"
+                  className="contact-btn-header mt-2"
                   data-toggle="modal"
                   data-target="#AddTestimonialsModal"
                   onClick={handleShowReview}
-                  style={{
-                    backgroundColor: "var(--themecolor)",
-                    color: "black",
-                  }}
                 >
                   Get Reviews
                 </button>
@@ -928,11 +924,7 @@ const Header = ({
                 ""
               ) : (
                 <button
-                  className="contact-btn mt-2"
-                  style={{
-                    backgroundColor: "var(--themecolor)",
-                    color: "black",
-                  }}
+                  className="contact-btn-header mt-2"
                   onClick={
                     MainData?.company_setting?.appointment_enquiry_method ==
                     "form"

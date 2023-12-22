@@ -1026,6 +1026,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 20px;
   color: black;
   width: 30%;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .dashboard-tabs {
   gap: 10px;
@@ -1072,6 +1073,7 @@ input.date-time-input::-webkit-date-and-time-value {
     border-radius: 10px;
     color: black;
     width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   }
   .col-6-bg-image {
     background-image: url("../../public/static/img/girl.png");

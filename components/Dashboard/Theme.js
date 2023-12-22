@@ -15,6 +15,8 @@ export default function Theme({
   setHeaderColor,
   active,
   handleClose,
+  TextColor,
+  setTextColor,
 }) {
   const handleColor = async () => {
     if (Color === undefined) {
@@ -34,13 +36,16 @@ export default function Theme({
       color_code: Color,
       background_color: BackgroundColor,
       banner_color: HeaderColor,
+      text_color: TextColor,
     });
 
     if (response.data.status) {
       setColor(Data?.color_code);
       setBackgroundColor(Data?.background_color);
+      setTextColor(Data?.text_color);
       document.documentElement.style.setProperty("--color", Color);
       document.documentElement.style.setProperty("--header-color", HeaderColor);
+      document.documentElement.style.setProperty("--text-color", TextColor);
       document.documentElement.style.setProperty(
         "--themecolor",
         BackgroundColor
@@ -51,7 +56,9 @@ export default function Theme({
       const color2 = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--header-color");
-      // console.log(color);
+      const color3 = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--text-color");
       APIDATA();
     }
     handleClose();
@@ -61,13 +68,16 @@ export default function Theme({
       color_code: "#24b1e6",
       background_color: "#dfeef8",
       banner_color: "#24b1e6",
+      text_color: "#fff",
     });
 
     if (response.data.status) {
       setColor(Data?.color_code);
+      setTextColor(Data?.text_color);
       document.documentElement.style.setProperty("--color", "#24b1e6");
       document.documentElement.style.setProperty("--header-color", "#24b1e6");
       document.documentElement.style.setProperty("--themecolor", "#dfeef8");
+      document.documentElement.style.setProperty("--text-color", "#fff");
       const color = getComputedStyle(document.documentElement).getPropertyValue(
         "--color"
       );
@@ -77,6 +87,9 @@ export default function Theme({
       const color1 = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--themecolor");
+      const color3 = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--text-color");
       // console.log(color, color1);
       APIDATA();
     }
@@ -150,6 +163,18 @@ export default function Theme({
                   onChange={(e) => setHeaderColor(e.target.value)}
                 />
               </div>
+              <div className="mb-3 pl-2 pr-3">
+                <p className="pl-2 mb-0 font-weight-bold">
+                  Enter HexCode for text colour
+                </p>
+                <input
+                  type="text"
+                  placeholder="#ffc021"
+                  className="form-control border"
+                  value={TextColor || ""}
+                  onChange={(e) => setTextColor(e.target.value)}
+                />
+              </div>
               <p className="text-center mb-3 underline-or">
                 <span>OR</span>
               </p>
@@ -211,8 +236,8 @@ export default function Theme({
                   <div className="color-pick">
                     <input
                       type="color"
-                      value={HeaderColor || ""}
-                      onChange={(e) => setHeaderColor(e.target.value)}
+                      value={TextColor || ""}
+                      onChange={(e) => setTextColor(e.target.value)}
                       className="w-100 border-0 bg-transparent"
                       style={{ height: "150px" }}
                     />

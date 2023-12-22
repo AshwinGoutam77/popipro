@@ -79,6 +79,7 @@ a {
   --color: #24b1e6;
   --secondary-color: #e1f0fa;
   --header-color: #24b1e6;
+  --text-color: white;
 }
 
 html {
@@ -582,11 +583,12 @@ select:focus {
 
 .custom-select option,
 .dropdown-menu,
-.nav__item span,
-select option {
+.nav__item span {
   color: black;
 }
-
+select option{
+  color: var(--text-color);
+}
 .has-error input,
 .has-error input:focus,
 .has-error textarea,
@@ -600,23 +602,23 @@ select option {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #8d99a6;
+  color: var(--text-color);
 }
 
 .form-control::-moz-placeholder {
-  color: #8d99a6;
+  color: var(--text-color);
 }
 
 .form-control:-ms-input-placeholder {
-  color: #8d99a6;
+  color: var(--text-color);
 }
 
 .form-control::-ms-input-placeholder {
-  color: #8d99a6;
+  color: var(--text-color);
 }
 
 .form-control::placeholder {
-  color: #8d99a6;
+  color: var(--text-color);
 }
 
 input:invalid,
@@ -2733,7 +2735,7 @@ button:focus {
   border: 1px solid transparent !important;
   padding: 6px 19px;
   background-color: var(--color);
-  color: white;
+  color: var(--text-color);
   border: 1px solid #ddd;
   font-weight: 600;
   border-radius: 100px;
@@ -2749,6 +2751,21 @@ button:focus {
   font-weight: 600;
   border-radius: 100px;
   margin-top: 8px;
+}
+
+.contact-btn-header {
+  border: 1px solid var(--color) !important;
+  padding: 6px 19px;
+  background-color: white;
+  color: var(--color);
+  font-weight: 600;
+  border-radius: 100px;
+  margin-top: 8px;
+  width: 100%;
+}
+.contact-btn-header:hover {
+  background: var(--color);
+  color: var(--text-color);
 }
 
 .header-input {
@@ -2914,7 +2931,7 @@ button:focus {
     width: 100%;
     padding: 10px 19px;
     background-color: var(--color);
-    color: white;
+    color: var(--text-color);
     border: 1px solid transparent !important;
     font-weight: 600;
     border-radius: 100px;
@@ -2923,7 +2940,7 @@ button:focus {
     border: 1px solid transparent !important;
     padding: 6px 15px;
     background-color: var(--themecolor);
-    color: black;
+    color: var(--text-color);
     border: 1px solid #ddd;
     font-weight: 600;
     border-radius: 100px;

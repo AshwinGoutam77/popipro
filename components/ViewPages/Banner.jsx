@@ -37,6 +37,10 @@ const Banner = ({
         "--themecolor",
         card.background_color
       );
+      document.documentElement.style.setProperty(
+        "--text-color",
+        card?.text_color
+      );
     } else {
       setLoader(false);
     }

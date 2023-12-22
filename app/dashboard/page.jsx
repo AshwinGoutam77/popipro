@@ -51,14 +51,12 @@ export default function Dashboard() {
   const [Color, setColor] = useState("");
   const [BackgroundColor, setBackgroundColor] = useState("");
   const [HeaderColor, setHeaderColor] = useState("");
+  const [TextColor, setTextColor] = useState("");
   const [MainData, setMainData] = useState("");
   const [TitleData, setTitleData] = useState("");
   const [Appointment, setAppointment] = useState("");
   const [modalShow, setModalShow] = useState("");
-  const [ModalShowMulti, setModalShowMulti] = useState("");
-  const [card_url, setCard_url] = useState("");
   const [time, setTime] = useState(new Date().getTime() / 1000);
-
   const [Description, setDescription] = useState("");
   const [Title, setTitle] = useState("");
   const [MetaTitle, setMetaTitle] = useState("");
@@ -82,6 +80,7 @@ export default function Dashboard() {
           setColor(response.data.data.card?.color_code);
           setBackgroundColor(response.data.data?.card?.background_color);
           setHeaderColor(response.data.data?.card?.banner_color);
+          setTextColor(response.data.data?.card?.text_color);
           setMainData(response.data.data);
           document.documentElement.style.setProperty(
             "--color",
@@ -94,6 +93,10 @@ export default function Dashboard() {
           document.documentElement.style.setProperty(
             "--themecolor",
             response.data.data.card.background_color
+          );
+          document.documentElement.style.setProperty(
+            "--text-color",
+            response.data.data.card.text_color
           );
           const color = getComputedStyle(
             document.documentElement
@@ -1058,6 +1061,8 @@ export default function Dashboard() {
         setBackgroundColor={setBackgroundColor}
         HeaderColor={HeaderColor}
         setHeaderColor={setHeaderColor}
+        TextColor={TextColor}
+        setTextColor={setTextColor}
         active={modalShow == "theme" ? true : false}
         handleClose={setModalShow}
       />

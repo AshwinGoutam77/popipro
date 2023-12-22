@@ -433,7 +433,7 @@ export default function Product({
                         {MainData?.company_setting
                           ?.show_product_enquiry_button !== 0 ? (
                           <span
-                            className="mt-1 product-modal-btn w-auto text-white d-block cursor-pointer"
+                            className="mt-1 product-modal-btn w-auto d-block cursor-pointer"
                             style={{ background: "var(--color)" }}
                             onClick={() => handleModal(item?.id)}
                             data-toggle="modal"
