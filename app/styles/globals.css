@@ -1021,10 +1021,10 @@ input.date-time-input::-webkit-date-and-time-value {
   height: 180px;
 }
 .subscription-box {
-  background-color: var(--color);
+  background-color: var(--themecolor);
   margin: 0 30px;
   border-radius: 20px;
-  color: white;
+  color: black;
   width: 30%;
 }
 .dashboard-tabs {
@@ -1067,10 +1067,10 @@ input.date-time-input::-webkit-date-and-time-value {
     box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);
   }
   .subscription-box {
-    background-color: var(--color);
+    background-color: var(--themecolor);
     margin: 0 30px;
     border-radius: 10px;
-    color: white;
+    color: black;
     width: 100%;
   }
   .col-6-bg-image {
