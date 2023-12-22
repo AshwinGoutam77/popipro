@@ -971,15 +971,21 @@ input.date-time-input::-webkit-date-and-time-value {
   border-bottom-right-radius: 40px;
   box-shadow: 1px 11px 15px 0 rgb(99 99 99 / 32%);
   padding: 0 125px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 .dashboard-content-dev {
+  margin-top: 150px;
   background-color: white;
-  height: 100vh;
-  position: absolute;
+  margin: 150px 100px 0 100px;
+  /* height: 100vh; */
+  /* position: absolute;
   top: -61px;
   right: 100px;
   left: 100px;
-  bottom: 0;
+  bottom: 0; */
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);
@@ -1049,12 +1055,13 @@ input.date-time-input::-webkit-date-and-time-value {
   }
   .dashboard-content-dev {
     background-color: white;
-    height: 100vh;
-    position: absolute;
+    margin: 150px 20px 0 20px;
+    /* height: 100vh; */
+    /* position: absolute;
     top: -61px;
     right: 15px;
     left: 15px;
-    bottom: 0;
+    bottom: 0; */
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);

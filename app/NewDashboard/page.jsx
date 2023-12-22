@@ -180,303 +180,146 @@ export default function Page() {
       </div>
       <div className="position-relative">
         <div className="dashboard-content-dev">
-          <div className="d-flex align-items-center justify-content-center">
-            <div className="row p-3 mt-4 d-flex justify-content-center align-items-center subscription-box">
-              <div className="col-4">
-                <img src="../static/img/girl.png" alt="image" width={"100%"} />
-              </div>
-              <div className="col-8">
-                <p>
-                  Hello User, Welcome to popipro Your Subscrition will ends in{" "}
-                  <span className="font-weight-bold">
-                    {MainData?.plan?.subscription_left_days} days.
-                  </span>{" "}
-                </p>
+          <div className="">
+            <div className="d-flex align-items-center justify-content-center">
+              <div className="row p-3 mt-4 d-flex justify-content-center align-items-center subscription-box">
+                <div className="col-4">
+                  <img
+                    src="../static/img/girl.png"
+                    alt="image"
+                    width={"100%"}
+                  />
+                </div>
+                <div className="col-8">
+                  <p>
+                    Hello User, Welcome to popipro Your Subscrition will ends in{" "}
+                    <span className="font-weight-bold">
+                      {MainData?.plan?.subscription_left_days} days.
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mt-4 px-4 d-flex justify-content-center">
-            <SwiperComponent
-              breakpoints={{
-                1110: {
-                  slidesPerView: 10,
-                },
-                300: {
-                  slidesPerView: 3,
-                },
-              }}
-              spaceBetween={10}
-              style={{ cursor: "pointer" }}
-              className="mySwiper mb-0 pb-0"
-              navigation={{
-                clickable: true,
-              }}
-              modules={[Pagination, Navigation]}
-            >
-              <SwiperSlide className="w-auto">
-                <div className="swiper-slide review-items position-relative">
-                  <button
-                    className={
-                      ProfileTab ? "filter-btns-active" : "filter-btns"
-                    }
-                    onClick={handleProfileTab}
-                  >
-                    Edit Profile
-                  </button>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="w-auto">
-                <div className="swiper-slide review-items position-relative">
-                  <button
-                    className={LeadsTab ? "filter-btns-active" : "filter-btns"}
-                    onClick={handleLeadsTab}
-                  >
-                    Leads Analytics
-                  </button>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="w-auto">
-                <div className="swiper-slide review-items position-relative">
-                  <button
-                    className={
-                      AnalyticsTab ? "filter-btns-active" : "filter-btns"
-                    }
-                    onClick={handleAnalyticsTab}
-                  >
-                    Google Analytics
-                  </button>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="w-auto">
-                <div className="swiper-slide review-items position-relative">
-                  <button
-                    className={
-                      InsightsTab ? "filter-btns-active" : "filter-btns"
-                    }
-                    onClick={handleInsightsTab}
-                  >
-                    Insights
-                  </button>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="w-auto">
-                <div className="swiper-slide review-items position-relative">
-                  <button
-                    className={ThemeTab ? "filter-btns-active" : "filter-btns"}
-                    onClick={handleThemeTab}
-                  >
-                    Edit Theme
-                  </button>
-                </div>
-              </SwiperSlide>
-            </SwiperComponent>
-          </div>
-          <div className="row dashboard-row-div2 mb-4">
-            {ProfileTab || AnalyticsTab ? (
-              <>
-                {/* Edit profile */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={"/edit/" + cardProfile}
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      <img
-                        src="../static/img/user.png"
-                        alt="image"
-                        width={60}
-                      />
-                      <h6 className="mb-0">Edit Profile</h6>
-                    </span>
-                  </Link>
-                </div>
-                {/* Edit theme */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
-                    data-toggle={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "modal"
-                        : ""
-                    }
-                    data-target="#BackgroundColorDiv"
-                    onClick={() =>
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? setModalShow("theme")
-                        : ""
-                    }
-                  >
-                    {Data ? (
-                      <DashboardPlan
-                        Data={Data}
-                        PlanData={PlanData}
-                        APIDATA={APIDATA}
-                        MainData={MainData}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <>
-                      <img
-                        src="../static/img/paint.png"
-                        alt="image"
-                        width={60}
-                      />
-                      <h6 className="text-center mb-0">Edit Theme</h6>
-                    </>
+            <div className="mt-4 px-4 d-flex justify-content-center">
+              <SwiperComponent
+                breakpoints={{
+                  1110: {
+                    slidesPerView: 10,
+                  },
+                  300: {
+                    slidesPerView: 3,
+                  },
+                }}
+                spaceBetween={10}
+                style={{ cursor: "pointer" }}
+                className="mySwiper mb-0 pb-0"
+                modules={[Pagination]}
+              >
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        ProfileTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleProfileTab}
+                    >
+                      Edit Profile
+                    </button>
                   </div>
-                </div>
-                {/* Multiple Mode */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
-                    data-toggle={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "modal"
-                        : ""
-                    }
-                    data-target="#MultimodesModal"
-                    onClick={() => {
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? setModalShow("MultimodesModal")
-                        : "";
-                    }}
-                  >
-                    {Data ? (
-                      <DashboardPlan
-                        Data={Data}
-                        PlanData={PlanData}
-                        APIDATA={APIDATA}
-                        MainData={MainData}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <>
-                      <img
-                        src="../static/img/slider.png"
-                        alt="image"
-                        width={60}
-                      />
-                      <h6 className="text-center mb-0">Multiple Mode</h6>
-                    </>
+                </SwiperSlide>
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        LeadsTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleLeadsTab}
+                    >
+                      Leads Analytics
+                    </button>
                   </div>
-                </div>
-
-                {/* Suggestions */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      console.log("abc");
-                      setModalShow("suggestion");
-                    }}
-                  >
-                    <img src="../static/img/light.png" alt="image" width={60} />
-                    <h6 className="text-center mb-0">Suggestions</h6>
+                </SwiperSlide>
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        AnalyticsTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleAnalyticsTab}
+                    >
+                      Google Analytics
+                    </button>
                   </div>
-                </div>
-
-                {/* My subscription */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/plan"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <img
-                        src="../static/img/money.png"
-                        alt="image"
-                        width={60}
-                      />
-                      <h6 className="text-center mb-0">Subscription</h6>
-                    </span>
-                  </Link>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {ThemeTab ? (
-              <>
-                {/* Chnage password */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => setModalShow("password")}
-                  >
-                    <img
-                      src="../static/img/password.png"
-                      alt="image"
-                      width={60}
-                    />
-                    <h6 className="text-center mb-0">Password</h6>
+                </SwiperSlide>
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        InsightsTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleInsightsTab}
+                    >
+                      Insights
+                    </button>
                   </div>
-                </div>
-
-                {/* Mega Title */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      handleShowMetaTags();
-                    }}
-                  >
-                    <img src="../static/img/code.png" alt="image" width={60} />
-                    <h6 className="text-center mb-0">Meta Tags</h6>
+                </SwiperSlide>
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        ThemeTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleThemeTab}
+                    >
+                      Edit Theme
+                    </button>
                   </div>
-                </div>
-
-                {/* Overall insights */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/insights"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                </SwiperSlide>
+              </SwiperComponent>
+            </div>
+            <div className="row dashboard-row-div2 mb-4">
+              {ProfileTab || AnalyticsTab ? (
+                <>
+                  {/* Edit profile */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={"/edit/" + cardProfile}
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        <img
+                          src="../static/img/user.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="mb-0">Edit Profile</h6>
+                      </span>
+                    </Link>
+                  </div>
+                  {/* Edit theme */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      data-toggle={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "modal"
+                          : ""
+                      }
+                      data-target="#BackgroundColorDiv"
+                      onClick={() =>
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? setModalShow("theme")
+                          : ""
+                      }
+                    >
                       {Data ? (
                         <DashboardPlan
                           Data={Data}
@@ -489,271 +332,518 @@ export default function Page() {
                       )}
                       <>
                         <img
-                          src="../static/img/graph.png"
+                          src="../static/img/paint.png"
                           alt="image"
                           width={60}
                         />
-                        <h6 className="text-center mb-0">Overall Insights</h6>
+                        <h6 className="text-center mb-0">Edit Theme</h6>
                       </>
-                    </span>
-                  </Link>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {LeadsTab ? (
-              <>
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/leads"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/lead.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">Lead</h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/product"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/product.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">
-                          {TitleData?.card_products?.visible_name}
-                        </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/blog"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/blog.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">
-                          {" "}
-                          {TitleData?.card_blogs?.visible_name}
-                        </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/product-enquiry"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/service.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">
-                          {" "}
-                          {TitleData?.card_products?.visible_name} Inquiry
-                        </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {InsightsTab ? (
-              <>
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/appointment-lead"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/appointment.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">Appointments</h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/testimonialsLeads"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <img
-                          src="../static/img/testimonial.png"
-                          alt="image"
-                          width={60}
-                        />
-                        <h6 className="text-center mb-0">Approve Request</h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href="/google-analytics"
-                    className="w-100  text-decoration-none"
-                  >
-                    <div className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
-                      <img
-                        src="../static/img/google.png"
-                        alt="image"
-                        width={60}
-                      />
-                      <h6 className="text-center mb-0">Google Analytics</h6>
                     </div>
-                  </Link>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
+                  </div>
+                  {/* Multiple Mode */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      data-toggle={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "modal"
+                          : ""
+                      }
+                      data-target="#MultimodesModal"
+                      onClick={() => {
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? setModalShow("MultimodesModal")
+                          : "";
+                      }}
+                    >
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <img
+                          src="../static/img/slider.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Multiple Mode</h6>
+                      </>
+                    </div>
+                  </div>
+
+                  {/* Suggestions */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      onClick={() => {
+                        console.log("abc");
+                        setModalShow("suggestion");
+                      }}
+                    >
+                      <img
+                        src="../static/img/light.png"
+                        alt="image"
+                        width={60}
+                      />
+                      <h6 className="text-center mb-0">Suggestions</h6>
+                    </div>
+                  </div>
+
+                  {/* My subscription */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/plan"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <img
+                          src="../static/img/money.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Subscription</h6>
+                      </span>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {ThemeTab ? (
+                <>
+                  {/* Chnage password */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      onClick={() => setModalShow("password")}
+                    >
+                      <img
+                        src="../static/img/password.png"
+                        alt="image"
+                        width={60}
+                      />
+                      <h6 className="text-center mb-0">Password</h6>
+                    </div>
+                  </div>
+
+                  {/* Mega Title */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      onClick={() => {
+                        handleShowMetaTags();
+                      }}
+                    >
+                      <img
+                        src="../static/img/code.png"
+                        alt="image"
+                        width={60}
+                      />
+                      <h6 className="text-center mb-0">Meta Tags</h6>
+                    </div>
+                  </div>
+
+                  {/* Overall insights */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/insights"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/graph.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">Overall Insights</h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {LeadsTab ? (
+                <>
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/leads"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/lead.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">Lead</h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/product"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/product.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">
+                            {TitleData?.card_products?.visible_name}
+                          </h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/blog"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/blog.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">
+                            {" "}
+                            {TitleData?.card_blogs?.visible_name}
+                          </h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/product-enquiry"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/service.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">
+                            {" "}
+                            {TitleData?.card_products?.visible_name} Inquiry
+                          </h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {InsightsTab ? (
+                <>
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/appointment-lead"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/appointment.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">Appointments</h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/testimonialsLeads"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/testimonial.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">Approve Request</h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href="/google-analytics"
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        <img
+                          src="../static/img/google.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Google Analytics</h6>
+                      </div>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="mt-0 pb-4 w-100 bg-white">
+              <h6 className="text-center mt-4 font-weight-bold mb-2">
+                Follow us on
+              </h6>
+              <div
+                className="d-flex align-items-center justify-content-center"
+                style={{ gap: "10px" }}
+              >
+                <Link
+                  href="https://www.facebook.com/popipro.global"
+                  target="_blank"
+                >
+                  <span className="media-icon-div">
+                    <span className="social-media-icons">
+                      <img
+                        src={"./static/img/facebook.png"}
+                        alt="facebook"
+                        style={{
+                          width: "50px",
+                          borderRadius: "100%",
+                        }}
+                      />
+                    </span>
+                  </span>
+                </Link>
+                <Link
+                  href="https://www.instagram.com/popipro.global/"
+                  target="_blank"
+                >
+                  <span className="media-icon-div">
+                    <span className="social-media-icons">
+                      <img
+                        src={"../static/img/instagram.png"}
+                        alt="instagram"
+                        style={{
+                          width: "50px",
+                          borderRadius: "100%",
+                        }}
+                      />
+                    </span>
+                  </span>
+                </Link>
+                <Link
+                  href="https://www.youtube.com/@popipro.global"
+                  target="_blank"
+                >
+                  <span className="media-icon-div">
+                    <span className="social-media-icons">
+                      <img
+                        src={"../static/img/youtube.png"}
+                        alt="linkedin"
+                        style={{
+                          width: "50px",
+                          borderRadius: "100%",
+                        }}
+                      />
+                    </span>
+                  </span>
+                </Link>
+                <Link href="https://twitter.com/PopiPro_Global" target="_blank">
+                  <span className="media-icon-div">
+                    <span className="social-media-icons">
+                      <img
+                        src={"../static/img/twitter.png"}
+                        alt="twitter"
+                        style={{
+                          width: "50px",
+                          borderRadius: "100%",
+                        }}
+                      />
+                    </span>
+                  </span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
