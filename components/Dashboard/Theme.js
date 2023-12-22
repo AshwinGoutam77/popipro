@@ -54,9 +54,9 @@ export default function Theme({
       // console.log(color);
       APIDATA();
     }
-    handleClose()
+    handleClose();
   };
-  const habdleResetColor = async () => {
+  const handleResetColor = async () => {
     const response = await Api(CardData, {
       color_code: "#24b1e6",
       background_color: "#dfeef8",
@@ -80,7 +80,7 @@ export default function Theme({
       // console.log(color, color1);
       APIDATA();
     }
-    handleClose()
+    handleClose();
   };
   return (
     <>
@@ -188,9 +188,12 @@ export default function Theme({
                   </p>
                 </div>
               </div>
-              <div className="d-flex mt-3">
-                <div className="w-100 d-flex align-items-center flex-column">
-                  <div className="color-pick w-50">
+              <div
+                className="d-flex align-items-center justify-content-center w-100 mt-3"
+                style={{ gap: "10px" }}
+              >
+                <div className="w-100">
+                  <div className="color-pick">
                     <input
                       type="color"
                       value={HeaderColor || ""}
@@ -202,6 +205,21 @@ export default function Theme({
                   <p className="mt-2 text-center font-weight-bold">
                     Select <br />
                     Your Header Colour
+                  </p>
+                </div>
+                <div className="w-100">
+                  <div className="color-pick">
+                    <input
+                      type="color"
+                      value={HeaderColor || ""}
+                      onChange={(e) => setHeaderColor(e.target.value)}
+                      className="w-100 border-0 bg-transparent"
+                      style={{ height: "150px" }}
+                    />
+                  </div>
+                  <p className="mt-2 text-center font-weight-bold">
+                    Select <br />
+                    Your Text Colour
                   </p>
                 </div>
               </div>
@@ -216,7 +234,7 @@ export default function Theme({
                   Save Changes
                 </button>
                 <button
-                  onClick={(e) => habdleResetColor(e)}
+                  onClick={(e) => handleResetColor(e)}
                   className="contact-btn mt-2"
                   style={{ background: "#24b1e6" }}
                 >

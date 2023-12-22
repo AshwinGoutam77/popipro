@@ -944,7 +944,9 @@ export default function Product({
                               </span>
                             ) : (
                               <div>
-                                {items.price !== 0 && items.price !== "" ? (
+                                {items.price !== 0 &&
+                                items.price !== "" &&
+                                items.currency !== null ? (
                                   <span className="product-price">
                                     {items.pcurrency?.currency} {items.price}
                                   </span>
@@ -960,7 +962,7 @@ export default function Product({
                               >
                                 {Data?.whatsapp_number !== null &&
                                 MainData?.company_setting
-                                  ?.show_product_wp_button == 0 ? (
+                                  ?.show_product_wp_button !== 0 ? (
                                   <a
                                     href={
                                       "https://api.whatsapp.com/send?phone=" +
@@ -983,7 +985,7 @@ export default function Product({
                                   ""
                                 )}
                                 {MainData?.company_setting
-                                  ?.show_product_enquiry_button == 0 ? (
+                                  ?.show_product_enquiry_button !== 0 ? (
                                   <span
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"

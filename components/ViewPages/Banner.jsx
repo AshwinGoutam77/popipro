@@ -207,26 +207,28 @@ const Banner = ({
     var elem = document.getElementById("card_booking");
     elem?.scrollIntoView();
   } else if (
+    typeof window === "object" &&
     GoogleReviewState == false &&
     card?.landing_mode === "open-google-review"
   ) {
-    typeof window === "object" && card?.card_google_review !== null
-      ? (window.location.href = card?.card_google_review)
-      : (window.location.href = card?.vcard_url);
+    typeof window === "object" &&
+      (window.location.href =
+        card?.card_google_review?.url?.includes("https://") ||
+        card?.card_google_review?.url?.includes("http://")
+          ? card?.card_google_review
+          : "https://" + card?.card_google_review);
     setGoogleReviewState(true);
   } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
     window.location =
       "https://api.whatsapp.com/send?phone=" + card.card_contact;
   }
   async function requestPermission() {
-    // if (typeof window !== "undefined") {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       console.log("Notifications are allowed.");
     } else if (permission === "denied") {
       console.log("we have denied permission!, Please alow the permission.");
     }
-    // }
   }
   function getLocation() {
     if (navigator.geolocation) {
@@ -310,7 +312,12 @@ const Banner = ({
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
               <a
-                href={card.card_google_review}
+                href={
+                  card?.card_google_review?.url?.includes("https://") ||
+                  card?.card_google_review?.url?.includes("http://")
+                    ? card?.card_google_review
+                    : "https://" + card?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -438,7 +445,12 @@ const Banner = ({
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
               <a
-                href={card.card_google_review}
+                href={
+                  card?.card_google_review?.url?.includes("https://") ||
+                  card?.card_google_review?.url?.includes("http://")
+                    ? card?.card_google_review
+                    : "https://" + card?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -491,7 +503,8 @@ const Banner = ({
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
-              ) : card?.card_cover !== "banner" || card?.card_company_logo?.length == 0  ? (
+              ) : card?.card_cover !== "banner" ||
+                card?.card_company_logo?.length == 0 ? (
                 <h5 className="text-white">Popipro</h5>
               ) : (
                 ""

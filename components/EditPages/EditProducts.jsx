@@ -657,7 +657,7 @@ export default function EditProducts({
         <Modal.Body>
           <div className="">
             <label className="modalFormLable">
-              Upload Image (*Recommended Size 137x108)
+              Upload Image (*Recommended Size 150*150)
             </label>
             <input
               type="file"
@@ -895,7 +895,7 @@ export default function EditProducts({
                     key={i}
                   />
                   <label className="modalFormLable">
-                    Update Image (*Recommended Size 137x108)
+                    Update Image (*Recommended Size 150*150)
                   </label>
                   <input
                     type="file"
@@ -1390,7 +1390,9 @@ export default function EditProducts({
                                   </span>
                                 ) : (
                                   <div>
-                                    {items.price !== 0 && items.price !== "" ? (
+                                    {items.price !== 0 &&
+                                    items.price !== "" &&
+                                    items.currency !== null ? (
                                       <span className="product-price">
                                         {items.pcurrency?.currency}{" "}
                                         {items.price}
@@ -1407,7 +1409,7 @@ export default function EditProducts({
                                   >
                                     {Data?.whatsapp_number !== null &&
                                     MainData?.company_setting
-                                      ?.show_product_wp_button == 0 ? (
+                                      ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1425,7 +1427,7 @@ export default function EditProducts({
                                       ""
                                     )}
                                     {MainData?.company_setting
-                                      ?.show_product_enquiry_button == 0 ? (
+                                      ?.show_product_enquiry_button !== 0 ? (
                                       <a
                                         data-toggle="modal"
                                         data-target="#ProductEnquireModal"
