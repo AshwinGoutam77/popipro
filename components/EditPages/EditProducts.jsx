@@ -916,7 +916,7 @@ export default function EditProducts({
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
-                  {items?.is_label == 0 ? (
+                  {items?.label == null? (
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
