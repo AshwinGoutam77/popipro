@@ -1527,7 +1527,7 @@ export default function EditProducts({
                     })}
                   <div className="mt-4">
                     <h6 className="font-weight-bold">
-                      How you want to recive inquiry:
+                      How you want to receive inquiry:
                     </h6>
                     <div className="d-flex align-items-start">
                       <input

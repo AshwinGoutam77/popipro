@@ -321,7 +321,7 @@ export default function EditContact({
 
           <div className="">
             <h6 className="font-weight-bold">
-              How you want to recive appointment:
+              How you want to receive appointment:
             </h6>
             <div
               className="d-flex align-items-start"
