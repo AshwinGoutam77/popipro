@@ -2,21 +2,15 @@
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import {
   faAngleLeft,
-  faBagShopping,
   faChartSimple,
-  faChevronRight,
-  faDownload,
   faEnvelope,
-  faEye,
   faLink,
   faLocationDot,
   faPhone,
-  faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
 import { ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -68,7 +62,7 @@ const Insights = () => {
         ).getPropertyValue("--color");
       }
     } catch (error) {
-      if (error.request.status == "401") {
+      if (error.request.status == "401" && typeof window !== "undefined") {
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
@@ -84,12 +78,14 @@ const Insights = () => {
     }
   };
 
-  let dSet = Data?.click_hits?.social_media?.map((item) => {
-    return {
-      name: item.name,
-      data: item?.data,
-    };
-  });
+  let dSet =
+    Data &&
+    Data?.click_hits?.social_media?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.data,
+      };
+    });
 
   function pad(n, width, z) {
     z = z || "0";
@@ -377,11 +373,6 @@ const Insights = () => {
             <div className="row w-100 m-0">
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
-                  {/* <Bar data={data} /> */}
-                  {/* <ReactApexChart
-                    options={chartData}
-                    series={chartData.series}
-                  /> */}
                   <div id="chart">
                     <ReactApexChart
                       options={chartData.options}
@@ -395,7 +386,6 @@ const Insights = () => {
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
-                    {/* <Bar data={data2} /> */}
                     <ReactApexChart
                       options={chartData2.options}
                       series={chartData2.series}
@@ -677,42 +667,6 @@ const Insights = () => {
             </div>
 
             <div className="filter-section">
-              {/* <article className="article">
-                <h5 className="first-title mx-4 mt-4 text-black">Filter</h5>
-              </article>
-              <div className="mx-3 mt-3 filter-div">
-                <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-center">
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      selected={StartDate}
-                      onChange={(Date) => setStartDate(Date)}
-                      maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
-                    <DatePicker
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
-                      maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <button
-                      className="insight-search w-100 mt-3"
-                      onClick={handleSearchData}
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div> */}
               {/* Contact Analysis */}
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
