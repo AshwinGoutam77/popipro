@@ -42,9 +42,9 @@ const Insights = () => {
       const response = await Api(
         EditData,
         {},
-        "?card_url=" + 'prafull-gupta'
+        "?card_url=" + localStorage.getItem("url")
       );
-      if (response.data.status || typeof window !== "undefined") {
+      if (response.data.status) {
         setShowLoader(false);
         setUserData(response.data.data);
         document.documentElement.style.setProperty(
@@ -116,7 +116,7 @@ const Insights = () => {
         setShowLoader(false);
       }
     } catch (error) {
-      if (error.request.status == "401") {
+      if (error.request.status == "401" && typeof window !== "undefined") {
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
@@ -842,7 +842,7 @@ const Insights = () => {
                               {item.label}
                             </p>
                             <a
-                              href=""
+                              href="#"
                               className="color-black mt-1 font-inter text-xs+ tracking-wide text-slate-400 hover:text-primary focus:text-primary dark:hover:text-accent-light dark:focus:text-accent-light"
                             >
                               {item?.hit} People reach out through the{" "}
