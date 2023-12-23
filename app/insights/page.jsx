@@ -20,8 +20,6 @@ import "../../styles/about.css";
 import "../styles/graph.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
-import { Chart, registerables } from "chart.js";
-Chart.register(...registerables);
 import ReactApexChart from "react-apexcharts";
 
 const Insights = () => {
@@ -374,24 +372,24 @@ const Insights = () => {
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
                   <div id="chart">
-                    <ReactApexChart
+                    {/* <ReactApexChart
                       options={chartData.options}
                       series={chartData.series}
                       type="area"
                       height={350}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
-                    <ReactApexChart
+                    {/* <ReactApexChart
                       options={chartData2.options}
                       series={chartData2.series}
                       type="bar"
                       height={350}
-                    />
+                    /> */}
                   </div>
                 </div>
               ) : (
