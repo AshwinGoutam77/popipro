@@ -42,7 +42,7 @@ const Insights = () => {
       const response = await Api(
         EditData,
         {},
-        "?card_url=" + localStorage.getItem("url")
+        "?card_url=" + 'prafull-gupta'
       );
       if (response.data.status || typeof window !== "undefined") {
         setShowLoader(false);
@@ -372,24 +372,24 @@ const Insights = () => {
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
                   <div id="chart">
-                    {/* <ReactApexChart
+                    <ReactApexChart
                       options={chartData.options}
                       series={chartData.series}
                       type="area"
                       height={350}
-                    /> */}
+                    />
                   </div>
                 </div>
               </div>
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
-                    {/* <ReactApexChart
+                    <ReactApexChart
                       options={chartData2.options}
                       series={chartData2.series}
                       type="bar"
                       height={350}
-                    /> */}
+                    />
                   </div>
                 </div>
               ) : (
