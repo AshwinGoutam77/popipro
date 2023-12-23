@@ -46,7 +46,7 @@ const Insights = () => {
         {},
         "?card_url=" + localStorage.getItem("url")
       );
-      if (response.data.status) {
+      if (response.data.status || typeof window !== "undefined") {
         setShowLoader(false);
         setUserData(response.data.data);
         document.documentElement.style.setProperty(
