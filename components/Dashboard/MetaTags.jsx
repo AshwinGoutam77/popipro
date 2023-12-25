@@ -19,22 +19,10 @@ export default function MetaTags({
   setDescription,
   Description,
 }) {
-  // const [MetaTitle, setMetaTitle] = useState("");
-  // const [MetaDescription, setMetaDescription] = useState("");
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
-  // const [Description, setDescription] = useState("");
-  // const [Title, setTitle] = useState("");
-
-  // useEffect(() => {
-  //   setDescription(Data?.card_description);
-  //   setTitle(Data?.first_name + " - " + Data?.card_profession);
-  //   setMetaDescription(Data?.meta_description);
-  //   setMetaTitle(Data?.meta_title);
-  //   console.log("hello");
-  // }, []);
 
   const handleUpdateMetaTags = async () => {
     console.log(MetaTitle);
@@ -48,6 +36,16 @@ export default function MetaTags({
       handleClose();
       setMetaTitle("");
       setMetaDescription("");
+      toast.success(res.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   const handleCloseModal = () => {

@@ -134,12 +134,19 @@ export default function Page() {
     setThemeTab(true);
     setAnalyticsTab(false);
   };
+  const handleShowMetaTags = () => {
+    setModalShow("metatags");
+    setDescription(Data?.card_description);
+    setTitle(Data?.first_name + " - " + Data?.card_profession);
+    setMetaDescription(Data?.meta_description);
+    setMetaTitle(Data?.meta_title);
+  };
 
   return Data ? (
     <>
       <div className="dashboard-header">
-        <div className="d-flex align-items-center justify-content-between pt-4">
-          <div>
+        <div className="row d-flex align-items-start justify-content-between pt-4">
+          <div className="col-8 d-flex align-items-center">
             <img
               src={
                 Data?.profile_picture?.path
@@ -152,21 +159,28 @@ export default function Page() {
               alt="imagee"
               className="dashboard-image2"
             />
-            {/* <FontAwesomeIcon
-              icon={faGear}
-              className="text-white ml-2"
-              width={20}
-              style={{ fontSize: "30px" }}
-            /> */}
-          </div>{" "}
-          <img
-            src="https://www.popipro.com/assets/images/whiteLogo.png"
-            alt="logo"
-            className="login-logo"
-            style={{ width: "115px" }}
-          />
+            <div className="ml-3">
+              <h6 className="mb-0 dashboard-heading-h6">Hello,</h6>
+              <h6 className="mb-0 dashboard-heading-h6 mt-2">
+                {Data?.first_name}
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/chats/211223115317Waving_Hand_Sign_Emoji_Icon_ios10_large.webp"
+                  width={20}
+                  className="ml-2"
+                />
+              </h6>
+            </div>
+          </div>
+          <div className="col-4 d-flex justify-content-end">
+            <img
+              src="https://www.popipro.com/assets/images/whiteLogo.png"
+              alt="logo"
+              className="login-logo"
+              style={{ width: "80px" }}
+            />
+          </div>
         </div>
-        <div className="pt-4">
+        {/* <div className="pt-4">
           <h6 className="mb-0 dashboard-heading-h6">Hello,</h6>
           <h1 className="font-weight-bold dashboard-heading-h1 mt-0">
             {Data?.first_name}
@@ -176,7 +190,7 @@ export default function Page() {
               className="ml-2"
             />
           </h1>
-        </div>
+        </div> */}
       </div>
       <div className="position-relative">
         <div className="dashboard-content-dev">
@@ -231,6 +245,18 @@ export default function Page() {
                   <div className="swiper-slide review-items position-relative">
                     <button
                       className={
+                        InsightsTab ? "filter-btns-active" : "filter-btns"
+                      }
+                      onClick={handleInsightsTab}
+                    >
+                      Insights
+                    </button>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
                         LeadsTab ? "filter-btns-active" : "filter-btns"
                       }
                       onClick={handleLeadsTab}
@@ -248,18 +274,6 @@ export default function Page() {
                       onClick={handleAnalyticsTab}
                     >
                       Google Analytics
-                    </button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    <button
-                      className={
-                        InsightsTab ? "filter-btns-active" : "filter-btns"
-                      }
-                      onClick={handleInsightsTab}
-                    >
-                      Insights
                     </button>
                   </div>
                 </SwiperSlide>
@@ -437,6 +451,22 @@ export default function Page() {
                       </span>
                     </Link>
                   </div>
+                  {/* Mega Title */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      onClick={() => {
+                        handleShowMetaTags();
+                      }}
+                    >
+                      <img
+                        src="../static/img/code.png"
+                        alt="image"
+                        width={60}
+                      />
+                      <h6 className="text-center mb-0">Meta Tags</h6>
+                    </div>
+                  </div>
                 </>
               ) : (
                 ""
@@ -510,6 +540,66 @@ export default function Page() {
                           <h6 className="text-center mb-0">Overall Insights</h6>
                         </>
                       </span>
+                    </Link>
+                  </div>
+                  {/* Multiple Mode */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div
+                      className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column"
+                      data-toggle={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "modal"
+                          : ""
+                      }
+                      data-target="#MultimodesModal"
+                      onClick={() => {
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? ""
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? setModalShow("MultimodesModal")
+                          : "";
+                      }}
+                    >
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <img
+                          src="../static/img/slider.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Multiple Mode</h6>
+                      </>
+                    </div>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href="/google-analytics"
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        <img
+                          src="../static/img/google.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Google Analytics</h6>
+                      </div>
                     </Link>
                   </div>
                 </>
@@ -670,6 +760,22 @@ export default function Page() {
                       </span>
                     </Link>
                   </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href="/google-analytics"
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        <img
+                          src="../static/img/google.png"
+                          alt="image"
+                          width={60}
+                        />
+                        <h6 className="text-center mb-0">Google Analytics</h6>
+                      </div>
+                    </Link>
+                  </div>
                 </>
               ) : (
                 ""
@@ -677,6 +783,42 @@ export default function Page() {
 
               {InsightsTab ? (
                 <>
+                  {/* Overall insights */}
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/insights"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/graph.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">Overall Insights</h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
                   <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
@@ -762,6 +904,45 @@ export default function Page() {
                         />
                         <h6 className="text-center mb-0">Google Analytics</h6>
                       </div>
+                    </Link>
+                  </div>
+
+                  <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/product-enquiry"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes2 d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <img
+                            src="../static/img/service.png"
+                            alt="image"
+                            width={60}
+                          />
+                          <h6 className="text-center mb-0">
+                            {" "}
+                            {TitleData?.card_products?.visible_name} Inquiry
+                          </h6>
+                        </>
+                      </span>
                     </Link>
                   </div>
                 </>
