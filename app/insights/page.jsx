@@ -156,6 +156,7 @@ const Insights = () => {
       chart: {
         height: 350,
         type: "area",
+        enabled: false,
       },
       dataLabels: {
         enabled: false,
@@ -786,32 +787,14 @@ const Insights = () => {
                 </div>
 
                 {/* Social Analytics */}
-                <div className="flex flex-col rounded-xl bg-info/10 py-2 dark:bg-navy-800 lg:flex-row mt-4">
-                  <div className="flex flex-col px-4 sm:px-5 lg:w-48 lg:shrink-0 lg:py-3">
+                <div className="flex flex-col rounded-xl bg-info/10 py-4 dark:bg-navy-800 lg:flex-row mt-4">
+                  <div className="flex flex-col px-4 sm:px-5 lg:w-80 lg:shrink-0 lg:py-3">
                     <h5 className="first-title title__separate mt-3 text-black w-100">
-                      Socail Analytics
+                      Social Analytics
                     </h5>
                     <p className="mt-3 grow color-black">
                       Social analytics calculated based on your activity
                     </p>
-                    <div className="mt-3 flex items-center space-x-2">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-success/15 text-success">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M7 11l5-5m0 0l5 5m-5-5v12"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
                   </div>
                   <div className="scrollbar-sm mt-1 flex space-x-4 overflow-x-auto px-4 sm:px-5 lg:mt-0 lg:pl-0">
                     {Data?.card_states?.social_links.length === 0 ? (
