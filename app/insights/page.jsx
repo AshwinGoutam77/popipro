@@ -407,7 +407,7 @@ const Insights = () => {
             <h5 className="first-title title__separate mx-4 mt-4 text-black">
               {UserData?.titles?.card_products?.visible_name} Analytics
             </h5>
-            <div className="mx-4 mb-4">
+            <div className="mx-2 mb-4">
               <div className="row m-0">
                 <div className="col-12 col-lg-3 margin-sm-top">
                   <div className="card p-4">
