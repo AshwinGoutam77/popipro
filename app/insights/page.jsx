@@ -28,6 +28,7 @@ import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
+import ReactApexChart from "react-apexcharts";
 
 const Insights = () => {
   const { token } = useAuthContext();
@@ -82,52 +83,115 @@ const Insights = () => {
       setData(response.data.data);
     }
   };
-  // const data = {
-  //   labels: Data?.click_hits?.map((item, i) => {
-  //     return item.month;
-  //   }),
-  //   datasets: [
-  //     {
-  //       label: "Total Profile Views",
-  //       backgroundColor: "#24b1e6",
-  //       borderColor: "#24b1e6",
-  //       data: Data?.click_hits?.map((item, i) => {
-  //         return item.hit;
-  //       }),
-  //     },
-  //     {
-  //       label: "Total Save Contacts",
-  //       backgroundColor: "#3b4b5e",
-  //       borderColor: "#3b4b5e",
-  //       data: Data?.click_hits?.map((item, i) => {
-  //         return item.contact_download;
-  //       }),
-  //     },
-  //   ],
-  // };
-
-  // let dSet = Data?.users_social_link?.map((el) => {
-  //   return {
-  //     label: new Array(el.label),
-  //     borderColor: new Array("#0aa"),
-  //     borderWidth: new Array(5),
-  //     backgroundColor: new Array(el.color),
-  //     data: Data?.click_hits?.map((item, i) => {
-  //       return item?.social_media?.map((media) => {
-  //         // console.log("......", media?.label);
-  //         return media?.label == el.label ? media.count : 0;
-  //       });
-  //     }),
-  //   };
-  // });
-
-  // const data2 = {
-  //   labels: Data?.click_hits?.map((item, i) => {
-  //     return item.month;
-  //   }),
-
-  //   datasets: dSet || [],
-  // };
+  let dSet =
+    Data &&
+    Data?.click_hits?.social_media?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.data,
+      };
+    });
+  const chartData = {
+    series: [
+      {
+        name: "Total Profile Views",
+        data: Data?.click_hits?.hits,
+      },
+      {
+        name: "Total Save Contacts",
+        data: Data?.click_hits?.saved_contact,
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+  const chartData2 = {
+    series: dSet || [],
+    options: {
+      chart: {
+        type: "bar",
+        height: 350,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+          endingShape: "rounded",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"],
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      yaxis: {
+        title: {
+          text: "$ (thousands)",
+        },
+      },
+      fill: {
+        opacity: 2,
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return "$ " + val + " thousands";
+          },
+        },
+      },
+    },
+  };
 
   function pad(n, width, z) {
     z = z || "0";
@@ -309,22 +373,34 @@ const Insights = () => {
 
             {/* Chart */}
 
-            {/* <div className="row w-100 m-0">
+            <div className="row w-100 m-0">
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
-                  <Bar data={data} />
+                  <div id="chart">
+                    <ReactApexChart
+                      options={chartData.options}
+                      series={chartData.series}
+                      type="area"
+                      height={350}
+                    />
+                  </div>
                 </div>
               </div>
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
-                    <Bar data={data2} />
+                    <ReactApexChart
+                      options={chartData2.options}
+                      series={chartData2.series}
+                      type="bar"
+                      height={350}
+                    />
                   </div>
                 </div>
               ) : (
                 ""
               )}
-            </div> */}
+            </div>
 
             {/* Product */}
 
