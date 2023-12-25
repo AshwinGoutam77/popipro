@@ -728,7 +728,7 @@ const Insights = () => {
                         >
                           <img
                             className="z-10 h-10 w-10"
-                            src={`https://lineone.piniastudio.com/images/logos/${item.label?.toLowerCase()}-round.svg`}
+                            src={`https://lineone.piniastudio.com/images/logos/${item?.label?.toLowerCase()}-round.svg`}
                             alt="flag"
                           />
 
