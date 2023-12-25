@@ -557,6 +557,200 @@ const Insights = () => {
                 </div>
               </div>
             </div>
+            <div className="filter-section">
+              {/* Contact Analysis */}
+
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Contact Analytics
+              </h5>
+
+              <div
+                className="row w-100 m-0 justify-content-left mx-4"
+                style={{ gap: "25px" }}
+              >
+                <div className="card p-4 sm:p-5 card-height-boxes d-flex">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-xl shadow-primary/50 dark:bg-accent dark:shadow-accent/50">
+                    <FontAwesomeIcon
+                      icon={faPhone}
+                      className="text-xl text-white"
+                      style={{ fontSize: "15px" }}
+                      width="20"
+                    />
+                  </div>
+                  <p className="mt-8">
+                    People reached you through your Contact Number.
+                  </p>
+                  <p className="mt-2 font-medium text-slate-700 dark:text-navy-100">
+                    <span className="text-2xl">
+                      {Data?.card_states?.contact}
+                    </span>
+                  </p>
+                  <p className="mt-1 flex items-center text-xs text-success">
+                    <span>In this month</span>
+                  </p>
+                </div>
+                <div className="card p-4 sm:p-5 card-height-boxes">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-warning shadow-xl shadow-warning/50">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="text-xl text-white"
+                      style={{ fontSize: "15px" }}
+                      width="20"
+                    />
+                  </div>
+                  <p className="mt-8">
+                    People reached you through your Email ID.
+                  </p>
+                  <p className="mt-2 font-medium text-slate-700 dark:text-navy-100">
+                    <span className="text-2xl">{Data?.card_states?.email}</span>
+                  </p>
+                  <p className="mt-1 flex items-center text-xs text-success">
+                    <span>In this month</span>
+                  </p>
+                </div>
+                <div className="card p-4 sm:p-5 card-height-boxes">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-info shadow-xl shadow-info/50">
+                    <FontAwesomeIcon
+                      icon={faLink}
+                      className="text-xl text-white"
+                      style={{ fontSize: "15px" }}
+                      width="20"
+                    />
+                  </div>
+                  <p className="mt-8">
+                    People reached you through your Website.
+                  </p>
+                  <p className="mt-2 font-medium text-slate-700 dark:text-navy-100">
+                    <span className="text-2xl">
+                      {Data?.card_states?.website}
+                    </span>
+                  </p>
+                  <p className="mt-1 flex items-center text-xs text-success">
+                    <span>In this month</span>
+                  </p>
+                </div>
+                <div className="card p-4 sm:p-5 card-height-boxes">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary shadow-xl shadow-secondary/50">
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="text-xl text-white"
+                      style={{ fontSize: "15px" }}
+                      width="20"
+                    />
+                  </div>
+                  <p className="mt-8">
+                    People reached you through your address.
+                  </p>
+                  <p className="mt-2 font-medium text-slate-700 dark:text-navy-100">
+                    <span className="text-2xl">
+                      {Data?.card_states?.address}
+                    </span>
+                  </p>
+                  <p className="mt-1 flex items-center text-xs text-success">
+                    <span>In this month</span>
+                  </p>
+                </div>
+                {Data?.alternate_phone_states?.map((item, index) => {
+                  return (
+                    <div
+                      className="card p-4 sm:p-5 card-height-boxes"
+                      key={index}
+                    >
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary shadow-xl shadow-secondary/50">
+                        <FontAwesomeIcon
+                          icon={faPhone}
+                          className="text-xl text-white"
+                          style={{ fontSize: "15px" }}
+                          width="20"
+                        />
+                      </div>
+                      <p className="mt-8">
+                        People reached you through the contact number{" "}
+                        <span className="Varcolor">
+                          {item?.country_code
+                            ? item.country_code + "-" + item.number
+                            : item.number}
+                        </span>{" "}
+                        ({item.name})
+                      </p>
+                      <p className="mt-2 font-medium text-slate-700 dark:text-navy-100">
+                        <span className="text-2xl">{item?.count}</span>
+                      </p>
+                      <p className="mt-1 flex items-center text-xs text-success">
+                        <span>In this month</span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Social Analytics */}
+              <div className="flex flex-col rounded-xl bg-info/10 py-2 dark:bg-navy-800 lg:flex-row mt-4">
+                <div className="flex flex-col px-4 sm:px-5 lg:w-48 lg:shrink-0 lg:py-3">
+                  <h5 className="first-title title__separate mt-3 text-black w-100">
+                    Socail Analytics
+                  </h5>
+                  <p className="mt-3 grow color-black">
+                    Social analytics calculated based on your activity
+                  </p>
+                  <div className="mt-3 flex items-center space-x-2">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-success/15 text-success">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 11l5-5m0 0l5 5m-5-5v12"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="scrollbar-sm mt-1 flex space-x-4 overflow-x-auto px-4 sm:px-5 lg:mt-0 lg:pl-0">
+                  {Data?.card_states?.social_links.length === 0 ? (
+                    <p className="mx-4 font-weight-bold mb-4">
+                      No data available
+                    </p>
+                  ) : (
+                    Data?.card_states?.social_links?.map((item, index) => {
+                      return (
+                        <div
+                          className="flex w-36 shrink-0 flex-col items-center justify-content-center"
+                          key={index}
+                        >
+                          <img
+                            className="z-10 h-10 w-10"
+                            src={`https://lineone.piniastudio.com/images/logos/${item?.label?.toLowerCase()}-round.svg`}
+                            alt="flag"
+                          />
+
+                          <div className="card -mt-5 w-full rounded-2xl px-3 py-3 text-center">
+                            <p className="mt-3 text-base font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
+                              {item?.label}
+                            </p>
+                            <a
+                              href="#"
+                              className="color-black mt-1 font-inter text-xs+ tracking-wide text-slate-400 hover:text-primary focus:text-primary dark:hover:text-accent-light dark:focus:text-accent-light"
+                            >
+                              {item?.hit} People reach out through the{" "}
+                              <span className="Varcolor ml-1 font-weight-bold">
+                                {item?.label}
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </div>
             <div
               className="w-100 text-center text-white p-2 mt-3"
               style={{ bottom: "0", background: "black" }}
