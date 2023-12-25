@@ -521,180 +521,40 @@ const Insights = () => {
 
             {/* Filter */}
 
-            <div className="filter-section">
-              <article className="article">
-                <h5 className="first-title mx-4 mt-4 text-black">Filter</h5>
-              </article>
-              <div className="mx-3 mt-3 filter-div">
-                <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-center">
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      selected={StartDate}
-                      onChange={(Date) => setStartDate(Date)}
-                      maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
-                    <DatePicker
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
-                      maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <button
-                      className="insight-search w-100 mt-3"
-                      onClick={handleSearchData}
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* Contact Analysis */}
-
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Contact Analytics
+            <div className="filter-data-section p-4 mx-4 mt-5">
+              <h5 className="first-title title__separate text-black mb-4">
+                Filter Data
               </h5>
-
-              <div className="row w-100 m-0">
-                <div className="col-12 col-lg-3 p-0 mb-2">
-                  <p className="font-weight-bold leads-para ml-lg-4">
-                    <FontAwesomeIcon
-                      icon={faPhone}
-                      className="mr-2"
-                      style={{ fontSize: "15px" }}
-                      width="20"
-                    />
-                    <span className="Varcolor">
-                      {Data?.card_states?.contact}
-                    </span>{" "}
-                    People reached you through your Contact Number.
-                  </p>
+              <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-left">
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">From</label>
+                  <DatePicker
+                    selected={StartDate}
+                    onChange={(Date) => setStartDate(Date)}
+                    maxDate={new Date()}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
                 </div>
-                <div className="col-12 col-lg-3 p-0 mb-2">
-                  <p className="font-weight-bold leads-para">
-                    <FontAwesomeIcon
-                      icon={faEnvelope}
-                      className="mr-2"
-                      style={{ fontSize: "15px" }}
-                      width="20"
-                    />
-                    <span className="Varcolor">{Data?.card_states?.email}</span>{" "}
-                    People reached you through your Email ID.
-                  </p>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">To</label>
+                  <DatePicker
+                    selected={EndDate}
+                    defaultValue={EndDate}
+                    onChange={(Date) => setEndDate(Date)}
+                    maxDate={new Date()}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
                 </div>
-                <div className="col-12 col-lg-3 p-0 mb-2">
-                  <p className="font-weight-bold leads-para">
-                    <FontAwesomeIcon
-                      icon={faLink}
-                      className="mr-2"
-                      style={{ fontSize: "15px" }}
-                      width="20"
-                    />
-                    <span className="Varcolor">
-                      {Data?.card_states?.website}
-                    </span>{" "}
-                    People reached you through your Website.
-                  </p>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <button
+                    className="insight-search w-100 mt-3"
+                    onClick={handleSearchData}
+                  >
+                    Search
+                  </button>
                 </div>
-                <div className="col-12 col-lg-3 p-0 mb-2">
-                  <p className="font-weight-bold leads-para mr-lg-4">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className="mr-2"
-                      style={{ fontSize: "15px" }}
-                      width="20"
-                    />
-                    <span className="Varcolor">
-                      {Data?.card_states?.address}
-                    </span>{" "}
-                    People reached you through the your Address.
-                  </p>
-                </div>
-                {Data?.alternate_phone_states?.map((item, index) => {
-                  return (
-                    <>
-                      <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
-                        <p
-                          className={
-                            index === 1
-                              ? "font-weight-bold leads-para"
-                              : "font-weight-bold leads-para ml-lg-4"
-                          }
-                        >
-                          <FontAwesomeIcon
-                            icon={faPhone}
-                            className="mr-2"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                          <span className="Varcolor">{item?.count}</span> People
-                          reached you through the contact number{" "}
-                          <span className="Varcolor">
-                            {item?.country_code
-                              ? item.country_code + "-" + item.number
-                              : item.number}
-                          </span>{" "}
-                          ({item.name})
-                        </p>
-                      </div>
-                    </>
-                  );
-                })}
-              </div>
-
-              {/* Social Analytics */}
-
-              <h5 className="first-title title__separate mx-4 mt-3 text-black">
-                Social Analytics
-              </h5>
-
-              <div className="row w-100 m-0 mb-4 justify-content-left">
-                {Data?.card_states?.social_links.length === 0 ? (
-                  <p className="mx-4 font-weight-bold mb-4">
-                    No data available
-                  </p>
-                ) : (
-                  Data?.card_states?.social_links?.map((item, index) => {
-                    return (
-                      <>
-                        <div className="col-12 col-lg-3 p-0 mb-2">
-                          <p
-                            className={
-                              index === 1
-                                ? "font-weight-bold leads-para d-flex align-items-center"
-                                : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center"
-                            }
-                          >
-                            <img
-                              src={
-                                "../static/img/" +
-                                item.label?.toLowerCase() +
-                                ".png"
-                              }
-                              alt={`${item.label?.toLowerCase()}`}
-                              style={{
-                                width: "20px",
-                                borderRadius: "100%",
-                                marginRight: "10px",
-                              }}
-                            />
-                            {item?.hit} People reach out through the{" "}
-                            <span className="Varcolor ml-1">{item?.label}</span>
-                          </p>
-                        </div>
-                      </>
-                    );
-                  })
-                )}
               </div>
             </div>
             <div
