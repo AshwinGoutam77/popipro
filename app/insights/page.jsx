@@ -573,32 +573,30 @@ const Insights = () => {
                 </div>
                 {Data?.alternate_phone_states?.map((item, index) => {
                   return (
-                    <>
-                      <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
-                        <p
-                          className={
-                            index === 1
-                              ? "font-weight-bold leads-para"
-                              : "font-weight-bold leads-para ml-lg-4"
-                          }
-                        >
-                          <FontAwesomeIcon
-                            icon={faPhone}
-                            className="mr-2"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                          <span className="Varcolor">{item?.count}</span> People
-                          reached you through the contact number{" "}
-                          <span className="Varcolor">
-                            {item?.country_code
-                              ? item.country_code + "-" + item.number
-                              : item.number}
-                          </span>{" "}
-                          ({item.name})
-                        </p>
-                      </div>
-                    </>
+                    <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
+                      <p
+                        className={
+                          index === 1
+                            ? "font-weight-bold leads-para"
+                            : "font-weight-bold leads-para ml-lg-4"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faPhone}
+                          className="mr-2"
+                          style={{ fontSize: "15px" }}
+                          width="20"
+                        />
+                        <span className="Varcolor">{item?.count}</span> People
+                        reached you through the contact number{" "}
+                        <span className="Varcolor">
+                          {item?.country_code
+                            ? item.country_code + "-" + item.number
+                            : item.number}
+                        </span>{" "}
+                        ({item.name})
+                      </p>
+                    </div>
                   );
                 })}
               </div>
@@ -617,33 +615,31 @@ const Insights = () => {
                 ) : (
                   Data?.card_states?.social_links?.map((item, index) => {
                     return (
-                      <>
-                        <div className="col-12 col-lg-3 p-0 mb-2">
-                          <p
-                            className={
-                              index === 1
-                                ? "font-weight-bold leads-para d-flex align-items-center"
-                                : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center"
+                      <div className="col-12 col-lg-3 p-0 mb-2" key={index}>
+                        <p
+                          className={
+                            index === 1
+                              ? "font-weight-bold leads-para d-flex align-items-center"
+                              : "font-weight-bold leads-para ml-lg-4 d-flex align-items-center"
+                          }
+                        >
+                          <img
+                            src={
+                              "../static/img/" +
+                              item.label?.toLowerCase() +
+                              ".png"
                             }
-                          >
-                            <img
-                              src={
-                                "../static/img/" +
-                                item.label?.toLowerCase() +
-                                ".png"
-                              }
-                              alt={`${item.label?.toLowerCase()}`}
-                              style={{
-                                width: "20px",
-                                borderRadius: "100%",
-                                marginRight: "10px",
-                              }}
-                            />
-                            {item?.hit} People reach out through the{" "}
-                            <span className="Varcolor ml-1">{item?.label}</span>
-                          </p>
-                        </div>
-                      </>
+                            alt={`${item.label?.toLowerCase()}`}
+                            style={{
+                              width: "20px",
+                              borderRadius: "100%",
+                              marginRight: "10px",
+                            }}
+                          />
+                          {item?.hit} People reach out through the{" "}
+                          <span className="Varcolor ml-1">{item?.label}</span>
+                        </p>
+                      </div>
                     );
                   })
                 )}
