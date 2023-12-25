@@ -296,77 +296,226 @@ const Insights = () => {
             <h5 className="first-title title__separate mx-4 mt-4 text-black">
               {UserData?.titles?.card_products?.visible_name} Analytics
             </h5>
-            <div className="row w-100 m-0">
-              <div className="col-12 col-lg-12 p-0 mb-2">
-                <Link href="/product" className="VarColor">
-                  {Data?.card_states?.product_views == 0 ? (
-                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                      No data found
+            <div className="mx-4 mb-4">
+              <div className="row m-0">
+                <div className="col-12 col-lg-3 margin-sm-top">
+                  <div className="card p-4">
+                    <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
+                      {UserData?.titles?.card_products?.visible_name}
                     </p>
-                  ) : (
-                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                      <span>
-                        <FontAwesomeIcon
-                          icon={faBagShopping}
-                          className="mr-2"
-                          style={{ fontSize: "15px" }}
-                          width="20"
-                        />
-                        You got
-                        <span className="Varcolor">
-                          {" " + Data?.card_states?.product_views + " "}
+                    {Data?.card_states?.product_views == 0 ? (
+                      <p className="mt-1 text-xs+ color-black">No Data Found</p>
+                    ) : (
+                      <p className="mt-1 text-xs+ color-black">
+                        You got{" "}
+                        <span className="VarColor font-weight-bold">
+                          {Data?.card_states?.product_views}
+                        </span>{" "}
+                        clicks on Products, click here to see complete report
+                      </p>
+                    )}
+                    <div className="mt-2 flex items-end justify-between">
+                      <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          ></path>
+                        </svg>
+                        <span className="text-xs">
+                          View {UserData?.titles?.card_products?.visible_name}
                         </span>
-                        clicks on{" "}
-                        {UserData?.titles?.card_products?.visible_name}, click
-                        here to see complete report
-                      </span>
-                      <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="mx-2 cursor-pointer ml-3"
-                        style={{ fontSize: "15px", color: "var(--color)" }}
-                        width="20"
-                      />
+                      </p>
+                      <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 rotate-45"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 11l5-5m0 0l5 5m-5-5v12"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-lg-3 margin-sm-top">
+                  <div className="card p-4">
+                    <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
+                      {UserData?.titles?.card_blogs?.visible_name}
                     </p>
-                  )}
-                </Link>
-              </div>
-            </div>
-
-            {/* Blog Analysis */}
-            <h5 className="first-title title__separate mx-4 mt-3 text-black">
-              {UserData?.titles?.card_blogs?.visible_name} Analytics
-            </h5>
-            <div className="row w-100 m-0">
-              <div className="col-12 col-lg-12 p-0 mb-2">
-                <Link href="/blog" className="Varcolor">
-                  {Data?.card_states?.blog_views == 0 ? (
-                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                      No data found
-                    </p>
-                  ) : (
-                    <p className="font-weight-bold mx-4 d-flex align-items-center ml-lg-4">
-                      <span>
-                        <FontAwesomeIcon
-                          icon={faBagShopping}
-                          className="mr-2"
-                          style={{ fontSize: "15px" }}
-                          width="20"
-                        />
-                        You have total
-                        <span className="Varcolor">
-                          {" " + Data?.card_states?.blog_views + " "}
+                    {Data?.card_states?.blog_views == 0 ? (
+                      <p className="mt-1 text-xs+ color-black">No Data Found</p>
+                    ) : (
+                      <p className="mt-1 text-xs+ color-black">
+                        You got{" "}
+                        <span className="VarColor font-weight-bold">
+                          {Data?.card_states?.blog_views}
+                        </span>{" "}
+                        clicks on Products, click here to see complete report
+                      </p>
+                    )}
+                    <div className="mt-2 flex items-end justify-between">
+                      <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          ></path>
+                        </svg>
+                        <span className="text-xs">
+                          View {UserData?.titles?.card_blogs?.visible_name}
                         </span>
-                        leads click here to see more.
-                      </span>
-                      <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="mx-2 cursor-pointer ml-3"
-                        style={{ fontSize: "15px", color: "var(--color)" }}
-                        width="20"
-                      />
+                      </p>
+                      <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 rotate-45"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 11l5-5m0 0l5 5m-5-5v12"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-lg-3 margin-sm-top">
+                  <div className="card p-4">
+                    <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
+                      Product Inquiry
                     </p>
-                  )}
-                </Link>
+                    {Data?.card_states?.product_views == 0 ? (
+                      <p className="mt-1 text-xs+ color-black">No Data Found</p>
+                    ) : (
+                      <p className="mt-1 text-xs+ color-black">
+                        You got{" "}
+                        <span className="VarColor font-weight-bold">
+                          {Data?.card_states?.product_views}
+                        </span>{" "}
+                        clicks on Products Inquiry, click here to see complete
+                        report
+                      </p>
+                    )}
+                    <div className="mt-2 flex items-end justify-between">
+                      <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          ></path>
+                        </svg>
+                        <span className="text-xs">View Product Inquiry</span>
+                      </p>
+                      <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 rotate-45"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 11l5-5m0 0l5 5m-5-5v12"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-lg-3 margin-sm-top">
+                  <div className="card p-4">
+                    <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
+                      Appointments
+                    </p>
+                    {Data?.card_states?.product_views == 0 ? (
+                      <p className="mt-1 text-xs+ color-black">No Data Found</p>
+                    ) : (
+                      <p className="mt-1 text-xs+ color-black">
+                        You got{" "}
+                        <span className="VarColor font-weight-bold">
+                          {Data?.card_states?.product_views}
+                        </span>{" "}
+                        clicks on Appointments, click here to see complete
+                        report
+                      </p>
+                    )}
+                    <div className="mt-2 flex items-end justify-between">
+                      <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          ></path>
+                        </svg>
+                        <span className="text-xs">View Appointments</span>
+                      </p>
+                      <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 rotate-45"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 11l5-5m0 0l5 5m-5-5v12"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
