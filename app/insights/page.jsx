@@ -403,10 +403,10 @@ const Insights = () => {
                 )}
               </div>
 
-              {/* Product */}
+              {/* Analytics and data */}
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                {UserData?.titles?.card_products?.visible_name} Analytics
+                Analytics and data
               </h5>
               <div className="mx-2 mb-4">
                 <div className="row m-0">
@@ -425,7 +425,9 @@ const Insights = () => {
                           <span className="VarColor font-weight-bold">
                             {Data?.card_states?.product_views}
                           </span>{" "}
-                          clicks on Products, click here to see complete report
+                          clicks on{" "}
+                          {UserData?.titles?.card_products?.visible_name}, click
+                          here to see complete report
                         </p>
                       )}
                       <div className="mt-2 flex items-end justify-between">
@@ -482,7 +484,8 @@ const Insights = () => {
                           <span className="VarColor font-weight-bold">
                             {Data?.card_states?.blog_views}
                           </span>{" "}
-                          clicks on Products, click here to see complete report
+                          clicks on {UserData?.titles?.card_blogs?.visible_name}
+                          , click here to see complete report
                         </p>
                       )}
                       <div className="mt-2 flex items-end justify-between">
