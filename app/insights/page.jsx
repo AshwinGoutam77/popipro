@@ -30,7 +30,7 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 import ReactApexChart from "react-apexcharts";
 
-const Insights = () => {
+export default function Page() {
   const { token } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
@@ -766,6 +766,4 @@ const Insights = () => {
   ) : (
     redirect("/login")
   );
-};
-
-export default Insights;
+}
