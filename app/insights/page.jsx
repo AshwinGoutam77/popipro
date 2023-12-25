@@ -26,9 +26,8 @@ import "../../styles/about.css";
 import "../styles/graph.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
-import { Chart, registerables } from "chart.js";
-Chart.register(...registerables);
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Insights = () => {
   const { token } = useAuthContext();
@@ -378,30 +377,30 @@ const Insights = () => {
             <div className="row w-100 m-0">
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
-                  {typeof window !== "undefined" && (
-                    <div id="chart">
-                      <ReactApexChart
+                  <div id="chart">
+                    {typeof window !== "undefined" && (
+                      <Charts
                         options={chartData?.options}
                         series={chartData?.series}
                         type="area"
                         height={350}
                       />
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
-                  {typeof window !== "undefined" && (
-                    <div className="barchart-div mx-4">
-                      <ReactApexChart
+                  <div className="barchart-div mx-4">
+                    {typeof window !== "undefined" && (
+                      <Charts
                         options={chartData2?.options}
                         series={chartData2?.series}
                         type="bar"
                         height={350}
                       />
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               ) : (
                 ""
