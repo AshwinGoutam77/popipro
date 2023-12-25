@@ -131,6 +131,116 @@ const Insights = () => {
     }
   };
 
+  let dSet =
+    Data &&
+    Data?.click_hits?.social_media?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.data,
+      };
+    });
+  const chartData = {
+    series: [
+      {
+        name: "Total Profile Views",
+        data: Data?.click_hits?.hits,
+      },
+      {
+        name: "Total Save Contacts",
+        data: Data?.click_hits?.saved_contact,
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+  const chartData2 = {
+    series: dSet || [],
+    options: {
+      chart: {
+        type: "bar",
+        height: 350,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+          endingShape: "rounded",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"],
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      yaxis: {
+        title: {
+          text: "$ (thousands)",
+        },
+      },
+      fill: {
+        opacity: 2,
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return "$ " + val + " thousands";
+          },
+        },
+      },
+    },
+  };
+
   return token ? (
     <>
       {ShowLoader ? (
@@ -262,13 +372,13 @@ const Insights = () => {
 
             {/* Chart */}
 
-            {/* <div className="row w-100 m-0">
+            <div className="row w-100 m-0">
               <div className="col-12 col-lg-6 mt-4 px-0">
                 <div className="barchart-div mx-4">
                   <div id="chart">
                     <ReactApexChart
-                      options={chartData?.options}
-                      series={chartData?.series}
+                      options={chartData.options}
+                      series={chartData.series}
                       type="area"
                       height={350}
                     />
@@ -279,8 +389,8 @@ const Insights = () => {
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
                     <ReactApexChart
-                      options={chartData2?.options}
-                      series={chartData2?.series}
+                      options={chartData2.options}
+                      series={chartData2.series}
                       type="bar"
                       height={350}
                     />
@@ -289,7 +399,7 @@ const Insights = () => {
               ) : (
                 ""
               )}
-            </div> */}
+            </div>
 
             {/* Product */}
 
