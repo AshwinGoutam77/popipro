@@ -84,7 +84,7 @@ const Insights = () => {
     }
   };
   let dSet =
-    Data &&
+    Data?.click_hits?.social_media &&
     Data?.click_hits?.social_media?.map((item) => {
       return {
         name: item?.name,
@@ -95,11 +95,12 @@ const Insights = () => {
     series: [
       {
         name: "Total Profile Views",
-        data: Data?.click_hits?.hits,
+        data: Data?.click_hits?.hits && Data?.click_hits?.hits,
       },
       {
         name: "Total Save Contacts",
-        data: Data?.click_hits?.saved_contact,
+        data:
+          Data?.click_hits?.saved_contact && Data?.click_hits?.saved_contact,
       },
     ],
     options: {
@@ -378,8 +379,8 @@ const Insights = () => {
                 <div className="barchart-div mx-4">
                   <div id="chart">
                     <ReactApexChart
-                      options={chartData.options}
-                      series={chartData.series}
+                      options={chartData?.options}
+                      series={chartData?.series}
                       type="area"
                       height={350}
                     />
@@ -390,8 +391,8 @@ const Insights = () => {
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
                     <ReactApexChart
-                      options={chartData2.options}
-                      series={chartData2.series}
+                      options={chartData2?.options}
+                      series={chartData2?.series}
                       type="bar"
                       height={350}
                     />
