@@ -140,54 +140,54 @@ const Insights = () => {
         data: item?.data,
       };
     });
-  // const chartData = {
-  //   series: [
-  //     {
-  //       name: "Total Profile Views",
-  //       data: Data?.click_hits?.hits ? Data?.click_hits?.hits : "",
-  //     },
-  //     {
-  //       name: "Total Save Contacts",
-  //       data: Data?.click_hits?.saved_contact
-  //         ? Data?.click_hits?.saved_contact
-  //         : "",
-  //     },
-  //   ],
-  //   options: {
-  //     chart: {
-  //       height: 350,
-  //       type: "area",
-  //     },
-  //     dataLabels: {
-  //       enabled: false,
-  //     },
-  //     stroke: {
-  //       curve: "smooth",
-  //     },
-  //     xaxis: {
-  //       type: "month",
-  //       categories: [
-  //         "Jan",
-  //         "Feb",
-  //         "Mar",
-  //         "Apr",
-  //         "May",
-  //         "Jun",
-  //         "Jul",
-  //         "Aug",
-  //         "Sep",
-  //         "Oct",
-  //         "Nov",
-  //         "Dec",
-  //       ],
-  //     },
-  //     tooltip: {
-  //       x: {
-  //         format: "dd/MM/yy HH:mm",
-  //       },
-  //     },
-  //   },
-  // };
+  const chartData = {
+    series: [
+      {
+        name: "Total Profile Views",
+        data: Data?.click_hits?.hits ? Data?.click_hits?.hits : "",
+      },
+      {
+        name: "Total Save Contacts",
+        data: Data?.click_hits?.saved_contact
+          ? Data?.click_hits?.saved_contact
+          : "",
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
   const chartData2 = {
     series: dSet || [],
     options: {
@@ -237,7 +237,7 @@ const Insights = () => {
       tooltip: {
         y: {
           formatter: function (val) {
-            return "$ " + val + " thousands";
+            return val + " views";
           },
         },
       },
@@ -377,8 +377,8 @@ const Insights = () => {
 
             <div className="row w-100 m-0">
               <div className="col-12 col-lg-6 mt-4 px-0">
-                {/* <div className="barchart-div mx-4">
-                  {chartData ? (
+                <div className="barchart-div mx-4">
+                  {typeof window !== "undefined" && (
                     <div id="chart">
                       <ReactApexChart
                         options={chartData?.options}
@@ -387,14 +387,12 @@ const Insights = () => {
                         height={350}
                       />
                     </div>
-                  ) : (
-                    ""
                   )}
-                </div> */}
+                </div>
               </div>
               {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
-                  {chartData2 ? (
+                  {typeof window !== "undefined" && (
                     <div className="barchart-div mx-4">
                       <ReactApexChart
                         options={chartData2?.options}
@@ -403,8 +401,6 @@ const Insights = () => {
                         height={350}
                       />
                     </div>
-                  ) : (
-                    ""
                   )}
                 </div>
               ) : (
