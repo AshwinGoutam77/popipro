@@ -188,61 +188,61 @@ const Insights = () => {
       },
     },
   };
-  const chartData2 = {
-    series: dSet || [],
-    options: {
-      chart: {
-        type: "bar",
-        height: 350,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded",
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
-      },
-      xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
-      },
-      yaxis: {
-        title: {
-          text: "$ (thousands)",
-        },
-      },
-      fill: {
-        opacity: 2,
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return "$ " + val + " thousands";
-          },
-        },
-      },
-    },
-  };
+  // const chartData2 = {
+  //   series: dSet || [],
+  //   options: {
+  //     chart: {
+  //       type: "bar",
+  //       height: 350,
+  //     },
+  //     plotOptions: {
+  //       bar: {
+  //         horizontal: false,
+  //         columnWidth: "55%",
+  //         endingShape: "rounded",
+  //       },
+  //     },
+  //     dataLabels: {
+  //       enabled: false,
+  //     },
+  //     stroke: {
+  //       show: true,
+  //       width: 2,
+  //       colors: ["transparent"],
+  //     },
+  //     xaxis: {
+  //       categories: [
+  //         "Jan",
+  //         "Feb",
+  //         "Mar",
+  //         "Apr",
+  //         "May",
+  //         "Jun",
+  //         "Jul",
+  //         "Aug",
+  //         "Sep",
+  //         "Oct",
+  //         "Nov",
+  //         "Dec",
+  //       ],
+  //     },
+  //     yaxis: {
+  //       title: {
+  //         text: "$ (thousands)",
+  //       },
+  //     },
+  //     fill: {
+  //       opacity: 2,
+  //     },
+  //     tooltip: {
+  //       y: {
+  //         formatter: function (val) {
+  //           return "$ " + val + " thousands";
+  //         },
+  //       },
+  //     },
+  //   },
+  // };
 
   return token ? (
     <>
@@ -392,7 +392,7 @@ const Insights = () => {
                   )}
                 </div>
               </div>
-              {Data?.users_social_link?.length !== 0 ? (
+              {/* {Data?.users_social_link?.length !== 0 ? (
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   {chartData2 ? (
                     <div className="barchart-div mx-4">
@@ -409,7 +409,7 @@ const Insights = () => {
                 </div>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
 
             {/* Product */}
