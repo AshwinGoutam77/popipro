@@ -407,43 +407,46 @@ const Insights = () => {
                           here to see complete report
                         </p>
                       )}
-                      <div className="mt-2 flex items-end justify-between">
-                        <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            ></path>
-                          </svg>
-                          <span className="text-xs">
-                            View {UserData?.titles?.card_products?.visible_name}
-                          </span>
-                        </p>
-                        <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 rotate-45"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M7 11l5-5m0 0l5 5m-5-5v12"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
+                      <Link href={"/product"}>
+                        <div className="mt-2 flex items-end justify-between">
+                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              ></path>
+                            </svg>
+                            <span className="text-xs">
+                              View{" "}
+                              {UserData?.titles?.card_products?.visible_name}
+                            </span>
+                          </p>
+                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5 rotate-45"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-12 col-lg-3 margin-sm-top">
@@ -465,43 +468,45 @@ const Insights = () => {
                           , click here to see complete report
                         </p>
                       )}
-                      <div className="mt-2 flex items-end justify-between">
-                        <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            ></path>
-                          </svg>
-                          <span className="text-xs">
-                            View {UserData?.titles?.card_blogs?.visible_name}
-                          </span>
-                        </p>
-                        <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 rotate-45"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M7 11l5-5m0 0l5 5m-5-5v12"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
+                      <Link href={"/blog"}>
+                        <div className="mt-2 flex items-end justify-between">
+                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              ></path>
+                            </svg>
+                            <span className="text-xs">
+                              View {UserData?.titles?.card_blogs?.visible_name}
+                            </span>
+                          </p>
+                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5 rotate-45"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-12 col-lg-3 margin-sm-top">
@@ -523,41 +528,45 @@ const Insights = () => {
                           report
                         </p>
                       )}
-                      <div className="mt-2 flex items-end justify-between">
-                        <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            ></path>
-                          </svg>
-                          <span className="text-xs">View Product Inquiry</span>
-                        </p>
-                        <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 rotate-45"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M7 11l5-5m0 0l5 5m-5-5v12"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
+                      <Link href={"/product-enquiry"}>
+                        <div className="mt-2 flex items-end justify-between">
+                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              ></path>
+                            </svg>
+                            <span className="text-xs">
+                              View Product Inquiry
+                            </span>
+                          </p>
+                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5 rotate-45"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-12 col-lg-3 margin-sm-top">
@@ -579,41 +588,43 @@ const Insights = () => {
                           report
                         </p>
                       )}
-                      <div className="mt-2 flex items-end justify-between">
-                        <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            ></path>
-                          </svg>
-                          <span className="text-xs">View Appointments</span>
-                        </p>
-                        <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 rotate-45"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M7 11l5-5m0 0l5 5m-5-5v12"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
+                      <Link href={"/appointment-lead"}>
+                        <div className="mt-2 flex items-end justify-between">
+                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              ></path>
+                            </svg>
+                            <span className="text-xs">View Appointments</span>
+                          </p>
+                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5 rotate-45"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
