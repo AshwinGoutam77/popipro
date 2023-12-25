@@ -87,14 +87,14 @@ const Insights = () => {
     }
   };
 
-  let dSet =
-    Data &&
-    Data?.click_hits?.social_media?.map((item) => {
-      return {
-        name: item?.name,
-        data: item?.data,
-      };
-    });
+  // let dSet =
+  //   Data &&
+  //   Data?.click_hits?.social_media?.map((item) => {
+  //     return {
+  //       name: item?.name,
+  //       data: item?.data,
+  //     };
+  //   });
 
   function pad(n, width, z) {
     z = z || "0";
