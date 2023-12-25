@@ -28,6 +28,7 @@ import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
+import ReactApexChart from "react-apexcharts";
 
 const Insights = () => {
   const { token } = useAuthContext();
