@@ -225,11 +225,6 @@ const Insights = () => {
           "Dec",
         ],
       },
-      yaxis: {
-        title: {
-          text: "$ (thousands)",
-        },
-      },
       fill: {
         opacity: 2,
       },
