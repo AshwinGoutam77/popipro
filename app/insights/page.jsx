@@ -138,11 +138,11 @@ const Insights = () => {
     series: [
       {
         name: "Total Profile Views",
-        data: Data?.click_hits?.hits,
+        data: Data && Data?.click_hits?.hits,
       },
       {
         name: "Total Save Contacts",
-        data: Data?.click_hits?.saved_contact,
+        data: Data && Data?.click_hits?.saved_contact,
       },
     ],
     options: {
@@ -839,7 +839,7 @@ const Insights = () => {
 
                           <div className="card -mt-5 w-full rounded-2xl px-3 py-3 text-center">
                             <p className="mt-3 text-base font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                              {item.label}
+                              {item?.label}
                             </p>
                             <a
                               href="#"
