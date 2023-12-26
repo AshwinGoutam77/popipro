@@ -278,7 +278,8 @@ export default function EditProducts({
     url,
     currency,
     label,
-    item_label
+    item_label,
+    button_placeholder
   ) => {
     handleEditShow();
     setProductModalId(id);
@@ -288,7 +289,7 @@ export default function EditProducts({
     setProductLabel(label);
     setProductUrl(url);
     setProductPriceValue(currency);
-    setAddLabel(label);
+    setAddLabel(button_placeholder);
     setEditRadioBtn(item_label);
   };
   const HandleEmptyFeilds = () => {
@@ -906,6 +907,7 @@ export default function EditProducts({
         <Modal.Body>
           {AddMoreProduct &&
             AddMoreProduct?.map((items, i) => {
+              console.log(items);
               console.log(items);
               return ProductModalId === items.id ? (
                 <div key={i}>
@@ -1557,7 +1559,8 @@ export default function EditProducts({
                                     items.url,
                                     items.currency,
                                     items.label,
-                                    items.is_label
+                                    items.is_label,
+                                    items.button_placeholder
                                   )
                                 }
                               >

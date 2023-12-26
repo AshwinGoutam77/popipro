@@ -186,6 +186,7 @@ const Insights = () => {
           format: "",
         },
       },
+      colors: ["#24b1e6", "#166a8a"],
     },
   };
   const chartData2 = {
@@ -299,7 +300,7 @@ const Insights = () => {
                 Quick Analytics
               </h5>
               <div className="mt-5 grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
-                <div className="relative flex flex-col overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 p-3.5">
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
                   <p className="text-xs font-weight-bold text-pink-100">
                     Profile Views
                   </p>
@@ -310,7 +311,7 @@ const Insights = () => {
                   </div>
                   <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg bg-gradient-to-br from-info to-info-focus p-3.5">
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
                   <p className="text-xs font-weight-bold text-sky-100">
                     Save Contacts
                   </p>
@@ -321,7 +322,7 @@ const Insights = () => {
                   </div>
                   <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg bg-gradient-to-br from-amber-400 to-orange-600 p-3.5">
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
                   <p className="text-xs font-weight-bold text-amber-50">
                     {UserData?.titles?.card_products?.visible_name} Views
                   </p>
@@ -332,7 +333,7 @@ const Insights = () => {
                   </div>
                   <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg bg-gradient-to-br from-info to-info-focus p-3.5">
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
                   <p className="text-xs font-weight-bold text-amber-50">
                     Your Leads
                   </p>

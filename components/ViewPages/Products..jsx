@@ -379,11 +379,13 @@ export default function Product({
                         >
                           {item.name}
                         </span>
-                        {item.label ? (
+                        {item.is_label !== 0 ? (
                           <span className="product-price">{item.label}</span>
                         ) : (
                           <div>
-                            {item.price !== 0 && item.price !== "" ? (
+                            {item.price !== 0 &&
+                            item.price !== "" &&
+                            item.currency !== null ? (
                               <span className="product-price">
                                 {item.pcurrency?.currency} {item.price}
                               </span>
@@ -938,7 +940,7 @@ export default function Product({
                             onClick={() => ShowModalID(items.id)}
                           ></p>
                           <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
-                            {items.label ? (
+                            {items.is_label !== 0 ? (
                               <span className="product-price">
                                 {items.label}
                               </span>

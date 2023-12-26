@@ -450,14 +450,17 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
+select {
+  color: #000 !important;
+}
 
 .custom-select:focus,
 .form-control:focus,
 .textarea:focus,
 select:focus {
-  background-color: #deedf6;
+  background-color: #24b1e6;
   border: 2px solid rgba(141, 153, 166, 0.2);
-  color: #5e6e80;
+  color: rgb(126, 126, 126);
   box-shadow: none;
   outline: 0;
 }
@@ -586,8 +589,8 @@ select:focus {
 .nav__item span {
   color: black;
 }
-select option{
-  color: var(--text-color);
+select option {
+  color: black !important;
 }
 .has-error input,
 .has-error input:focus,
@@ -602,23 +605,23 @@ select option{
 }
 
 .form-control::-webkit-input-placeholder {
-  color: rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
 }
 
 .form-control::-moz-placeholder {
-  color:rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
 }
 
 .form-control:-ms-input-placeholder {
-  color: rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
 }
 
 .form-control::-ms-input-placeholder {
-  color: rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
 }
 
 .form-control::placeholder {
-  color: rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
 }
 
 input:invalid,
@@ -2703,7 +2706,7 @@ button:focus {
   display: block !important;
 }
 .header-box {
-  border-radius: 20px !important;
+  border-radius: 10px !important;
   background-color: #fff !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
   padding: 1.875rem !important;

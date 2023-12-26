@@ -39,8 +39,11 @@ import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
 
@@ -61,6 +64,11 @@ export default function Dashboard() {
   const [Title, setTitle] = useState("");
   const [MetaTitle, setMetaTitle] = useState("");
   const [MetaDescription, setMetaDescription] = useState("");
+  const [ProfileTab, setProfileTab] = useState(true);
+  const [LeadsTab, setLeadsTab] = useState(false);
+  const [AnalyticsTab, setAnalyticsTab] = useState(false);
+  const [InsightsTab, setInsightsTab] = useState(false);
+  const [ThemeTab, setThemeTab] = useState(false);
 
   const APIDATA = async () => {
     if (localStorage.getItem("url")) {
@@ -218,6 +226,41 @@ export default function Dashboard() {
     setMetaDescription(Data?.meta_description);
     setMetaTitle(Data?.meta_title);
   };
+  const handleProfileTab = () => {
+    setProfileTab(true);
+    setInsightsTab(false);
+    setLeadsTab(false);
+    setThemeTab(false);
+    setAnalyticsTab(false);
+  };
+  const handleLeadsTab = () => {
+    setProfileTab(false);
+    setInsightsTab(false);
+    setLeadsTab(true);
+    setThemeTab(false);
+    setAnalyticsTab(false);
+  };
+  const handleAnalyticsTab = () => {
+    setProfileTab(false);
+    setInsightsTab(false);
+    setLeadsTab(false);
+    setThemeTab(false);
+    setAnalyticsTab(true);
+  };
+  const handleInsightsTab = () => {
+    setProfileTab(false);
+    setInsightsTab(true);
+    setLeadsTab(false);
+    setThemeTab(false);
+    setAnalyticsTab(false);
+  };
+  const handleThemeTab = () => {
+    setProfileTab(false);
+    setInsightsTab(false);
+    setLeadsTab(false);
+    setThemeTab(true);
+    setAnalyticsTab(false);
+  };
   return Data ? (
     <>
       <ToastContainer
@@ -307,7 +350,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="p-4 dashboard-section">
+        <div className="p-4 dashboard-section w-100">
           <div className="d-flex justify-content-center align-items-center flex-column">
             <img
               src={
@@ -379,261 +422,651 @@ export default function Dashboard() {
             )}
           </div>
 
-          <h6 className="text-center dashboard-mt font-weight-bold text-black mb-2 pb-0">
+          <div className="mt-4 mb-3 px-4 d-flex justify-content-center">
+            <SwiperComponent
+              breakpoints={{
+                1110: {
+                  slidesPerView: 10,
+                },
+                300: {
+                  slidesPerView: 3,
+                },
+              }}
+              spaceBetween={10}
+              style={{ cursor: "pointer" }}
+              className="mySwiper mb-0 pb-0"
+              modules={[Pagination]}
+            >
+              <SwiperSlide className="w-auto">
+                <div className="swiper-slide review-items position-relative">
+                  <button
+                    className={
+                      ProfileTab ? "filter-btns-active" : "filter-btns"
+                    }
+                    onClick={handleProfileTab}
+                  >
+                    Profile
+                  </button>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="w-auto">
+                <div className="swiper-slide review-items position-relative">
+                  <button
+                    className={
+                      InsightsTab ? "filter-btns-active" : "filter-btns"
+                    }
+                    onClick={handleInsightsTab}
+                  >
+                    Insights
+                  </button>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="w-auto">
+                <div className="swiper-slide review-items position-relative">
+                  <button
+                    className={LeadsTab ? "filter-btns-active" : "filter-btns"}
+                    onClick={handleLeadsTab}
+                  >
+                    Leads
+                  </button>
+                </div>
+              </SwiperSlide>
+            </SwiperComponent>
+          </div>
+
+          {/* <h6 className="text-center dashboard-mt font-weight-bold text-black mb-2 pb-0">
             Profile Informations
-          </h6>
+          </h6> */}
 
           <div className="row dashboard-padding">
-            {/* Edit Profile */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={"/edit/" + localStorage.getItem("url")}
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">Edit Profile</h6>
-                </span>
-              </Link>
-            </div>
-            {/* Edit theme */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <div
-                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                data-toggle={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? ""
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "modal"
-                    : ""
-                }
-                data-target="#BackgroundColorDiv"
-                onClick={() =>
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? ""
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? setModalShow("theme")
-                    : ""
-                }
-              >
-                {Data ? (
-                  <DashboardPlan
-                    Data={Data}
-                    PlanData={PlanData}
-                    APIDATA={APIDATA}
-                    MainData={MainData}
-                  />
-                ) : (
-                  ""
-                )}
-                <>
-                  <FontAwesomeIcon
-                    icon={faPalette}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">Edit Theme</h6>
-                </>
-              </div>
-            </div>
-            {/* Multiple Mode */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <div
-                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                data-toggle={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? ""
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "modal"
-                    : ""
-                }
-                data-target="#MultimodesModal"
-                onClick={() => {
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? ""
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? setModalShow("MultimodesModal")
-                    : "";
-                }}
-              >
-                {Data ? (
-                  <DashboardPlan
-                    Data={Data}
-                    PlanData={PlanData}
-                    APIDATA={APIDATA}
-                    MainData={MainData}
-                  />
-                ) : (
-                  ""
-                )}
-                <>
-                  <FontAwesomeIcon
-                    icon={faSliders}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">Multiple Mode</h6>
-                </>
-              </div>
-            </div>
-
-            {/* Suggestions */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <div
-                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                onClick={() => {
-                  console.log("abc");
-                  setModalShow("suggestion");
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faLightbulb}
-                  className="text-white mb-2"
-                  style={{ fontSize: "20px" }}
-                />
-                <h6 className="text-white text-center mb-0">Suggestions</h6>
-              </div>
-            </div>
-
-            {/* My subscription */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/plan"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <FontAwesomeIcon
-                    icon={faMoneyBill1Wave}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">Subscription</h6>
-                </span>
-              </Link>
-            </div>
-
-            {/* Chnage password */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <div
-                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                onClick={() => setModalShow("password")}
-              >
-                <FontAwesomeIcon
-                  icon={faGear}
-                  className="text-white mb-2"
-                  style={{ fontSize: "20px" }}
-                />
-                <h6 className="text-white text-center mb-0">Password</h6>
-              </div>
-            </div>
-
-            {Data.id === "S7ZG" &&
-            process.env.NEXT_PUBLIC_MODE === "development" ? (
+            {ProfileTab ? (
               <>
-                {/* Address Book */}
+                {/* Edit Profile */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/address-book" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                  <Link
+                    href={"/edit/" + localStorage.getItem("url")}
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                       <FontAwesomeIcon
-                        icon={faAddressBook}
+                        icon={faUser}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
                       />
                       <h6 className="text-white text-center mb-0">
-                        Address Book
+                        Edit Profile
                       </h6>
-                    </div>
+                    </span>
                   </Link>
                 </div>
-                {/* Send Message */}
+
+                {/* Edit theme */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    data-toggle={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? ""
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "modal"
+                        : ""
+                    }
+                    data-target="#BackgroundColorDiv"
+                    onClick={() =>
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? ""
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? setModalShow("theme")
+                        : ""
+                    }
+                  >
+                    {Data ? (
+                      <DashboardPlan
+                        Data={Data}
+                        PlanData={PlanData}
+                        APIDATA={APIDATA}
+                        MainData={MainData}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <>
+                      <FontAwesomeIcon
+                        icon={faPalette}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Edit Theme
+                      </h6>
+                    </>
+                  </div>
+                </div>
+
+                {/* Multiple Mode */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    data-toggle={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? ""
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "modal"
+                        : ""
+                    }
+                    data-target="#MultimodesModal"
+                    onClick={() => {
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? ""
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? setModalShow("MultimodesModal")
+                        : "";
+                    }}
+                  >
+                    {Data ? (
+                      <DashboardPlan
+                        Data={Data}
+                        PlanData={PlanData}
+                        APIDATA={APIDATA}
+                        MainData={MainData}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <>
+                      <FontAwesomeIcon
+                        icon={faSliders}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Multiple Mode
+                      </h6>
+                    </>
+                  </div>
+                </div>
+
+                {/* Suggestions */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
-                      setModalShow("sendMessage");
+                      console.log("abc");
+                      setModalShow("suggestion");
                     }}
                   >
                     <FontAwesomeIcon
-                      icon={faMessage}
+                      icon={faLightbulb}
                       className="text-white mb-2"
                       style={{ fontSize: "20px" }}
                     />
-                    <h6 className="text-white text-center mb-0">
-                      Send Message
-                    </h6>
+                    <h6 className="text-white text-center mb-0">Suggestions</h6>
                   </div>
                 </div>
-                {/* Address Book */}
+
+                {/* My subscription */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/real-estate" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/plan"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
                       <FontAwesomeIcon
-                        icon={faHomeAlt}
+                        icon={faMoneyBill1Wave}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
                       />
                       <h6 className="text-white text-center mb-0">
-                        Real Estate
+                        Subscription
                       </h6>
-                    </div>
+                    </span>
                   </Link>
                 </div>
-                {/* Signature */}
+
+                {/* Chnage password */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/signature" className="w-100">
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faEnvelope}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Email Signature
-                      </h6>
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => setModalShow("password")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faGear}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Password</h6>
+                  </div>
+                </div>
+
+                {Data.id === "S7ZG" &&
+                process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  <>
+                    {/* Address Book */}
+                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                      <Link href="/address-book" className="w-100">
+                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                          <FontAwesomeIcon
+                            icon={faAddressBook}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Address Book
+                          </h6>
+                        </div>
+                      </Link>
                     </div>
+                    {/* Send Message */}
+                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                      <div
+                        className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                        onClick={() => {
+                          setModalShow("sendMessage");
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faMessage}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Send Message
+                        </h6>
+                      </div>
+                    </div>
+                    {/* Address Book */}
+                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                      <Link href="/real-estate" className="w-100">
+                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                          <FontAwesomeIcon
+                            icon={faHomeAlt}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Real Estate
+                          </h6>
+                        </div>
+                      </Link>
+                    </div>
+                    {/* Signature */}
+                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                      <Link href="/signature" className="w-100">
+                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                          <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Email Signature
+                          </h6>
+                        </div>
+                      </Link>
+                    </div>
+                    {/* Background */}
+                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                      <Link href="/background" className="w-100">
+                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                          <FontAwesomeIcon
+                            icon={faImage}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Virtual Background
+                          </h6>
+                        </div>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+
+                {/* Meta Title */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      handleShowMetaTags();
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faCode}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
+                  </div>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {/* Analytics & Data */}
+
+          {/* <h6 className="text-center dashboard-mt font-weight-bold text-black">
+            Analytics & Data
+          </h6> */}
+          <div className="row mt-2 dashboard-padding">
+            {InsightsTab ? (
+              <>
+                {/* Overall insights */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/insights"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faChartSimple}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Overall Insights
+                        </h6>
+                      </>
+                    </span>
                   </Link>
                 </div>
-                {/* Background */}
+                {/* Lead insights */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link href="/background" className="w-100">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/leads"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faSignal}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">Lead</h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+                {/* Product analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/product"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faBagShopping}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          {TitleData?.card_products?.visible_name}
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>{" "}
+                {/* Blogs analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/blog"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faNewspaper}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          {" "}
+                          {TitleData?.card_blogs?.visible_name}
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+                {/* Product enquiry */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/product-enquiry"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCartShopping}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          {" "}
+                          {TitleData?.card_products?.visible_name} Inquiry
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+
+            {LeadsTab ? (
+              <>
+                {/* My appointment */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/appointment-lead"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCalendarCheck}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Appointments
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+                {/* Approve request */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/testimonialsLeads"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faStar}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Approve Review
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+                {/* Google Analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href="/google-analytics"
+                    className="w-100  text-decoration-none"
+                  >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                       <FontAwesomeIcon
-                        icon={faImage}
+                        icon={faMagnifyingGlassChart}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
                       />
                       <h6 className="text-white text-center mb-0">
-                        Virtual Background
+                        Google Analytics
                       </h6>
                     </div>
                   </Link>
@@ -642,318 +1075,6 @@ export default function Dashboard() {
             ) : (
               ""
             )}
-
-            {/* Mega Title */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <div
-                className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                onClick={() => {
-                  handleShowMetaTags();
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faCode}
-                  className="text-white mb-2"
-                  style={{ fontSize: "20px" }}
-                />
-                <h6 className="text-white text-center mb-0">Meta Tags</h6>
-              </div>
-            </div>
-          </div>
-
-          {/* Analytics & Data */}
-
-          <h6 className="text-center dashboard-mt font-weight-bold text-black">
-            Analytics & Data
-          </h6>
-          <div className="row mt-2 dashboard-padding">
-            {/* Overall insights */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/insights"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faChartSimple}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      Overall Insights
-                    </h6>
-                  </>
-                </span>
-              </Link>
-            </div>
-            {/* Lead insights */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/leads"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faSignal}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Lead</h6>
-                  </>
-                </span>
-              </Link>
-            </div>
-            {/* Product analytics */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/product"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faBagShopping}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      {TitleData?.card_products?.visible_name}
-                    </h6>
-                  </>
-                </span>
-              </Link>
-            </div>{" "}
-            {/* Blogs analytics */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/blog"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faNewspaper}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      {" "}
-                      {TitleData?.card_blogs?.visible_name}
-                    </h6>
-                  </>
-                </span>
-              </Link>
-            </div>
-            {/* Product enquiry */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/product-enquiry"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      {" "}
-                      {TitleData?.card_products?.visible_name} Inquiry
-                    </h6>
-                  </>
-                </span>
-              </Link>
-              {/* <div className="d-none">
-                <DashboardProducts TitleData={TitleData} />
-              </div> */}
-            </div>
-            {/* My appointment */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/appointment-lead"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faCalendarCheck}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      Appointments
-                    </h6>
-                  </>
-                </span>
-              </Link>
-            </div>
-            {/* Approve request */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href={
-                  PlanData?.is_expired !== false &&
-                  PlanData?.is_trial_taken !== 0
-                    ? "https://www.popipro.com/order"
-                    : PlanData?.subscription?.plan_id !== 1 &&
-                      PlanData?.subscription !== null
-                    ? "/testimonialsLeads"
-                    : ""
-                }
-                className="w-100  text-decoration-none"
-              >
-                <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  {Data ? (
-                    <DashboardPlan
-                      Data={Data}
-                      PlanData={PlanData}
-                      APIDATA={APIDATA}
-                      MainData={MainData}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <>
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">
-                      Approve Review
-                    </h6>
-                  </>
-                </span>
-              </Link>
-            </div>
-            {/* Google Analytics */}
-            <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-              <Link
-                href="/google-analytics"
-                className="w-100  text-decoration-none"
-              >
-                <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                  <FontAwesomeIcon
-                    icon={faMagnifyingGlassChart}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <h6 className="text-white text-center mb-0">
-                    Google Analytics
-                  </h6>
-                </div>
-              </Link>
-            </div>
           </div>
         </div>
         <div className="mt-0 pb-4 w-100 bg-white">

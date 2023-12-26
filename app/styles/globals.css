@@ -1042,8 +1042,11 @@ input.date-time-input::-webkit-date-and-time-value {
   padding: 5px 10px;
   cursor: pointer;
 }
-.rendered-form.formbuilder-embedded-bootstrap .form-control{
+.rendered-form.formbuilder-embedded-bootstrap .form-control {
   padding: 22px !important;
+}
+.theme-bg {
+  background-color: #24b1e6;
 }
 
 @media (max-width: 768px) {
