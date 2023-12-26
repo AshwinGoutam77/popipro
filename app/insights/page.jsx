@@ -351,28 +351,24 @@ const Insights = () => {
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
                     <div id="chart">
-                      {typeof window !== "undefined" && (
-                        <Charts
-                          options={chartData?.options}
-                          series={chartData?.series}
-                          type="area"
-                          height={350}
-                        />
-                      )}
+                      <Charts
+                        options={chartData?.options}
+                        series={chartData?.series}
+                        type="area"
+                        height={350}
+                      />
                     </div>
                   </div>
                 </div>
                 {Data?.users_social_link?.length !== 0 ? (
                   <div className="col-12 col-lg-6 mt-4 px-0">
                     <div className="barchart-div mx-4">
-                      {typeof window !== "undefined" && (
-                        <Charts
-                          options={chartData2?.options}
-                          series={chartData2?.series}
-                          type="bar"
-                          height={350}
-                        />
-                      )}
+                      <Charts
+                        options={chartData2?.options}
+                        series={chartData2?.series}
+                        type="bar"
+                        height={350}
+                      />
                     </div>
                   </div>
                 ) : (
