@@ -79,7 +79,9 @@ const Insights = () => {
     const response = await Api(GetInshights, {});
     if (response.data.status) {
       setShowLoader(false);
-      setData(response.data.data);
+      if (response?.data?.data) {
+        setData(response.data.data);
+      }
     }
   };
   function pad(n, width, z) {
@@ -132,7 +134,7 @@ const Insights = () => {
   };
 
   let dSet =
-    Data &&
+    Data?.click_hits?.social_media &&
     Data?.click_hits?.social_media?.map((item) => {
       return {
         name: item?.name,
@@ -143,13 +145,11 @@ const Insights = () => {
     series: [
       {
         name: "Total Profile Views",
-        data: Data?.click_hits?.hits ? Data?.click_hits?.hits : "",
+        data: Data?.click_hits?.hits,
       },
       {
         name: "Total Save Contacts",
-        data: Data?.click_hits?.saved_contact
-          ? Data?.click_hits?.saved_contact
-          : "",
+        data: Data?.click_hits?.saved_contact,
       },
     ],
     options: {
@@ -183,7 +183,7 @@ const Insights = () => {
       },
       tooltip: {
         x: {
-          format: "dd/MM/yy HH:mm",
+          format: "",
         },
       },
     },
@@ -350,14 +350,12 @@ const Insights = () => {
               <div className="row w-100 m-0">
                 <div className="col-12 col-lg-6 mt-4 px-0">
                   <div className="barchart-div mx-4">
-                    <div id="chart">
-                      <Charts
-                        options={chartData?.options}
-                        series={chartData?.series}
-                        type="area"
-                        height={350}
-                      />
-                    </div>
+                    <Charts
+                      options={chartData && chartData?.options}
+                      series={chartData && chartData?.series}
+                      type="area"
+                      height={350}
+                    />
                   </div>
                 </div>
                 {Data?.users_social_link?.length !== 0 ? (
