@@ -71,6 +71,19 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       });
       return;
     }
+    if (AboutMe == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let DesData = {
       description: Description,

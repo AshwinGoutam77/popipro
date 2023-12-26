@@ -200,6 +200,19 @@ export default function EditClients({
     });
   };
   const handleChnageTitle = async () => {
+    if (ClientName == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -214,8 +227,8 @@ export default function EditClients({
         setShowLoader(false);
         APIDATA();
         // setData(response.data.data);
-        toast(response.data.message, {
-          position: "bottom-right",
+        toast.success(response.data.message, {
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,

@@ -85,6 +85,19 @@ export default function EditContact({
     });
   };
   const handleChnageTitle = async () => {
+    if (Appointment == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     // setShowLoader(true);
     let titles = [
       {

@@ -261,6 +261,19 @@ export default function EditBlogs({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (BlogName == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {

@@ -221,6 +221,19 @@ export default function EditAlternateNo({
     setExtension(extension);
   };
   const handleChnageTitle = async () => {
+    if (AlterNumber == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     const titles = [
       {
@@ -252,8 +265,8 @@ export default function EditAlternateNo({
         window.location.href = "/login";
       }
       setShowLoader(false);
-      toast(error.response.data.message, {
-        position: "bottom-right",
+      toast.error(error.response.data.message, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

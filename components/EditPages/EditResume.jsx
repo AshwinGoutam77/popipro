@@ -247,6 +247,19 @@ export default function EditResume({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (ExpTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     setEditFields(false);
     let titles = [
@@ -262,7 +275,7 @@ export default function EditResume({
         APIDATA();
         // setData(response.data.data);
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,

@@ -306,6 +306,19 @@ export default function EditProducts({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (ProductTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -320,7 +333,7 @@ export default function EditProducts({
         APIDATA();
         // setData(response.data.data);
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
