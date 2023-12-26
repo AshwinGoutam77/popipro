@@ -180,7 +180,7 @@
 .form-control:focus,
 .textarea:focus,
 select:focus {
-  background-color: #f7f9fa;
+  background-color: #deedf6;
 }
 
 .review-item__caption {
@@ -736,12 +736,12 @@ textarea:invalid {
 
 .contactform-class {
   border-radius: 0px !important;
-  background: var(--themecolor);
+  background: #deedf6;
   padding: 12px;
 }
 
 .contactform-class::placeholder {
-  color: var(--text-color);
+  color: rgb(126, 126, 126);
 }
 
 .modal-content {

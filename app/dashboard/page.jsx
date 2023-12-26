@@ -930,7 +930,7 @@ export default function Dashboard() {
                       style={{ fontSize: "20px" }}
                     />
                     <h6 className="text-white text-center mb-0">
-                      Approve Request
+                      Approve Review
                     </h6>
                   </>
                 </span>

@@ -727,7 +727,7 @@ const Header = ({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Add Contact Via Qr
+              Add Contact Via QR
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseQr}>
@@ -759,14 +759,14 @@ const Header = ({
                   cursor: "pointer",
                 }}
               />
-              Download Qr
+              Download QR
             </button>
           </div>
           <p className="text-center mb-3 underline-or my-4">
             <span>OR</span>
           </p>
           <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
-            Share your profile via Qr
+            Share your profile via QR
           </h5>
           <div className="d-flex flex-column justify-content-center align-items-center">
             <img
@@ -790,7 +790,7 @@ const Header = ({
                   cursor: "pointer",
                 }}
               />
-              Download Qr
+              Download QR
             </button>
           </div>
         </Modal.Body>

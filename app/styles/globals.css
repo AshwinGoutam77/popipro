@@ -12,6 +12,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --ck-z-default: 100;
+  --ck-z-modal: calc(var(--ck-z-default) + 999);
 }
 
 code {
@@ -519,7 +521,7 @@ input:focus-visible {
 .date-time-input {
   width: 100% !important;
   height: 53px;
-  background: var(--themecolor);
+  background: #deedf6;
   border: none;
   padding: 0 11px;
 }

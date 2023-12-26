@@ -558,44 +558,48 @@ export default function EditDoing({
                           />
                         </p>
                       </div>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Heading",
-                            "Emoji",
-                          ],
-                          placeholder:
-                            "Insert a text and take advantage of AI to enrich the content you've written.",
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
+                      <div className="ck-body-wrapper">
+                        <CKEditor
+                          editor={ClassicEditor}
+                          config={{
+                            removePlugins: [
+                              "EasyImage",
+                              "ImageUpload",
+                              "MediaEmbed",
+                              "Table",
+                              "TableToolbar",
+                              "Indent",
+                              "BlockQuote",
+                              "Heading",
+                              "Emoji",
+                            ],
+                            placeholder:
+                              "Insert a text and take advantage of AI to enrich the content you've written.",
+                            link: {
+                              decorators: {
+                                addTargetToExternalLinks: {
+                                  mode: "automatic",
+                                  callback: (url) =>
+                                    /^(https?:)?\/\//.test(url),
+                                  attributes: {
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                  },
                                 },
                               },
                             },
-                          },
-                        }}
-                        data={ServicesDescription || ""}
-                        onReady={(editor) => {}}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setServicesDescription(data);
-                        }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
-                      />
+                            autoFocus: true,
+                          }}
+                          data={ServicesDescription || ""}
+                          onReady={(editor) => {}}
+                          onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setServicesDescription(data);
+                          }}
+                          onBlur={(event, editor) => {}}
+                          onFocus={(event, editor) => {}}
+                        />
+                      </div>
                       <div
                         className="d-flex align-items-center mt-3"
                         style={{ gap: "10px" }}

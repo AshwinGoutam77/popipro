@@ -57,6 +57,7 @@ export default function EditProducts({
   const [ServicesName, setServicesName] = useState("");
   const [ProductUrl, setProductUrl] = useState("");
   const [ProductPrice, setProductPrice] = useState("");
+  const [ProductLabel, setProductLabel] = useState("");
   const [ServicesDescription, setServicesDescription] = useState("");
   const [ProductPriceValue, setProductPriceValue] = useState("");
   const [EditFields, setEditFields] = useState(false);
@@ -79,6 +80,7 @@ export default function EditProducts({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [EditRadioBtn, setEditRadioBtn] = useState("");
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -111,8 +113,8 @@ export default function EditProducts({
               products_price: ProductPrice,
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
-              is_label: PriceRadio ? 0 : 1,
-              label: ProductPrice,
+              is_label: EditRadioBtn ? 1 : 0,
+              label: ProductLabel,
               saved_products: id,
             },
           ])
@@ -126,7 +128,7 @@ export default function EditProducts({
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
-              label: ProductPrice,
+              label: ProductLabel,
             },
           ]);
     }
@@ -168,6 +170,7 @@ export default function EditProducts({
         setServicesName("");
         setProductUrl("");
         setProductPrice("");
+        setProductLabel("");
         setAddLabel("");
         handleCanclebtn();
       }
@@ -277,21 +280,23 @@ export default function EditProducts({
     label,
     item_label
   ) => {
-    console.log(price);
     handleEditShow();
     setProductModalId(id);
     setServicesName(name);
     setServicesDescription(description);
-    setProductPrice(price == null ? item_label : price);
+    setProductPrice(price);
+    setProductLabel(label);
     setProductUrl(url);
     setProductPriceValue(currency);
     setAddLabel(label);
+    setEditRadioBtn(item_label);
   };
   const HandleEmptyFeilds = () => {
     setImage("");
     setServicesName("");
     setServicesDescription("");
     setProductPrice("");
+    setProductLabel("");
     setProductUrl("");
     setAddLabel("");
   };
@@ -377,12 +382,14 @@ export default function EditProducts({
     });
   };
   const handleRadioBTN = (e) => {
+    setEditRadioBtn(0);
     setLabelRadio(false);
     if (PriceRadio == false) {
       setPriceRadio(true);
     }
   };
   const handleLabelRadio = () => {
+    setEditRadioBtn(1);
     setPriceRadio(false);
     if (LabelRadio == false) {
       setLabelRadio(true);
@@ -538,7 +545,7 @@ export default function EditProducts({
                     >
                       {item.name}
                     </span>
-                    {item.label ? (
+                    {item.is_label == 1 ? (
                       <span className="product-price">{item.label}</span>
                     ) : (
                       <div>
@@ -756,10 +763,10 @@ export default function EditProducts({
                   rows="4"
                   cols="50"
                   className="form-control mb-4 mt-1"
-                  value={ProductPrice}
+                  value={ProductLabel}
                   placeholder="Text"
                   style={{ height: "40px", border: "1px solid #ccc" }}
-                  onChange={(e) => setProductPrice(e.target.value)}
+                  onChange={(e) => setProductLabel(e.target.value)}
                   maxLength="12"
                 ></input>
               </div>
@@ -886,6 +893,7 @@ export default function EditProducts({
         <Modal.Body>
           {AddMoreProduct &&
             AddMoreProduct?.map((items, i) => {
+              console.log(items);
               return ProductModalId === items.id ? (
                 <div key={i}>
                   <input
@@ -916,7 +924,37 @@ export default function EditProducts({
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
-                  {items?.is_label == 0 ? (
+
+                  <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        id="price"
+                        name="product"
+                        value={0}
+                        checked={EditRadioBtn == 0 ? true : false}
+                        onChange={(e) => handleRadioBTN(e.target.value)}
+                      />{" "}
+                      <label htmlFor="price" className="ml-2 mb-0">
+                        Show Price
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center ml-3">
+                      <input
+                        type="radio"
+                        id="css"
+                        name="product"
+                        value={1}
+                        checked={EditRadioBtn == 1 ? true : false}
+                        onChange={(e) => handleLabelRadio(e.target.value)}
+                      />{" "}
+                      <label htmlFor="css" className="ml-2 mb-0">
+                        Show Text
+                      </label>
+                    </div>
+                  </div>
+
+                  {EditRadioBtn == 0 ? (
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
@@ -967,13 +1005,13 @@ export default function EditProducts({
                           rows="4"
                           cols="50"
                           className="form-control mb-4 mt-1"
-                          value={ProductPrice}
+                          value={ProductLabel}
                           placeholder="Text"
                           style={{
                             height: "40px",
                             border: "1px solid #ccc",
                           }}
-                          onChange={(e) => setProductPrice(e.target.value)}
+                          onChange={(e) => setProductLabel(e.target.value)}
                           maxLength="12"
                         ></input>
                       </div>
@@ -1384,7 +1422,7 @@ export default function EditProducts({
                                 }}
                               ></p>
                               <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
-                                {items.label ? (
+                                {items.is_label !== 0 ? (
                                   <span className="product-price">
                                     {items.label}
                                   </span>
@@ -1505,8 +1543,8 @@ export default function EditProducts({
                                     items.price,
                                     items.url,
                                     items.currency,
-                                    items.button_placeholder,
-                                    items.label
+                                    items.label,
+                                    items.is_label
                                   )
                                 }
                               >

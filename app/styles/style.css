@@ -436,7 +436,7 @@ iframe {
 .form-control,
 .textarea,
 select {
-  background-color: #f7f9fa;
+  background-color: #deedf6;
   border: 2px solid #f7f9fa;
   border-radius: 1.25rem;
   box-shadow: none;
@@ -455,7 +455,7 @@ select {
 .form-control:focus,
 .textarea:focus,
 select:focus {
-  background-color: #fff;
+  background-color: #deedf6;
   border: 2px solid rgba(141, 153, 166, 0.2);
   color: #5e6e80;
   box-shadow: none;
@@ -602,23 +602,23 @@ select option{
 }
 
 .form-control::-webkit-input-placeholder {
-  color: var(--text-color);
+  color: rgb(126, 126, 126)
 }
 
 .form-control::-moz-placeholder {
-  color: var(--text-color);
+  color:rgb(126, 126, 126)
 }
 
 .form-control:-ms-input-placeholder {
-  color: var(--text-color);
+  color: rgb(126, 126, 126)
 }
 
 .form-control::-ms-input-placeholder {
-  color: var(--text-color);
+  color: rgb(126, 126, 126)
 }
 
 .form-control::placeholder {
-  color: var(--text-color);
+  color: rgb(126, 126, 126)
 }
 
 input:invalid,
