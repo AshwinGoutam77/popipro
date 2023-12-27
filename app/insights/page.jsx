@@ -11,7 +11,9 @@ import {
   faLink,
   faLocationDot,
   faPhone,
+  faPhoneAlt,
   faShare,
+  faSquarePhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -670,7 +672,7 @@ const Insights = () => {
                   Contact Analytics
                 </h5>
 
-                <div
+                {/* <div
                   className="row w-100 m-0 justify-content-left mx-4"
                   style={{ gap: "25px" }}
                 >
@@ -787,6 +789,136 @@ const Insights = () => {
                         <p className="mt-1 flex items-center text-xs text-success">
                           <span>In this month</span>
                         </p>
+                      </div>
+                    );
+                  })}
+                </div> */}
+
+                <div className="row m-0 justify-content-left mx-2 mt-4 card-row-gap">
+                  <div className="col-sm-12 col-lg-3">
+                    <div className="card p-4 sm:p-5 card-min-height">
+                      <div className="flex items-center justify-between">
+                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
+                          <FontAwesomeIcon
+                            icon={faPhone}
+                            className="text-xl text-dark"
+                            style={{ fontSize: "15px" }}
+                            width="20"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-end justify-between">
+                        <div>
+                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
+                            {Data?.card_states?.contact}
+                            <span className="text-sm"> people</span>
+                          </p>
+                          <p>Reached you through your Contact Number.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-3">
+                    <div className="card p-4 sm:p-5 card-min-height">
+                      <div className="flex items-center justify-between">
+                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
+                          <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className="text-xl text-dark"
+                            style={{ fontSize: "15px" }}
+                            width="20"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-end justify-between">
+                        <div>
+                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
+                            {Data?.card_states?.email}
+                            <span className="text-sm"> people</span>
+                          </p>
+                          <p>Reached you through your Email ID.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-3">
+                    <div className="card p-4 sm:p-5 card-min-height">
+                      <div className="flex items-center justify-between">
+                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
+                          <FontAwesomeIcon
+                            icon={faLink}
+                            className="text-xl text-dark"
+                            style={{ fontSize: "15px" }}
+                            width="20"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-end justify-between">
+                        <div>
+                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
+                            {Data?.card_states?.website}
+                            <span className="text-sm"> people</span>
+                          </p>
+                          <p>Reached you through your Website.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-3">
+                    <div className="card p-4 sm:p-5 card-min-height">
+                      <div className="flex items-center justify-between">
+                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
+                          <FontAwesomeIcon
+                            icon={faLocationDot}
+                            className="text-xl text-dark"
+                            style={{ fontSize: "15px" }}
+                            width="20"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-end justify-between">
+                        <div>
+                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
+                            {Data?.card_states?.address}
+                            <span className="text-sm"> people</span>
+                          </p>
+                          <p>Reached you through your address.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {Data?.alternate_phone_states?.map((item, index) => {
+                    return (
+                      <div className="col-sm-12 col-lg-3" key={index}>
+                        <div className="card p-4 sm:p-5 card-min-height">
+                          <div className="flex items-center justify-between">
+                            <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
+                              <FontAwesomeIcon
+                                icon={faSquarePhone}
+                                className="text-xl text-dark"
+                                style={{ fontSize: "15px" }}
+                                width="20"
+                              />
+                            </div>
+                          </div>
+                          <div className="mt-4 flex items-end justify-between">
+                            <div>
+                              <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
+                                {item?.count}
+                                <span className="text-sm"> people</span>
+                              </p>
+                              <p>
+                                Reached you through the contact number{" "}
+                                <span className="Varcolor">
+                                  {item?.country_code
+                                    ? item.country_code + "-" + item.number
+                                    : item.number}
+                                </span>{" "}
+                                ({item.name})
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     );
                   })}

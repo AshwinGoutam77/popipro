@@ -9,10 +9,10 @@ const QuickLinks = ({ card, subscription, Titles }) => {
   const HitClick = async (id) => {
     let payload = {
       card: card?.id,
-      type: "direct",
+      type: "custom_url",
       device_id: navigator.userAgent,
       object_base: id,
-      hit_type: "custom_url",
+      hit_type: "direct",
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {

@@ -1046,9 +1046,33 @@ input.date-time-input::-webkit-date-and-time-value {
   padding: 22px !important;
 }
 .theme-bg {
-  background-color: #24b1e6;
+  background-color: #24b1e6 !important;
 }
-
+.user-theme-bg {
+  background-color: var(--color) !important;
+}
+.text-20px {
+  font-size: 20px !important;
+}
+.card-min-height {
+  min-height: 190px;
+}
+.card-row-gap {
+  row-gap: 10px;
+}
+.dashboard-web-margin {
+  margin: 0px 240px !important;
+  border-radius: 0.5rem !important;
+}
+@media (max-width: 1200px) and (min-width: 300px) {
+  .dashboard-web-margin {
+    margin: 0px 0px !important;
+    padding: 2rem !important;
+  }
+  .dashboard-web-margin-image {
+    object-fit: none;
+  }
+}
 @media (max-width: 768px) {
   .dashboard-row-div2 {
     padding: 20px 40px;
@@ -1065,12 +1089,6 @@ input.date-time-input::-webkit-date-and-time-value {
   .dashboard-content-dev {
     background-color: white;
     margin: 150px 20px 0 20px;
-    /* height: 100vh; */
-    /* position: absolute;
-    top: -61px;
-    right: 15px;
-    left: 15px;
-    bottom: 0; */
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     box-shadow: 0 5px 12px 0 rgb(99 99 99 / 48%);

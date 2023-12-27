@@ -28,6 +28,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "../../styles/edit.css";
 import "../../styles/about.css";
+import "../styles/graph.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -46,6 +47,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -240,25 +242,11 @@ export default function Dashboard() {
     setThemeTab(false);
     setAnalyticsTab(false);
   };
-  const handleAnalyticsTab = () => {
-    setProfileTab(false);
-    setInsightsTab(false);
-    setLeadsTab(false);
-    setThemeTab(false);
-    setAnalyticsTab(true);
-  };
   const handleInsightsTab = () => {
     setProfileTab(false);
     setInsightsTab(true);
     setLeadsTab(false);
     setThemeTab(false);
-    setAnalyticsTab(false);
-  };
-  const handleThemeTab = () => {
-    setProfileTab(false);
-    setInsightsTab(false);
-    setLeadsTab(false);
-    setThemeTab(true);
     setAnalyticsTab(false);
   };
   return Data ? (
@@ -287,7 +275,7 @@ export default function Dashboard() {
             style={{ width: "135px" }}
           />
           <div className="d-flex align-items-start">
-            {/* <Dropdown as={ButtonGroup}>
+            <Dropdown as={ButtonGroup}>
               <Dropdown.Toggle
                 split
                 variant="success"
@@ -301,57 +289,88 @@ export default function Dashboard() {
                 }}
               >
                 {" "}
-                <Tooltip title="Permission Setting">
-                  <FontAwesomeIcon
-                    icon={faGear}
-                    className="text-white cursor-pointer mr-4"
-                    style={{ fontSize: "20px" }}
-                  />
-                </Tooltip>
+                <img
+                  src={
+                    Data?.profile_picture?.path
+                      ? Data?.base_url +
+                        Data?.profile_picture?.path +
+                        "?ver=" +
+                        time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                  }
+                  alt="imagee"
+                  className="dashboard-image"
+                />
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                <Dropdown.Item href="">
-                  Allow Location{" "}
-                  <label className="switch" style={{ marginLeft: "40px" }}>
-                    <input
-                      data-status={true}
-                      data-active={true}
-                      checked={true}
-                      type="checkbox"
-                      name="hello"
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </Dropdown.Item>
-                <Dropdown.Item href="">
-                  Allow Notification{" "}
-                  <label className="switch ml-4">
-                    <input
-                      data-status={true}
-                      data-active={true}
-                      checked={true}
-                      type="checkbox"
-                      name="hello"
-                    />
-                    <span className="slider round"></span>
-                  </label>
+                <Dropdown.Item href="" onClick={handleLogout}>
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="text-dark cursor-pointer mr-2"
+                    style={{ fontSize: "16px" }}
+                  />
+                  Logout{" "}
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown> */}
-            <Tooltip title="Logout">
+            </Dropdown>
+            {/* <Tooltip title="Logout">
               <FontAwesomeIcon
                 icon={faRightFromBracket}
                 className="text-white cursor-pointer"
                 style={{ fontSize: "19px" }}
                 onClick={handleLogout}
               />
-            </Tooltip>
+            </Tooltip> */}
           </div>
         </div>
 
         <div className="p-4 dashboard-section w-100">
-          <div className="d-flex justify-content-center align-items-center flex-column">
+          <div className="row mb-4 card flex-row mt-12 user-theme-bg p-5 dashboard-web-margin">
+            <div className="col-lg-6 col-sm-12 order-2 order-lg-1 mt-2 text-white text-left">
+              <h3 className="text-xl text-white">
+                Welcome Back,{" "}
+                <span className="font-semibold">{Data?.first_name}</span>
+              </h3>
+              <p className="mt-2 leading-relaxed">
+                You can manage all your data and analytics from this dashboard.
+              </p>
+              {Data &&
+              PlanData?.is_expired !== false &&
+              PlanData?.is_trial_taken !== 0 ? (
+                <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                  Your subscription is expired, Click to renew it.
+                </button>
+              ) : (
+                <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                  Your Subscrition will ends in
+                  <span className="font-weight-bold ml-1">
+                    {MainData?.plan?.subscription_left_days} days.
+                  </span>
+                </button>
+              )}
+              <br />
+              {Data?.is_onboarding == "1" ? (
+                <button
+                  className="w-auto blink-para contact-btn w-auto mt-2 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                  onClick={SaveStatusApi}
+                >
+                  Your profile is in <strong>DRAFT MODE, </strong>Please{" "}
+                  <u>click here</u> to make it public
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="col-lg-6 col-sm-12 order-1 order-lg-2">
+              <img
+                className="h-40 sm:mt-0 dashboard-web-margin-image"
+                src="https://prafullgupta.com/connectwork/assets/chat/groups/27122311462761406165-removebg-preview(1).png"
+                alt="image"
+              />
+            </div>
+          </div>
+          {/* <div className="d-flex justify-content-center align-items-center flex-column">
             <img
               src={
                 Data?.profile_picture?.path
@@ -365,7 +384,7 @@ export default function Dashboard() {
               className="dashboard-image"
             />
             <h5 className="text-center text-black dashboard-h5 dashboard-mt">
-              Welcome,{" "}
+              Welcome,
               <span style={{ color: "var(--color)" }}>{Data?.first_name}</span>
             </h5>
             <p className="text-center dashboard-mt text-black">
@@ -420,9 +439,9 @@ export default function Dashboard() {
             ) : (
               ""
             )}
-          </div>
+          </div> */}
 
-          <div className="mt-4 mb-3 px-4 d-flex justify-content-center">
+          <div className="mt-4 px-4 d-flex justify-content-center">
             <SwiperComponent
               breakpoints={{
                 1110: {
@@ -547,6 +566,23 @@ export default function Dashboard() {
                   </div>
                 </div>
 
+                {/* Meta Title */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      handleShowMetaTags();
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faCode}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
+                  </div>
+                </div>
+
                 {/* Multiple Mode */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <div
@@ -594,24 +630,6 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Suggestions */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      console.log("abc");
-                      setModalShow("suggestion");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faLightbulb}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Suggestions</h6>
-                  </div>
-                </div>
-
                 {/* My subscription */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -649,6 +667,45 @@ export default function Dashboard() {
                   </Link>
                 </div>
 
+                {/* Approve request */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/testimonialsLeads"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faStar}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Approve Review
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+
                 {/* Chnage password */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <div
@@ -661,6 +718,24 @@ export default function Dashboard() {
                       style={{ fontSize: "20px" }}
                     />
                     <h6 className="text-white text-center mb-0">Password</h6>
+                  </div>
+                </div>
+
+                {/* Suggestions */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      console.log("abc");
+                      setModalShow("suggestion");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faLightbulb}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Suggestions</h6>
                   </div>
                 </div>
 
@@ -749,23 +824,6 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
-
-                {/* Meta Title */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      handleShowMetaTags();
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faCode}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
-                  </div>
-                </div>
               </>
             ) : (
               ""
@@ -780,6 +838,24 @@ export default function Dashboard() {
           <div className="row mt-2 dashboard-padding">
             {InsightsTab ? (
               <>
+                {/* Google Analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href="/google-analytics"
+                    className="w-100  text-decoration-none"
+                  >
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlassChart}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Google Analytics
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
                 {/* Overall insights */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -814,42 +890,6 @@ export default function Dashboard() {
                         <h6 className="text-white text-center mb-0">
                           Overall Insights
                         </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-                {/* Lead insights */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/leads"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <FontAwesomeIcon
-                          icon={faSignal}
-                          className="text-white mb-2"
-                          style={{ fontSize: "20px" }}
-                        />
-                        <h6 className="text-white text-center mb-0">Lead</h6>
                       </>
                     </span>
                   </Link>
@@ -931,6 +971,49 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+              </>
+            ) : (
+              ""
+            )}
+
+            {LeadsTab ? (
+              <>
+                {/* Lead insights */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/leads"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faSignal}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">Lead</h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
                 {/* Product enquiry */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -970,13 +1053,6 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {LeadsTab ? (
-              <>
                 {/* My appointment */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1013,62 +1089,6 @@ export default function Dashboard() {
                         </h6>
                       </>
                     </span>
-                  </Link>
-                </div>
-                {/* Approve request */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/testimonialsLeads"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          className="text-white mb-2"
-                          style={{ fontSize: "20px" }}
-                        />
-                        <h6 className="text-white text-center mb-0">
-                          Approve Review
-                        </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-                {/* Google Analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href="/google-analytics"
-                    className="w-100  text-decoration-none"
-                  >
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faMagnifyingGlassChart}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Google Analytics
-                      </h6>
-                    </div>
                   </Link>
                 </div>
               </>

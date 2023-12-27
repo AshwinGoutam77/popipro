@@ -522,15 +522,15 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleProductClose}>
+          <button type="button" className="close" onClick={handleProductClose}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "30px" }}>
@@ -664,15 +664,15 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Add {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleCanclebtn}>
+          <button type="button" className="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
@@ -893,15 +893,15 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Edit {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleCanclebtn}>
+          <button type="button" className="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
@@ -1251,8 +1251,8 @@ export default function EditProducts({
                   PlanData?.is_expired == false &&
                   PlanData?.subscription?.plan_id !== 1 ? (
                     <div className="d-flex align-items-center">
-                      <div class="wrapper">
-                        <div class="tooltip">
+                      <div className="wrapper">
+                        <div className="tooltip">
                           Here you can manage services, products, advisory,
                           packages...
                         </div>

@@ -35,7 +35,6 @@ export default function EditContact({
 
   useEffect(() => {
     setAppointment(TitleData?.card_booking?.visible_name);
-    console.log(MainData);
   }, []);
 
   const handleActive = async () => {
@@ -288,8 +287,8 @@ export default function EditContact({
               PlanData?.is_expired == false &&
               PlanData?.subscription?.plan_id !== 1 ? (
                 <div className="d-flex align-items-center">
-                  <div class="wrapper">
-                    <div class="tooltip">
+                  <div className="wrapper">
+                    <div className="tooltip">
                       Use this section to incorporate for appointment booking.
                     </div>
                     <FontAwesomeIcon
