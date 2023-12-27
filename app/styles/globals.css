@@ -1070,7 +1070,10 @@ input.date-time-input::-webkit-date-and-time-value {
     padding: 2rem !important;
   }
   .dashboard-web-margin-image {
-    object-fit: none;
+    object-fit: scale-down;
+  }
+  .h-40{
+    height: 7rem !important;
   }
 }
 @media (max-width: 768px) {
