@@ -68,7 +68,7 @@ export default function Theme({
       color_code: "#24b1e6",
       background_color: "#dfeef8",
       banner_color: "#24b1e6",
-      text_color: "#fff",
+      text_color: "#ffffff",
     });
 
     if (response.data.status) {
@@ -77,7 +77,7 @@ export default function Theme({
       document.documentElement.style.setProperty("--color", "#24b1e6");
       document.documentElement.style.setProperty("--header-color", "#24b1e6");
       document.documentElement.style.setProperty("--themecolor", "#dfeef8");
-      document.documentElement.style.setProperty("--text-color", "#fff");
+      document.documentElement.style.setProperty("--text-color", "#ffffff");
       const color = getComputedStyle(document.documentElement).getPropertyValue(
         "--color"
       );
@@ -129,7 +129,7 @@ export default function Theme({
             <div className="position-relative">
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for profile colour
+                  Enter HexCode for theme color
                 </p>
                 <input
                   type="text"
@@ -141,7 +141,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for background colour
+                  Enter HexCode for theme color
                 </p>
                 <input
                   type="text"
@@ -153,7 +153,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for header colour
+                  Enter HexCode for header color
                 </p>
                 <input
                   type="text"
@@ -165,7 +165,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for text colour
+                  Enter HexCode for button text color
                 </p>
                 <input
                   type="text"
@@ -193,8 +193,7 @@ export default function Theme({
                     />
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
-                    Select <br />
-                    Your Profile Colour
+                    Select <br /> Theme Color
                   </p>
                 </div>
                 <div className="w-100">
@@ -209,7 +208,7 @@ export default function Theme({
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
                     Select <br />
-                    Background Colour
+                    Background Color
                   </p>
                 </div>
               </div>
@@ -228,8 +227,7 @@ export default function Theme({
                     />
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
-                    Select <br />
-                    Your Header Colour
+                    Select <br /> Header Color
                   </p>
                 </div>
                 <div className="w-100">
@@ -244,7 +242,7 @@ export default function Theme({
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
                     Select <br />
-                    Your Text Colour
+                    Button Text Color
                   </p>
                 </div>
               </div>

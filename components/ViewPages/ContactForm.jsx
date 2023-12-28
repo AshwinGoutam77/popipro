@@ -215,7 +215,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
               <button
                 type="submit"
-                className="contact-btn mt-0 w-auto"
+                className="contact-btn mt-3 w-auto"
                 style={{ padding: "8px 55px" }}
                 onClick={handleAppointment}
               >

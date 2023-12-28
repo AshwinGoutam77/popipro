@@ -180,7 +180,7 @@
 .form-control:focus,
 .textarea:focus,
 select:focus {
-  background-color: #deedf6;
+  background-color: #f7f9fa;
 }
 
 .review-item__caption {

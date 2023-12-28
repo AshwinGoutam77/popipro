@@ -5,6 +5,7 @@ import {
   faCalendarCheck,
   faCartShopping,
   faChartSimple,
+  faCircleCheck,
   faCode,
   faEnvelope,
   faGear,
@@ -1086,6 +1087,44 @@ export default function Dashboard() {
                         />
                         <h6 className="text-white text-center mb-0">
                           Appointments
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+                {/* My appointment */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/custom-form"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCircleCheck}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Custom Form
                         </h6>
                       </>
                     </span>

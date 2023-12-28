@@ -521,7 +521,7 @@ input:focus-visible {
 .date-time-input {
   width: 100% !important;
   height: 53px;
-  background: #deedf6;
+  background: #f7f9fa;
   border: none;
   padding: 0 11px;
 }
@@ -1044,6 +1044,7 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 .rendered-form.formbuilder-embedded-bootstrap .form-control {
   padding: 22px !important;
+  appearance: auto !important;
 }
 .theme-bg {
   background-color: #24b1e6 !important;
@@ -1064,6 +1065,19 @@ input.date-time-input::-webkit-date-and-time-value {
   margin: 0px 240px !important;
   border-radius: 0.5rem !important;
 }
+.no-image-testimonia-div {
+  background: var(--themecolor);
+  padding: 15px;
+  border-radius: 100px;
+  height: 71px;
+  width: 71px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.no-image-testimonia-div svg {
+  font-size: 24px;
+}
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;
@@ -1072,7 +1086,7 @@ input.date-time-input::-webkit-date-and-time-value {
   .dashboard-web-margin-image {
     object-fit: scale-down;
   }
-  .h-40{
+  .h-40 {
     height: 7rem !important;
   }
 }

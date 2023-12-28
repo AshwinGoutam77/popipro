@@ -907,8 +907,6 @@ export default function EditProducts({
         <Modal.Body>
           {AddMoreProduct &&
             AddMoreProduct?.map((items, i) => {
-              console.log(items);
-              console.log(items);
               return ProductModalId === items.id ? (
                 <div key={i}>
                   <input

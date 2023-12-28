@@ -79,7 +79,7 @@ a {
   --color: #24b1e6;
   --secondary-color: #e1f0fa;
   --header-color: #24b1e6;
-  --text-color: white;
+  --text-color: #ffffff;
 }
 
 html {
@@ -436,7 +436,7 @@ iframe {
 .form-control,
 .textarea,
 select {
-  background-color: #deedf6;
+  background-color: #f7f9fa;
   border: 2px solid #f7f9fa;
   border-radius: 1.25rem;
   box-shadow: none;
@@ -458,7 +458,7 @@ select {
 .form-control:focus,
 .textarea:focus,
 select:focus {
-  background-color: #24b1e6;
+  background-color: #f7f9fa;
   border: 2px solid rgba(141, 153, 166, 0.2);
   color: rgb(126, 126, 126);
   box-shadow: none;

@@ -70,12 +70,14 @@ export default function Product({
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [ShowLoader, setShowLoader] = useState("");
+  const [ProductModalTitle, setProductModalTitle] = useState("");
 
   useEffect(() => {
     setProducts(Data?.card_products);
   }, []);
 
-  const ShowModalID = (id) => {
+  const ShowModalID = (id, name) => {
+    setProductModalTitle(name);
     setModalId(id);
     handleShow();
     HitClick(id);
@@ -197,7 +199,8 @@ export default function Product({
     if (response.data.status) {
     }
   };
-  const handleShowModal = (id) => {
+  const handleShowModal = (id, name) => {
+    setProductModalTitle(name);
     HitClick(id);
     handleShowProduct();
   };
@@ -343,7 +346,7 @@ export default function Product({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              {Titles?.card_products?.visible_name}
+              {ProductModalTitle}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleClose}>
@@ -437,7 +440,9 @@ export default function Product({
                           <span
                             className="mt-1 product-modal-btn w-auto d-block cursor-pointer"
                             style={{ background: "var(--color)" }}
-                            onClick={() => handleModal(item?.id)}
+                            onClick={() =>
+                              handleShowModal(item?.id, item?.name)
+                            }
                             data-toggle="modal"
                             data-target="#ProductEnquireModal"
                           >
@@ -492,7 +497,7 @@ export default function Product({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Enquire Now
+              Enquire For {ProductModalTitle}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseProduct}>
@@ -878,7 +883,9 @@ export default function Product({
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                                    onClick={() => handleModal(items?.id)}
+                                    onClick={() =>
+                                      handleShowModal(items?.id, items?.name)
+                                    }
                                   >
                                     <FontAwesomeIcon
                                       icon={faEnvelope}
@@ -992,7 +999,9 @@ export default function Product({
                                     data-toggle="modal"
                                     data-target="#ProductEnquireModal"
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                                    onClick={() => handleShowModal(items?.id)}
+                                    onClick={() =>
+                                      handleShowModal(items?.id, items?.name)
+                                    }
                                   >
                                     <FontAwesomeIcon
                                       icon={faEnvelope}
@@ -1030,7 +1039,9 @@ export default function Product({
                                   marginRight: "10px",
                                   cursor: "pointer",
                                 }}
-                                onClick={() => ShowModalID(items.id)}
+                                onClick={() =>
+                                  ShowModalID(items.id, items?.name)
+                                }
                                 className="m-0 mr-2"
                               >
                                 <FontAwesomeIcon

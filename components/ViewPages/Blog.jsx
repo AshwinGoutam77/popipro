@@ -16,6 +16,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [BlogModalTitle, setBlogModalTitle] = useState("");
 
   useEffect(() => {
     setAddMoreBlogs(Data?.card_blogs);
@@ -47,7 +48,8 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
     }
   };
 
-  const ShowModalID = (id) => {
+  const ShowModalID = (id, name) => {
+    setBlogModalTitle(name);
     setModalId(id);
     handleShow();
     HitClick();
@@ -76,7 +78,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              {Titles?.card_blogs?.visible_name}
+              {BlogModalTitle}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleClose}>
@@ -223,7 +225,9 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                     fontSize: "13px",
                                     cursor: "pointer",
                                   }}
-                                  onClick={() => ShowModalID(item.id)}
+                                  onClick={() =>
+                                    ShowModalID(item.id, item?.name)
+                                  }
                                 >
                                   <FontAwesomeIcon
                                     icon={faArrowRight}
@@ -286,7 +290,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                 style={{ fontSize: "13px", cursor: "pointer" }}
                                 data-toggle="modal"
                                 data-target="#BlogModal"
-                                onClick={() => ShowModalID(item.id)}
+                                onClick={() => ShowModalID(item.id, item?.name)}
                               >
                                 <FontAwesomeIcon
                                   icon={faArrowRight}

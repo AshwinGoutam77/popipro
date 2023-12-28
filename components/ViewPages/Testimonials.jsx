@@ -10,6 +10,8 @@ import Api from "@services/Api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-bootstrap";
 import Image from "next/image";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Testimonials = ({
   InquiryModal,
@@ -279,14 +281,20 @@ const Testimonials = ({
                               height={0}
                             />
                           ) : (
-                            <Image
-                              className="case-item__icon"
-                              src="./static/img/demo.jpg"
-                              alt="photos"
-                              style={{ borderRadius: "100%" }}
-                              width={0}
-                              height={0}
-                            />
+                            // <Image
+                            //   className="case-item__icon"
+                            //   src="./static/img/demo.jpg"
+                            //   alt="photos"
+                            //   style={{ borderRadius: "100%" }}
+                            //   width={0}
+                            //   height={0}
+                            // />
+                            <div className="no-image-testimonia-div">
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                className="text-white"
+                              />
+                            </div>
                           )}
                           <div className="pt-0">
                             <h4

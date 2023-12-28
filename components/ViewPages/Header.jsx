@@ -1036,7 +1036,7 @@ const Header = ({
               ""
             )}
             {card.card_address !== null ? (
-              <li className=" col-sm-6 col-12">
+              <li className="col-sm-6 col-12">
                 <a
                   href={
                     card.card_address &&
@@ -1053,7 +1053,7 @@ const Header = ({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-1"
                       style={{
                         width: "15px",
                         fontSize: "15px",

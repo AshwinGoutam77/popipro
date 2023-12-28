@@ -9,6 +9,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faUser,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -928,12 +929,18 @@ export default function EditTestimonials({
                                       alt="testimonials"
                                     />
                                   ) : (
-                                    <img
-                                      className="case-item__icon"
-                                      src="../static/img/demo.jpg"
-                                      alt="testimonials"
-                                      style={{ borderRadius: "100%" }}
-                                    />
+                                    // <img
+                                    //   className="case-item__icon"
+                                    //   src="../static/img/demo.jpg"
+                                    //   alt="testimonials"
+                                    //   style={{ borderRadius: "100%" }}
+                                    // />
+                                    <div className="no-image-testimonia-div">
+                                      <FontAwesomeIcon
+                                        icon={faUser}
+                                        className="text-white"
+                                      />
+                                    </div>
                                   )}
                                   <div className="pt-0">
                                     <h4
