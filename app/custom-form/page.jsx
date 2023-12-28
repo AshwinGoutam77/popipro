@@ -19,7 +19,7 @@ import {
   GetCustomFormRecords,
 } from "@services/Routes";
 
-export default function page() {
+export default function Page() {
   const [Show, setShow] = useState(false);
   const [CustomFormData, setCustomFormData] = useState("");
   const [RecordsData, setRecordsData] = useState("");
