@@ -59,3 +59,7 @@ export const GetCustomFormRecords = {
   path: "get-custom-forms-records",
   method: "GET",
 };
+export const ManageCategory = {
+  path: "manage-product-category",
+  method: "POST",
+};

@@ -684,8 +684,8 @@ input.date-time-input::-webkit-date-and-time-value {
   width: max-content;
 }
 .filter-btns:hover {
-  background-color: var(--themecolor);
-  color: black;
+  background-color: var(--color);
+  color: white;
   transition: 0.3s;
   /* border: 1px solid transparent; */
 }
@@ -941,8 +941,9 @@ input.date-time-input::-webkit-date-and-time-value {
   /* border-bottom: 1px solid; */
 }
 .bg-varcolor {
-  /* background-color: var(--color); */
-  /* color: white; */
+  background-color: var(--color);
+  color: white;
+  /* border: 1px solid var(--color); */
 }
 .group-listing-section div {
   border-bottom: 1px solid #ccc;
@@ -1077,6 +1078,11 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 .no-image-testimonia-div svg {
   font-size: 24px;
+}
+.search-icon-products {
+  position: absolute;
+  right: 15px;
+  top: 16px;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {

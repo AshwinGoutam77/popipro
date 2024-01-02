@@ -48,7 +48,7 @@ export default function Share({ Data, card, active, handleClose }) {
   let title = "";
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText("https://app.popipro.com/" + card);
-    toast.success("Your email signature is copied to clipboard", {
+    toast.success("Profile url is copied to clipboard", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,

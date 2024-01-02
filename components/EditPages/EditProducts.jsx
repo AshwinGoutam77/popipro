@@ -25,6 +25,7 @@ import Modal from "react-bootstrap/Modal";
 import {
   CardData,
   LoadMoreApi,
+  ManageCategory,
   ProductEnquiryBtns,
   deleteSection,
 } from "@services/Routes";
@@ -33,6 +34,7 @@ import EditPlan from "./EditPlan";
 import ChatbotApp from "./Chat";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import CreatableSelect from "react-select/creatable";
 
 export default function EditProducts({
   APIDATA,
@@ -81,6 +83,8 @@ export default function EditProducts({
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [EditRadioBtn, setEditRadioBtn] = useState("");
+  const [CategoryId, setCategoryId] = React.useState(null);
+  const [Category, setCategory] = useState("");
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -88,6 +92,7 @@ export default function EditProducts({
   };
   useEffect(() => {
     setProductTitle(TitleData?.card_products?.visible_name);
+    setCategory(Data?.product_categories);
   }, []);
   useEffect(() => {
     setActive(TitleData?.card_products?.is_active == "1" ? true : false);
@@ -115,6 +120,7 @@ export default function EditProducts({
               button_placeholder: AddLabel,
               is_label: EditRadioBtn ? 1 : 0,
               label: ProductLabel,
+              categories: [CategoryId?.value],
               saved_products: id,
             },
           ])
@@ -129,6 +135,7 @@ export default function EditProducts({
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
               label: ProductLabel,
+              categories: [CategoryId?.value],
             },
           ]);
     }
@@ -300,6 +307,7 @@ export default function EditProducts({
     setProductLabel("");
     setProductUrl("");
     setAddLabel("");
+    setCategoryId("");
   };
   const handleCanclebtn = () => {
     handleClose();
@@ -513,6 +521,24 @@ export default function EditProducts({
     });
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const ProjectOptions = [];
+  Category &&
+    Category.map((item) => {
+      ProjectOptions.push({ value: item.id, label: item.name });
+    });
+
+  const HandleProjectSelect = (ProjectOptions) => {
+    setCategoryId(ProjectOptions);
+  };
+  const handleCreate = async (inputValue) => {
+    setIsLoading(true);
+    const response = await Api(ManageCategory, { category_name: inputValue });
+    const newOption = { label: inputValue, value: response.data.data.id };
+    ProjectOptions.push(newOption);
+    setCategoryId(newOption);
+    setIsLoading(false);
   };
 
   return (
@@ -815,6 +841,21 @@ export default function EditProducts({
                   onChange={(e) => setProductUrl(e.target.value)}
                 ></input>
               </div>
+            </div>
+            <div className="">
+              <label className="modalFormLable ml-0 pl-1 w-100">
+                Select Category
+              </label>
+              <CreatableSelect
+                className="w-100 mb-4 "
+                isClearable
+                isDisabled={isLoading}
+                isLoading={isLoading}
+                onChange={HandleProjectSelect}
+                onCreateOption={handleCreate}
+                options={ProjectOptions}
+                value={CategoryId}
+              />
             </div>
             <div className="d-flex align-items-center justify-content-between">
               <label className="modalFormLable">Description</label>

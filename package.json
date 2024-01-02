@@ -46,6 +46,7 @@
     "react-player": "^2.13.0",
     "react-qr-code": "^2.0.12",
     "react-scroll": "^1.9.0",
+    "react-select": "^5.8.0",
     "react-share": "^4.4.1",
     "react-tiny-autoscroll": "^1.2.3",
     "react-tiny-dnd": "^1.2.4",

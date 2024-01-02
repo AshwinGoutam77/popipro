@@ -15,6 +15,7 @@ import {
   faLink,
   faSearch,
   faSort,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
@@ -48,6 +49,26 @@ export default function Product({
   const [Products, setProducts] = useState("");
   const [showProduct, setShowProduct] = useState(false);
   const handleShowProduct = () => setShowProduct(true);
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Contact, setContact] = useState("");
+  const [Message, setMessage] = useState("");
+  const [MessageId, setMessageId] = useState("");
+  const [Search, setSearch] = useState(false);
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
+  const [ShowLoader, setShowLoader] = useState("");
+  const [ProductModalTitle, setProductModalTitle] = useState("");
+  const [Category, setCategory] = useState("");
+  const [LoadMore, setLoadMore] = useState("");
+  const [ActiveFilter, setActiveFilter] = useState("");
+  const [SearchFilter, setSearchFilter] = useState("");
+
+  useEffect(() => {
+    setProducts(Data?.card_products);
+    setCategory(Data?.product_categories);
+  }, []);
+
   const handleCloseProduct = () => {
     setName("");
     setContact("");
@@ -55,26 +76,6 @@ export default function Product({
     setEmail("");
     setShowProduct(false);
   };
-  const [Name, setName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Contact, setContact] = useState("");
-  const [Message, setMessage] = useState("");
-  const [MessageId, setMessageId] = useState("");
-  const [Search, setSearch] = useState(false);
-  const [ShowXMark, setShowXMark] = useState(false);
-  const [ShowXMark1, setShowXMark1] = useState(false);
-  const [ShowXMark2, setShowXMark2] = useState(false);
-  const [ShowXMark3, setShowXMark3] = useState(false);
-  const [ShowXMark4, setShowXMark4] = useState(false);
-  const [ShowXMark5, setShowXMark5] = useState(false);
-  const [Latitude, setLatitude] = useState("");
-  const [Longitude, setLongitude] = useState("");
-  const [ShowLoader, setShowLoader] = useState("");
-  const [ProductModalTitle, setProductModalTitle] = useState("");
-
-  useEffect(() => {
-    setProducts(Data?.card_products);
-  }, []);
 
   const ShowModalID = (id, name) => {
     setProductModalTitle(name);
@@ -251,77 +252,27 @@ export default function Product({
       });
     }
   }
-  const handleSearch = () => {
-    setSearch(true);
-    if (Search) {
-      setSearch(false);
-    }
-  };
-  const handleShowDelete = () => {
-    setShowXMark(true);
-    if (ShowXMark) {
-      setShowXMark(false);
-    }
-    setShowXMark1(false);
-    setShowXMark2(false);
-    setShowXMark3(false);
-    setShowXMark4(false);
-    setShowXMark5(false);
-  };
-  const handleShowDelete1 = () => {
-    setShowXMark1(true);
-    if (ShowXMark1) {
-      setShowXMark1(false);
-    }
-    setShowXMark(false);
-    setShowXMark2(false);
-    setShowXMark3(false);
-    setShowXMark4(false);
-    setShowXMark5(false);
-  };
-  const handleShowDelete2 = () => {
-    setShowXMark2(true);
-    if (ShowXMark2) {
-      setShowXMark2(false);
-    }
-    setShowXMark(false);
-    setShowXMark1(false);
-    setShowXMark3(false);
-    setShowXMark4(false);
-    setShowXMark5(false);
-  };
-  const handleShowDelete3 = () => {
-    setShowXMark3(true);
-    if (ShowXMark3) {
-      setShowXMark3(false);
-    }
-    setShowXMark(false);
-    setShowXMark1(false);
-    setShowXMark2(false);
-    setShowXMark4(false);
-    setShowXMark5(false);
-  };
-  const handleShowDelete4 = () => {
-    setShowXMark4(true);
-    if (ShowXMark4) {
-      setShowXMark4(false);
-    }
-    setShowXMark(false);
-    setShowXMark1(false);
-    setShowXMark2(false);
-    setShowXMark3(false);
-    setShowXMark5(false);
-  };
-  const handleShowDelete5 = () => {
-    setShowXMark5(true);
-    if (ShowXMark5) {
-      setShowXMark5(false);
-    }
-    setShowXMark(false);
-    setShowXMark(false);
-    setShowXMark2(false);
-    setShowXMark3(false);
-    setShowXMark4(false);
+  const handleSearch = async (e) => {
+    setTimeout(async () => {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_MODE == "development"
+          ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_search=${e}`
+          : `https://admin.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_search=${e}`,
+        {
+          method: "GET",
+          cache: "no-cache",
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setProducts(() => data?.data?.next_page_data?.data);
+        setPage(1);
+        setLoadMore(data?.data?.next_page_data?.next_page_url);
+        data?.data?.categories?.map((item) => {
+          setActiveFilter(item?.name);
+        });
+      }
+    }, 1000);
   };
   const handleAllowNotif = () => {
     if (navigator.geolocation) {
@@ -338,6 +289,60 @@ export default function Product({
   useEffect(() => {
     handleAllowNotif();
   }, []);
+
+  const handleShowSearchFilter = () => {
+    setSearch(true);
+    if (Search) {
+      setSearch(false);
+    }
+  };
+
+  const handleFilterCategory = async (id) => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_MODE == "development"
+        ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_categories[0]=${id}`
+        : `https://admin.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_categories[0]=${id}`,
+      {
+        method: "GET",
+        cache: "no-cache",
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      setProducts(() => data?.data?.next_page_data?.data);
+      setPage(1);
+      setLoadMore(data?.data?.next_page_data?.next_page_url);
+      data?.data?.categories?.map((item) => {
+        setActiveFilter(item?.name);
+      });
+    }
+  };
+  const handleResetFilter = () => {
+    setProducts(Data?.card_products);
+    setActiveFilter("");
+    // setPage(1);
+    setSearch(false);
+  };
+  const handleSortBy = async (type) => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_MODE == "development"
+        ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&sortBy=${type}`
+        : `https://admin.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&sortBy=${type}`,
+      {
+        method: "GET",
+        cache: "no-cache",
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      setProducts(() => data?.data?.next_page_data?.data);
+      setPage(1);
+      setLoadMore(data?.data?.next_page_data?.next_page_url);
+      data?.data?.categories?.map((item) => {
+        setActiveFilter(item?.name);
+      });
+    }
+  };
 
   return (
     <>
@@ -450,7 +455,7 @@ export default function Product({
                               icon={faEnvelope}
                               className="user-select-auto mr-2"
                             />
-                            Enquire Now
+                            Enquiry Now
                           </span>
                         ) : (
                           ""
@@ -497,7 +502,7 @@ export default function Product({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Enquire For {ProductModalTitle}
+              Enquiry For {ProductModalTitle}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseProduct}>
@@ -574,7 +579,7 @@ export default function Product({
       </Modal>
 
       {Titles?.card_products?.is_active === 1 &&
-      Products?.length !== 0 &&
+      // Products?.length !== 0 &&
       PlanData?.is_expired == false &&
       PlanData?.subscription?.plan_id !== 1 &&
       PlanData?.subscription !== null ? (
@@ -586,12 +591,13 @@ export default function Product({
                   type="text"
                   placeholder="Search..."
                   className="form-control mb-4"
+                  onChange={(e) => handleSearch(e.target.value)}
                 />
                 <FontAwesomeIcon
-                  icon={faSearch}
+                  icon={faXmark}
                   style={{ fontSize: "18px" }}
-                  className="color-black cursor-pointer mobile-search-icon"
-                  onClick={() => handleSearch()}
+                  className="color-black cursor-pointer search-icon-products"
+                  onClick={() => handleResetFilter()}
                 />
               </div>
             ) : (
@@ -603,29 +609,32 @@ export default function Product({
                     : Titles?.card_products?.visible_name}
                 </h3>
                 <div className="d-flex" style={{ gap: "20px" }}>
-                  {card.id === "S7ZG" &&
-                  process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
                     <>
                       <FontAwesomeIcon
                         icon={faSearch}
                         style={{ fontSize: "18px" }}
-                        className="color-black cursor-pointer mobile-search"
-                        onClick={() => handleSearch()}
+                        className="color-black cursor-pointer"
+                        onClick={() => handleShowSearchFilter()}
                       />
-                      <div className="search-box">
-                        <input
-                          className="search-text"
-                          type="text"
-                          placeholder="Search"
-                        />
-                        <span className="search-btn">
-                          <FontAwesomeIcon
-                            icon={faSearch}
-                            style={{ fontSize: "18px" }}
-                            className="color-black cursor-pointer web-search"
+                      {Search ? (
+                        <div className="d-flex align-items-baseline position-relative">
+                          <input
+                            type="text"
+                            placeholder="Search..."
+                            className="form-control mb-4"
+                            onChange={(e) => handleSearch(e.target.value)}
                           />
-                        </span>
-                      </div>
+                          <FontAwesomeIcon
+                            icon={faXmark}
+                            style={{ fontSize: "18px" }}
+                            className="color-black cursor-pointer search-icon-products"
+                            onClick={() => handleShowSearchFilter()}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
                       <Dropdown as={ButtonGroup}>
                         <Dropdown.Toggle
                           split
@@ -640,18 +649,30 @@ export default function Product({
                             height: "0",
                             fontSize: "22px",
                           }}
-                        >
-                          {/* <FontAwesomeIcon
-                      icon={faArrowUpWideShort}
-                      style={{ fontSize: "20px" }}
-                    /> */}
-                        </Dropdown.Toggle>
-
+                        ></Dropdown.Toggle>
                         <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                          <Dropdown.Item href="">Sort By Name</Dropdown.Item>
-                          <Dropdown.Item href="">Sort By Price</Dropdown.Item>
-                          <Dropdown.Item href="">Sort By Latest</Dropdown.Item>
-                          <Dropdown.Item href="">
+                          <Dropdown.Item
+                            href=""
+                            onClick={() => handleSortBy("name")}
+                          >
+                            Sort By Name
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href=""
+                            onClick={() => handleSortBy("price")}
+                          >
+                            Sort By Price
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href=""
+                            onClick={() => handleSortBy("latest")}
+                          >
+                            Sort By Latest
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href=""
+                            onClick={() => handleSortBy("popularity")}
+                          >
                             Sort By Popularity
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -663,8 +684,8 @@ export default function Product({
                 </div>
               </div>
             )}
-            {card.id === "S7ZG" &&
-            process.env.NEXT_PUBLIC_MODE === "development" ? (
+            {process.env.NEXT_PUBLIC_MODE === "development" &&
+            Category?.length !== 0 ? (
               <SwiperComponent
                 breakpoints={{
                   1110: {
@@ -684,135 +705,44 @@ export default function Product({
               >
                 <SwiperSlide className="w-auto">
                   <div className="swiper-slide review-items position-relative">
-                    {ShowXMark ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
                     <button
                       className={
-                        ShowXMark ? "filter-btns bg-varcolor" : "filter-btns"
+                        ActiveFilter == ""
+                          ? "filter-btns bg-varcolor"
+                          : "filter-btns"
                       }
-                      onClick={handleShowDelete}
+                      onClick={() => handleResetFilter()}
                     >
                       All
                     </button>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative filter-div">
-                    {ShowXMark1 ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <button
-                      className={
-                        ShowXMark1 ? "filter-btns bg-varcolor" : "filter-btns"
-                      }
-                      onClick={handleShowDelete1}
-                    >
-                      Caps
-                    </button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    {ShowXMark2 ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <button
-                      className={
-                        ShowXMark2 ? "filter-btns bg-varcolor" : "filter-btns"
-                      }
-                      onClick={handleShowDelete2}
-                    >
-                      Mugs
-                    </button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    {ShowXMark3 ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <button
-                      className={
-                        ShowXMark3 ? "filter-btns bg-varcolor" : "filter-btns"
-                      }
-                      onClick={handleShowDelete3}
-                    >
-                      T-shirt
-                    </button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    {ShowXMark4 ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <button
-                      className={
-                        ShowXMark4 ? "filter-btns bg-varcolor" : "filter-btns"
-                      }
-                      onClick={handleShowDelete4}
-                    >
-                      Shoes
-                    </button>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    {ShowXMark5 ? (
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        className="filter-btn-x-mark"
-                        onClick={handleShowDelete}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <button
-                      className={
-                        ShowXMark5 ? "filter-btns bg-varcolor" : "filter-btns"
-                      }
-                      onClick={handleShowDelete5}
-                    >
-                      Shirts
-                    </button>
-                  </div>
-                </SwiperSlide>
+                {Category &&
+                  Category?.map((items, index) => {
+                    return (
+                      <SwiperSlide className="w-auto" key={index}>
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              ActiveFilter == items?.name
+                                ? "filter-btns bg-varcolor"
+                                : "filter-btns"
+                            }
+                            onClick={() => handleFilterCategory(items?.id)}
+                          >
+                            {items?.name}
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
               </SwiperComponent>
             ) : (
               ""
             )}
-            {Products &&
+
+            {Products?.length !== 0 ? (
+              Products &&
               Products?.map((items, index, { length }) => {
                 return (
                   <div key={index}>
@@ -934,7 +864,7 @@ export default function Product({
                                 ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer"
                                 : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer"
                             }
-                            onClick={() => ShowModalID(items.id)}
+                            onClick={() => ShowModalID(items.id, items?.name)}
                           >
                             {items.name}
                           </p>
@@ -944,7 +874,7 @@ export default function Product({
                             dangerouslySetInnerHTML={{
                               __html: items.description,
                             }}
-                            onClick={() => ShowModalID(items.id)}
+                            onClick={() => ShowModalID(items.id, items?.name)}
                           ></p>
                           <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
                             {items.is_label !== 0 ? (
@@ -1057,9 +987,13 @@ export default function Product({
                     <div className="mt-2 mb-2" />
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <p className="mx-2 color-black">No Data Found</p>
+            )}
 
-            {PaginationData?.total_product !== Products?.length ? (
+            {PaginationData?.total_product !== Products?.length &&
+            LoadMore !== null ? (
               <div className="mx-auto text-center">
                 <span
                   className="text-center cursor-pointer mx-auto"
