@@ -211,7 +211,6 @@ export default function Product({
   };
   if (typeof window !== "undefined") {
     const slider = document.querySelector("[data-slider]");
-
     const track = slider?.querySelector("[data-slider-track]");
     const prev = slider?.querySelector("[data-slider-prev]");
     const next = slider?.querySelector("[data-slider-next]");
