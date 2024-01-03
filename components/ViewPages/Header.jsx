@@ -416,7 +416,6 @@ const Header = ({
       let websiteVal = "URL%3A" + contact.website + "%0A";
       let addyStreetVal = "ADR%3A%3B%3B" + contact.address + "%3B";
       let qrImage = "PHOTO;ENCODING=b;TYPE=JPEG%3A" + contact.Imagee + "%0A";
-
       setImageSrc(
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AGupta%3BAshwin%0AFN%3A${card?.first_name}%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${card?.card_contact}%0ATEL%3BCELL%3A${card?.card_contact}%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0%0AWEBSITE%3A${card?.card_website}%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
       );
