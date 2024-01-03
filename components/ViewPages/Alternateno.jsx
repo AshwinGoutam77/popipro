@@ -36,16 +36,13 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
             return (
               <div className="alternate-number-div" key={index}>
                 <a
-                  href={
-                    item.country_code || item?.extension
-                      ? "tel:" +
-                        item.country_code +
-                        "-" +
-                        item?.number +
-                        "-" +
-                        item?.extension
-                      : "tel:" + item?.number
-                  }
+                  href={`tel: ${
+                    item.country_code
+                      ? item.country_code + "-"
+                      : item.country_code
+                  } ${item?.number} ${
+                    item?.extension ? "- " + item?.extension : ""
+                  }`}
                   onClick={() => HitClick("direct", "alternate_phone", item.id)}
                 >
                   <div
@@ -71,14 +68,18 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                           style={{ color: "black" }}
                         >
                           {item?.country_code}
-                          {item?.country_code ? "-" : ""} {item?.number}
-                          {item?.extension ? "-" : ""} {item?.extension}
+                          {item?.country_code ? "-" : ""}
+                          {item?.number}
+                          {item?.extension ? "-" : ""}
+                          {item?.extension}
                         </p>
                       ) : (
                         <p className="ml-1" style={{ color: "black" }}>
                           {item?.country_code}
-                          {item?.country_code ? "-" : ""} {item?.number}
-                          {item?.extension ? "-" : ""} {item?.extension}
+                          {item?.country_code ? "-" : ""}
+                          {item?.number}
+                          {item?.extension ? "-" : ""}
+                          {item?.extension}
                         </p>
                       )}
                     </div>

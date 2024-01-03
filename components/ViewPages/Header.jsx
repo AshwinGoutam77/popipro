@@ -24,6 +24,7 @@ import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
 import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
+import { saveAs } from "file-saver";
 
 const Header = ({
   profile,
@@ -32,6 +33,7 @@ const Header = ({
   Titles,
   CardLinks,
   PlanData,
+  MainData,
 }) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [show, setShow] = useState(false);
@@ -49,13 +51,15 @@ const Header = ({
   const [modalShow, setModalShow] = useState("");
   const [modalShowUiModal, setModalShowUiModal] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
-
   const [Imagee, setImage] = useState("");
   const [ReviewName, setReviewName] = useState("");
   const [ReviewSubTitle, setReviewSubTitle] = useState("");
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
   const [imageSrc, setImageSrc] = useState();
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
+  const [ShowBtn, setShowBtn] = useState(true);
 
   const [showQr, setShowQr] = useState(false);
   const handleCloseQr = () => setShowQr(false);
@@ -125,6 +129,8 @@ const Header = ({
         company_name: ReviewSubTitle,
         description: ReviewDescription,
         phone: ReviewNumber,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
@@ -204,6 +210,8 @@ const Header = ({
       email: Email,
       message: Message,
       card_url: profile,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     try {
       setShowLoader(true);
@@ -275,6 +283,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -435,6 +445,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: type,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -458,6 +470,33 @@ const Header = ({
       document.body.removeChild(script);
     };
   };
+
+  const downloadImage = () => {
+    saveAs(imageSrc, "image.jpg");
+  };
+  const DownloadProfile = () => {
+    saveAs(
+      `https://chart.googleapis.com/chart?cht=qr&chl=${
+        "app.popipro.com/" + profile
+      }&chs=160x160&chld=L|0`,
+      "image.jpg"
+    );
+  };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
 
   return (
     <>
@@ -568,13 +607,18 @@ const Header = ({
               </p>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
+              {/* <button
+                className="contact-btn mt-0 w-auto mr-2"
+                onClick={handleAllowNotif}
+              >
+                Allow Notification
+              </button> */}
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                style={{ padding: "10px 60px" }}
                 onClick={handleSaveData}
               >
-                Send
+                Share Contact
               </button>
             </div>
           </div>
@@ -586,7 +630,7 @@ const Header = ({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Leave a Review
+              Leave A Review
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseReview}>
@@ -669,10 +713,9 @@ const Header = ({
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                style={{ padding: "10px 60px" }}
                 onClick={handleReviewSubmit}
               >
-                Send
+                Send Review
               </button>
             </div>
           </div>
@@ -683,7 +726,7 @@ const Header = ({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Add Contact Via Qr
+              Add Contact Via QR
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseQr}>
@@ -702,18 +745,8 @@ const Header = ({
               className="qr-img"
               alt="we"
             />
-            <a
-              href={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A"
-              }
-              target="_blank"
-              download={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A"
-              }
+            <button
+              onClick={downloadImage}
               className="contact-btn w-auto mt-4 scanner-a"
             >
               <FontAwesomeIcon
@@ -725,28 +758,26 @@ const Header = ({
                   cursor: "pointer",
                 }}
               />
-              Download Qr
-            </a>
+              Download QR
+            </button>
           </div>
           <p className="text-center mb-3 underline-or my-4">
             <span>OR</span>
           </p>
           <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
-            Share your profile via Qr
+            Share your profile via QR
           </h5>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <QRCode
-              value={"app.popipro.com/" + profile}
-              renderAs="svg"
-              style={{
-                width: "30vmin",
-                height: "30vmin",
-              }}
+            <img
+              src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                "app.popipro.com/" + profile
+              }&chs=160x160&chld=L|0`}
+              className="qr-img"
+              alt="we"
+              style={{ width: "250px", height: "250px" }}
             />
-            <a
-              href={"app.popipro.com/" + profile}
-              target="_blank"
-              download={"app.popipro.com/" + profile}
+            <button
+              onClick={DownloadProfile}
               className="contact-btn w-auto mt-4 scanner-a"
             >
               <FontAwesomeIcon
@@ -758,8 +789,8 @@ const Header = ({
                   cursor: "pointer",
                 }}
               />
-              Download Qr
-            </a>
+              Download QR
+            </button>
           </div>
         </Modal.Body>
       </Modal>
@@ -783,7 +814,7 @@ const Header = ({
         <Modal.Body>
           <div
             className="calendly-inline-widget"
-            data-url="https://calendly.com/devdevgoutam/test"
+            data-url={MainData?.company_setting?.appointment_calendly_url}
             style={{ height: "101vh" }}
           ></div>
         </Modal.Body>
@@ -829,7 +860,14 @@ const Header = ({
               className="header__photo-img"
               value={"image"}
               src={
-                card?.profile_picture?.path
+                process.env.NEXT_PUBLIC_MODE == "development"
+                  ? card?.profile_picture?.path
+                    ? "https://dev.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                  : card?.profile_picture?.path
                   ? "https://admin.popipro.com/" +
                     card?.profile_picture?.path +
                     "?ver=" +
@@ -867,36 +905,31 @@ const Header = ({
               </button>
             </div>
             <div className="d-flex sm-class" style={{ gap: "8px" }}>
-              {company_setting?.show_testimonial_button !== 0 ||
+              {company_setting?.show_testimonial_button == 0 ||
               PlanData?.is_expired !== false ? (
                 ""
               ) : (
                 <button
-                  className="contact-btn mt-2"
+                  className="contact-btn-header mt-2"
                   data-toggle="modal"
                   data-target="#AddTestimonialsModal"
                   onClick={handleShowReview}
-                  style={{
-                    backgroundColor: "var(--themecolor)",
-                    color: "black",
-                  }}
                 >
                   Get Reviews
                 </button>
               )}
               {Titles?.card_booking?.is_active == 0 ||
-              PlanData?.is_expired !== false ||
-              card?.id !== "S7ZG" ? (
+              PlanData?.is_expired !== false ? (
                 ""
               ) : (
                 <button
-                  className="contact-btn mt-2"
-                  style={{
-                    backgroundColor: "var(--themecolor)",
-                    color: "black",
-                  }}
-                  onClick={handleAppointment}
-                  // onClick={handleShowCalendly}
+                  className="contact-btn-header mt-2"
+                  onClick={
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "form"
+                      ? handleAppointment
+                      : handleShowCalendly
+                  }
                 >
                   Appointment
                 </button>
@@ -946,7 +979,15 @@ const Header = ({
               <>
                 <li className="col-sm-6 col-12">
                   <a
-                    href={"tel:" + card.card_contact}
+                    href={`tel: ${
+                      card.contact_country_code
+                        ? card?.contact_country_code + "-"
+                        : card?.contact_country_code
+                    } ${card?.card_contact} ${
+                      card?.contact_extension
+                        ? "- " + card?.contact_extension
+                        : ""
+                    }`}
                     className="d-flex align-items-center justify-content-between getCard-a"
                     onClick={() => handleHitClick("call")}
                   >
@@ -964,7 +1005,19 @@ const Header = ({
                         className="overhead_a text-dark text-decoration-none"
                         style={{ marginLeft: "5px" }}
                       >
-                        {card.card_contact}
+                        {card &&
+                        card.contact_country_code &&
+                        card.contact_extension !== null
+                          ? card?.contact_country_code +
+                            "-" +
+                            card?.card_contact +
+                            "-" +
+                            card?.contact_extension
+                          : card?.contact_country_code
+                          ? card?.contact_country_code +
+                            "-" +
+                            card?.card_contact
+                          : card?.card_contact}
                       </span>
                     </div>
                     <FontAwesomeIcon
@@ -982,14 +1035,15 @@ const Header = ({
               ""
             )}
             {card.card_address !== null ? (
-              <li className=" col-sm-6 col-12">
+              <li className="col-sm-6 col-12">
                 <a
                   href={
                     card.card_address &&
                     (card.card_address?.includes("http://") ||
                       card.card_address?.includes("https://"))
-                      ? card.card_address
-                      : "https://www.google.com/maps/place/" + card.card_address
+                      ? card.card_address.replace(/<[^>]*>?/gm, "")
+                      : "http://maps.google.com/?q=" +
+                        card.card_address.replace(/<[^>]*>?/gm, "")
                   }
                   target="_blank"
                   className="d-flex align-items-center justify-content-between getCard-a"
@@ -998,7 +1052,7 @@ const Header = ({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-2"
+                      className="user-select-auto mr-1"
                       style={{
                         width: "15px",
                         fontSize: "15px",

@@ -126,6 +126,7 @@ export default function DashboardProducts({ TitleData }) {
     <>
       {Data ? (
         <>
+          <SimpleBackdrop visible={ShowLoader} />
           <ToastContainer
             position="bottom-right"
             autoClose={1000}

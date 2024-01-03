@@ -71,6 +71,19 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       });
       return;
     }
+    if (AboutMe == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let DesData = {
       description: Description,
@@ -211,8 +224,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       );
       const suggestedText = response.data.choices[0].message.content;
       const suggestionList = suggestedText.split("\n");
-      const suggestionData = suggestionList.replace(/[0-9]./g, "");
-      setSuggestions(suggestionData);
+      // setSuggestions(response.data.choices[0].message.content);
+      setSuggestions(suggestionList);
       setIsTyping(false);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -247,13 +260,12 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(InputState);
+    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
 
   return (
     <>
-      {/* ChatAPi Modal */}
       <Modal
         show={showChatModal}
         onHide={() => handleCloseshowChatModal()}
@@ -276,20 +288,26 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
@@ -304,6 +322,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
           </div>
         </Modal.Body>
       </Modal>
+
       {TitleData?.card_description?.source !== 0 ? (
         <div className="mb-3 box-content boxxx" id="about_us">
           <div className="flex-header">

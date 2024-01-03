@@ -7,33 +7,176 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/about.css";
 import "../../styles/edit.css";
 import { Modal } from "react-bootstrap";
-import Swal from "sweetalert2";
+import DataTable from "react-data-table-component";
 
 export default function Page() {
   const [showContact, setShowContact] = useState(false);
   const [SelectedContacts, setSelectedContacts] = useState("");
   const [AddressBookRadio, setAddressBookRadio] = useState(false);
   const [ShowSendMessage, setShowSendMessage] = useState(false);
+  const [DataTables, setDataTables] = useState([]);
 
-  const handleDeleteNumber = async () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this group!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", "", "success");
-      }
-    });
+  const getDataTable = async () => {
+    setDataTables([
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+      {
+        Name: "John Doe",
+        group_name: "Doctors",
+        Contact: "9632587410",
+      },
+    ]);
   };
+
+  const column = [
+    {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+    {
+      name: "Group Name",
+      selector: (row) => row.group_name,
+    },
+    {
+      name: "Contact No.",
+      selector: (row) => row.Contact,
+    },
+    {
+      name: "Notifications",
+      selector: (row) => "Allow",
+    },
+    {
+      name: "",
+      selector: (row) => (
+        <FontAwesomeIcon icon={faTrash} className="cursor-pointer" />
+      ),
+    },
+  ];
+  useEffect(() => {
+    getDataTable();
+  }, []);
 
   return (
     <>
@@ -128,7 +271,7 @@ export default function Page() {
           />{" "}
           All Contacts
         </h5>
-        <Link href="/dashboard">
+        <Link href="/address-book">
           <h6 className="text-white m-0">
             {" "}
             <FontAwesomeIcon
@@ -140,145 +283,36 @@ export default function Page() {
           </h6>
         </Link>
       </div>
-      {/* <h2 className="title title--h1 first-title title__separate mx-4 mt-4">
-        Group Name
-      </h2> */}
-      <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
-        <button
-          className="contact-btn w-auto"
-          onClick={() => setShowSendMessage(true)}
-        >
-          Send message
-        </button>
-      </div>
-      <div className="box-shadow-leads pt-2">
-        <table className="insight-table">
-          <thead>
-            <tr>
-              <th className="d-flex align-items-center">
-                <input type="checkbox" className="mr-2" />
-              </th>
-              <th>Name</th>
-              <th>Group Name</th>
-              <th>Contact</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Doctors</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Plumber</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Doctors</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Furnitures</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Plumbers</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Doctors</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Doctors</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-            <tr data-column="Message" className="cursor-pointer">
-              <td className="d-flex align-items-center">
-                <input type="checkbox" />
-              </td>
-              <td data-column="name">John Doe</td>
-              <td data-column="name">Electrician</td>
-              <td data-column="name">9874561323</td>
-              <td
-                data-column="created date"
-                onClick={() => handleDeleteNumber()}
-              >
-                <FontAwesomeIcon icon={faTrash} width={15} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="bg-white pt-4" style={{ height: "100vh" }}>
+        <div className="d-flex align-items-center justify-content-between mx-4">
+          <button
+            className="contact-btn w-auto"
+            onClick={() => setShowSendMessage(true)}
+          >
+            Send message
+          </button>
+        </div>
+        <div className="box-shadow-leads">
+          <DataTable
+            columns={column}
+            data={DataTables}
+            pagination
+            fixedHeader
+            fixedHeaderScrollHeight="440px"
+            selectableRows
+            selectableRowsHighlight
+            highlightOnHover
+            subHeader
+            subHeaderComponent={
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-auto form-control mb-2"
+              />
+            }
+            subHeaderAlign="right"
+          />
+        </div>
       </div>
     </>
   );

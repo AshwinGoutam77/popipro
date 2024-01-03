@@ -155,6 +155,7 @@ const Leads = () => {
     <>
       {Data ? (
         <>
+          <SimpleBackdrop visible={ShowLoader} />
           <ToastContainer
             position="bottom-right"
             autoClose={1000}
@@ -234,6 +235,18 @@ const Leads = () => {
                       <p className="w-100 font-weight-bold">Date</p>
                       <p className="w-100">{item.created_at}</p>
                     </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Latitude </p>
+                      <p className="w-100">
+                        {item.latitude ? item.latitude : "----"}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Longitude</p>
+                      <p className="w-100">
+                        {item.longitude ? item.longitude : "----"}
+                      </p>
+                    </div>
                     {item.message ? (
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Message</p>
@@ -301,6 +314,8 @@ const Leads = () => {
                       <th>Name</th>
                       {/* <th>Contact no.</th> */}
                       <th>Date</th>
+                      <th>Latitude</th>
+                      <th>Longitude</th>
                       <th></th>
                       <th></th>
                       {process.env.NEXT_PUBLIC_MODE === "development" ? (
@@ -336,6 +351,8 @@ const Leads = () => {
                             >
                               {item.created_at}
                             </td>
+                            <td>{item.latitude ? item.latitude : "----"}</td>
+                            <td>{item.longitude ? item.longitude : "----"}</td>
                             <td>
                               <FontAwesomeIcon
                                 icon={faDownload}

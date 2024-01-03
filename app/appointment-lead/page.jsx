@@ -16,6 +16,8 @@ import "../../styles/about.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function AppointmentLead() {
   const { token } = useAuthContext();
@@ -23,6 +25,9 @@ export default function AppointmentLead() {
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [ShowLoader, setShowLoader] = useState(false);
+  let d = new Date();
+  const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
+  const [EndDate, setEndDate] = useState(new Date());
 
   useEffect(() => {
     api();
@@ -67,9 +72,59 @@ export default function AppointmentLead() {
     }
   };
 
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  const handleSearchData = async () => {
+    try {
+      setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GetInshights,
+        {},
+        "?start_date=" + startDt + "&end_date=" + endDt
+      );
+      if (response.data.status) {
+        setData(response.data.data);
+        setShowLoader(false);
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return token ? (
     Data ? (
       <div>
+        <SimpleBackdrop visible={ShowLoader} />
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header>
             <Modal.Title>
@@ -118,6 +173,18 @@ export default function AppointmentLead() {
                       <p className="w-100 font-weight-bold">Created Date</p>
                       <p className="w-100">{item.created_at}</p>
                     </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Latitude</p>
+                      <p className="w-100">
+                        {item.latitude ? item.latitude : "----"}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Longitude</p>
+                      <p className="w-100">
+                        {item.longitude ? item.longitude : "----"}
+                      </p>
+                    </div>
                     {item.message ? (
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Message</p>
@@ -160,13 +227,50 @@ export default function AppointmentLead() {
             className="w-100 bg-white"
             style={{ height: "calc(100vh - 58px)" }}
           >
-            <div className="box-shadow-leads pt-4">
+            <div className="mx-3 pt-4">
+              <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">From</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={StartDate}
+                    maxDate={new Date()}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">To</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={EndDate}
+                    defaultValue={EndDate}
+                    onChange={(Date) => setEndDate(Date)}
+                    maxDate={new Date()}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <button
+                    className="insight-search w-100 mt-3"
+                    onClick={handleSearchData}
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="box-shadow-leads pt-1">
               <table className="insight-table">
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Contact</th>
                     <th>Req. Date</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -191,6 +295,12 @@ export default function AppointmentLead() {
                             {item.contact ? item.contact : "-"}
                           </td>
                           <td data-column="created date">{item.created_at}</td>
+                          <td data-column="created date">
+                            {item.latitude ? item.latitude : "----"}
+                          </td>
+                          <td data-column="created date">
+                            {item.longitude ? item.longitude : "----"}
+                          </td>
                           <td className="d-flex align-items-center">
                             <FontAwesomeIcon
                               icon={faAngleRight}

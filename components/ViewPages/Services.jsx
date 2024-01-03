@@ -50,12 +50,15 @@ const Services = ({ Titles, card, subscription }) => {
                       <SwiperSlide key={i}>
                         <div className="case-item pt-3">
                           <div className="w-100">
-                            {item.image.path ? (
+                            {item?.image?.path ? (
                               <Image
                                 className="case-item__icon"
                                 src={
-                                  "https://admin.popipro.com/" +
-                                  item.image.path
+                                  process.env.NEXT_PUBLIC_MODE == "development"
+                                    ? "https://dev.popipro.com/" +
+                                      item?.image?.path
+                                    : "https://admin.popipro.com/" +
+                                      item?.image?.path
                                 }
                                 alt="photos"
                                 width={0}

@@ -4,12 +4,14 @@ import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddTestimonials } from "@services/Routes";
 import Api from "@services/Api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-bootstrap";
 import Image from "next/image";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Testimonials = ({
   InquiryModal,
@@ -29,6 +31,8 @@ const Testimonials = ({
   const [SubTitle, setSubTitle] = useState("");
   const [Number, setNumber] = useState("");
   const [Description, setDescription] = useState("");
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const handleSubmit = async () => {
     if (Name == "") {
@@ -88,6 +92,8 @@ const Testimonials = ({
         company_name: SubTitle,
         description: Description,
         phone: Number,
+        latitude: Latitude,
+        longitude: Longitude,
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
@@ -109,7 +115,6 @@ const Testimonials = ({
         setSubTitle("");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoclose: 2000,
@@ -122,6 +127,21 @@ const Testimonials = ({
       });
     }
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+
+  useEffect(() => {
+    handleAllowNotif();
+  }, []);
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
@@ -140,7 +160,7 @@ const Testimonials = ({
           <div className="row">
             <div className="form-group col-lg-12 col-md-12 mb-3">
               <label className="modalFormLable">
-                Upload Image (*Prefered size in ration of 100x100)
+                Upload Image (*Preferred size in ratio of 100x100)
               </label>
               <input
                 type="file"
@@ -203,10 +223,9 @@ const Testimonials = ({
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                style={{ padding: "10px 60px" }}
                 onClick={handleSubmit}
               >
-                Send
+                Send Review
               </button>
             </div>
           </div>
@@ -251,21 +270,31 @@ const Testimonials = ({
                             <Image
                               className="case-item__icon"
                               src={
-                                "https://admin.popipro.com/" + items.image.path
+                                process.env.NEXT_PUBLIC_MODE == "development"
+                                  ? "https://dev.popipro.com/" +
+                                    items.image.path
+                                  : "https://admin.popipro.com/" +
+                                    items.image.path
                               }
                               alt="photos"
                               width={0}
                               height={0}
                             />
                           ) : (
-                            <Image
-                              className="case-item__icon"
-                              src="./static/img/demo.jpg"
-                              alt="photos"
-                              style={{ borderRadius: "100%" }}
-                              width={0}
-                              height={0}
-                            />
+                            // <Image
+                            //   className="case-item__icon"
+                            //   src="./static/img/demo.jpg"
+                            //   alt="photos"
+                            //   style={{ borderRadius: "100%" }}
+                            //   width={0}
+                            //   height={0}
+                            // />
+                            <div className="no-image-testimonia-div">
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                className="text-white"
+                              />
+                            </div>
                           )}
                           <div className="pt-0">
                             <h4
@@ -293,7 +322,7 @@ const Testimonials = ({
                   );
                 })}
               </SwiperComponent>
-              {company_setting.show_testimonial_button !== 0 ? (
+              {company_setting.show_testimonial_button == 0 ? (
                 ""
               ) : (
                 <div className="d-flex justify-content-center">

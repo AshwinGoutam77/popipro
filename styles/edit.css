@@ -18,7 +18,7 @@
 
 .badge-warning {
   background-color: var(--color) !important;
-  color: white;
+  color: var(--text-color) !important;
 }
 
 /* .title--h3{
@@ -75,7 +75,7 @@
   text-align: center;
   border-radius: 100px;
   border: none;
-  color: #fff;
+  color: var(--text-color);
   background: var(--color);
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
     inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
@@ -92,13 +92,13 @@
 }
 
 .delete-button {
-  background: var(--themecolor) !important;
-  color: black;
+  background: white !important;
+  color: var(--color);
   font-weight: 600;
   font-size: 14px;
   padding: 6px 25px;
   border-radius: 100px;
-  border: none;
+  border: 1px solid var(--color);
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
     inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
   -webkit-user-select: none;
@@ -107,6 +107,9 @@
 .delete-button:hover {
   transition: all 0.2s ease-in-out;
   transform: scale(1.1);
+  background: var(--color) !important;
+  color: var(--text-color);
+  border: none !important;
 }
 
 .delete-button:focus {
@@ -527,12 +530,12 @@ label {
 }
 
 input[type="file"] {
-  padding: 6px 18px !important;
+  padding: 10.5px 18px !important;
 }
 
 .form-control {
-  color: black;
-  background-color: var(--themecolor) !important;
+  color: black !important;
+  background-color: #f7f9fa !important;
   box-shadow: none;
   font-size: inherit;
   position: relative;
@@ -758,10 +761,6 @@ input:checked + .slider:before {
   .web-view-media {
     display: none;
   }
-}
-
-textarea.form-control {
-  /* height: auto !important; */
 }
 
 a {
@@ -1076,14 +1075,14 @@ a:hover {
   align-items: center;
   justify-content: center;
   background: var(--color);
-  color: white;
+  color: var(--text-color);
   width: auto;
   padding: 8px 20px;
   border-radius: 30px;
 }
 
 .product-modal-btn:hover {
-  color: white;
+  color: var(--text-color);
 }
 
 .modal-open .modal {
@@ -1185,16 +1184,23 @@ div:where(.swal2-container)
 }
 
 .swal2-styled.swal2-cancel {
-  background: var(--themecolor) !important;
-  color: black;
+  background: white !important;
+  color: var(--color);
   font-weight: 600;
   font-size: 14px;
-  padding: 8px 25px;
-  border-radius: 30px;
-  border: none;
+  padding: 6px 25px;
+  border-radius: 100px;
+  border: 1px solid var(--color);
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
     inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
   -webkit-user-select: none;
+}
+.swal2-styled.swal2-cancel:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.1);
+  background: var(--color) !important;
+  color: var(--text-color);
+  border: none !important;
 }
 
 .link-minus-icon {
@@ -1372,7 +1378,7 @@ input[type="radio" i] {
 }
 
 .badge {
-  padding-bottom: 4px;
+  padding-bottom: 3px;
 }
 .item {
   display: flex;
@@ -1416,4 +1422,7 @@ input[type="radio" i] {
 
 .custom-divider {
   background-color: black !important;
+}
+.date-time-input::placeholder {
+  color: rgb(126, 126, 126);
 }

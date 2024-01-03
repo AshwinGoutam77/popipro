@@ -11,26 +11,6 @@ const AboutMe = ({ card, Titles }) => {
       setReadmore(false);
     }
   };
-
-  async function requestPermission() {
-    if (typeof window !== "undefined") {
-      const permission = await Notification.requestPermission();
-      if (permission === "granted") {
-        //token
-        // const Firebase_token = await getToken(messaging, {
-        //   vapidKey:
-        //     "BHKaz4VBta30djw8gW-p2UDH7Z3fejVrt7HmgrZKe38fN7tEtPzp8klg9RTILOzhjnD2rNMP_8VmG1aBMhHnlqs",
-        // });
-        // console.log(Firebase_token);
-        // localStorage.setItem("firebase-token", Firebase_token);
-      } else if (permission === "denied") {
-        console.log("we have denied permission!, Please alow the permission.");
-      }
-    }
-  }
-  useEffect(() => {
-    requestPermission();
-  }, []);
   
   return (
     <>

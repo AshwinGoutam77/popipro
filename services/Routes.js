@@ -45,3 +45,21 @@ export const Appointmentbtns = {
   method: "GET",
 };
 export const HitSuggestion = { path: "hit-suggestion", method: "POST" };
+export const GoogleAnalytics = { path: "get-google-analytics", method: "GET" };
+export const UpdateMetaTags = { path: "update-meta-tags", method: "POST" };
+export const ChangeAppointment = {
+  path: "change-appointment-method",
+  method: "POST",
+};
+export const ToogleInstaFeed = { path: "toggle-insta-feed", method: "GET" };
+export const CustomForm = { path: "submit-custom-form", method: "POST" };
+export const ProductCat = { path: "manage-product-category", method: "POST" };
+export const GetCustomFormData = { path: "get-custom-forms", method: "GET" };
+export const GetCustomFormRecords = {
+  path: "get-custom-forms-records",
+  method: "GET",
+};
+export const ManageCategory = {
+  path: "manage-product-category",
+  method: "POST",
+};

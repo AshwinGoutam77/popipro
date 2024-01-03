@@ -87,9 +87,7 @@ export default function EditDoing({
     if (ServicesName === "" || ServicesDescription === "") {
       error = true;
       mess =
-        ServicesName === ""
-          ? "Heading is required"
-          : "Descripotion is required";
+        ServicesName === "" ? "Heading is required" : "Description is required";
     } else {
       id !== null
         ? (data = [
@@ -249,6 +247,19 @@ export default function EditDoing({
     handleEditShow();
   };
   const handleChnageTitle = async () => {
+    if (Doing == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -400,7 +411,7 @@ export default function EditDoing({
         <Modal.Body>
           <div>
             <label className="modalFormlabel">
-              Upload Image (*Prefered size in ration of 100x100)
+              Upload Image (*Preferred size in ratio of 100x100)
             </label>
             <input
               type="file"
@@ -523,7 +534,7 @@ export default function EditDoing({
                         key={i}
                       />
                       <label className="modalFormLable">
-                        Upload Image (*Prefered size in ration of 100x100)
+                        Upload Image (*Preferred size in ratio of 100x100)
                       </label>
                       <input
                         type="file"
@@ -560,44 +571,48 @@ export default function EditDoing({
                           />
                         </p>
                       </div>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Heading",
-                            "Emoji",
-                          ],
-                          placeholder:
-                            "Insert a text and take advantage of AI to enrich the content you've written.",
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
+                      <div className="ck-body-wrapper">
+                        <CKEditor
+                          editor={ClassicEditor}
+                          config={{
+                            removePlugins: [
+                              "EasyImage",
+                              "ImageUpload",
+                              "MediaEmbed",
+                              "Table",
+                              "TableToolbar",
+                              "Indent",
+                              "BlockQuote",
+                              "Heading",
+                              "Emoji",
+                            ],
+                            placeholder:
+                              "Insert a text and take advantage of AI to enrich the content you've written.",
+                            link: {
+                              decorators: {
+                                addTargetToExternalLinks: {
+                                  mode: "automatic",
+                                  callback: (url) =>
+                                    /^(https?:)?\/\//.test(url),
+                                  attributes: {
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                  },
                                 },
                               },
                             },
-                          },
-                        }}
-                        data={ServicesDescription || ""}
-                        onReady={(editor) => {}}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setServicesDescription(data);
-                        }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
-                      />
+                            autoFocus: true,
+                          }}
+                          data={ServicesDescription || ""}
+                          onReady={(editor) => {}}
+                          onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setServicesDescription(data);
+                          }}
+                          onBlur={(event, editor) => {}}
+                          onFocus={(event, editor) => {}}
+                        />
+                      </div>
                       <div
                         className="d-flex align-items-center mt-3"
                         style={{ gap: "10px" }}
@@ -648,20 +663,26 @@ export default function EditDoing({
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
@@ -680,7 +701,12 @@ export default function EditDoing({
       {TitleData?.card_services?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}

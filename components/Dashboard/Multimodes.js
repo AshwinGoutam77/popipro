@@ -336,7 +336,7 @@ export default function Multimodes({
                   <span className="slider round"></span>
                 </label>
               </li>
-              <li className="d-flex align-item-center justify-content-between mb-2">
+              {/* <li className="d-flex align-item-center justify-content-between mb-2">
                 <h6 className="mb-0">Open Review</h6>
                 <label className="switch">
                   <input
@@ -348,7 +348,7 @@ export default function Multimodes({
                   />
                   <span className="slider round"></span>
                 </label>
-              </li>
+              </li> */}
             </ul>
           </div>
         </Modal.Body>

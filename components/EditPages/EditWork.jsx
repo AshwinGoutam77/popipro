@@ -304,7 +304,7 @@ export default function EditWorks({
     let titles = [
       {
         name: "card_videos",
-        visible_name: VideoName?.visible_name,
+        visible_name: VideoTitle,
         is_featured: ActiveVideo ? "0" : "1",
         is_active: ActiveVideo ? "0" : "1",
       },
@@ -391,6 +391,19 @@ export default function EditWorks({
     }
   };
   const handleChnageTitle = async () => {
+    if (PhotoTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -436,6 +449,19 @@ export default function EditWorks({
   };
 
   const handleChnageVideoTitle = async () => {
+    if (VideoTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -537,7 +563,7 @@ export default function EditWorks({
             <label className="modalFormLable">
               Add your video URL.
               <br />
-              <span className="ml-2">*Please upload youtube urls only.</span>
+              <span className="">*Please upload youtube urls only.</span>
             </label>
             <input
               type="text"
@@ -568,7 +594,12 @@ export default function EditWorks({
       {TitleData?.card_photos?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
@@ -837,7 +868,12 @@ export default function EditWorks({
       {TitleData?.card_videos?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}

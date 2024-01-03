@@ -7,15 +7,20 @@ import React from "react";
 const SocialMedia = ({ card, Titles, CardLinks }) => {
   let links = [];
   const HitClick = async (type, social, id) => {
-    let payload = {
-      card: card?.id,
-      type: social ? social : "card",
-      device_id: navigator.userAgent,
-      object_base: id ? id : card?.id,
-      hit_type: type,
-    };
-    const response = await Api(HitClickApi, payload);
-    if (response.data.status) {
+    console.log("hello");
+    try {
+      let payload = {
+        card: card?.id,
+        type: social ? social : "card",
+        device_id: navigator.userAgent,
+        object_base: id ? id : card?.id,
+        hit_type: type,
+      };
+      const response = await Api(HitClickApi, payload);
+      if (response.data.status) {
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -68,7 +73,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
                           href={item.link}
                           target="_blank"
                           key={i}
-                          /* onClick={() => HitClick("direct", "social", item.id)} */
+                          onClick={() => HitClick("direct", "social", item.id)}
                         >
                           <div className="media-icon-div">
                             <span className="social-media-icons">

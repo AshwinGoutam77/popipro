@@ -20,7 +20,6 @@ const EditBanner = ({
   PlanData,
 }) => {
   useEffect(() => {
-    console.log(Data?.card_company_logo);
     document.documentElement.style.setProperty("--color", card?.color_code);
     document.documentElement.style.setProperty(
       "--header-color",
@@ -30,14 +29,18 @@ const EditBanner = ({
       "--themecolor",
       card?.background_color
     );
+    document.documentElement.style.setProperty(
+      "--text-color",
+      card?.text_color
+    );
   }, []);
 
   let isVisible = false;
   return (
     <>
-      {(Permission && Permission[0]?.visible_field === "logo") ||
-      Data.card_cover === "name" ||
-      Data?.card_cover === "logo" ? (
+      {Data.card_cover === "name" ||
+      (Data.card_cover === "label" && Data?.card_company_logo !== null) ||
+      (Data?.card_cover === "logo" && Data?.card_company_logo?.length !== 0) ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {Data?.card_trustpilot !== null &&
@@ -127,7 +130,7 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
-              {Data.card_cover !== "name" ? (
+              {Data.card_cover !== "name" && Data.card_cover !== "label" ? (
                 <img
                   src={Data?.base_url + Data?.card_company_logo?.path}
                   className="Logo-icon"
@@ -259,10 +262,14 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
-              {Data.card_cover === "name" ? (
+              {Data.card_cover === "name" &&
+              Data?.card_company_logo !== null ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
+              ) : Data?.card_cover !== "banner" ||
+                Data?.card_company_logo?.length == 0 ? (
+                <h5 className="text-white">Popipro</h5>
               ) : (
                 ""
               )}

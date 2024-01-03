@@ -7,12 +7,16 @@ import Main from "./Main";
 export async function generateMetadata({ params, searchParams }) {
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
-
+  let regex = /(<([^>]+)>)/gi;
   let card = data?.data?.card || {};
-  let title = card?.first_name
+  let title = card?.meta_title
+    ? card?.meta_title
+    : card.first_name
     ? card?.first_name + " - " + card?.card_profession
     : "Popipro";
-  let description = card?.card_description;
+  let description = card?.meta_description
+    ? card?.meta_description?.replace(regex, "")
+    : card?.card_description?.replace(regex, "");
   description = description?.replace(/<(.|\n)*?>/g, "").substring(0, 159);
 
   return {

@@ -9,6 +9,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faUser,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -274,6 +275,19 @@ export default function EditTestimonials({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (TestiName == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -432,7 +446,6 @@ export default function EditTestimonials({
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
-
   return (
     <>
       {/* Add More MODAL */}
@@ -454,7 +467,7 @@ export default function EditTestimonials({
         <Modal.Body>
           <div>
             <label className="modalFormLable">
-              Upload Image (*Prefered size in ration of 100x100)
+              Upload Image (*Preferred size in ratio of 100x100)
             </label>
             <input
               type="file"
@@ -549,7 +562,7 @@ export default function EditTestimonials({
             <button className="send-btnn" onClick={() => handleSaveTesti()}>
               Save
             </button>
-            <button className="delete-button m-0" onClick={handleClose}>
+            <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
           </div>
@@ -586,7 +599,7 @@ export default function EditTestimonials({
                         key={i}
                       />
                       <label className="modalFormLable">
-                        Upload Image (*Prefered size in ration of 100x100)
+                        Upload Image (*Preferred size in ratio of 100x100)
                       </label>
                       <input
                         type="file"
@@ -684,7 +697,7 @@ export default function EditTestimonials({
                         </button>
                         <button
                           className="delete-button m-0"
-                          onClick={handleEditClose}
+                          onClick={handleCanclebtn}
                         >
                           Cancel
                         </button>
@@ -722,20 +735,26 @@ export default function EditTestimonials({
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
@@ -754,7 +773,12 @@ export default function EditTestimonials({
       {TitleData?.card_testimonials?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
@@ -842,15 +866,13 @@ export default function EditTestimonials({
                         AddMoreTesti?.length ? (
                           <button
                             className="addmore"
-                            onClick={() => handleShow()}
+                            onClick={() => handleUpgradePlan()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>
                         ) : (
                           <button
                             className="addmore"
-                            // data-toggle="modal"
-                            // data-target="#AddMoreTestiModal"
                             onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
@@ -907,12 +929,18 @@ export default function EditTestimonials({
                                       alt="testimonials"
                                     />
                                   ) : (
-                                    <img
-                                      className="case-item__icon"
-                                      src="../static/img/demo.jpg"
-                                      alt="testimonials"
-                                      style={{ borderRadius: "100%" }}
-                                    />
+                                    // <img
+                                    //   className="case-item__icon"
+                                    //   src="../static/img/demo.jpg"
+                                    //   alt="testimonials"
+                                    //   style={{ borderRadius: "100%" }}
+                                    // />
+                                    <div className="no-image-testimonia-div">
+                                      <FontAwesomeIcon
+                                        icon={faUser}
+                                        className="text-white"
+                                      />
+                                    </div>
                                   )}
                                   <div className="pt-0">
                                     <h4
@@ -993,13 +1021,13 @@ export default function EditTestimonials({
                   id="testimonials"
                   className="mt-1"
                   value={
-                    MainData?.company_setting?.show_testimonial_button === 0
+                    MainData?.company_setting?.show_testimonial_button !== 0
                       ? true
                       : false
                   }
                   onChange={(e) => handleGetReview(e.target.checked)}
                   checked={
-                    MainData?.company_setting?.show_testimonial_button == 0
+                    MainData?.company_setting?.show_testimonial_button !== 0
                       ? true
                       : false
                   }

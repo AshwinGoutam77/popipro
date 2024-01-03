@@ -218,6 +218,19 @@ export default function EditCustomLink({
   };
 
   const handleChnageTitle = async () => {
+    if (CustomLinkTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     // setShowLoader(true);
     let titles = [
       {
@@ -230,7 +243,7 @@ export default function EditCustomLink({
       // setShowLoader(false);
       if (response.data.status) {
         APIDATA();
-        toast(response.data.message, {
+        toast.success(response.data.message, {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -443,7 +456,12 @@ export default function EditCustomLink({
 
       <div className="position-relative">
         {Data ? (
-          <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+          <EditPlan
+            Data={Data}
+            PlanData={PlanData}
+            APIDATA={APIDATA}
+            MainData={MainData}
+          />
         ) : (
           ""
         )}

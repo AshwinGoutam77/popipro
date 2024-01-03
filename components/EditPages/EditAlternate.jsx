@@ -221,6 +221,19 @@ export default function EditAlternateNo({
     setExtension(extension);
   };
   const handleChnageTitle = async () => {
+    if (AlterNumber == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     const titles = [
       {
@@ -252,8 +265,8 @@ export default function EditAlternateNo({
         window.location.href = "/login";
       }
       setShowLoader(false);
-      toast(error.response.data.message, {
-        position: "bottom-right",
+      toast.error(error.response.data.message, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -296,7 +309,7 @@ export default function EditAlternateNo({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <label className="modalFormLable">Label</label>
+            <label className="modalFormLable">Label *</label>
             <input
               type="text"
               name="number"
@@ -310,7 +323,7 @@ export default function EditAlternateNo({
             ></input>
           </div>
           <div>
-            <label className="modalFormLable">Phone Number</label>
+            <label className="modalFormLable">Phone Number *</label>
             <div className="d-flex align-items-center" style={{ gap: "8px" }}>
               <input
                 type="text"
@@ -477,7 +490,12 @@ export default function EditAlternateNo({
 
       <div className="position-relative">
         {Data ? (
-          <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+          <EditPlan
+            Data={Data}
+            PlanData={PlanData}
+            APIDATA={APIDATA}
+            MainData={MainData}
+          />
         ) : (
           ""
         )}
@@ -534,18 +552,18 @@ export default function EditAlternateNo({
                     )}
                   </div>
                   <>
-                    {MainData?.company_setting?.maximum_alternate_phone >=
+                    {MainData?.company_setting?.maximum_alternate_phone <=
                     Data?.card_alternate_phone?.length ? (
                       <button
                         className="addmore"
                         data-toggle="modal"
                         data-target="#AlternateNumberModal"
-                        onClick={handleShow}
+                        onClick={handleUpgradePlan}
                       >
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
                     ) : (
-                      <button className="addmore" onClick={handleUpgradePlan}>
+                      <button className="addmore" onClick={handleShow}>
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
                     )}
@@ -618,20 +636,29 @@ export default function EditAlternateNo({
                         {item.title} :
                       </p>
                       <a
-                        href={
-                          "tel:" +
-                          item.country_code +
-                          "-" +
-                          item?.number +
-                          "-" +
-                          item?.extension
-                        }
+                        // href={
+                        //   "tel:" +
+                        //   item.country_code +
+                        //   "-" +
+                        //   item?.number +
+                        //   "-" +
+                        //   item?.extension
+                        // }
+                        href={`tel: ${
+                          item.country_code
+                            ? item.country_code + "-"
+                            : item.country_code
+                        } ${item?.number} ${
+                          item?.extension ? "- " + item?.extension : ""
+                        }`}
                         className="ml-1"
                         style={{ color: "black" }}
                       >
                         {item?.country_code}
-                        {item?.country_code ? "-" : ""} {item?.number}
-                        {item?.extension ? "-" : ""} {item?.extension}
+                        {item?.country_code ? "-" : ""}
+                        {item?.number}
+                        {item?.extension ? "-" : ""}
+                        {item?.extension}
                       </a>
                     </div>
                   </a>

@@ -25,6 +25,7 @@ import Modal from "react-bootstrap/Modal";
 import {
   CardData,
   LoadMoreApi,
+  ManageCategory,
   ProductEnquiryBtns,
   deleteSection,
 } from "@services/Routes";
@@ -33,6 +34,7 @@ import EditPlan from "./EditPlan";
 import ChatbotApp from "./Chat";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import CreatableSelect from "react-select/creatable";
 
 export default function EditProducts({
   APIDATA,
@@ -57,6 +59,7 @@ export default function EditProducts({
   const [ServicesName, setServicesName] = useState("");
   const [ProductUrl, setProductUrl] = useState("");
   const [ProductPrice, setProductPrice] = useState("");
+  const [ProductLabel, setProductLabel] = useState("");
   const [ServicesDescription, setServicesDescription] = useState("");
   const [ProductPriceValue, setProductPriceValue] = useState("");
   const [EditFields, setEditFields] = useState(false);
@@ -79,6 +82,9 @@ export default function EditProducts({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [EditRadioBtn, setEditRadioBtn] = useState("");
+  const [CategoryId, setCategoryId] = React.useState(null);
+  const [Category, setCategory] = useState("");
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -86,6 +92,7 @@ export default function EditProducts({
   };
   useEffect(() => {
     setProductTitle(TitleData?.card_products?.visible_name);
+    setCategory(Data?.product_categories);
   }, []);
   useEffect(() => {
     setActive(TitleData?.card_products?.is_active == "1" ? true : false);
@@ -93,8 +100,6 @@ export default function EditProducts({
   const aRef = useRef(null);
 
   const handleSaveBlogDetail = async (id = null) => {
-    console.log(ProductPrice.length);
-    // return
     setShowLoader(true);
     let data = [];
     let error = false;
@@ -113,6 +118,9 @@ export default function EditProducts({
               products_price: ProductPrice,
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
+              is_label: EditRadioBtn ? 1 : 0,
+              label: ProductLabel,
+              categories: [CategoryId?.value],
               saved_products: id,
             },
           ])
@@ -126,6 +134,8 @@ export default function EditProducts({
               products_currency: ProductPriceValue,
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
+              label: ProductLabel,
+              categories: [CategoryId?.value],
             },
           ]);
     }
@@ -167,6 +177,7 @@ export default function EditProducts({
         setServicesName("");
         setProductUrl("");
         setProductPrice("");
+        setProductLabel("");
         setAddLabel("");
         handleCanclebtn();
       }
@@ -266,24 +277,37 @@ export default function EditProducts({
       }
     });
   };
-  const handleSetId = (id, name, description, price, url, currency, label) => {
-    console.log(url);
+  const handleSetId = (
+    id,
+    name,
+    description,
+    price,
+    url,
+    currency,
+    label,
+    item_label,
+    button_placeholder
+  ) => {
     handleEditShow();
     setProductModalId(id);
     setServicesName(name);
     setServicesDescription(description);
     setProductPrice(price);
+    setProductLabel(label);
     setProductUrl(url);
     setProductPriceValue(currency);
-    setAddLabel(label);
+    setAddLabel(button_placeholder);
+    setEditRadioBtn(item_label);
   };
   const HandleEmptyFeilds = () => {
     setImage("");
     setServicesName("");
     setServicesDescription("");
     setProductPrice("");
+    setProductLabel("");
     setProductUrl("");
     setAddLabel("");
+    setCategoryId("");
   };
   const handleCanclebtn = () => {
     handleClose();
@@ -291,6 +315,19 @@ export default function EditProducts({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (ProductTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     let titles = [
       {
@@ -305,7 +342,7 @@ export default function EditProducts({
         APIDATA();
         // setData(response.data.data);
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -367,12 +404,14 @@ export default function EditProducts({
     });
   };
   const handleRadioBTN = (e) => {
+    setEditRadioBtn(0);
     setLabelRadio(false);
     if (PriceRadio == false) {
       setPriceRadio(true);
     }
   };
   const handleLabelRadio = () => {
+    setEditRadioBtn(1);
     setPriceRadio(false);
     if (LabelRadio == false) {
       setLabelRadio(true);
@@ -483,6 +522,24 @@ export default function EditProducts({
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
+  const [isLoading, setIsLoading] = useState(false);
+  const ProjectOptions = [];
+  Category &&
+    Category.map((item) => {
+      ProjectOptions.push({ value: item.id, label: item.name });
+    });
+
+  const HandleProjectSelect = (ProjectOptions) => {
+    setCategoryId(ProjectOptions);
+  };
+  const handleCreate = async (inputValue) => {
+    setIsLoading(true);
+    const response = await Api(ManageCategory, { category_name: inputValue });
+    const newOption = { label: inputValue, value: response.data.data.id };
+    ProjectOptions.push(newOption);
+    setCategoryId(newOption);
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -491,15 +548,15 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleProductClose}>
+          <button type="button" className="close" onClick={handleProductClose}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "30px" }}>
@@ -528,15 +585,18 @@ export default function EditProducts({
                     >
                       {item.name}
                     </span>
-                    {item.price !== "0" ? (
-                      <p
-                        className="mt-3 font-weight-bold"
-                        style={{ color: "var(--color)" }}
-                      >
-                        {item.currency} {item.price}
-                      </p>
+                    {item.is_label == 1 ? (
+                      <span className="product-price">{item.label}</span>
                     ) : (
-                      ""
+                      <div>
+                        {item.price !== 0 && item.price !== "" ? (
+                          <span className="product-price">
+                            {item.pcurrency?.currency} {item.price}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     )}
                   </div>
                   <p
@@ -563,12 +623,10 @@ export default function EditProducts({
                         style={{ background: "var(--color)" }}
                         // onClick={() => handleHitClick()}
                       >
-                        <i
-                          className="fa fa-link mr-2"
-                          style={{
-                            fontSize: "16px",
-                          }}
-                        ></i>
+                        <FontAwesomeIcon
+                          icon={faLink}
+                          className="user-select-auto mr-2"
+                        />
                         {Data?.id == "TrxF"
                           ? "Watch Video"
                           : item.button_placeholder
@@ -578,7 +636,7 @@ export default function EditProducts({
                     ) : (
                       ""
                     )}
-                    {MainData?.company_setting?.show_product_enquiry_button ==
+                    {MainData?.company_setting?.show_product_enquiry_button !==
                     0 ? (
                       <a
                         className="mt-1 product-modal-btn w-auto text-white d-block"
@@ -595,7 +653,7 @@ export default function EditProducts({
                     ) : (
                       ""
                     )}
-                    {MainData?.company_setting?.show_product_wp_button == 0 ? (
+                    {MainData?.company_setting?.show_product_wp_button !== 0 ? (
                       <a
                         href={
                           "https://api.whatsapp.com/send?phone=" +
@@ -632,21 +690,21 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Add {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleCanclebtn}>
+          <button type="button" className="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
           <div className="">
             <label className="modalFormLable">
-              Upload Image (*Recommended Size 137x108)
+              Upload Image (*Recommended Size 150*150)
             </label>
             <input
               type="file"
@@ -715,7 +773,11 @@ export default function EditProducts({
                     <option value="">Select currency</option>
                     {Currency &&
                       Currency?.map((item, index) => {
-                        return <option key={index}>{item}</option>;
+                        return (
+                          <option key={index} value={item?.id}>
+                            {item?.currency}
+                          </option>
+                        );
                       })}
                   </select>
                   <input
@@ -728,7 +790,7 @@ export default function EditProducts({
                     placeholder="Price"
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setProductPrice(e.target.value)}
-                    maxlength="10"
+                    maxLength="10"
                   ></input>
                 </div>
               </div>
@@ -741,11 +803,11 @@ export default function EditProducts({
                   rows="4"
                   cols="50"
                   className="form-control mb-4 mt-1"
-                  value={ProductPrice}
+                  value={ProductLabel}
                   placeholder="Text"
                   style={{ height: "40px", border: "1px solid #ccc" }}
-                  onChange={(e) => setProductPrice(e.target.value)}
-                  maxlength="12"
+                  onChange={(e) => setProductLabel(e.target.value)}
+                  maxLength="12"
                 ></input>
               </div>
             )}
@@ -780,8 +842,23 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
+            <div className="">
+              <label className="modalFormLable ml-0 pl-1 w-100">
+                Select Category
+              </label>
+              <CreatableSelect
+                className="w-100 mb-4 "
+                isClearable
+                isDisabled={isLoading}
+                isLoading={isLoading}
+                onChange={HandleProjectSelect}
+                onCreateOption={handleCreate}
+                options={ProjectOptions}
+                value={CategoryId}
+              />
+            </div>
             <div className="d-flex align-items-center justify-content-between">
-              <label className="modalFormLable">Description*</label>
+              <label className="modalFormLable">Description</label>
               <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
@@ -857,15 +934,15 @@ export default function EditProducts({
         <Modal.Header>
           <Modal.Title>
             <h5
-              class="title title--h1 first-title title__separate mb-1 mb-0"
+              className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
               Edit {ProductTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleCanclebtn}>
+          <button type="button" className="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
+            <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
@@ -880,7 +957,7 @@ export default function EditProducts({
                     key={i}
                   />
                   <label className="modalFormLable">
-                    Update Image (*Recommended Size 137x108)
+                    Update Image (*Recommended Size 150*150)
                   </label>
                   <input
                     type="file"
@@ -901,7 +978,37 @@ export default function EditProducts({
                     style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
-                  {items?.is_label == 0 ? (
+
+                  <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        id="price"
+                        name="product"
+                        value={0}
+                        checked={EditRadioBtn == 0 ? true : false}
+                        onChange={(e) => handleRadioBTN(e.target.value)}
+                      />{" "}
+                      <label htmlFor="price" className="ml-2 mb-0">
+                        Show Price
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center ml-3">
+                      <input
+                        type="radio"
+                        id="css"
+                        name="product"
+                        value={1}
+                        checked={EditRadioBtn == 1 ? true : false}
+                        onChange={(e) => handleLabelRadio(e.target.value)}
+                      />{" "}
+                      <label htmlFor="css" className="ml-2 mb-0">
+                        Show Text
+                      </label>
+                    </div>
+                  </div>
+
+                  {EditRadioBtn == 0 ? (
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
@@ -919,7 +1026,11 @@ export default function EditProducts({
                           <option value="">Select currency</option>
                           {Currency &&
                             Currency?.map((item, index) => {
-                              return <option key={index}>{item}</option>;
+                              return (
+                                <option key={index} value={item?.id}>
+                                  {item?.currency}
+                                </option>
+                              );
                             })}
                         </select>
                         <input
@@ -948,14 +1059,14 @@ export default function EditProducts({
                           rows="4"
                           cols="50"
                           className="form-control mb-4 mt-1"
-                          value={ProductPrice}
+                          value={ProductLabel}
                           placeholder="Text"
                           style={{
                             height: "40px",
                             border: "1px solid #ccc",
                           }}
-                          onChange={(e) => setProductPrice(e.target.value)}
-                          maxlength="12"
+                          onChange={(e) => setProductLabel(e.target.value)}
+                          maxLength="12"
                         ></input>
                       </div>
                     </>
@@ -1000,7 +1111,7 @@ export default function EditProducts({
                     </div>
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <label className="modalFormLable">Description*</label>
+                    <label className="modalFormLable">Description</label>
                     <p
                       onClick={handleChatModal}
                       data-toggle={ServicesDescription ? "modal" : ""}
@@ -1101,20 +1212,26 @@ export default function EditProducts({
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
@@ -1133,7 +1250,12 @@ export default function EditProducts({
         <>
           <div className="position-relative">
             {Data ? (
-              <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+              <EditPlan
+                Data={Data}
+                PlanData={PlanData}
+                APIDATA={APIDATA}
+                MainData={MainData}
+              />
             ) : (
               ""
             )}
@@ -1168,8 +1290,8 @@ export default function EditProducts({
                   PlanData?.is_expired == false &&
                   PlanData?.subscription?.plan_id !== 1 ? (
                     <div className="d-flex align-items-center">
-                      <div class="wrapper">
-                        <div class="tooltip">
+                      <div className="wrapper">
+                        <div className="tooltip">
                           Here you can manage services, products, advisory,
                           packages...
                         </div>
@@ -1194,18 +1316,22 @@ export default function EditProducts({
                           />
                         )}
                       </div>
-                      {MainData?.company_setting?.maximum_products !==
+                      {MainData?.company_setting?.maximum_products <=
                       PaginationData?.total_product ? (
                         <button
                           className="addmore"
                           data-toggle="modal"
                           data-target="#AddProductModal"
-                          onClick={() => handleShow()}
+                          // onClick={() => handleShow()}
+                          onClick={handleUpgradePlan}
                         >
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       ) : (
-                        <button className="addmore" onClick={handleUpgradePlan}>
+                        <button
+                          className="addmore"
+                          onClick={() => handleShow()}
+                        >
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       )}
@@ -1270,7 +1396,7 @@ export default function EditProducts({
                                   <div className="product-icons-div">
                                     {Data?.whatsapp_number !== null &&
                                     MainData?.company_setting
-                                      ?.show_product_wp_button == 0 ? (
+                                      ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1287,7 +1413,7 @@ export default function EditProducts({
                                       ""
                                     )}
                                     {MainData?.company_setting
-                                      ?.show_product_enquiry_button == 0 ? (
+                                      ?.show_product_enquiry_button !== 0 ? (
                                       <a
                                         data-toggle="modal"
                                         data-target="#ProductEnquireModal"
@@ -1350,12 +1476,23 @@ export default function EditProducts({
                                 }}
                               ></p>
                               <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
-                                {items.price !== 0 && items.price !== "" ? (
+                                {items.is_label !== 0 ? (
                                   <span className="product-price">
-                                    {items.currency} {items.price}
+                                    {items.label}
                                   </span>
                                 ) : (
-                                  ""
+                                  <div>
+                                    {items.price !== 0 &&
+                                    items.price !== "" &&
+                                    items.currency !== null ? (
+                                      <span className="product-price">
+                                        {items.pcurrency?.currency}{" "}
+                                        {items.price}
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </div>
                                 )}
                                 {items?.description?.length <= "0" ? (
                                   <div
@@ -1364,7 +1501,7 @@ export default function EditProducts({
                                   >
                                     {Data?.whatsapp_number !== null &&
                                     MainData?.company_setting
-                                      ?.show_product_wp_button == 0 ? (
+                                      ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1382,7 +1519,7 @@ export default function EditProducts({
                                       ""
                                     )}
                                     {MainData?.company_setting
-                                      ?.show_product_enquiry_button == 0 ? (
+                                      ?.show_product_enquiry_button !== 0 ? (
                                       <a
                                         data-toggle="modal"
                                         data-target="#ProductEnquireModal"
@@ -1460,6 +1597,8 @@ export default function EditProducts({
                                     items.price,
                                     items.url,
                                     items.currency,
+                                    items.label,
+                                    items.is_label,
                                     items.button_placeholder
                                   )
                                 }
@@ -1483,7 +1622,7 @@ export default function EditProducts({
                     })}
                   <div className="mt-4">
                     <h6 className="font-weight-bold">
-                      How you want to recive inquiry:
+                      How you want to receive inquiry:
                     </h6>
                     <div className="d-flex align-items-start">
                       <input
@@ -1491,14 +1630,15 @@ export default function EditProducts({
                         id="product-whatsaap"
                         className="mt-1"
                         value={
-                          MainData?.company_setting?.show_product_wp_button ===
+                          MainData?.company_setting?.show_product_wp_button !==
                           0
                             ? true
                             : false
                         }
                         onChange={() => handleProductsbtn("wp")}
                         checked={
-                          MainData?.company_setting?.show_product_wp_button == 0
+                          MainData?.company_setting?.show_product_wp_button !==
+                          0
                             ? true
                             : false
                         }
@@ -1517,14 +1657,14 @@ export default function EditProducts({
                         className="mt-1"
                         value={
                           MainData?.company_setting
-                            ?.show_product_enquiry_button === 0
+                            ?.show_product_enquiry_button !== 0
                             ? true
                             : false
                         }
                         onChange={() => handleProductsbtn("enq")}
                         checked={
                           MainData?.company_setting
-                            ?.show_product_enquiry_button == 0
+                            ?.show_product_enquiry_button !== 0
                             ? true
                             : false
                         }

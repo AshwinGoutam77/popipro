@@ -75,7 +75,7 @@ export default function EditResume({
       error = true;
       mess =
         ExpDesignation == ""
-          ? "Heading field is required"
+          ? "Title field is required"
           : "Description field is required";
     } else {
       id !== null
@@ -182,7 +182,7 @@ export default function EditResume({
     let titles = [
       {
         name: "card_experience",
-        visible_name: ResumeName?.visible_name,
+        visible_name: ExpTitle,
         is_featured: Active ? "0" : "1",
         is_active: Active ? "0" : "1",
       },
@@ -247,6 +247,19 @@ export default function EditResume({
     HandleEmptyFeilds();
   };
   const handleChnageTitle = async () => {
+    if (ExpTitle == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     setEditFields(false);
     let titles = [
@@ -262,7 +275,7 @@ export default function EditResume({
         APIDATA();
         // setData(response.data.data);
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -299,9 +312,10 @@ export default function EditResume({
       showCancelButton: true,
       focusConfirm: false,
       confirmButtonText:
-        '<a href="https://www.popipro.com/order" target="_blank">Upgrade</a>',
+        '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
   };
+
   // chatapi code
 
   const [text, setText] = useState("");
@@ -374,7 +388,8 @@ export default function EditResume({
       progress: undefined,
       theme: "light",
     });
-    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));F
+    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
+    F;
     setShowshowChatModal(false);
   };
 
@@ -642,20 +657,26 @@ export default function EditResume({
             {IsTyping ? (
               <p>Loading...</p>
             ) : (
-              suggestions.map((suggestion, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="suggestion"
-                      className={index !== 0 && index !== 1 ? "mr-2" : "d-none"}
-                      value={suggestion}
-                      onChange={(e) => setInputState(e.target.value)}
-                    />
-                    {suggestion.replace(/[0-9]./g, "")}
-                  </label>
-                </div>
-              ))
+              suggestions.map((suggestion, index) =>
+                suggestion ? (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="radio"
+                        name="suggestion"
+                        className={
+                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
+                        }
+                        value={suggestion}
+                        onChange={(e) => setInputState(e.target.value)}
+                      />
+                      {suggestion.replace(/[0-9]./g, "")}
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )
+              )
             )}
             {IsTyping ? (
               ""
@@ -674,7 +695,12 @@ export default function EditResume({
       {TitleData?.card_experience?.source !== 0 ? (
         <div className="position-relative">
           {Data ? (
-            <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
@@ -746,8 +772,8 @@ export default function EditResume({
                         AddMoreExp?.length ? (
                           <button
                             className="addmore"
-                            // onClick={handleUpgradePlan}
-                            onClick={() => handleShow()}
+                            onClick={handleUpgradePlan}
+                            // onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>

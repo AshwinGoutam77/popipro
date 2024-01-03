@@ -7,17 +7,21 @@ import { useState } from "react";
 import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 
-export default function DashboardPlan({ Data, PlanData, APIDATA }) {
+export default function DashboardPlan({ Data, PlanData, APIDATA, MainData }) {
   const [ShowLoader, setShowLoader] = useState(false);
   const handleFreeTrail = async () => {
     try {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
+        title: MainData?.is_individual == 0 ? "" : 'Are you sure?',
+        text:
+          MainData?.is_individual == 0
+            ? "Kindly contact to your company to upgrade the plan."
+            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
         icon: "warning",
-        showCancelButton: true,
+        showCancelButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonColor: "rgb(24 123 249)",
         cancelButtonColor: "#d33",
+        showConfirmButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonText: "Yes",
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -91,8 +95,6 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
       PlanData?.is_trial_taken !== 0 ? (
         <a
           href="https://www.popipro.com/order"
-          // target="_blank"
-          // rel="noreferrer"
           className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
         >
           <p className="text-white font-weight-bold text-center d-flex align-items-center">
@@ -101,7 +103,7 @@ export default function DashboardPlan({ Data, PlanData, APIDATA }) {
               className="text-white mr-2"
               style={{ fontSize: "20px" }}
             />
-            <p className="text-left">Renew your plan</p>
+            <p className="text-left text-decoration-none">Renew your plan</p>
           </p>
         </a>
       ) : PlanData?.subscription?.plan_id == 1 ||

@@ -22,6 +22,8 @@ const Banner = ({
   const [Loader, setLoader] = useState(false);
   const [FunctionState, setFunctionState] = useState(false);
   const [GoogleReviewState, setGoogleReviewState] = useState(false);
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   useEffect(() => {
     if (card) {
@@ -34,6 +36,10 @@ const Banner = ({
       document.documentElement.style.setProperty(
         "--themecolor",
         card.background_color
+      );
+      document.documentElement.style.setProperty(
+        "--text-color",
+        card?.text_color
       );
     } else {
       setLoader(false);
@@ -167,6 +173,8 @@ const Banner = ({
       device_id: navigator.userAgent,
       object_base: id ? id : card?.id,
       hit_type: type,
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -181,6 +189,8 @@ const Banner = ({
       object_base: id,
       hit_type: "direct",
       referer,
+      latitude: Latitude,
+      longitude: Longitude,
     };
 
     const response = await Api(HitClickApi, payload);
@@ -201,16 +211,28 @@ const Banner = ({
     var elem = document.getElementById("card_booking");
     elem?.scrollIntoView();
   } else if (
+    typeof window === "object" &&
     GoogleReviewState == false &&
     card?.landing_mode === "open-google-review"
   ) {
-    typeof window === "object" && card?.card_google_review !== null
-      ? (window.location.href = card?.card_google_review)
-      : (window.location.href = card?.vcard_url);
+    typeof window === "object" &&
+      (window.location.href =
+        card?.card_google_review?.url?.includes("https://") ||
+        card?.card_google_review?.url?.includes("http://")
+          ? card?.card_google_review
+          : "https://" + card?.card_google_review);
     setGoogleReviewState(true);
   } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
     window.location =
       "https://api.whatsapp.com/send?phone=" + card.card_contact;
+  }
+  async function requestPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      console.log("Notifications are allowed.");
+    } else if (permission === "denied") {
+      console.log("we have denied permission!, Please alow the permission.");
+    }
   }
   function getLocation() {
     if (navigator.geolocation) {
@@ -220,27 +242,37 @@ const Banner = ({
     }
   }
   function showPosition(position) {
-    // console.log(
-    //   "Latitude: " + position.coords.latitude,
-    //   "Longitude: " + position.coords.longitude
-    // );
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
   }
   useEffect(() => {
+    requestPermission();
     getLocation();
   }, []);
 
   return Loader == false ? (
-    <h5
-      className="d-flex align-items-center justify-content-center text-center"
-      style={{ height: "100vh" }}
-    >
-      Loading...
-    </h5>
+    <>
+      <h5
+        className="d-flex align-items-center justify-content-center text-center"
+        style={{
+          height: "100vh",
+          position: "fixed",
+          top: "0px",
+          left: "0px",
+          bottom: "0px",
+          right: "0px",
+          zIndex: "99999",
+          background: "white",
+        }}
+      >
+        Loading...
+      </h5>
+    </>
   ) : (
     <>
-      {permission[0]?.visible_field === "logo" ||
-      card.card_cover === "name" ||
-      card.card_cover === "logo" ? (
+      {card.card_cover === "name" ||
+      (card.card_cover === "label" && card?.card_company_logo !== null) ||
+      (card?.card_cover === "logo" && card?.card_company_logo?.length !== 0) ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {!IsVisible && (
@@ -284,7 +316,12 @@ const Banner = ({
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
               <a
-                href={card.card_google_review}
+                href={
+                  card?.card_google_review?.url?.includes("https://") ||
+                  card?.card_google_review?.url?.includes("http://")
+                    ? card?.card_google_review
+                    : "https://" + card?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -325,7 +362,7 @@ const Banner = ({
 
           <div className="pt-0">
             <div>
-              {card.card_cover !== "name" ? (
+              {card.card_cover !== "name" && card.card_cover !== "label" ? (
                 <img
                   src={card.base_url + card.card_company_logo?.path}
                   className="Logo-icon"
@@ -412,7 +449,12 @@ const Banner = ({
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
               <a
-                href={card.card_google_review}
+                href={
+                  card?.card_google_review?.url?.includes("https://") ||
+                  card?.card_google_review?.url?.includes("http://")
+                    ? card?.card_google_review
+                    : "https://" + card?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -443,7 +485,7 @@ const Banner = ({
                 }}
               >
                 <img
-                  src="../../assets/img/trustpilot.png"
+                  src="./static/img/trustpilot.png"
                   style={{
                     width: "30px",
                     height: "30px",
@@ -460,10 +502,14 @@ const Banner = ({
 
           <div className="mt-2">
             <div>
-              {card.card_cover === "name" ? (
+              {card.card_cover === "name" &&
+              card?.card_company_logo !== null ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
+              ) : card?.card_cover !== "banner" ||
+                card?.card_company_logo?.length == 0 ? (
+                <h5 className="text-white">Popipro</h5>
               ) : (
                 ""
               )}

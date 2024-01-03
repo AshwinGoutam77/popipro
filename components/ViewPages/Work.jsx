@@ -10,6 +10,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
+import { HitClickApi } from "@services/Routes";
+import Api from "@services/Api";
 
 const Work = ({
   card,
@@ -67,6 +69,19 @@ const Work = ({
       setSelectedImageIndex(selectedImageIndex + 1);
     }
   };
+
+  const HitClick = async (id, type) => {
+    let payload = {
+      card: card?.id,
+      type: "card",
+      device_id: navigator.userAgent,
+      object_base: card?.id,
+      hit_type: type,
+    };
+    const response = await Api(HitClickApi, payload);
+    if (response.data.status) {
+    }
+  };
   return (
     <>
       <SimpleBackdrop visible={false} />
@@ -100,7 +115,7 @@ const Work = ({
                 {Card_photos &&
                   Card_photos.map((photo, i) => {
                     return (
-                      <SwiperSlide key={i}>
+                      <SwiperSlide key={i} onClick={() => HitClick(i, "photo")}>
                         <div className="swiper-slide review-items position-relative">
                           <div
                             className="position-absolute top-0 zoom-icon-images"
@@ -203,7 +218,11 @@ const Work = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex-edit-class" style={{ gap: "10px" }}>
+                  <div
+                    className="flex-edit-class"
+                    style={{ gap: "10px" }}
+                    onClick={() => HitClick("i", "video")}
+                  >
                     {Card_videos &&
                       Card_videos.map((video, i) => {
                         function getId(url) {
@@ -229,6 +248,7 @@ const Work = ({
                                     controls
                                     width="560"
                                     height="315"
+                                    onClick={() => HitClick("i", "video")}
                                   />
                                 </div>
                               </div>

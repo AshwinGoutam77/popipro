@@ -2,36 +2,30 @@
 import { useEffect, useState } from "react";
 import InstagramProfileEmbed from "./InstagramProfileEmbed";
 
-export default function EmbedPost({ card, Titles, PlanData }) {
-  const [Card_videos, setCard_videos] = useState("");
+export default function EmbedPost({ card, Titles, PlanData, MainData }) {
+  const [SocailLinks, setSocailLinks] = useState("");
 
   useEffect(() => {
-    setCard_videos(card?.card_videos);
+    setSocailLinks(card?.card_social_links);
   }, []);
-  const instagramProfileUrl = "https://www.instagram.com/prafullgupta87/";
-  return Card_videos?.length !== 0 &&
-    Titles?.card_videos?.source !== 0 &&
-    Titles?.card_videos?.is_active !== 0 &&
+  const instagramProfileUrl = MainData?.company_setting?.insta_feed_url;
+  return SocailLinks?.length !== 0 &&
+    Titles?.card_social_links?.source !== 0 &&
+    Titles?.card_social_links?.is_active !== 0 &&
     PlanData?.is_expired == false ? (
     <>
       <div className="mt-3 box-content boxxx">
-        {Titles && Titles?.card_videos?.is_active ? (
-          <>
-            <div>
-              <div className="">
-                <h3 className="title title--h1 first-title title__separate">
-                  Instagram Feeds
-                </h3>
-              </div>
+        <div>
+          <div className="">
+            <h3 className="title title--h1 first-title title__separate">
+              Instagram Feeds
+            </h3>
+          </div>
 
-              <div className="flex-edit-class iframe-class" style={{ gap: "10px" }}>
-                <InstagramProfileEmbed url={instagramProfileUrl} />
-              </div>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
+          <div className="flex-edit-class iframe-class" style={{ gap: "10px" }}>
+            <InstagramProfileEmbed url={instagramProfileUrl} />
+          </div>
+        </div>
       </div>
     </>
   ) : (

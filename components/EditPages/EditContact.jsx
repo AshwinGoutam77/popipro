@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { Appointmentbtns, CardData } from "@services/Routes";
+import { Appointmentbtns, CardData, ChangeAppointment } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import { Modal } from "react-bootstrap";
@@ -26,6 +26,8 @@ export default function EditContact({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [Appointment, setAppointment] = useState("");
   const [Show, setShow] = useState(false);
+  const [AppForm, setAppForm] = useState(true);
+  const [CalendlyUrl, setCalendlyUrl] = useState("");
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -82,6 +84,19 @@ export default function EditContact({
     });
   };
   const handleChnageTitle = async () => {
+    if (Appointment == "") {
+      toast.error("Section title is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     // setShowLoader(true);
     let titles = [
       {
@@ -153,6 +168,40 @@ export default function EditContact({
   };
   const handleClose = () => {
     setShow(false);
+    setAppForm(true);
+  };
+
+  const handleCalendly = async () => {
+    if (CalendlyUrl == "") {
+      toast.error("Please enter the calendly URL.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    const res = await Api(ChangeAppointment, {
+      method: "calendly",
+      url: CalendlyUrl,
+    });
+    if (res.status) {
+      setShow(false);
+      setCalendlyUrl("");
+      APIDATA();
+    }
+  };
+  const handleForm = async () => {
+    const res = await Api(ChangeAppointment, {
+      method: "form",
+    });
+    if (res.status) {
+      APIDATA();
+    }
   };
 
   return (
@@ -164,7 +213,7 @@ export default function EditContact({
               className="title title--h1 first-title title__separate mb-0"
               id="shareModal"
             >
-              Calendly Url
+              Calendly URL
             </h5>
           </Modal.Title>
 
@@ -178,20 +227,36 @@ export default function EditContact({
           </button>
         </Modal.Header>
         <Modal.Body>
-          <lable className="modalFormLable">Your calendly url:</lable>
+          <lable className="modalFormLable">Your calendly URL:</lable>
           <input
             type="url"
             className="form-control mt-2"
+            placeholder="Enter your calendly URL"
+            value={CalendlyUrl}
+            onChange={(e) => setCalendlyUrl(e.target.value)}
             style={{ height: "40px", border: "1px solid #ccc" }}
           />
           <div>
-            <button className="contact-btn w-auto">Save</button>
+            <button className="contact-btn w-auto" onClick={handleCalendly}>
+              Save Changes
+            </button>
+            <button
+              className="contact-btn w-auto ml-2"
+              onClick={() => setShow(false)}
+            >
+              Cancel Changes
+            </button>
           </div>
         </Modal.Body>
       </Modal>
       <div className="position-relative">
         {Data ? (
-          <EditPlan Data={Data} PlanData={PlanData} APIDATA={APIDATA} />
+          <EditPlan
+            Data={Data}
+            PlanData={PlanData}
+            APIDATA={APIDATA}
+            MainData={MainData}
+          />
         ) : (
           ""
         )}
@@ -222,8 +287,8 @@ export default function EditContact({
               PlanData?.is_expired == false &&
               PlanData?.subscription?.plan_id !== 1 ? (
                 <div className="d-flex align-items-center">
-                  <div class="wrapper">
-                    <div class="tooltip">
+                  <div className="wrapper">
+                    <div className="tooltip">
                       Use this section to incorporate for appointment booking.
                     </div>
                     <FontAwesomeIcon
@@ -265,71 +330,79 @@ export default function EditContact({
               )}
             </div>
           </div>
-          {Data.id === "S7ZG" &&
-          process.env.NEXT_PUBLIC_MODE === "development" ? (
-            <div className="">
-              <h6 className="font-weight-bold">
-                How you want to recive appointment:
-              </h6>
-              <div className="d-flex align-items-start">
-                <input
-                  type="radio"
-                  id="product-whatsaap3"
-                  className="mt-1"
-                  name="real-estate-radio"
-                  // value={
-                  //   MainData?.company_setting?.show_product_wp_button === 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("wp")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_wp_button == 0
-                  //     ? true
-                  //     : false
-                  // }
-                />
-                <label
-                  for="product-whatsaap3"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Via Appointemnt Form?
-                </label>
-              </div>
-              <div
-                className="d-flex align-items-start"
-                onClick={() => setShow(true)}
+
+          <div className="">
+            <h6 className="font-weight-bold">
+              How you want to receive appointment:
+            </h6>
+            <div
+              className="d-flex align-items-start"
+              onClick={() => handleForm()}
+            >
+              <input
+                type="radio"
+                id="product-enq3"
+                className="mt-1"
+                name="real-estate-radio"
+                value={
+                  MainData?.company_setting?.appointment_enquiry_method ===
+                  "form"
+                    ? true
+                    : false
+                }
+                checked={
+                  MainData?.company_setting?.appointment_enquiry_method ==
+                  "form"
+                    ? true
+                    : false
+                }
+              />
+              <label
+                htmlFor="product-whatsaap3"
+                className="ml-2 Varcolor font-weight-bold"
               >
-                <input
-                  type="radio"
-                  id="product-enq3"
-                  className="mt-1"
-                  name="real-estate-radio"
-                  // value={
-                  //   MainData?.company_setting?.show_product_enquiry_button === 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("enq")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_enquiry_button == 0
-                  //     ? true
-                  //     : false
-                  // }
-                />
-                <label
-                  for="product-enq3"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Via Calendly?
-                </label>
-              </div>
+                Via Appointment Form?
+              </label>
             </div>
-          ) : (
-            ""
-          )}
+            <div
+              className="d-flex align-items-start"
+              onClick={() => setShow(true)}
+            >
+              <input
+                type="radio"
+                id="product-enq3"
+                className="mt-1"
+                name="real-estate-radio"
+                value={
+                  MainData?.company_setting?.appointment_enquiry_method ===
+                  "calendly"
+                    ? true
+                    : false
+                }
+                // onChange={() => handleProductsbtn("wp")}
+                checked={
+                  MainData?.company_setting?.appointment_enquiry_method ==
+                  "calendly"
+                    ? true
+                    : false
+                }
+                // value={AppForm}
+                // checked={AppForm ? true : false}
+                onChange={() => setAppForm(false)}
+              />
+              <label
+                for="product-enq3"
+                className="ml-2 Varcolor font-weight-bold"
+              >
+                Via Calendly?
+              </label>
+            </div>
+          </div>
+
           <div className="row align-items-center justify-content-center mb-3"></div>
-          {Show ? (
+          {Show ||
+          MainData?.company_setting?.appointment_enquiry_method ==
+            "calendly" ? (
             ""
           ) : (
             <div className="row">

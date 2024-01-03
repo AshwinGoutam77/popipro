@@ -8,17 +8,21 @@ import SimpleBackdrop from "../ViewPages/Backdrop";
 import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 
-export default function EditPlan({ PlanData, Data, APIDATA }) {
+export default function EditPlan({ PlanData, Data, APIDATA, MainData }) {
   const [ShowLoader, setShowLoader] = useState();
   const handleFreeTrail = async () => {
     try {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You want to activate 30 days Free trial for Premium Features without paying any money for now?",
+        title: MainData?.is_individual == 0 ? "" : "Are you sure?",
+        text:
+          MainData?.is_individual == 0
+            ? "Kindly contact to your company to upgrade the plan."
+            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
         icon: "warning",
-        showCancelButton: true,
+        showCancelButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonColor: "rgb(24 123 249)",
         cancelButtonColor: "#d33",
+        showConfirmButton: MainData?.is_individual == 0 ? false : true,
         confirmButtonText: "Yes",
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -28,6 +32,7 @@ export default function EditPlan({ PlanData, Data, APIDATA }) {
           });
           setShowLoader(false);
           if (response.data.status) {
+            Swal.fire("Done", "", "success");
             APIDATA();
             toast(response.data.message, {
               position: "bottom-right",
@@ -111,7 +116,9 @@ export default function EditPlan({ PlanData, Data, APIDATA }) {
                   style={{ fontSize: "20px" }}
                 />
                 <p className="text-white ml-2 text-left">
-                  Click here to unlock the 30 days free trial
+                  {MainData?.is_individual == 0
+                    ? "Kindly contact to your company to upgrade the plan"
+                    : "Click here to unlock the 30 days free trial"}
                 </p>
               </div>
             </div>

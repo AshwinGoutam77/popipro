@@ -15,6 +15,8 @@ export default function Theme({
   setHeaderColor,
   active,
   handleClose,
+  TextColor,
+  setTextColor,
 }) {
   const handleColor = async () => {
     if (Color === undefined) {
@@ -34,13 +36,16 @@ export default function Theme({
       color_code: Color,
       background_color: BackgroundColor,
       banner_color: HeaderColor,
+      text_color: TextColor,
     });
 
     if (response.data.status) {
       setColor(Data?.color_code);
       setBackgroundColor(Data?.background_color);
+      setTextColor(Data?.text_color);
       document.documentElement.style.setProperty("--color", Color);
       document.documentElement.style.setProperty("--header-color", HeaderColor);
+      document.documentElement.style.setProperty("--text-color", TextColor);
       document.documentElement.style.setProperty(
         "--themecolor",
         BackgroundColor
@@ -51,23 +56,28 @@ export default function Theme({
       const color2 = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--header-color");
-      // console.log(color);
+      const color3 = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--text-color");
       APIDATA();
     }
-    handleClose()
+    handleClose();
   };
-  const habdleResetColor = async () => {
+  const handleResetColor = async () => {
     const response = await Api(CardData, {
       color_code: "#24b1e6",
       background_color: "#dfeef8",
       banner_color: "#24b1e6",
+      text_color: "#ffffff",
     });
 
     if (response.data.status) {
       setColor(Data?.color_code);
+      setTextColor(Data?.text_color);
       document.documentElement.style.setProperty("--color", "#24b1e6");
       document.documentElement.style.setProperty("--header-color", "#24b1e6");
       document.documentElement.style.setProperty("--themecolor", "#dfeef8");
+      document.documentElement.style.setProperty("--text-color", "#ffffff");
       const color = getComputedStyle(document.documentElement).getPropertyValue(
         "--color"
       );
@@ -77,10 +87,13 @@ export default function Theme({
       const color1 = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--themecolor");
+      const color3 = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--text-color");
       // console.log(color, color1);
       APIDATA();
     }
-    handleClose()
+    handleClose();
   };
   return (
     <>
@@ -116,7 +129,7 @@ export default function Theme({
             <div className="position-relative">
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for profile colour
+                  Enter HexCode for theme color
                 </p>
                 <input
                   type="text"
@@ -128,7 +141,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for background colour
+                  Enter HexCode for theme color
                 </p>
                 <input
                   type="text"
@@ -140,7 +153,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for header colour
+                  Enter HexCode for header color
                 </p>
                 <input
                   type="text"
@@ -148,6 +161,18 @@ export default function Theme({
                   className="form-control border"
                   value={HeaderColor || ""}
                   onChange={(e) => setHeaderColor(e.target.value)}
+                />
+              </div>
+              <div className="mb-3 pl-2 pr-3">
+                <p className="pl-2 mb-0 font-weight-bold">
+                  Enter HexCode for button text color
+                </p>
+                <input
+                  type="text"
+                  placeholder="#ffc021"
+                  className="form-control border"
+                  value={TextColor || ""}
+                  onChange={(e) => setTextColor(e.target.value)}
                 />
               </div>
               <p className="text-center mb-3 underline-or">
@@ -168,8 +193,7 @@ export default function Theme({
                     />
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
-                    Select <br />
-                    Your Profile Colour
+                    Select <br /> Theme Color
                   </p>
                 </div>
                 <div className="w-100">
@@ -184,13 +208,16 @@ export default function Theme({
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
                     Select <br />
-                    Background Colour
+                    Background Color
                   </p>
                 </div>
               </div>
-              <div className="d-flex mt-3">
-                <div className="w-100 d-flex align-items-center flex-column">
-                  <div className="color-pick w-50">
+              <div
+                className="d-flex align-items-center justify-content-center w-100 mt-3"
+                style={{ gap: "10px" }}
+              >
+                <div className="w-100">
+                  <div className="color-pick">
                     <input
                       type="color"
                       value={HeaderColor || ""}
@@ -200,8 +227,22 @@ export default function Theme({
                     />
                   </div>
                   <p className="mt-2 text-center font-weight-bold">
+                    Select <br /> Header Color
+                  </p>
+                </div>
+                <div className="w-100">
+                  <div className="color-pick">
+                    <input
+                      type="color"
+                      value={TextColor || ""}
+                      onChange={(e) => setTextColor(e.target.value)}
+                      className="w-100 border-0 bg-transparent"
+                      style={{ height: "150px" }}
+                    />
+                  </div>
+                  <p className="mt-2 text-center font-weight-bold">
                     Select <br />
-                    Your Header Colour
+                    Button Text Color
                   </p>
                 </div>
               </div>
@@ -216,7 +257,7 @@ export default function Theme({
                   Save Changes
                 </button>
                 <button
-                  onClick={(e) => habdleResetColor(e)}
+                  onClick={(e) => handleResetColor(e)}
                   className="contact-btn mt-2"
                   style={{ background: "#24b1e6" }}
                 >
