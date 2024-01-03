@@ -371,76 +371,6 @@ export default function Dashboard() {
               />
             </div>
           </div>
-          {/* <div className="d-flex justify-content-center align-items-center flex-column">
-            <img
-              src={
-                Data?.profile_picture?.path
-                  ? Data?.base_url +
-                    Data?.profile_picture?.path +
-                    "?ver=" +
-                    time
-                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
-              }
-              alt="imagee"
-              className="dashboard-image"
-            />
-            <h5 className="text-center text-black dashboard-h5 dashboard-mt">
-              Welcome,
-              <span style={{ color: "var(--color)" }}>{Data?.first_name}</span>
-            </h5>
-            <p className="text-center dashboard-mt text-black">
-              You can manage all your data and analytics from this dashboard.
-            </p>
-            {Data?.is_onboarding == "1" ? (
-              <p
-                className="text-center mt-1 font-weight-bold cursor-pointer blink-para cursor-pointer"
-                onClick={SaveStatusApi}
-              >
-                Your profile is in <strong>DRAFT MODE </strong>
-                <br />
-                Please <u>click here</u> to make it public
-              </p>
-            ) : (
-              ""
-            )}
-            {Data &&
-            PlanData?.is_expired !== false &&
-            PlanData?.is_trial_taken !== 0 ? (
-              <a
-                href="https://www.popipro.com/order"
-                target="_blank"
-                className="mt-2 font-weight-bold subscrition-p cursor-pointer"
-              >
-                Your subscription is expired, Click to renew it.
-              </a>
-            ) : PlanData?.is_expired == false ? (
-              <>
-                <p className="dashboard-mt mt-4 mb-1 subscrition-p">
-                  Your Subscrition will ends in{" "}
-                  <span className="font-weight-bold">
-                    {MainData?.plan?.subscription_left_days} days.
-                  </span>{" "}
-                </p>
-              </>
-            ) : PlanData?.subscription?.plan_id == 1 ||
-              PlanData?.subscription?.plan_id == null ? (
-              <div className="d-sm-flex" style={{ gap: "10px" }}>
-                <p
-                  className="mt-2 font-weight-bold subscrition-p cursor-pointer"
-                  onClick={() => handleFreeTrail()}
-                >
-                  {MainData?.is_individual == 0
-                    ? "Kindly contact to your company to upgrade the plan."
-                    : "Click here to activate 30 Days Free Trial !!"}
-                  <span className="font-weight-bold">
-                    {MainData?.plan?.subscription?.end_date}
-                  </span>
-                </p>
-              </div>
-            ) : (
-              ""
-            )}
-          </div> */}
 
           <div className="mt-4 px-4 d-flex justify-content-center">
             <SwiperComponent
@@ -493,10 +423,6 @@ export default function Dashboard() {
               </SwiperSlide>
             </SwiperComponent>
           </div>
-
-          {/* <h6 className="text-center dashboard-mt font-weight-bold text-black mb-2 pb-0">
-            Profile Informations
-          </h6> */}
 
           <div className="row dashboard-padding">
             {ProfileTab ? (
@@ -832,10 +758,7 @@ export default function Dashboard() {
           </div>
 
           {/* Analytics & Data */}
-
-          {/* <h6 className="text-center dashboard-mt font-weight-bold text-black">
-            Analytics & Data
-          </h6> */}
+          
           <div className="row mt-2 dashboard-padding">
             {InsightsTab ? (
               <>

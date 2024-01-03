@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Api from "@services/Api";
 import {
+  GetAllForm,
   GetCustomForm,
   GetCustomFormData,
   GetCustomFormRecords,
@@ -24,19 +25,31 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function Page() {
   const [Show, setShow] = useState(false);
   const [CustomFormData, setCustomFormData] = useState("");
+  const [FormsData, setFormsData] = useState();
   const [RecordsData, setRecordsData] = useState("");
   const [FormHeading, setFormHeading] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(true);
+  const [SelectId, setSelectId] = useState("");
 
   useEffect(() => {
-    GetCustomForm();
+    handleGetCustomForm();
+    handleGetAllForms();
   }, []);
 
-  const GetCustomForm = async () => {
-    const res = await Api(GetCustomFormData, {});
+  const handleGetAllForms = async () => {
+    const res = await Api(GetAllForm, {});
+    if (res.status) {
+      setFormsData(res.data.data);
+    }
+  };
+
+  const handleGetCustomForm = async (id) => {
+    const res = id
+      ? await Api(GetCustomFormData, {}, "?form_id=" + id)
+      : await Api(GetCustomFormData, {});
     if (res.status) {
       setCustomFormData(res.data.data);
     }
@@ -44,10 +57,10 @@ export default function Page() {
 
   const handleGetCustomFormData = async (id, name) => {
     setShow(true);
-    setFormHeading(name);
     const res = await Api(GetCustomFormRecords, {}, id);
     if (res.status) {
-      setRecordsData(res.data.data);
+      setRecordsData(res?.data?.data?.recorded_data);
+      setFormHeading(name);
     }
   };
 
@@ -122,36 +135,21 @@ export default function Page() {
           {RecordsData?.length !== 0 ? (
             RecordsData &&
             RecordsData?.map((items, index) => {
+              console.log(items);
               return (
                 <div key={index}>
-                  <p className="my-2 mx-2 color-black">{items?.created_at}</p>
-                  {items?.recorded_data?.length !== 0 ? (
-                    items &&
-                    items?.recorded_data?.map((i, o) => {
-                      return (
-                        <div className="leads-custom-table2 mb-1" key={o}>
-                          {i?.name ? (
-                            <div className="d-flex align-items-start">
-                              <p className="w-100 font-weight-bold">
-                                {i?.name}
-                              </p>
-                              <p className="w-100">
-                                {i?.value ? i?.value : <p className="">----</p>}
-                              </p>
-                            </div>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className="leads-custom-table2 mb-1">
-                      <div className="d-flex align-items-start">
-                        <p className="w-100 font-weight-bold">No Data Found</p>
-                      </div>
+                  <div className="leads-custom-table2 mb-1" key={index}>
+                    <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">{items?.name}</p>
+                      <p className="w-100">
+                        {items?.value ? (
+                          items?.value?.join(", ")
+                        ) : (
+                          <p className="">----</p>
+                        )}
+                      </p>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })
@@ -186,8 +184,8 @@ export default function Page() {
         </Link>
       </div>
       <div
-        className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
-        style={{ height: "calc(100vh - 58px)" }}
+        className="d-flex align-items-center flex-column justify-content-between w-100 mb-4"
+        // style={{ height: "calc(100vh - 58px)" }}
       >
         <div className="w-100">
           <div className="mx-3 mt-4">
@@ -216,6 +214,22 @@ export default function Page() {
                 />
               </div>
               <div className="col-6 col-lg-2 p-0 px-2">
+                <select
+                  onChange={(e) => handleGetCustomForm(e.target.value)}
+                  className="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent"
+                >
+                  <option>Select Form</option>
+                  {FormsData &&
+                    FormsData?.map((items, index) => {
+                      return (
+                        <option value={items?.id} key={index}>
+                          {items?.form_heading}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="col-6 col-lg-2 p-0 px-2">
                 <button
                   className="insight-search w-100 mt-3"
                   onClick={handleSearchData}
@@ -230,7 +244,7 @@ export default function Page() {
               <thead>
                 <tr>
                   <th>Form</th>
-                  <th>Last Submitted Date</th>
+                  <th>Submitted Date</th>
                   <th></th>
                 </tr>
               </thead>
@@ -254,9 +268,13 @@ export default function Page() {
                         }
                         className="cursor-pointer"
                       >
-                        <td data-column="Name">{items?.form_heading}</td>
+                        <td data-column="Name">{items?.form}</td>
                         <td className="leads-short-para">{items.created_at}</td>
-                        <td onClick={() => handleGetCustomFormData(items?.id)}>
+                        <td
+                          onClick={() =>
+                            handleGetCustomFormData(items?.id, items?.form)
+                          }
+                        >
                           <FontAwesomeIcon
                             icon={faAngleRight}
                             className="text-dark ml-4"

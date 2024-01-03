@@ -1084,6 +1084,25 @@ input.date-time-input::-webkit-date-and-time-value {
   right: 15px;
   top: 16px;
 }
+.dropdown-item-active {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  text-align: inherit;
+  white-space: nowrap;
+  border: 0;
+  background: var(--color) !important;
+  color: white !important;
+}
+.form-input:focus,
+.form-multiselect:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: 1px solid #dee2e6 !important;
+  outline-offset: 2px;
+}
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;

@@ -62,7 +62,7 @@ export default function Product({
   const [Category, setCategory] = useState("");
   const [LoadMore, setLoadMore] = useState("");
   const [ActiveFilter, setActiveFilter] = useState("");
-  const [SearchFilter, setSearchFilter] = useState("");
+  const [HighlightSort, setHighlightSort] = useState("latest");
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -334,12 +334,11 @@ export default function Product({
     );
     const data = await response.json();
     if (response.ok) {
+      setActiveFilter("");
       setProducts(() => data?.data?.next_page_data?.data);
       setPage(1);
       setLoadMore(data?.data?.next_page_data?.next_page_url);
-      data?.data?.categories?.map((item) => {
-        setActiveFilter(item?.name);
-      });
+      setHighlightSort(data?.data?.request.sortBy);
     }
   };
 
@@ -653,24 +652,28 @@ export default function Product({
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("name")}
+                            className={HighlightSort == "name" ? "dropdown-item-active" : "dropdown-item"}
                           >
                             Sort By Name
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("price")}
+                            className={HighlightSort == "price" ? "dropdown-item-active" : "dropdown-item"}
                           >
                             Sort By Price
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("latest")}
+                            className={HighlightSort == "latest" ? "dropdown-item-active" : "dropdown-item"}
                           >
                             Sort By Latest
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("popularity")}
+                            className={HighlightSort == "popularity" ? "dropdown-item-active" : "dropdown-item"}
                           >
                             Sort By Popularity
                           </Dropdown.Item>
