@@ -344,7 +344,7 @@ export default function Dashboard() {
                 </button>
               ) : (
                 <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
-                  Your Subscrition will ends in
+                  Your Subscrition will end in
                   <span className="font-weight-bold ml-1">
                     {MainData?.plan?.subscription_left_days} days.
                   </span>
@@ -566,7 +566,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/plan"
+                        ? "/subscription"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -594,7 +594,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
 
-                {/* Approve request */}
+                {/* Approve review */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
@@ -603,7 +603,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/testimonialsLeads"
+                        ? "/approve-review"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -758,28 +758,9 @@ export default function Dashboard() {
           </div>
 
           {/* Analytics & Data */}
-          
           <div className="row mt-2 dashboard-padding">
             {InsightsTab ? (
               <>
-                {/* Google Analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href="/google-analytics"
-                    className="w-100  text-decoration-none"
-                  >
-                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
-                        icon={faMagnifyingGlassChart}
-                        className="text-white mb-2"
-                        style={{ fontSize: "20px" }}
-                      />
-                      <h6 className="text-white text-center mb-0">
-                        Google Analytics
-                      </h6>
-                    </div>
-                  </Link>
-                </div>
                 {/* Overall insights */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -789,7 +770,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/insights"
+                        ? "/overall-insights"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -816,6 +797,24 @@ export default function Dashboard() {
                         </h6>
                       </>
                     </span>
+                  </Link>
+                </div>
+                {/* Google Analytics */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href="/google-analytics"
+                    className="w-100  text-decoration-none"
+                  >
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlassChart}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Google Analytics
+                      </h6>
+                    </div>
                   </Link>
                 </div>
                 {/* Product analytics */}
@@ -911,7 +910,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/leads"
+                        ? "/share-contact-leads"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -933,7 +932,7 @@ export default function Dashboard() {
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
                         />
-                        <h6 className="text-white text-center mb-0">Lead</h6>
+                        <h6 className="text-white text-center mb-0"> Share contact lead</h6>
                       </>
                     </span>
                   </Link>
@@ -947,7 +946,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/product-enquiry"
+                        ? "/product-inquiry"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -986,7 +985,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/appointment-lead"
+                        ? "/appointment"
                         : ""
                     }
                     className="w-100  text-decoration-none"

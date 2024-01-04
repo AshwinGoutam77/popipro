@@ -229,7 +229,7 @@ export default function Multimodes({
               className="title title--h1 first-title title__separate mb-0"
               id="MultimodesModal"
             >
-              Multi Mode Settings
+              Card Mode Settings
             </h5>
           </Modal.Title>
 

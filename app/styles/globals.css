@@ -775,22 +775,21 @@ input.date-time-input::-webkit-date-and-time-value {
   border: 0;
 }
 .rdt_TableHeadRow {
-  background-color: var(--color) !important;
-  color: white !important;
+  background-color: hsl(0deg 0% 95.69%) !important;
+  color: black !important;
   font-weight: bold !important;
   font-size: 13.5px !important;
 }
 .rdt_TableRow {
   font-size: 13.5px !important;
   border: 0 !important;
+  border-bottom: 1px solid #ccc !important;
 }
 .rdt_TableRow:nth-child(odd) {
-  background-color: var(--themecolor) !important;
-  border: 0;
+  background-color: white !important;
 }
 .rdt_TableRow:nth-child(odd):hover {
   background-color: #eeeeee !important;
-  border: 0 !important;
 }
 .sc-dmlpXa::-webkit-scrollbar {
   width: 10px;
@@ -1102,6 +1101,14 @@ input.date-time-input::-webkit-date-and-time-value {
 .form-textarea:focus {
   outline: 1px solid #dee2e6 !important;
   outline-offset: 2px;
+}
+.filter-section-row {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px !important;
+  border-radius: 10px;
+}
+.svg-inline--fa.fa-eye{
+  color: var(--color) !important;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {

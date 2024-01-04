@@ -423,8 +423,8 @@ div:where(.swal2-icon).swal2-info {
 }
 
 .insight-table thead {
-  background: var(--color);
-  color: white;
+  background: hsl(0deg 0% 95.69%);
+  color: black;
   width: 100%;
 }
 
@@ -472,10 +472,12 @@ td {
 }
 
 .box-shadow-leads {
-  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
   border-radius: 10px;
   width: 97%;
   margin: 0 20px;
+}
+.box-shadow-leads table{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .dashboard-padding {
@@ -484,7 +486,6 @@ td {
 
 @media (max-width: 767px) {
   .box-shadow-leads {
-    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
     border-radius: 10px;
     width: 91%;
     margin: 0 20px;
@@ -496,23 +497,22 @@ td {
 }
 
 .leads-custom-table {
-  background: var(--themecolor);
-  /* padding: 11px 20px; */
+  background: none !important;
   border-radius: 10px;
   margin: 0 10px;
 }
 
 .leads-custom-table div {
-  padding: 8px 20px;
+  padding: 8px 4px !important;
+  border-bottom: 1px solid #ebeaea !important;
 }
 
 .leads-custom-table div:nth-child(even) {
-  background-color: #f8f8f8;
+  background-color: white;
 }
 
 .leads-custom-table div:last-child {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border: 0px;
 }
 .leads-custom-table2 {
   background: none !important;

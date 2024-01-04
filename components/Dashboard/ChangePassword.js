@@ -109,7 +109,7 @@ export default function ChangePassword({ active, handleClose }) {
                 className="title title--h1 first-title title__separate mb-0"
                 id="BlogModalTitle"
               >
-                Password
+               Change Password
               </h5>
             </Modal.Title>
 
@@ -124,12 +124,12 @@ export default function ChangePassword({ active, handleClose }) {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <form className="changePassword-form-section px-0 pt-1 mb-4">
+              <form className="changePassword-form-section px-0 pt-1 mb-0 mt-0">
                 <input
                   type="password"
                   name="number"
                   placeholder="Old Password*"
-                  className="mt-2"
+                  className="mt-0"
                   value={OldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
                   required
@@ -153,7 +153,7 @@ export default function ChangePassword({ active, handleClose }) {
                   required
                 />
                 <button
-                  className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
+                  className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4 mb-0"
                   data-wow-delay=".6s"
                   style={{
                     visibility: "visible",

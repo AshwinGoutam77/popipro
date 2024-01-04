@@ -112,7 +112,7 @@ export default function Theme({
                 className="title title--h1 first-title title__separate mb-0"
                 id="BlogModalTitle"
               >
-                Select Profile Colour
+                Select Profile Color
               </h5>
             </Modal.Title>
 
@@ -127,7 +127,7 @@ export default function Theme({
           </Modal.Header>
           <Modal.Body>
             <div className="position-relative">
-              <div className="mb-3 pl-2 pr-3">
+              {/* <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
                   Enter HexCode for theme color
                 </p>
@@ -141,7 +141,7 @@ export default function Theme({
               </div>
               <div className="mb-3 pl-2 pr-3">
                 <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for theme color
+                  Enter HexCode for background color
                 </p>
                 <input
                   type="text"
@@ -177,7 +177,7 @@ export default function Theme({
               </div>
               <p className="text-center mb-3 underline-or">
                 <span>OR</span>
-              </p>
+              </p> */}
               <div
                 className="d-flex align-items-center justify-content-center w-100"
                 style={{ gap: "10px" }}

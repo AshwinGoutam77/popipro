@@ -178,7 +178,7 @@ export default function DashboardProducts({ TitleData }) {
                 </h5>
 
                 <div className="mx-3">
-                  <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row">
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <label className="ml-1">From</label>
                       <DatePicker

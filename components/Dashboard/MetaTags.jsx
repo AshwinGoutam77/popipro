@@ -180,7 +180,7 @@ export default function MetaTags({
               className="title title--h1 first-title title__separate mb-0"
               id="BlogModalTitle"
             >
-              Change Meta Tags
+              Manage Meta Tags
             </h5>
           </Modal.Title>
 
@@ -236,12 +236,13 @@ export default function MetaTags({
             />
             <button
               className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
+              style={{padding:"7px 19px"}}
               onClick={handleUpdateMetaTags}
             >
               Save
             </button>
             <button
-              className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4 ml-2"
+              className="delete-button w-auto bg-btn7 lnk wow fadeInUp mt-4 ml-2"
               onClick={handleCloseModal}
             >
               Cancel

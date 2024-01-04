@@ -3,6 +3,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faCircleCheck,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -59,8 +60,8 @@ export default function Page() {
     setShow(true);
     const res = await Api(GetCustomFormRecords, {}, id);
     if (res.status) {
+      setFormHeading(res?.data?.data?.formHeading);
       setRecordsData(res?.data?.data?.recorded_data);
-      setFormHeading(name);
     }
   };
 
@@ -189,7 +190,7 @@ export default function Page() {
       >
         <div className="w-100">
           <div className="mx-3 mt-4">
-            <div className="row w-100 m-0 p-0 mb-4 align-items-end">
+            <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
               <div className="col-6 col-lg-2 p-0 px-2">
                 <label className="ml-1">From</label>
                 <DatePicker
@@ -276,7 +277,7 @@ export default function Page() {
                           }
                         >
                           <FontAwesomeIcon
-                            icon={faAngleRight}
+                            icon={faEye}
                             className="text-dark ml-4"
                           />
                         </td>
