@@ -44,12 +44,14 @@ export default function Page() {
     {
       name: "Location",
       selector: (row) =>
-        row.detail?.city
+        row.detail?.state
           ? row.detail?.city +
             ", " +
             row?.detail?.state +
             ", " +
             row.detail?.country
+          : row?.detail?.city
+          ? row.detail?.city + ", " + row.detail?.country
           : "---",
     },
     {
