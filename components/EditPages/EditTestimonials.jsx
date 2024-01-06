@@ -449,7 +449,14 @@ export default function EditTestimonials({
   return (
     <>
       {/* Add More MODAL */}
-      <Modal show={show} onHide={handleCanclebtn} centered>
+      <Modal
+        show={show}
+        onHide={handleCanclebtn}
+        centered
+        enforceFocus={false}
+        data-focus="false"
+        tabindex="-1"
+      >
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -570,7 +577,14 @@ export default function EditTestimonials({
       </Modal>
 
       {/* Edit Modal */}
-      <Modal show={showEdit} onHide={handleCanclebtn} centered>
+      <Modal
+        show={showEdit}
+        onHide={handleCanclebtn}
+        centered
+        enforceFocus={false}
+        data-focus="false"
+        tabindex="-1"
+      >
         <Modal.Header>
           <Modal.Title>
             <h5

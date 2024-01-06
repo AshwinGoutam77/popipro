@@ -594,80 +594,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
 
-                {/* Approve review */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/approve-review"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          className="text-white mb-2"
-                          style={{ fontSize: "20px" }}
-                        />
-                        <h6 className="text-white text-center mb-0">
-                          Approve Review
-                        </h6>
-                      </>
-                    </span>
-                  </Link>
-                </div>
-
-                {/* Chnage password */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => setModalShow("password")}
-                  >
-                    <FontAwesomeIcon
-                      icon={faGear}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Password</h6>
-                  </div>
-                </div>
-
-                {/* Suggestions */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      console.log("abc");
-                      setModalShow("suggestion");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faLightbulb}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Suggestions</h6>
-                  </div>
-                </div>
-
-                {Data.id === "S7ZG" &&
-                process.env.NEXT_PUBLIC_MODE === "development" ? (
+                {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <>
                     {/* Address Book */}
                     <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
@@ -751,6 +678,77 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
+                {/* Approve review */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/approve-review"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <>
+                        <FontAwesomeIcon
+                          icon={faStar}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Approve Review
+                        </h6>
+                      </>
+                    </span>
+                  </Link>
+                </div>
+
+                {/* Chnage password */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => setModalShow("password")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faGear}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Password</h6>
+                  </div>
+                </div>
+
+                {/* Suggestions */}
+                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      console.log("abc");
+                      setModalShow("suggestion");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faLightbulb}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Suggestions</h6>
+                  </div>
+                </div>
               </>
             ) : (
               ""
@@ -758,7 +756,7 @@ export default function Dashboard() {
           </div>
 
           {/* Analytics & Data */}
-          <div className="row mt-2 dashboard-padding">
+          <div className="row dashboard-padding">
             {InsightsTab ? (
               <>
                 {/* Overall insights */}
@@ -802,7 +800,7 @@ export default function Dashboard() {
                 {/* Google Analytics */}
                 <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
                   <Link
-                    href="/google-analytics"
+                    href="/organic-analytics"
                     className="w-100  text-decoration-none"
                   >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -812,7 +810,7 @@ export default function Dashboard() {
                         style={{ fontSize: "20px" }}
                       />
                       <h6 className="text-white text-center mb-0">
-                        Google Analytics
+                        Organic Analytics
                       </h6>
                     </div>
                   </Link>
@@ -910,7 +908,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/share-contact-leads"
+                        ? "/shared-contacts-leads"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -932,7 +930,10 @@ export default function Dashboard() {
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
                         />
-                        <h6 className="text-white text-center mb-0"> Share contact lead</h6>
+                        <h6 className="text-white text-center mb-0">
+                          {" "}
+                          Shared Contacts Lead
+                        </h6>
                       </>
                     </span>
                   </Link>

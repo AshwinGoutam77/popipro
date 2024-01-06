@@ -18,8 +18,12 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const handleClose = () => setShow(false);
   const [BlogModalTitle, setBlogModalTitle] = useState("");
 
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
+
   useEffect(() => {
     setAddMoreBlogs(Data?.card_blogs);
+    handleAllowNotif();
   }, []);
 
   const handleHitClick = async (id) => {
@@ -30,6 +34,8 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       device_id: navigator.userAgent,
       object_base: id,
       hit_type: "visit-site",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -42,11 +48,24 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       device_id: navigator.userAgent,
       object_base: Data?.id,
       hit_type: "view-more",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
     }
   };
+  const handleAllowNotif = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
 
   const ShowModalID = (id, name) => {
     setBlogModalTitle(name);

@@ -229,11 +229,11 @@ export default function ProductEnquiry() {
               </Link>
             </div>
             <div
-              className="w-100 bg-white"
+              className="w-100 bg-custom"
               style={{ height: "calc(100vh - 58px)" }}
             >
               <div className="mx-3 pt-4">
-                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row">
+                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <label className="ml-1">From</label>
                     <DatePicker
@@ -276,7 +276,7 @@ export default function ProductEnquiry() {
                       <th>Req. Date</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
-                      <th></th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -311,7 +311,7 @@ export default function ProductEnquiry() {
                             <td className="d-flex align-items-center">
                               <FontAwesomeIcon
                                 icon={faEye}
-                                className="text-dark ml-4"
+                                className="text-dark"
                               />
                             </td>
                           </tr>

@@ -779,6 +779,7 @@ input.date-time-input::-webkit-date-and-time-value {
   color: black !important;
   font-weight: bold !important;
   font-size: 13.5px !important;
+  min-height: 42px !important;
 }
 .rdt_TableRow {
   font-size: 13.5px !important;
@@ -799,6 +800,12 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 .box-shadow-leads {
   overflow-x: auto;
+  background-color: white;
+  padding: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+}
+.bg-custom {
+  background-color: #f8fafc !important;
 }
 
 .sc-dmlpXa::-webkit-scrollbar-track {
@@ -1107,8 +1114,10 @@ input.date-time-input::-webkit-date-and-time-value {
   padding: 20px !important;
   border-radius: 10px;
 }
-.svg-inline--fa.fa-eye{
-  color: var(--color) !important;
+.dashboard-leads-col-4-div {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
+  padding: 10px;
+  border-radius: 10px;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {

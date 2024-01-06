@@ -182,6 +182,8 @@ export default function Product({
       device_id: navigator.userAgent,
       object_base: Data?.id,
       hit_type: "visit-site",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -195,6 +197,8 @@ export default function Product({
       device_id: navigator.userAgent,
       object_base: id,
       hit_type: "view-more",
+      latitude: Latitude,
+      longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {

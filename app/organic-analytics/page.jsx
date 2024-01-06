@@ -38,7 +38,16 @@ export default function Page() {
     },
     {
       name: "Browser",
-      selector: (row) => row.device_id,
+      selector: (row) =>
+        row.detail?.browser == null ? "---" : row.detail?.browser,
+    },
+    {
+      name: "City /Country",
+      selector: (row) => row.detail?.city + " /" + row.detail?.country,
+    },
+    {
+      name: "Referer",
+      selector: (row) => row?.referer,
     },
     {
       name: "Date / Time",
@@ -123,12 +132,9 @@ export default function Page() {
             </h6>
           </Link>
         </div>
-        <div
-          className="w-100 bg-white"
-          // style={{ height: "calc(100vh - 58px)" }}
-        >
+        <div className="w-100 bg-custom">
           <div className="mx-3 pt-4">
-            <div className="row w-100 m-0 mb-4 align-items-end filter-section-row">
+            <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
               <div className="col-6 col-lg-2 p-0 px-2">
                 <label className="ml-1">From</label>
                 <DatePicker
@@ -164,73 +170,16 @@ export default function Page() {
           </div>
 
           <div className="box-shadow-leads pt-2" style={{ overflowX: "auto" }}>
-            {/* <table className="insight-table">
-              <thead>
-                <tr>
-                  <th>IP</th>
-                  <th>Browser</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Web/ Mobile</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td data-column="name">192.168.1.7</td>
-                  <td data-column="name">Chrome</td>
-                  <td data-column="created date">30/11/2023</td>
-                  <td data-column="created time"> 5:25 PM</td>
-                  <td data-column="created web">Web</td>
-                </tr>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td data-column="name">192.168.1.7</td>
-                  <td data-column="name">Chrome</td>
-                  <td data-column="created date">30/11/2023</td>
-                  <td data-column="created time"> 5:25 PM</td>
-                  <td data-column="created web">Mobile</td>
-                </tr>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td data-column="name">192.168.1.7</td>
-                  <td data-column="name">Chrome</td>
-                  <td data-column="created date">30/11/2023</td>
-                  <td data-column="created time"> 5:25 PM</td>
-                  <td data-column="created web">Web</td>
-                </tr>
-                <tr data-column="Message" className="cursor-pointer">
-                  <td data-column="name">192.168.1.7</td>
-                  <td data-column="name">Chrome</td>
-                  <td data-column="created date">30/11/2023</td>
-                  <td data-column="created time"> 5:25 PM</td>
-                  <td data-column="created web">Mobile</td>
-                </tr>
-              </tbody>
-            </table> */}
             <DataTable
               columns={column}
               data={Data}
               pagination
               fixedHeader
-              // fixedHeaderScrollHeight="440px"
               selectableRows
               selectableRowsHighlight
               highlightOnHover
-              // subHeader
-              // subHeaderComponent={
-              //   <input
-              //     type="text"
-              //     placeholder="Search..."
-              //     className="w-auto form-control mb-2"
-              //   />
-              // }
-              // subHeaderAlign="right"
             />
           </div>
-          {/* <div
-            className="w-100 text-center text-white p-2 position-absolute mt-3 pt-4"
-            style={{ bottom: "0", background: "black" }}
-          >
-            <p> © 2023. All Rights Reserved By Popipro.</p>
-          </div> */}
         </div>
       </div>
     </>

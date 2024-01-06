@@ -169,7 +169,7 @@ export default function DashboardProducts({ TitleData }) {
                 </Link>
               </div>
               <div
-                className=" w-100 bg-white"
+                className="w-100 bg-custom"
                 style={{ height: "calc(100vh - 58px)" }}
               >
                 <h5 className="first-title title__separate mx-4 pt-4 text-black">
@@ -178,7 +178,7 @@ export default function DashboardProducts({ TitleData }) {
                 </h5>
 
                 <div className="mx-3">
-                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <label className="ml-1">From</label>
                       <DatePicker

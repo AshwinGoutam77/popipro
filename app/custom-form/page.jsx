@@ -70,7 +70,7 @@ export default function Page() {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
-  const handleSearchData = async () => {
+  const handleSearchData = async (id) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -89,7 +89,7 @@ export default function Page() {
       const response = await Api(
         GetCustomFormData,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt
+        "?start_date=" + startDt + "&end_date=" + endDt + "&form_id=" + SelectId
       );
       if (response.data.status) {
         setCustomFormData(response.data.data);
@@ -216,8 +216,13 @@ export default function Page() {
               </div>
               <div className="col-6 col-lg-2 p-0 px-2">
                 <select
-                  onChange={(e) => handleGetCustomForm(e.target.value)}
-                  className="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent"
+                  onChange={(e) => setSelectId(e.target.value)}
+                  className="form-control"
+                  style={{
+                    appearance: "auto",
+                    height: "36px",
+                    padding: "10px",
+                  }}
                 >
                   <option>Select Form</option>
                   {FormsData &&
@@ -246,7 +251,7 @@ export default function Page() {
                 <tr>
                   <th>Form</th>
                   <th>Submitted Date</th>
-                  <th></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -278,7 +283,7 @@ export default function Page() {
                         >
                           <FontAwesomeIcon
                             icon={faEye}
-                            className="text-dark ml-4"
+                            className="text-dark"
                           />
                         </td>
                       </tr>

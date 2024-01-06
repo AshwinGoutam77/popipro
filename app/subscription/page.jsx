@@ -87,7 +87,7 @@ const PlanManagment = () => {
           </h6>
         </Link>
       </div>
-      <div className="w-100 bg-white" style={{ height: "calc(100vh - 58px)" }}>
+      <div className="w-100 bg-custom mt-4" style={{ height: "calc(100vh - 58px)" }}>
         <div className="box-shadow-leads pt-4">
           <table className="insight-table">
             <thead>

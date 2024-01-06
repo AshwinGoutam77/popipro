@@ -179,7 +179,7 @@ const Leads = () => {
                 className="text-white mr-2"
                 width="20"
               />{" "}
-              Lead Analytics
+              Shared Contacts Lead
             </h5>
             <Link href="/dashboard">
               <h6 className="text-white m-0">
@@ -264,16 +264,12 @@ const Leads = () => {
             </Modal.Body>
           </Modal>
           <div
-            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
+            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-custom"
             style={{ height: "calc(100vh - 58px)" }}
           >
             <div className="w-100">
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Your last one month leads
-              </h5>
-
-              <div className="mx-3">
-                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row">
+              <div className="mx-3 mt-4">
+                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <label className="ml-1">From</label>
                     <DatePicker
@@ -317,13 +313,12 @@ const Leads = () => {
                       <th>Date</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
-                      <th></th>
-                      <th></th>
-                      {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                      <th>Actions</th>
+                      {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
                         <th></th>
                       ) : (
                         ""
-                      )}
+                      )} */}
                     </tr>
                   </thead>
                   <tbody>
@@ -357,7 +352,7 @@ const Leads = () => {
                             <td>
                               <FontAwesomeIcon
                                 icon={faDownload}
-                                className="text-dark ml-4"
+                                className="text-dark"
                                 onClick={() =>
                                   shareContact(
                                     item.full_name,
@@ -366,18 +361,17 @@ const Leads = () => {
                                   )
                                 }
                               />
-                            </td>
-                            <td onClick={() => setShowModal(true)}>
                               <FontAwesomeIcon
+                                onClick={() => setShowModal(true)}
                                 icon={faEye}
                                 className="text-dark ml-4"
                               />
                             </td>
-                            {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                            {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
                               <td>Add To Address Book</td>
                             ) : (
                               ""
-                            )}
+                            )} */}
                           </tr>
                         );
                       })
