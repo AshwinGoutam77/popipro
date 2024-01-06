@@ -728,14 +728,14 @@ const Header = ({
                 onClick={() => handleShowContactQr()}
                 className={ShowDownloadQr ? "color-black" : ""}
               >
-                Contact Qr
+                Contact QR
               </p>
               <span className="ml-2 mr-2">|</span>
               <p
                 onClick={() => handleShowProfileQr()}
                 className={ShowProfileQr ? "color-black" : ""}
               >
-                Profile Qr
+                Profile QR
               </p>
             </div>
 
