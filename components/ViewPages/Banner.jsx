@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { faArrowRight, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -272,7 +273,10 @@ const Banner = ({
     <>
       {card.card_cover === "name" ||
       (card.card_cover === "label" && card?.card_company_logo !== null) ||
-      (card?.card_cover === "logo" && card?.card_company_logo?.length !== 0) ? (
+      (card?.card_cover === "logo" &&
+        card?.card_company_logo?.length !== 0 &&
+        card?.card_company_logo?.length !== 0 &&
+        card?.card_cover !== "banner-logo") ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {!IsVisible && (
@@ -400,7 +404,10 @@ const Banner = ({
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
             backgroundImage: `url('${
-              card.base_url + card.card_company_logo?.path
+              card?.card_cover == "banner-logo" ||
+              card?.card_cover == "banner-label"
+                ? card?.base_url + card?.banner?.path
+                : card?.base_url + card?.card_company_logo?.path
             }')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
@@ -502,12 +509,28 @@ const Banner = ({
 
           <div className="mt-2">
             <div>
+              {card?.card_cover == "banner-logo" ? (
+                <img
+                  src={card?.base_url + card?.logo?.path}
+                  alt="logo"
+                  className="Logo-icon"
+                  style={{ width: "110px" }}
+                />
+              ) : card?.card_cover == "banner-label" ? (
+                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                  {card?.cover_label ? card?.cover_label : "Popipro"}
+                </h5>
+              ) : (
+                ""
+              )}
               {card.card_cover === "name" &&
-              card?.card_company_logo !== null ? (
+              Data?.card_company_logo !== null ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
-              ) : card?.card_cover !== "banner" ||
+              ) : (card?.card_cover !== "banner" &&
+                  card?.card_cover !== "banner-logo" &&
+                  card?.card_cover !== "banner-label") ||
                 card?.card_company_logo?.length == 0 ? (
                 <h5 className="text-white">Popipro</h5>
               ) : (

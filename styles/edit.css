@@ -82,8 +82,7 @@
 }
 
 .send-btnn:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.1);
+  background-color: black;
   color: white;
 }
 
@@ -105,11 +104,8 @@
 }
 
 .delete-button:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.1);
-  background: var(--color) !important;
-  color: var(--text-color);
-  border: none !important;
+  background-color: black !important;
+  color: white;
 }
 
 .delete-button:focus {
@@ -376,7 +372,11 @@ label {
   background-color: var(--color) !important;
   border-radius: 30px !important;
 }
-
+div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover{
+  background: black !important;
+  color: white;
+  border-radius: 30px !important;
+}
 .swal2-icon.swal2-warning {
   border-color: var(--color) !important;
   color: var(--color) !important;
@@ -1196,11 +1196,8 @@ div:where(.swal2-container)
   -webkit-user-select: none;
 }
 .swal2-styled.swal2-cancel:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.1);
-  background: var(--color) !important;
-  color: var(--text-color);
-  border: none !important;
+  background-color: black !important;
+  color: white !important;
 }
 
 .link-minus-icon {

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   faArrowRight,
@@ -59,12 +60,11 @@ const Header = ({
   const [imageSrc, setImageSrc] = useState();
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
-  const [ShowBtn, setShowBtn] = useState(true);
-
   const [showQr, setShowQr] = useState(false);
   const handleCloseQr = () => setShowQr(false);
-
   const [time, setTime] = useState(new Date().getTime() / 1000);
+  const [ShowProfileQr, setShowProfileQr] = useState(false);
+  const [ShowDownloadQr, setShowDownloadQr] = useState(true);
 
   useEffect(() => {
     setTime(new Date().getTime() / 1000);
@@ -85,30 +85,6 @@ const Header = ({
       return;
     } else if (ReviewDescription == "") {
       toast.error("Message is requried", {
-        position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
-        theme: "light",
-      });
-      return;
-    } else if (ReviewSubTitle == "") {
-      toast.error("SubTitle is requried", {
-        position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
-        theme: "light",
-      });
-      return;
-    } else if (ReviewNumber == "") {
-      toast.error("Phone Number is requried", {
         position: "top-right",
         autoclose: 2000,
         hideprogressbar: "false",
@@ -237,7 +213,7 @@ const Header = ({
           ? "https://api.whatsapp.com/send?phone=" +
             card?.card_contact +
             "&" +
-            `text=Popipro Inquiry %0a Name =${FirstName} ${
+            `text=Popipro Enquiry %0a Name =${FirstName} ${
               Email ? `%0a Email = ${Email}` : ""
             } %0a Number =${Number} ${
               Message ? ` %0a Message = ${Message}` : ""
@@ -498,6 +474,15 @@ const Header = ({
     handleAllowNotif();
   }, []);
 
+  const handleShowContactQr = () => {
+    setShowDownloadQr(true);
+    setShowProfileQr(false);
+  };
+
+  const handleShowProfileQr = () => {
+    setShowProfileQr(true);
+    setShowDownloadQr(false);
+  };
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -672,7 +657,7 @@ const Header = ({
               <input
                 type="text"
                 className="form-control"
-                placeholder="Sub-Title*"
+                placeholder="Sub-Title"
                 required="required"
                 autoComplete="on"
                 value={ReviewSubTitle}
@@ -686,7 +671,7 @@ const Header = ({
               <input
                 type="number"
                 className="form-control"
-                placeholder="Phone Number*"
+                placeholder="Phone Number"
                 required="required"
                 autoComplete="on"
                 value={ReviewNumber}
@@ -726,7 +711,9 @@ const Header = ({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Add Contact Via QR
+              {ShowProfileQr
+                ? "Share your profile via QR"
+                : "Add Contact Via QR"}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleCloseQr}>
@@ -736,62 +723,90 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <img
-              src={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A"
-              }
-              className="qr-img"
-              alt="we"
-            />
-            <button
-              onClick={downloadImage}
-              className="contact-btn w-auto mt-4 scanner-a"
-            >
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="user-select-auto mr-2"
-                style={{
-                  fontSize: "16px",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              />
-              Download QR
-            </button>
+            <div className="contact-btn QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
+              <p
+                onClick={() => handleShowContactQr()}
+                className={ShowDownloadQr ? "color-black" : ""}
+              >
+                Contact Qr
+              </p>
+              <span className="ml-2 mr-2">|</span>
+              <p
+                onClick={() => handleShowProfileQr()}
+                className={ShowProfileQr ? "color-black" : ""}
+              >
+                Profile Qr
+              </p>
+            </div>
+
+            {ShowProfileQr ? (
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <img
+                  src={
+                    "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                    imageSrc +
+                    "END%3AVCARD%0A"
+                  }
+                  className="qr-img"
+                  alt="we"
+                />
+                <button
+                  onClick={downloadImage}
+                  className="contact-btn w-auto mt-4 scanner-a"
+                >
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="user-select-auto mr-2"
+                    style={{
+                      fontSize: "16px",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                  />
+                  Download QR
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-          <p className="text-center mb-3 underline-or my-4">
+          {/* <p className="text-center mb-3 underline-or my-4">
             <span>OR</span>
-          </p>
-          <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
-            Share your profile via QR
-          </h5>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <img
-              src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                "app.popipro.com/" + profile
-              }&chs=160x160&chld=L|0`}
-              className="qr-img"
-              alt="we"
-              style={{ width: "250px", height: "250px" }}
-            />
-            <button
-              onClick={DownloadProfile}
-              className="contact-btn w-auto mt-4 scanner-a"
-            >
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="user-select-auto mr-2"
-                style={{
-                  fontSize: "16px",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              />
-              Download QR
-            </button>
-          </div>
+          </p> */}
+          {ShowDownloadQr ? (
+            <div>
+              {/* <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
+                Share your profile via QR
+              </h5> */}
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <img
+                  src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                    "app.popipro.com/" + profile
+                  }&chs=160x160&chld=L|0`}
+                  className="qr-img"
+                  alt="we"
+                  style={{ width: "250px", height: "250px" }}
+                />
+                <button
+                  onClick={DownloadProfile}
+                  className="contact-btn w-auto mt-4 scanner-a"
+                >
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="user-select-auto mr-2"
+                    style={{
+                      fontSize: "16px",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                  />
+                  Download QR
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </Modal.Body>
       </Modal>
 

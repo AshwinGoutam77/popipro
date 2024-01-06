@@ -764,7 +764,7 @@ export default function EditBlogs({
                             : "https://" + item?.url
                         }
                         target="_blank"
-                        className="mt-3 product-modal-btn mx-auto"
+                        className="mt-3 send-btnn mx-auto"
                         style={{
                           background: "var(--color)",
                           width: "40%",

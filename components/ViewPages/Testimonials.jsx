@@ -12,6 +12,7 @@ import { ToastContainer } from "react-bootstrap";
 import Image from "next/image";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SimpleBackdrop from "./SimpleBackDrop";
 
 const Testimonials = ({
   InquiryModal,
@@ -33,57 +34,35 @@ const Testimonials = ({
   const [Description, setDescription] = useState("");
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
+  const [ShowLoader, setShowLoader] = useState(false);
 
   const handleSubmit = async () => {
     if (Name == "") {
       toast.error("Name is requried", {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
       return;
     } else if (Description == "") {
-      toast.error("Description is requried", {
+      toast.error("Message is requried", {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
-        theme: "light",
-      });
-      return;
-    } else if (SubTitle == "") {
-      toast.error("SubTitile is requried", {
-        position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
-        theme: "light",
-      });
-      return;
-    } else if (Number == "") {
-      toast.error("Number is requried", {
-        position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
       return;
     }
+    setShowLoader(true);
     try {
       let payload = {
         testimonial_image: Imagee,
@@ -99,14 +78,15 @@ const Testimonials = ({
       if (response.data.status) {
         toast.success(response.data.message, {
           position: "top-right",
-          autoclose: 2000,
-          hideprogressbar: "false",
-          closeonclick: "true",
-          pauseonhover: "true",
-          draggable: "true",
-          progress: "undefined",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
           theme: "light",
         });
+        setShowLoader(false);
         handleClose();
         setName("");
         setNumber("");
@@ -115,14 +95,15 @@ const Testimonials = ({
         setSubTitle("");
       }
     } catch (error) {
+      setShowLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
     }
@@ -144,6 +125,7 @@ const Testimonials = ({
   }, []);
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>

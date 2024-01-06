@@ -947,7 +947,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/product-inquiry"
+                        ? "/product-enquiry"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -971,7 +971,7 @@ export default function Dashboard() {
                         />
                         <h6 className="text-white text-center mb-0">
                           {" "}
-                          {TitleData?.card_products?.visible_name} Inquiry
+                          {TitleData?.card_products?.visible_name} Enquiry
                         </h6>
                       </>
                     </span>

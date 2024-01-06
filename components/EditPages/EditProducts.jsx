@@ -619,8 +619,7 @@ export default function EditProducts({
                             : "https://" + item?.url
                         }
                         target="_blank"
-                        className="mt-1 product-modal-btn w-auto"
-                        style={{ background: "var(--color)" }}
+                        className="mt-1 send-btnn w-auto"
                         // onClick={() => handleHitClick()}
                       >
                         <FontAwesomeIcon
@@ -639,8 +638,7 @@ export default function EditProducts({
                     {MainData?.company_setting?.show_product_enquiry_button !==
                     0 ? (
                       <a
-                        className="mt-1 product-modal-btn w-auto text-white d-block"
-                        style={{ background: "var(--color)" }}
+                        className="mt-1 send-btnn w-auto text-white d-block"
                         data-toggle="modal"
                         data-target="#ProductEnquireModal"
                       >
@@ -662,7 +660,7 @@ export default function EditProducts({
                           `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
                         }
                         target="_blank"
-                        className="mt-1 product-modal-btn w-auto d-block"
+                        className="mt-1 send-btnn w-auto d-block"
                       >
                         <img
                           src="../static/img/whatsapp.png"
@@ -1687,7 +1685,7 @@ export default function EditProducts({
                         for="product-enq"
                         className="ml-2 Varcolor font-weight-bold"
                       >
-                        Via inquiry form?
+                        Via enquiry form?
                       </label>
                     </div>
                   </div>

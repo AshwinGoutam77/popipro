@@ -4,6 +4,7 @@ import { AppointmentBooking } from "@services/Routes";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import SimpleBackdrop from "./SimpleBackDrop";
 
 export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   const [Name, setName] = useState("");
@@ -14,6 +15,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   const [Time, setTime] = useState("");
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
+  const [ShowLoader, setShowLoader] = useState(false);
 
   const handleAppointment = async () => {
     if (Name == "") {
@@ -54,6 +56,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       return;
     }
     try {
+      setShowLoader(true);
       let data = {
         card_url: card_url,
         name: Name,
@@ -67,6 +70,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       };
       const response = await Api(AppointmentBooking, data);
       if (response.data.status) {
+        setShowLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -85,6 +89,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
         setTime("");
       }
     } catch (error) {
+      setShowLoader(false);
       toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -114,6 +119,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   }, []);
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       {Titles.card_booking?.is_active === 1 &&
       PlanData?.is_expired == false &&
       PlanData?.subscription?.plan_id !== 1 &&

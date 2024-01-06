@@ -1041,7 +1041,7 @@ export default function EditRealEstate() {
                 for="product-enq2"
                 className="ml-2 Varcolor font-weight-bold"
               >
-                Via inquiry form?
+                Via enquiry form?
               </label>
             </div>
           </div>

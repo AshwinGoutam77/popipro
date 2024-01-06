@@ -64,3 +64,5 @@ export const ManageCategory = {
   path: "manage-product-category",
   method: "POST",
 };
+
+export const GetVirtualBackground = { path: "get-virtual-background", method: "GET" };

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   faArrowRight,
@@ -40,7 +41,9 @@ const EditBanner = ({
     <>
       {Data.card_cover === "name" ||
       (Data.card_cover === "label" && Data?.card_company_logo !== null) ||
-      (Data?.card_cover === "logo" && Data?.card_company_logo?.length !== 0) ? (
+      (Data?.card_cover === "logo" &&
+        Data?.card_company_logo?.length !== 0 &&
+        Data?.card_cover !== "banner-logo") ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {Data?.card_trustpilot !== null &&
@@ -85,7 +88,12 @@ const EditBanner = ({
             PlanData?.current_plan?.plan_name !== "basic" &&
             PlanData?.is_expired == false ? (
               <a
-                href={Data?.card_google_review}
+                href={
+                  Data?.card_google_review?.url?.includes("https://") ||
+                  Data?.card_google_review?.url?.includes("http://")
+                    ? Data?.card_google_review
+                    : "https://" + Data?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -167,7 +175,10 @@ const EditBanner = ({
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
             backgroundImage: `url('${
-              Data?.base_url + Data?.card_company_logo?.path
+              Data?.card_cover == "banner-logo" ||
+              Data?.card_cover == "banner-label"
+                ? Data?.base_url + Data?.banner?.path
+                : Data?.base_url + Data?.card_company_logo?.path
             }')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
@@ -217,7 +228,12 @@ const EditBanner = ({
             PlanData?.current_plan?.plan_name !== "basic" &&
             PlanData?.is_expired == false ? (
               <a
-                href={Data?.card_google_review}
+                href={
+                  Data?.card_google_review?.url?.includes("https://") ||
+                  Data?.card_google_review?.url?.includes("http://")
+                    ? Data?.card_google_review
+                    : "https://" + Data?.card_google_review
+                }
                 className="float"
                 target="_blank"
                 style={{
@@ -262,12 +278,28 @@ const EditBanner = ({
 
           <div className="pt-2">
             <div>
+              {Data?.card_cover == "banner-logo" ? (
+                <img
+                  src={card?.base_url + card?.logo?.path}
+                  alt="logo"
+                  className="Logo-icon"
+                  style={{ width: "110px" }}
+                />
+              ) : Data?.card_cover == "banner-label" ? (
+                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                  {Data?.cover_label ? Data?.cover_label : "Popipro"}
+                </h5>
+              ) : (
+                ""
+              )}
               {Data.card_cover === "name" &&
               Data?.card_company_logo !== null ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
                   {card?.card_company_logo}
                 </h5>
-              ) : Data?.card_cover !== "banner" ||
+              ) : (Data?.card_cover !== "banner" &&
+                  Data?.card_cover !== "banner-logo" &&
+                  Data?.card_cover !== "banner-label") ||
                 Data?.card_company_logo?.length == 0 ? (
                 <h5 className="text-white">Popipro</h5>
               ) : (

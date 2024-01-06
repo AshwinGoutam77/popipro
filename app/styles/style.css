@@ -2767,8 +2767,8 @@ button:focus {
   width: 100%;
 }
 .contact-btn-header:hover {
-  background: var(--color);
-  color: var(--text-color);
+  background: black;
+  color: white;
 }
 
 .header-input {
@@ -2889,7 +2889,21 @@ button:focus {
   display: block;
   width: 100%;
 }
+.QrTabDiv:hover{
+  background-color: var(--color) !important;
+  color: white !important;
+}
 @media (max-width: 768px) {
+  .contact-btn-header {
+    border: 1px solid var(--color) !important;
+    padding: 10px 19px;
+    background-color: white;
+    color: var(--color);
+    font-weight: 600;
+    border-radius: 100px;
+    margin-top: 8px;
+    width: 100%;
+  }
   .header__right {
     margin-top: 0px;
   }
@@ -2962,10 +2976,9 @@ button:focus {
 .header__contact {
   margin-bottom: 0 !important;
 }
-.contact-btn:hover,
-.contact-delete-btn:hover {
-  /* transition: all 0.2s ease-in-out;
-    transform: scale(1.1); */
+.contact-btn:hover {
+  background-color: #000;
+  color: white;
 }
 .header__contact li a svg {
   color: var(--color);

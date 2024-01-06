@@ -11,14 +11,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 import "../../styles/about.css";
-import { useState } from "react";
-
+import { useState, useRef, useEffect } from "react";
+import { GetVirtualBackground } from "@services/Routes";
+import Api from "@services/Api";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import html2canvas from "html2canvas";
 export default function page() {
-  const [Image, setImage] = useState(
-    "https://cdn.hihello.me/NFMZRek9G4ieektJSVWK/backgrounds/6483e1f6-7155-440f-a1d8-7e610c6270ed.jpg-small-background"
-  );
+  const canvasRef = useRef(null);
+  const [ShowLoader, setShowLoader] = useState(false);
+  const [Data, setData] = useState();
+  const [Image, setImage] = useState("");
+  useEffect(() => {
+    api();
+  }, []);
+
+  const api = async () => {
+    setShowLoader(true);
+    const response = await Api(GetVirtualBackground, {});
+    if (response.data.status) {
+      setShowLoader(false);
+      setData(response.data.data);
+      setImage("data:image/png;base64," + response.data.data?.[0]?.path);
+    }
+  };
+
+  function capture() {
+    const captureDiv = document.getElementById("captureDiv");
+    html2canvas(captureDiv).then((canvas) => {
+      // Create a link to download the captured image
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "captured_image.png";
+
+      // Append the link to the body and trigger a click to start the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
@@ -45,25 +79,33 @@ export default function page() {
       </div>
 
       <div className="row m-0">
-        <div className="col-sm-12 col-lg-6">
+        <div className="col-sm-12 col-lg-6" id="captureDiv">
           <div className="p-4 position-relative">
             <img
               src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
               className="qr-background-image"
             />
-            <img src={Image} alt="image" className="virtal-bg-main-image" />
+            <img
+              src={Image}
+              alt="image"
+              className="virtal-bg-main-image"
+              id="setImage"
+            />
           </div>
         </div>
 
         <div className="col-sm-12 col-lg-6 text-center d-flex align-items-center justify-content-center flex-column">
-          <a href="" download={Image} className="contact-btn w-auto text-white">
+          <button
+            onClick={() => capture()}
+            className="contact-btn w-auto text-white"
+          >
             Download Background
-          </a>
+          </button>
           <p className="mt-4">
             Your custom background will save as a 1920x1080 image.
           </p>
           <a href="https://www.popipro.com/">
-            How do I use my popipro background in Zoom™?
+            How do I use my popipro background in Zoom
           </a>
         </div>
       </div>
@@ -75,73 +117,22 @@ export default function page() {
           className="pt-4 d-flex align-items-center flex-wrap vb-div"
           style={{ gap: "10px" }}
         >
-          <img
-            src="https://cdn.hihello.me/common/backgrounds/Indoor/9797b06e-aca4-47a0-88e2-5b6d507a6ea8.png-variants/small-background"
-            alt="image"
-            className="virtual-images"
-            onClick={() =>
-              setImage(
-                "https://cdn.hihello.me/common/backgrounds/Indoor/9797b06e-aca4-47a0-88e2-5b6d507a6ea8.png-variants/small-background"
-              )
-            }
-          />
-          <img
-            src="https://cdn.hihello.me/common/backgrounds/City/1623a7af-7af0-48d7-be08-b262a2ea6ddc.png-variants/small-background"
-            alt="image"
-            onClick={() =>
-              setImage(
-                "https://cdn.hihello.me/common/backgrounds/City/1623a7af-7af0-48d7-be08-b262a2ea6ddc.png-variants/small-background"
-              )
-            }
-            className="virtual-images"
-          />
-          <img
-            src="https://cdn.hihello.me/common/backgrounds/Indoor/88cd4c6b-63d7-4f79-9e62-b70614e60d16.png-variants/small-background"
-            alt="image"
-            onClick={() =>
-              setImage(
-                "https://cdn.hihello.me/common/backgrounds/Indoor/88cd4c6b-63d7-4f79-9e62-b70614e60d16.png-variants/small-background"
-              )
-            }
-            className="virtual-images"
-          />
-          <img
-            src="https://cdn.hihello.me/common/backgrounds/Nature/ca97106d-298d-4919-a05a-3a4d231cc5ad.png-variants/small-background"
-            alt="image"
-            onClick={() =>
-              setImage(
-                "https://cdn.hihello.me/common/backgrounds/Nature/ca97106d-298d-4919-a05a-3a4d231cc5ad.png-variants/small-background"
-              )
-            }
-            className="virtual-images"
-          />
-          <img
-            src="https://cdn.hihello.me/common/backgrounds/Indoor/e99a2cab-96b4-4cfc-a1ec-e5394168b476.png-variants/small-background"
-            alt="image"
-            onClick={() =>
-              setImage(
-                "https://cdn.hihello.me/common/backgrounds/Indoor/e99a2cab-96b4-4cfc-a1ec-e5394168b476.png-variants/small-background"
-              )
-            }
-            className="virtual-images"
-          />
-          <img
-            src="https://prafullgupta.com/connectwork/assets/chat/groups/271123121724Zoom_BG2_Office-View-jpg.webp"
-            alt="image"
-            onClick={() =>
-              setImage(
-                "https://prafullgupta.com/connectwork/assets/chat/groups/271123121724Zoom_BG2_Office-View-jpg.webp"
-              )
-            }
-            className="virtual-images"
-          />
+          {Data &&
+            Data?.map((item, index) => {
+              return (
+                <>
+                  <img
+                    src={"data:image/png;base64," + item?.path}
+                    alt="image"
+                    className="virtual-images"
+                    onClick={() =>
+                      setImage("data:image/png;base64," + item.path)
+                    }
+                  />
+                </>
+              );
+            })}
         </div>
-      </div>
-      <div
-        className="w-100 text-center text-white p-2 mt-0"
-        style={{ bottom: "0", background: "black" }}
-      >
-        <p> © 2023. All Rights Reserved By Popipro.</p>
       </div>
     </>
   );

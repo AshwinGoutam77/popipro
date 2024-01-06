@@ -202,7 +202,7 @@ export default function DashboardProducts({ TitleData }) {
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <button
-                        className="insight-search w-100 mt-3"
+                        className="contact-btn w-100 mt-3"
                         onClick={handleSearchData}
                       >
                         Search

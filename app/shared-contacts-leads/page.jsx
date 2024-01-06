@@ -200,7 +200,7 @@ const Leads = () => {
                   class="title title--h1 first-title title__separate mb-1 mb-0"
                   id="BlogModalTitle"
                 >
-                  More Detail
+                  More Details
                 </h5>
               </Modal.Title>
               <button
@@ -237,15 +237,15 @@ const Leads = () => {
                       <p className="w-100">{item.created_at}</p>
                     </div>
                     <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Latitude </p>
+                      <p className="w-100 font-weight-bold">Location </p>
                       <p className="w-100">
-                        {item.latitude ? item.latitude : "----"}
-                      </p>
-                    </div>
-                    <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Longitude</p>
-                      <p className="w-100">
-                        {item.longitude ? item.longitude : "----"}
+                        {item.detail?.state
+                          ? item.detail?.city +
+                            ", " +
+                            item.detail?.state +
+                            ", " +
+                            item.detail?.country
+                          : item.detail?.city + ", " + item.detail?.country}
                       </p>
                     </div>
                     {item.message ? (
@@ -295,7 +295,7 @@ const Leads = () => {
                   </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <button
-                      className="insight-search w-100 mt-3"
+                      className="contact-btn w-100 mt-3"
                       onClick={handleSearchData}
                     >
                       Search
@@ -309,10 +309,8 @@ const Leads = () => {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      {/* <th>Contact no.</th> */}
                       <th>Date</th>
-                      <th>Latitude</th>
-                      <th>Longitude</th>
+                      <th>Location</th>
                       <th>Actions</th>
                       {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
                         <th></th>
@@ -347,8 +345,17 @@ const Leads = () => {
                             >
                               {item.created_at}
                             </td>
-                            <td>{item.latitude ? item.latitude : "----"}</td>
-                            <td>{item.longitude ? item.longitude : "----"}</td>
+                            <td>
+                              {item.detail?.state
+                                ? item.detail?.city +
+                                  ", " +
+                                  item.detail?.state +
+                                  ", " +
+                                  item.detail?.country
+                                : item.detail?.city +
+                                  ", " +
+                                  item.detail?.country}
+                            </td>
                             <td>
                               <FontAwesomeIcon
                                 icon={faDownload}

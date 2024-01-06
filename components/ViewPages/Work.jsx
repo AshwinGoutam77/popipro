@@ -6,7 +6,11 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
@@ -156,14 +160,14 @@ const Work = ({
                   />
                   {selectedImageIndex > 0 && (
                     <button className="prev-button" onClick={goToPreviousImage}>
-                      <i className="fas fa-chevron-left"></i> Previous
+                      <FontAwesomeIcon icon={faChevronLeft} /> Previous
                     </button>
                   )}
 
                   {/* Right (Next) button */}
                   {selectedImageIndex < Card_photos.length - 1 && (
                     <button className="next-button" onClick={goToNextImage}>
-                      Next <i className="fas fa-chevron-right"></i>
+                      Next <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                   )}
                 </div>

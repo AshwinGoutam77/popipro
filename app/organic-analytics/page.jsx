@@ -34,7 +34,7 @@ export default function Page() {
   const column = [
     {
       name: "IP",
-      selector: (row) => row.ip_address,
+      selector: (row) => (row?.detail?.device ? row?.detail?.device : "---"),
     },
     {
       name: "Browser",
@@ -42,8 +42,15 @@ export default function Page() {
         row.detail?.browser == null ? "---" : row.detail?.browser,
     },
     {
-      name: "City /Country",
-      selector: (row) => row.detail?.city + " /" + row.detail?.country,
+      name: "Location",
+      selector: (row) =>
+        row.detail?.city
+          ? row.detail?.city +
+            ", " +
+            row?.detail?.state +
+            ", " +
+            row.detail?.country
+          : "---",
     },
     {
       name: "Referer",
@@ -160,7 +167,7 @@ export default function Page() {
               </div>
               <div className="col-6 col-lg-2 p-0 px-2">
                 <button
-                  className="insight-search w-100 mt-3"
+                  className="contact-btn w-100 mt-3"
                   onClick={handleSearchData}
                 >
                   Search

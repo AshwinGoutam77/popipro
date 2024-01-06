@@ -148,7 +148,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                               : "https://" + item?.url
                           }
                           target="_blank"
-                          className="mt-3 product-modal-btn mx-auto"
+                          className="mt-3 contact-btn mx-auto"
                           style={{
                             background: "var(--color)",
                             width: "40%",

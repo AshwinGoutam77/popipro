@@ -531,7 +531,7 @@ const Insights = () => {
                   <div className="col-12 col-lg-3 margin-sm-top">
                     <div className="card p-4">
                       <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        Product Inquiry
+                        Product Enquiry
                       </p>
                       {Data?.card_states?.product_views == 0 ? (
                         <p className="mt-1 text-xs+ color-black">
@@ -565,7 +565,7 @@ const Insights = () => {
                               ></path>
                             </svg>
                             <span className="text-xs">
-                              View Product Inquiry
+                              View Product Enquiry
                             </span>
                           </p>
                           <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
@@ -679,7 +679,7 @@ const Insights = () => {
                   </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <button
-                      className="insight-search w-100 mt-3"
+                      className="contact-btn w-100 mt-3"
                       onClick={handleSearchData}
                     >
                       Search
