@@ -305,7 +305,7 @@ const Insights = () => {
                 <p className="mr-4 color-black">Year(2024)</p>
               </div>
               {/* <div className="row m-0"> */}
-                {/* <div className="col-sm-12 col-lg-8">
+              {/* <div className="col-sm-12 col-lg-8">
                   <div className="barchart-div">
                     <Charts
                       options={chartData2?.options}
@@ -315,57 +315,57 @@ const Insights = () => {
                     />
                   </div>
                 </div> */}
-                {/* <div className="col-sm-12 col-lg-4"> */}
-                  {/* <div className="dashboard-leads-col-4-div pb-4"> */}
-                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">Leads Stats</p> */}
-                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
-                        <p className="text-xs font-weight-bold text-pink-100">
-                          Profile Views
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_click_hits}
-                          </p>
-                        </div>
-                        <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
-                        <p className="text-xs font-weight-bold text-sky-100">
-                          Save Contacts
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_saved_contact}
-                          </p>
-                        </div>
-                        <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_products?.visible_name} Views
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.card_states?.product_views}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Your Leads
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                    </div>
-                  {/* </div> */}
-                {/* </div> */}
+              {/* <div className="col-sm-12 col-lg-4"> */}
+              {/* <div className="dashboard-leads-col-4-div pb-4"> */}
+              {/* <p className="ml-4 mb-2 color-black font-weight-bold">Leads Stats</p> */}
+              <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
+                  <p className="text-xs font-weight-bold text-pink-100">
+                    Profile Views
+                  </p>
+                  <div className="flex items-end justify-between space-x-2">
+                    <p className="mt-4 text-2xl font-medium text-white">
+                      {Data?.total_click_hits}
+                    </p>
+                  </div>
+                  <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                </div>
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
+                  <p className="text-xs font-weight-bold text-sky-100">
+                    Save Contacts
+                  </p>
+                  <div className="flex items-end justify-between space-x-2">
+                    <p className="mt-4 text-2xl font-medium text-white">
+                      {Data?.total_saved_contact}
+                    </p>
+                  </div>
+                  <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                </div>
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
+                  <p className="text-xs font-weight-bold text-amber-50">
+                    {UserData?.titles?.card_products?.visible_name} Views
+                  </p>
+                  <div className="flex items-end justify-between space-x-2">
+                    <p className="mt-4 text-2xl font-medium text-white">
+                      {Data?.card_states?.product_views}
+                    </p>
+                  </div>
+                  <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                </div>
+                <div className="relative flex flex-col overflow-hidden rounded-lg theme-bg p-3.5">
+                  <p className="text-xs font-weight-bold text-amber-50">
+                    Your Leads
+                  </p>
+                  <div className="flex items-end justify-between space-x-2">
+                    <p className="mt-4 text-2xl font-medium text-white">
+                      {Data?.total_share_contact}
+                    </p>
+                  </div>
+                  <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                </div>
+              </div>
+              {/* </div> */}
+              {/* </div> */}
               {/* </div> */}
 
               {/* Chart */}
@@ -657,21 +657,21 @@ const Insights = () => {
                 </h5>
                 <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-left">
                   <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
+                    <label className="ml-1">To</label>
                     <DatePicker
-                      selected={StartDate}
-                      onChange={(Date) => setStartDate(Date)}
+                      selected={EndDate}
+                      defaultValue={EndDate}
+                      onChange={(Date) => setEndDate(Date)}
                       maxDate={new Date()}
                       placeholderText={"End Date"}
                       className="form-control insight-filter w-100"
                     />
                   </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
+                    <label className="ml-1">From</label>
                     <DatePicker
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
+                      selected={StartDate}
+                      onChange={(Date) => setStartDate(Date)}
                       maxDate={new Date()}
                       placeholderText={"End Date"}
                       className="form-control insight-filter w-100"

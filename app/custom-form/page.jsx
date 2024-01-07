@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Api from "@services/Api";
 import {
+  EditData,
   GetAllForm,
   GetCustomForm,
   GetCustomFormData,
@@ -22,6 +23,7 @@ import {
 } from "@services/Routes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function Page() {
   const [Show, setShow] = useState(false);
@@ -38,7 +40,39 @@ export default function Page() {
   useEffect(() => {
     handleGetCustomForm();
     handleGetAllForms();
+    APIDATA();
   }, []);
+
+  const APIDATA = async () => {
+    setShowLoader(true);
+    try {
+      const response = await Api(
+        EditData,
+        {},
+        "?card_url=" + localStorage.getItem("url")
+      );
+      if (response.data.status) {
+        setShowLoader(false);
+        document.documentElement.style.setProperty(
+          "--color",
+          response.data.data.card.color_code
+        );
+        document.documentElement.style.setProperty(
+          "--themecolor",
+          response.data.data.card.background_color
+        );
+        const color = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--color");
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    }
+    setShowLoader(false);
+  };
 
   const handleGetAllForms = async () => {
     const res = await Api(GetAllForm, {});
@@ -114,7 +148,7 @@ export default function Page() {
     }
   };
 
-  return (
+  return FormsData ? (
     <>
       <Modal show={Show} onHide={() => setShow(false)} centered size="">
         <Modal.Header>
@@ -192,17 +226,6 @@ export default function Page() {
           <div className="mx-3 mt-4">
             <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
               <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">From</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={StartDate}
-                  maxDate={new Date()}
-                  onChange={(date) => setStartDate(date)}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
                 <label className="ml-1">To</label>
                 <DatePicker
                   dateFormat="MM/dd/yyyy"
@@ -210,6 +233,17 @@ export default function Page() {
                   defaultValue={EndDate}
                   onChange={(Date) => setEndDate(Date)}
                   maxDate={new Date()}
+                  placeholderText={"End Date"}
+                  className="form-control insight-filter w-100"
+                />
+              </div>
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <label className="ml-1">From</label>
+                <DatePicker
+                  dateFormat="MM/dd/yyyy"
+                  selected={StartDate}
+                  maxDate={new Date()}
+                  onChange={(date) => setStartDate(date)}
                   placeholderText={"End Date"}
                   className="form-control insight-filter w-100"
                 />
@@ -281,10 +315,7 @@ export default function Page() {
                             handleGetCustomFormData(items?.id, items?.form)
                           }
                         >
-                          <FontAwesomeIcon
-                            icon={faEye}
-                            className="text-dark"
-                          />
+                          <FontAwesomeIcon icon={faEye} className="text-dark" />
                         </td>
                       </tr>
                     );
@@ -296,5 +327,7 @@ export default function Page() {
         </div>
       </div>
     </>
+  ) : (
+    <SimpleBackdrop visible={ShowLoader} />
   );
 }

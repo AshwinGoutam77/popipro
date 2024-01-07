@@ -271,17 +271,6 @@ const Leads = () => {
               <div className="mx-3 mt-4">
                 <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                   <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={StartDate}
-                      maxDate={new Date()}
-                      onChange={(date) => setStartDate(date)}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
                     <label className="ml-1">To</label>
                     <DatePicker
                       dateFormat="MM/dd/yyyy"
@@ -289,6 +278,17 @@ const Leads = () => {
                       defaultValue={EndDate}
                       onChange={(Date) => setEndDate(Date)}
                       maxDate={new Date()}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">From</label>
+                    <DatePicker
+                      dateFormat="MM/dd/yyyy"
+                      selected={StartDate}
+                      maxDate={new Date()}
+                      onChange={(date) => setStartDate(date)}
                       placeholderText={"End Date"}
                       className="form-control insight-filter w-100"
                     />

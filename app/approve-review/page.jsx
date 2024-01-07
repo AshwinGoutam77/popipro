@@ -295,17 +295,6 @@ export default function TestimonialsLeads() {
             <div className="mx-3 pt-4">
               <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
                 <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">From</label>
-                  <DatePicker
-                    dateFormat="MM/dd/yyyy"
-                    selected={StartDate}
-                    maxDate={new Date()}
-                    onChange={(date) => setStartDate(date)}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
                   <label className="ml-1">To</label>
                   <DatePicker
                     dateFormat="MM/dd/yyyy"
@@ -313,6 +302,17 @@ export default function TestimonialsLeads() {
                     defaultValue={EndDate}
                     onChange={(Date) => setEndDate(Date)}
                     maxDate={new Date()}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">From</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={StartDate}
+                    maxDate={new Date()}
+                    onChange={(date) => setStartDate(date)}
                     placeholderText={"End Date"}
                     className="form-control insight-filter w-100"
                   />
@@ -376,10 +376,7 @@ export default function TestimonialsLeads() {
                           </td>
                           {item?.status == "confirmed" ? (
                             <td data-column="status">
-                              <p
-                                href="#"
-                                class="badge badge-success"
-                              >
+                              <p href="#" class="badge badge-success">
                                 Approved
                               </p>
                             </td>

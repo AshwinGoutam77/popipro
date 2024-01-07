@@ -180,21 +180,21 @@ export default function DashboardProducts({ TitleData }) {
                 <div className="mx-3">
                   <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                     <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">From</label>
+                      <label className="ml-1">To</label>
                       <DatePicker
-                        selected={StartDate}
-                        onChange={(Date) => setStartDate(Date)}
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
                         maxDate={new Date()}
                         placeholderText={"End Date"}
                         className="form-control insight-filter w-100"
                       />
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">To</label>
+                      <label className="ml-1">From</label>
                       <DatePicker
-                        selected={EndDate}
-                        defaultValue={EndDate}
-                        onChange={(Date) => setEndDate(Date)}
+                        selected={StartDate}
+                        onChange={(Date) => setStartDate(Date)}
                         maxDate={new Date()}
                         placeholderText={"End Date"}
                         className="form-control insight-filter w-100"
