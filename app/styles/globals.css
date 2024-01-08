@@ -1123,7 +1123,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 10px;
 }
 .apexcharts-legend-series span {
-  padding-left: 4px !important;
+  padding-left: 0px !important;
 }
 .theme-custom{
   background-color: var(--color);
