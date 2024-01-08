@@ -172,30 +172,33 @@ export default function DashboardProducts({ TitleData }) {
                 className="w-100 bg-custom"
                 style={{ height: "calc(100vh - 58px)" }}
               >
-                <h5 className="first-title title__separate mx-4 pt-4 text-black">
+                {/* <h5 className="first-title title__separate mx-4 pt-4 text-black">
                   Your last one month{" "}
                   {Data?.title_array?.card_products?.visible_name} Analytics
-                </h5>
+                </h5> */}
 
-                <div className="mx-3">
-                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                <div className="mx-3 pt-4">
+                  <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
                     <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">To</label>
+                      <label className="ml-1">From</label>
                       <DatePicker
-                        selected={EndDate}
-                        defaultValue={EndDate}
-                        onChange={(Date) => setEndDate(Date)}
+                        dateFormat="MM/dd/yyyy"
+                        selected={StartDate}
                         maxDate={new Date()}
+                        onChange={(date) => setStartDate(date)}
                         placeholderText={"End Date"}
                         className="form-control insight-filter w-100"
                       />
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">From</label>
+                      <label className="ml-1">To</label>
                       <DatePicker
-                        selected={StartDate}
-                        onChange={(Date) => setStartDate(Date)}
+                        dateFormat="MM/dd/yyyy"
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
                         maxDate={new Date()}
+                        minDate={StartDate}
                         placeholderText={"End Date"}
                         className="form-control insight-filter w-100"
                       />

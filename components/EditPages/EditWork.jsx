@@ -110,8 +110,8 @@ export default function EditWorks({
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
-      toast(error.response.data.message, {
-        position: "bottom-right",
+      toast.error(error.response.data.message, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -175,8 +175,8 @@ export default function EditWorks({
     // });
     if (error) {
       setShowLoader(false);
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

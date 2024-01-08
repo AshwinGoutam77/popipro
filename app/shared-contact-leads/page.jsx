@@ -179,7 +179,7 @@ const Leads = () => {
                 className="text-white mr-2"
                 width="20"
               />{" "}
-              Shared Contacts Lead
+              Shared Contact Lead
             </h5>
             <Link href="/dashboard">
               <h6 className="text-white m-0">
@@ -200,7 +200,7 @@ const Leads = () => {
                   class="title title--h1 first-title title__separate mb-1 mb-0"
                   id="BlogModalTitle"
                 >
-                  More Details
+                  More Detailss
                 </h5>
               </Modal.Title>
               <button
@@ -268,8 +268,19 @@ const Leads = () => {
             style={{ height: "calc(100vh - 58px)" }}
           >
             <div className="w-100">
-              <div className="mx-3 mt-4">
-                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+              <div className="mx-3 pt-4">
+                <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">From</label>
+                    <DatePicker
+                      dateFormat="MM/dd/yyyy"
+                      selected={StartDate}
+                      maxDate={new Date()}
+                      onChange={(date) => setStartDate(date)}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <label className="ml-1">To</label>
                     <DatePicker
@@ -278,17 +289,7 @@ const Leads = () => {
                       defaultValue={EndDate}
                       onChange={(Date) => setEndDate(Date)}
                       maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={StartDate}
-                      maxDate={new Date()}
-                      onChange={(date) => setStartDate(date)}
+                      minDate={StartDate}
                       placeholderText={"End Date"}
                       className="form-control insight-filter w-100"
                     />
@@ -345,17 +346,21 @@ const Leads = () => {
                             >
                               {item.created_at}
                             </td>
-                            <td>
-                              {item.detail?.state
-                                ? item.detail?.city +
-                                  ", " +
-                                  item.detail?.state +
-                                  ", " +
-                                  item.detail?.country
-                                : item.detail?.city +
-                                  ", " +
-                                  item.detail?.country}
-                            </td>
+                            {item.detail ? (
+                              <td data-column="created date">
+                                {item.detail?.state
+                                  ? item.detail?.city +
+                                    ", " +
+                                    item.detail?.state +
+                                    ", " +
+                                    item.detail?.country
+                                  : item.detail?.city +
+                                    ", " +
+                                    item.detail?.country}
+                              </td>
+                            ) : (
+                              <td>---</td>
+                            )}
                             <td>
                               <FontAwesomeIcon
                                 icon={faDownload}

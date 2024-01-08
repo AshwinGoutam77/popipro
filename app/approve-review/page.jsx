@@ -206,7 +206,7 @@ export default function TestimonialsLeads() {
                 class="title title--h1 first-title title__separate mb-1 mb-0"
                 id="BlogModalTitle"
               >
-                More Detail
+                More Detailss
               </h5>
             </Modal.Title>
             <button
@@ -290,10 +290,21 @@ export default function TestimonialsLeads() {
           </div>
           <div
             className="w-100 bg-custom"
-            style={{ height: "calc(100vh - 58px)" }}
+            style={{ minHeight: "calc(100vh - 58px)" }}
           >
             <div className="mx-3 pt-4">
               <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">From</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={StartDate}
+                    maxDate={new Date()}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
                 <div className="col-6 col-lg-2 p-0 px-2">
                   <label className="ml-1">To</label>
                   <DatePicker
@@ -302,17 +313,7 @@ export default function TestimonialsLeads() {
                     defaultValue={EndDate}
                     onChange={(Date) => setEndDate(Date)}
                     maxDate={new Date()}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">From</label>
-                  <DatePicker
-                    dateFormat="MM/dd/yyyy"
-                    selected={StartDate}
-                    maxDate={new Date()}
-                    onChange={(date) => setStartDate(date)}
+                    minDate={StartDate}
                     placeholderText={"End Date"}
                     className="form-control insight-filter w-100"
                   />
@@ -327,14 +328,13 @@ export default function TestimonialsLeads() {
                 </div>
               </div>
             </div>
-            <div className="box-shadow-leads pt-4">
+            <div className="box-shadow-leads pt-3">
               <table className="insight-table">
                 <thead>
                   <tr>
                     <th>Contact</th>
                     <th>Requested Date</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
+                    <th>Location</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
@@ -368,12 +368,22 @@ export default function TestimonialsLeads() {
                           >
                             {item.created_at}
                           </td>
-                          <td data-column="created date">
-                            {item.latitude ? item.latitude : "----"}
-                          </td>
-                          <td data-column="created date">
-                            {item.longitude ? item.longitude : "----"}
-                          </td>
+                          {item.detail ? (
+                            <td data-column="created date">
+                              {item.detail?.state
+                                ? item.detail?.city +
+                                  ", " +
+                                  item.detail?.state +
+                                  ", " +
+                                  item.detail?.country
+                                : item.detail?.city +
+                                  ", " +
+                                  item.detail?.country}
+                            </td>
+                          ) : (
+                            <td>---</td>
+                          )}
+
                           {item?.status == "confirmed" ? (
                             <td data-column="status">
                               <p href="#" class="badge badge-success">
@@ -414,12 +424,12 @@ export default function TestimonialsLeads() {
                 </tbody>
               </table>
             </div>
-            <div
-              className="w-100 text-center text-white p-2 position-absolute mt-3"
-              style={{ bottom: "0", background: "black" }}
-            >
-              <p> © 2023. All Rights Reserved By Popipro.</p>
-            </div>
+          </div>
+          <div
+            className="w-100 text-center text-white p-2 mt-3"
+            style={{ background: "black" }}
+          >
+            <p> © 2023. All Rights Reserved By Popipro.</p>
           </div>
         </div>
       </div>

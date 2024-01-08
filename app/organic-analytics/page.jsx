@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
 import Api from "@services/Api";
-import { GoogleAnalytics } from "@services/Routes";
+import { EditData, GoogleAnalytics } from "@services/Routes";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import SimpleBackdrop from "@components/ViewPages/Backdrop";
@@ -29,13 +29,41 @@ export default function Page() {
   };
   useEffect(() => {
     handleGoogleData();
+    APIDATA();
   }, []);
 
+  const APIDATA = async () => {
+    setShowLoader(true);
+    try {
+      const response = await Api(
+        EditData,
+        {},
+        "?card_url=" + localStorage.getItem("url")
+      );
+      if (response.data.status) {
+        setShowLoader(false);
+        document.documentElement.style.setProperty(
+          "--color",
+          response.data.data.card.color_code
+        );
+        document.documentElement.style.setProperty(
+          "--themecolor",
+          response.data.data.card.background_color
+        );
+        const color = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--color");
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    }
+    setShowLoader(false);
+  };
+
   const column = [
-    {
-      name: "IP",
-      selector: (row) => (row?.detail?.device ? row?.detail?.device : "---"),
-    },
     {
       name: "Browser",
       selector: (row) =>
@@ -113,9 +141,8 @@ export default function Page() {
     }
   };
 
-  return (
+  return Data ? (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
       <div>
         <div
           className="login-header p-3 text-center d-flex align-items-center justify-content-between"
@@ -127,7 +154,7 @@ export default function Page() {
               className="text-white mr-2"
               width={20}
             />
-            Google Analytics
+            Organic Analytics
           </h5>
           <Link href="/dashboard">
             <h6 className="text-white m-0">
@@ -143,7 +170,18 @@ export default function Page() {
         </div>
         <div className="w-100 bg-custom">
           <div className="mx-3 pt-4">
-            <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+            <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
+              <div className="col-6 col-lg-2 p-0 px-2">
+                <label className="ml-1">From</label>
+                <DatePicker
+                  dateFormat="MM/dd/yyyy"
+                  selected={StartDate}
+                  maxDate={new Date()}
+                  onChange={(date) => setStartDate(date)}
+                  placeholderText={"End Date"}
+                  className="form-control insight-filter w-100"
+                />
+              </div>
               <div className="col-6 col-lg-2 p-0 px-2">
                 <label className="ml-1">To</label>
                 <DatePicker
@@ -152,17 +190,7 @@ export default function Page() {
                   defaultValue={EndDate}
                   onChange={(Date) => setEndDate(Date)}
                   maxDate={new Date()}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">From</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={StartDate}
-                  maxDate={new Date()}
-                  onChange={(date) => setStartDate(date)}
+                  minDate={StartDate}
                   placeholderText={"End Date"}
                   className="form-control insight-filter w-100"
                 />
@@ -178,7 +206,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="box-shadow-leads pt-2" style={{ overflowX: "auto" }}>
+          <div className="box-shadow-leads" style={{ overflowX: "auto" }}>
             <DataTable
               columns={column}
               data={Data}
@@ -192,5 +220,7 @@ export default function Page() {
         </div>
       </div>
     </>
+  ) : (
+    <SimpleBackdrop visible={ShowLoader} />
   );
 }

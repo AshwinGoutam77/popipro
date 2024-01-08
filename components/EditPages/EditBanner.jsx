@@ -177,7 +177,7 @@ const EditBanner = ({
             backgroundImage: `url('${
               Data?.card_cover == "banner-logo" ||
               Data?.card_cover == "banner-label"
-                ? Data?.base_url + Data?.banner?.path
+                ? Data?.base_url + Data?.card_header?.banner?.path
                 : Data?.base_url + Data?.card_company_logo?.path
             }')`,
             backgroundRepeat: "no-repeat",
@@ -280,14 +280,16 @@ const EditBanner = ({
             <div>
               {Data?.card_cover == "banner-logo" ? (
                 <img
-                  src={card?.base_url + card?.logo?.path}
+                  src={card?.base_url + card?.card_header?.logo?.path}
                   alt="logo"
                   className="Logo-icon"
                   style={{ width: "110px" }}
                 />
               ) : Data?.card_cover == "banner-label" ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
-                  {Data?.cover_label ? Data?.cover_label : "Popipro"}
+                  {Data?.card_header?.label
+                    ? Data?.card_header?.label
+                    : "Popipro"}
                 </h5>
               ) : (
                 ""

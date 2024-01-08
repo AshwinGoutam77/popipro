@@ -108,8 +108,8 @@ export default function EditDoing({
           ]);
     }
     if (error) {
-      toast(mess, {
-        position: "bottom-right",
+      toast.error(mess, {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -144,7 +144,6 @@ export default function EditDoing({
         handleCanclebtn();
       }
     } catch (error) {
-      console.log(error);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -162,8 +161,6 @@ export default function EditDoing({
       });
     }
     setShowLoader(false);
-    // var elem = document.getElementById("card_services");
-    // elem.scrollIntoView();
   };
 
   const handleDelteServices = async (id, type, DataId) => {

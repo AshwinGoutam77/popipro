@@ -74,24 +74,24 @@ const Header = ({
     if (ReviewName == "") {
       toast.error("Name is requried", {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
       return;
     } else if (ReviewDescription == "") {
       toast.error("Message is requried", {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
       return;
@@ -113,12 +113,12 @@ const Header = ({
         setShowLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
-          autoclose: 2000,
-          hideprogressbar: "false",
-          closeonclick: "true",
-          pauseonhover: "true",
-          draggable: "true",
-          progress: "undefined",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
           theme: "light",
         });
         handleCloseReview();
@@ -132,12 +132,12 @@ const Header = ({
       console.log(error);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
-        autoclose: 2000,
-        hideprogressbar: "false",
-        closeonclick: "true",
-        pauseonhover: "true",
-        draggable: "true",
-        progress: "undefined",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "light",
       });
     }
@@ -857,7 +857,6 @@ const Header = ({
           data-toggle="modal"
           data-target="#exampleModalCenter"
           onClick={() => handleSaveQr()}
-          // onClick={() => setModalShowUiModal("shareUiModal")}
         >
           <FontAwesomeIcon
             icon={faQrcode}

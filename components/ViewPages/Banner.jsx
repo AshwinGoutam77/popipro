@@ -406,7 +406,7 @@ const Banner = ({
             backgroundImage: `url('${
               card?.card_cover == "banner-logo" ||
               card?.card_cover == "banner-label"
-                ? card?.base_url + card?.banner?.path
+                ? card?.base_url + card?.card_header?.banner?.path
                 : card?.base_url + card?.card_company_logo?.path
             }')`,
             backgroundRepeat: "no-repeat",
@@ -511,14 +511,16 @@ const Banner = ({
             <div>
               {card?.card_cover == "banner-logo" ? (
                 <img
-                  src={card?.base_url + card?.logo?.path}
+                  src={card?.base_url + card?.card_header?.logo?.path}
                   alt="logo"
                   className="Logo-icon"
                   style={{ width: "110px" }}
                 />
               ) : card?.card_cover == "banner-label" ? (
                 <h5 className="text-white" style={{ fontSize: "16px" }}>
-                  {card?.cover_label ? card?.cover_label : "Popipro"}
+                  {card?.card_header?.label
+                    ? card?.card_header?.label
+                    : "Popipro"}
                 </h5>
               ) : (
                 ""

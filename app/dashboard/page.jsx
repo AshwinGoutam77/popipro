@@ -908,7 +908,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/shared-contacts-leads"
+                        ? "/shared-contact-leads"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -932,7 +932,7 @@ export default function Dashboard() {
                         />
                         <h6 className="text-white text-center mb-0">
                           {" "}
-                          Shared Contacts Lead
+                          Shared Contact Leads
                         </h6>
                       </>
                     </span>

@@ -53,7 +53,7 @@ export default function Home() {
             </p>
             <Link
               href={"/login"}
-              className="login-btn-main bg-btn7 lnk wow fadeInUp mt-3"
+              className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-3"
               data-wow-delay=".6s"
               style={{
                 visibility: "visible",

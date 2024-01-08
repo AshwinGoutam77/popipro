@@ -209,7 +209,7 @@ export default function Forgot() {
                   />
 
                   <button
-                    className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
+                    className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
                     data-wow-delay=".6s"
                     style={{
                       visibility: "visible",
@@ -226,7 +226,7 @@ export default function Forgot() {
               )}
               {buttonLoader ? (
                 <button
-                  className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
+                  className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
                   data-wow-delay=".6s"
                   style={{
                     visibility: "visible",
@@ -241,7 +241,7 @@ export default function Forgot() {
                 <>
                   {!Confirmation ? (
                     <button
-                      className="login-btn-main bg-btn7 lnk wow fadeInUp mt-4"
+                      className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
                       data-wow-delay=".6s"
                       style={{
                         visibility: "visible",

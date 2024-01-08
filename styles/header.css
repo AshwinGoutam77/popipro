@@ -187,7 +187,7 @@
 
   .edit-header {
     position: absolute;
-    right: 0px;
+    right: -16px !important;
     top: 0px;
     border-top-right-radius: 10px;
     background: transparent;

@@ -1050,8 +1050,11 @@ input.date-time-input::-webkit-date-and-time-value {
   cursor: pointer;
 }
 .rendered-form.formbuilder-embedded-bootstrap .form-control {
-  padding: 22px !important;
+  padding: 10px !important;
+  -webkit-appearance: auto !important;
+  -moz-appearance: auto !important;
   appearance: auto !important;
+  height: 46px !important;
 }
 .theme-bg {
   background-color: #24b1e6 !important;
@@ -1118,6 +1121,15 @@ input.date-time-input::-webkit-date-and-time-value {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0;
   padding: 10px;
   border-radius: 10px;
+}
+.apexcharts-legend-series span {
+  padding-left: 4px !important;
+}
+.theme-custom{
+  background-color: var(--color);
+}
+.sc-dmlpXa {
+  border-radius: 0px !important;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
