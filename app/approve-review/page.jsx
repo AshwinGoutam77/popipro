@@ -242,16 +242,20 @@ export default function TestimonialsLeads() {
                       <p className="content-row">{item.created_at}</p>
                     </div>
                     <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Latitude</p>
-                      <p className="w-100">
-                        {item.latitude ? item.latitude : "----"}
-                      </p>
-                    </div>
-                    <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Longitude</p>
-                      <p className="w-100">
-                        {item.longitude ? item.longitude : "----"}
-                      </p>
+                      <p className="Heading-row font-weight-bold">Location</p>
+                      {item.detail ? (
+                        <p className="w-100 ml-5">
+                          {item.detail?.state
+                            ? item.detail?.city +
+                              ", " +
+                              item.detail?.state +
+                              ", " +
+                              item.detail?.country
+                            : item.detail?.city + ", " + item.detail?.country}
+                        </p>
+                      ) : (
+                        <p className="w-100">---</p>
+                      )}
                     </div>
                     {item.description ? (
                       <div className="d-flex align-items-start w-100">
