@@ -91,8 +91,8 @@ const EditBanner = ({
                 href={
                   Data?.card_google_review?.url?.includes("https://") ||
                   Data?.card_google_review?.url?.includes("http://")
-                    ? Data?.card_google_review
-                    : "https://" + Data?.card_google_review
+                    ? "https://" + Data?.card_google_review
+                    : Data?.card_google_review
                 }
                 className="float"
                 target="_blank"
@@ -231,8 +231,8 @@ const EditBanner = ({
                 href={
                   Data?.card_google_review?.url?.includes("https://") ||
                   Data?.card_google_review?.url?.includes("http://")
-                    ? Data?.card_google_review
-                    : "https://" + Data?.card_google_review
+                    ? "https://" + Data?.card_google_review
+                    : Data?.card_google_review
                 }
                 className="float"
                 target="_blank"
