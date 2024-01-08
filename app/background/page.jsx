@@ -15,7 +15,7 @@ import { useState, useRef, useEffect } from "react";
 import { GetVirtualBackground } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
-import html2canvas from "html2canvas";
+import html2canvas from 'html2canvas';
 export default function page() {
   const canvasRef = useRef(null);
   const [ShowLoader, setShowLoader] = useState(false);
@@ -36,19 +36,20 @@ export default function page() {
   };
 
   function capture() {
-    const captureDiv = document.getElementById("captureDiv");
-    html2canvas(captureDiv).then((canvas) => {
+    const captureDiv = document.getElementById('captureDiv');
+    html2canvas(captureDiv).then(canvas => {
       // Create a link to download the captured image
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "captured_image.png";
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'captured_image.png';
 
       // Append the link to the body and trigger a click to start the download
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    });
-  }
+  });
+}
+  
 
   return (
     <>
@@ -95,10 +96,7 @@ export default function page() {
         </div>
 
         <div className="col-sm-12 col-lg-6 text-center d-flex align-items-center justify-content-center flex-column">
-          <button
-            onClick={() => capture()}
-            className="contact-btn w-auto text-white"
-          >
+          <button onClick={() => capture()} className="contact-btn w-auto text-white">
             Download Background
           </button>
           <p className="mt-4">
@@ -125,9 +123,7 @@ export default function page() {
                     src={"data:image/png;base64," + item?.path}
                     alt="image"
                     className="virtual-images"
-                    onClick={() =>
-                      setImage("data:image/png;base64," + item.path)
-                    }
+                    onClick={() => setImage("data:image/png;base64," +item.path)}
                   />
                 </>
               );
