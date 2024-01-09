@@ -2916,6 +2916,26 @@ button:focus {
   display: block;
   width: 100%;
 }
+.QrTabDiv {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  letter-spacing: 0.025em !important;
+  padding: 0.35rem 1.15rem !important;
+  border-radius: 9999px !important;
+  background-color: var(--color) !important;
+  font-weight: 500 !important;
+  color: white;
+  text-align: center;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: capitalize;
+  margin-top: 10px !important;
+  border: 1px solid transparent !important;
+  width: 100%;
+}
 .QrTabDiv:hover {
   background-color: var(--color) !important;
   color: white !important;

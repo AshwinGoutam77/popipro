@@ -723,7 +723,7 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <div className="contact-btn QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
+            <div className="QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
               <p
                 onClick={() => handleShowContactQr()}
                 className={ShowDownloadQr ? "color-black" : ""}
