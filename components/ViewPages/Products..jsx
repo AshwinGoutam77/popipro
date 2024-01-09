@@ -568,7 +568,7 @@ export default function Product({
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
               <button
                 type="submit"
-                className="send-btnn mt-0 w-auto"
+                className="contact-btn mt-0 w-auto"
                 style={{ padding: "10px 60px" }}
                 onClick={() => handleProductSubmit()}
               >
