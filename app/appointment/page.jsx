@@ -274,7 +274,7 @@ export default function AppointmentLead() {
                   <tr>
                     <th>Name</th>
                     <th>Contact</th>
-                    <th>Req. Date</th>
+                    <th>Requested Date</th>
                     <th>Location</th>
                     <th>Action</th>
                   </tr>
