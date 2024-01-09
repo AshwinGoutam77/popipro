@@ -90,7 +90,7 @@ export default function Theme({
       const color3 = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--text-color");
-      // console.log(color, color1);
+      //  (color, color1);
       APIDATA();
     }
     handleClose();

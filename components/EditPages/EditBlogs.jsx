@@ -724,64 +724,58 @@ export default function EditBlogs({
           {AddMoreBlogs &&
             AddMoreBlogs?.map((item, index) => {
               return ModalId == item.id ? (
-                <div
-                  className="modal-body"
-                  key={index}
-                  style={{ padding: "30px 25px" }}
-                >
-                  <div>
-                    {item?.image?.path ? (
-                      <img
-                        className="coverr-modal lazyload"
-                        src={Data?.base_url + item?.image?.path}
-                        alt="blogs"
-                      />
-                    ) : (
-                      <img
-                        className="coverr-modal lazyload"
-                        src="../static/img/picture-1.jpg"
-                        alt="blogs"
-                      />
-                    )}
-                    <p
-                      className="mt-3 font-weight-bold mb-3"
-                      style={{ color: "black", fontSize: "14px" }}
-                    >
-                      {item.name}
-                    </p>
-                    <p
-                      id="p_wrap"
-                      dangerouslySetInnerHTML={{
-                        __html: item.description,
+                <div>
+                  {item?.image?.path ? (
+                    <img
+                      className="coverr-modal lazyload"
+                      src={Data?.base_url + item?.image?.path}
+                      alt="blogs"
+                    />
+                  ) : (
+                    <img
+                      className="coverr-modal lazyload"
+                      src="../static/img/picture-1.jpg"
+                      alt="blogs"
+                    />
+                  )}
+                  <p
+                    className="mt-3 font-weight-bold mb-3"
+                    style={{ color: "black", fontSize: "14px" }}
+                  >
+                    {item.name}
+                  </p>
+                  <p
+                    id="p_wrap"
+                    dangerouslySetInnerHTML={{
+                      __html: item.description,
+                    }}
+                  ></p>
+                  {item.url !== "" ? (
+                    <a
+                      href={
+                        item?.url?.includes("http://") ||
+                        item?.url?.includes("https://")
+                          ? item?.url
+                          : "https://" + item?.url
+                      }
+                      target="_blank"
+                      className="mt-3 send-btnn mx-auto"
+                      style={{
+                        background: "var(--color)",
+                        width: "40%",
                       }}
-                    ></p>
-                    {item.url !== "" ? (
-                      <a
-                        href={
-                          item?.url?.includes("http://") ||
-                          item?.url?.includes("https://")
-                            ? item?.url
-                            : "https://" + item?.url
-                        }
-                        target="_blank"
-                        className="mt-3 send-btnn mx-auto"
+                    >
+                      <i
+                        className="fa fa-link mr-2"
                         style={{
-                          background: "var(--color)",
-                          width: "40%",
+                          fontSize: "16px",
                         }}
-                      >
-                        <i
-                          className="fa fa-link mr-2"
-                          style={{
-                            fontSize: "16px",
-                          }}
-                        ></i>
-                        Visit Site{" "}
-                      </a>
-                    ) : (
-                      ""
-                    )}
-                  </div>
+                      ></i>
+                      Visit Site{" "}
+                    </a>
+                  ) : (
+                    ""
+                  )}
                 </div>
               ) : (
                 ""

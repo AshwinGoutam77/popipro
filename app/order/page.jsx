@@ -47,7 +47,7 @@ const Order = () => {
         "?card_url=" + localStorage.getItem("url")
       );
       if (response.data.status) {
-        console.log(".....", response.data.data.headers);
+         (".....", response.data.data.headers);
         setItems(response.data.data.headers);
         document.documentElement.style.setProperty(
           "--color",
@@ -76,7 +76,7 @@ const Order = () => {
       "?card_url=" + localStorage.getItem("url")
     );
     if (response.data.status) {
-      console.log(response.data.data);
+       (response.data.data);
     }
   };
 
@@ -93,7 +93,7 @@ const Order = () => {
     };
     const response = await Api(CardSequence, { control: payload });
     if (response.data.status) {
-      console.log(response);
+       (response);
     }
   };
 
@@ -103,8 +103,8 @@ const Order = () => {
 
   const onDragEnd = (result) => {
     handleSq();
-    console.log(result);
-    // console.log(items);
+     (result);
+    //  (items);
     handleSequence();
     if (!result.destination) {
       return;

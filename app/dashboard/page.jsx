@@ -114,7 +114,7 @@ export default function Dashboard() {
           ).getPropertyValue("--color");
         }
       } catch (error) {
-        console.log(error);
+         (error);
         if (error?.request?.status == "401") {
           localStorage.removeItem("token");
           window.location.href = "/login";
@@ -737,7 +737,7 @@ export default function Dashboard() {
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
-                      console.log("abc");
+                       ("abc");
                       setModalShow("suggestion");
                     }}
                   >

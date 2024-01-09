@@ -206,7 +206,7 @@ export default function TestimonialsLeads() {
                 class="title title--h1 first-title title__separate mb-1 mb-0"
                 id="BlogModalTitle"
               >
-                More Detailss
+                More Details
               </h5>
             </Modal.Title>
             <button

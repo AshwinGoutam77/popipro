@@ -55,7 +55,7 @@ const Work = ({
 
   const openImagePopup = (index) => {
     setSelectedImageIndex(index);
-    //console.log(Card_photos[selectedImageIndex]);
+    // (Card_photos[selectedImageIndex]);
   };
 
   const closeImagePopup = () => {

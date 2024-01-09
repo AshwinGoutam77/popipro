@@ -7,7 +7,7 @@ import React from "react";
 const SocialMedia = ({ card, Titles, CardLinks }) => {
   let links = [];
   const HitClick = async (type, social, id) => {
-    console.log("hello");
+     ("hello");
     try {
       let payload = {
         card: card?.id,
@@ -20,7 +20,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
       if (response.data.status) {
       }
     } catch (error) {
-      console.log(error);
+       (error);
     }
   };
   return (

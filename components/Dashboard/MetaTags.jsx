@@ -25,7 +25,7 @@ export default function MetaTags({
   const [InputState, setInputState] = useState("");
 
   const handleUpdateMetaTags = async () => {
-    console.log(MetaTitle);
+     (MetaTitle);
     let payload = {
       meta_title: MetaTitle ? MetaTitle : Title,
       meta_desc: MetaDescription ? MetaDescription : Description,

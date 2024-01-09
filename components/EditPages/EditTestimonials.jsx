@@ -149,7 +149,7 @@ export default function EditTestimonials({
         handleCanclebtn();
       }
     } catch (error) {
-      console.log(error);
+      error;
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -186,7 +186,7 @@ export default function EditTestimonials({
       base: id,
       id: DataId,
     };
-    console.log(data);
+    data;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -493,7 +493,6 @@ export default function EditTestimonials({
               className="form-control mb-4 mt-1"
               value={ServicesName || ""}
               placeholder="Heading"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
             <label className="modalFormLable">Company Name</label>
@@ -504,7 +503,6 @@ export default function EditTestimonials({
               className="form-control mb-4 mt-1"
               value={CompanyName || ""}
               placeholder="Company Name"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setCompanyName(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
@@ -631,7 +629,6 @@ export default function EditTestimonials({
                         className="form-control mb-4"
                         defaultValue={items.name || ""}
                         placeholder="Heading"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setServicesName(e.target.value)}
                       ></input>
                       <label className="modalFormLable">Company Name</label>
@@ -642,7 +639,6 @@ export default function EditTestimonials({
                         className="form-control mb-4"
                         defaultValue={items.company_name || ""}
                         placeholder="Company Name"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setCompanyName(e.target.value)}
                       ></input>
                       <div className="d-flex align-items-center justify-content-between">

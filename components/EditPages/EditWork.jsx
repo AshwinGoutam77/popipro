@@ -520,7 +520,7 @@ export default function EditWorks({
 
   const openImagePopup = (index) => {
     setSelectedImageIndex(index);
-    //console.log(Card_photos[selectedImageIndex]);
+    // (Card_photos[selectedImageIndex]);
   };
 
   const closeImagePopup = () => {
@@ -774,7 +774,7 @@ export default function EditWorks({
                   <div>
                     {Card_photos &&
                       Card_photos.map((photo, i) => {
-                        // console.log(photo);
+                        //  (photo);
                         return (
                           <SwiperSlide key={i}>
                             <div className="swiper-slide review-items position-relative">

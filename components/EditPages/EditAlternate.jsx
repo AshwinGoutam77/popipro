@@ -318,7 +318,7 @@ export default function EditAlternateNo({
               className="form-control mb-4 mt-1"
               value={NumberLabel}
               placeholder="Enter label for Alternate number"
-              style={{ height: "40px", border: "1px solid #ccc" }}
+               
               onChange={(e) => setNumberLabel(e.target.value)}
             ></input>
           </div>
@@ -333,7 +333,7 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1 w-50"
                 value={CountryCode}
                 placeholder="+91"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 onChange={(e) => setCountryCode(e.target.value)}
               ></input>
               <input
@@ -344,7 +344,7 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1"
                 value={MobileNumber}
                 placeholder="xxxxxxxxxx"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 onChange={(e) => setMobileNumber(e.target.value)}
               ></input>
               <input
@@ -355,7 +355,7 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1 w-50"
                 value={Extension}
                 placeholder="xxxx"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 onChange={(e) => setExtension(e.target.value)}
               ></input>
             </div>

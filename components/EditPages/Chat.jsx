@@ -88,7 +88,7 @@ const ChatbotApp = ({
         return setLoading(false), response.json();
       })
       .then((data) => {
-        // console.log(data.choices[0].message.content);
+        //  (data.choices[0].message.content);
         setMessages([
           ...chatMessages,
           {

@@ -36,7 +36,7 @@ const AboutMe = ({ card, Titles }) => {
                   __html: card?.card_description,
                 }}
               ></div>
-              {card?.card_description?.length > "250" ||
+              {card?.card_description?.length > "480" ||
               card?.card_description == null ? (
                 <p
                   className="read-more text-align-end"

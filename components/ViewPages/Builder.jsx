@@ -44,7 +44,7 @@ function Builder({ JsonData, card_url }) {
           formFields[name].push(value);
         }
       }
-      // console.log("Form Fields:", formFields);
+      //  ("Form Fields:", formFields);
 
       const res = await Api(CustomForm, formFields, card_url);
       if (res.status) {

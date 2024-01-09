@@ -354,7 +354,7 @@ const Insights = () => {
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-amber-50">
-                    Shared Contacts Leads
+                    Shared Contact Leads
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">

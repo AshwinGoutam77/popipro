@@ -70,6 +70,11 @@ export default function Page() {
         row.detail?.browser == null ? "---" : row.detail?.browser,
     },
     {
+      name: "Device",
+      selector: (row) =>
+        row.detail?.device == null ? "---" : row.detail?.device,
+    },
+    {
       name: "Location",
       selector: (row) =>
         row.detail?.state

@@ -182,7 +182,7 @@ export default function EditProducts({
         handleCanclebtn();
       }
     } catch (error) {
-      console.log(error);
+      error;
       if (error?.request?.status === "401") {
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -728,7 +728,6 @@ export default function EditProducts({
               className="form-control mb-4 mt-1"
               value={ServicesName}
               placeholder="Heading"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
 
@@ -793,7 +792,6 @@ export default function EditProducts({
                     className="form-control mb-4 mt-1"
                     value={ProductPrice}
                     placeholder="Price"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setProductPrice(e.target.value)}
                     maxLength="10"
                   ></input>
@@ -810,7 +808,6 @@ export default function EditProducts({
                   className="form-control mb-4 mt-1"
                   value={ProductLabel}
                   placeholder="Text"
-                  style={{ height: "40px", border: "1px solid #ccc" }}
                   onChange={(e) => setProductLabel(e.target.value)}
                   maxLength="12"
                 ></input>
@@ -829,7 +826,6 @@ export default function EditProducts({
                   className="form-control mb-4 mt-1"
                   value={AddLabel}
                   placeholder="URL / link"
-                  style={{ height: "40px", border: "1px solid #ccc" }}
                   onChange={(e) => setAddLabel(e.target.value)}
                 ></input>
               </div>
@@ -842,7 +838,6 @@ export default function EditProducts({
                   className="form-control mb-4 mt-1 w-100"
                   value={ProductUrl}
                   placeholder="Url"
-                  style={{ height: "40px", border: "1px solid #ccc" }}
                   onChange={(e) => setProductUrl(e.target.value)}
                 ></input>
               </div>
@@ -987,7 +982,6 @@ export default function EditProducts({
                     className="form-control mb-4 mt-1"
                     defaultValue={items.name || ""}
                     placeholder="Heading"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
 

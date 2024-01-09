@@ -113,7 +113,7 @@ export default function EditResume({
     }
 
     try {
-      // console.log(data);
+      //  (data);
       // return
       const response = await Api(CardData, { titles, experience: data });
       setShowLoader(false);

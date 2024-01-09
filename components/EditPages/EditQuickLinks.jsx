@@ -256,7 +256,7 @@ export default function EditCustomLink({
         setEditFields(false);
       }
     } catch (error) {
-      console.log(error);
+      error;
       // if (error.request.status == "401") {
       //   localStorage.removeItem("token");
       //   window.location.href = "/login";
@@ -320,7 +320,6 @@ export default function EditCustomLink({
               className="form-control mb-4 mt-1"
               value={LinkLabel}
               placeholder="Enter label*"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setLinkLabel(e.target.value)}
             ></input>
           </div>
@@ -334,7 +333,6 @@ export default function EditCustomLink({
               className="form-control mb-4 mt-1"
               value={LinkName}
               placeholder="Enter Link*"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setLinkName(e.target.value)}
             ></input>
           </div>
@@ -349,7 +347,6 @@ export default function EditCustomLink({
               value={Tags}
               maxLength={"10"}
               placeholder="Enter Tags"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setTags(e.target.value)}
             ></input>
           </div>
@@ -397,7 +394,6 @@ export default function EditCustomLink({
                     className="form-control mb-4 mt-1"
                     value={LinkLabel}
                     placeholder="Enter label"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setLinkLabel(e.target.value)}
                   ></input>
                 </div>
@@ -411,7 +407,6 @@ export default function EditCustomLink({
                     className="form-control mb-4 mt-1"
                     value={LinkName}
                     placeholder="Enter Link"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setLinkName(e.target.value)}
                   ></input>
                 </div>
@@ -425,7 +420,6 @@ export default function EditCustomLink({
                     className="form-control mb-4 mt-1"
                     value={Tags}
                     placeholder="Enter Tags"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     onChange={(e) => setTags(e.target.value)}
                   ></input>
                 </div>

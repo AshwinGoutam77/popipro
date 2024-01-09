@@ -34,6 +34,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [InputState, setInputState] = useState("");
 
   useEffect(() => {
+    console.log(Data?.card_description?.length);
     setAboutMe(TitleData?.card_description?.visible_name);
     setDescription(Data?.card_description);
   }, []);
@@ -470,10 +471,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                   }}
                 ></div>
               )}
-              {Data?.card_description?.length == 397 ||
+              {Data?.card_description?.length > "480" ||
               Data?.card_description == null ? (
-                ""
-              ) : (
                 <p
                   className="read-more text-align-end"
                   onClick={HandleReadmore}
@@ -487,6 +486,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                     />
                   )}
                 </p>
+              ) : (
+                ""
               )}
             </>
           )}

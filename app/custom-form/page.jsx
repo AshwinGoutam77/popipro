@@ -170,7 +170,7 @@ export default function Page() {
           {RecordsData?.length !== 0 ? (
             RecordsData &&
             RecordsData?.map((items, index) => {
-              console.log(items);
+               (items);
               return (
                 <div key={index}>
                   <div className="leads-custom-table2 mb-1" key={index}>

@@ -300,7 +300,7 @@ export default function EditRealEstate() {
                   className="form-control mb-4 mt-1"
                   //   value={ServicesName}
                   placeholder="Heading"
-                  style={{ height: "40px", border: "1px solid #ccc" }}
+                   
                   //   onChange={(e) => setServicesName(e.target.value)}
                 ></input>
                 <div className="d-flex align-items-center mb-3 mt-1 ml-2">
@@ -363,7 +363,7 @@ export default function EditRealEstate() {
                         className="form-control mb-4 mt-1"
                         // value={ProductPrice}
                         placeholder="Price"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
+                         
                         // onChange={(e) => setProductPrice(e.target.value)}
                         maxlength="10"
                       ></input>
@@ -380,7 +380,7 @@ export default function EditRealEstate() {
                       className="form-control mb-4 mt-1"
                       // value={ProductPrice}
                       placeholder="Text"
-                      style={{ height: "40px", border: "1px solid #ccc" }}
+                       
                       onChange={(e) => setProductPrice(e.target.value)}
                       maxlength="12"
                     ></input>
@@ -452,7 +452,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1 w-100"
                 //   value={ServicesName}
                 placeholder="Bedroom"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">Bathroom*</label>
@@ -464,7 +464,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1 w-100"
                 //   value={ServicesName}
                 placeholder="Bathroom"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">Garage*</label>
@@ -476,7 +476,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1 w-100"
                 //   value={ServicesName}
                 placeholder="Garage"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">
@@ -490,7 +490,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1 w-100"
                 //   value={ServicesName}
                 placeholder="Furnished/ SemiFrunished*"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">Category*</label>
@@ -501,7 +501,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
                 placeholder="Buy/ Rent/ Other"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">Tags*</label>
@@ -512,7 +512,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
                 placeholder="Tags"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <div
@@ -542,7 +542,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
                 placeholder="Address"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <label className="modalFormLable">Google Url</label>
@@ -553,7 +553,7 @@ export default function EditRealEstate() {
                 className="form-control mb-4 mt-1"
                 //   value={ServicesName}
                 placeholder="Add your google map url"
-                style={{ height: "40px", border: "1px solid #ccc" }}
+                 
                 //   onChange={(e) => setServicesName(e.target.value)}
               ></input>
               <div

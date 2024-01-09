@@ -62,7 +62,8 @@ export default function Product({
   const [Category, setCategory] = useState("");
   const [LoadMore, setLoadMore] = useState("");
   const [ActiveFilter, setActiveFilter] = useState("");
-  const [HighlightSort, setHighlightSort] = useState("latest");
+  const [HighlightSort, setHighlightSort] = useState("");
+  const [ProductCategory, setProductCategory] = useState("");
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -85,9 +86,14 @@ export default function Product({
   };
 
   const LoadMoreFunction = async () => {
+    console.log(ProductCategory);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
+            ProductCategory || HighlightSort ? "1" : Page
+          }&product_categories[0]=${
+            ProductCategory ? ProductCategory : []
+          }&sortBy=${HighlightSort} `
         : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `,
       {
         method: "GET",
@@ -96,11 +102,14 @@ export default function Product({
     );
     const data = await response.json();
     if (response.ok) {
-      setProducts((prevData) => [
-        ...prevData,
-        ...data?.data?.next_page_data?.data,
-      ]);
+      ProductCategory || HighlightSort
+        ? setProducts(() => data?.data?.next_page_data?.data)
+        : setProducts((prevData) => [
+            ...prevData,
+            ...data?.data?.next_page_data?.data,
+          ]);
       setPage((prevPage) => prevPage + 1);
+      setLoadMore(data?.data?.next_page_data?.next_page_url);
     }
   };
   const handleProductSubmit = async (id) => {
@@ -301,6 +310,9 @@ export default function Product({
   };
 
   const handleFilterCategory = async (id) => {
+    setProductCategory(id);
+    LoadMoreFunction()
+    return;
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_categories[0]=${id}`
@@ -327,6 +339,9 @@ export default function Product({
     setSearch(false);
   };
   const handleSortBy = async (type) => {
+    console.log(type);
+    setHighlightSort(type);
+    return;
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&sortBy=${type}`
@@ -655,30 +670,54 @@ export default function Product({
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("name")}
-                            className={HighlightSort == "name" ? "dropdown-item-active" : "dropdown-item"}
+                            className={
+                              HighlightSort == "name"
+                                ? "dropdown-item-active"
+                                : "dropdown-item"
+                            }
                           >
-                            Sort By Name
+                            <span onClick={() => LoadMoreFunction()}>
+                              Sort By Name
+                            </span>
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("price")}
-                            className={HighlightSort == "price" ? "dropdown-item-active" : "dropdown-item"}
+                            className={
+                              HighlightSort == "price"
+                                ? "dropdown-item-active"
+                                : "dropdown-item"
+                            }
                           >
-                            Sort By Price
+                            <span onClick={() => LoadMoreFunction()}>
+                              Sort By Price
+                            </span>
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("latest")}
-                            className={HighlightSort == "latest" ? "dropdown-item-active" : "dropdown-item"}
+                            className={
+                              HighlightSort == "latest"
+                                ? "dropdown-item-active"
+                                : "dropdown-item"
+                            }
                           >
-                            Sort By Latest
+                            <span onClick={() => LoadMoreFunction()}>
+                              Sort By Latest
+                            </span>
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
                             onClick={() => handleSortBy("popularity")}
-                            className={HighlightSort == "popularity" ? "dropdown-item-active" : "dropdown-item"}
+                            className={
+                              HighlightSort == "popularity"
+                                ? "dropdown-item-active"
+                                : "dropdown-item"
+                            }
                           >
-                            Sort By Popularity
+                            <span onClick={() => LoadMoreFunction()}>
+                              Sort By Popularity
+                            </span>
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -726,7 +765,10 @@ export default function Product({
                   Category?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
-                        <div className="swiper-slide review-items position-relative">
+                        <div
+                          className="swiper-slide review-items position-relative"
+                          // onClick={() => setProductCategory(items?.id)}
+                        >
                           <button
                             className={
                               ActiveFilter == items?.name

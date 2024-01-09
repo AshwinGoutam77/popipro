@@ -27,7 +27,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   }, []);
 
   const handleHitClick = async (id) => {
-    console.log(id);
+     (id);
     let payload = {
       card: Data?.id,
       type: "blog",

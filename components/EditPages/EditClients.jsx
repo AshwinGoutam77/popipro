@@ -89,6 +89,20 @@ export default function EditClients({
   };
 
   const SendFiles = async (e) => {
+    console.log(photos);
+    if (photos == []) {
+      toast.error("Images are requried", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     setClients(true);
     if (Clients) {

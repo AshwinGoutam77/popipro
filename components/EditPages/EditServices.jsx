@@ -436,7 +436,6 @@ export default function EditDoing({
               className="form-control mb-4 mt-1"
               value={ServicesName}
               placeholder="Heading"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
@@ -565,7 +564,6 @@ export default function EditDoing({
                         className="form-control mb-4 mt-1"
                         defaultValue={items.name || ""}
                         placeholder="Heading"
-                        style={{ height: "40px", border: "1px solid #ccc" }}
                         onChange={(e) => setServicesName(e.target.value)}
                       ></input>
                       <div className="d-flex align-items-center justify-content-between">
