@@ -362,7 +362,7 @@ export default function EditAlternateNo({
           </div>
 
           <div
-            className="d-flex align-items-center mt-3"
+            className="d-flex align-items-center"
             style={{ gap: "10px" }}
           >
             <button className="send-btnn" onClick={() => handleSaveDetails()}>

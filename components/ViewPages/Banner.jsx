@@ -323,8 +323,8 @@ const Banner = ({
                 href={
                   card?.card_google_review?.url?.includes("https://") ||
                   card?.card_google_review?.url?.includes("http://")
-                    ? card?.card_google_review
-                    : "https://" + card?.card_google_review
+                    ? "https://" + card?.card_google_review
+                    : card?.card_google_review
                 }
                 className="float"
                 target="_blank"
