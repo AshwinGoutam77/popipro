@@ -531,7 +531,7 @@ const Insights = () => {
                   <div className="col-12 col-lg-3 margin-sm-top">
                     <div className="card p-4">
                       <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        Product Enquiry
+                      {UserData?.titles?.card_products?.visible_name} Enquiry
                       </p>
                       {Data?.card_states?.product_views == 0 ? (
                         <p className="mt-1 text-xs+ color-black">
