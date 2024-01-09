@@ -661,7 +661,7 @@ export default function Dashboard() {
                     </div>
                     {/* Background */}
                     <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
-                      <Link href="/background" className="w-100">
+                      <Link href="/virtual-background" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
                             icon={faImage}

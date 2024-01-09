@@ -23,6 +23,8 @@ export default function page() {
   const [Data, setData] = useState();
   const [Image, setImage] = useState("");
   const [imageSrc, setImageSrc] = useState();
+  const [MainData, setMainData] = useState("");
+  const [VirtualBgId, setVirtualBgId] = useState("");
 
   useEffect(() => {
     api();
@@ -39,6 +41,7 @@ export default function page() {
       );
       if (response.data.status) {
         setShowLoader(false);
+        setMainData(response?.data?.data?.card);
         document.documentElement.style.setProperty(
           "--color",
           response.data.data.card.color_code
@@ -67,7 +70,12 @@ export default function page() {
       setShowLoader(false);
       setData(response.data.data);
       setImage("data:image/png;base64," + response.data.data?.[0]?.path);
+      setVirtualBgId(response.data.data?.[0]?.id)
     }
+  };
+  const handleVirtualBg = (id, path) => {
+    setImage("data:image/png;base64," + path);
+    setVirtualBgId(id);
   };
 
   function capture() {
@@ -83,7 +91,20 @@ export default function page() {
       link.click();
       document.body.removeChild(link);
     });
+    HitClick();
   }
+  const HitClick = async () => {
+    let payload = {
+      card: MainData?.id,
+      type: "virtual-bg",
+      device_id: navigator.userAgent,
+      object_base: VirtualBgId,
+      hit_type: "direct",
+    };
+    const response = await Api(HitClickApi, payload);
+    if (response.data.status) {
+    }
+  };
 
   return Data ? (
     <>
@@ -163,16 +184,13 @@ export default function page() {
           {Data &&
             Data?.map((item, index) => {
               return (
-                <>
-                  <img
-                    src={"data:image/png;base64," + item?.path}
-                    alt="image"
-                    className="virtual-images"
-                    onClick={() =>
-                      setImage("data:image/png;base64," + item.path)
-                    }
-                  />
-                </>
+                <img
+                  src={"data:image/png;base64," + item?.path}
+                  alt="image"
+                  className="virtual-images"
+                  onClick={() => handleVirtualBg(item?.id, item?.path)}
+                  key={index}
+                />
               );
             })}
         </div>
