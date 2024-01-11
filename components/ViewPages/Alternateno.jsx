@@ -62,11 +62,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                         {item.title} :
                       </p>
                       {item.country_code == null ? (
-                        <p
-                          // href={"tel:" + item?.number}
-                          className="ml-1"
-                          style={{ color: "black" }}
-                        >
+                        <p className="ml-1" style={{ color: "black" }}>
                           {item?.country_code}
                           {item?.country_code ? "-" : ""}
                           {item?.number}

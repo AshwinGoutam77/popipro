@@ -45,7 +45,7 @@ export default function Product({
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [ModalId, setModalId] = useState("");
-  const [Page, setPage] = useState(2);
+  const [Page, setPage] = useState(1);
   const [Products, setProducts] = useState("");
   const [showProduct, setShowProduct] = useState(false);
   const handleShowProduct = () => setShowProduct(true);
@@ -64,6 +64,7 @@ export default function Product({
   const [ActiveFilter, setActiveFilter] = useState("");
   const [HighlightSort, setHighlightSort] = useState("");
   const [ProductCategory, setProductCategory] = useState("");
+  const [ProductSearching, setProductSearching] = useState("");
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -84,16 +85,29 @@ export default function Product({
     handleShow();
     HitClick(id);
   };
+  const incrementCount = () => {
+    setPage((prevCount) => prevCount + 1);
+  };
+  useEffect(() => {
+    LoadMoreFunction();
+  }, [Page]);
+
+  useEffect(() => {
+    setPage(1);
+    LoadMoreFunction();
+  }, [ProductCategory, HighlightSort, ProductSearching]);
 
   const LoadMoreFunction = async () => {
     console.log(ProductCategory);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
-            ProductCategory || HighlightSort ? "1" : Page
-          }&product_categories[0]=${
-            ProductCategory ? ProductCategory : []
-          }&sortBy=${HighlightSort} `
+            Page && Page
+          }${
+            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
+          }&sortBy=${
+            HighlightSort && HighlightSort
+          }&product_search=${ProductSearching}`
         : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `,
       {
         method: "GET",
@@ -102,16 +116,22 @@ export default function Product({
     );
     const data = await response.json();
     if (response.ok) {
-      ProductCategory || HighlightSort
-        ? setProducts(() => data?.data?.next_page_data?.data)
-        : setProducts((prevData) => [
-            ...prevData,
-            ...data?.data?.next_page_data?.data,
-          ]);
-      setPage((prevPage) => prevPage + 1);
       setLoadMore(data?.data?.next_page_data?.next_page_url);
+      data?.data?.categories?.map((item) => {
+        setActiveFilter(item?.name);
+      });
+      setHighlightSort(data?.data?.request.sortBy);
+      Page > 1
+        ? ProductCategory
+          ? setProducts(() => data?.data?.next_page_data?.data)
+          : setProducts((prevData) => [
+              ...prevData,
+              ...data?.data?.next_page_data?.data,
+            ])
+        : setProducts(() => data?.data?.next_page_data?.data);
     }
   };
+
   const handleProductSubmit = async (id) => {
     if (Name == "") {
       toast.error("Name is requried", {
@@ -218,10 +238,6 @@ export default function Product({
     HitClick(id);
     handleShowProduct();
   };
-  const handleModal = (id) => {
-    HitClick(id);
-    handleShowProduct();
-  };
   if (typeof window !== "undefined") {
     const slider = document.querySelector("[data-slider]");
     const track = slider?.querySelector("[data-slider-track]");
@@ -309,56 +325,10 @@ export default function Product({
     }
   };
 
-  const handleFilterCategory = async (id) => {
-    setProductCategory(id);
-    LoadMoreFunction()
-    return;
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_categories[0]=${id}`
-        : `https://admin.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&product_categories[0]=${id}`,
-      {
-        method: "GET",
-        cache: "no-cache",
-      }
-    );
-    const data = await response.json();
-    if (response.ok) {
-      setProducts(() => data?.data?.next_page_data?.data);
-      setPage(1);
-      setLoadMore(data?.data?.next_page_data?.next_page_url);
-      data?.data?.categories?.map((item) => {
-        setActiveFilter(item?.name);
-      });
-    }
-  };
   const handleResetFilter = () => {
     setProducts(Data?.card_products);
     setActiveFilter("");
-    // setPage(1);
     setSearch(false);
-  };
-  const handleSortBy = async (type) => {
-    console.log(type);
-    setHighlightSort(type);
-    return;
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&sortBy=${type}`
-        : `https://admin.popipro.com/api/get-more-items?card_url=${card_url}&type=card_products&current_page=1&sortBy=${type}`,
-      {
-        method: "GET",
-        cache: "no-cache",
-      }
-    );
-    const data = await response.json();
-    if (response.ok) {
-      setActiveFilter("");
-      setProducts(() => data?.data?.next_page_data?.data);
-      setPage(1);
-      setLoadMore(data?.data?.next_page_data?.next_page_url);
-      setHighlightSort(data?.data?.request.sortBy);
-    }
   };
 
   return (
@@ -383,7 +353,36 @@ export default function Product({
                 <div key={index}>
                   {ModalId == item.id ? (
                     <div>
-                      {item?.image?.path ? (
+                      {item?.gallery?.length ? (
+                        <SwiperComponent
+                          slidesPerView={1}
+                          spaceBetween={10}
+                          style={{ cursor: "pointer" }}
+                          className="mySwiper pb-0"
+                          autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                          }}
+                          pagination={{
+                            clickable: true,
+                          }}
+                          modules={[Pagination, Navigation]}
+                        >
+                          {item?.gallery?.map((o, i) => {
+                            return (
+                              <SwiperSlide key={i}>
+                                <div className="swiper-slide review-items position-relative">
+                                  <img
+                                    src={Data?.base_url + o?.path}
+                                    alt="product-gallery-images"
+                                    className="coverr-modal lazyload mb-2"
+                                  />
+                                </div>
+                              </SwiperSlide>
+                            );
+                          })}
+                        </SwiperComponent>
+                      ) : item?.image?.path ? (
                         <img
                           className="coverr-modal lazyload"
                           src={Data?.base_url + item?.image?.path}
@@ -607,7 +606,7 @@ export default function Product({
                   type="text"
                   placeholder="Search..."
                   className="form-control mb-4"
-                  onChange={(e) => handleSearch(e.target.value)}
+                  onChange={(e) => setProductSearching(e.target.value)}
                 />
                 <FontAwesomeIcon
                   icon={faXmark}
@@ -669,55 +668,47 @@ export default function Product({
                         <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                           <Dropdown.Item
                             href=""
-                            onClick={() => handleSortBy("name")}
+                            onClick={() => setHighlightSort("name")}
                             className={
                               HighlightSort == "name"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
                           >
-                            <span onClick={() => LoadMoreFunction()}>
-                              Sort By Name
-                            </span>
+                            Sort By Name
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
-                            onClick={() => handleSortBy("price")}
+                            onClick={() => setHighlightSort("price")}
                             className={
                               HighlightSort == "price"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
                           >
-                            <span onClick={() => LoadMoreFunction()}>
-                              Sort By Price
-                            </span>
+                            Sort By Price
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
-                            onClick={() => handleSortBy("latest")}
+                            onClick={() => setHighlightSort("latest")}
                             className={
                               HighlightSort == "latest"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
                           >
-                            <span onClick={() => LoadMoreFunction()}>
-                              Sort By Latest
-                            </span>
+                            Sort By Latest
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
-                            onClick={() => handleSortBy("popularity")}
+                            onClick={() => setHighlightSort("popularity")}
                             className={
                               HighlightSort == "popularity"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
                           >
-                            <span onClick={() => LoadMoreFunction()}>
-                              Sort By Popularity
-                            </span>
+                            Sort By Popularity
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -775,7 +766,7 @@ export default function Product({
                                 ? "filter-btns bg-varcolor"
                                 : "filter-btns"
                             }
-                            onClick={() => handleFilterCategory(items?.id)}
+                            onClick={() => setProductCategory(items?.id)}
                           >
                             {items?.name}
                           </button>
@@ -1049,7 +1040,7 @@ export default function Product({
                     fontSize: "16px",
                     color: "var(--color)",
                   }}
-                  onClick={LoadMoreFunction}
+                  onClick={() => incrementCount()}
                 >
                   Load More
                 </span>

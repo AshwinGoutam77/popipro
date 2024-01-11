@@ -26,6 +26,7 @@ import SimpleBackdrop from "./SimpleBackDrop";
 import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
 import { saveAs } from "file-saver";
+import localforage from "localforage";
 
 const Header = ({
   profile,
@@ -129,7 +130,7 @@ const Header = ({
         setReviewSubTitle("");
       }
     } catch (error) {
-       (error);
+      error;
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
@@ -188,17 +189,18 @@ const Header = ({
       card_url: profile,
       latitude: Latitude,
       longitude: Longitude,
+      fb_token: await localforage.getItem("fcm_token"),
     };
     try {
       setShowLoader(true);
-       (payloadData);
+      payloadData;
       // return;
       const response = await Api(contactUs, payloadData);
       handleCanclebtn();
       if (response.data.status) {
         setShowLoader(false);
         // HitClick();
-        toast(response.data.message, {
+        toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -224,7 +226,7 @@ const Header = ({
         setEmail("");
         setMessage("");
       } else {
-        toast.success(response?.data?.message, {
+        toast.error(response?.data?.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -405,7 +407,7 @@ const Header = ({
       setImageSrc(
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AGupta%3BAshwin%0AFN%3A${card?.first_name}%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${card?.card_contact}%0ATEL%3BCELL%3A${card?.card_contact}%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0%0AWEBSITE%3A${card?.card_website}%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
       );
-       (imageSrc);
+      imageSrc;
     }
   };
 
@@ -592,12 +594,6 @@ const Header = ({
               </p>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              {/* <button
-                className="contact-btn mt-0 w-auto mr-2"
-                onClick={handleAllowNotif}
-              >
-                Allow Notification
-              </button> */}
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"

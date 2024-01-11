@@ -254,7 +254,7 @@ export default function TestimonialsLeads() {
                             : item.detail?.city + ", " + item.detail?.country}
                         </p>
                       ) : (
-                        <p className="w-100">---</p>
+                        <p className="w-100 ml-5">---</p>
                       )}
                     </div>
                     {item.description ? (

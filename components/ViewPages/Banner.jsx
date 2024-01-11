@@ -3,12 +3,16 @@
 import { faArrowRight, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
-import { HitClickApi } from "@services/Routes";
+import { HitClickApi, SaveToken } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/messaging";
+import { firebaseCloudMessaging } from "../../app/firebase";
+import localforage from "localforage";
 
 const Banner = ({
-  permission,
+  profile,
   card,
   subscription,
   CardLinks,
@@ -190,14 +194,15 @@ const Banner = ({
       object_base: id,
       hit_type: "direct",
       referer,
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
     };
 
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
     }
   };
+
   if (
     typeof window === "object" &&
     FunctionState == false &&
@@ -227,14 +232,38 @@ const Banner = ({
     window.location =
       "https://api.whatsapp.com/send?phone=" + card.card_contact;
   }
+
+  const handleSaveToken = async () => {
+    let payload = {
+      card_url: profile,
+      token: await localforage.getItem("fcm_token"),
+      token_type: "web",
+    };
+
+    const response = await Api(SaveToken, payload);
+    if (response.data.status) {
+    }
+  };
+
   async function requestPermission() {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
-      console.log("Notifications are allowed.");
+      try {
+        const token = await firebaseCloudMessaging.init();
+        localStorage.setItem("fcm_token", token);
+        const messaging = firebase.messaging();
+        messaging.onMessage((payload) => {
+          console.log(payload);
+        });
+        handleSaveToken();
+      } catch (error) {
+        console.log(error);
+      }
     } else if (permission === "denied") {
       console.log("we have denied permission!, Please alow the permission.");
     }
   }
+
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -243,6 +272,8 @@ const Banner = ({
     }
   }
   function showPosition(position) {
+    localforage.setItem("latitude", position.coords.latitude);
+    localforage.setItem("longitude", position.coords.longitude);
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   }

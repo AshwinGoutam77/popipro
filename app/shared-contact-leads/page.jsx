@@ -238,15 +238,19 @@ const Leads = () => {
                     </div>
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Location </p>
-                      <p className="w-100">
-                        {item.detail?.state
-                          ? item.detail?.city +
-                            ", " +
-                            item.detail?.state +
-                            ", " +
-                            item.detail?.country
-                          : item.detail?.city + ", " + item.detail?.country}
-                      </p>
+                      {item.detail ? (
+                        <p className="w-100 ml-5">
+                          {item.detail?.state
+                            ? item.detail?.city +
+                              ", " +
+                              item.detail?.state +
+                              ", " +
+                              item.detail?.country
+                            : item.detail?.city + ", " + item.detail?.country}
+                        </p>
+                      ) : (
+                        <p className="w-100">---</p>
+                      )}
                     </div>
                     {item.message ? (
                       <div className="d-flex align-items-start">

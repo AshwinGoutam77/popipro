@@ -65,4 +65,8 @@ export const ManageCategory = {
   method: "POST",
 };
 
-export const GetVirtualBackground = { path: "get-virtual-background", method: "GET" };
+export const GetVirtualBackground = {
+  path: "get-virtual-background",
+  method: "GET",
+};
+export const SaveToken = { path: "save-firebase-token", method: "POST" };

@@ -331,10 +331,6 @@ export default function EditClients({
                       />
                     </div>
                     <>
-                      {/* {Clients ? (
-                        ""
-                      ) : (
-                        <> */}
                       <div>
                         {MainData?.company_setting?.maximum_clients <=
                           ClientPhotos?.length || Data?.is_expired ? (
@@ -387,8 +383,6 @@ export default function EditClients({
                           </div>
                         )}
                       </div>
-                      {/* </>
-                      )} */}
                       <label className="switch">
                         <input
                           data-status={TitleData.card_clients?.is_active}
@@ -480,13 +474,6 @@ export default function EditClients({
                 }}
                 modules={[Pagination, Navigation]}
               >
-                {/* {ClientPhotos?.length == 0 ? (
-                  <div>
-                    <p className="m-0">
-                      Images are empty, upload files by clicking plus icon
-                    </p>
-                  </div>
-                ) : ( */}
                 <div>
                   {ClientPhotos &&
                     ClientPhotos.map((item, index) => {
@@ -522,7 +509,6 @@ export default function EditClients({
                       );
                     })}
                 </div>
-                {/* )} */}
               </SwiperComponent>
             )}
           </div>

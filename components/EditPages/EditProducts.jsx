@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faCircleInfo,
+  faCircleXmark,
   faEnvelope,
   faFloppyDisk,
   faInfo,
@@ -27,6 +28,7 @@ import {
   LoadMoreApi,
   ManageCategory,
   ProductEnquiryBtns,
+  deleteFiles,
   deleteSection,
 } from "@services/Routes";
 import Api from "@services/Api";
@@ -35,6 +37,11 @@ import ChatbotApp from "./Chat";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import CreatableSelect from "react-select/creatable";
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function EditProducts({
   APIDATA,
@@ -56,7 +63,8 @@ export default function EditProducts({
   const [ModalId, setModalId] = useState("");
   const [ProductModalId, setProductModalId] = useState("");
   const [Image, setImage] = useState();
-  const [ServicesName, setServicesName] = useState("");
+  const [GalleryImages, setGalleryImages] = useState();
+  const [ProductHeading, setProductHeading] = useState("");
   const [ProductUrl, setProductUrl] = useState("");
   const [ProductPrice, setProductPrice] = useState("");
   const [ProductLabel, setProductLabel] = useState("");
@@ -99,20 +107,26 @@ export default function EditProducts({
   }, [TitleData]);
   const aRef = useRef(null);
 
-  const handleSaveBlogDetail = async (id = null) => {
+  const handleSaveProductDetail = async (id = null) => {
     setShowLoader(true);
     let data = [];
     let error = false;
     let mess = "";
-    if (ServicesName === "") {
+    if (ProductHeading === "" || GalleryImages?.length > 4) {
       error = true;
-      mess = ServicesName === "" ? "heading field is required" : "";
+      mess =
+        ProductHeading === ""
+          ? "heading field is required"
+          : GalleryImages?.length > 4
+          ? "Gallery images can't be more than 4"
+          : "";
     } else {
       id !== null
         ? (data = [
             {
               products_image: Image,
-              products_name: ServicesName,
+              gallery: [...GalleryImages],
+              products_name: ProductHeading,
               products_description: ServicesDescription,
               products_url: ProductUrl,
               products_price: ProductPrice,
@@ -127,7 +141,8 @@ export default function EditProducts({
         : (data = [
             {
               products_image: Image,
-              products_name: ServicesName,
+              gallery: [...GalleryImages],
+              products_name: ProductHeading,
               products_description: ServicesDescription,
               products_url: ProductUrl,
               products_price: ProductPrice,
@@ -174,7 +189,7 @@ export default function EditProducts({
           theme: "light",
         });
         setServicesDescription("");
-        setServicesName("");
+        setProductHeading("");
         setProductUrl("");
         setProductPrice("");
         setProductLabel("");
@@ -290,7 +305,7 @@ export default function EditProducts({
   ) => {
     handleEditShow();
     setProductModalId(id);
-    setServicesName(name);
+    setProductHeading(name);
     setServicesDescription(description);
     setProductPrice(price);
     setProductLabel(label);
@@ -301,7 +316,7 @@ export default function EditProducts({
   };
   const HandleEmptyFeilds = () => {
     setImage("");
-    setServicesName("");
+    setProductHeading("");
     setServicesDescription("");
     setProductPrice("");
     setProductLabel("");
@@ -541,6 +556,31 @@ export default function EditProducts({
     setIsLoading(false);
   };
 
+  const handleDeleteGalleryImages = async (path, type, DataId) => {
+    let data = {
+      type: type,
+      file_url: path,
+      obj_base: DataId,
+    };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(99 171 187)",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await Api(deleteFiles, data);
+        if (response.data.status) {
+          Swal.fire("Deleted!", "", "success");
+          APIDATA();
+        }
+      }
+    });
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -564,7 +604,53 @@ export default function EditProducts({
             AddMoreProduct?.map((item, index) => {
               return ModalId === item.id ? (
                 <div key={index}>
-                  {item?.image?.path ? (
+                  {item?.gallery?.length ? (
+                    <SwiperComponent
+                      slidesPerView={1}
+                      spaceBetween={10}
+                      style={{ cursor: "pointer" }}
+                      className="mySwiper pb-0"
+                      autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                      }}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[Pagination, Navigation]}
+                    >
+                      {item?.gallery?.map((o, i) => {
+                        return (
+                          <SwiperSlide key={i}>
+                            <div className="swiper-slide review-items position-relative">
+                              <FontAwesomeIcon
+                                icon={faCircleXmark}
+                                onClick={() =>
+                                  handleDeleteGalleryImages(
+                                    o.path,
+                                    10,
+                                    item?.id
+                                  )
+                                }
+                                style={{
+                                  top: "-1px",
+                                  right: "0",
+                                  color: "rgb(213, 51, 51)",
+                                  fontSize: "20px",
+                                }}
+                                className="delete-icon3"
+                              />
+                              <img
+                                src={Data?.base_url + o?.path}
+                                alt="product-gallery-images"
+                                className="coverr-modal lazyload mb-2"
+                              />
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
+                    </SwiperComponent>
+                  ) : item?.image?.path ? (
                     <img
                       className="coverr-modal lazyload"
                       src={Data?.base_url + item?.image?.path}
@@ -690,7 +776,7 @@ export default function EditProducts({
         centered
         enforceFocus={false}
         data-focus="false"
-        tabindex="-1"
+        tabIndex="-1"
       >
         <Modal.Header>
           <Modal.Title>
@@ -709,7 +795,7 @@ export default function EditProducts({
         <Modal.Body>
           <div className="">
             <label className="modalFormLable">
-              Upload Image (*Recommended Size 150*150)
+              Upload Featured Image (*Recommended Size 150*150)
             </label>
             <input
               type="file"
@@ -720,15 +806,28 @@ export default function EditProducts({
               ref={aRef}
               onChange={(e) => setImage(e.target.files[0])}
             />
+            <label className="modalFormLable">
+              Upload Gallery Images (*Recommended Size 150*150)
+            </label>
+            <input
+              type="file"
+              name="image"
+              className="form-control mb-4 p-1 mt-1"
+              accept="image/png, image/gif, image/jpeg"
+              style={{ border: "1px solid #ccc" }}
+              ref={aRef}
+              onChange={(e) => setGalleryImages(e.target.files)}
+              multiple
+            />
             <label className="modalFormLable">Heading*</label>
             <input
               name="name"
               rows="4"
               cols="50"
               className="form-control mb-4 mt-1"
-              value={ServicesName}
+              value={ProductHeading}
               placeholder="Heading"
-              onChange={(e) => setServicesName(e.target.value)}
+              onChange={(e) => setProductHeading(e.target.value)}
             ></input>
 
             <div className="d-flex align-items-center mb-3 mt-1 ml-2">
@@ -751,7 +850,6 @@ export default function EditProducts({
                   id="css"
                   name="product"
                   value={1}
-                  // checked={LabelRadio}
                   onChange={(e) => handleLabelRadio(e.target.value)}
                 />{" "}
                 <label htmlFor="css" className="ml-2 mb-0">
@@ -766,10 +864,10 @@ export default function EditProducts({
                 <div className="d-flex" style={{ gap: "10px" }}>
                   <select
                     style={{
-                      height: "40px",
+                      height: "49px",
                       padding: "6px 18px",
                       background: "#f7f9fa",
-                      border: "1px solid #ccc",
+                      appearance: "auto",
                     }}
                     onChange={(e) => setProductPriceValue(e.target.value)}
                     className="mt-1"
@@ -918,7 +1016,7 @@ export default function EditProducts({
           >
             <button
               className="send-btnn"
-              onClick={() => handleSaveBlogDetail()}
+              onClick={() => handleSaveProductDetail()}
             >
               Save
             </button>
@@ -936,7 +1034,7 @@ export default function EditProducts({
         centered
         enforceFocus={false}
         data-focus="false"
-        tabindex="-1"
+        tabIndex="-1"
       >
         <Modal.Header>
           <Modal.Title>
@@ -964,7 +1062,7 @@ export default function EditProducts({
                     key={i}
                   />
                   <label className="modalFormLable">
-                    Update Image (*Recommended Size 150*150)
+                    Update Featured Image (*Recommended Size 150*150)
                   </label>
                   <input
                     type="file"
@@ -974,6 +1072,19 @@ export default function EditProducts({
                     style={{ border: "1px solid #ccc" }}
                     onChange={(e) => setImage(e.target.files[0])}
                   />
+                  <label className="modalFormLable">
+                    Update Gallery Images (*Recommended Size 150*150)
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    className="form-control mb-4 p-1 mt-1"
+                    accept="image/png, image/gif, image/jpeg"
+                    style={{ border: "1px solid #ccc" }}
+                    ref={aRef}
+                    onChange={(e) => setGalleryImages(e.target.files)}
+                    multiple
+                  />
                   <label className="modalFormLable">Heading*</label>
                   <input
                     name="name"
@@ -982,7 +1093,7 @@ export default function EditProducts({
                     className="form-control mb-4 mt-1"
                     defaultValue={items.name || ""}
                     placeholder="Heading"
-                    onChange={(e) => setServicesName(e.target.value)}
+                    onChange={(e) => setProductHeading(e.target.value)}
                   ></input>
 
                   <div className="d-flex align-items-center mb-3 mt-1 ml-2">
@@ -1176,7 +1287,7 @@ export default function EditProducts({
                   >
                     <button
                       className="send-btnn"
-                      onClick={() => handleSaveBlogDetail(items.id)}
+                      onClick={() => handleSaveProductDetail(items.id)}
                     >
                       Update
                     </button>
@@ -1518,7 +1629,6 @@ export default function EditProducts({
                                         target="_blank"
                                         className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                       >
-                                        {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                         <img src="../static/img/whatsapp.png" />
                                       </a>
                                     ) : (

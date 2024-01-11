@@ -515,7 +515,7 @@ td {
 }
 
 .leads-custom-table div:last-child {
-  border: 0px;
+  border: 0px !important;
 }
 .leads-custom-table2 {
   background: none !important;

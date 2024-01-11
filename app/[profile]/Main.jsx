@@ -48,6 +48,7 @@ export default async function Main({ profile, data, id, referer }) {
           <>
             <Banner
               card={card}
+              profile={profile}
               permission={permission}
               subscription={plan}
               CardLinks={card?.card_social_links}
