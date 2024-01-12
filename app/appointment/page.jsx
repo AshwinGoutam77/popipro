@@ -230,7 +230,7 @@ export default function AppointmentLead() {
           </div>
           <div
             className="w-100 bg-custom"
-            style={{ height: "calc(100vh - 58px)" }}
+            style={{ minHeight: "calc(100vh - 58px)" }}
           >
             <div className="mx-3 pt-4">
               <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
@@ -328,12 +328,12 @@ export default function AppointmentLead() {
                 </tbody>
               </table>
             </div>
-            <div
-              className="w-100 text-center text-white p-2 position-absolute mt-3"
-              style={{ bottom: "0", background: "black" }}
-            >
-              <p> © 2023. All Rights Reserved By Popipro.</p>
-            </div>
+          </div>
+          <div
+            className="w-100 text-center text-white p-2 mt-3"
+            style={{ bottom: "0", background: "black" }}
+          >
+            <p> © 2023. All Rights Reserved By Popipro.</p>
           </div>
         </div>
       </div>
