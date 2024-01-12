@@ -472,7 +472,6 @@ export default function EditBlogs({
               className="form-control mb-4 mt-1"
               value={ServicesName}
               placeholder="Heading"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setServicesName(e.target.value)}
             ></input>
             <label className="modalFormLable">Url</label>
@@ -483,7 +482,6 @@ export default function EditBlogs({
               className="form-control mb-4 mt-1"
               value={BlogUrl}
               placeholder="url"
-              style={{ height: "40px", border: "1px solid #ccc" }}
               onChange={(e) => setBlogUrl(e.target.value)}
             ></input>
             <div className="d-flex align-items-center justify-content-between">
@@ -611,7 +609,6 @@ export default function EditBlogs({
                     className="form-control mb-4 mt-1"
                     defaultValue={items.name || ""}
                     placeholder="Heading"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setServicesName(e.target.value)}
                   ></input>
@@ -623,7 +620,6 @@ export default function EditBlogs({
                     className="form-control mb-4 mt-1"
                     defaultValue={items.url || ""}
                     placeholder="url"
-                    style={{ height: "40px", border: "1px solid #ccc" }}
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setBlogUrl(e.target.value)}
                   ></input>

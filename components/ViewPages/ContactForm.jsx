@@ -117,6 +117,12 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   useEffect(() => {
     handleAllowNotif();
   }, []);
+
+  const checkInput = (e) => {
+    const onlyDigits = e.target.value.replace(/\D/g, "");
+    // setNumber(onlyDigits);
+    setContact(onlyDigits);
+  };
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -154,7 +160,8 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                 required="required"
                 autoComplete="on"
                 value={Contact}
-                onChange={(e) => setContact(e.target.value)}
+                // onChange={(e) => setContact(e.target.value)}
+                onChange={(e) => checkInput(e)}
               />
               <div className="help-block with-errors"></div>
             </div>

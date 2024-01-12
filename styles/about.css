@@ -436,7 +436,7 @@ td {
 .insight-table tbody tr {
   border-bottom: 1px solid #e7e7e7;
 }
-.insight-table tbody tr:last-child{
+.insight-table tbody tr:last-child {
   border: 0px !important;
 }
 
@@ -522,12 +522,12 @@ td {
   border-radius: 10px;
   margin: 0 10px;
 }
-.leads-custom-table2 div:last-child {
-  border: 0px;
-}
 .leads-custom-table2 div {
   padding: 8px 4px !important;
   border-bottom: 1px solid #ebeaea !important;
+}
+.leads-custom-table2:last-child {
+  border: 0px;
 }
 
 .leads-short-para {

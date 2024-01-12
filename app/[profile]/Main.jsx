@@ -209,7 +209,7 @@ export default async function Main({ profile, data, id, referer }) {
                 </div>
               </div>
             </main>
-            <Footer card_url={profile} />
+            <Footer profile={profile} />
           </>
         ) : (
           redirect("/")

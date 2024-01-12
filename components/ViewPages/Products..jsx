@@ -310,6 +310,8 @@ export default function Product({
     }
   };
   function showPosition(position) {
+    localStorage.setItem("latitude", position.coords.latitude);
+    localStorage.setItem("longitude", position.coords.longitude);
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   }
@@ -397,12 +399,12 @@ export default function Product({
                         />
                       )}
                       <div className="d-flex align-items-center justify-content-between">
-                        <span
+                        {/* <span
                           className="mt-3 mb-0 font-weight-bold"
                           style={{ color: "black", fontSize: "14px" }}
                         >
                           {item.name}
-                        </span>
+                        </span> */}
                         {item.is_label !== 0 ? (
                           <span className="product-price">{item.label}</span>
                         ) : (

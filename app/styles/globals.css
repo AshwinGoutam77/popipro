@@ -1125,11 +1125,48 @@ input.date-time-input::-webkit-date-and-time-value {
 .apexcharts-legend-series span {
   padding-left: 0px !important;
 }
-.theme-custom{
+.theme-custom {
   background-color: var(--color);
 }
 .sc-dmlpXa {
   border-radius: 0px !important;
+}
+.dropdown-item:active {
+  color: #000;
+  text-decoration: none;
+  background-color: white !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  letter-spacing: 0.025em !important;
+  padding: 0.35rem 1.15rem !important;
+  border-radius: 9999px !important;
+  background-color: var(--color) !important;
+  font-weight: 500 !important;
+  color: white;
+  text-align: center;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: capitalize;
+  margin: 1rem 0.1rem !important;
+  border: 1px solid transparent !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+  background: white !important;
+  color: var(--color);
+  font-weight: 500 !important;
+  font-size: 14px;
+  padding: 6px 25px;
+  border-radius: 100px !important;
+  border: 1px solid var(--color) !important;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -webkit-user-select: none;
+  color: #000 !important;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {

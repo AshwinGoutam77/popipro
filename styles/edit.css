@@ -105,21 +105,26 @@
   letter-spacing: 0.025em;
   padding: 0.35rem 1.15rem;
   border-radius: 9999px !important;
-  background-color: white;
-  font-weight: 500 !important;
+  background-color: var(--color);
   color: var(--color);
   text-align: center;
-  transition-duration: 0.2s;
+  border: 1px solid var(--color);
+  font-weight: 500;
+  transition-duration: 0.2s !important;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: capitalize;
-  margin: 1rem 0.1rem;
-  border: 1px solid var(--color);
+  background: linear-gradient(to right, var(--color) 50%, white 50%);
+  background-size: 200% 100% !important;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
 }
 
 .delete-button:hover {
-  background-color: var(--color) !important;
-  color: white;
+  /* background-color: var(--color) !important;
+  color: white; */
+  color: #ffffff !important;
+  background-position: left bottom;
 }
 
 .delete-button:focus {
@@ -561,7 +566,7 @@ div:where(.swal2-container)
 }
 
 input[type="file"] {
-  padding: 10.5px 18px !important;
+  padding: 9.5px 18px !important;
 }
 
 .form-control {

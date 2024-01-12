@@ -304,23 +304,9 @@ const Insights = () => {
                 </h5>
                 <p className="mr-4 color-black">Year(2024)</p>
               </div>
-              {/* <div className="row m-0"> */}
-              {/* <div className="col-sm-12 col-lg-8">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData2?.options}
-                      series={chartData2?.series}
-                      type="bar"
-                      height={225}
-                    />
-                  </div>
-                </div> */}
-              {/* <div className="col-sm-12 col-lg-4"> */}
-              {/* <div className="dashboard-leads-col-4-div pb-4"> */}
-              {/* <p className="ml-4 mb-2 color-black font-weight-bold">Leads Stats</p> */}
               <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-pink-100">
+                  <p className="text-xs font-weight-bold text-white">
                     Profile Views
                   </p>
                   <div className="flex items-end justify-between space-x-2">
@@ -331,7 +317,7 @@ const Insights = () => {
                   <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-sky-100">
+                  <p className="text-xs font-weight-bold text-white">
                     Save Contacts
                   </p>
                   <div className="flex items-end justify-between space-x-2">
@@ -342,7 +328,7 @@ const Insights = () => {
                   <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-amber-50">
+                  <p className="text-xs font-weight-bold text-white">
                     {UserData?.titles?.card_products?.visible_name} Views
                   </p>
                   <div className="flex items-end justify-between space-x-2">
@@ -531,7 +517,7 @@ const Insights = () => {
                   <div className="col-12 col-lg-3 margin-sm-top">
                     <div className="card p-4">
                       <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                      {UserData?.titles?.card_products?.visible_name} Enquiry
+                        {UserData?.titles?.card_products?.visible_name} Enquiry
                       </p>
                       {Data?.card_states?.product_views == 0 ? (
                         <p className="mt-1 text-xs+ color-black">
@@ -543,8 +529,9 @@ const Insights = () => {
                           <span className="VarColor font-weight-bold">
                             {Data?.card_states?.product_views}
                           </span>{" "}
-                          clicks on Products Inquiry, click here to see complete
-                          report
+                          clicks on{" "}
+                          {UserData?.titles?.card_products?.visible_name}{" "}
+                          Enquiry, click here to see complete report
                         </p>
                       )}
                       <Link href={"/product-enquiry"}>

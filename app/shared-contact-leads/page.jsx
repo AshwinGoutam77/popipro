@@ -179,7 +179,7 @@ const Leads = () => {
                 className="text-white mr-2"
                 width="20"
               />{" "}
-              Shared Contact Lead
+              Shared Contact Leads
             </h5>
             <Link href="/dashboard">
               <h6 className="text-white m-0">
@@ -314,14 +314,10 @@ const Leads = () => {
                   <thead>
                     <tr>
                       <th>Name</th>
+                      <th>Contact</th>
                       <th>Date</th>
                       <th>Location</th>
                       <th>Actions</th>
-                      {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                        <th></th>
-                      ) : (
-                        ""
-                      )} */}
                     </tr>
                   </thead>
                   <tbody>
@@ -342,12 +338,15 @@ const Leads = () => {
                               data-column="Name"
                               onClick={() => setShowModal(true)}
                             >
-                              {item.full_name} ({item?.contact_number})
+                              {item.full_name}
                             </td>
                             <td
-                              className="leads-short-para"
+                              data-column="Name"
                               onClick={() => setShowModal(true)}
                             >
+                              {item?.contact_number}
+                            </td>
+                            <td className="" onClick={() => setShowModal(true)}>
                               {item.created_at}
                             </td>
                             {item.detail ? (
@@ -365,7 +364,10 @@ const Leads = () => {
                             ) : (
                               <td>---</td>
                             )}
-                            <td>
+                            <td
+                              className="d-flex align-items-center justify-content-left"
+                              style={{ gap: "10px" }}
+                            >
                               <FontAwesomeIcon
                                 icon={faDownload}
                                 className="text-dark"
@@ -380,14 +382,9 @@ const Leads = () => {
                               <FontAwesomeIcon
                                 onClick={() => setShowModal(true)}
                                 icon={faEye}
-                                className="text-dark ml-4"
+                                className="text-dark"
                               />
                             </td>
-                            {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                              <td>Add To Address Book</td>
-                            ) : (
-                              ""
-                            )} */}
                           </tr>
                         );
                       })

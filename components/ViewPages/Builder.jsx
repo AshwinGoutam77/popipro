@@ -44,9 +44,12 @@ function Builder({ JsonData, card_url }) {
           formFields[name].push(value);
         }
       }
-      //  ("Form Fields:", formFields);
-
-      const res = await Api(CustomForm, formFields, card_url);
+      let payload = {
+        formFields: formFields,
+        latitude: localStorage.getItem("latitude"),
+        longitude: localStorage.getItem("longitude"),
+      };
+      const res = await Api(CustomForm, payload, card_url);
       if (res.status) {
         setShowLoader(false);
         toast.success(res.data.message, {

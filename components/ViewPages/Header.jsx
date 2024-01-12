@@ -27,6 +27,7 @@ import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
 import { saveAs } from "file-saver";
 import localforage from "localforage";
+import ExchangeContact from "./ExchangeContact";
 
 const Header = ({
   profile,
@@ -44,12 +45,7 @@ const Header = ({
   const [showReview, setShowReview] = useState(false);
   const handleShowReview = () => setShowReview(true);
   const handleCloseReview = () => setShowReview(false);
-  const [FirstName, setFirstName] = useState("");
-  const [Number, setNumber] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Message, setMessage] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
-  const [SendWhatsaap, setSendWhatsaap] = useState(false);
   const [modalShow, setModalShow] = useState("");
   const [modalShowUiModal, setModalShowUiModal] = useState("");
   const [sharePopup, setsharePopup] = useState(false);
@@ -144,114 +140,6 @@ const Header = ({
     }
   };
 
-  const handleCanclebtn = () => {
-    handleClose();
-  };
-
-  const handleSendWhatsaapMessage = () => {
-    setSendWhatsaap(true);
-    if (SendWhatsaap) {
-      setSendWhatsaap(false);
-    }
-  };
-
-  const handleSaveData = async () => {
-    if (FirstName === "") {
-      toast.error("Name is required", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    } else if (Number === "") {
-      toast.error("Mobile/Phone is required", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    let payloadData = {
-      full_name: FirstName,
-      contact_number: Number,
-      email: Email,
-      message: Message,
-      card_url: profile,
-      latitude: Latitude,
-      longitude: Longitude,
-      fb_token: await localforage.getItem("fcm_token"),
-    };
-    try {
-      setShowLoader(true);
-      payloadData;
-      // return;
-      const response = await Api(contactUs, payloadData);
-      handleCanclebtn();
-      if (response.data.status) {
-        setShowLoader(false);
-        // HitClick();
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
-        window.location.href = SendWhatsaap
-          ? "https://api.whatsapp.com/send?phone=" +
-            card?.card_contact +
-            "&" +
-            `text=Popipro Enquiry %0a Name =${FirstName} ${
-              Email ? `%0a Email = ${Email}` : ""
-            } %0a Number =${Number} ${
-              Message ? ` %0a Message = ${Message}` : ""
-            }`
-          : "#";
-        setFirstName("");
-        setNumber("");
-        setEmail("");
-        setMessage("");
-      } else {
-        toast.error(response?.data?.message, {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (error) {
-      setShowLoader(false);
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  };
-
   let links = [];
   const shareContact = async () => {
     let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
@@ -265,7 +153,10 @@ const Header = ({
       longitude: Longitude,
     };
     const response = await Api(HitClickApi, payload);
-    if (response.data.status) {
+    if (
+      response.data.status ||
+      response?.data?.message == "Can not count this hit."
+    ) {
       setProfileImage(response.data.data.base_image);
 
       var contact = {
@@ -355,8 +246,7 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      // setModalShowUiModal("shareUiModal");
-      handleShow();
+      setModalShow("ExchangeContact");
     }
   };
 
@@ -501,6 +391,11 @@ const Header = ({
         handleCloseUiModal={setModalShowUiModal}
         CardLinks={CardLinks}
       />
+      <ExchangeContact
+        card={card}
+        active={modalShow == "ExchangeContact" ? true : false}
+        handleClose={setModalShow}
+      />
       <ToastContainer
         position="bottom-right"
         autoClose={2000}
@@ -513,99 +408,6 @@ const Header = ({
         pauseOnHover
         theme="light"
       />
-      {/* Share Modal */}
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header>
-          <Modal.Title>
-            <h5 className="title title--h1 first-title title__separate mb-1">
-              Share Contact
-            </h5>
-          </Modal.Title>
-          <button type="button" className="close" onClick={handleClose}>
-            <span aria-hidden="true">×</span>
-            <span className="sr-only">Close alert</span>
-          </button>
-        </Modal.Header>
-        <Modal.Body>
-          <p className="text-center pb-4">
-            *<b>{card.first_name}</b> will receive the information via Email or
-            Whatsapp.
-          </p>
-          <div className="row">
-            <div className="form-group col-lg-6 col-md-6 mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Name*"
-                required="required"
-                autoComplete="on"
-                value={FirstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-lg-6 col-md-6 mb-3">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Mobile/Phone*"
-                required="required"
-                autoComplete="on"
-                value={Number}
-                onChange={(e) => setNumber(e.target.value)}
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-lg-12 col-md-6 mb-3">
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Email address"
-                required="required"
-                autoComplete="on"
-                value={Email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="help-block with-errors"></div>
-            </div>
-            <div className="form-group col-12 col-md-12 mb-3">
-              <textarea
-                className="textarea form-control"
-                placeholder="Your message"
-                rows="4"
-                required="required"
-                value={Message}
-                onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
-              <div className="help-block with-errors"></div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 col-md-6 order-2 order-md-1 text-center text-md-left">
-              <div id="validator-contact" className="hidden"></div>
-            </div>
-            <div className="col-12 mx-2 d-flex align-items-center mb-2">
-              <input
-                type="checkbox"
-                onChange={() => handleSendWhatsaapMessage()}
-              />
-              <p className="ml-2">
-                Do you want to send message on whatsaap also?
-              </p>
-            </div>
-            <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="contact-btn mt-0 w-auto"
-                onClick={handleSaveData}
-              >
-                Share Contact
-              </button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-
       {/* Review Modal */}
       <Modal show={showReview} onHide={handleCloseReview} centered>
         <Modal.Header>
@@ -702,12 +504,13 @@ const Header = ({
           </div>
         </Modal.Body>
       </Modal>
+
       {/* Qr Modal */}
       <Modal show={showQr} onHide={handleCloseQr} centered>
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              {ShowProfileQr
+              {ShowDownloadQr
                 ? "Share your profile via QR"
                 : "Add Contact Via QR"}
             </h5>
@@ -719,7 +522,7 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <div className="QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
+            {/* <div className="QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
               <p
                 onClick={() => handleShowContactQr()}
                 className={ShowDownloadQr ? "color-black" : ""}
@@ -733,6 +536,27 @@ const Header = ({
               >
                 Contact QR
               </p>
+            </div> */}
+            <div
+              className="d-flex align-items-center mb-4"
+              style={{ gap: "10px" }}
+            >
+              <button
+                className={
+                  ShowDownloadQr ? "filter-btns bg-varcolor" : "filter-btns"
+                }
+                onClick={() => handleShowContactQr()}
+              >
+                Profile QR Code
+              </button>
+              <button
+                className={
+                  ShowProfileQr ? "filter-btns bg-varcolor" : "filter-btns"
+                }
+                onClick={() => handleShowProfileQr()}
+              >
+                Contact QR Code
+              </button>
             </div>
 
             {ShowProfileQr ? (
@@ -745,6 +569,7 @@ const Header = ({
                   }
                   className="qr-img"
                   alt="we"
+                  style={{ width: "250px", height: "250px" }}
                 />
                 <button
                   onClick={downloadImage}
@@ -766,14 +591,8 @@ const Header = ({
               ""
             )}
           </div>
-          {/* <p className="text-center mb-3 underline-or my-4">
-            <span>OR</span>
-          </p> */}
           {ShowDownloadQr ? (
             <div>
-              {/* <h5 className="title title--h1 first-title title__separate mb-1 text-left mb-4 font-weight-bold">
-                Share your profile via QR
-              </h5> */}
               <div className="d-flex flex-column justify-content-center align-items-center">
                 <img
                   src={`https://chart.googleapis.com/chart?cht=qr&chl=${
@@ -909,7 +728,7 @@ const Header = ({
                 className="contact-btn"
                 data-toggle="modal"
                 data-target="#exampleModalLong"
-                onClick={handleShow}
+                onClick={() => setModalShow("ExchangeContact")}
               >
                 Share Contact
               </button>
@@ -920,12 +739,12 @@ const Header = ({
                 ""
               ) : (
                 <button
-                  className="contact-btn-header mt-2"
+                  className="delete-button w-100 mt-2"
                   data-toggle="modal"
                   data-target="#AddTestimonialsModal"
                   onClick={handleShowReview}
                 >
-                  Get Reviews
+                  Add Reviews
                 </button>
               )}
               {Titles?.card_booking?.is_active == 0 ||
@@ -933,7 +752,7 @@ const Header = ({
                 ""
               ) : (
                 <button
-                  className="contact-btn-header mt-2"
+                  className="delete-button w-100 mt-2"
                   onClick={
                     MainData?.company_setting?.appointment_enquiry_method ==
                     "form"

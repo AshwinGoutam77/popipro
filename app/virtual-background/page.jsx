@@ -16,6 +16,7 @@ import { EditData, GetVirtualBackground, HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import html2canvas from "html2canvas";
+import QR from "qrcode-base64";
 
 export default function page() {
   const canvasRef = useRef(null);
@@ -70,7 +71,7 @@ export default function page() {
       setShowLoader(false);
       setData(response.data.data);
       setImage("data:image/png;base64," + response.data.data?.[0]?.path);
-      setVirtualBgId(response.data.data?.[0]?.id)
+      setVirtualBgId(response.data.data?.[0]?.id);
     }
   };
   const handleVirtualBg = (id, path) => {
@@ -105,7 +106,6 @@ export default function page() {
     if (response.data.status) {
     }
   };
-
   return Data ? (
     <>
       <div
@@ -137,17 +137,19 @@ export default function page() {
         <div className="col-sm-12 col-lg-6" id="captureDiv">
           <div className="p-4 position-relative">
             {/* <img
-              src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
-              className="qr-background-image"
-            /> */}
-            <img
               src={
                 "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
+                imgData +
                 "END%3AVCARD%0A"
               }
               className="qr-background-image"
               alt=""
+            /> */}
+            <img
+              src={`https://chart.googleapis.com/chart?cht=qr&chl=${imgData}&chs=160x160&chld=L|0`}
+              className="qr-background-image"
+              alt="qr-code"
+              style={{ width: "250px", height: "250px" }}
             />
             <img
               src={Image}

@@ -236,7 +236,7 @@ export default function EditContact({
             onChange={(e) => setCalendlyUrl(e.target.value)}
             style={{ height: "40px", border: "1px solid #ccc" }}
           />
-          <div>
+          <div className="mt-2">
             <button className="contact-btn w-auto" onClick={handleCalendly}>
               Save Changes
             </button>

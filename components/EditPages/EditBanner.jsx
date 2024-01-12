@@ -286,7 +286,13 @@ const EditBanner = ({
                   style={{ width: "110px" }}
                 />
               ) : Data?.card_cover == "banner-label" ? (
-                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                <h5
+                  className="text-white"
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
                   {Data?.card_header?.label
                     ? Data?.card_header?.label
                     : "Popipro"}
@@ -296,7 +302,13 @@ const EditBanner = ({
               )}
               {Data.card_cover === "name" &&
               Data?.card_company_logo !== null ? (
-                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                <h5
+                  className="text-white"
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
                   {card?.card_company_logo}
                 </h5>
               ) : (Data?.card_cover !== "banner" &&

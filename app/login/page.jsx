@@ -2,9 +2,11 @@
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { useAuthContext } from "@context/AuthContext";
 import Link from "next/link";
+import "../../styles/edit.css";
 import { redirect, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+
 
 async function loginUser(credentials) {
   return fetch(
@@ -138,7 +140,7 @@ const LoginPage = () => {
                 </label>
               </div>
               <button
-                className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
+                className="delete-button w-auto bg-btn7 lnk wow fadeInUp mt-4"
                 data-wow-delay=".6s"
                 style={{
                   visibility: "visible",

@@ -132,8 +132,8 @@ export default function TestimonialsLeads() {
       text: "Once you reject this request, you can't revert it!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "rgb(99 171 187)",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "var(--color)",
+      cancelButtonColor: "var(--color)",
       confirmButtonText: "Yes",
       cancelButtonText: "No",
     }).then(async (result) => {
@@ -332,7 +332,7 @@ export default function TestimonialsLeads() {
                 </div>
               </div>
             </div>
-            <div className="box-shadow-leads pt-3">
+            <div className="box-shadow-leads">
               <table className="insight-table">
                 <thead>
                   <tr>

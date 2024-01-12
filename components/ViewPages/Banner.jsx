@@ -10,6 +10,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseCloudMessaging } from "../../app/firebase";
 import localforage from "localforage";
+import ExchangeContact from "./ExchangeContact";
 
 const Banner = ({
   profile,
@@ -29,6 +30,7 @@ const Banner = ({
   const [GoogleReviewState, setGoogleReviewState] = useState(false);
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
+  const [modalShow, setModalShow] = useState("");
 
   useEffect(() => {
     if (card) {
@@ -81,7 +83,10 @@ const Banner = ({
       hit_type: "contact-download",
     };
     const response = await Api(HitClickApi, payload);
-    if (response.data.status) {
+    if (
+      response.data.status ||
+      response?.data?.message == "Can not count this hit."
+    ) {
       setProfileImage(response.data.data.base_image);
 
       var contact = {
@@ -169,6 +174,7 @@ const Banner = ({
       newLink.href = url;
 
       newLink.click();
+      setModalShow("ExchangeContact");
     }
   };
   const HitClick = async (type, social, id) => {
@@ -302,6 +308,11 @@ const Banner = ({
     </>
   ) : (
     <>
+      <ExchangeContact
+        card={card}
+        active={modalShow == "ExchangeContact" ? true : false}
+        handleClose={setModalShow}
+      />
       {card.card_cover === "name" ||
       (card.card_cover === "label" && card?.card_company_logo !== null) ||
       (card?.card_cover === "logo" &&
@@ -405,7 +416,10 @@ const Banner = ({
                   alt="Logo"
                 />
               ) : (
-                <h1 className="text-white" style={{ fontSize: "16px" }}>
+                <h1 className="mt-1" style={{
+                  fontSize: "16px",
+                  color: card?.card_header?.label_color,
+                }}>
                   {card?.card_company_logo}
                 </h1>
               )}
@@ -548,7 +562,13 @@ const Banner = ({
                   style={{ width: "110px" }}
                 />
               ) : card?.card_cover == "banner-label" ? (
-                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                <h5
+                  className="mt-1"
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
                   {card?.card_header?.label
                     ? card?.card_header?.label
                     : "Popipro"}
@@ -558,14 +578,28 @@ const Banner = ({
               )}
               {card.card_cover === "name" &&
               Data?.card_company_logo !== null ? (
-                <h5 className="text-white" style={{ fontSize: "16px" }}>
+                <h5
+                  className=""
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
                   {card?.card_company_logo}
                 </h5>
               ) : (card?.card_cover !== "banner" &&
                   card?.card_cover !== "banner-logo" &&
                   card?.card_cover !== "banner-label") ||
                 card?.card_company_logo?.length == 0 ? (
-                <h5 className="text-white">Popipro</h5>
+                <h5
+                  className=""
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
+                  Popipro
+                </h5>
               ) : (
                 ""
               )}

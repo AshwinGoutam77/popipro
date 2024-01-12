@@ -170,7 +170,7 @@ export default function Page() {
           {RecordsData?.length !== 0 ? (
             RecordsData &&
             RecordsData?.map((items, index) => {
-               (items);
+              console.log(items);
               return (
                 <div key={index}>
                   <div className="leads-custom-table2 mb-1" key={index}>
@@ -178,7 +178,7 @@ export default function Page() {
                       <p className="w-100 font-weight-bold">{items?.name}</p>
                       <p className="w-100">
                         {items?.value ? (
-                          items?.value?.join(", ")
+                          items?.value.join(", ")
                         ) : (
                           <p className="">----</p>
                         )}
@@ -218,15 +218,12 @@ export default function Page() {
           </h6>
         </Link>
       </div>
-      <div
-        className="d-flex align-items-center flex-column justify-content-between w-100 mb-4"
-        // style={{ height: "calc(100vh - 58px)" }}
-      >
+      <div className="d-flex align-items-center flex-column justify-content-between w-100 mb-4">
         <div className="w-100">
           <div className="mx-3 mt-4">
             <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
               <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">From</label>
+                <label className="ml-1 mb-1">From</label>
                 <DatePicker
                   dateFormat="MM/dd/yyyy"
                   selected={StartDate}
@@ -285,6 +282,7 @@ export default function Page() {
               <thead>
                 <tr>
                   <th>Form</th>
+                  <th>Location</th>
                   <th>Submitted Date</th>
                   <th>Action</th>
                 </tr>
@@ -310,6 +308,21 @@ export default function Page() {
                         className="cursor-pointer"
                       >
                         <td data-column="Name">{items?.form}</td>
+                        {items.detail ? (
+                          <td data-column="created date">
+                            {items.detail?.state
+                              ? items.detail?.city +
+                                ", " +
+                                items.detail?.state +
+                                ", " +
+                                items.detail?.country
+                              : items.detail?.city +
+                                ", " +
+                                items.detail?.country}
+                          </td>
+                        ) : (
+                          <td>---</td>
+                        )}
                         <td className="leads-short-para">{items.created_at}</td>
                         <td
                           onClick={() =>

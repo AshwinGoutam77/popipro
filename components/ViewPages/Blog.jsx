@@ -126,12 +126,12 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                           style={{ width: "100%", height: "190px" }}
                         />
                       )}
-                      <p
+                      {/* <p
                         className="mt-3 font-weight-bold mb-3"
                         style={{ color: "black", fontSize: "14px" }}
                       >
                         {item.name}
-                      </p>
+                      </p> */}
                       <p
                         id="p_wrap"
                         className=""

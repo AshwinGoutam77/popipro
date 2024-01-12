@@ -33,6 +33,7 @@
     "jquery": "^3.7.1",
     "localforage": "^1.10.0",
     "next": "13.5.4",
+    "qrcode-base64": "^1.0.1",
     "qrcode.react": "^3.1.0",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
