@@ -146,10 +146,10 @@ export default function page() {
               alt=""
             /> */}
             <img
-              src={`https://chart.googleapis.com/chart?cht=qr&chl=${imgData}&chs=160x160&chld=L|0`}
+              src={`https://chart.googleapis.com/chart?cht=qr&chl=${imageSrc}&chs=160x160&chld=L|0`}
               className="qr-background-image"
               alt="qr-code"
-              style={{ width: "250px", height: "250px" }}
+              style={{ width: "100px", height: "100px" }}
             />
             <img
               src={Image}
