@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { faArrowRight, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faChevronLeft,
+  faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
 import { HitClickApi, SaveToken } from "@services/Routes";
@@ -31,6 +35,7 @@ const Banner = ({
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [modalShow, setModalShow] = useState("");
+  const [LocalStorageUrl, setLocalStorageUrl] = useState("");
 
   useEffect(() => {
     if (card) {
@@ -286,7 +291,13 @@ const Banner = ({
   useEffect(() => {
     requestPermission();
     getLocation();
+    handleLocal();
   }, []);
+
+  const handleLocal = async () => {
+    let LocalUrl = await localforage.getItem("url");
+    setLocalStorageUrl(LocalUrl);
+  };
 
   return Loader == false ? (
     <>
@@ -416,32 +427,52 @@ const Banner = ({
                   alt="Logo"
                 />
               ) : (
-                <h1 className="mt-1" style={{
-                  fontSize: "16px",
-                  color: card?.card_header?.label_color,
-                }}>
+                <h1
+                  className="mt-1"
+                  style={{
+                    fontSize: "16px",
+                    color: card?.card_header?.label_color,
+                  }}
+                >
                   {card?.card_company_logo}
                 </h1>
               )}
             </div>
           </div>
           <div>
-            <a
-              href="https://www.popipro.com/shop"
-              target="_blank"
+            <Link
+              href={
+                LocalStorageUrl == profile
+                  ? "/dashboard"
+                  : "https://www.popipro.com/shop"
+              }
+              target={LocalStorageUrl == profile ? "" : "_blank"}
               className={
                 card.banner_color == "#ffffff"
                   ? "m-0 Varcolor d-flex align-items-center getCard-a"
                   : "m-0 text-white d-flex align-items-center getCard-a"
               }
             >
-              Order PopiCard now
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                style={{ width: "15px" }}
-                className="ml-1"
-              />
-            </a>
+              {LocalStorageUrl == profile ? (
+                <>
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    className="ml-2 mr-1 font-weight-bold"
+                  />
+                  Back To Dashboard
+                </>
+              ) : (
+                <>
+                  Order PopiCard now
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    style={{ width: "15px" }}
+                    className="ml-1"
+                  />
+                </>
+              )}
+            </Link>
           </div>
         </div>
       ) : (
@@ -606,22 +637,39 @@ const Banner = ({
             </div>
           </div>
           <div>
-            <a
-              href="https://www.popipro.com/shop"
-              target="_blank"
+            <Link
+              href={
+                LocalStorageUrl == profile
+                  ? "/dashboard"
+                  : "https://www.popipro.com/shop"
+              }
+              target={LocalStorageUrl == profile ? "" : "_blank"}
               className={
                 card.banner_color == "#ffffff"
                   ? "m-0 Varcolor d-flex align-items-center getCard-a"
                   : "m-0 text-white d-flex align-items-center getCard-a"
               }
             >
-              Order PopiCard now
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                style={{ width: "15px" }}
-                className="ml-1"
-              />
-            </a>
+              {LocalStorageUrl == profile ? (
+                <>
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    className="ml-2 mr-1 font-weight-bold"
+                  />
+                  Back To Dashboard
+                </>
+              ) : (
+                <>
+                  Order PopiCard now
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    style={{ width: "15px" }}
+                    className="ml-1"
+                  />
+                </>
+              )}
+            </Link>
           </div>
         </div>
       )}

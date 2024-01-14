@@ -5,6 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../styles/navbar.css";
+import { Tooltip } from "@mui/material";
 
 const Navbar = ({ card, HeaderData }) => {
   /* const handleScrollRight = () => {
@@ -56,20 +57,21 @@ const Navbar = ({ card, HeaderData }) => {
             {HeaderData &&
               HeaderData?.map((el, i) => {
                 return (
-                  <li
-                    className="nav__item cursor-pointer"
-                    key={i}
-                    onClick={() => handleScroll(el.attribute)}
-                  >
-                    <span activeclass="active">
-                      <span
-                        style={{ fontSize: "16px" }}
-                        dangerouslySetInnerHTML={{
-                          __html: el.icon,
-                        }}
-                      ></span>
-                    </span>
-                  </li>
+                  <Tooltip title={el.menu_name} placement="top" arrow key={i}>
+                    <li
+                      className="nav__item cursor-pointer"
+                      onClick={() => handleScroll(el.attribute)}
+                    >
+                      <span activeclass="active">
+                        <span
+                          style={{ fontSize: "16px" }}
+                          dangerouslySetInnerHTML={{
+                            __html: el.icon,
+                          }}
+                        ></span>
+                      </span>
+                    </li>
+                  </Tooltip>
                 );
               })}
             <li

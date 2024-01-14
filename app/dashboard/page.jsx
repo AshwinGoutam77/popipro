@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   faAddressBook,
@@ -49,6 +50,7 @@ import "swiper/css/pagination";
 import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
+import SettingModal from "@components/Dashboard/Setting-modal";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -114,7 +116,7 @@ export default function Dashboard() {
           ).getPropertyValue("--color");
         }
       } catch (error) {
-         (error);
+        error;
         if (error?.request?.status == "401") {
           localStorage.removeItem("token");
           window.location.href = "/login";
@@ -305,6 +307,18 @@ export default function Dashboard() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                <Dropdown.Item
+                  href=""
+                  className="mb-1"
+                  onClick={() => setModalShow("setting")}
+                >
+                  <FontAwesomeIcon
+                    icon={faGear}
+                    className="text-dark cursor-pointer mr-2"
+                    style={{ fontSize: "16px" }}
+                  />
+                  Setting
+                </Dropdown.Item>
                 <Dropdown.Item href="" onClick={handleLogout}>
                   <FontAwesomeIcon
                     icon={faRightFromBracket}
@@ -737,7 +751,7 @@ export default function Dashboard() {
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
-                       ("abc");
+                      ("abc");
                       setModalShow("suggestion");
                     }}
                   >
@@ -1190,6 +1204,13 @@ export default function Dashboard() {
         setMetaTitle={setMetaTitle}
         MetaDescription={MetaDescription}
         setMetaDescription={setMetaDescription}
+      />
+      <SettingModal
+        active={modalShow == "setting" ? true : false}
+        handleClose={setModalShow}
+        Data={Data}
+        APIDATA={APIDATA}
+        currency={MainData?.currency}
       />
     </>
   ) : (

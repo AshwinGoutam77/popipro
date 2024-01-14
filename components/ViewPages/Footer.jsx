@@ -1,10 +1,12 @@
 /* eslint-disable eqeqeq */
 "use client";
+import localforage from "localforage";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export default function Footer({ Data, card_url }) {
+export default function Footer({ Data, profile }) {
+  const [LocalStorageUrl, setLocalStorageUrl] = useState("");
   const handleLOGOUT = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("url");
@@ -22,6 +24,14 @@ export default function Footer({ Data, card_url }) {
         handleLOGOUT();
       }
     });
+  };
+  useEffect(() => {
+    handleLocal();
+  }, []);
+
+  const handleLocal = async () => {
+    let LocalUrl = await localforage.getItem("url");
+    setLocalStorageUrl(LocalUrl);
   };
   return (
     <>
@@ -51,11 +61,15 @@ export default function Footer({ Data, card_url }) {
             </Link>
           </button>
           {/* {card_url !== item ? ( */}
-            <Link href={"/login"}>
-              <button className="footer-btn text-white">
+          <Link href={"/login"}>
+            <button className="footer-btn text-white">
+              {LocalStorageUrl == profile ? (
+                <span>Back to Dashboard</span>
+              ) : (
                 <span>Login to PopiCard</span>
-              </button>
-            </Link>
+              )}
+            </button>
+          </Link>
           {/* ) : (
             <button
               className="footer-btn text-white"
