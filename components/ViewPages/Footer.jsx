@@ -30,7 +30,7 @@ export default function Footer({ Data, profile }) {
   }, []);
 
   const handleLocal = async () => {
-    let LocalUrl = await localforage.getItem("url");
+    let LocalUrl = localStorage.getItem("url");
     setLocalStorageUrl(LocalUrl);
   };
   return (
@@ -80,7 +80,7 @@ export default function Footer({ Data, profile }) {
           )} */}
         </div>
         <p className="m-0 mt-4 pb-3 text-center footer-copyright">
-          Copyright © 2023 All Rights Reserved.
+          Copyright © 2024 All Rights Reserved.
         </p>
       </div>
     </>

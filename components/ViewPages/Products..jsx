@@ -98,7 +98,6 @@ export default function Product({
   }, [ProductCategory, HighlightSort, ProductSearching]);
 
   const LoadMoreFunction = async () => {
-    console.log(ProductCategory);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
@@ -398,7 +397,7 @@ export default function Product({
                           alt="product"
                         />
                       )}
-                      <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center justify-content-end">
                         {/* <span
                           className="mt-3 mb-0 font-weight-bold"
                           style={{ color: "black", fontSize: "14px" }}
@@ -407,18 +406,14 @@ export default function Product({
                         </span> */}
                         {item.is_label !== 0 ? (
                           <span className="product-price">{item.label}</span>
+                        ) : item.price !== 0 &&
+                          item.price !== "" &&
+                          item.currency !== null ? (
+                          <span className="product-price text-right">
+                            {item.pcurrency?.currency} {item.price}
+                          </span>
                         ) : (
-                          <div>
-                            {item.price !== 0 &&
-                            item.price !== "" &&
-                            item.currency !== null ? (
-                              <span className="product-price">
-                                {item.pcurrency?.currency} {item.price}
-                              </span>
-                            ) : (
-                              ""
-                            )}
-                          </div>
+                          ""
                         )}
                       </div>
                       <p

@@ -70,7 +70,10 @@ export default function page() {
     if (response.data.status) {
       setShowLoader(false);
       setData(response.data.data);
-      setImage("data:image/png;base64," + response.data.data?.[0]?.path);
+      setImage(
+        "data:image/png;base64," +
+          response.data.data?.virtual_background?.[0]?.path
+      );
       setVirtualBgId(response.data.data?.[0]?.id);
     }
   };
@@ -136,17 +139,8 @@ export default function page() {
       <div className="row m-0">
         <div className="col-sm-12 col-lg-6" id="captureDiv">
           <div className="p-4 position-relative">
-            {/* <img
-              src={
-                "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imgData +
-                "END%3AVCARD%0A"
-              }
-              className="qr-background-image"
-              alt=""
-            /> */}
             <img
-              src={`https://chart.googleapis.com/chart?cht=qr&chl=${imageSrc}&chs=160x160&chld=L|0`}
+              src={Data?.qrcode_generator}
               className="qr-background-image"
               alt="qr-code"
               style={{ width: "100px", height: "100px" }}
@@ -184,7 +178,7 @@ export default function page() {
           style={{ gap: "10px" }}
         >
           {Data &&
-            Data?.map((item, index) => {
+            Data?.virtual_background?.map((item, index) => {
               return (
                 <img
                   src={"data:image/png;base64," + item?.path}

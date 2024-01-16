@@ -31,7 +31,7 @@ import { useAuthContext } from "@context/AuthContext";
 import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const Insights = () => {
+const NewInsights = () => {
   const { token } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
@@ -497,6 +497,73 @@ const Insights = () => {
       },
     },
   };
+  const chartData7 = {
+    series: [
+      {
+        name: "Images",
+        data: [76, 85, 107, 98, 100, 105, 21, 56, 94],
+      },
+      {
+        name: "Videos",
+        data: [1, 23, 89, 98, 87, 99, 91, 111, 94],
+      },
+      {
+        name: UserData?.titles?.card_products?.visible_name,
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: UserData?.titles?.card_blogs?.visible_name,
+        data: [76, 85, 101, 21, 87, 105, 1, 114, 9],
+      },
+    ],
+    options: {
+      chart: {
+        type: "bar",
+        height: 350,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+          endingShape: "rounded",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"],
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      fill: {
+        opacity: 2,
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val + " views";
+          },
+        },
+      },
+    },
+  };
 
   return token ? (
     <>
@@ -554,17 +621,55 @@ const Insights = () => {
             <div className="px-1">
               {/* Quick Analytics */}
 
-              <div className="d-flex align-items-top justify-content-between">
-                <h5 className="first-title title__separate mx-4  text-black">
-                  Quick Analytics
-                </h5>
-                <p className="mr-4 color-black">Year(2024)</p>
+              <div className="row d-flex align-items-center justify-content-between row-gap-3">
+                <div className="col-lg-3 col-sm-12">
+                  <h5 className="first-title title__separate mx-4  text-black">
+                    Quick Analytics
+                  </h5>
+                </div>
+                {/* <p className="mr-4 color-black">Year(2024)</p> */}
+                <div className="col-lg-9 col-sm-12">
+                  <div className="row w-100 m-0 p-0 px-4 mb-4 align-items-end bg-white justify-content-end">
+                    <div className="col-6 col-lg-2 p-0 px-2 d-flex align-items-center">
+                      <label className="mr-2">From</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={StartDate}
+                        maxDate={new Date()}
+                        onChange={(date) => setStartDate(date)}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2 d-flex align-items-center">
+                      <label className="mr-2">To</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
+                        maxDate={new Date()}
+                        minDate={StartDate}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-1 p-0 px-2 text-right">
+                      <button
+                        className="contact-btn w-auto"
+                        onClick={handleSearchData}
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
-                    Profile Views
+                    Total Profile Visits
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -575,7 +680,7 @@ const Insights = () => {
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
-                    Save Contacts
+                    Total Social Visits
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -586,7 +691,7 @@ const Insights = () => {
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
-                    {UserData?.titles?.card_products?.visible_name} Views
+                    Total Leads
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -597,7 +702,7 @@ const Insights = () => {
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-amber-50">
-                    Shared Contact Leads
+                    Total Resources Leads
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -632,7 +737,6 @@ const Insights = () => {
                     ) : (
                       Data?.bookings?.map((item, index) => {
                         return (
-                          index >= 9?
                           <tr
                             data-column="Message"
                             key={index}
@@ -669,7 +773,7 @@ const Insights = () => {
                                 className="text-dark"
                               />
                             </td>
-                          </tr>:""
+                          </tr>
                         );
                       })
                     )}
@@ -677,22 +781,25 @@ const Insights = () => {
                 </table>
               </div>
 
-              <div className="row m-0 mt-4">
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Profile Intracts
+              </h5>
+              <div className="row m-0 mt-4 row-gap-3">
                 <div className="col-sm-12 col-lg-8">
                   <div className="barchart-div">
                     <Charts
                       options={chartData3?.options}
                       series={chartData3?.series}
                       type="bar"
-                      height={340}
+                      height={325}
                     />
                   </div>
                 </div>
                 <div className="col-sm-12 col-lg-4">
-                  <div className="dashboard-leads-col-4-div pb-4">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
+                  <div className="dashboard-leads-col-4-div py-4">
+                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       Leads Stats
-                    </p>
+                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
@@ -767,41 +874,15 @@ const Insights = () => {
 
               {/* Chart */}
 
-              {/* <div className="row w-100 m-0">
-                <div className="col-12 col-lg-6 mt-4 px-0">
-                  <div className="barchart-div mx-4">
-                    <h6 className="color-black">Profile</h6>
-                    <Charts
-                      options={chartData && chartData?.options}
-                      series={chartData && chartData?.series}
-                      type="area"
-                      height={350}
-                    />
-                  </div>
-                </div>
-                {Data?.users_social_link?.length !== 0 ? (
-                  <div className="col-12 col-lg-6 mt-4 px-0">
-                    <div className="barchart-div mx-4">
-                      <h6 className="color-black">Social links</h6>
-                      <Charts
-                        options={chartData2?.options}
-                        series={chartData2?.series}
-                        type="bar"
-                        height={350}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div> */}
-
-              <div className="row m-0 mt-4">
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Social Links
+              </h5>
+              <div className="row m-0 mt-4 row-gap-3">
                 <div className="col-sm-12 col-lg-4">
-                  <div className="dashboard-leads-col-4-div pb-4">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
+                  <div className="dashboard-leads-col-4-div py-4">
+                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       Social Stats
-                    </p>
+                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
@@ -861,8 +942,10 @@ const Insights = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="row m-0 mt-4">
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Leads
+              </h5>
+              <div className="row m-0 mt-4 row-gap-3">
                 <div className="col-sm-12 col-lg-8">
                   <div className="barchart-div">
                     <Charts
@@ -875,9 +958,9 @@ const Insights = () => {
                 </div>
                 <div className="col-sm-12 col-lg-4">
                   <div className="dashboard-leads-col-4-div pb-4">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
+                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       Resources Stats
-                    </p>
+                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
@@ -929,9 +1012,75 @@ const Insights = () => {
               </div>
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Resources Hits
+              </h5>
+              <div className="row m-0 mt-4">
+                <div className="col-sm-12 col-lg-4">
+                  <div className="dashboard-leads-col-4-div py-4">
+                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-white">
+                          Images
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.card_states?.product_views}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-amber-50">
+                          Videos
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.total_share_contact}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-amber-50">
+                          {UserData?.titles?.card_products?.visible_name}
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.total_share_contact}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-amber-50">
+                          {UserData?.titles?.card_blogs?.visible_name}
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.total_share_contact}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-12 col-lg-8">
+                  <div className="barchart-div">
+                    <Charts
+                      options={chartData7?.options}
+                      series={chartData7?.series}
+                      type="bar"
+                      height={225}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Organic Insights
               </h5>
-              <div className="row m-0 mb-4">
+              <div className="row m-0 mb-4 row-gap-3">
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
                     <p className="ml-4 mb-2 color-black font-weight-bold">
@@ -959,488 +1108,12 @@ const Insights = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Analytics and data */}
-
-              {/* <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Analytics and data
-              </h5>
-              <div className="mx-2 mb-4">
-                <div className="row m-0">
-                  <div className="col-12 col-lg-3 margin-sm-top">
-                    <div className="card p-4">
-                      <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        {UserData?.titles?.card_products?.visible_name}
-                      </p>
-                      {Data?.card_states?.product_views == 0 ? (
-                        <p className="mt-1 text-xs+ color-black">
-                          No Data Found
-                        </p>
-                      ) : (
-                        <p className="mt-1 text-xs+ color-black">
-                          You got{" "}
-                          <span className="VarColor font-weight-bold">
-                            {Data?.card_states?.product_views}
-                          </span>{" "}
-                          clicks on{" "}
-                          {UserData?.titles?.card_products?.visible_name}, click
-                          here to see complete report
-                        </p>
-                      )}
-                      <Link href={"/product"}>
-                        <div className="mt-2 flex items-end justify-between">
-                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              ></path>
-                            </svg>
-                            <span className="text-xs">
-                              View{" "}
-                              {UserData?.titles?.card_products?.visible_name}
-                            </span>
-                          </p>
-                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 rotate-45"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M7 11l5-5m0 0l5 5m-5-5v12"
-                              ></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-3 margin-sm-top">
-                    <div className="card p-4">
-                      <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        {UserData?.titles?.card_blogs?.visible_name}
-                      </p>
-                      {Data?.card_states?.blog_views == 0 ? (
-                        <p className="mt-1 text-xs+ color-black">
-                          No Data Found
-                        </p>
-                      ) : (
-                        <p className="mt-1 text-xs+ color-black">
-                          You got{" "}
-                          <span className="VarColor font-weight-bold">
-                            {Data?.card_states?.blog_views}
-                          </span>{" "}
-                          clicks on {UserData?.titles?.card_blogs?.visible_name}
-                          , click here to see complete report
-                        </p>
-                      )}
-                      <Link href={"/blog"}>
-                        <div className="mt-2 flex items-end justify-between">
-                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              ></path>
-                            </svg>
-                            <span className="text-xs">
-                              View {UserData?.titles?.card_blogs?.visible_name}
-                            </span>
-                          </p>
-                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 rotate-45"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M7 11l5-5m0 0l5 5m-5-5v12"
-                              ></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-3 margin-sm-top">
-                    <div className="card p-4">
-                      <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        {UserData?.titles?.card_products?.visible_name} Enquiry
-                      </p>
-                      {Data?.card_states?.product_views == 0 ? (
-                        <p className="mt-1 text-xs+ color-black">
-                          No Data Found
-                        </p>
-                      ) : (
-                        <p className="mt-1 text-xs+ color-black">
-                          You got{" "}
-                          <span className="VarColor font-weight-bold">
-                            {Data?.card_states?.product_views}
-                          </span>{" "}
-                          clicks on{" "}
-                          {UserData?.titles?.card_products?.visible_name}{" "}
-                          Enquiry, click here to see complete report
-                        </p>
-                      )}
-                      <Link href={"/product-enquiry"}>
-                        <div className="mt-2 flex items-end justify-between">
-                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              ></path>
-                            </svg>
-                            <span className="text-xs">
-                              View Product Enquiry
-                            </span>
-                          </p>
-                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 rotate-45"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M7 11l5-5m0 0l5 5m-5-5v12"
-                              ></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-3 margin-sm-top">
-                    <div className="card p-4">
-                      <p className="font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                        Appointments
-                      </p>
-                      {Data?.card_states?.product_views == 0 ? (
-                        <p className="mt-1 text-xs+ color-black">
-                          No Data Found
-                        </p>
-                      ) : (
-                        <p className="mt-1 text-xs+ color-black">
-                          You got{" "}
-                          <span className="VarColor font-weight-bold">
-                            {Data?.card_states?.product_views}
-                          </span>{" "}
-                          clicks on Appointments, click here to see complete
-                          report
-                        </p>
-                      )}
-                      <Link href={"/appointment-lead"}>
-                        <div className="mt-2 flex items-end justify-between">
-                          <p className="flex items-center space-x-2 text-slate-400 dark:text-navy-300">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              ></path>
-                            </svg>
-                            <span className="text-xs">View Appointments</span>
-                          </p>
-                          <button className="link-btn h-7 w-7 rounded-full bg-slate-150 p-0 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 rotate-45"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M7 11l5-5m0 0l5 5m-5-5v12"
-                              ></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* Filter */}
-
-              {/* <div className="filter-data-section p-4 mx-4 mt-5">
-                <h5 className="first-title title__separate text-black mb-4">
-                  Filter Data
-                </h5>
-                <div className="row w-100 m-0 p-0 align-items-end justify-content-sm-left">
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      selected={StartDate}
-                      onChange={(Date) => setStartDate(Date)}
-                      maxDate={new Date()}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
-                    <DatePicker
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
-                      maxDate={new Date()}
-                      minDate={StartDate}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <button
-                      className="contact-btn w-auto mt-3"
-                      onClick={handleSearchData}
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="filter-section"> */}
-
-                {/* <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                  Contact Analytics
-                </h5> */}
-
-                {/* <div className="row m-0 justify-content-left mx-2 mt-4 card-row-gap">
-                  <div className="col-sm-12 col-lg-3">
-                    <div className="card p-4 sm:p-5 card-min-height">
-                      <div className="flex items-center justify-between">
-                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
-                          <FontAwesomeIcon
-                            icon={faPhone}
-                            className="text-xl text-dark"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
-                            {Data?.card_states?.contact}
-                            <span className="text-sm"> people</span>
-                          </p>
-                          <p>Reached you through your Contact Number.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-lg-3">
-                    <div className="card p-4 sm:p-5 card-min-height">
-                      <div className="flex items-center justify-between">
-                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
-                          <FontAwesomeIcon
-                            icon={faEnvelope}
-                            className="text-xl text-dark"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
-                            {Data?.card_states?.email}
-                            <span className="text-sm"> people</span>
-                          </p>
-                          <p>Reached you through your Email ID.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-lg-3">
-                    <div className="card p-4 sm:p-5 card-min-height">
-                      <div className="flex items-center justify-between">
-                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
-                          <FontAwesomeIcon
-                            icon={faLink}
-                            className="text-xl text-dark"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
-                            {Data?.card_states?.website}
-                            <span className="text-sm"> people</span>
-                          </p>
-                          <p>Reached you through your Website.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-lg-3">
-                    <div className="card p-4 sm:p-5 card-min-height">
-                      <div className="flex items-center justify-between">
-                        <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
-                          <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="text-xl text-dark"
-                            style={{ fontSize: "15px" }}
-                            width="20"
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
-                            {Data?.card_states?.address}
-                            <span className="text-sm"> people</span>
-                          </p>
-                          <p>Reached you through your address.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {Data?.alternate_phone_states?.map((item, index) => {
-                    return (
-                      <div className="col-sm-12 col-lg-3" key={index}>
-                        <div className="card p-4 sm:p-5 card-min-height">
-                          <div className="flex items-center justify-between">
-                            <div className="mask is-squircle flex h-10 w-10 items-center justify-center bg-primary/10 dark:bg-accent-light/10">
-                              <FontAwesomeIcon
-                                icon={faSquarePhone}
-                                className="text-xl text-dark"
-                                style={{ fontSize: "15px" }}
-                                width="20"
-                              />
-                            </div>
-                          </div>
-                          <div className="mt-4 flex items-end justify-between">
-                            <div>
-                              <p className="text-3xl text-20px font-semibold text-slate-700 dark:text-navy-100">
-                                {item?.count}
-                                <span className="text-sm"> people</span>
-                              </p>
-                              <p>
-                                Reached you through the contact number{" "}
-                                <span className="Varcolor">
-                                  {item?.country_code
-                                    ? item.country_code + "-" + item.number
-                                    : item.number}
-                                </span>{" "}
-                                ({item.name})
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div> */}
-
-                {/* Social Analytics */}
-                {/* <div className="flex flex-col rounded-xl bg-info/10 py-4 dark:bg-navy-800 lg:flex-row mt-4">
-                  <div className="flex flex-col px-4 sm:px-5 lg:w-80 lg:shrink-0 lg:py-3">
-                    <h5 className="first-title title__separate mt-3 text-black w-100">
-                      Social Analytics
-                    </h5>
-                    <p className="mt-3 grow color-black">
-                      Social analytics calculated based on your activity
-                    </p>
-                  </div>
-                  <div className="scrollbar-sm mt-1 flex space-x-4 overflow-x-auto px-4 sm:px-5 lg:mt-0 lg:pl-0">
-                    {Data?.card_states?.social_links.length === 0 ? (
-                      <p className="mx-4 font-weight-bold mb-4 d-flex align-items-center justify-content-center">
-                        No data available
-                      </p>
-                    ) : (
-                      Data?.card_states?.social_links?.map((item, index) => {
-                        return (
-                          <div
-                            className="flex w-36 shrink-0 flex-col items-center justify-content-center"
-                            key={index}
-                          >
-                            <img
-                              className="z-10 h-10 w-10"
-                              src={`https://lineone.piniastudio.com/images/logos/${item?.label?.toLowerCase()}-round.svg`}
-                              alt="flag"
-                            />
-
-                            <div className="card -mt-5 w-full rounded-2xl px-3 py-3 text-center">
-                              <p className="mt-3 text-base font-medium text-slate-700 dark:text-navy-100 font-weight-bold">
-                                {item?.label}
-                              </p>
-                              <a
-                                href="#"
-                                className="color-black mt-1 font-inter text-xs+ tracking-wide text-slate-400 hover:text-primary focus:text-primary dark:hover:text-accent-light dark:focus:text-accent-light"
-                              >
-                                {item?.hit} People reach out through the{" "}
-                                <span className="Varcolor ml-1 font-weight-bold">
-                                  {item?.label}
-                                </span>
-                              </a>
-                            </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                </div> */}
-              {/* </div> */}
             </div>
             <div
               className="w-100 text-center text-white p-2 pt-3"
               style={{ bottom: "0", background: "black" }}
             >
-              <p> © 2023. All Rights Reserved By Popipro.</p>
+              <p> © 2024. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </>
@@ -1451,4 +1124,4 @@ const Insights = () => {
   );
 };
 
-export default Insights;
+export default NewInsights;

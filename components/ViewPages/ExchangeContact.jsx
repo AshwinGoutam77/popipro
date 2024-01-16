@@ -2,6 +2,10 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import SimpleBackdrop from "./SimpleBackDrop";
+import localforage from "localforage";
+import { toast } from "react-toastify";
+import { contactUs } from "@services/Routes";
+import Api from "@services/Api";
 
 export default function ExchangeContact({
   profile,
@@ -54,8 +58,8 @@ export default function ExchangeContact({
       email: Email,
       message: Message,
       card_url: profile,
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: localStorage.getItem("latitude"),
+      longitude: localStorage.getItem("longitude"),
       fb_token: await localforage.getItem("fcm_token"),
     };
     try {
@@ -106,7 +110,7 @@ export default function ExchangeContact({
       }
     } catch (error) {
       setShowLoader(false);
-      toast.error(error.response.data.message, {
+      toast.error(error.response?.data.message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

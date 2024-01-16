@@ -1168,6 +1168,9 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   -webkit-user-select: none;
   color: #000 !important;
 }
+.row-gap-3{
+  row-gap: 20px;
+}
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;

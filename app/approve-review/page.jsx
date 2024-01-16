@@ -229,13 +229,19 @@ export default function TestimonialsLeads() {
                     </div>
                     <div className="d-flex align-items-start w-100">
                       <p className="font-weight-bold Heading-row">Sub Title</p>
-                      <p className="content-row">{item.company_name}</p>
+                      <p className="content-row">
+                        {item.company_name ? item.company_name : "---"}
+                      </p>
                     </div>
                     <div className="d-flex align-items-start w-100">
                       <p className="Heading-row font-weight-bold">
                         Contact Number
                       </p>
-                      <p className="content-row">{item.user_contact_number}</p>
+                      <p className="content-row">
+                        {item.user_contact_number
+                          ? item.user_contact_number
+                          : "---"}
+                      </p>
                     </div>
                     <div className="d-flex align-items-start w-100">
                       <p className="Heading-row font-weight-bold">Date</p>
@@ -362,7 +368,9 @@ export default function TestimonialsLeads() {
                               setModalId(item.id), setShowModal(true);
                             }}
                           >
-                            {item.user_contact_number}
+                            {item.user_contact_number
+                              ? item.user_contact_number
+                              : "---"}
                           </td>
                           <td
                             data-column="created date"

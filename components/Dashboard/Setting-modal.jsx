@@ -93,6 +93,37 @@ export default function SettingModal({ active, handleClose, currency }) {
                   );
                 })}
             </select>
+
+            <ul className="m-0 p-0 multimodes-ul mt-3 px-1">
+              <li className="d-flex align-items-center justify-content-between mb-2">
+                <h6 className="mb-0 color-black">Allow Notifications</h6>
+                <label className="switch">
+                  <input
+                    data-status={true}
+                    data-active={true}
+                    // checked={true}
+                    type="checkbox"
+                    name="hello"
+                    // onChange={() => handleLandingMode("profile-preview")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+              <li className="d-flex align-items-center justify-content-between mb-2">
+                <h6 className="mb-0 color-black">Allow Location</h6>
+                <label className="switch">
+                  <input
+                    data-status={true}
+                    data-active={true}
+                    // checked={true}
+                    type="checkbox"
+                    name="hello"
+                    // onChange={() => handleLandingMode("profile-preview")}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
+            </ul>
             <button
               className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
               style={{ padding: "7px 19px" }}

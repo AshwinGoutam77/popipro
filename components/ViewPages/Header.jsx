@@ -261,41 +261,22 @@ const Header = ({
       hit_type: "contact-download",
     };
     const response = await Api(HitClickApi, payload);
-    if (response.data.status) {
-      setProfileImage(response.data.data.base_image);
-
-      var contact = {
-        website: card?.card_website,
-        address: card?.card_address,
-        Imagee: response.data.data.base_image?.replace(
-          "data:image/png;base64,",
-          ""
-        ),
-        name: card?.first_name,
-        phone: card?.card_contact,
-        email: card.card_email,
-        url: "app.popipro.com/" + profile,
-        location: card.card_address,
-        links: links,
-        title: card?.card_profession,
-        about: text,
-        alternate_no: card?.card_alternate_phone?.map((item) => {
-          return item.country_code
-            ? item.title + item.country_code + " " + item.number
-            : item.title + item.number + " ";
-        }),
-      };
-
-      let fnVal = "FN%3A" + contact.name + "%0A";
-      let posTitleVal = "TITLE%3A" + contact.title + "%0A";
-      let phoneMobileVal = "TEL%3BCELL%3A" + contact.phone + "%0A";
-      let emailPersonalVal =
-        "EMAIL%3BHOME%3BINTERNET%3A" + contact.email + "%0A";
-      let websiteVal = "URL%3A" + contact.website + "%0A";
-      let addyStreetVal = "ADR%3A%3B%3B" + contact.address + "%3B";
-      let qrImage = "PHOTO;ENCODING=b;TYPE=JPEG%3A" + contact.Imagee + "%0A";
+    if (
+      response.data.status ||
+      response?.data?.message == "Can not count this hit."
+    ) {
       setImageSrc(
-        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AGupta%3BAshwin%0AFN%3A${card?.first_name}%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${card?.card_contact}%0ATEL%3BCELL%3A${card?.card_contact}%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0%0AWEBSITE%3A${card?.card_website}%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
+        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AGupta%3BAshwin%0AFN%3A${
+          card?.first_name
+        }%20%0AORG%3A${
+          card?.card_profession
+        }%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${
+          card?.card_contact
+        }%0ATEL%3BCELL%3A${card?.card_contact}%0AEMAIL%3BWORK%3BINTERNET%3A${
+          card?.card_email
+        }%0AWEBSITE%3A${
+          "app.popipro.com/" + profile
+        }%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
       );
       imageSrc;
     }
@@ -395,6 +376,7 @@ const Header = ({
         card={card}
         active={modalShow == "ExchangeContact" ? true : false}
         handleClose={setModalShow}
+        profile={profile}
       />
       <ToastContainer
         position="bottom-right"
@@ -522,21 +504,6 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            {/* <div className="QrTabDiv w-auto d-flex align-items-center mt-0 mb-4 cursor-pointer">
-              <p
-                onClick={() => handleShowContactQr()}
-                className={ShowDownloadQr ? "color-black" : ""}
-              >
-                Profile QR
-              </p>
-              <span className="ml-2 mr-2">|</span>
-              <p
-                onClick={() => handleShowProfileQr()}
-                className={ShowProfileQr ? "color-black" : ""}
-              >
-                Contact QR
-              </p>
-            </div> */}
             <div
               className="d-flex align-items-center mb-4"
               style={{ gap: "10px" }}

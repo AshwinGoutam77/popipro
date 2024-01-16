@@ -125,12 +125,12 @@ export default function EditProducts({
         ? (data = [
             {
               products_image: Image,
-              gallery: [...GalleryImages],
+              gallery: GalleryImages ? [...GalleryImages] : "",
               products_name: ProductHeading,
               products_description: ServicesDescription,
               products_url: ProductUrl,
               products_price: ProductPrice,
-              products_currency: ProductPriceValue,
+              products_currency: MainData?.company_setting?.currency?.id,
               button_placeholder: AddLabel,
               is_label: EditRadioBtn ? 1 : 0,
               label: ProductLabel,
@@ -141,12 +141,12 @@ export default function EditProducts({
         : (data = [
             {
               products_image: Image,
-              gallery: [...GalleryImages],
+              gallery: GalleryImages ? [...GalleryImages] : "",
               products_name: ProductHeading,
               products_description: ServicesDescription,
               products_url: ProductUrl,
               products_price: ProductPrice,
-              products_currency: ProductPriceValue,
+              products_currency: MainData?.company_setting?.currency?.id,
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
               label: ProductLabel,
@@ -862,7 +862,7 @@ export default function EditProducts({
               <div>
                 <label className="modalFormLable">Price</label>
                 <div className="d-flex" style={{ gap: "10px" }}>
-                  <select
+                  {/* <select
                     style={{
                       height: "49px",
                       padding: "6px 18px",
@@ -881,7 +881,18 @@ export default function EditProducts({
                           </option>
                         );
                       })}
-                  </select>
+                  </select> */}
+                  <input
+                    type="text"
+                    name="price"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={MainData?.company_setting?.currency?.currency}
+                    placeholder="Price"
+                    readOnly
+                    maxLength="10"
+                  ></input>
                   <input
                     type="number"
                     name="price"
@@ -1129,7 +1140,7 @@ export default function EditProducts({
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
-                        <select
+                        {/* <select
                           style={{
                             height: "40px",
                             padding: "6px 18px",
@@ -1149,7 +1160,18 @@ export default function EditProducts({
                                 </option>
                               );
                             })}
-                        </select>
+                        </select> */}
+                        <input
+                          type="text"
+                          name="price"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          value={MainData?.company_setting?.currency?.currency}
+                          placeholder="Price"
+                          readOnly
+                          maxLength="10"
+                        ></input>
                         <input
                           type="number"
                           name="price"

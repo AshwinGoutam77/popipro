@@ -27,7 +27,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   }, []);
 
   const handleHitClick = async (id) => {
-     (id);
+    id;
     let payload = {
       card: Data?.id,
       type: "blog",
@@ -97,7 +97,8 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              {BlogModalTitle}
+              {/* {BlogModalTitle} */}
+              {Titles && Titles.card_blogs?.visible_name}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={handleClose}>
@@ -126,12 +127,12 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                           style={{ width: "100%", height: "190px" }}
                         />
                       )}
-                      {/* <p
+                      <p
                         className="mt-3 font-weight-bold mb-3"
                         style={{ color: "black", fontSize: "14px" }}
                       >
                         {item.name}
-                      </p> */}
+                      </p>
                       <p
                         id="p_wrap"
                         className=""

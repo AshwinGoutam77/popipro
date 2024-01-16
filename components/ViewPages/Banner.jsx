@@ -295,7 +295,7 @@ const Banner = ({
   }, []);
 
   const handleLocal = async () => {
-    let LocalUrl = await localforage.getItem("url");
+    let LocalUrl = localStorage.getItem("url");
     setLocalStorageUrl(LocalUrl);
   };
 

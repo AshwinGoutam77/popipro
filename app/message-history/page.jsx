@@ -132,7 +132,7 @@ export default function Page() {
               <tbody>
                 <tr onClick={() => setShow(true)} className="cursor-pointer">
                   <td>Doctors</td>
-                  <td>23/11/2023</td>
+                  <td>23/11/2024</td>
                   <td>5</td>
                   <td>
                     Lorem Ipsum is simply dummy text of the printing and
@@ -153,7 +153,7 @@ export default function Page() {
           className="w-100 text-center text-white p-2 mt-3"
           style={{ bottom: "0", background: "black" }}
         >
-          <p> © 2023. All Rights Reserved By Popipro.</p>
+          <p> © 2024. All Rights Reserved By Popipro.</p>
         </div>
       </div>
     </>
