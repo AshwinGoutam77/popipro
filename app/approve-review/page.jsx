@@ -46,6 +46,7 @@ export default function TestimonialsLeads() {
     } catch (error) {
       if (error?.request?.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       toast(error?.response?.data?.message, {
@@ -91,6 +92,7 @@ export default function TestimonialsLeads() {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
     }
@@ -179,6 +181,7 @@ export default function TestimonialsLeads() {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       setShowLoader(false);
@@ -441,7 +444,7 @@ export default function TestimonialsLeads() {
             className="w-100 text-center text-white p-2 mt-3"
             style={{ background: "black" }}
           >
-            <p> © 2023. All Rights Reserved By Popipro.</p>
+            <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
           </div>
         </div>
       </div>

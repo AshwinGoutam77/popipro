@@ -104,6 +104,7 @@ const Header = ({
         phone: ReviewNumber,
         latitude: Latitude,
         longitude: Longitude,
+        fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
@@ -252,7 +253,6 @@ const Header = ({
 
   const handleSaveQr = async () => {
     setShowQr(true);
-    let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
     let payload = {
       card: card?.id,
       type: "card",

@@ -21,7 +21,7 @@ import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
 
 export default function DashboardProducts({ TitleData }) {
-  const { token } = useAuthContext();
+  const { token, APIDATA } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -32,37 +32,6 @@ export default function DashboardProducts({ TitleData }) {
     api();
     APIDATA();
   }, []);
-
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
 
   const api = async () => {
     setShowLoader(true);
@@ -106,6 +75,7 @@ export default function DashboardProducts({ TitleData }) {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       setShowLoader(false);
@@ -244,7 +214,7 @@ export default function DashboardProducts({ TitleData }) {
                   className="w-100 text-center text-white p-2 position-absolute mt-3"
                   style={{ bottom: "0", background: "black" }}
                 >
-                  <p> © 2024. All Rights Reserved By Popipro.</p>
+                  <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
                 </div>
               </div>
             </div>

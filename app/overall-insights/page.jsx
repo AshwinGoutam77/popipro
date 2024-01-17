@@ -71,6 +71,7 @@ const Insights = () => {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
     }
@@ -119,6 +120,7 @@ const Insights = () => {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       setShowLoader(false);
@@ -988,7 +990,7 @@ const Insights = () => {
               className="w-100 text-center text-white p-2 pt-3"
               style={{ bottom: "0", background: "black" }}
             >
-              <p> © 2023. All Rights Reserved By Popipro.</p>
+              <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </>

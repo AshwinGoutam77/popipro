@@ -19,6 +19,8 @@ import { Modal } from "react-bootstrap";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import dynamic from "next/dynamic";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Leads = () => {
   const { token } = useAuthContext();
@@ -150,6 +152,108 @@ const Leads = () => {
     newLink.href = url;
 
     newLink.click();
+  };
+
+  const chartData5 = {
+    series: [
+      {
+        name: "As per referer",
+        data: [21, 40, 28, 100, 42, 109, 23],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      title: {
+        text: "Shared Contact Leads As Per Month",
+        align: "left",
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
+  const chartData6 = {
+    series: [
+      {
+        name: "India",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+      {
+        name: "Austrialia",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Canada",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+      {
+        name: "China",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
   };
 
   return token ? (
@@ -309,6 +413,29 @@ const Leads = () => {
                 </div>
               </div>
 
+              <div className="row m-0 mb-4 row-gap-3">
+                <div className="col-sm-12 col-lg-6">
+                  <div className="barchart-div">
+                    <Charts
+                      options={chartData5?.options}
+                      series={chartData5?.series}
+                      type="area"
+                      height={300}
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-lg-6">
+                  <div className="barchart-div">
+                    <Charts
+                      options={chartData6?.options}
+                      series={chartData6?.series}
+                      type="bar"
+                      height={300}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="box-shadow-leads">
                 <table className="insight-table">
                   <thead>
@@ -397,7 +524,7 @@ const Leads = () => {
               className="w-100 text-center text-white p-2 mt-3"
               style={{ bottom: "0", background: "black" }}
             >
-              <p> © 2024. All Rights Reserved By Popipro.</p>
+              <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </>

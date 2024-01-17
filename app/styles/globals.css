@@ -1169,7 +1169,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   color: #000 !important;
 }
 .row-gap-3{
-  row-gap: 20px;
+  row-gap: 16px !important;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {

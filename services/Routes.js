@@ -71,3 +71,4 @@ export const GetVirtualBackground = {
 };
 export const SaveToken = { path: "save-firebase-token", method: "POST" };
 export const AddUserCurrency = { path: "update-user-currency", method: "POST" };
+export const SendPushNotification = { path: "send-push-token", method: "POST" };

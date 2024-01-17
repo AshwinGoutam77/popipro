@@ -664,9 +664,9 @@ export default function EditProducts({
                       alt="product"
                     />
                   )}
-                  <div className="d-flex align-items-center justify-content-between">
+                  <div className="mt-2 d-flex align-items-center justify-content-between">
                     <span
-                      className="mt-3 mb-0 font-weight-bold"
+                      className="mb-0 font-weight-bold"
                       style={{ color: "black", fontSize: "14px" }}
                     >
                       {item.name}
@@ -1180,10 +1180,6 @@ export default function EditProducts({
                           className="form-control mb-4 mt-1"
                           defaultValue={items.price}
                           placeholder="Price"
-                          style={{
-                            height: "40px",
-                            border: "1px solid #ccc",
-                          }}
                           onChange={(e) => setProductPrice(e.target.value)}
                         ></input>
                       </div>

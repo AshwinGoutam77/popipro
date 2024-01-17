@@ -82,6 +82,7 @@ export default function Page() {
          (error);
         if (error?.request?.status == "401") {
           localStorage.removeItem("token");
+          localStorage.removeItem("url");
           window.location.href = "/login";
         }
       }

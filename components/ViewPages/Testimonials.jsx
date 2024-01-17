@@ -13,6 +13,7 @@ import Image from "next/image";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SimpleBackdrop from "./SimpleBackDrop";
+import localforage from "localforage";
 
 const Testimonials = ({
   InquiryModal,
@@ -27,7 +28,7 @@ const Testimonials = ({
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const [Imagee, setImageee] = useState("");
+  const [Imagee, setImagee] = useState("");
   const [Name, setName] = useState("");
   const [SubTitle, setSubTitle] = useState("");
   const [Number, setNumber] = useState("");
@@ -73,6 +74,7 @@ const Testimonials = ({
         phone: Number,
         latitude: Latitude,
         longitude: Longitude,
+        fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {

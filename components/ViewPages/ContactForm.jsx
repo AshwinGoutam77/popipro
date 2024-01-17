@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import SimpleBackdrop from "./SimpleBackDrop";
+import localforage from "localforage";
 
 export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
   const [Name, setName] = useState("");
@@ -67,6 +68,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
         time: Time,
         latitude: Latitude,
         longitude: Longitude,
+        fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(AppointmentBooking, data);
       if (response.data.status) {
@@ -89,8 +91,9 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
         setTime("");
       }
     } catch (error) {
+      console.log(error);
       setShowLoader(false);
-      toast.error(error.response.data.message, {
+      toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

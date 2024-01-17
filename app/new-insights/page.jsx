@@ -71,6 +71,7 @@ const NewInsights = () => {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
     }
@@ -119,6 +120,7 @@ const NewInsights = () => {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       setShowLoader(false);
@@ -389,31 +391,23 @@ const NewInsights = () => {
   const chartData5 = {
     series: [
       {
-        name: "As per reference",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        name: "As per referer",
+        data: [21, 40, 28, 100, 42, 109, 23],
       },
     ],
     options: {
       chart: {
-        type: "bar",
         height: 350,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded",
-        },
+        type: "area",
       },
       dataLabels: {
         enabled: false,
       },
       stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
+        curve: "smooth",
       },
       xaxis: {
+        type: "month",
         categories: [
           "Jan",
           "Feb",
@@ -429,14 +423,9 @@ const NewInsights = () => {
           "Dec",
         ],
       },
-      fill: {
-        opacity: 2,
-      },
       tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + " views";
-          },
+        x: {
+          format: "dd/MM/yy HH:mm",
         },
       },
     },
@@ -446,30 +435,22 @@ const NewInsights = () => {
     series: [
       {
         name: "As per location",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        data: [31, 40, 28, 51, 42, 109, 100],
       },
     ],
     options: {
       chart: {
-        type: "bar",
         height: 350,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded",
-        },
+        type: "area",
       },
       dataLabels: {
         enabled: false,
       },
       stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
+        curve: "smooth",
       },
       xaxis: {
+        type: "month",
         categories: [
           "Jan",
           "Feb",
@@ -485,18 +466,14 @@ const NewInsights = () => {
           "Dec",
         ],
       },
-      fill: {
-        opacity: 2,
-      },
       tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + " views";
-          },
+        x: {
+          format: "dd/MM/yy HH:mm",
         },
       },
     },
   };
+  
   const chartData7 = {
     series: [
       {
@@ -957,7 +934,7 @@ const NewInsights = () => {
                   </div>
                 </div>
                 <div className="col-sm-12 col-lg-4">
-                  <div className="dashboard-leads-col-4-div pb-4">
+                  <div className="dashboard-leads-col-4-div py-4">
                     {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       Resources Stats
                     </p> */}
@@ -1084,12 +1061,12 @@ const NewInsights = () => {
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
                     <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Leads as per reference
+                      Leads as per referer
                     </p>
                     <Charts
                       options={chartData5?.options}
                       series={chartData5?.series}
-                      type="bar"
+                      type="area"
                       height={300}
                     />
                   </div>
@@ -1102,7 +1079,7 @@ const NewInsights = () => {
                     <Charts
                       options={chartData6?.options}
                       series={chartData6?.series}
-                      type="bar"
+                      type="area"
                       height={300}
                     />
                   </div>
@@ -1113,7 +1090,7 @@ const NewInsights = () => {
               className="w-100 text-center text-white p-2 pt-3"
               style={{ bottom: "0", background: "black" }}
             >
-              <p> © 2024. All Rights Reserved By Popipro.</p>
+              <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </>

@@ -119,6 +119,7 @@ export default function Dashboard() {
         error;
         if (error?.request?.status == "401") {
           localStorage.removeItem("token");
+          localStorage.removeItem("url");
           window.location.href = "/login";
         }
       }
@@ -136,72 +137,7 @@ export default function Dashboard() {
     window.location.href = "/" + localStorage.getItem("url");
     localStorage.removeItem("token");
     localStorage.removeItem("url");
-  };
-  const handleFreeTrail = async () => {
-    try {
-      Swal.fire({
-        title: MainData?.is_individual == 0 ? "" : "Are you sure?",
-        text:
-          MainData?.is_individual == 0
-            ? "Kindly contact to your company to upgrade the plan."
-            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
-        icon: "warning",
-        showCancelButton: MainData?.is_individual == 0 ? false : true,
-        confirmButtonColor: "rgb(24 123 249)",
-        cancelButtonColor: "#d33",
-        showConfirmButton: MainData?.is_individual == 0 ? false : true,
-        confirmButtonText: "Yes",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await Api(UpgradePlan, {
-            total_month: "1",
-            is_trial: "1",
-          });
-          setShowLoader(false);
-          if (response.data.status) {
-            Swal.fire("Done", "", "success");
-            APIDATA();
-            toast(response.data.message, {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else {
-            toast.error(response.data.message, {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        }
-      });
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-      setShowLoader(false);
-      toast(error.response.data.message, {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    localStorage.removeItem("url");
   };
   const SaveStatusApi = async () => {
     setShowLoader(true);
@@ -438,11 +374,11 @@ export default function Dashboard() {
             </SwiperComponent>
           </div>
 
-          <div className="row dashboard-padding">
+          <div className="row dashboard-padding row-gap-3">
             {ProfileTab ? (
               <>
                 {/* Edit Profile */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={"/edit/" + localStorage.getItem("url")}
                     className="w-100  text-decoration-none"
@@ -461,7 +397,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Edit theme */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     data-toggle={
@@ -508,7 +444,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Meta Title */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
@@ -525,7 +461,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Multiple Mode */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     data-toggle={
@@ -572,7 +508,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* My subscription */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -611,7 +547,7 @@ export default function Dashboard() {
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <>
                     {/* Address Book */}
-                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <Link href="/address-book" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
@@ -626,7 +562,7 @@ export default function Dashboard() {
                       </Link>
                     </div>
                     {/* Send Message */}
-                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <div
                         className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                         onClick={() => {
@@ -644,7 +580,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                     {/* Address Book */}
-                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <Link href="/real-estate" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
@@ -659,7 +595,7 @@ export default function Dashboard() {
                       </Link>
                     </div>
                     {/* Signature */}
-                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <Link href="/signature" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
@@ -674,7 +610,7 @@ export default function Dashboard() {
                       </Link>
                     </div>
                     {/* Background */}
-                    <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <Link href="/virtual-background" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
@@ -693,7 +629,7 @@ export default function Dashboard() {
                   ""
                 )}
                 {/* Approve review */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -732,7 +668,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Chnage password */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => setModalShow("password")}
@@ -747,7 +683,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Suggestions */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
@@ -770,11 +706,11 @@ export default function Dashboard() {
           </div>
 
           {/* Analytics & Data */}
-          <div className="row dashboard-padding">
+          <div className="row dashboard-padding row-gap-3">
             {InsightsTab ? (
               <>
                 {/* Overall insights */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -812,7 +748,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Google Analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href="/organic-analytics"
                     className="w-100  text-decoration-none"
@@ -830,7 +766,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Product analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -868,7 +804,7 @@ export default function Dashboard() {
                   </Link>
                 </div>{" "}
                 {/* Blogs analytics */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -914,7 +850,7 @@ export default function Dashboard() {
             {LeadsTab ? (
               <>
                 {/* Lead insights */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -953,7 +889,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Product enquiry */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -992,7 +928,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* My appointment */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -1030,7 +966,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* My appointment */}
-                <div className="col-6 col-lg-3 mt-3 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -1152,7 +1088,7 @@ export default function Dashboard() {
           className="w-100 text-center text-white p-2 mt-0"
           style={{ bottom: "0", background: "black" }}
         >
-          <p> © 2024. All Rights Reserved By Popipro.</p>
+          <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
         </div>
       </div>
       <Multimodes

@@ -47,7 +47,7 @@ const Order = () => {
         "?card_url=" + localStorage.getItem("url")
       );
       if (response.data.status) {
-         (".....", response.data.data.headers);
+        ".....", response.data.data.headers;
         setItems(response.data.data.headers);
         document.documentElement.style.setProperty(
           "--color",
@@ -64,6 +64,7 @@ const Order = () => {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
     }
@@ -76,7 +77,7 @@ const Order = () => {
       "?card_url=" + localStorage.getItem("url")
     );
     if (response.data.status) {
-       (response.data.data);
+      response.data.data;
     }
   };
 
@@ -93,7 +94,7 @@ const Order = () => {
     };
     const response = await Api(CardSequence, { control: payload });
     if (response.data.status) {
-       (response);
+      response;
     }
   };
 
@@ -103,7 +104,7 @@ const Order = () => {
 
   const onDragEnd = (result) => {
     handleSq();
-     (result);
+    result;
     //  (items);
     handleSequence();
     if (!result.destination) {

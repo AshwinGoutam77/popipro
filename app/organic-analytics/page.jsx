@@ -57,6 +57,7 @@ export default function Page() {
     } catch (error) {
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
     }
@@ -131,6 +132,7 @@ export default function Page() {
       setShowLoader(false);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
+        localStorage.removeItem("url");
         window.location.href = "/login";
       }
       toast(error.response.data.message, {

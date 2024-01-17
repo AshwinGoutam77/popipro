@@ -5,6 +5,7 @@ import $ from "jquery"; //Load jquery
 import React, { Component, createRef, useRef, useState } from "react"; //For react component
 import { toast } from "react-toastify";
 import SimpleBackdrop from "./SimpleBackDrop";
+import localforage from "localforage";
 
 if (typeof window !== "undefined") {
   window.jQuery = $; //JQuery alias
@@ -48,6 +49,7 @@ function Builder({ JsonData, card_url }) {
         formFields: formFields,
         latitude: localStorage.getItem("latitude"),
         longitude: localStorage.getItem("longitude"),
+        fb_token: await localforage.getItem("fcm_token"),
       };
       const res = await Api(CustomForm, payload, card_url);
       if (res.status) {

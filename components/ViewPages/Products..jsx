@@ -31,6 +31,7 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SimpleBackdrop from "./SimpleBackDrop";
+import localforage from "localforage";
 
 export default function Product({
   Titles,
@@ -168,6 +169,7 @@ export default function Product({
         card_url: card_url,
         latitude: Latitude,
         longitude: Longitude,
+        fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(ProductEnquiry, data);
       if (response.data.status) {
