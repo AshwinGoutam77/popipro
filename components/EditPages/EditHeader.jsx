@@ -620,40 +620,37 @@ function EditHeader({
         </div>
         <div className="header__right">
           <ul className="header__contact row">
-            <li className="col-sm-6 col-12">
-              <a
-                href={"mailto:" + Data?.card_email}
-                className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
-              >
-                <div className="align-div">
+            {Data?.card_email !== null ? (
+              <li className="col-sm-6 col-12">
+                <a
+                  href={"mailto:" + Data?.card_email}
+                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                >
+                  <div className="align-div">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="user-select-auto mr-3"
+                      style={{
+                        fontSize: "15px",
+                        transform: "rotateY(180deg)",
+                      }}
+                    />
+                    {Data && Data.card_email}
+                  </div>
                   <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className="user-select-auto mr-3"
+                    icon={faChevronRight}
+                    className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
-                      transform: "rotateY(180deg)",
                     }}
                   />
-                  {/* <a
-                    href={"mailto:" + Data?.card_email}
-                    className="overhead_a text-dark text-decoration-none"
-                    target="_blank"
-                  >
-                    {" "} */}
-                  {Data && Data.card_email}
-                  {/* </a> */}
-                </div>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="user-select-auto mr-2"
-                  style={{
-                    fontSize: "15px",
-                  }}
-                />
-              </a>
-            </li>
-            <li className="col-sm-6 col-12">
-              {Data?.card_contact !== null ? (
+                </a>
+              </li>
+            ) : (
+              ""
+            )}
+            {Data?.card_contact !== null ? (
+              <li className="col-sm-6 col-12">
                 <a
                   href={`tel: ${
                     Data.contact_country_code
@@ -696,12 +693,12 @@ function EditHeader({
                     }}
                   />
                 </a>
-              ) : (
-                ""
-              )}
-            </li>
-            <li className="col-sm-6 col-12">
-              {Data?.card_address !== null ? (
+              </li>
+            ) : (
+              ""
+            )}
+            {Data?.card_address !== null ? (
+              <li className="col-sm-6 col-12">
                 <a
                   href={
                     Data &&
@@ -734,57 +731,60 @@ function EditHeader({
                     }}
                   />
                 </a>
-              ) : (
-                ""
-              )}
-            </li>
-            <li className="web-li col-sm-6 col-12">
-              <div>
+              </li>
+            ) : (
+              ""
+            )}
+            {Data?.card_name !== null ? (
+              <li className="web-li col-sm-6 col-12">
                 <div>
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faBuilding}
+                      className="user-select-auto mr-2"
+                      style={{
+                        fontSize: "15px",
+                        transform: "rotateY(180deg)",
+                      }}
+                    />
+                    <p className="text-dark m-0">{Data?.card_name}</p>
+                  </div>
                   <FontAwesomeIcon
-                    icon={faBuilding}
+                    icon={faChevronRight}
                     className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
-                      transform: "rotateY(180deg)",
                     }}
                   />
-                  <p className="text-dark m-0">{Data?.card_name}</p>
                 </div>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="user-select-auto mr-2"
-                  style={{
-                    fontSize: "15px",
-                  }}
-                />
-              </div>
-            </li>
-            <li className="col-sm-6 col-12">
-              <>
-                {Data?.card_website ? (
-                  <div>
-                    <a
-                      href={
-                        Data &&
-                        Data?.card_website &&
-                        (Data?.card_website?.includes("http://") ||
-                          Data?.card_website?.includes("https://"))
-                          ? Data.card_website
-                          : Data.card_website
-                      }
-                      className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
-                    >
-                      <div className="align-div">
-                        <FontAwesomeIcon
-                          icon={faLink}
-                          className="user-select-auto mr-3"
-                          style={{
-                            fontSize: "15px",
-                            transform: "rotateY(180deg)",
-                          }}
-                        />
-                        {/* <a
+              </li>
+            ) : (
+              ""
+            )}
+            {Data?.card_website ? (
+              <li className="col-sm-6 col-12">
+                <div>
+                  <a
+                    href={
+                      Data &&
+                      Data?.card_website &&
+                      (Data?.card_website?.includes("http://") ||
+                        Data?.card_website?.includes("https://"))
+                        ? Data.card_website
+                        : Data.card_website
+                    }
+                    className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                  >
+                    <div className="align-div">
+                      <FontAwesomeIcon
+                        icon={faLink}
+                        className="user-select-auto mr-3"
+                        style={{
+                          fontSize: "15px",
+                          transform: "rotateY(180deg)",
+                        }}
+                      />
+                      {/* <a
                           href={
                             Data &&
                             Data?.card_website &&
@@ -797,28 +797,27 @@ function EditHeader({
                           className="overhead_a text-dark text-decoration-none"
                           style={{ marginLeft: "2px" }}
                         > */}
-                        {Data &&
-                        Data?.card_website &&
-                        (Data?.card_website?.includes("http://") ||
-                          Data?.card_website?.includes("https://"))
-                          ? Data.card_website
-                          : Data.card_website}
-                        {/* </a> */}
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="user-select-auto mr-2"
-                        style={{
-                          fontSize: "15px",
-                        }}
-                      />
-                    </a>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </>
-            </li>
+                      {Data &&
+                      Data?.card_website &&
+                      (Data?.card_website?.includes("http://") ||
+                        Data?.card_website?.includes("https://"))
+                        ? Data.card_website
+                        : Data.card_website}
+                      {/* </a> */}
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faChevronRight}
+                      className="user-select-auto mr-2"
+                      style={{
+                        fontSize: "15px",
+                      }}
+                    />
+                  </a>
+                </div>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       </header>

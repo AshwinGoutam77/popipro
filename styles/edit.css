@@ -699,6 +699,11 @@ input:checked + .slider:before {
   border-radius: 10px;
 }
 
+.vedio-height .product-video-player-container div {
+  height: 190px !important;
+  border-radius: 10px;
+}
+
 .vedio-height .video-player-container div video {
   height: 250px;
   border-radius: 10px;

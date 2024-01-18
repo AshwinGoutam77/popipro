@@ -102,8 +102,8 @@ const Header = ({
         company_name: ReviewSubTitle,
         description: ReviewDescription,
         phone: ReviewNumber,
-        latitude: Latitude,
-        longitude: Longitude,
+        latitude: await localforage.getItem("latitude"),
+        longitude: await localforage.getItem("longitude"),
         fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(AddTestimonials, payload);
@@ -150,8 +150,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
     };
     const response = await Api(HitClickApi, payload);
     if (
@@ -294,8 +294,8 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: type,
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -331,21 +331,6 @@ const Header = ({
       "image.jpg"
     );
   };
-  const handleAllowNotif = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  };
-  function showPosition(position) {
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
-  }
-
-  useEffect(() => {
-    handleAllowNotif();
-  }, []);
 
   const handleShowContactQr = () => {
     setShowDownloadQr(true);

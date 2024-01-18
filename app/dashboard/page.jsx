@@ -137,7 +137,7 @@ export default function Dashboard() {
     window.location.href = "/" + localStorage.getItem("url");
     localStorage.removeItem("token");
     localStorage.removeItem("url");
-    localStorage.removeItem("url");
+    localStorage.removeItem("tabs");
   };
   const SaveStatusApi = async () => {
     setShowLoader(true);
@@ -168,26 +168,36 @@ export default function Dashboard() {
     setMetaTitle(Data?.meta_title);
   };
   const handleProfileTab = () => {
-    setProfileTab(true);
+    localStorage.setItem("tabs", "profile");
+    setProfileTab(localStorage.getItem("tabs") == "profile" ? true : false);
     setInsightsTab(false);
     setLeadsTab(false);
     setThemeTab(false);
     setAnalyticsTab(false);
   };
   const handleLeadsTab = () => {
+    localStorage.setItem("tabs", "leads");
     setProfileTab(false);
     setInsightsTab(false);
-    setLeadsTab(true);
+    setLeadsTab(localStorage.getItem("tabs") == "leads" ? true : false);
     setThemeTab(false);
     setAnalyticsTab(false);
   };
   const handleInsightsTab = () => {
+    localStorage.setItem("tabs", "insights");
     setProfileTab(false);
-    setInsightsTab(true);
+    setInsightsTab(localStorage.getItem("tabs") == "insights" ? true : false);
     setLeadsTab(false);
     setThemeTab(false);
     setAnalyticsTab(false);
   };
+
+  useEffect(() => {
+    let Tabs = localStorage.getItem("tabs");
+    setProfileTab(Tabs == "profile" || Tabs == null ? true : false);
+    setLeadsTab(Tabs == "leads" ? true : false);
+    setInsightsTab(Tabs == "insights" ? true : false);
+  }, [handleProfileTab, handleLeadsTab, handleInsightsTab]);
   return Data ? (
     <>
       <ToastContainer
@@ -214,7 +224,7 @@ export default function Dashboard() {
             style={{ width: "135px" }}
           />
           <div className="d-flex align-items-start">
-            <Dropdown as={ButtonGroup}>
+            <Dropdown className="">
               <Dropdown.Toggle
                 split
                 variant="success"
@@ -225,6 +235,7 @@ export default function Dashboard() {
                   padding: "0",
                   margin: "0",
                   height: "0",
+                  display: "inline-flex",
                 }}
               >
                 {" "}
@@ -243,18 +254,22 @@ export default function Dashboard() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                <Dropdown.Item
-                  href=""
-                  className="mb-1"
-                  onClick={() => setModalShow("setting")}
-                >
-                  <FontAwesomeIcon
-                    icon={faGear}
-                    className="text-dark cursor-pointer mr-2"
-                    style={{ fontSize: "16px" }}
-                  />
-                  Setting
-                </Dropdown.Item>
+                {MainData?.is_individual == 1 ? (
+                  <Dropdown.Item
+                    href=""
+                    className="mb-1"
+                    onClick={() => setModalShow("setting")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faGear}
+                      className="text-dark cursor-pointer mr-2"
+                      style={{ fontSize: "16px" }}
+                    />
+                    Setting
+                  </Dropdown.Item>
+                ) : (
+                  ""
+                )}
                 <Dropdown.Item href="" onClick={handleLogout}>
                   <FontAwesomeIcon
                     icon={faRightFromBracket}
@@ -265,14 +280,6 @@ export default function Dashboard() {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            {/* <Tooltip title="Logout">
-              <FontAwesomeIcon
-                icon={faRightFromBracket}
-                className="text-white cursor-pointer"
-                style={{ fontSize: "19px" }}
-                onClick={handleLogout}
-              />
-            </Tooltip> */}
           </div>
         </div>
 
@@ -294,7 +301,7 @@ export default function Dashboard() {
                 </button>
               ) : (
                 <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
-                  Your Subscrition will end in
+                  Your Subscription will end in
                   <span className="font-weight-bold ml-1">
                     {MainData?.plan?.subscription_left_days} days.
                   </span>
@@ -334,7 +341,7 @@ export default function Dashboard() {
               }}
               spaceBetween={10}
               style={{ cursor: "pointer" }}
-              className="mySwiper mb-0 pb-0"
+              className="mySwiper mb-0"
               modules={[Pagination]}
             >
               <SwiperSlide className="w-auto">
@@ -563,21 +570,23 @@ export default function Dashboard() {
                     </div>
                     {/* Send Message */}
                     <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <div
-                        className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                        onClick={() => {
-                          setModalShow("sendMessage");
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          icon={faMessage}
-                          className="text-white mb-2"
-                          style={{ fontSize: "20px" }}
-                        />
-                        <h6 className="text-white text-center mb-0">
-                          Send Message
-                        </h6>
-                      </div>
+                      <Link href="/Notification" className="w-100">
+                        <div
+                          className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                          // onClick={() => {
+                          //   setModalShow("sendMessage");
+                          // }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faMessage}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Notification
+                          </h6>
+                        </div>
+                      </Link>
                     </div>
                     {/* Address Book */}
                     <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -1147,6 +1156,7 @@ export default function Dashboard() {
         Data={Data}
         APIDATA={APIDATA}
         currency={MainData?.currency}
+        MainData={MainData}
       />
     </>
   ) : (

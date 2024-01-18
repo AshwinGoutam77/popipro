@@ -33,8 +33,6 @@ const Testimonials = ({
   const [SubTitle, setSubTitle] = useState("");
   const [Number, setNumber] = useState("");
   const [Description, setDescription] = useState("");
-  const [Latitude, setLatitude] = useState("");
-  const [Longitude, setLongitude] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
 
   const handleSubmit = async () => {
@@ -72,8 +70,8 @@ const Testimonials = ({
         company_name: SubTitle,
         description: Description,
         phone: Number,
-        latitude: Latitude,
-        longitude: Longitude,
+        latitude: await localforage.getItem("latitude"),
+        longitude: await localforage.getItem("longitude"),
         fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(AddTestimonials, payload);
@@ -110,21 +108,6 @@ const Testimonials = ({
       });
     }
   };
-  const handleAllowNotif = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  };
-  function showPosition(position) {
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
-  }
-
-  useEffect(() => {
-    handleAllowNotif();
-  }, []);
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />

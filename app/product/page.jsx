@@ -142,11 +142,6 @@ export default function DashboardProducts({ TitleData }) {
                 className="w-100 bg-custom"
                 style={{ height: "calc(100vh - 58px)" }}
               >
-                {/* <h5 className="first-title title__separate mx-4 pt-4 text-black">
-                  Your last one month{" "}
-                  {Data?.title_array?.card_products?.visible_name} Analytics
-                </h5> */}
-
                 <div className="mx-3 pt-4">
                   <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
                     <div className="col-6 col-lg-2 p-0 px-2">
@@ -195,7 +190,7 @@ export default function DashboardProducts({ TitleData }) {
                     <tbody>
                       {Data?.product_states?.length === 0 ? (
                         <tr>
-                          <td className="p-3">No data available</td>
+                          <td className="p-3 color-black">No data available</td>
                         </tr>
                       ) : (
                         Data?.product_states?.map((item, index) => {

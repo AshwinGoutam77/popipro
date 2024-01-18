@@ -42,6 +42,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import ReactPlayer from "react-player";
 
 export default function EditProducts({
   APIDATA,
@@ -69,6 +70,7 @@ export default function EditProducts({
   const [ProductPrice, setProductPrice] = useState("");
   const [ProductLabel, setProductLabel] = useState("");
   const [ServicesDescription, setServicesDescription] = useState("");
+  const [ProductVideo, setProductVideo] = useState("");
   const [ProductPriceValue, setProductPriceValue] = useState("");
   const [EditFields, setEditFields] = useState(false);
   const [Page, setPage] = useState(2);
@@ -135,6 +137,7 @@ export default function EditProducts({
               is_label: EditRadioBtn ? 1 : 0,
               label: ProductLabel,
               categories: [CategoryId?.value],
+              youtube_link: ProductVideo,
               saved_products: id,
             },
           ])
@@ -150,6 +153,7 @@ export default function EditProducts({
               button_placeholder: AddLabel,
               is_label: PriceRadio ? 0 : 1,
               label: ProductLabel,
+              youtube_link: ProductVideo,
               categories: [CategoryId?.value],
             },
           ]);
@@ -301,7 +305,8 @@ export default function EditProducts({
     currency,
     label,
     item_label,
-    button_placeholder
+    button_placeholder,
+    item_youtube_link
   ) => {
     handleEditShow();
     setProductModalId(id);
@@ -313,6 +318,7 @@ export default function EditProducts({
     setProductPriceValue(currency);
     setAddLabel(button_placeholder);
     setEditRadioBtn(item_label);
+    setProductVideo(item_youtube_link);
   };
   const HandleEmptyFeilds = () => {
     setImage("");
@@ -323,6 +329,7 @@ export default function EditProducts({
     setProductUrl("");
     setAddLabel("");
     setCategoryId("");
+    setProductVideo("");
   };
   const handleCanclebtn = () => {
     handleClose();
@@ -622,7 +629,7 @@ export default function EditProducts({
                       {item?.gallery?.map((o, i) => {
                         return (
                           <SwiperSlide key={i}>
-                            <div className="swiper-slide review-items position-relative">
+                            <div className="swiper-slide review-items position-relative mb-2">
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 onClick={() =>
@@ -649,6 +656,37 @@ export default function EditProducts({
                           </SwiperSlide>
                         );
                       })}
+                      {item?.youtube_link !== null ? (
+                        <SwiperSlide>
+                          <div className="swiper-slide review-items position-relative mb-2">
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              onClick={() =>
+                                handleDeleteGalleryImages("null", 11, item?.id)
+                              }
+                              style={{
+                                top: "-1px",
+                                right: "0",
+                                color: "rgb(213, 51, 51)",
+                                fontSize: "20px",
+                              }}
+                              className="delete-icon3"
+                            />
+                            <div className="vedio-height">
+                              <div className="product-video-player-container">
+                                <ReactPlayer
+                                  url={item?.youtube_link}
+                                  controls
+                                  width="560"
+                                  height="315"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </SwiperSlide>
+                      ) : (
+                        ""
+                      )}
                     </SwiperComponent>
                   ) : item?.image?.path ? (
                     <img
@@ -951,6 +989,16 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
+            <label className="modalFormLable">Upload Video</label>
+            <input
+              name="name"
+              rows="4"
+              cols="50"
+              className="form-control mb-4 mt-1"
+              value={ProductVideo}
+              placeholder="Video Url"
+              onChange={(e) => setProductVideo(e.target.value)}
+            ></input>
             <div className="">
               <label className="modalFormLable ml-0 pl-1 w-100">
                 Select Category
@@ -1245,6 +1293,16 @@ export default function EditProducts({
                       ></input>
                     </div>
                   </div>
+                  <label className="modalFormLable">Upload Video</label>
+                  <input
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1"
+                    value={ProductVideo}
+                    placeholder="Video Url"
+                    onChange={(e) => setProductVideo(e.target.value)}
+                  ></input>
                   <div className="d-flex align-items-center justify-content-between">
                     <label className="modalFormLable">Description</label>
                     <p
@@ -1512,6 +1570,13 @@ export default function EditProducts({
                           <div className="row d-flex justify-content-between pb-3 pt-3">
                             <div className="col-6 col-sm-6 col-lg-4">
                               <div className="position-relative">
+                                {items?.gallery?.length ? (
+                                  <span class="badge badge-primary product-images-badge">
+                                    + {items?.gallery?.length} Images
+                                  </span>
+                                ) : (
+                                  ""
+                                )}
                                 {items?.image?.path ? (
                                   <img
                                     className="case-item__icon-products"
@@ -1733,7 +1798,8 @@ export default function EditProducts({
                                     items.currency,
                                     items.label,
                                     items.is_label,
-                                    items.button_placeholder
+                                    items.button_placeholder,
+                                    items?.youtube_link
                                   )
                                 }
                               >

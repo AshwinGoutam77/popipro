@@ -5,12 +5,26 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-export default function SettingModal({ active, handleClose, currency }) {
+export default function SettingModal({
+  active,
+  handleClose,
+  currency,
+  MainData,
+}) {
   const [ProductCurrency, setProductCurrency] = useState("");
+  const [AllowNotification, setAllowNotification] = useState(
+    MainData?.company_setting?.allow_notification
+  );
+  const [AllowLocation, setAllowLocation] = useState(
+    MainData?.company_setting?.allow_location
+  );
+
   const handleSave = async () => {
     try {
       let payload = {
         currency: ProductCurrency,
+        allow_notification: AllowNotification,
+        allow_location: AllowLocation,
       };
       const res = await Api(AddUserCurrency, payload);
       if (res?.data?.status) {
@@ -48,6 +62,18 @@ export default function SettingModal({ active, handleClose, currency }) {
         progress: undefined,
         theme: "light",
       });
+    }
+  };
+  const handleAllowNotification = () => {
+    setAllowNotification(1);
+    if (AllowNotification == 1) {
+      setAllowNotification(0);
+    }
+  };
+  const handleAllowLocation = () => {
+    setAllowLocation(1);
+    if (AllowLocation == 1) {
+      setAllowLocation(0);
     }
   };
   return (
@@ -99,12 +125,12 @@ export default function SettingModal({ active, handleClose, currency }) {
                 <h6 className="mb-0 color-black">Allow Notifications</h6>
                 <label className="switch">
                   <input
-                    data-status={true}
-                    data-active={true}
-                    // checked={true}
+                    data-status={AllowNotification}
+                    data-active={AllowNotification}
+                    checked={AllowNotification == 1 ? true : false}
                     type="checkbox"
                     name="hello"
-                    // onChange={() => handleLandingMode("profile-preview")}
+                    onChange={() => handleAllowNotification()}
                   />
                   <span className="slider round"></span>
                 </label>
@@ -113,12 +139,11 @@ export default function SettingModal({ active, handleClose, currency }) {
                 <h6 className="mb-0 color-black">Allow Location</h6>
                 <label className="switch">
                   <input
-                    data-status={true}
-                    data-active={true}
-                    // checked={true}
+                    data-status={AllowLocation}
+                    data-active={AllowLocation}
+                    checked={AllowLocation == 1 ? true : false}
                     type="checkbox"
-                    name="hello"
-                    // onChange={() => handleLandingMode("profile-preview")}
+                    onChange={() => handleAllowLocation()}
                   />
                   <span className="slider round"></span>
                 </label>

@@ -23,7 +23,7 @@ import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Leads = () => {
-  const { token } = useAuthContext();
+  const { token, APIDATA } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -37,36 +37,6 @@ const Leads = () => {
     APIDATA();
   }, []);
 
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
   const api = async () => {
     setShowLoader(true);
     const response = await Api(GetInshights, {});
@@ -448,9 +418,14 @@ const Leads = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Data?.leads?.length === 0 ? (
+                    {Data?.leads?.length === 0 ||
+                    Data?.leads_permissions?.sharecontact == 1 ? (
                       <tr>
-                        <td className="p-3">No data available</td>
+                        <td className="p-3 color-black" colspan="5">
+                          {Data?.leads_permissions?.sharecontact !== 1
+                            ? "No data available"
+                            : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
+                        </td>
                       </tr>
                     ) : (
                       Data?.leads?.map((item, index) => {

@@ -289,7 +289,9 @@ const Banner = ({
     setLongitude(position.coords.longitude);
   }
   useEffect(() => {
-    requestPermission();
+    if (MainData?.company_setting?.allow_notification == 1) {
+      requestPermission();
+    }
     getLocation();
     handleLocal();
   }, []);

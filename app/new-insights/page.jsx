@@ -23,63 +23,43 @@ import { ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Api from "@services/Api";
-import { EditData, GetInshights } from "@services/Routes";
+import { EditData, GetInshights, GetOverallInsights } from "@services/Routes";
 import "../../styles/about.css";
 import "../styles/graph.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import dynamic from "next/dynamic";
+import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const NewInsights = () => {
-  const { token } = useAuthContext();
+  const { token, APIDATA } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
   const [UserData, setUserData] = useState("");
+  const [AppointmentTab, setAppointmentTab] = useState(true);
+  const [ProductInquiryTab, setProductInquiryTab] = useState(false);
+  const [ShareContactTab, setShareContactTab] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [ModalId, setModalId] = useState("");
+  const [ModalData, setModalData] = useState("");
 
   useEffect(() => {
     api();
     APIDATA();
   }, []);
 
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        setUserData(response.data.data);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("url");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
   const api = async () => {
     setShowLoader(true);
-    const response = await Api(GetInshights, {});
+    const response = await Api(GetOverallInsights, {});
     if (response.data.status) {
       setShowLoader(false);
       if (response?.data?.data) {
@@ -109,7 +89,7 @@ const NewInsights = () => {
         "-" +
         pad(EndDate.getDate(), 2);
       const response = await Api(
-        GetInshights,
+        GetOverallInsights,
         {},
         "?start_date=" + startDt + "&end_date=" + endDt
       );
@@ -135,6 +115,22 @@ const NewInsights = () => {
         theme: "light",
       });
     }
+  };
+
+  const handleAppointmentTab = () => {
+    setAppointmentTab(true);
+    setShareContactTab(false);
+    setProductInquiryTab(false);
+  };
+  const handleInquiryTab = () => {
+    setAppointmentTab(false);
+    setShareContactTab(false);
+    setProductInquiryTab(true);
+  };
+  const handleShareTab = () => {
+    setAppointmentTab(false);
+    setShareContactTab(true);
+    setProductInquiryTab(false);
   };
 
   let dSet =
@@ -473,7 +469,7 @@ const NewInsights = () => {
       },
     },
   };
-  
+
   const chartData7 = {
     series: [
       {
@@ -541,6 +537,11 @@ const NewInsights = () => {
       },
     },
   };
+  const handleShowModal = (id, MapData) => {
+    setShowModal(true);
+    setModalId(id);
+    setModalData(MapData);
+  };
 
   return token ? (
     <>
@@ -566,6 +567,80 @@ const NewInsights = () => {
             pauseOnHover
             theme="light"
           />
+
+          <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal.Header>
+              <Modal.Title>
+                <h5
+                  class="title title--h1 first-title title__separate mb-1 mb-0"
+                  id="BlogModalTitle"
+                >
+                  More Details
+                </h5>
+              </Modal.Title>
+              <button
+                type="button"
+                class="close"
+                onClick={() => setShowModal(false)}
+              >
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close alert</span>
+              </button>
+            </Modal.Header>
+            <Modal.Body style={{ padding: "10px" }}>
+              {ModalData &&
+                ModalData?.map((item, index) => {
+                  return item.id == ModalId ? (
+                    <div className="leads-custom-table mb-1" key={index}>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Name</p>
+                        <p className="w-100">{item?.name}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Email</p>
+                        <p className="w-100">
+                          {item?.email ? item?.email : "---"}
+                        </p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Phone</p>
+                        <p className="w-100">{item.contact}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Date</p>
+                        <p className="w-100">{item.created_at}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Location</p>
+                        {item.detail ? (
+                          <p className="w-100">
+                            {item.detail?.state
+                              ? item.detail?.city +
+                                ", " +
+                                item.detail?.state +
+                                ", " +
+                                item.detail?.country
+                              : item.detail?.city + ", " + item.detail?.country}
+                          </p>
+                        ) : (
+                          <p className="w-100">---</p>
+                        )}
+                      </div>
+                      {item.message ? (
+                        <div className="d-flex align-items-start">
+                          <p className="w-100 font-weight-bold">Message</p>
+                          <p className="w-100">{item.message}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  );
+                })}
+            </Modal.Body>
+          </Modal>
 
           {/* Header */}
 
@@ -650,7 +725,7 @@ const NewInsights = () => {
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.total_click_hits}
+                      {Data?.quick_analytics?.profile_visits}
                     </p>
                   </div>
                   <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -661,7 +736,7 @@ const NewInsights = () => {
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.total_saved_contact}
+                      {Data?.quick_analytics?.social_visits}
                     </p>
                   </div>
                   <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -672,18 +747,18 @@ const NewInsights = () => {
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.card_states?.product_views}
+                      {Data?.quick_analytics?.leads}
                     </p>
                   </div>
                   <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-amber-50">
-                    Total Resources Leads
+                    Total Resources Hits
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.total_share_contact}
+                      {Data?.quick_analytics?.resource_hits}
                     </p>
                   </div>
                   <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -693,73 +768,225 @@ const NewInsights = () => {
               {/* Appointment table */}
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Top 5 Appointment Leads
+                Top 5 Leads
               </h5>
+              <div className="mt-4 px-4">
+                <SwiperComponent
+                  breakpoints={{
+                    1110: {
+                      slidesPerView: 10,
+                    },
+                    300: {
+                      slidesPerView: 3,
+                    },
+                  }}
+                  spaceBetween={10}
+                  style={{ cursor: "pointer" }}
+                  className="mySwiper mb-0 pb-0"
+                  modules={[Pagination]}
+                >
+                  <SwiperSlide className="w-auto">
+                    <div className="swiper-slide review-items position-relative">
+                      <button
+                        className={
+                          AppointmentTab ? "filter-btns-active" : "filter-btns"
+                        }
+                        onClick={handleAppointmentTab}
+                      >
+                        Appointment Leads
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide className="w-auto">
+                    <div className="swiper-slide review-items position-relative">
+                      <button
+                        className={
+                          ProductInquiryTab
+                            ? "filter-btns-active"
+                            : "filter-btns"
+                        }
+                        onClick={handleInquiryTab}
+                      >
+                        Product Inquiry Leads
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide className="w-auto">
+                    <div className="swiper-slide review-items position-relative">
+                      <button
+                        className={
+                          ShareContactTab ? "filter-btns-active" : "filter-btns"
+                        }
+                        onClick={handleShareTab}
+                      >
+                        Shared Contact Leads
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                </SwiperComponent>
+              </div>
               <div className="box-shadow-leads">
-                <table className="insight-table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Contact</th>
-                      <th>Requested Date</th>
-                      <th>Location</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Data?.bookings?.length === 0 ? (
+                {AppointmentTab ? (
+                  <table className="insight-table">
+                    <thead>
                       <tr>
-                        <td className="p-3">No data available</td>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Action</th>
                       </tr>
-                    ) : (
-                      Data?.bookings?.map((item, index) => {
-                        return (
-                          <tr
-                            data-column="Message"
-                            key={index}
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                            className="cursor-pointer"
-                          >
-                            <td data-column="name">{item.name}</td>
-                            <td data-column="name">
-                              {item.contact ? item.contact : "-"}
-                            </td>
-                            <td data-column="created date">
-                              {item.created_at}
-                            </td>
-                            {item.detail ? (
-                              <td data-column="created date">
-                                {item.detail?.state
-                                  ? item.detail?.city +
-                                    ", " +
-                                    item.detail?.state +
-                                    ", " +
-                                    item.detail?.country
-                                  : item.detail?.city +
-                                    ", " +
-                                    item.detail?.country}
+                    </thead>
+                    <tbody>
+                      {Data?.latest_leads?.appointment?.length === 0 ? (
+                        <tr>
+                          <td className="p-3">No data available</td>
+                        </tr>
+                      ) : (
+                        Data?.latest_leads?.appointment?.map((item, index) => {
+                          return (
+                            <tr
+                              data-column="Message"
+                              key={index}
+                              onClick={() =>
+                                handleShowModal(
+                                  item.id,
+                                  Data?.latest_leads?.appointment
+                                )
+                              }
+                              className="cursor-pointer"
+                            >
+                              <td data-column="name">{item.name}</td>
+                              <td data-column="name">
+                                {item.email ? item.email : "---"}
                               </td>
-                            ) : (
-                              <td>---</td>
-                            )}
-                            <td className="d-flex align-items-center">
-                              <FontAwesomeIcon
-                                icon={faEye}
-                                className="text-dark"
-                              />
-                            </td>
-                          </tr>
-                        );
-                      })
-                    )}
-                  </tbody>
-                </table>
+                              <td data-column="name">{item.contact}</td>
+                              <td data-column="name">{item.appointment}</td>
+                              <td className="d-flex align-items-center">
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                ) : (
+                  ""
+                )}
+                {ProductInquiryTab ? (
+                  <table className="insight-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Data?.latest_leads?.product_enquiry?.length === 0 ? (
+                        <tr>
+                          <td className="p-3">No data available</td>
+                        </tr>
+                      ) : (
+                        Data?.latest_leads?.product_enquiry?.map(
+                          (item, index) => {
+                            return (
+                              <tr
+                                data-column="Message"
+                                key={index}
+                                onClick={() =>
+                                  handleShowModal(
+                                    item.id,
+                                    Data?.latest_leads?.product_enquiry
+                                  )
+                                }
+                                className="cursor-pointer"
+                              >
+                                <td data-column="name">{item.name}</td>
+                                <td data-column="name">
+                                  {item.email ? item.email : "---"}
+                                </td>
+                                <td data-column="name">{item.contact}</td>
+                                <td data-column="name">{item.created_at}</td>
+                                <td className="d-flex align-items-center">
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    className="text-dark"
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                ) : (
+                  ""
+                )}
+                {ShareContactTab ? (
+                  <table className="insight-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Data?.latest_leads?.shared_contact?.length === 0 ? (
+                        <tr>
+                          <td className="p-3">No data available</td>
+                        </tr>
+                      ) : (
+                        Data?.latest_leads?.shared_contact?.map(
+                          (item, index) => {
+                            return (
+                              <tr
+                                data-column="Message"
+                                key={index}
+                                onClick={() =>
+                                  handleShowModal(
+                                    item.id,
+                                    Data?.latest_leads?.shared_contact
+                                  )
+                                }
+                                className="cursor-pointer"
+                              >
+                                <td data-column="name">{item.name}</td>
+                                <td data-column="name">
+                                  {item.email ? item.email : "---"}
+                                </td>
+                                <td data-column="name">{item.contact}</td>
+                                <td data-column="name">{item.created_at}</td>
+                                <td className="d-flex align-items-center">
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    className="text-dark"
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                ) : (
+                  ""
+                )}
               </div>
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Profile Intracts
+                Profile Interacts
               </h5>
               <div className="row m-0 mt-4 row-gap-3">
                 <div className="col-sm-12 col-lg-8">

@@ -72,3 +72,11 @@ export const GetVirtualBackground = {
 export const SaveToken = { path: "save-firebase-token", method: "POST" };
 export const AddUserCurrency = { path: "update-user-currency", method: "POST" };
 export const SendPushNotification = { path: "send-push-token", method: "POST" };
+export const GetOverallInsights = {
+  path: "get-overall-insights",
+  method: "GET",
+};
+export const GetNotitficationHistory = {
+  path: "get-notification-history",
+  method: "GET",
+};

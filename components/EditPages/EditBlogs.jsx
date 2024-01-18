@@ -24,6 +24,7 @@ import { CardData, LoadMoreApi, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import axios from "axios";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function EditBlogs({
   APIDATA,
@@ -427,6 +428,7 @@ export default function EditBlogs({
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -747,28 +749,30 @@ export default function EditBlogs({
                     }}
                   ></p>
                   {item.url !== "" ? (
-                    <a
-                      href={
-                        item?.url?.includes("http://") ||
-                        item?.url?.includes("https://")
-                          ? item?.url
-                          : "https://" + item?.url
-                      }
-                      target="_blank"
-                      className="mt-3 send-btnn mx-auto"
-                      style={{
-                        background: "var(--color)",
-                        width: "40%",
-                      }}
-                    >
-                      <i
-                        className="fa fa-link mr-2"
+                    <div className="text-center">
+                      <a
+                        href={
+                          item?.url?.includes("http://") ||
+                          item?.url?.includes("https://")
+                            ? item?.url
+                            : "https://" + item?.url
+                        }
+                        target="_blank"
+                        className="mt-3 send-btnn mx-auto text-center"
                         style={{
-                          fontSize: "16px",
+                          background: "var(--color)",
+                          width: "40%",
                         }}
-                      ></i>
-                      Visit Site{" "}
-                    </a>
+                      >
+                        <i
+                          className="fa fa-link mr-2"
+                          style={{
+                            fontSize: "16px",
+                          }}
+                        ></i>
+                        Visit Site{" "}
+                      </a>
+                    </div>
                   ) : (
                     ""
                   )}

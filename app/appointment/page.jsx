@@ -20,6 +20,8 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Filters from "@components/Dashboard/Filters";
+import dynamic from "next/dynamic";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function AppointmentLead() {
   const { token, APIDATA } = useAuthContext();
@@ -38,6 +40,107 @@ export default function AppointmentLead() {
     if (response.data.status) {
       setData(response.data.data);
     }
+  };
+  const chartData5 = {
+    series: [
+      {
+        name: "As per referer",
+        data: [21, 40, 28, 100, 42, 109, 23],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      title: {
+        text: "Appointment Leads As Per Month",
+        align: "left",
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
+  const chartData6 = {
+    series: [
+      {
+        name: "India",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+      {
+        name: "Austrialia",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Canada",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+      {
+        name: "China",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
   };
 
   return token ? (
@@ -81,13 +184,15 @@ export default function AppointmentLead() {
                       <p className="w-100">{item.contact}</p>
                     </div>
                     <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Appointment Date</p>
-                      <p className="w-100">{item.date}</p>
+                      <p className="w-100 font-weight-bold">
+                        Appointment Date / Time
+                      </p>
+                      <p className="w-100">{item.appointment}</p>
                     </div>
-                    <div className="d-flex align-items-start">
+                    {/* <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Appointment Time</p>
                       <p className="w-100">{item.time}</p>
-                    </div>
+                    </div> */}
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Created Date</p>
                       <p className="w-100">{item.created_at}</p>
@@ -153,6 +258,28 @@ export default function AppointmentLead() {
             <div className="mx-3 pt-4">
               <Filters setData={setData} setShowLoader={setShowLoader} />
             </div>
+            <div className="row m-0 mb-4 row-gap-3">
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <Charts
+                    options={chartData5?.options}
+                    series={chartData5?.series}
+                    type="area"
+                    height={300}
+                  />
+                </div>
+              </div>
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <Charts
+                    options={chartData6?.options}
+                    series={chartData6?.series}
+                    type="bar"
+                    height={300}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="box-shadow-leads">
               <table className="insight-table">
                 <thead>
@@ -165,9 +292,14 @@ export default function AppointmentLead() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Data?.bookings?.length === 0 ? (
+                  {Data?.bookings?.length === 0 ||
+                  Data?.leads_permissions?.appointment == 0 ? (
                     <tr>
-                      <td className="p-3">No data available</td>
+                      <td className="p-3 color-black" colspan="5">
+                        {Data?.leads_permissions?.appointment !== 0
+                          ? "No data available"
+                          : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
+                      </td>
                     </tr>
                   ) : (
                     Data?.bookings?.map((item, index) => {

@@ -5,9 +5,13 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowDown,
   faArrowDownShortWide,
   faArrowRight,
+  faArrowUp,
+  faArrowUpRightDots,
   faArrowUpWideShort,
+  faArrowUpZA,
   faChevronLeft,
   faChevronRight,
   faCircleXmark,
@@ -32,6 +36,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
+import ReactPlayer from "react-player";
 
 export default function Product({
   Titles,
@@ -105,10 +110,16 @@ export default function Product({
             Page && Page
           }${
             ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
-          }&sortBy=${
-            HighlightSort && HighlightSort
-          }&product_search=${ProductSearching}`
-        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page} `,
+          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
+            ProductSearching ? "&product_search=" + ProductSearching : ""
+          }`
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
+            Page && Page
+          }${
+            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
+          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
+            ProductSearching ? "&product_search=" + ProductSearching : ""
+          }`,
       {
         method: "GET",
         cache: "no-cache",
@@ -167,8 +178,8 @@ export default function Product({
         email: Email,
         message: Message,
         card_url: card_url,
-        latitude: Latitude,
-        longitude: Longitude,
+        latitude: await localforage.getItem("latitude"),
+        longitude: await localforage.getItem("longitude"),
         fb_token: await localforage.getItem("fcm_token"),
       };
       const response = await Api(ProductEnquiry, data);
@@ -212,8 +223,8 @@ export default function Product({
       device_id: navigator.userAgent,
       object_base: Data?.id,
       hit_type: "visit-site",
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -227,8 +238,8 @@ export default function Product({
       device_id: navigator.userAgent,
       object_base: id,
       hit_type: "view-more",
-      latitude: Latitude,
-      longitude: Longitude,
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -303,23 +314,6 @@ export default function Product({
       }
     }, 1000);
   };
-  const handleAllowNotif = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  };
-  function showPosition(position) {
-    localStorage.setItem("latitude", position.coords.latitude);
-    localStorage.setItem("longitude", position.coords.longitude);
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
-  }
-
-  useEffect(() => {
-    handleAllowNotif();
-  }, []);
 
   const handleShowSearchFilter = () => {
     setSearch(true);
@@ -330,6 +324,10 @@ export default function Product({
 
   const handleResetFilter = () => {
     setProducts(Data?.card_products);
+    setProductCategory("");
+    setHighlightSort("");
+    setProductSearching("");
+    setPage(1);
     setActiveFilter("");
     setSearch(false);
   };
@@ -384,6 +382,41 @@ export default function Product({
                               </SwiperSlide>
                             );
                           })}
+                          {item?.youtube_link !== null ? (
+                            <SwiperSlide>
+                              <div className="swiper-slide review-items position-relative mb-2">
+                                <FontAwesomeIcon
+                                  icon={faCircleXmark}
+                                  onClick={() =>
+                                    handleDeleteGalleryImages(
+                                      o.path,
+                                      10,
+                                      item?.id
+                                    )
+                                  }
+                                  style={{
+                                    top: "-1px",
+                                    right: "0",
+                                    color: "rgb(213, 51, 51)",
+                                    fontSize: "20px",
+                                  }}
+                                  className="delete-icon3"
+                                />
+                                <div className="vedio-height">
+                                  <div className="product-video-player-container">
+                                    <ReactPlayer
+                                      url={item?.youtube_link}
+                                      controls
+                                      width="560"
+                                      height="315"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </SwiperSlide>
+                          ) : (
+                            ""
+                          )}
                         </SwiperComponent>
                       ) : item?.image?.path ? (
                         <img
@@ -674,18 +707,41 @@ export default function Product({
                                 : "dropdown-item"
                             }
                           >
+                            <FontAwesomeIcon
+                              icon={faArrowUpZA}
+                              className="user-select-auto"
+                            />{" "}
                             Sort By Name
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
-                            onClick={() => setHighlightSort("price")}
+                            onClick={() => setHighlightSort("lowest-price")}
                             className={
                               HighlightSort == "price"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
                           >
-                            Sort By Price
+                            <FontAwesomeIcon
+                              icon={faArrowDown}
+                              className="user-select-auto"
+                            />{" "}
+                            Sort By Lowest Price
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href=""
+                            onClick={() => setHighlightSort("highest-price")}
+                            className={
+                              HighlightSort == "price"
+                                ? "dropdown-item-active"
+                                : "dropdown-item"
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faArrowUp}
+                              className="user-select-auto"
+                            />{" "}
+                            Sort By Higest Price
                           </Dropdown.Item>
                           <Dropdown.Item
                             href=""
@@ -696,6 +752,10 @@ export default function Product({
                                 : "dropdown-item"
                             }
                           >
+                            <FontAwesomeIcon
+                              icon={faArrowUp}
+                              className="user-select-auto"
+                            />{" "}
                             Sort By Latest
                           </Dropdown.Item>
                           <Dropdown.Item
@@ -707,6 +767,10 @@ export default function Product({
                                 : "dropdown-item"
                             }
                           >
+                            <FontAwesomeIcon
+                              icon={faArrowUpRightDots}
+                              className="user-select-auto"
+                            />{" "}
                             Sort By Popularity
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -793,6 +857,13 @@ export default function Product({
                       <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
                         <div className="col-6 col-sm-6 col-lg-4">
                           <div className="position-relative">
+                            {items?.gallery?.length ? (
+                              <span class="badge badge-primary product-images-badge">
+                                + {items?.gallery?.length} Images
+                              </span>
+                            ) : (
+                              ""
+                            )}
                             {items?.image?.path ? (
                               <Image
                                 className="case-item__icon-products"
