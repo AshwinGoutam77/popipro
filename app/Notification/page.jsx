@@ -182,7 +182,7 @@ export default function Page() {
           />{" "}
           Notification
         </h5>
-        <Link href="/dashboard"> 
+        <Link href="/dashboard">
           <h6 className="text-white m-0">
             {" "}
             <FontAwesomeIcon
