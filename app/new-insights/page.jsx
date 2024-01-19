@@ -134,61 +134,13 @@ const NewInsights = () => {
   };
 
   let dSet =
-    Data?.click_hits?.social_media &&
-    Data?.click_hits?.social_media?.map((item) => {
+    Data?.social_interact?.graphs &&
+    Data?.social_interact?.graphs?.map((item) => {
       return {
         name: item?.name,
-        data: item?.data,
+        data: item?.value,
       };
     });
-  const chartData = {
-    series: [
-      {
-        name: "Total Profile Views",
-        data: Data?.click_hits?.hits,
-      },
-      {
-        name: "Total Save Contacts",
-        data: Data?.click_hits?.saved_contact,
-      },
-    ],
-    options: {
-      chart: {
-        height: 350,
-        type: "area",
-        enabled: false,
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
-      },
-      tooltip: {
-        x: {
-          format: "",
-        },
-      },
-      colors: ["#24b1e6", "#166a8a"],
-    },
-  };
   const chartData2 = {
     series: dSet || [],
     options: {
@@ -244,27 +196,39 @@ const NewInsights = () => {
     series: [
       {
         name: "Add Contact",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        data: Data?.profile_interact?.graphs?.save_contact?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Shared Contacts",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        data: Data?.profile_interact?.graphs?.save_contact?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Email",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        data: Data?.profile_interact?.graphs?.email?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Phone",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        data: Data?.profile_interact?.graphs?.phone?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "URL",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        data: Data?.profile_interact?.graphs?.url?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Location",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        data: Data?.profile_interact?.graphs?.location?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -320,19 +284,27 @@ const NewInsights = () => {
     series: [
       {
         name: "Shared Contacts",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        data: Data?.leads_interact?.graphs?.shared_contact?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Appointment",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        data: Data?.leads_interact?.graphs?.appointment?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Product Inquiry",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        data: Data?.leads_interact?.graphs?.product_enquiry?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Custom Form",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        data: Data?.leads_interact?.graphs?.customform?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -387,8 +359,12 @@ const NewInsights = () => {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
+        name: "Google",
         data: [21, 40, 28, 100, 42, 109, 23],
+      },
+      {
+        name: "Safari",
+        data: [21, 70, 88, 67, 90, 23, 45],
       },
     ],
     options: {
@@ -430,8 +406,12 @@ const NewInsights = () => {
   const chartData6 = {
     series: [
       {
-        name: "As per location",
-        data: [31, 40, 28, 51, 42, 109, 100],
+        name: "India",
+        data: [21, 40, 28, 100, 42, 109, 23],
+      },
+      {
+        name: "Australia",
+        data: [21, 70, 88, 67, 90, 23, 45],
       },
     ],
     options: {
@@ -474,19 +454,27 @@ const NewInsights = () => {
     series: [
       {
         name: "Images",
-        data: [76, 85, 107, 98, 100, 105, 21, 56, 94],
+        data: Data?.resource_interact?.graphs?.photos?.map((i) => {
+          return i;
+        }),
       },
       {
         name: "Videos",
-        data: [1, 23, 89, 98, 87, 99, 91, 111, 94],
+        data: Data?.resource_interact?.graphs?.video?.map((i) => {
+          return i;
+        }),
       },
       {
-        name: UserData?.titles?.card_products?.visible_name,
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        name: "Blogs",
+        data: Data?.resource_interact?.graphs?.blogs?.map((i) => {
+          return i;
+        }),
       },
       {
-        name: UserData?.titles?.card_blogs?.visible_name,
-        data: [76, 85, 101, 21, 87, 105, 1, 114, 9],
+        name: "Products",
+        data: Data?.resource_interact?.graphs?.products?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -669,7 +657,7 @@ const NewInsights = () => {
             </Link>
           </div>
 
-          <div className="pt-4 bg-white">
+          <div className="pt-2 bg-white insights-main-div">
             <div className="px-1">
               {/* Quick Analytics */}
 
@@ -682,8 +670,8 @@ const NewInsights = () => {
                 {/* <p className="mr-4 color-black">Year(2024)</p> */}
                 <div className="col-lg-9 col-sm-12">
                   <div className="row w-100 m-0 p-0 px-4 mb-4 align-items-end bg-white justify-content-end">
-                    <div className="col-6 col-lg-2 p-0 px-2 d-flex align-items-center">
-                      <label className="mr-2">From</label>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">From</label>
                       <DatePicker
                         dateFormat="MM/dd/yyyy"
                         selected={StartDate}
@@ -693,8 +681,8 @@ const NewInsights = () => {
                         className="form-control insight-filter w-100"
                       />
                     </div>
-                    <div className="col-6 col-lg-2 p-0 px-2 d-flex align-items-center">
-                      <label className="mr-2">To</label>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">To</label>
                       <DatePicker
                         dateFormat="MM/dd/yyyy"
                         selected={EndDate}
@@ -721,7 +709,7 @@ const NewInsights = () => {
               <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
-                    Total Profile Visits
+                    Total Profile Views
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -732,7 +720,7 @@ const NewInsights = () => {
                 </div>
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
-                    Total Social Visits
+                    Total Social Hits
                   </p>
                   <div className="flex items-end justify-between space-x-2">
                     <p className="mt-4 text-2xl font-medium text-white">
@@ -765,7 +753,7 @@ const NewInsights = () => {
                 </div>
               </div>
 
-              {/* Appointment table */}
+              {/* Top 5 Leads table */}
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Top 5 Leads
@@ -986,24 +974,64 @@ const NewInsights = () => {
               </div>
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                Organic Insights
+              </h5>
+              <div className="row m-0 mb-4 row-gap-3">
+                <div className="col-sm-12 col-lg-6">
+                  <div className="barchart-div">
+                    <p className="ml-4 mb-2 color-black font-weight-bold">
+                      As per referer
+                    </p>
+                    <Charts
+                      options={chartData5?.options}
+                      series={chartData5?.series}
+                      type="area"
+                      height={315}
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-lg-6">
+                  <div className="barchart-div">
+                    <div className="d-flex align-items-center justify-content-between mb-2">
+                      <p className="ml-4 color-black font-weight-bold">
+                        As per location
+                      </p>
+                      <select
+                        className="w-auto"
+                        style={{ padding: "7px 10px", appearance: "auto" }}
+                      >
+                        <option>City</option>
+                        <option>State</option>
+                        <option>Country</option>
+                      </select>
+                    </div>
+                    <Charts
+                      options={chartData6?.options}
+                      series={chartData6?.series}
+                      type="area"
+                      height={300}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile Intreacts */}
+              <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Profile Interacts
               </h5>
               <div className="row m-0 mt-4 row-gap-3">
-                <div className="col-sm-12 col-lg-8">
+                <div className="col-sm-12 col-lg-8 insights-order-1">
                   <div className="barchart-div">
                     <Charts
                       options={chartData3?.options}
                       series={chartData3?.series}
                       type="bar"
-                      height={325}
+                      height={440}
                     />
                   </div>
                 </div>
-                <div className="col-sm-12 col-lg-4">
+                <div className="col-sm-12 col-lg-4 insights-order-2">
                   <div className="dashboard-leads-col-4-div py-4">
-                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Leads Stats
-                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
@@ -1011,7 +1039,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_click_hits}
+                            {Data?.profile_interact?.stats?.save_contact}
                           </p>
                         </div>
                         <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1022,7 +1050,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_saved_contact}
+                            {Data?.profile_interact?.stats?.shared_contact}
                           </p>
                         </div>
                         <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1033,7 +1061,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.card_states?.product_views}
+                            {Data?.profile_interact?.stats?.email}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1044,7 +1072,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.profile_interact?.stats?.phone}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1055,7 +1083,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.profile_interact?.stats?.url}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1066,7 +1094,29 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.profile_interact?.stats?.location}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-amber-50">
+                          Alternate Phone
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.profile_interact?.stats?.location}
+                          </p>
+                        </div>
+                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                      </div>
+                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                        <p className="text-xs font-weight-bold text-amber-50">
+                          Custom URL
+                        </p>
+                        <div className="flex items-end justify-between space-x-2">
+                          <p className="mt-4 text-2xl font-medium text-white">
+                            {Data?.profile_interact?.stats?.location}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1076,17 +1126,14 @@ const NewInsights = () => {
                 </div>
               </div>
 
-              {/* Chart */}
+              {/* Socail Links */}
 
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Social Links
+                Social Hits
               </h5>
               <div className="row m-0 mt-4 row-gap-3">
                 <div className="col-sm-12 col-lg-4">
                   <div className="dashboard-leads-col-4-div py-4">
-                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Social Stats
-                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
@@ -1094,7 +1141,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.card_states?.product_views}
+                            {Data?.social_interact?.stats?.Instagram}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1105,7 +1152,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.social_interact?.stats?.Facebook}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1116,7 +1163,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.social_interact?.stats?.Linkedin}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1127,7 +1174,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.social_interact?.stats?.Twitter}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1146,6 +1193,8 @@ const NewInsights = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Leads Links */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Leads
               </h5>
@@ -1162,17 +1211,21 @@ const NewInsights = () => {
                 </div>
                 <div className="col-sm-12 col-lg-4">
                   <div className="dashboard-leads-col-4-div py-4">
-                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Resources Stats
-                    </p> */}
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
                           Shared Contact
                         </p>
                         <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.card_states?.product_views}
+                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                            {Data?.leads_interact?.stats?.shared_contact}{" "}
+                            <Link href="/shared-contact-leads">
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                width={10}
+                                className="cursor-pointer text-white"
+                              />
+                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1182,8 +1235,15 @@ const NewInsights = () => {
                           Appointment
                         </p>
                         <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                            {Data?.leads_interact?.stats?.appointment}
+                            <Link href="/appointment">
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                width={10}
+                                className="cursor-pointer text-white"
+                              />
+                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1193,8 +1253,15 @@ const NewInsights = () => {
                           Product Inquiry
                         </p>
                         <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                            {Data?.leads_interact?.stats?.product_enquiry}
+                            <Link href="/product-enquiry">
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                width={10}
+                                className="cursor-pointer text-white"
+                              />
+                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1204,8 +1271,15 @@ const NewInsights = () => {
                           Custom Form
                         </p>
                         <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                            {Data?.leads_interact?.stats?.customform}
+                            <Link href="/custom-form">
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                width={10}
+                                className="cursor-pointer text-white"
+                              />
+                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1215,6 +1289,7 @@ const NewInsights = () => {
                 </div>
               </div>
 
+              {/* Resources Hits */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Resources Hits
               </h5>
@@ -1228,7 +1303,7 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.card_states?.product_views}
+                            {Data?.resource_interact?.stats?.photos}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1239,29 +1314,29 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.resource_interact?.stats?.video}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_products?.visible_name}
+                          Blogs
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.resource_interact?.stats?.blogs}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_blogs?.visible_name}
+                          Products
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.total_share_contact}
+                            {Data?.resource_interact?.stats?.products}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1276,38 +1351,6 @@ const NewInsights = () => {
                       series={chartData7?.series}
                       type="bar"
                       height={225}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Organic Insights
-              </h5>
-              <div className="row m-0 mb-4 row-gap-3">
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Leads as per referer
-                    </p>
-                    <Charts
-                      options={chartData5?.options}
-                      series={chartData5?.series}
-                      type="area"
-                      height={300}
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
-                      Leads as per location
-                    </p>
-                    <Charts
-                      options={chartData6?.options}
-                      series={chartData6?.series}
-                      type="area"
-                      height={300}
                     />
                   </div>
                 </div>

@@ -197,36 +197,26 @@ const Work = ({
 
                 {/* <!-- Videos-slider --> */}
                 {card.id === "S7ZG" ? (
-                  <div>
-                    <div className="swiper-slide review-items mt-3">
-                      <div className="w-100">
-                        <div
-                          className="w-100 vedio-flex"
-                          style={{ gap: "8px" }}
-                        >
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
-                            alt="photos"
-                            className="video-width h-100 vedio-height"
-                            style={{ borderRadius: "10px" }}
-                          />
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
-                            alt="photos"
-                            className="video-width h-100 vedio-height"
-                            style={{ borderRadius: "10px" }}
-                          />
-                        </div>
-                        <div></div>
+                  <div className="swiper-slide review-items mt-3">
+                    <div className="w-100">
+                      <div className="w-100 vedio-flex" style={{ gap: "8px" }}>
+                        <img
+                          src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
+                          alt="photos"
+                          className="video-width h-100 vedio-height"
+                          style={{ borderRadius: "10px" }}
+                        />
+                        <img
+                          src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
+                          alt="photos"
+                          className="video-width h-100 vedio-height"
+                          style={{ borderRadius: "10px" }}
+                        />
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <div
-                    className="flex-edit-class"
-                    style={{ gap: "10px" }}
-                    onClick={() => HitClick("i", "video")}
-                  >
+                  <div className="flex-edit-class" style={{ gap: "10px" }}>
                     {Card_videos &&
                       Card_videos.map((video, i) => {
                         function getId(url) {
@@ -246,7 +236,10 @@ const Work = ({
                           >
                             <div className="w-100">
                               <div className="w-100 vedio-height">
-                                <div className="video-player-container">
+                                <div
+                                  className="video-player-container"
+                                  onClick={() => HitClick("i", "video")}
+                                >
                                   <ReactPlayer
                                     url={video}
                                     controls
@@ -256,7 +249,6 @@ const Work = ({
                                   />
                                 </div>
                               </div>
-                              <div></div>
                             </div>
                           </div>
                         );

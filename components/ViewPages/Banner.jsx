@@ -419,7 +419,7 @@ const Banner = ({
             )}
           </div>
 
-          <div className="pt-0">
+          <div className="pt-0" style={{ width: "45%" }}>
             <div>
               {card.card_cover !== "name" && card.card_cover !== "label" ? (
                 <img
@@ -585,7 +585,7 @@ const Banner = ({
             )}
           </div>
 
-          <div className="mt-2">
+          <div className="mt-1">
             <div>
               {card?.card_cover == "banner-logo" ? (
                 <img

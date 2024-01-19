@@ -513,16 +513,25 @@ const Header = ({
 
             {ShowProfileQr ? (
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <img
-                  src={
-                    "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                    imageSrc +
-                    "END%3AVCARD%0A"
-                  }
-                  className="qr-img"
-                  alt="we"
-                  style={{ width: "250px", height: "250px" }}
-                />
+                {imageSrc ? (
+                  <img
+                    src={
+                      "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                      imageSrc +
+                      "END%3AVCARD%0A"
+                    }
+                    className="qr-img"
+                    alt="we"
+                    style={{ width: "250px", height: "250px" }}
+                  />
+                ) : (
+                  <div
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "250px", height: "250px" }}
+                  >
+                    <h6 className="color-black">Loading...</h6>
+                  </div>
+                )}
                 <button
                   onClick={downloadImage}
                   className="contact-btn w-auto mt-4 scanner-a"
@@ -546,14 +555,23 @@ const Header = ({
           {ShowDownloadQr ? (
             <div>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <img
-                  src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                    "app.popipro.com/" + profile
-                  }&chs=160x160&chld=L|0`}
-                  className="qr-img"
-                  alt="we"
-                  style={{ width: "250px", height: "250px" }}
-                />
+                {profile ? (
+                  <img
+                    src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                      "app.popipro.com/" + profile
+                    }&chs=160x160&chld=L|0`}
+                    className="qr-img"
+                    alt="we"
+                    style={{ width: "250px", height: "250px" }}
+                  />
+                ) : (
+                  <div
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "250px", height: "250px" }}
+                  >
+                    <h6 className="color-black">Loading...</h6>
+                  </div>
+                )}
                 <button
                   onClick={DownloadProfile}
                   className="contact-btn w-auto mt-4 scanner-a"
@@ -613,7 +631,7 @@ const Header = ({
             icon={faShareSquare}
             className="user-select-auto mr-2"
             style={{
-              fontSize: "16px",
+              fontSize: "18px",
               color: "var(--color)",
               cursor: "pointer",
             }}
@@ -629,7 +647,7 @@ const Header = ({
             icon={faQrcode}
             className="user-select-auto mr-2"
             style={{
-              fontSize: "16px",
+              fontSize: "20px",
               color: "var(--color)",
               cursor: "pointer",
             }}
@@ -736,6 +754,7 @@ const Header = ({
                         width: "15px",
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
+                        marginLeft: "3px",
                       }}
                     />
                     <span className="overhead_a text-dark text-decoration-none getCard-a">
@@ -912,7 +931,7 @@ const Header = ({
                     />
                     <span
                       className="overhead_a text-dark text-decoration-none getCard-a"
-                      style={{ marginLeft: "7px" }}
+                      style={{ marginLeft: "4px" }}
                     >
                       {card.card_website &&
                       (card.card_website?.includes("http://") ||

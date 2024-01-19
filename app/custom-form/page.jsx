@@ -39,6 +39,7 @@ export default function Page() {
   const [ShowLoader, setShowLoader] = useState(true);
   const [SelectId, setSelectId] = useState("");
   const [form_permissions, setform_permissions] = useState("");
+  const [CustomFromGraph, setCustomFromGraph] = useState("");
 
   useEffect(() => {
     handleGetCustomForm();
@@ -91,7 +92,8 @@ export default function Page() {
       ? await Api(GetCustomFormData, {}, "?form_id=" + id)
       : await Api(GetCustomFormData, {});
     if (res.status) {
-      setCustomFormData(res.data.data);
+      setCustomFormData(res.data.data?.customForms);
+      setCustomFromGraph(res?.data?.data);
     }
   };
 
@@ -203,20 +205,16 @@ export default function Page() {
   const chartData6 = {
     series: [
       {
-        name: "India",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        name: "2023",
+        data: CustomFromGraph?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
       {
-        name: "Austrialia",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Canada",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-      },
-      {
-        name: "China",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        name: "2024",
+        data: CustomFromGraph?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {

@@ -419,7 +419,7 @@ const Leads = () => {
                   </thead>
                   <tbody>
                     {Data?.leads?.length === 0 ||
-                    Data?.leads_permissions?.sharecontact == 1 ? (
+                    Data?.leads_permissions?.sharecontact == 0 ? (
                       <tr>
                         <td className="p-3 color-black" colspan="5">
                           {Data?.leads_permissions?.sharecontact !== 1

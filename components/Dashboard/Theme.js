@@ -247,18 +247,18 @@ export default function Theme({
                 </div>
               </div>
               <div
-                className="d-flex align-items-center justify-content-center mt-3"
+                className="d-flex align-items-center justify-content-start mt-3"
                 style={{ gap: "10px" }}
               >
                 <button
                   onClick={(e) => handleColor(e)}
-                  className="contact-btn mt-2"
+                  className="contact-btn mt-2 w-auto"
                 >
                   Save Changes
                 </button>
                 <button
                   onClick={(e) => handleResetColor(e)}
-                  className="contact-btn mt-2"
+                  className="contact-btn mt-2 w-auto"
                   style={{ background: "#24b1e6" }}
                 >
                   Reset Default

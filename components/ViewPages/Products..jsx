@@ -471,7 +471,7 @@ export default function Product({
                                 : "https://" + item?.url
                             }
                             target="_blank"
-                            className="mt-1 contact-btn w-auto"
+                            className="contact-btn w-auto"
                             style={{ background: "var(--color)" }}
                             onClick={() => handleHitClick()}
                           >
@@ -491,7 +491,7 @@ export default function Product({
                         {MainData?.company_setting
                           ?.show_product_enquiry_button !== 0 ? (
                           <span
-                            className="mt-1 contact-btn w-auto d-block cursor-pointer"
+                            className="contact-btn w-auto d-block cursor-pointer"
                             onClick={() =>
                               handleShowModal(item?.id, item?.name)
                             }
@@ -517,7 +517,7 @@ export default function Product({
                               `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
                             }
                             target="_blank"
-                            className="mt-1 contact-btn w-auto d-block"
+                            className="contact-btn w-auto d-block"
                             onClick={() => HitClick(item?.id)}
                           >
                             <img
