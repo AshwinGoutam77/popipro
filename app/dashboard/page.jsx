@@ -223,7 +223,17 @@ export default function Dashboard() {
             className="login-logo"
             style={{ width: "135px" }}
           />
-          <div className="d-flex align-items-start">
+          <div className="d-flex align-items-center">
+            {MainData?.is_individual == 1 ? (
+              <FontAwesomeIcon
+                icon={faGear}
+                className="text-white cursor-pointer mr-4"
+                style={{ fontSize: "25px" }}
+                onClick={() => setModalShow("setting")}
+              />
+            ) : (
+              ""
+            )}
             <Dropdown className="">
               <Dropdown.Toggle
                 split
@@ -254,7 +264,7 @@ export default function Dashboard() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                {MainData?.is_individual == 1 ? (
+                {/* {MainData?.is_individual !== 1 ? (
                   <Dropdown.Item
                     href=""
                     className="mb-1"
@@ -269,7 +279,7 @@ export default function Dashboard() {
                   </Dropdown.Item>
                 ) : (
                   ""
-                )}
+                )} */}
                 <Dropdown.Item href="" onClick={handleLogout}>
                   <FontAwesomeIcon
                     icon={faRightFromBracket}
@@ -400,7 +410,6 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
-
                 {/* Edit theme */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -447,7 +456,6 @@ export default function Dashboard() {
                     </>
                   </div>
                 </div>
-
                 {/* Meta Title */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -464,7 +472,6 @@ export default function Dashboard() {
                     <h6 className="text-white text-center mb-0">Meta Tags</h6>
                   </div>
                 </div>
-
                 {/* Multiple Mode */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -511,130 +518,26 @@ export default function Dashboard() {
                     </>
                   </div>
                 </div>
-
-                {/* My subscription */}
+                {/* Notification */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                  <Link
-                    href={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/subscription"
-                        : ""
-                    }
-                    className="w-100  text-decoration-none"
-                  >
-                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      {Data ? (
-                        <DashboardPlan
-                          Data={Data}
-                          PlanData={PlanData}
-                          APIDATA={APIDATA}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
+                  <Link href="/Notification" className="w-100">
+                    <div
+                      className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                      // onClick={() => {
+                      //   setModalShow("sendMessage");
+                      // }}
+                    >
                       <FontAwesomeIcon
-                        icon={faMoneyBill1Wave}
+                        icon={faMessage}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
                       />
                       <h6 className="text-white text-center mb-0">
-                        Subscription
+                        Notification
                       </h6>
-                    </span>
+                    </div>
                   </Link>
                 </div>
-
-                {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                  <>
-                    {/* Address Book */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <Link href="/address-book" className="w-100">
-                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          <FontAwesomeIcon
-                            icon={faAddressBook}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
-                          />
-                          <h6 className="text-white text-center mb-0">
-                            Address Book
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                    {/* Send Message */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <Link href="/Notification" className="w-100">
-                        <div
-                          className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                          // onClick={() => {
-                          //   setModalShow("sendMessage");
-                          // }}
-                        >
-                          <FontAwesomeIcon
-                            icon={faMessage}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
-                          />
-                          <h6 className="text-white text-center mb-0">
-                            Notification
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                    {/* Address Book */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <Link href="/real-estate" className="w-100">
-                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          <FontAwesomeIcon
-                            icon={faHomeAlt}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
-                          />
-                          <h6 className="text-white text-center mb-0">
-                            Real Estate
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                    {/* Signature */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <Link href="/signature" className="w-100">
-                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          <FontAwesomeIcon
-                            icon={faEnvelope}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
-                          />
-                          <h6 className="text-white text-center mb-0">
-                            Email Signature
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                    {/* Background */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
-                      <Link href="/virtual-background" className="w-100">
-                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          <FontAwesomeIcon
-                            icon={faImage}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
-                          />
-                          <h6 className="text-white text-center mb-0">
-                            Virtual Background
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                  </>
-                ) : (
-                  ""
-                )}
                 {/* Approve review */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -673,7 +576,55 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
-
+                {/* Signature */}
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <Link href="/signature" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Email Signature
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+                {/* Background */}
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <Link href="/virtual-background" className="w-100">
+                    <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      <FontAwesomeIcon
+                        icon={faImage}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Virtual Background
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+                {/* Address Book */}
+                {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                    <Link href="/address-book" className="w-100">
+                      <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                        <FontAwesomeIcon
+                          icon={faAddressBook}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Address Book
+                        </h6>
+                      </div>
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
                 {/* Chnage password */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -688,7 +639,42 @@ export default function Dashboard() {
                     <h6 className="text-white text-center mb-0">Password</h6>
                   </div>
                 </div>
-
+                {/* My subscription */}
+                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <Link
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : PlanData?.subscription?.plan_id !== 1 &&
+                          PlanData?.subscription !== null
+                        ? "/subscription"
+                        : ""
+                    }
+                    className="w-100  text-decoration-none"
+                  >
+                    <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                      {Data ? (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <FontAwesomeIcon
+                        icon={faMoneyBill1Wave}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                      />
+                      <h6 className="text-white text-center mb-0">
+                        Subscription
+                      </h6>
+                    </span>
+                  </Link>
+                </div>
                 {/* Suggestions */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -725,7 +711,7 @@ export default function Dashboard() {
                         ? "https://www.popipro.com/order"
                         : PlanData?.subscription?.plan_id !== 1 &&
                           PlanData?.subscription !== null
-                        ? "/overall-insights"
+                        ? "/overall-analytics"
                         : ""
                     }
                     className="w-100  text-decoration-none"
@@ -757,7 +743,7 @@ export default function Dashboard() {
                 {/* Google Analytics */}
                 <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
-                    href="/organic-analytics"
+                    href="/traffic-analysis"
                     className="w-100  text-decoration-none"
                   >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -849,6 +835,27 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+                {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  <>
+                    {/* Real Estate */}
+                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                      <Link href="/real-estate" className="w-100">
+                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                          <FontAwesomeIcon
+                            icon={faHomeAlt}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            Real Estate
+                          </h6>
+                        </div>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </>
             ) : (
               ""

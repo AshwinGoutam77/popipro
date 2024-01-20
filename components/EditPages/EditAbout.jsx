@@ -34,7 +34,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [InputState, setInputState] = useState("");
 
   useEffect(() => {
-    console.log(Data?.card_description?.length);
     setAboutMe(TitleData?.card_description?.visible_name);
     setDescription(Data?.card_description);
   }, []);

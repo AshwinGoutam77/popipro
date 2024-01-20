@@ -206,6 +206,7 @@ select:focus {
   height: 140px;
   overflow: hidden;
   border-radius: 25px;
+  border: 1px solid;
 }
 
 input[type="color"] {

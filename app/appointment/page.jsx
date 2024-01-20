@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { EditData, GetInshights } from "@services/Routes";
+import { EditData, GetAppointmentLeads, GetInshights } from "@services/Routes";
 import Api from "@services/Api";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -36,7 +36,7 @@ export default function AppointmentLead() {
   }, []);
 
   const api = async () => {
-    const response = await Api(GetInshights, {});
+    const response = await Api(GetAppointmentLeads, {});
     if (response.data.status) {
       setData(response.data.data);
     }
@@ -44,8 +44,10 @@ export default function AppointmentLead() {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: "Appointments",
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -77,7 +79,7 @@ export default function AppointmentLead() {
         ],
       },
       title: {
-        text: "Appointment Leads As Per Month",
+        text: "Appointment Leads",
         align: "left",
       },
       tooltip: {
@@ -265,12 +267,25 @@ export default function AppointmentLead() {
                     options={chartData5?.options}
                     series={chartData5?.series}
                     type="area"
-                    height={300}
+                    height={345}
                   />
                 </div>
               </div>
               <div className="col-sm-12 col-lg-6">
                 <div className="barchart-div">
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <p className="ml-4 color-black font-weight-bold">
+                      As per location
+                    </p>
+                    <select
+                      className="w-auto"
+                      style={{ padding: "7px 10px", appearance: "auto" }}
+                    >
+                      <option>City</option>
+                      <option>State</option>
+                      <option>Country</option>
+                    </select>
+                  </div>
                   <Charts
                     options={chartData6?.options}
                     series={chartData6?.series}
@@ -332,7 +347,7 @@ export default function AppointmentLead() {
                           ) : (
                             <td>---</td>
                           )}
-                          <td className="d-flex align-items-center">
+                          <td className="">
                             <FontAwesomeIcon
                               icon={faEye}
                               className="text-dark"

@@ -6,10 +6,12 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
+  faChevronRight,
   faCircleInfo,
   faCircleXmark,
   faEnvelope,
   faFloppyDisk,
+  faGear,
   faInfo,
   faLink,
   faLock,
@@ -43,6 +45,7 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import ReactPlayer from "react-player";
+import TagsModal from "@components/Dashboard/TagsModal";
 
 export default function EditProducts({
   APIDATA,
@@ -95,6 +98,7 @@ export default function EditProducts({
   const [EditRadioBtn, setEditRadioBtn] = useState("");
   const [CategoryId, setCategoryId] = React.useState(null);
   const [Category, setCategory] = useState("");
+  const [modalShow, setModalShow] = useState("");
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -306,7 +310,8 @@ export default function EditProducts({
     label,
     item_label,
     button_placeholder,
-    item_youtube_link
+    item_youtube_link,
+    item_category
   ) => {
     handleEditShow();
     setProductModalId(id);
@@ -319,6 +324,10 @@ export default function EditProducts({
     setAddLabel(button_placeholder);
     setEditRadioBtn(item_label);
     setProductVideo(item_youtube_link);
+    item_category.map((option) => {
+      let obj = ProjectOptions.find((o) => o.value === option.id);
+      setCategoryId(obj);
+    });
   };
   const HandleEmptyFeilds = () => {
     setImage("");
@@ -470,8 +479,6 @@ export default function EditProducts({
   };
 
   // chatapi code
-
-  const [text, setText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
   const apiKey = "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";
@@ -626,6 +633,19 @@ export default function EditProducts({
                       }}
                       modules={[Pagination, Navigation]}
                     >
+                      <SwiperSlide>
+                        <div className="swiper-slide review-items position-relative mb-4">
+                          <img
+                            src={
+                              item?.image?.path
+                                ? Data?.base_url + item?.image?.path
+                                : "../static/img/picture-1.jpg"
+                            }
+                            alt="product-gallery-images"
+                            className="coverr-modal lazyload mb-2"
+                          />
+                        </div>
+                      </SwiperSlide>
                       {item?.gallery?.map((o, i) => {
                         return (
                           <SwiperSlide key={i}>
@@ -898,7 +918,23 @@ export default function EditProducts({
 
             {PriceRadio ? (
               <div>
-                <label className="modalFormLable">Price</label>
+                <div className="d-flex align-items-center">
+                  <label className="modalFormLable">Price</label>
+                  <div class="wrapper mb-2 ml-2 product-price-toltip">
+                    <div class="tooltip">
+                      Dashboard <FontAwesomeIcon icon={faChevronRight} /> click
+                      on profile image <FontAwesomeIcon icon={faChevronRight} />{" "}
+                      <br />
+                      <FontAwesomeIcon icon={faGear} /> Setting to change
+                      currency.
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faInfo}
+                      className="pe-auto Iconcolor-black cursor-pointer"
+                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                    />
+                  </div>
+                </div>
                 <div className="d-flex" style={{ gap: "10px" }}>
                   {/* <select
                     style={{
@@ -989,7 +1025,7 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
-            <label className="modalFormLable">Upload Video</label>
+            <label className="modalFormLable">Upload Youtube Video URL</label>
             <input
               name="name"
               rows="4"
@@ -1000,9 +1036,22 @@ export default function EditProducts({
               onChange={(e) => setProductVideo(e.target.value)}
             ></input>
             <div className="">
-              <label className="modalFormLable ml-0 pl-1 w-100">
-                Select Category
-              </label>
+              <div className="d-flex align-items-center">
+                <label className="modalFormLable ml-0 pl-1">
+                  Select Category
+                </label>
+                <div class="wrapper mb-2 ml-2 product-price-toltip">
+                  <div class="tooltip">
+                    Type category name and press "Enter Button" to create new
+                    category.
+                  </div>
+                  <FontAwesomeIcon
+                    icon={faInfo}
+                    className="pe-auto Iconcolor-black cursor-pointer"
+                    onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                  />
+                </div>
+              </div>
               <CreatableSelect
                 className="w-100 mb-4 "
                 isClearable
@@ -1303,6 +1352,34 @@ export default function EditProducts({
                     placeholder="Video Url"
                     onChange={(e) => setProductVideo(e.target.value)}
                   ></input>
+                  <div className="">
+                    <div className="d-flex align-items-center">
+                      <label className="modalFormLable ml-0 pl-1">
+                        Select Category
+                      </label>
+                      <div class="wrapper mb-2 ml-2 product-price-toltip">
+                        <div class="tooltip">
+                          Type category name and press "Enter Button" to create
+                          new category.
+                        </div>
+                        <FontAwesomeIcon
+                          icon={faInfo}
+                          className="pe-auto Iconcolor-black cursor-pointer"
+                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                        />
+                      </div>
+                    </div>
+                    <CreatableSelect
+                      className="w-100 mb-4 "
+                      isClearable
+                      isDisabled={isLoading}
+                      isLoading={isLoading}
+                      onChange={HandleProjectSelect}
+                      onCreateOption={handleCreate}
+                      options={ProjectOptions}
+                      value={CategoryId}
+                    />
+                  </div>
                   <div className="d-flex align-items-center justify-content-between">
                     <label className="modalFormLable">Description</label>
                     <p
@@ -1515,18 +1592,31 @@ export default function EditProducts({
                           className="addmore"
                           data-toggle="modal"
                           data-target="#AddProductModal"
-                          // onClick={() => handleShow()}
                           onClick={handleUpgradePlan}
                         >
                           <FontAwesomeIcon icon={faPlus} />
                         </button>
                       ) : (
-                        <button
-                          className="addmore"
-                          onClick={() => handleShow()}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
+                        <>
+                          <button
+                            className="addmore mr-0"
+                            onClick={() => handleShow()}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                          <TagsModal
+                            active={modalShow == "TagsModal" ? true : false}
+                            handleClose={setModalShow}
+                            Data={Data}
+                            APIDATA={APIDATA}
+                          />
+                          <button
+                            className="addmore"
+                            onClick={() => setModalShow("TagsModal")}
+                          >
+                            <FontAwesomeIcon icon={faGear} />
+                          </button>
+                        </>
                       )}
                       <>
                         <label className="switch">
@@ -1799,7 +1889,8 @@ export default function EditProducts({
                                     items.label,
                                     items.is_label,
                                     items.button_placeholder,
-                                    items?.youtube_link
+                                    items?.youtube_link,
+                                    items?.categories
                                   )
                                 }
                               >

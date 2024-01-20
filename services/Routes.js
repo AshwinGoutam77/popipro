@@ -80,3 +80,19 @@ export const GetNotitficationHistory = {
   path: "get-notification-history",
   method: "GET",
 };
+export const ShareContactLeads = {
+  path: "get-shared-contact-leads",
+  method: "GET",
+};
+export const ProductInquiryLeads = {
+  path: "get-product-enquiries",
+  method: "GET",
+};
+export const GetAppointmentLeads = {
+  path: "get-appointment-enquiries",
+  method: "GET",
+};
+export const DeleteProductCategory = {
+  path: "delete-product-category",
+  method: "POST",
+};

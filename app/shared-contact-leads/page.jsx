@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
-import { EditData, GetInshights } from "@services/Routes";
+import { EditData, GetInshights, ShareContactLeads } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
@@ -39,7 +39,7 @@ const Leads = () => {
 
   const api = async () => {
     setShowLoader(true);
-    const response = await Api(GetInshights, {});
+    const response = await Api(ShareContactLeads, {});
     if (response.data.status) {
       setShowLoader(false);
       setData(response.data.data);
@@ -127,8 +127,10 @@ const Leads = () => {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: "Shared Contact Leads",
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -160,7 +162,7 @@ const Leads = () => {
         ],
       },
       title: {
-        text: "Shared Contact Leads As Per Month",
+        text: "Shared Contact Leads",
         align: "left",
       },
       tooltip: {
@@ -390,12 +392,25 @@ const Leads = () => {
                       options={chartData5?.options}
                       series={chartData5?.series}
                       type="area"
-                      height={300}
+                      height={345}
                     />
                   </div>
                 </div>
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
+                    <div className="d-flex align-items-center justify-content-between mb-2">
+                      <p className="ml-4 color-black font-weight-bold">
+                        As per location
+                      </p>
+                      <select
+                        className="w-auto"
+                        style={{ padding: "7px 10px", appearance: "auto" }}
+                      >
+                        <option>City</option>
+                        <option>State</option>
+                        <option>Country</option>
+                      </select>
+                    </div>
                     <Charts
                       options={chartData6?.options}
                       series={chartData6?.series}
@@ -466,26 +481,28 @@ const Leads = () => {
                             ) : (
                               <td>---</td>
                             )}
-                            <td
-                              className="d-flex align-items-center justify-content-left"
-                              style={{ gap: "10px" }}
-                            >
-                              <FontAwesomeIcon
-                                icon={faDownload}
-                                className="text-dark"
-                                onClick={() =>
-                                  shareContact(
-                                    item.full_name,
-                                    item.contact_number,
-                                    item.email
-                                  )
-                                }
-                              />
-                              <FontAwesomeIcon
-                                onClick={() => setShowModal(true)}
-                                icon={faEye}
-                                className="text-dark"
-                              />
+                            <td>
+                              <div
+                                className="d-flex align-items-center justify-content-left"
+                                style={{ gap: "10px" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faDownload}
+                                  className="text-dark"
+                                  onClick={() =>
+                                    shareContact(
+                                      item.full_name,
+                                      item.contact_number,
+                                      item.email
+                                    )
+                                  }
+                                />
+                                <FontAwesomeIcon
+                                  onClick={() => setShowModal(true)}
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </div>
                             </td>
                           </tr>
                         );

@@ -122,7 +122,7 @@ export default function SettingModal({
 
             <ul className="m-0 p-0 multimodes-ul mt-3 px-1">
               <li className="d-flex align-items-center justify-content-between mb-2">
-                <h6 className="mb-0 color-black">Allow Notifications</h6>
+                <h6 className="mb-0 color-black">Allow Push Notifications</h6>
                 <label className="switch">
                   <input
                     data-status={AllowNotification}
@@ -148,16 +148,31 @@ export default function SettingModal({
                   <span className="slider round"></span>
                 </label>
               </li>
+              <li className="d-flex align-items-center justify-content-between mb-2">
+                <h6 className="mb-0 color-black">Allow Resources Notifications</h6>
+                <label className="switch">
+                  <input
+                    data-status={AllowNotification}
+                    data-active={AllowNotification}
+                    checked={AllowNotification == 1 ? true : false}
+                    type="checkbox"
+                    name="hello"
+                    onChange={() => handleAllowNotification()}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </li>
             </ul>
+            <p className="color-black py-2">*Note: Above notification and location settings are for profile visitiors</p>
             <button
-              className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
+              className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-3"
               style={{ padding: "7px 19px" }}
               onClick={handleSave}
             >
               Save
             </button>
             <button
-              className="delete-button w-auto bg-btn7 lnk wow fadeInUp mt-4 ml-2"
+              className="delete-button w-auto bg-btn7 lnk wow fadeInUp mt-3 ml-2"
               onClick={handleClose}
             >
               Cancel

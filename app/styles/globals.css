@@ -188,7 +188,37 @@ code {
 .insights-order-2 {
   order: 2;
 }
+.notification-message-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.notification-form-div textarea {
+  width: 50%;
+}
+.product-price-toltip {
+  background: var(--color);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-price-toltip svg {
+  font-size: 11px !important;
+}
 @media (max-width: 720px) {
+  .notification-message-div {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .notification-form-div textarea {
+    width: 100%;
+  }
   .insights-order-1 {
     order: 2;
   }
@@ -1201,6 +1231,13 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
 }
 .notification-form-div input {
   border-radius: 0px !important;
+}
+.category-title-input {
+  width: auto;
+  border: none;
+  border-bottom: 1px solid #b1b1b1;
+  font-size: 16px;
+  border-radius: 0px;
 }
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
