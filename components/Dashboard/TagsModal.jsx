@@ -18,7 +18,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
   const [CategoryId, setCategoryId] = useState("");
   const [UpdateCategory, setUpdateCategory] = useState("");
 
-  const handleSaveCategory = (id) => {
+  const handleSaveCategory = (id) => { 
     setCategoryId(id);
     setEditCategory(true);
     if (EditCategory) {
