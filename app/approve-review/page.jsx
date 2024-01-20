@@ -346,9 +346,9 @@ export default function TestimonialsLeads() {
                 <thead>
                   <tr>
                     <th>Contact</th>
-                    <th>Requested Date</th>
+                    <th>Date</th>
                     <th>Location</th>
-                    <th>Status</th>
+                    <th>Approve Review</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -414,7 +414,7 @@ export default function TestimonialsLeads() {
                                 href="#"
                                 class="badge badge-danger bg-varcolor"
                               >
-                                Mark As Approve?
+                                Mark Approve?
                               </p>
                             </td>
                           )}
@@ -444,7 +444,7 @@ export default function TestimonialsLeads() {
             className="w-100 text-center text-white p-2 mt-3"
             style={{ background: "black" }}
           >
-            <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
+            <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
           </div>
         </div>
       </div>

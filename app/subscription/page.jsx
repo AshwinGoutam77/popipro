@@ -131,7 +131,7 @@ const PlanManagment = () => {
           className="w-100 text-center text-white p-2 position-absolute mt-3"
           style={{ bottom: "0", background: "black" }}
         >
-          <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
+          <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
         </div>
       </div>
     </div>

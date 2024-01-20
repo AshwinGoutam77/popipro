@@ -169,9 +169,75 @@ export default function page() {
           </a>
         </div>
       </div>
-
+      <hr />
+      <div className="px-4 pt-4">
+        <h4 className="first-title title__separate text-black">Featured Backgrounds</h4>
+      </div>
       <div className="px-4 pt-4 pb-4">
-        <h5>Featured Backgrounds</h5>
+        <h5>Zoom</h5>
+
+        <div
+          className="pt-4 d-flex align-items-center flex-wrap vb-div"
+          style={{ gap: "10px" }}
+        >
+          {Data &&
+            Data?.virtual_background?.map((item, index) => {
+              return (
+                <img
+                  src={"data:image/png;base64," + item?.path}
+                  alt="image"
+                  className="virtual-images"
+                  onClick={() => handleVirtualBg(item?.id, item?.path)}
+                  key={index}
+                />
+              );
+            })}
+        </div>
+      </div>
+      <div className="px-4 pt-4 pb-4">
+        <h5>Google Meet</h5>
+
+        <div
+          className="pt-4 d-flex align-items-center flex-wrap vb-div"
+          style={{ gap: "10px" }}
+        >
+          {Data &&
+            Data?.virtual_background?.map((item, index) => {
+              return (
+                <img
+                  src={"data:image/png;base64," + item?.path}
+                  alt="image"
+                  className="virtual-images"
+                  onClick={() => handleVirtualBg(item?.id, item?.path)}
+                  key={index}
+                />
+              );
+            })}
+        </div>
+      </div>
+      <div className="px-4 pt-4 pb-4">
+        <h5>Microsoft Teams</h5>
+
+        <div
+          className="pt-4 d-flex align-items-center flex-wrap vb-div"
+          style={{ gap: "10px" }}
+        >
+          {Data &&
+            Data?.virtual_background?.map((item, index) => {
+              return (
+                <img
+                  src={"data:image/png;base64," + item?.path}
+                  alt="image"
+                  className="virtual-images"
+                  onClick={() => handleVirtualBg(item?.id, item?.path)}
+                  key={index}
+                />
+              );
+            })}
+        </div>
+      </div>
+      <div className="px-4 pt-4 pb-4">
+        <h5>Vimeo</h5>
 
         <div
           className="pt-4 d-flex align-items-center flex-wrap vb-div"

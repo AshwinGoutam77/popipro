@@ -18,6 +18,7 @@ export default function Multimodes({
   const [ActiveProfile, setActiveProfile] = useState(false);
   const [ActiveContact, setActiveContact] = useState(false);
   const [ActiveGoogleReview, setActiveGoogleReview] = useState(false);
+  const [ActiveTrustPilot, setActiveTrustPilot] = useState(false);
   const [ActiveForm, setActiveForm] = useState(false);
   const [ActiveWhatsapp, setActiveWhatsapp] = useState(false);
   const [ActiveShareContact, setActiveShareContact] = useState(false);
@@ -28,6 +29,7 @@ export default function Multimodes({
     setActiveProfile(true);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveWhatsapp(false);
     setActiveShareContact(false);
@@ -37,6 +39,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(true);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveWhatsapp(false);
     setActiveShareContact(false);
@@ -46,6 +49,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(true);
     setActiveWhatsapp(false);
     setActiveShareContact(false);
@@ -58,6 +62,20 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(true);
+    setActiveTrustPilot(false);
+    setActiveForm(false);
+    setActiveWhatsapp(false);
+    setActiveShareContact(false);
+    setActive(false);
+    setShowAppointment(false);
+  } else if (
+    !ActiveGoogleReview &&
+    Data?.landing_mode === "trustpilot"
+  ) {
+    setActiveProfile(false);
+    setActiveContact(false);
+    setActiveGoogleReview(false);
+    setActiveTrustPilot(true);
     setActiveForm(false);
     setActiveWhatsapp(false);
     setActiveShareContact(false);
@@ -67,6 +85,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveWhatsapp(true);
     setActiveShareContact(false);
@@ -76,6 +95,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveShareContact(true);
     setActiveWhatsapp(false);
@@ -86,6 +106,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveShareContact(false);
     setActiveWhatsapp(false);
@@ -95,6 +116,7 @@ export default function Multimodes({
     setActiveProfile(false);
     setActiveContact(false);
     setActiveGoogleReview(false);
+    setActiveTrustPilot(false);
     setActiveForm(false);
     setActiveShareContact(false);
     setActiveWhatsapp(false);
@@ -106,6 +128,7 @@ export default function Multimodes({
       setActiveProfile(true);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveWhatsapp(false);
       setActiveShareContact(false);
@@ -115,6 +138,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(true);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveWhatsapp(false);
       setActiveShareContact(false);
@@ -124,6 +148,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(true);
       setActiveWhatsapp(false);
       setActiveShareContact(false);
@@ -133,6 +158,17 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(true);
+      setActiveTrustPilot(false);
+      setActiveForm(false);
+      setActiveWhatsapp(false);
+      setActiveShareContact(false);
+      setActive(false);
+      setShowAppointment(false);
+    } else if (type == "trustpilot") {
+      setActiveProfile(false);
+      setActiveContact(false);
+      setActiveGoogleReview(false);
+      setActiveTrustPilot(true);
       setActiveForm(false);
       setActiveWhatsapp(false);
       setActiveShareContact(false);
@@ -142,6 +178,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveWhatsapp(true);
       setActiveShareContact(false);
@@ -151,6 +188,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveShareContact(true);
       setActiveWhatsapp(false);
@@ -161,6 +199,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveShareContact(false);
       setActiveWhatsapp(false);
@@ -170,6 +209,7 @@ export default function Multimodes({
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
+      setActiveTrustPilot(false);
       setActiveForm(false);
       setActiveShareContact(false);
       setActiveWhatsapp(false);
@@ -245,7 +285,7 @@ export default function Multimodes({
         <Modal.Body>
           <div>
             <h6 className="text-center mb-2 Varcolor font-weight-normal">
-              Change your default card tap behaviour.
+              Change your default card tap behaviour. <br />When user visits your profile.
             </h6>
             <ul className="m-0 p-0 multimodes-ul">
               <li className="d-flex align-items-center justify-content-between mb-2">
@@ -263,7 +303,7 @@ export default function Multimodes({
                 </label>
               </li>
               <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Save Contact</h6>
+                <h6 className="mb-0">Save Contact</h6>
                 <label className="switch">
                   <input
                     data-status={ActiveContact}
@@ -310,8 +350,25 @@ export default function Multimodes({
               ) : (
                 ""
               )}
+              {Data?.card_trustpilot !== null ? (
+                <li className="d-flex align-item-center justify-content-between mb-2">
+                  <h6 className="mb-0">Open Trustpilot URL</h6>
+                  <label className="switch">
+                    <input
+                      data-status={ActiveTrustPilot}
+                      data-active={ActiveTrustPilot}
+                      checked={ActiveTrustPilot}
+                      type="checkbox"
+                      onChange={() => handleLandingMode("trustpilot")}
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Share Contact</h6>
+                <h6 className="mb-0">Open Share Contact Form</h6>
                 <label className="switch">
                   <input
                     data-status={ActiveShareContact}
@@ -324,7 +381,7 @@ export default function Multimodes({
                 </label>
               </li>
               <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Appointment</h6>
+                <h6 className="mb-0">Show Appointment Form</h6>
                 <label className="switch">
                   <input
                     data-status={ShowAppointment}

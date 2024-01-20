@@ -406,7 +406,7 @@ export default function ProductEnquiry() {
                     <tr>
                       <th>Name</th>
                       <th>Contact</th>
-                      <th>Requested Date</th>
+                      <th>Date</th>
                       <th>Location</th>
                       <th>Action</th>
                     </tr>
@@ -472,7 +472,7 @@ export default function ProductEnquiry() {
               className="w-100 text-center text-white p-2 mt-3"
               style={{ bottom: "0", background: "black" }}
             >
-              <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
+              <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
             </div>
           </div>
         </div>
