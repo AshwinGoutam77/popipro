@@ -112,7 +112,7 @@ export default function Theme({
                 className="title title--h1 first-title title__separate mb-0"
                 id="BlogModalTitle"
               >
-                Select Profile Color
+                Select Color
               </h5>
             </Modal.Title>
 

@@ -37,14 +37,14 @@ import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const NewInsights = () => {
-  const { token, APIDATA } = useAuthContext();
+const Page = () => {
+  const { token, APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
-  const [UserData, setUserData] = useState("");
+  // const [UserData, setUserData] = useState("");
   const [AppointmentTab, setAppointmentTab] = useState(true);
   const [ProductInquiryTab, setProductInquiryTab] = useState(false);
   const [ShareContactTab, setShareContactTab] = useState(false);
@@ -295,7 +295,7 @@ const NewInsights = () => {
         }),
       },
       {
-        name: "Product Inquiry",
+        name: UserData?.titles?.card_products?.visible_name + " Inquiry",
         data: Data?.leads_interact?.graphs?.product_enquiry?.map((i) => {
           return i;
         }),
@@ -355,18 +355,16 @@ const NewInsights = () => {
       },
     },
   };
-
+  let dSet2 =
+    Data?.organic_interact?.graphs &&
+    Data?.organic_interact?.graphs?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.values,
+      };
+    });
   const chartData5 = {
-    series: [
-      {
-        name: "Google",
-        data: [21, 40, 28, 100, 42, 109, 23],
-      },
-      {
-        name: "Safari",
-        data: [21, 70, 88, 67, 90, 23, 45],
-      },
-    ],
+    series: dSet2 || [],
     options: {
       chart: {
         height: 350,
@@ -379,21 +377,10 @@ const NewInsights = () => {
         curve: "smooth",
       },
       xaxis: {
-        type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        type: "date",
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -403,17 +390,16 @@ const NewInsights = () => {
     },
   };
 
+  let dSet3 =
+    Data?.location_interact?.graphs &&
+    Data?.location_interact?.graphs?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
   const chartData6 = {
-    series: [
-      {
-        name: "India",
-        data: [21, 40, 28, 100, 42, 109, 23],
-      },
-      {
-        name: "Australia",
-        data: [21, 70, 88, 67, 90, 23, 45],
-      },
-    ],
+    series: dSet3,
     options: {
       chart: {
         height: 350,
@@ -427,20 +413,9 @@ const NewInsights = () => {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -453,25 +428,25 @@ const NewInsights = () => {
   const chartData7 = {
     series: [
       {
-        name: "Images",
+        name: UserData?.titles?.card_photos?.visible_name,
         data: Data?.resource_interact?.graphs?.photos?.map((i) => {
           return i;
         }),
       },
       {
-        name: "Videos",
+        name: UserData?.titles?.card_videos?.visible_name,
         data: Data?.resource_interact?.graphs?.video?.map((i) => {
           return i;
         }),
       },
       {
-        name: "Blogs",
+        name: UserData?.titles?.card_blogs?.visible_name,
         data: Data?.resource_interact?.graphs?.blogs?.map((i) => {
           return i;
         }),
       },
       {
-        name: "Products",
+        name: UserData?.titles?.card_products?.visible_name,
         data: Data?.resource_interact?.graphs?.products?.map((i) => {
           return i;
         }),
@@ -642,7 +617,7 @@ const NewInsights = () => {
                 className="text-white mr-2"
                 width="20"
               />{" "}
-              Overall Insights
+              Overall Analytics
             </h5>
             <Link href="/dashboard">
               <h6 className="text-white m-0">
@@ -850,7 +825,7 @@ const NewInsights = () => {
                               </td>
                               <td data-column="name">{item.contact}</td>
                               <td data-column="name">{item.appointment}</td>
-                              <td className="d-flex align-items-center">
+                              <td className="">
                                 <FontAwesomeIcon
                                   icon={faEye}
                                   className="text-dark"
@@ -902,7 +877,7 @@ const NewInsights = () => {
                                 </td>
                                 <td data-column="name">{item.contact}</td>
                                 <td data-column="name">{item.created_at}</td>
-                                <td className="d-flex align-items-center">
+                                <td className="">
                                   <FontAwesomeIcon
                                     icon={faEye}
                                     className="text-dark"
@@ -955,7 +930,7 @@ const NewInsights = () => {
                                 </td>
                                 <td data-column="name">{item.contact}</td>
                                 <td data-column="name">{item.created_at}</td>
-                                <td className="d-flex align-items-center">
+                                <td className="">
                                   <FontAwesomeIcon
                                     icon={faEye}
                                     className="text-dark"
@@ -1101,7 +1076,7 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Alternate Phone
+                          {UserData?.titles?.card_alternate_phone?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1112,7 +1087,7 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Custom URL
+                          {UserData?.titles?.card_custom_url?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1174,7 +1149,9 @@ const NewInsights = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Twitter}
+                            {Data?.social_interact?.stats?.Twitter
+                              ? Data?.social_interact?.stats?.Twitter
+                              : "0"}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1188,7 +1165,7 @@ const NewInsights = () => {
                       options={chartData2?.options}
                       series={chartData2?.series}
                       type="bar"
-                      height={225}
+                      height={210}
                     />
                   </div>
                 </div>
@@ -1199,17 +1176,17 @@ const NewInsights = () => {
                 Leads
               </h5>
               <div className="row m-0 mt-4 row-gap-3">
-                <div className="col-sm-12 col-lg-8">
+                <div className="col-sm-12 col-lg-8 insights-order-1">
                   <div className="barchart-div">
                     <Charts
                       options={chartData4?.options}
                       series={chartData4?.series}
                       type="bar"
-                      height={225}
+                      height={210}
                     />
                   </div>
                 </div>
-                <div className="col-sm-12 col-lg-4">
+                <div className="col-sm-12 col-lg-4 insights-order-2">
                   <div className="dashboard-leads-col-4-div py-4">
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
@@ -1250,7 +1227,8 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Product Inquiry
+                          {UserData?.titles?.card_products?.visible_name}{" "}
+                          Inquiry
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
@@ -1299,7 +1277,7 @@ const NewInsights = () => {
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-white">
-                          Images
+                          {UserData?.titles?.card_photos?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1310,7 +1288,7 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Videos
+                          {UserData?.titles?.card_videos?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1321,7 +1299,7 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Blogs
+                          {UserData?.titles?.card_blogs?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1332,7 +1310,7 @@ const NewInsights = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          Products
+                          {UserData?.titles?.card_products?.visible_name}
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1350,14 +1328,14 @@ const NewInsights = () => {
                       options={chartData7?.options}
                       series={chartData7?.series}
                       type="bar"
-                      height={225}
+                      height={210}
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div
-              className="w-100 text-center text-white p-2 pt-3"
+              className="w-100 text-center text-white p-2 mt-3"
               style={{ bottom: "0", background: "black" }}
             >
               <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
@@ -1371,4 +1349,4 @@ const NewInsights = () => {
   );
 };
 
-export default NewInsights;
+export default Page;

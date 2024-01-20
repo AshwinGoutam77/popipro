@@ -4,6 +4,7 @@ import {
   faAngleRight,
   faBagShopping,
   faChartSimple,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -19,6 +20,9 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "@context/AuthContext";
+import dynamic from "next/dynamic";
+import { Modal } from "react-bootstrap";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardProducts({ TitleData }) {
   const { token, APIDATA } = useAuthContext();
@@ -27,6 +31,7 @@ export default function DashboardProducts({ TitleData }) {
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     api();
@@ -47,6 +52,7 @@ export default function DashboardProducts({ TitleData }) {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
+
   const handleSearchData = async () => {
     try {
       setShowLoader(true);
@@ -92,6 +98,104 @@ export default function DashboardProducts({ TitleData }) {
     }
   };
 
+  const chartData5 = {
+    series: [
+      {
+        name: "As per referer",
+        data: [21, 40, 28, 100, 42, 109, 23],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
+  const chartData6 = {
+    series: [
+      {
+        name: "India",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+      {
+        name: "Austrialia",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Canada",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+      {
+        name: "China",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
   return token ? (
     <>
       {Data ? (
@@ -109,9 +213,45 @@ export default function DashboardProducts({ TitleData }) {
             pauseOnHover
             theme="light"
           />
+          <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal.Header>
+              <Modal.Title>
+                <h5
+                  class="title title--h1 first-title title__separate mb-1 mb-0"
+                  id=""
+                >
+                  Hits Details
+                </h5>
+              </Modal.Title>
+              <button
+                type="button"
+                class="close"
+                onClick={() => setShowModal(false)}
+              >
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close alert</span>
+              </button>
+            </Modal.Header>
+            <Modal.Body style={{ padding: "10px" }}>
+              <div className="leads-custom-table mb-1">
+                <div className="d-flex align-items-start">
+                  <p className="w-100 font-weight-bold">Location</p>
+                  <p className="w-100">Jaipur, Rajasthan, India</p>
+                </div>
+                <div className="d-flex align-items-start">
+                  <p className="w-100 font-weight-bold">Date</p>
+                  <p className="w-100">23 jan</p>
+                </div>
+                <div className="d-flex align-items-start">
+                  <p className="w-100 font-weight-bold">Hits</p>
+                  <p className="w-100">10</p>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
           <div
             className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
-            style={{ height: "calc(100vh - 58px)" }}
+            style={{ minHeight: "calc(100vh - 58px)" }}
           >
             <div className="w-100">
               <div
@@ -140,7 +280,7 @@ export default function DashboardProducts({ TitleData }) {
               </div>
               <div
                 className="w-100 bg-custom"
-                style={{ height: "calc(100vh - 58px)" }}
+                style={{ minHeight: "calc(100vh - 58px)" }}
               >
                 <div className="mx-3 pt-4">
                   <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
@@ -169,6 +309,29 @@ export default function DashboardProducts({ TitleData }) {
                       />
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
+                      <select
+                        // onChange={(e) => setSelectId(e.target.value)}
+                        className="form-control"
+                        style={{
+                          appearance: "auto",
+                          padding: "10px",
+                        }}
+                      >
+                        <option>
+                          Select{" "}
+                          {Data?.title_array?.card_products?.visible_name}
+                        </option>
+                        {Data &&
+                          Data?.product_states?.map((items, index) => {
+                            return (
+                              <option value={items?.id} key={index}>
+                                {items?.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
                       <button
                         className="contact-btn w-auto mt-3"
                         onClick={handleSearchData}
@@ -179,12 +342,49 @@ export default function DashboardProducts({ TitleData }) {
                   </div>
                 </div>
 
+                <div className="row m-0 mb-4 row-gap-3">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <Charts
+                        options={chartData5?.options}
+                        series={chartData5?.series}
+                        type="area"
+                        height={345}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <div className="d-flex align-items-center justify-content-between mb-2">
+                        <p className="ml-4 color-black font-weight-bold">
+                          As per location
+                        </p>
+                        <select
+                          className="w-auto"
+                          style={{ padding: "7px 10px", appearance: "auto" }}
+                        >
+                          <option>City</option>
+                          <option>State</option>
+                          <option>Country</option>
+                        </select>
+                      </div>
+                      <Charts
+                        options={chartData6?.options}
+                        series={chartData6?.series}
+                        type="bar"
+                        height={300}
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="box-shadow-leads">
                   <table className="insight-table">
                     <thead>
                       <tr>
                         <th>Name</th>
                         <th>Views</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -198,6 +398,17 @@ export default function DashboardProducts({ TitleData }) {
                             <tr key={index} className="cursor-pointer">
                               <td data-column="Name">{item.name}</td>
                               <td data-column="Email">{item.count}</td>
+                              <td
+                                className=""
+                                onClick={() => {
+                                  setShowModal(true);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </td>
                             </tr>
                           );
                         })
@@ -209,7 +420,7 @@ export default function DashboardProducts({ TitleData }) {
                   className="w-100 text-center text-white p-2 position-absolute mt-3"
                   style={{ bottom: "0", background: "black" }}
                 >
-                  <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
+                  <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
                 </div>
               </div>
             </div>

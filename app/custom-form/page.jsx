@@ -133,10 +133,11 @@ export default function Page() {
         "?start_date=" + startDt + "&end_date=" + endDt + "&form_id=" + SelectId
       );
       if (response.data.status) {
-        setCustomFormData(response.data.data);
+        setCustomFormData(response.data.data?.customForms);
         setShowLoader(false);
       }
     } catch (error) {
+      console.log(error);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         localStorage.removeItem("url");
@@ -158,8 +159,10 @@ export default function Page() {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: "Custom Forms",
+        data: CustomFromGraph?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -191,7 +194,7 @@ export default function Page() {
         ],
       },
       title: {
-        text: "Custom Form Leads As Per Month",
+        text: "Custom Form Leads",
         align: "left",
       },
       tooltip: {
@@ -205,16 +208,20 @@ export default function Page() {
   const chartData6 = {
     series: [
       {
-        name: "2023",
-        data: CustomFromGraph?.graph?.overall?.map((i) => {
-          return i;
-        }),
+        name: "India",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
       },
       {
-        name: "2024",
-        data: CustomFromGraph?.graph?.overall?.map((i) => {
-          return i;
-        }),
+        name: "Austrialia",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Canada",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+      {
+        name: "China",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
       },
     ],
     options: {
@@ -388,12 +395,25 @@ export default function Page() {
                   options={chartData5?.options}
                   series={chartData5?.series}
                   type="area"
-                  height={300}
+                  height={345}
                 />
               </div>
             </div>
             <div className="col-sm-12 col-lg-6">
               <div className="barchart-div">
+                <div className="d-flex align-items-center justify-content-between mb-2">
+                  <p className="ml-4 color-black font-weight-bold">
+                    As per location
+                  </p>
+                  <select
+                    className="w-auto"
+                    style={{ padding: "7px 10px", appearance: "auto" }}
+                  >
+                    <option>City</option>
+                    <option>State</option>
+                    <option>Country</option>
+                  </select>
+                </div>
                 <Charts
                   options={chartData6?.options}
                   series={chartData6?.series}

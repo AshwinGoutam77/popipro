@@ -15,6 +15,8 @@ import { EditData, GoogleAnalytics } from "@services/Routes";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import SimpleBackdrop from "@components/ViewPages/Backdrop";
+import dynamic from "next/dynamic";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function Page() {
   let d = new Date();
@@ -147,6 +149,103 @@ export default function Page() {
       });
     }
   };
+  const chartData5 = {
+    series: [
+      {
+        name: "As per referer",
+        data: [21, 40, 28, 100, 42, 109, 23],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
+  const chartData6 = {
+    series: [
+      {
+        name: "India",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+      {
+        name: "Austrialia",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Canada",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+      {
+        name: "China",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
 
   return Data ? (
     <>
@@ -161,7 +260,7 @@ export default function Page() {
               className="text-white mr-2"
               width={20}
             />
-            Organic Analytics
+            Traffic Analysis
           </h5>
           <Link href="/dashboard">
             <h6 className="text-white m-0">
@@ -175,6 +274,7 @@ export default function Page() {
             </h6>
           </Link>
         </div>
+
         <div className="w-100 bg-custom">
           <div className="mx-3 pt-4">
             <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
@@ -212,8 +312,42 @@ export default function Page() {
               </div>
             </div>
           </div>
-
-          <div className="box-shadow-leads" style={{ overflowX: "auto" }}>
+          <div className="row m-0 mb-4 row-gap-3">
+            <div className="col-sm-12 col-lg-6">
+              <div className="barchart-div">
+                <Charts
+                  options={chartData5?.options}
+                  series={chartData5?.series}
+                  type="area"
+                  height={345}
+                />
+              </div>
+            </div>
+            <div className="col-sm-12 col-lg-6">
+              <div className="barchart-div">
+                <div className="d-flex align-items-center justify-content-between mb-2">
+                  <p className="ml-4 color-black font-weight-bold">
+                    As per location
+                  </p>
+                  <select
+                    className="w-auto"
+                    style={{ padding: "7px 10px", appearance: "auto" }}
+                  >
+                    <option>City</option>
+                    <option>State</option>
+                    <option>Country</option>
+                  </select>
+                </div>
+                <Charts
+                  options={chartData6?.options}
+                  series={chartData6?.series}
+                  type="bar"
+                  height={300}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="box-shadow-leads mb-4" style={{ overflowX: "auto" }}>
             <DataTable
               columns={column}
               data={Data}

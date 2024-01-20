@@ -418,7 +418,7 @@ export default function TestimonialsLeads() {
                               </p>
                             </td>
                           )}
-                          <td className="d-flex align-items-center">
+                          <td className="">
                             <FontAwesomeIcon
                               icon={faTrash}
                               className="text-dark ml-1"

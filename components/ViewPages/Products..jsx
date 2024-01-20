@@ -369,6 +369,19 @@ export default function Product({
                           }}
                           modules={[Pagination, Navigation]}
                         >
+                          <SwiperSlide>
+                            <div className="swiper-slide review-items position-relative mb-1">
+                              <img
+                                src={
+                                  item?.image?.path
+                                    ? Data?.base_url + item?.image?.path
+                                    : "../static/img/picture-1.jpg"
+                                }
+                                alt="product-gallery-images"
+                                className="coverr-modal lazyload mb-2"
+                              />
+                            </div>
+                          </SwiperSlide>
                           {item?.gallery?.map((o, i) => {
                             return (
                               <SwiperSlide key={i}>
@@ -376,7 +389,7 @@ export default function Product({
                                   <img
                                     src={Data?.base_url + o?.path}
                                     alt="product-gallery-images"
-                                    className="coverr-modal lazyload mb-2"
+                                    className="coverr-modal lazyload mb-1"
                                   />
                                 </div>
                               </SwiperSlide>
@@ -384,7 +397,7 @@ export default function Product({
                           })}
                           {item?.youtube_link !== null ? (
                             <SwiperSlide>
-                              <div className="swiper-slide review-items position-relative mb-2">
+                              <div className="swiper-slide review-items position-relative mb-1">
                                 <FontAwesomeIcon
                                   icon={faCircleXmark}
                                   onClick={() =>
@@ -866,7 +879,7 @@ export default function Product({
                             )}
                             {items?.image?.path ? (
                               <Image
-                                className="case-item__icon-products"
+                                className="case-item__icon-products cursor-pointer"
                                 src={
                                   process.env.NEXT_PUBLIC_MODE == "development"
                                     ? "https://dev.popipro.com/" +
@@ -877,14 +890,20 @@ export default function Product({
                                 alt="products"
                                 width={0}
                                 height={0}
+                                onClick={() =>
+                                  ShowModalID(items.id, items?.name)
+                                }
                               />
                             ) : (
                               <Image
-                                className="case-item__icon-products"
+                                className="case-item__icon-products cursor-pointer"
                                 src="./static/img/picture-1.jpg"
                                 alt="products"
                                 width={0}
                                 height={0}
+                                onClick={() =>
+                                  ShowModalID(items.id, items?.name)
+                                }
                               />
                             )}
                             {items?.description?.length <= "0" ? (
@@ -905,7 +924,6 @@ export default function Product({
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                     onClick={() => HitClick(items?.id)}
                                   >
-                                    {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                     <img
                                       src="./static/img/whatsapp.png"
                                       alt="whatsaap"

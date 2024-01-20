@@ -449,6 +449,7 @@ const Banner = ({
                   : "https://www.popipro.com/shop"
               }
               target={LocalStorageUrl == profile ? "" : "_blank"}
+              onClick={() => HitClick("order", "card", id)}
               className={
                 card.banner_color == "#ffffff"
                   ? "m-0 Varcolor d-flex align-items-center getCard-a"
@@ -646,6 +647,7 @@ const Banner = ({
                   : "https://www.popipro.com/shop"
               }
               target={LocalStorageUrl == profile ? "" : "_blank"}
+              onClick={() => HitClick("order", id, id)}
               className={
                 card.banner_color == "#ffffff"
                   ? "m-0 Varcolor d-flex align-items-center getCard-a"

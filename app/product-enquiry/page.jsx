@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { EditData, GetInshights } from "@services/Routes";
+import { EditData, GetInshights, ProductInquiryLeads } from "@services/Routes";
 import Api from "@services/Api";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -28,7 +28,7 @@ import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function ProductEnquiry() {
-  const { token } = useAuthContext();
+  const { token, APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -42,41 +42,9 @@ export default function ProductEnquiry() {
     APIDATA();
   }, []);
 
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("url");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
-
   const api = async () => {
     setShowLoader(true);
-    const response = await Api(GetInshights, {});
+    const response = await Api(ProductInquiryLeads, {});
     if (response.data.status) {
       setShowLoader(false);
       setData(response.data.data);
@@ -139,8 +107,10 @@ export default function ProductEnquiry() {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: UserData?.titles?.card_products?.visible_name + " Enquiry",
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -172,9 +142,7 @@ export default function ProductEnquiry() {
         ],
       },
       title: {
-        text:
-          Data?.title_array?.card_products?.visible_name +
-          " enquiry as per month",
+        text: UserData?.titles?.card_products?.visible_name + " Enquiry",
         align: "left",
       },
       tooltip: {
@@ -325,7 +293,7 @@ export default function ProductEnquiry() {
                   icon={faCartShopping}
                   className="text-white mr-2"
                 />
-                {Data?.title_array?.card_products?.visible_name} Enquiry
+                {UserData?.titles?.card_products?.visible_name + " Enquiry"}
               </h5>
               <Link href="/dashboard">
                 <h6 className="text-white m-0">
@@ -385,12 +353,25 @@ export default function ProductEnquiry() {
                       options={chartData5?.options}
                       series={chartData5?.series}
                       type="area"
-                      height={300}
+                      height={345}
                     />
                   </div>
                 </div>
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
+                    <div className="d-flex align-items-center justify-content-between mb-2">
+                      <p className="ml-4 color-black font-weight-bold">
+                        As per location
+                      </p>
+                      <select
+                        className="w-auto"
+                        style={{ padding: "7px 10px", appearance: "auto" }}
+                      >
+                        <option>City</option>
+                        <option>State</option>
+                        <option>Country</option>
+                      </select>
+                    </div>
                     <Charts
                       options={chartData6?.options}
                       series={chartData6?.series}
@@ -454,7 +435,7 @@ export default function ProductEnquiry() {
                             ) : (
                               <td>---</td>
                             )}
-                            <td className="d-flex align-items-center">
+                            <td className="">
                               <FontAwesomeIcon
                                 icon={faEye}
                                 className="text-dark"

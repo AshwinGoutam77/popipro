@@ -31,8 +31,8 @@ export default function Page() {
   const [ShowLoader, setShowLoader] = useState(false);
 
   const handleSendNotification = async () => {
-    if (Title === "") {
-      toast.error("Title is requried", {
+    if (Message === "") {
+      toast.error("Message is requried", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -44,8 +44,8 @@ export default function Page() {
       });
       return;
     }
-    if (Message === "") {
-      toast.error("Message is requried", {
+    if (Message.length >= 100) {
+      toast.error("Message can't be greater than 100 words", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -195,21 +195,23 @@ export default function Page() {
         </Link>
       </div>
       <div className="notification-form-div bg-white">
-        <div>
-          <label>Title</label>
+        <div className="notification-message-div">
+          {/* <label>Title</label>
           <input
             type="text"
             className="form-control mb-3 w-50"
             placeholder="Enter title"
             value={Title}
             onChange={(e) => setTitle(e.target.value)}
-          />
-          <label>Message</label>
+          /> */}
+          <label className="ml-1">
+            Write Message *(Maximum limit 100 word)
+          </label>
           <textarea
             type="password"
             name="number"
             placeholder="Enter Message*"
-            className="mt-2 form-control w-50"
+            className="mt-2 form-control"
             value={Message}
             onChange={(e) => setMessage(e.target.value)}
             style={{ minHeight: "100px" }}
