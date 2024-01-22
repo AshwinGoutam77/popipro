@@ -33,6 +33,7 @@ export default function DashboardProducts({ TitleData }) {
   const [ShowLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [FilterProducts, setFilterProducts] = useState("");
+  const [ModalId, setModalId] = useState("");
 
   useEffect(() => {
     api();
@@ -78,7 +79,9 @@ export default function DashboardProducts({ TitleData }) {
           "&end_date=" +
           endDt +
           "&product_id=" +
-          FilterProducts + "&type=" + "card" +
+          FilterProducts +
+          "&type=" +
+          "card" +
           "&location_filter=" +
           e
       );
@@ -174,6 +177,10 @@ export default function DashboardProducts({ TitleData }) {
       },
     },
   };
+  const handleShowModal = (id) => {
+    setShowModal(true);
+    setModalId(id);
+  };
 
   return token ? (
     <>
@@ -211,20 +218,40 @@ export default function DashboardProducts({ TitleData }) {
                 <span class="sr-only">Close alert</span>
               </button>
             </Modal.Header>
-            <Modal.Body style={{ padding: "10px" }}>
-              <div className="leads-custom-table mb-1">
-                <div className="d-flex align-items-start">
-                  <p className="w-100 font-weight-bold">Location</p>
-                  <p className="w-100">Jaipur, Rajasthan, India</p>
-                </div>
-                <div className="d-flex align-items-start">
-                  <p className="w-100 font-weight-bold">Date</p>
-                  <p className="w-100">23 jan</p>
-                </div>
-                <div className="d-flex align-items-start">
-                  <p className="w-100 font-weight-bold">Hits</p>
-                  <p className="w-100">10</p>
-                </div>
+            <Modal.Body style={{ padding: "10px 0" }}>
+              <div className="box-shadow-leads m-0 ml-2">
+                <table className="insight-table">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Hits</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Data?.product_stats?.map((item, index) => {
+                      return item.id == ModalId
+                        ? item?.data?.map((i, o) => {
+                            return (
+                              <tr key={o} className="cursor-pointer">
+                                <td data-column="Name">
+                                  {i?.state
+                                    ? i?.city +
+                                      ", " +
+                                      i?.state +
+                                      ", " +
+                                      i?.country
+                                    : i?.city + ", " + i?.country}
+                                </td>
+                                <td data-column="Email">{i?.created_at}</td>
+                                <td className="">{i?.is_exact}</td>
+                              </tr>
+                            );
+                          })
+                        : "";
+                    })}
+                  </tbody>
+                </table>
               </div>
             </Modal.Body>
           </Modal>
@@ -379,7 +406,7 @@ export default function DashboardProducts({ TitleData }) {
                               <td
                                 className=""
                                 onClick={() => {
-                                  setShowModal(true);
+                                  handleShowModal(item?.id);
                                 }}
                               >
                                 <FontAwesomeIcon
