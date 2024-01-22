@@ -51,7 +51,7 @@ const Leads = () => {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
-  const handleSearchData = async () => {
+  const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -70,7 +70,12 @@ const Leads = () => {
       const response = await Api(
         ShareContactLeads,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -361,7 +366,7 @@ const Leads = () => {
                       options={chartData5?.options}
                       series={chartData5?.series}
                       type="area"
-                      height={345}
+                      height={340}
                     />
                   </div>
                 </div>
@@ -372,12 +377,12 @@ const Leads = () => {
                         As per location
                       </p>
                       <select
-                        className="w-auto"
-                        style={{ padding: "7px 10px", appearance: "auto" }}
+                        className="w-auto location-filter"
+                        onChange={(e) => handleSearchData(e.target.value)}
                       >
-                        <option>City</option>
-                        <option>State</option>
-                        <option>Country</option>
+                        <option value="city">City</option>
+                        <option value="state">State</option>
+                        <option value="country">Country</option>
                       </select>
                     </div>
                     <Charts

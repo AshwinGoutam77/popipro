@@ -242,6 +242,18 @@ const Banner = ({
   } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
     window.location =
       "https://api.whatsapp.com/send?phone=" + card.card_contact;
+  } else if (
+    typeof window === "object" &&
+    GoogleReviewState == false &&
+    card?.landing_mode === "open-trustpilot-review"
+  ) {
+    typeof window === "object" &&
+      (window.location.href =
+        card?.card_trustpilot?.includes("https://") ||
+        card?.card_trustpilot?.includes("http://")
+          ? card?.card_trustpilot
+          : "https://" + card?.card_trustpilot);
+    setGoogleReviewState(true);
   }
 
   const handleSaveToken = async () => {

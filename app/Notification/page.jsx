@@ -153,7 +153,10 @@ export default function Page() {
                   </div>
                   <div className="d-flex align-items-start w-100">
                     <p className="Heading-row font-weight-bold">Total Users</p>
-                    <p className="content-row">{item.total_user}</p>
+                    <p className="content-row">
+                      {item.total_user} (Accurate Users: {item?.accurate_user} ,
+                      Anonymous Users:{item.total_user - item?.accurate_user})
+                    </p>
                   </div>
                   <div className="d-flex align-items-start w-100">
                     <p className="Heading-row font-weight-bold">Date</p>
@@ -163,6 +166,23 @@ export default function Page() {
                     <p className="font-weight-bold Heading-row">Message</p>
                     <p className="content-row">{item.message?.body}</p>
                   </div>
+                  <h6 className="mt-3 color-black">Accurate Users</h6>
+                  {item?.users_log
+                    ? item?.users_log?.map((i, o) => {
+                        return (
+                          <div
+                            className="d-flex align-items-start w-100"
+                            key={o}
+                          >
+                            <p className="font-weight-bold Heading-row">
+                              <span className="mr-2">{o}.</span>
+                              {i?.name}
+                            </p>
+                            {/* <p className="content-row">{i.message}</p> */}
+                          </div>
+                        );
+                      })
+                    : "No Users Found"}
                 </div>
               ) : (
                 ""

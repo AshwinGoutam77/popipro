@@ -1239,6 +1239,12 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   font-size: 16px;
   border-radius: 0px;
 }
+.location-filter{
+  padding: 7px 10px !important;
+  appearance: auto !important;
+  border: 0px !important;
+  background-color: var(--themecolor) !important;
+}
 @media (max-width: 1200px) and (min-width: 300px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;

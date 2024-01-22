@@ -33,6 +33,7 @@ export default function DashboardBlogs() {
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [BlogFilter, setBlogFilter] = useState("");
 
   useEffect(() => {
     api();
@@ -53,7 +54,7 @@ export default function DashboardBlogs() {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
-  const handleSearchData = async () => {
+  const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -72,7 +73,16 @@ export default function DashboardBlogs() {
       const response = await Api(
         BlogsInsights,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&blog_id=" +
+          BlogFilter +
+          "&type=" +
+          "card" +
+          "&location_filter=" +
+          e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -276,19 +286,18 @@ export default function DashboardBlogs() {
                   </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <select
-                      // onChange={(e) => setSelectId(e.target.value)}
+                      onChange={(e) => setBlogFilter(e.target.value)}
                       className="form-control"
                       style={{
                         appearance: "auto",
-                        // height: "36px",
                         padding: "10px",
                       }}
                     >
                       <option>
-                        Select {Data?.title_array?.card_blogs?.visible_name}
+                        Select {UserData?.titles?.card_blogs?.visible_name}
                       </option>
                       {Data &&
-                        Data?.blog_stats?.map((items, index) => {
+                        Data?.blog_list?.map((items, index) => {
                           return (
                             <option value={items?.id} key={index}>
                               {items?.name}
@@ -314,7 +323,7 @@ export default function DashboardBlogs() {
                       options={chartData5?.options}
                       series={chartData5?.series}
                       type="area"
-                      height={345}
+                      height={340}
                     />
                   </div>
                 </div>
@@ -325,12 +334,12 @@ export default function DashboardBlogs() {
                         As per location
                       </p>
                       <select
-                        className="w-auto"
-                        style={{ padding: "7px 10px", appearance: "auto" }}
+                        className="w-auto location-filter"
+                        onChange={(e) => handleSearchData(e.target.value)}
                       >
-                        <option>City</option>
-                        <option>State</option>
-                        <option>Country</option>
+                        <option value="city">City</option>
+                        <option value="state">State</option>
+                        <option value="country">Country</option>
                       </select>
                     </div>
                     <Charts

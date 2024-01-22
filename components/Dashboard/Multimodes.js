@@ -69,8 +69,8 @@ export default function Multimodes({
     setActive(false);
     setShowAppointment(false);
   } else if (
-    !ActiveGoogleReview &&
-    Data?.landing_mode === "trustpilot"
+    !ActiveTrustPilot &&
+    Data?.landing_mode === "open-trustpilot-review"
   ) {
     setActiveProfile(false);
     setActiveContact(false);
@@ -164,7 +164,7 @@ export default function Multimodes({
       setActiveShareContact(false);
       setActive(false);
       setShowAppointment(false);
-    } else if (type == "trustpilot") {
+    } else if (type == "open-trustpilot-review") {
       setActiveProfile(false);
       setActiveContact(false);
       setActiveGoogleReview(false);
@@ -359,7 +359,7 @@ export default function Multimodes({
                       data-active={ActiveTrustPilot}
                       checked={ActiveTrustPilot}
                       type="checkbox"
-                      onChange={() => handleLandingMode("trustpilot")}
+                      onChange={() => handleLandingMode("open-trustpilot-review")}
                     />
                     <span className="slider round"></span>
                   </label>

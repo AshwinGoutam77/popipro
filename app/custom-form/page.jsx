@@ -111,7 +111,7 @@ export default function Page() {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
-  const handleSearchData = async (id) => {
+  const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -130,7 +130,14 @@ export default function Page() {
       const response = await Api(
         GetCustomFormData,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt + "&form_id=" + SelectId
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e +
+          "&form_id=" +
+          SelectId
       );
       if (response.data.status) {
         setCustomFormData(response.data.data?.customForms);
@@ -375,12 +382,12 @@ export default function Page() {
                     As per location
                   </p>
                   <select
-                    className="w-auto"
-                    style={{ padding: "7px 10px", appearance: "auto" }}
+                    className="w-auto location-filter"
+                    onChange={(e) => handleSearchData(e.target.value)}
                   >
-                    <option>City</option>
-                    <option>State</option>
-                    <option>Country</option>
+                    <option value="city">City</option>
+                    <option value="state">State</option>
+                    <option value="country">Country</option>
                   </select>
                 </div>
                 <Charts

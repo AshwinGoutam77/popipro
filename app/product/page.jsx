@@ -25,13 +25,14 @@ import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardProducts({ TitleData }) {
-  const { token, APIDATA, UserData} = useAuthContext();
+  const { token, APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [FilterProducts, setFilterProducts] = useState("");
 
   useEffect(() => {
     api();
@@ -53,7 +54,7 @@ export default function DashboardProducts({ TitleData }) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
-  const handleSearchData = async () => {
+  const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -72,7 +73,14 @@ export default function DashboardProducts({ TitleData }) {
       const response = await Api(
         ProductsInsights,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&product_id=" +
+          FilterProducts + "&type=" + "card" +
+          "&location_filter=" +
+          e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -281,7 +289,7 @@ export default function DashboardProducts({ TitleData }) {
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <select
-                        // onChange={(e) => setSelectId(e.target.value)}
+                        onChange={(e) => setFilterProducts(e.target.value)}
                         className="form-control"
                         style={{
                           appearance: "auto",
@@ -289,11 +297,10 @@ export default function DashboardProducts({ TitleData }) {
                         }}
                       >
                         <option>
-                          Select{" "}
-                          {Data?.title_array?.card_products?.visible_name}
+                          Select {UserData?.titles?.card_products?.visible_name}
                         </option>
                         {Data &&
-                          Data?.product_stats?.map((items, index) => {
+                          Data?.products?.map((items, index) => {
                             return (
                               <option value={items?.id} key={index}>
                                 {items?.name}
@@ -320,7 +327,7 @@ export default function DashboardProducts({ TitleData }) {
                         options={chartData5?.options}
                         series={chartData5?.series}
                         type="area"
-                        height={345}
+                        height={340}
                       />
                     </div>
                   </div>
@@ -331,12 +338,12 @@ export default function DashboardProducts({ TitleData }) {
                           As per location
                         </p>
                         <select
-                          className="w-auto"
-                          style={{ padding: "7px 10px", appearance: "auto" }}
+                          className="w-auto location-filter"
+                          onChange={(e) => handleSearchData(e.target.value)}
                         >
-                          <option>City</option>
-                          <option>State</option>
-                          <option>Country</option>
+                          <option value="city">City</option>
+                          <option value="state">State</option>
+                          <option value="country">Country</option>
                         </select>
                       </div>
                       <Charts

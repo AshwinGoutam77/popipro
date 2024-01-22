@@ -114,6 +114,64 @@ export default function AppointmentLead() {
     },
   };
 
+  let d = new Date();
+  const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
+  const [EndDate, setEndDate] = useState(new Date());
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  const handleSearchData = async (e) => {
+    try {
+      setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GetAppointmentLeads ? GetAppointmentLeads : GetInshights,
+        {},
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e
+      );
+      if (response.data.status) {
+        setData(response.data.data);
+        setShowLoader(false);
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        localStorage.removeItem("url");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return token ? (
     Data ? (
       <div>
@@ -227,11 +285,40 @@ export default function AppointmentLead() {
             style={{ minHeight: "calc(100vh - 58px)" }}
           >
             <div className="mx-3 pt-4">
-              <Filters
-                setData={setData}
-                setShowLoader={setShowLoader}
-                GetAppointmentLeads={GetAppointmentLeads}
-              />
+              <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">From</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={StartDate}
+                    maxDate={new Date()}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">To</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={EndDate}
+                    defaultValue={EndDate}
+                    onChange={(Date) => setEndDate(Date)}
+                    maxDate={new Date()}
+                    minDate={StartDate}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <button
+                    className="contact-btn w-auto mt-3"
+                    onClick={handleSearchData}
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="row m-0 mb-4 row-gap-3">
               <div className="col-sm-12 col-lg-6">
@@ -240,7 +327,7 @@ export default function AppointmentLead() {
                     options={chartData5?.options}
                     series={chartData5?.series}
                     type="area"
-                    height={345}
+                    height={340}
                   />
                 </div>
               </div>
@@ -251,12 +338,12 @@ export default function AppointmentLead() {
                       As per location
                     </p>
                     <select
-                      className="w-auto"
-                      style={{ padding: "7px 10px", appearance: "auto" }}
+                      className="w-auto location-filter"
+                      onChange={(e) => handleSearchData(e.target.value)}
                     >
-                      <option>City</option>
-                      <option>State</option>
-                      <option>Country</option>
+                      <option value="city">City</option>
+                      <option value="state">State</option>
+                      <option value="country">Country</option>
                     </select>
                   </div>
                   <Charts
