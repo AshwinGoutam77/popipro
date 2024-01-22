@@ -167,7 +167,7 @@ export default function Page() {
                     <p className="content-row">{item.message?.body}</p>
                   </div>
                   <h6 className="mt-3 color-black">Accurate Users</h6>
-                  {item?.users_log
+                  {item?.users_log?.length !== 0
                     ? item?.users_log?.map((i, o) => {
                         return (
                           <div
@@ -175,14 +175,14 @@ export default function Page() {
                             key={o}
                           >
                             <p className="font-weight-bold Heading-row">
-                              <span className="mr-2">{o}.</span>
+                              <span className="mr-2">{o + 1}.</span>
                               {i?.name}
                             </p>
                             {/* <p className="content-row">{i.message}</p> */}
                           </div>
                         );
                       })
-                    : "No Users Found"}
+                    : <p className="ml-0 my-2">No Users Found</p>}
                 </div>
               ) : (
                 ""
