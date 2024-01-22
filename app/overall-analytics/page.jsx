@@ -164,20 +164,9 @@ const Page = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       fill: {
         opacity: 2,
@@ -252,20 +241,9 @@ const Page = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       fill: {
         opacity: 2,
@@ -328,20 +306,9 @@ const Page = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       fill: {
         opacity: 2,
@@ -473,20 +440,9 @@ const Page = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       fill: {
         opacity: 2,

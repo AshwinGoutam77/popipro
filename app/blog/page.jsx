@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { EditData, GetInshights } from "@services/Routes";
+import { BlogsInsights, EditData, GetInshights } from "@services/Routes";
 import Api from "@services/Api";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardBlogs() {
-  const { token } = useAuthContext();
+  const { token, APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -39,40 +39,9 @@ export default function DashboardBlogs() {
     APIDATA();
   }, []);
 
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("url");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
   const api = async () => {
     setShowLoader(true);
-    const response = await Api(GetInshights, {});
+    const response = await Api(BlogsInsights, {});
     if (response.data.status) {
       setShowLoader(false);
       setData(response.data.data);
@@ -101,7 +70,7 @@ export default function DashboardBlogs() {
         "-" +
         pad(EndDate.getDate(), 2);
       const response = await Api(
-        GetInshights,
+        BlogsInsights,
         {},
         "?start_date=" + startDt + "&end_date=" + endDt
       );
@@ -132,8 +101,10 @@ export default function DashboardBlogs() {
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: UserData?.titles?.card_blogs?.visible_name,
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -149,20 +120,9 @@ export default function DashboardBlogs() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -172,25 +132,16 @@ export default function DashboardBlogs() {
     },
   };
 
+  let dSet =
+    Data?.location_graph &&
+    Data?.location_graph?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
   const chartData6 = {
-    series: [
-      {
-        name: "India",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Austrialia",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Canada",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-      },
-      {
-        name: "China",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-    ],
+    series: dSet || [],
     options: {
       chart: {
         height: 350,
@@ -204,20 +155,9 @@ export default function DashboardBlogs() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -290,7 +230,7 @@ export default function DashboardBlogs() {
                   className="text-white mr-2"
                   width="20"
                 />{" "}
-                {Data?.title_array?.card_blogs?.visible_name}
+                {UserData?.titles?.card_blogs?.visible_name}
               </h5>
               <Link href="/dashboard">
                 <h6 className="text-white m-0">
@@ -306,7 +246,7 @@ export default function DashboardBlogs() {
             </div>
             <div
               className="w-100 bg-custom"
-              style={{ height: "calc(100vh - 58px)" }}
+              style={{ minHeight: "calc(100vh - 58px)" }}
             >
               <div className="mx-3 pt-4">
                 <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
@@ -340,7 +280,7 @@ export default function DashboardBlogs() {
                       className="form-control"
                       style={{
                         appearance: "auto",
-                        height: "36px",
+                        // height: "36px",
                         padding: "10px",
                       }}
                     >
@@ -348,7 +288,7 @@ export default function DashboardBlogs() {
                         Select {Data?.title_array?.card_blogs?.visible_name}
                       </option>
                       {Data &&
-                        Data?.blog_states?.map((items, index) => {
+                        Data?.blog_stats?.map((items, index) => {
                           return (
                             <option value={items?.id} key={index}>
                               {items?.name}
@@ -412,12 +352,12 @@ export default function DashboardBlogs() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Data?.blog_states?.length === 0 ? (
+                    {Data?.blog_stats?.length === 0 ? (
                       <tr>
                         <td className="p-3">No data available</td>
                       </tr>
                     ) : (
-                      Data?.blog_states?.map((item, index) => {
+                      Data?.blog_stats?.map((item, index) => {
                         return (
                           <tr key={index} className="cursor-pointer">
                             <td data-column="Name">{item.name}</td>
@@ -437,7 +377,7 @@ export default function DashboardBlogs() {
               </div>
             </div>
             <div
-              className="w-100 text-center text-white p-2"
+              className="w-100 text-center text-white p-2 mt-3"
               style={{ bottom: "0", background: "black" }}
             >
               <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>

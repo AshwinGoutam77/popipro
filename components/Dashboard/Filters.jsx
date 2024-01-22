@@ -5,7 +5,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 
-export default function Filters({ setData, setShowLoader }) {
+export default function Filters({
+  setData,
+  setShowLoader,
+  GetAppointmentLeads,
+}) {
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
@@ -31,7 +35,7 @@ export default function Filters({ setData, setShowLoader }) {
         "-" +
         pad(EndDate.getDate(), 2);
       const response = await Api(
-        GetInshights,
+        GetAppointmentLeads ? GetAppointmentLeads : GetInshights,
         {},
         "?start_date=" + startDt + "&end_date=" + endDt
       );

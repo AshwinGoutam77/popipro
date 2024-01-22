@@ -15,7 +15,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Api from "@services/Api";
-import { EditData, GetInshights } from "@services/Routes";
+import { EditData, GetInshights, ProductsInsights } from "@services/Routes";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
@@ -25,7 +25,7 @@ import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardProducts({ TitleData }) {
-  const { token, APIDATA } = useAuthContext();
+  const { token, APIDATA, UserData} = useAuthContext();
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -40,7 +40,7 @@ export default function DashboardProducts({ TitleData }) {
 
   const api = async () => {
     setShowLoader(true);
-    const response = await Api(GetInshights, {});
+    const response = await Api(ProductsInsights, {});
     if (response.data.status) {
       setShowLoader(false);
       setData(response.data.data);
@@ -70,7 +70,7 @@ export default function DashboardProducts({ TitleData }) {
         "-" +
         pad(EndDate.getDate(), 2);
       const response = await Api(
-        GetInshights,
+        ProductsInsights,
         {},
         "?start_date=" + startDt + "&end_date=" + endDt
       );
@@ -98,11 +98,21 @@ export default function DashboardProducts({ TitleData }) {
     }
   };
 
+  let dSet =
+    Data?.location_graph &&
+    Data?.location_graph?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: UserData?.titles?.card_products?.visible_name,
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -118,20 +128,9 @@ export default function DashboardProducts({ TitleData }) {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -142,24 +141,7 @@ export default function DashboardProducts({ TitleData }) {
   };
 
   const chartData6 = {
-    series: [
-      {
-        name: "India",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Austrialia",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Canada",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-      },
-      {
-        name: "China",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-    ],
+    series: dSet || [],
     options: {
       chart: {
         height: 350,
@@ -173,20 +155,9 @@ export default function DashboardProducts({ TitleData }) {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -264,7 +235,7 @@ export default function DashboardProducts({ TitleData }) {
                     className="text-white mr-2"
                     width="20"
                   />{" "}
-                  {Data?.title_array?.card_products?.visible_name}
+                  {UserData?.titles?.card_products?.visible_name}
                 </h5>
                 <Link href="/dashboard">
                   <h6 className="text-white m-0">
@@ -322,7 +293,7 @@ export default function DashboardProducts({ TitleData }) {
                           {Data?.title_array?.card_products?.visible_name}
                         </option>
                         {Data &&
-                          Data?.product_states?.map((items, index) => {
+                          Data?.product_stats?.map((items, index) => {
                             return (
                               <option value={items?.id} key={index}>
                                 {items?.name}
@@ -388,12 +359,12 @@ export default function DashboardProducts({ TitleData }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {Data?.product_states?.length === 0 ? (
+                      {Data?.product_stats?.length === 0 ? (
                         <tr>
                           <td className="p-3 color-black">No data available</td>
                         </tr>
                       ) : (
-                        Data?.product_states?.map((item, index) => {
+                        Data?.product_stats?.map((item, index) => {
                           return (
                             <tr key={index} className="cursor-pointer">
                               <td data-column="Name">{item.name}</td>
@@ -417,7 +388,7 @@ export default function DashboardProducts({ TitleData }) {
                   </table>
                 </div>
                 <div
-                  className="w-100 text-center text-white p-2 position-absolute mt-3"
+                  className="w-100 text-center text-white p-2 mt-3"
                   style={{ bottom: "0", background: "black" }}
                 >
                   <p> © 2023 - 24. All Rights Reserved By Popipro.</p>

@@ -24,10 +24,13 @@ export default function Page() {
   const [EndDate, setEndDate] = useState(new Date());
   const [Data, setData] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
+  const [GraphData, setGraphData] = useState("");
 
   const handleGoogleData = async () => {
+    setShowLoader(true);
     const res = await Api(GoogleAnalytics, {});
-    setData(res.data.data);
+    setData(res.data.data?.traffic_analysis);
+    setGraphData(res.data.data);
   };
   useEffect(() => {
     handleGoogleData();
@@ -106,8 +109,8 @@ export default function Page() {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
   const handleSearchData = async () => {
-    setShowLoader(true);
     try {
+      setShowLoader(true);
       let startDateNew = new Date(StartDate);
       let startDt =
         startDateNew?.getFullYear() +
@@ -128,9 +131,13 @@ export default function Page() {
       );
       if (response.data.status) {
         setShowLoader(false);
-        setData(response.data.data);
+        setData(response.data.data?.traffic_analysis);
+        setGraphData(response.data.data);
       }
     } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
       setShowLoader(false);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
@@ -149,11 +156,14 @@ export default function Page() {
       });
     }
   };
+
   const chartData5 = {
     series: [
       {
-        name: "As per referer",
-        data: [21, 40, 28, 100, 42, 109, 23],
+        name: "Custom Forms",
+        data: GraphData?.graph?.overall?.map((i) => {
+          return i;
+        }),
       },
     ],
     options: {
@@ -169,20 +179,9 @@ export default function Page() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: GraphData?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {
@@ -192,25 +191,16 @@ export default function Page() {
     },
   };
 
+  let dSet =
+    GraphData?.location_graph &&
+    GraphData?.location_graph?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
   const chartData6 = {
-    series: [
-      {
-        name: "India",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Austrialia",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Canada",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-      },
-      {
-        name: "China",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-    ],
+    series: dSet || [],
     options: {
       chart: {
         height: 350,
@@ -224,20 +214,9 @@ export default function Page() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: GraphData?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Api from "@services/Api";
 import {
   DeleteProductCategory,
@@ -17,6 +17,11 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
   const [EditCategory, setEditCategory] = useState(false);
   const [CategoryId, setCategoryId] = useState("");
   const [UpdateCategory, setUpdateCategory] = useState("");
+  const [CategoryData, setCategoryData] = useState("");
+
+  useEffect(() => {
+    setCategoryData(Data?.categories);
+  }, []);
 
   const handleSaveCategory = (id) => {
     setCategoryId(id);
@@ -37,6 +42,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
         progress: undefined,
         theme: "light",
       });
+      return;
     }
     let payload = {
       category: id,
@@ -115,48 +121,49 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
         <Modal.Body>
           <div>
             <ul className="m-0 p-0 multimodes-ul px-1">
-              {Data &&
-                Data?.categories?.map((items, index) => {
-                  //   console.log(items);
-                  return (
-                    <li
-                      className="d-flex align-items-center justify-content-between mb-1"
-                      key={index}
-                    >
-                      {EditCategory && CategoryId === items?.id ? (
-                        <input
-                          name="product"
-                          className="category-title-input"
-                          onChange={(e) => setUpdateCategory(e.target.value)}
-                          defaultValue={items?.name}
-                          placeholder={items?.name}
-                        ></input>
-                      ) : (
-                        <h6 className="mb-0 color-black">{items?.name}</h6>
-                      )}
-                      <div>
+              {CategoryData
+                ? CategoryData &&
+                  CategoryData?.map((items, index) => {
+                    return (
+                      <li
+                        className="d-flex align-items-center justify-content-between mb-1"
+                        key={index}
+                      >
                         {EditCategory && CategoryId === items?.id ? (
-                          <FontAwesomeIcon
-                            icon={faSave}
-                            className="mr-4 cursor-pointer"
-                            onClick={() => handleUpdateCategory(items?.id)}
-                          />
+                          <input
+                            name="product"
+                            className="category-title-input"
+                            onChange={(e) => setUpdateCategory(e.target.value)}
+                            defaultValue={items?.name}
+                            placeholder={items?.name}
+                          ></input>
                         ) : (
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            className="mr-4 cursor-pointer"
-                            onClick={() => handleSaveCategory(items?.id)}
-                          />
+                          <h6 className="mb-0 color-black">{items?.name}</h6>
                         )}
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          className="cursor-pointer"
-                          onClick={() => handleDelteCategry(items?.id)}
-                        />
-                      </div>
-                    </li>
-                  );
-                })}
+                        <div>
+                          {EditCategory && CategoryId === items?.id ? (
+                            <FontAwesomeIcon
+                              icon={faSave}
+                              className="mr-4 cursor-pointer"
+                              onClick={() => handleUpdateCategory(items?.id)}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="mr-4 cursor-pointer"
+                              onClick={() => handleSaveCategory(items?.id)}
+                            />
+                          )}
+                          <FontAwesomeIcon
+                            icon={faTrash}
+                            className="cursor-pointer"
+                            onClick={() => handleDelteCategry(items?.id)}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })
+                : "No Category Found"}
             </ul>
           </div>
         </Modal.Body>

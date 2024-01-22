@@ -77,7 +77,7 @@ export default function ProductEnquiry() {
         "-" +
         pad(EndDate.getDate(), 2);
       const response = await Api(
-        GetInshights,
+        ProductInquiryLeads,
         {},
         "?start_date=" + startDt + "&end_date=" + endDt
       );
@@ -126,20 +126,9 @@ export default function ProductEnquiry() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       title: {
         text: UserData?.titles?.card_products?.visible_name + " Enquiry",
@@ -152,26 +141,16 @@ export default function ProductEnquiry() {
       },
     },
   };
-
+  let dSet =
+    Data?.location_graph &&
+    Data?.location_graph?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
   const chartData6 = {
-    series: [
-      {
-        name: "India",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Austrialia",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Canada",
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-      },
-      {
-        name: "China",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-    ],
+    series: dSet || [],
     options: {
       chart: {
         height: 350,
@@ -185,20 +164,9 @@ export default function ProductEnquiry() {
       },
       xaxis: {
         type: "month",
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
       },
       tooltip: {
         x: {

@@ -96,3 +96,5 @@ export const DeleteProductCategory = {
   path: "delete-product-category",
   method: "POST",
 };
+export const ProductsInsights = { path: "get-product-stats", method: "GET" };
+export const BlogsInsights = { path: "get-blog-stats", method: "GET" };
