@@ -86,6 +86,7 @@ const Banner = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (
@@ -191,6 +192,7 @@ const Banner = ({
       hit_type: type,
       latitude: Latitude,
       longitude: Longitude,
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -207,6 +209,7 @@ const Banner = ({
       referer,
       latitude: await localforage.getItem("latitude"),
       longitude: await localforage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
     };
 
     const response = await Api(HitClickApi, payload);

@@ -219,13 +219,13 @@ export default function DashboardProducts({ TitleData }) {
               </button>
             </Modal.Header>
             <Modal.Body style={{ padding: "10px 0" }}>
-              <div className="box-shadow-leads m-0 ml-2">
+              <div className="box-shadow-leads hits-details-modal">
                 <table className="insight-table">
                   <thead>
                     <tr>
                       <th>Location</th>
                       <th>Date</th>
-                      <th>Hits</th>
+                      <th>Name</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -244,7 +244,7 @@ export default function DashboardProducts({ TitleData }) {
                                     : i?.city + ", " + i?.country}
                                 </td>
                                 <td data-column="Email">{i?.created_at}</td>
-                                <td className="">{i?.is_exact}</td>
+                                <td className="">{i?.name}</td>
                               </tr>
                             );
                           })

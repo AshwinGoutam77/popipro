@@ -627,7 +627,7 @@ export default function Dashboard() {
                   ""
                 )}
                 {/* Chnage password */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => setModalShow("password")}
@@ -641,7 +641,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 {/* My subscription */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -677,7 +677,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Suggestions */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
@@ -704,7 +704,7 @@ export default function Dashboard() {
             {InsightsTab ? (
               <>
                 {/* Overall insights */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -741,8 +741,8 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
-                {/* Google Analytics */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                {/* Traffic Analysis */}
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href="/traffic-analysis"
                     className="w-100  text-decoration-none"
@@ -760,7 +760,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Product analytics */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -798,7 +798,7 @@ export default function Dashboard() {
                   </Link>
                 </div>{" "}
                 {/* Blogs analytics */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -839,7 +839,7 @@ export default function Dashboard() {
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <>
                     {/* Real Estate */}
-                    <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                    <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                       <Link href="/real-estate" className="w-100">
                         <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                           <FontAwesomeIcon
@@ -865,7 +865,7 @@ export default function Dashboard() {
             {LeadsTab ? (
               <>
                 {/* Lead insights */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -904,7 +904,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Product enquiry */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -943,7 +943,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* My appointment */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -981,7 +981,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* My appointment */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&

@@ -284,10 +284,9 @@ function EditLinks({
               id="select-list"
               style={{
                 appearance: "auto",
-                height: "40px",
-                border: "1px solid #ccc",
+                height: "48px",
               }}
-              className="form-control px-2 p-0 font-weight-bold"
+              className="form-control px-2 p-0 font-weight-bold mb-2"
               name="type"
               onChange={(e) => setSelectOption(e.target.value)}
             >
@@ -305,14 +304,14 @@ function EditLinks({
               type="text"
               name="name"
               placeholder="Please Enter Your Complete Url*"
-              className="px-2 form-control border border-#ccc"
-              style={{ height: "40px" }}
+              className="px-2 form-control border border-#ccc border-0"
+              style={{ height: "auto", border: "none" }}
               value={SocialType}
               onChange={(e) => setSocialType(e.target.value)}
             />
           </div>
           <div
-            className="d-flex align-items-center mt-3"
+            className="d-flex align-items-center mt-0"
             style={{ gap: "10px" }}
           >
             <button
@@ -355,10 +354,9 @@ function EditLinks({
                         id="select-list"
                         style={{
                           appearance: "auto",
-                          height: "40px",
-                          border: "1px solid #ccc",
+                          height: "48px",
                         }}
-                        className="form-control px-2 p-0 font-weight-bold"
+                        className="form-control px-2 p-0 font-weight-bold mb-2"
                         name="type"
                         onChange={(e) => setSelectOption(e.target.value)}
                       >
@@ -382,8 +380,8 @@ function EditLinks({
                         type="text"
                         name="name"
                         placeholder="Please Enter Your Complete Url"
-                        className="px-2 form-control border border-#ccc"
-                        style={{ height: "40px" }}
+                        className="px-2 form-control border border-#ccc border-0"
+                        style={{ height: "auto", border: "none" }}
                         value={SocialType}
                         // onChange={(evnt) => handleLinkChnage(i, evnt)}
                         onChange={(e) => setSocialType(e.target.value)}

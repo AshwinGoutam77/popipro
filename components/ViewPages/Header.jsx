@@ -152,6 +152,7 @@ const Header = ({
       hit_type: "contact-download",
       latitude: await localforage.getItem("latitude"),
       longitude: await localforage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (
@@ -259,6 +260,7 @@ const Header = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (
@@ -296,6 +298,7 @@ const Header = ({
       hit_type: type,
       latitude: await localforage.getItem("latitude"),
       longitude: await localforage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {

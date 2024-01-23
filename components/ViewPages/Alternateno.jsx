@@ -3,6 +3,7 @@ import { faChevronRight, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
 import { HitClickApi } from "@services/Routes";
+import localforage from "localforage";
 import React from "react";
 
 export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
@@ -13,6 +14,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
       device_id: navigator.userAgent,
       object_base: id ? id : Data?.id,
       hit_type: type,
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {

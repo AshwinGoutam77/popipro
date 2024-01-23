@@ -1245,6 +1245,10 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   border: 0px !important;
   background-color: var(--themecolor) !important;
 }
+.hits-details-modal {
+  margin: 0px !important;
+  margin-left: 10px !important;
+}
 @media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;
@@ -1261,10 +1265,9 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   }
 }
 @media (max-width: 1200px) and (min-width: 300px) {
-  /* .dashboard-web-margin {
-    margin: 0px 0px !important;
-    padding: 2rem !important;
-  } */
+  .hits-details-modal {
+    margin: 0px 18px !important;
+  }
   .dashboard-web-margin-image {
     object-fit: scale-down;
   }

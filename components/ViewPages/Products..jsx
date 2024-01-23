@@ -225,6 +225,7 @@ export default function Product({
       hit_type: "visit-site",
       latitude: await localforage.getItem("latitude"),
       longitude: await localforage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -240,6 +241,7 @@ export default function Product({
       hit_type: "view-more",
       latitude: await localforage.getItem("latitude"),
       longitude: await localforage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -484,7 +486,7 @@ export default function Product({
                                 : "https://" + item?.url
                             }
                             target="_blank"
-                            className="contact-btn w-auto"
+                            className="contact-btn w-auto mt-0"
                             style={{ background: "var(--color)" }}
                             onClick={() => handleHitClick()}
                           >
@@ -504,7 +506,7 @@ export default function Product({
                         {MainData?.company_setting
                           ?.show_product_enquiry_button !== 0 ? (
                           <span
-                            className="contact-btn w-auto d-block cursor-pointer"
+                            className="contact-btn w-auto d-block cursor-pointer mt-0"
                             onClick={() =>
                               handleShowModal(item?.id, item?.name)
                             }
@@ -530,7 +532,7 @@ export default function Product({
                               `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
                             }
                             target="_blank"
-                            className="contact-btn w-auto d-block"
+                            className="contact-btn w-auto d-block mt-0"
                             onClick={() => HitClick(item?.id)}
                           >
                             <img

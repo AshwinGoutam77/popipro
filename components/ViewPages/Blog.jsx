@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
 import Image from "next/image";
+import localforage from "localforage";
 
 function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const [ModalId, setModalId] = useState("");
@@ -36,6 +37,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       hit_type: "visit-site",
       latitude: Latitude,
       longitude: Longitude,
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
@@ -50,6 +52,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       hit_type: "view-more",
       latitude: Latitude,
       longitude: Longitude,
+      fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
     if (response.data.status) {
