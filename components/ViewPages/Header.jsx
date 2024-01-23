@@ -69,7 +69,7 @@ const Header = ({
 
   const handleReviewSubmit = async () => {
     if (ReviewName == "") {
-      toast.error("Name is requried", {
+      toast.error("Name is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -81,7 +81,7 @@ const Header = ({
       });
       return;
     } else if (ReviewDescription == "") {
-      toast.error("Message is requried", {
+      toast.error("Message is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

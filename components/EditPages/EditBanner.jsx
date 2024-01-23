@@ -287,7 +287,7 @@ const EditBanner = ({
                 />
               ) : Data?.card_cover == "banner-label" ? (
                 <h5
-                  className="text-white"
+                  className=""
                   style={{
                     fontSize: "16px",
                     color: card?.card_header?.label_color,
@@ -303,7 +303,7 @@ const EditBanner = ({
               {Data.card_cover === "name" &&
               Data?.card_company_logo !== null ? (
                 <h5
-                  className="text-white"
+                  className=""
                   style={{
                     fontSize: "16px",
                     color: card?.card_header?.label_color,

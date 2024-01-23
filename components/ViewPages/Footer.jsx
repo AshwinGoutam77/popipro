@@ -70,17 +70,9 @@ export default function Footer({ Data, profile }) {
               )}
             </button>
           </Link>
-          {/* ) : (
-            <button
-              className="footer-btn text-white"
-              onClick={HandleLogOutPopup}
-            >
-              <span>Login To PopiCard</span>
-            </button>
-          )} */}
         </div>
         <p className="m-0 mt-4 pb-3 text-center footer-copyright">
-          Copyright © 2024 All Rights Reserved.
+          Copyright © 2023-2024 All Rights Reserved.
         </p>
       </div>
     </>

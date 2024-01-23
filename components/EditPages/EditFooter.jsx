@@ -10,7 +10,7 @@ export default function EditFooter({ Data, card_url, APIDATA }) {
   const SaveStatusApi = async () => {
     // setShowLoader(true);
     if (Data.first_name == null) {
-      toast("Name field is requried", {
+      toast("Name field is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -61,7 +61,7 @@ export default function EditFooter({ Data, card_url, APIDATA }) {
           </Link>
         </div>
         <p className="mt-4 mb-4 text-center footer-copyright">
-          Copyright © 2023 All Rights Reserved.
+          Copyright © 2023-2024 All Rights Reserved.
         </p>
       </div>
     </>

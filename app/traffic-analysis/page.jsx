@@ -173,8 +173,22 @@ export default function Page() {
     ],
     options: {
       chart: {
-        height: 350,
-        type: "area",
+        zoom: {
+          enabled: false,
+          type: "x",
+          autoScaleYaxis: false,
+          zoomedArea: {
+            fill: {
+              color: "#90CAF9",
+              opacity: 0.4,
+            },
+            stroke: {
+              color: "#0D47A1",
+              opacity: 0.4,
+              width: 1,
+            },
+          },
+        },
       },
       dataLabels: {
         enabled: false,
@@ -233,6 +247,7 @@ export default function Page() {
 
   return Data ? (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <div>
         <div
           className="login-header p-3 text-center d-flex align-items-center justify-content-between"
@@ -317,9 +332,9 @@ export default function Page() {
                     className="w-auto location-filter"
                     onChange={(e) => handleSearchData(e.target.value)}
                   >
-                    <option value="city">City</option>
-                    <option value="state">State</option>
                     <option value="country">Country</option>
+                    <option value="state">State</option>
+                    <option value="city">City</option>
                   </select>
                 </div>
                 <Charts

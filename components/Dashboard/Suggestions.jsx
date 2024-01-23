@@ -11,7 +11,7 @@ export default function Suggestions({ active, handleClose }) {
 
   const handlecontinue = async () => {
     if (Message === "") {
-      toast.error("Suggestion is requried", {
+      toast.error("Suggestion is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

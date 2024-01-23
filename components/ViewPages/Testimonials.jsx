@@ -37,7 +37,7 @@ const Testimonials = ({
 
   const handleSubmit = async () => {
     if (Name == "") {
-      toast.error("Name is requried", {
+      toast.error("Name is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -49,7 +49,7 @@ const Testimonials = ({
       });
       return;
     } else if (Description == "") {
-      toast.error("Message is requried", {
+      toast.error("Message is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

@@ -47,6 +47,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import ReactPlayer from "react-player";
 import TagsModal from "@components/Dashboard/TagsModal";
+import { Tooltip } from "@mui/material";
 
 export default function EditProducts({
   APIDATA,
@@ -764,8 +765,7 @@ export default function EditProducts({
                             : "https://" + item?.url
                         }
                         target="_blank"
-                        className="mt-1 send-btnn w-auto"
-                        // onClick={() => handleHitClick()}
+                        className="mt-1 send-btnn w-auto mb-0"
                       >
                         <FontAwesomeIcon
                           icon={faLink}
@@ -783,7 +783,7 @@ export default function EditProducts({
                     {MainData?.company_setting?.show_product_enquiry_button !==
                     0 ? (
                       <a
-                        className="mt-1 send-btnn w-auto text-white d-block"
+                        className="mt-1 send-btnn w-auto text-white d-block mb-0"
                         data-toggle="modal"
                         data-target="#ProductEnquireModal"
                       >
@@ -805,7 +805,7 @@ export default function EditProducts({
                           `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
                         }
                         target="_blank"
-                        className="mt-1 send-btnn w-auto d-block"
+                        className="mt-1 send-btnn w-auto d-block mb-0"
                       >
                         <img
                           src="../static/img/whatsapp.png"
@@ -1587,6 +1587,18 @@ export default function EditProducts({
                           />
                         )}
                       </div>
+                      {Data?.categories?.length !== 0 ? (
+                        <Tooltip placement="top" title="Manage Category">
+                          <button
+                            className="addmore mr-0"
+                            onClick={() => setModalShow("TagsModal")}
+                          >
+                            <FontAwesomeIcon icon={faGear} />
+                          </button>
+                        </Tooltip>
+                      ) : (
+                        ""
+                      )}
                       {MainData?.company_setting?.maximum_products <=
                       PaginationData?.total_product ? (
                         <button
@@ -1600,7 +1612,7 @@ export default function EditProducts({
                       ) : (
                         <>
                           <button
-                            className="addmore mr-0"
+                            className="addmore"
                             onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />
@@ -1611,12 +1623,6 @@ export default function EditProducts({
                             Data={Data}
                             APIDATA={APIDATA}
                           />
-                          <button
-                            className="addmore"
-                            onClick={() => setModalShow("TagsModal")}
-                          >
-                            <FontAwesomeIcon icon={faGear} />
-                          </button>
                         </>
                       )}
                       <>

@@ -108,6 +108,7 @@ export default function SettingModal({
               }}
               onChange={(e) => setProductCurrency(e.target.value)}
               className="mt-1"
+              defaultValue={MainData?.company_setting?.currency?.currency}
             >
               <option value="">Select currency</option>
               {currency &&
@@ -149,7 +150,9 @@ export default function SettingModal({
                 </label>
               </li>
               <li className="d-flex align-items-center justify-content-between mb-2">
-                <h6 className="mb-0 color-black">Allow Resources Notifications</h6>
+                <h6 className="mb-0 color-black">
+                  Allow Resources Notifications
+                </h6>
                 <label className="switch">
                   <input
                     data-status={AllowNotification}
@@ -163,7 +166,10 @@ export default function SettingModal({
                 </label>
               </li>
             </ul>
-            <p className="color-black py-2">*Note: Above notification and location settings are for profile visitiors</p>
+            <p className="color-black py-2">
+              *Note: Above notification and location settings are for profile
+              visitiors
+            </p>
             <button
               className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-3"
               style={{ padding: "7px 19px" }}

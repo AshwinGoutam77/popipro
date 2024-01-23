@@ -331,7 +331,8 @@ const Page = () => {
     Data?.organic_interact?.graphs &&
     Data?.organic_interact?.graphs?.map((item) => {
       return {
-        name: item?.name,
+        name: item?.name.replace("https://", ""),
+        // name: new URL(item?.name).hostname,
         data: item?.values,
       };
     });
@@ -339,8 +340,22 @@ const Page = () => {
     series: dSet2 || [],
     options: {
       chart: {
-        height: 350,
-        type: "area",
+        zoom: {
+          enabled: false,
+          type: "x",
+          autoScaleYaxis: false,
+          zoomedArea: {
+            fill: {
+              color: "#90CAF9",
+              opacity: 0.4,
+            },
+            stroke: {
+              color: "#0D47A1",
+              opacity: 0.4,
+              width: 1,
+            },
+          },
+        },
       },
       dataLabels: {
         enabled: false,
@@ -701,12 +716,12 @@ const Page = () => {
                       slidesPerView: 10,
                     },
                     300: {
-                      slidesPerView: 3,
+                      slidesPerView: 2,
                     },
                   }}
                   spaceBetween={10}
                   style={{ cursor: "pointer" }}
-                  className="mySwiper mb-0 pb-0"
+                  className="mySwiper mb-0"
                   modules={[Pagination]}
                 >
                   <SwiperSlide className="w-auto">
@@ -731,7 +746,8 @@ const Page = () => {
                         }
                         onClick={handleInquiryTab}
                       >
-                        Product Inquiry Leads
+                        {UserData?.titles?.card_products?.visible_name} Inquiry
+                        Leads
                       </button>
                     </div>
                   </SwiperSlide>
@@ -936,9 +952,9 @@ const Page = () => {
                         className="w-auto location-filter"
                         onChange={(e) => handleSearchData(e.target.value)}
                       >
-                        <option value="city">City</option>
-                        <option value="state">State</option>
                         <option value="country">Country</option>
+                        <option value="state">State</option>
+                        <option value="city">City</option>
                       </select>
                     </div>
                     <Charts
@@ -1015,7 +1031,7 @@ const Page = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          URL
+                          Website URL
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1132,7 +1148,7 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Leads Links */}
+              {/* Leads */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Leads
               </h5>

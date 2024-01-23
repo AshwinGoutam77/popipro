@@ -32,7 +32,7 @@ export default function Page() {
 
   const handleSendNotification = async () => {
     if (Message === "") {
-      toast.error("Message is requried", {
+      toast.error("Message is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

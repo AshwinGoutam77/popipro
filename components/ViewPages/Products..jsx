@@ -6,6 +6,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
+  faArrowDownAZ,
   faArrowDownShortWide,
   faArrowRight,
   faArrowUp,
@@ -145,7 +146,7 @@ export default function Product({
 
   const handleProductSubmit = async (id) => {
     if (Name == "") {
-      toast.error("Name is requried", {
+      toast.error("Name is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -157,7 +158,7 @@ export default function Product({
       });
       return;
     } else if (Contact == "") {
-      toast.error("Mobile/Phone number is requried", {
+      toast.error("Mobile/Phone number is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -640,11 +641,12 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
-      {Titles?.card_products?.is_active === 1 &&
-      // Products?.length !== 0 &&
-      PlanData?.is_expired == false &&
-      PlanData?.subscription?.plan_id !== 1 &&
-      PlanData?.subscription !== null ? (
+      {(Titles?.card_products?.is_active === 1 && Products?.length !== 0) ||
+      Category?.length !== 0 ||
+      (ProductSearching?.length !== 0 &&
+        PlanData?.is_expired == false &&
+        PlanData?.subscription?.plan_id !== 1 &&
+        PlanData?.subscription !== null) ? (
         <div className="box-content boxxx mb-3" id="card_products">
           <div className="mt-0 product-section-div">
             {Search ? (
@@ -723,7 +725,7 @@ export default function Product({
                             }
                           >
                             <FontAwesomeIcon
-                              icon={faArrowUpZA}
+                              icon={faArrowDownAZ}
                               className="user-select-auto"
                             />{" "}
                             Sort By Name
@@ -834,10 +836,7 @@ export default function Product({
                   Category?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
-                        <div
-                          className="swiper-slide review-items position-relative"
-                          // onClick={() => setProductCategory(items?.id)}
-                        >
+                        <div className="swiper-slide review-items position-relative">
                           <button
                             className={
                               ActiveFilter == items?.name

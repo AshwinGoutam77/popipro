@@ -418,19 +418,23 @@ export default function TestimonialsLeads() {
                               </p>
                             </td>
                           )}
-                          <td className="">
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              className="text-dark ml-1"
-                              onClick={() => handleDeleteTestimonials(item.id)}
-                            />
-                            <FontAwesomeIcon
-                              icon={faEye}
-                              className="text-dark ml-4"
-                              onClick={() => {
-                                setModalId(item.id), setShowModal(true);
-                              }}
-                            />
+                          <td>
+                            <p className="d-flex align-items-center justify-content-left">
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="text-dark ml-1"
+                                onClick={() =>
+                                  handleDeleteTestimonials(item.id)
+                                }
+                              />
+                              <FontAwesomeIcon
+                                icon={faEye}
+                                className="text-dark ml-4"
+                                onClick={() => {
+                                  setModalId(item.id), setShowModal(true);
+                                }}
+                              />
+                            </p>
                           </td>
                         </tr>
                       );

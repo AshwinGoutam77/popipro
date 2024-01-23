@@ -19,7 +19,7 @@ export default function Forgot() {
 
   const handlecontinue = async () => {
     if (Email === "") {
-      toast.error("Email field is requried", {
+      toast.error("Email field is required", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,

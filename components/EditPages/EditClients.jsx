@@ -91,7 +91,7 @@ export default function EditClients({
   const SendFiles = async (e) => {
     console.log(photos);
     if (photos == []) {
-      toast.error("Images are requried", {
+      toast.error("Images are required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

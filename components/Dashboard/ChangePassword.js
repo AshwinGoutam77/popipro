@@ -15,7 +15,7 @@ export default function ChangePassword({ active, handleClose }) {
 
   const handlecontinue = async () => {
     if (Password === "") {
-      toast.error("Password field is requried", {
+      toast.error("Password field is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

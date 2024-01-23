@@ -247,7 +247,7 @@ export default function Theme({
                 </div>
               </div>
               <div
-                className="d-flex align-items-center justify-content-start mt-3"
+                className="d-flex align-items-center justify-content-center mt-3"
                 style={{ gap: "10px" }}
               >
                 <button

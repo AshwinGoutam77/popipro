@@ -1249,6 +1249,18 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   margin: 0px !important;
   margin-left: 10px !important;
 }
+input[type="time"]:before {
+  content: "HH:mm ss";
+  color: #9d9d9d;
+  position: absolute;
+  background: #f7f9fa;
+  width: 70px;
+}
+
+input[type="time"]:focus:before {
+  width: 0;
+  content: "";
+}
 @media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;

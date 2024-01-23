@@ -18,7 +18,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
 
   const handleAppointment = async () => {
     if (Name == "") {
-      toast.error("Name is requried", {
+      toast.error("Name is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -30,7 +30,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       });
       return;
     } else if (Contact == "") {
-      toast.error("Mobile/Phone number is requried", {
+      toast.error("Mobile/Phone number is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -42,7 +42,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       });
       return;
     } else if (Email == "") {
-      toast.error("Email is requried", {
+      toast.error("Email is required", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
