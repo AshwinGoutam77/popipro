@@ -167,22 +167,21 @@ export default function Page() {
                     <p className="content-row">{item.message?.body}</p>
                   </div>
                   <h6 className="mt-3 color-black">Accurate Users</h6>
-                  {item?.users_log?.length !== 0
-                    ? item?.users_log?.map((i, o) => {
-                        return (
-                          <div
-                            className="d-flex align-items-start w-100"
-                            key={o}
-                          >
-                            <p className="font-weight-bold Heading-row">
-                              <span className="mr-2">{o + 1}.</span>
-                              {i?.name}
-                            </p>
-                            {/* <p className="content-row">{i.message}</p> */}
-                          </div>
-                        );
-                      })
-                    : <p className="ml-0 my-2">No Users Found</p>}
+                  {item?.users_log?.length !== 0 ? (
+                    item?.users_log?.map((i, o) => {
+                      return (
+                        <div className="d-flex align-items-start w-100" key={o}>
+                          <p className="font-weight-bold Heading-row">
+                            <span className="mr-2">{o + 1}.</span>
+                            {i?.name}
+                          </p>
+                          {/* <p className="content-row">{i.message}</p> */}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className="ml-0 my-2">No Users Found</p>
+                  )}
                 </div>
               ) : (
                 ""
@@ -272,7 +271,9 @@ export default function Page() {
                     onClick={() => handleModalId(items?.id)}
                     className="cursor-pointer"
                   >
-                    <td data-column="Name">{items?.message?.title}</td>
+                    <td data-column="Name">
+                      {items?.message?.title ? items?.message?.title : "---"}
+                    </td>
                     <td className="leads-short-para">{items.created_date}</td>
                     <td data-column="users">{items.total_user}</td>
                     <td>

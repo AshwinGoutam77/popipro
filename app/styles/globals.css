@@ -1239,16 +1239,19 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   font-size: 16px;
   border-radius: 0px;
 }
-.location-filter{
+.location-filter {
   padding: 7px 10px !important;
   appearance: auto !important;
   border: 0px !important;
   background-color: var(--themecolor) !important;
 }
-@media (max-width: 1200px) and (min-width: 300px) {
+@media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;
     padding: 2rem !important;
+  }
+  .dashboard-padding {
+    padding: 0px 10px !important;
   }
   .dashboard-web-margin-image {
     object-fit: scale-down;
@@ -1257,7 +1260,23 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
     height: 7rem !important;
   }
 }
+@media (max-width: 1200px) and (min-width: 300px) {
+  /* .dashboard-web-margin {
+    margin: 0px 0px !important;
+    padding: 2rem !important;
+  } */
+  .dashboard-web-margin-image {
+    object-fit: scale-down;
+  }
+  .h-40 {
+    height: 7rem !important;
+  }
+}
 @media (max-width: 768px) {
+  .dashboard-web-margin {
+    margin: 0px 0px !important;
+    padding: 2rem !important;
+  }
   .dashboard-row-div2 {
     padding: 20px 40px;
     padding-top: 0px;

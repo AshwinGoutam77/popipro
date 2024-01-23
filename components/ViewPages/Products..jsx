@@ -730,7 +730,7 @@ export default function Product({
                             href=""
                             onClick={() => setHighlightSort("lowest-price")}
                             className={
-                              HighlightSort == "price"
+                              HighlightSort == "lowest-price"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }
@@ -745,7 +745,7 @@ export default function Product({
                             href=""
                             onClick={() => setHighlightSort("highest-price")}
                             className={
-                              HighlightSort == "price"
+                              HighlightSort == "highest-price"
                                 ? "dropdown-item-active"
                                 : "dropdown-item"
                             }

@@ -72,7 +72,7 @@ const Page = () => {
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
-  const handleSearchData = async () => {
+  const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -91,7 +91,12 @@ const Page = () => {
       const response = await Api(
         GetOverallInsights,
         {},
-        "?start_date=" + startDt + "&end_date=" + endDt
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -928,18 +933,18 @@ const Page = () => {
                         As per location
                       </p>
                       <select
-                        className="w-auto"
-                        style={{ padding: "7px 10px", appearance: "auto" }}
+                        className="w-auto location-filter"
+                        onChange={(e) => handleSearchData(e.target.value)}
                       >
-                        <option>City</option>
-                        <option>State</option>
-                        <option>Country</option>
+                        <option value="city">City</option>
+                        <option value="state">State</option>
+                        <option value="country">Country</option>
                       </select>
                     </div>
                     <Charts
                       options={chartData6?.options}
                       series={chartData6?.series}
-                      type="area"
+                      type="bar"
                       height={300}
                     />
                   </div>

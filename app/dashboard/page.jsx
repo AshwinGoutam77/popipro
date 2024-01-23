@@ -198,6 +198,7 @@ export default function Dashboard() {
     setLeadsTab(Tabs == "leads" ? true : false);
     setInsightsTab(Tabs == "insights" ? true : false);
   }, [handleProfileTab, handleLeadsTab, handleInsightsTab]);
+
   return Data ? (
     <>
       <ToastContainer
@@ -393,7 +394,7 @@ export default function Dashboard() {
             {ProfileTab ? (
               <>
                 {/* Edit Profile */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={"/edit/" + localStorage.getItem("url")}
                     className="w-100  text-decoration-none"
@@ -411,7 +412,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Edit theme */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     data-toggle={
@@ -457,7 +458,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 {/* Meta Title */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
@@ -473,7 +474,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 {/* Multiple Mode */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     data-toggle={
@@ -519,7 +520,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 {/* Notification */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link href="/Notification" className="w-100">
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
@@ -539,7 +540,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Approve review */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -577,7 +578,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Signature */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link href="/signature" className="w-100">
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                       <FontAwesomeIcon
@@ -592,7 +593,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Background */}
-                <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link href="/virtual-background" className="w-100">
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                       <FontAwesomeIcon
@@ -608,7 +609,7 @@ export default function Dashboard() {
                 </div>
                 {/* Address Book */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                  <div className="col-6 col-lg-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link href="/address-book" className="w-100">
                       <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
                         <FontAwesomeIcon
