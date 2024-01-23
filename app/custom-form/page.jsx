@@ -209,6 +209,7 @@ export default function Page() {
         data: item?.value,
       };
     });
+
   const chartData6 = {
     series: dSet || [],
     options: {
@@ -235,8 +236,10 @@ export default function Page() {
       },
     },
   };
+
   return FormsData ? (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Modal show={Show} onHide={() => setShow(false)} centered size="">
         <Modal.Header>
           <Modal.Title>
