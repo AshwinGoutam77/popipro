@@ -79,9 +79,11 @@ export default function DashboardProducts({ TitleData }) {
           "&end_date=" +
           endDt +
           "&product_id=" +
-          FilterProducts +
+          FilterProducts?.target?.value +
           "&type=" +
-          "card" +
+          FilterProducts?.target[
+            FilterProducts.target.selectedIndex
+          ].getAttribute("datatype") +
           "&location_filter=" +
           e
       );
@@ -330,20 +332,24 @@ export default function DashboardProducts({ TitleData }) {
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <select
-                        onChange={(e) => setFilterProducts(e.target.value)}
+                        onChange={(e) => setFilterProducts(e)}
                         className="form-control"
                         style={{
                           appearance: "auto",
                           padding: "10px",
                         }}
                       >
-                        <option>
+                        <option value="0">
                           Select {UserData?.titles?.card_products?.visible_name}
                         </option>
                         {Data &&
                           Data?.products?.map((items, index) => {
                             return (
-                              <option value={items?.id} key={index}>
+                              <option
+                                value={items?.id}
+                                key={index}
+                                datatype={items?.type}
+                              >
                                 {items?.name}
                               </option>
                             );
@@ -353,7 +359,7 @@ export default function DashboardProducts({ TitleData }) {
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <button
                         className="contact-btn w-auto mt-3"
-                        onClick={handleSearchData}
+                        onClick={() => handleSearchData()}
                       >
                         Search
                       </button>

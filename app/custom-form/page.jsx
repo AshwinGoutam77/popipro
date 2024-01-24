@@ -141,6 +141,7 @@ export default function Page() {
       );
       if (response.data.status) {
         setCustomFormData(response.data.data?.customForms);
+        setCustomFromGraph(response?.data?.data)
         setShowLoader(false);
       }
     } catch (error) {

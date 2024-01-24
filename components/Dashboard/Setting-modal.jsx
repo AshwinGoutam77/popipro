@@ -112,7 +112,6 @@ export default function SettingModal({
               className="mt-1"
               defaultValue={MainData?.company_setting?.currency?.id}
             >
-              <option value="">Select currency</option>
               {currency &&
                 currency?.map((item, index) => {
                   return (
