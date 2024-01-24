@@ -190,9 +190,9 @@ export default function DashboardBlogs() {
       },
     },
   };
-  const handleShowModal = (id) => {
+  const handleShowModal = (name) => {
     setShowModal(true);
-    setModalId(id);
+    setModalId(name);
   };
   return token ? (
     <>
@@ -242,7 +242,7 @@ export default function DashboardBlogs() {
                   </thead>
                   <tbody>
                     {Data?.blog_stats?.map((item, index) => {
-                      return item.id == ModalId
+                      return item.name == ModalId
                         ? item?.data?.map((i, o) => {
                             return (
                               <tr key={o} className="cursor-pointer">
@@ -416,7 +416,7 @@ export default function DashboardBlogs() {
                             <td
                               className=""
                               onClick={() => {
-                                handleShowModal(item?.id);
+                                handleShowModal(item?.name);
                               }}
                             >
                               <FontAwesomeIcon

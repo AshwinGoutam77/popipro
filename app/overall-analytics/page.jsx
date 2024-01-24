@@ -51,6 +51,7 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [ModalId, setModalId] = useState("");
   const [ModalData, setModalData] = useState("");
+  const [SelectValue, setSelectValue] = useState("country");
 
   useEffect(() => {
     api();
@@ -73,6 +74,7 @@ const Page = () => {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
   const handleSearchData = async (e) => {
+    setSelectValue(e);
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -951,6 +953,7 @@ const Page = () => {
                       <select
                         className="w-auto location-filter"
                         onChange={(e) => handleSearchData(e.target.value)}
+                        defaultValue={SelectValue}
                       >
                         <option value="country">Country</option>
                         <option value="state">State</option>

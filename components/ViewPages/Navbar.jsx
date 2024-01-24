@@ -22,82 +22,82 @@ const Navbar = ({ card, HeaderData }) => {
   return (
     <>
       {/* <aside className="col-12 col-md-12 col-lg-2"> */}
-      {card?.card_description?.length == null ? (
+      {/* {card?.card_description?.length == null ? (
         <></>
-      ) : (
-        <div className="sidebar box sticky-column sidebarr" id="content">
-          <ul
+      ) : ( */}
+      <div className="sidebar box sticky-column sidebarr" id="content">
+        <ul
+          className={
+            HeaderData?.length > 4
+              ? "nav navscroll-bar d-flex align-items-center justify-content-between"
+              : "nav d-flex align-items-center justify-content-between"
+          }
+        >
+          <li
             className={
-              HeaderData?.length > 4
-                ? "nav navscroll-bar d-flex align-items-center justify-content-between"
-                : "nav d-flex align-items-center justify-content-between"
+              HeaderData?.length > 5
+                ? "sticky-li-left d-lg-none d-md-none"
+                : "d-none"
             }
           >
-            <li
-              className={
-                HeaderData?.length > 5
-                  ? "sticky-li-left d-lg-none d-md-none"
-                  : "d-none"
-              }
-            >
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                /* onClick={handleScrollLeft} */
-                className="pe-auto Iconcolor-black"
-                style={{
-                  cursor: "pointer",
-                  marginLeft: "10px",
-                  fontSize: "22px",
-                  color: "var(--color)",
-                  position: "relative",
-                  top: "2px",
-                }}
-              />
-            </li>
-            {HeaderData &&
-              HeaderData?.map((el, i) => {
-                return (
-                  <Tooltip title={el.menu_name} placement="top" arrow key={i}>
-                    <li
-                      className="nav__item cursor-pointer"
-                      onClick={() => handleScroll(el.attribute)}
-                    >
-                      <span activeclass="active">
-                        <span
-                          style={{ fontSize: "16px" }}
-                          dangerouslySetInnerHTML={{
-                            __html: el.icon,
-                          }}
-                        ></span>
-                      </span>
-                    </li>
-                  </Tooltip>
-                );
-              })}
-            <li
-              className={
-                HeaderData?.length > 5
-                  ? "sticky-li-left d-lg-none d-md-none"
-                  : "d-none"
-              }
-            >
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                /* onClick={handleScrollRight} */
-                className="pe-auto Iconcolor-black"
-                style={{
-                  cursor: "pointer",
-                  marginRight: "10px",
-                  fontSize: "22px",
-                  color: "var(--color)",
-                  position: "relative",
-                  top: "2px",
-                }}
-              />
-            </li>
-          </ul>
-        </div>
-      )}
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              /* onClick={handleScrollLeft} */
+              className="pe-auto Iconcolor-black"
+              style={{
+                cursor: "pointer",
+                marginLeft: "10px",
+                fontSize: "22px",
+                color: "var(--color)",
+                position: "relative",
+                top: "2px",
+              }}
+            />
+          </li>
+          {HeaderData &&
+            HeaderData?.map((el, i) => {
+              return (
+                <Tooltip title={el.menu_name} placement="top" arrow key={i}>
+                  <li
+                    className="nav__item cursor-pointer"
+                    onClick={() => handleScroll(el.attribute)}
+                  >
+                    <span activeclass="active">
+                      <span
+                        style={{ fontSize: "16px" }}
+                        dangerouslySetInnerHTML={{
+                          __html: el.icon,
+                        }}
+                      ></span>
+                    </span>
+                  </li>
+                </Tooltip>
+              );
+            })}
+          <li
+            className={
+              HeaderData?.length > 5
+                ? "sticky-li-left d-lg-none d-md-none"
+                : "d-none"
+            }
+          >
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              /* onClick={handleScrollRight} */
+              className="pe-auto Iconcolor-black"
+              style={{
+                cursor: "pointer",
+                marginRight: "10px",
+                fontSize: "22px",
+                color: "var(--color)",
+                position: "relative",
+                top: "2px",
+              }}
+            />
+          </li>
+        </ul>
+      </div>
+      {/* )} */}
       {/* </aside> */}
     </>
   );

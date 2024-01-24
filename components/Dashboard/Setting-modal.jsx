@@ -10,6 +10,7 @@ export default function SettingModal({
   handleClose,
   currency,
   MainData,
+  APIDATA,
 }) {
   const [ProductCurrency, setProductCurrency] = useState("");
   const [AllowNotification, setAllowNotification] = useState(
@@ -29,6 +30,7 @@ export default function SettingModal({
       const res = await Api(AddUserCurrency, payload);
       if (res?.data?.status) {
         handleClose();
+        APIDATA();
         toast.success(res.data.message, {
           position: "top-right",
           autoClose: 3000,

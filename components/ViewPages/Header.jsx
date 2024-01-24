@@ -516,7 +516,9 @@ const Header = ({
 
             {ShowProfileQr ? (
               <div className="d-flex flex-column justify-content-center align-items-center">
-                {imageSrc ? (
+                {"https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
+                imageSrc +
+                "END%3AVCARD%0A" ? (
                   <img
                     src={
                       "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +

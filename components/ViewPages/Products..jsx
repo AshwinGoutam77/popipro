@@ -641,7 +641,7 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
-      {(Titles?.card_products?.is_active === 1 && Products?.length !== 0) ||
+      {(Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
       Category?.length !== 0 ||
       (ProductSearching?.length !== 0 &&
         PlanData?.is_expired == false &&

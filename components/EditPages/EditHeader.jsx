@@ -543,22 +543,22 @@ function EditHeader({
             )}
           </div>
           <div
-            className="d-flex align-items-center pb-4"
+            className="d-flex align-items-center pb-4 mt-3"
             style={{ gap: "8px" }}
           >
             <button
-              className={"contact-btn w-100"}
+              className="contact-btn w-100 mt-0"
               onClick={getBlobData}
               defaultValue="1"
-              style={{ padding: "7px 20px" }}
+              // style={{ padding: "7px 20px" }}
             >
               Save
             </button>
             <button
-              className={"contact-delete-btn w-100"}
+              className="delete-button w-100"
               onClick={cancleChanges}
               defaultValue="1"
-              style={{ padding: "7px 20px" }}
+              // style={{ padding: "7px 20px" }}
             >
               Cancel
             </button>

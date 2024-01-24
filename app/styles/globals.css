@@ -1261,6 +1261,11 @@ input[type="time"]:focus:before {
   width: 0;
   content: "";
 }
+
+.rendered-form.formbuilder-embedded-bootstrap textarea.form-control {
+  height: auto !important;
+}
+
 @media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {
     margin: 0px 0px !important;

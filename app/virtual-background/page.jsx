@@ -72,7 +72,7 @@ export default function page() {
       setData(response.data.data);
       setImage(
         "data:image/png;base64," +
-          response.data.data?.virtual_background?.[0]?.path
+          response.data.data?.virtual_background?.[0]?.background?.[0]?.path
       );
       setVirtualBgId(response.data.data?.[0]?.id);
     }
@@ -171,92 +171,35 @@ export default function page() {
       </div>
       <hr />
       <div className="px-4 pt-4">
-        <h4 className="first-title title__separate text-black">Featured Backgrounds</h4>
+        <h4 className="first-title title__separate text-black">
+          Featured Backgrounds
+        </h4>
       </div>
-      <div className="px-4 pt-4 pb-4">
-        <h5>Zoom</h5>
+      {Data &&
+        Data?.virtual_background?.map((item, index) => {
+          return (
+            <div className="px-4 pt-4 pb-4" key={index}>
+              <h5>{item?.name}</h5>
 
-        <div
-          className="pt-4 d-flex align-items-center flex-wrap vb-div"
-          style={{ gap: "10px" }}
-        >
-          {Data &&
-            Data?.virtual_background?.map((item, index) => {
-              return (
-                <img
-                  src={"data:image/png;base64," + item?.path}
-                  alt="image"
-                  className="virtual-images"
-                  onClick={() => handleVirtualBg(item?.id, item?.path)}
-                  key={index}
-                />
-              );
-            })}
-        </div>
-      </div>
-      <div className="px-4 pt-4 pb-4">
-        <h5>Google Meet</h5>
-
-        <div
-          className="pt-4 d-flex align-items-center flex-wrap vb-div"
-          style={{ gap: "10px" }}
-        >
-          {Data &&
-            Data?.virtual_background?.map((item, index) => {
-              return (
-                <img
-                  src={"data:image/png;base64," + item?.path}
-                  alt="image"
-                  className="virtual-images"
-                  onClick={() => handleVirtualBg(item?.id, item?.path)}
-                  key={index}
-                />
-              );
-            })}
-        </div>
-      </div>
-      <div className="px-4 pt-4 pb-4">
-        <h5>Microsoft Teams</h5>
-
-        <div
-          className="pt-4 d-flex align-items-center flex-wrap vb-div"
-          style={{ gap: "10px" }}
-        >
-          {Data &&
-            Data?.virtual_background?.map((item, index) => {
-              return (
-                <img
-                  src={"data:image/png;base64," + item?.path}
-                  alt="image"
-                  className="virtual-images"
-                  onClick={() => handleVirtualBg(item?.id, item?.path)}
-                  key={index}
-                />
-              );
-            })}
-        </div>
-      </div>
-      <div className="px-4 pt-4 pb-4">
-        <h5>Vimeo</h5>
-
-        <div
-          className="pt-4 d-flex align-items-center flex-wrap vb-div"
-          style={{ gap: "10px" }}
-        >
-          {Data &&
-            Data?.virtual_background?.map((item, index) => {
-              return (
-                <img
-                  src={"data:image/png;base64," + item?.path}
-                  alt="image"
-                  className="virtual-images"
-                  onClick={() => handleVirtualBg(item?.id, item?.path)}
-                  key={index}
-                />
-              );
-            })}
-        </div>
-      </div>
+              <div
+                className="pt-4 d-flex align-items-center flex-wrap vb-div"
+                style={{ gap: "10px" }}
+              >
+                {item?.background?.map((i, o) => {
+                  return (
+                    <img
+                      src={"data:image/png;base64," + i?.path}
+                      alt="image"
+                      className="virtual-images"
+                      onClick={() => handleVirtualBg(i?.id, i?.path)}
+                      key={o}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
     </>
   ) : (
     <SimpleBackdrop visible={ShowLoader} />
