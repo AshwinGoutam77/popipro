@@ -108,7 +108,7 @@ export default function SettingModal({
               }}
               onChange={(e) => setProductCurrency(e.target.value)}
               className="mt-1"
-              defaultValue={MainData?.company_setting?.currency?.currency}
+              defaultValue={MainData?.company_setting?.currency?.id}
             >
               <option value="">Select currency</option>
               {currency &&

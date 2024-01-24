@@ -24,6 +24,16 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
 
           <div className="flex-edit-class iframe-class" style={{ gap: "10px" }}>
             <InstagramProfileEmbed url={instagramProfileUrl} />
+
+            {/* <iframe
+              src="https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/photo/?fbid=10207686494825862&set=ecnf.1397081730"
+              width="500"
+              height="600"
+              scrolling="no"
+              frameborder="0"
+              allowTransparency="true"
+              allow="encrypted-media"
+            ></iframe> */}
           </div>
         </div>
       </div>

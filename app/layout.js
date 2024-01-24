@@ -42,6 +42,13 @@ export default function RootLayout({ children }) {
             gtag('js', new Date()); gtag('config', 'G-JGP54SPWQQ');
           `}
       </Script>
+      <Script
+        async
+        defer
+        crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0"
+        nonce="your_nonce"
+      ></Script>
 
       <body className={poppins.className + " p-0"}>
         <AuthContextProvider>{children}</AuthContextProvider>

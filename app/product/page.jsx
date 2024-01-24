@@ -191,9 +191,9 @@ export default function DashboardProducts({ TitleData }) {
       },
     },
   };
-  const handleShowModal = (id) => {
+  const handleShowModal = (name) => {
     setShowModal(true);
-    setModalId(id);
+    setModalId(name);
   };
 
   return token ? (
@@ -244,7 +244,7 @@ export default function DashboardProducts({ TitleData }) {
                   </thead>
                   <tbody>
                     {Data?.product_stats?.map((item, index) => {
-                      return item.id == ModalId
+                      return item.name == ModalId
                         ? item?.data?.map((i, o) => {
                             return (
                               <tr key={o} className="cursor-pointer">
@@ -420,7 +420,7 @@ export default function DashboardProducts({ TitleData }) {
                               <td
                                 className=""
                                 onClick={() => {
-                                  handleShowModal(item?.id);
+                                  handleShowModal(item?.name);
                                 }}
                               >
                                 <FontAwesomeIcon

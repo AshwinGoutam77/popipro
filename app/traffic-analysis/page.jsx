@@ -140,9 +140,6 @@ export default function Page() {
         setGraphData(response.data.data);
       }
     } catch (error) {
-      console.log("====================================");
-      console.log(error);
-      console.log("====================================");
       setShowLoader(false);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
