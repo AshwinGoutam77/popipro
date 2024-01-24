@@ -78,9 +78,11 @@ export default function DashboardBlogs() {
           "&end_date=" +
           endDt +
           "&blog_id=" +
-          BlogFilter +
+          BlogFilter?.target?.value +
           "&type=" +
-          "card" +
+          BlogFilter?.target[BlogFilter.target.selectedIndex].getAttribute(
+            "datatype"
+          ) +
           "&location_filter=" +
           e
       );
@@ -328,7 +330,7 @@ export default function DashboardBlogs() {
                   </div>
                   <div className="col-6 col-lg-2 p-0 px-2">
                     <select
-                      onChange={(e) => setBlogFilter(e.target.value)}
+                      onChange={(e) => setBlogFilter(e)}
                       className="form-control"
                       style={{
                         appearance: "auto",
@@ -341,7 +343,11 @@ export default function DashboardBlogs() {
                       {Data &&
                         Data?.blog_list?.map((items, index) => {
                           return (
-                            <option value={items?.id} key={index}>
+                            <option
+                              value={items?.id}
+                              key={index}
+                              datatype={items?.type}
+                            >
                               {items?.name}
                             </option>
                           );
