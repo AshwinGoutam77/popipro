@@ -117,18 +117,30 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                   {ModalId == item.id ? (
                     <div>
                       {item?.image?.path ? (
-                        <img
-                          className="coverr-modal lazyload"
-                          src={Data?.base_url + item?.image?.path}
-                          alt="photos"
-                        />
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet={Data?.base_url + item?.image?.path}
+                          />
+                          <img
+                            className="coverr-modal lazyload"
+                            src={Data?.base_url + item?.image?.path}
+                            alt="photos"
+                          />
+                        </picture>
                       ) : (
-                        <img
-                          className="coverr lazyload"
-                          src="./static/img/picture-1.jpg"
-                          alt="photos"
-                          style={{ width: "100%", height: "190px" }}
-                        />
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet="./static/img/picture-1.jpg"
+                          />
+                          <img
+                            className="coverr lazyload"
+                            src="./static/img/picture-1.jpg"
+                            alt="photos"
+                            style={{ width: "100%", height: "190px" }}
+                          />
+                        </picture>
                       )}
                       <p
                         className="mt-3 font-weight-bold mb-3"
@@ -207,28 +219,47 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                           <div className="col-sm-12 col-lg-6 pr-0">
                             <div>
                               {item?.image?.path ? (
-                                <Image
-                                  className="coverr lazyload"
-                                  src={
-                                    process.env.NEXT_PUBLIC_MODE ==
-                                    "development"
-                                      ? "https://dev.popipro.com/" +
-                                        item.image.path
-                                      : "https://admin.popipro.com/" +
-                                        item.image.path
-                                  }
-                                  alt="blog"
-                                  width={0}
-                                  height={0}
-                                />
+                                <picture>
+                                  <source
+                                    type="image/png"
+                                    srcSet={
+                                      process.env.NEXT_PUBLIC_MODE ==
+                                      "development"
+                                        ? "https://dev.popipro.com/" +
+                                          item.image.path
+                                        : "https://admin.popipro.com/" +
+                                          item.image.path
+                                    }
+                                  />
+                                  <img
+                                    className="coverr lazyload"
+                                    src={
+                                      process.env.NEXT_PUBLIC_MODE ==
+                                      "development"
+                                        ? "https://dev.popipro.com/" +
+                                          item.image.path
+                                        : "https://admin.popipro.com/" +
+                                          item.image.path
+                                    }
+                                    alt="blog"
+                                    width={0}
+                                    height={0}
+                                  />
+                                </picture>
                               ) : (
-                                <Image
-                                  className="coverr lazyload"
-                                  src="./static/img/picture-1.jpg"
-                                  alt="products"
-                                  width={0}
-                                  height={0}
-                                />
+                                <picture>
+                                  <source
+                                    type="image/png"
+                                    srcSet="./static/img/picture-1.jpg"
+                                  />
+                                  <img
+                                    className="coverr lazyload"
+                                    src="./static/img/picture-1.jpg"
+                                    alt="products"
+                                    width={0}
+                                    height={0}
+                                  />
+                                </picture>
                               )}
                             </div>
                           </div>
@@ -286,17 +317,29 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                         <div className="flex-blog" style={{ gap: "16px" }}>
                           <div>
                             {item?.image?.path ? (
-                              <img
-                                className="coverr lazyload"
-                                src={Data?.base_url + item?.image?.path}
-                                alt="photos"
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={Data?.base_url + item?.image?.path}
+                                />
+                                <img
+                                  className="coverr lazyload"
+                                  src={Data?.base_url + item?.image?.path}
+                                  alt="photos"
+                                />
+                              </picture>
                             ) : (
-                              <img
-                                className="coverr lazyload"
-                                src="./static/img/picture-1.jpg"
-                                alt="photos"
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet="./static/img/picture-1.jpg"
+                                />
+                                <img
+                                  className="coverr lazyload"
+                                  src="./static/img/picture-1.jpg"
+                                  alt="photos"
+                                />
+                              </picture>
                             )}
                           </div>
                           <div className="content-div p-0 mt-3">

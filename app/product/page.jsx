@@ -56,6 +56,8 @@ export default function DashboardProducts({ TitleData }) {
   }
 
   const handleSearchData = async (e) => {
+    // console.log(FilterProducts);
+    // return;
     try {
       setShowLoader(true);
       let startDateNew = new Date(StartDate);
@@ -74,24 +76,36 @@ export default function DashboardProducts({ TitleData }) {
       const response = await Api(
         ProductsInsights,
         {},
-        "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&product_id=" +
-          FilterProducts?.target?.value +
-          "&type=" +
-          FilterProducts?.target[
-            FilterProducts.target.selectedIndex
-          ].getAttribute("datatype") +
-          "&location_filter=" +
-          e
+        FilterProducts !== ""
+          ? "?start_date=" +
+              startDt +
+              "&end_date=" +
+              endDt +
+              "&product_id=" +
+              FilterProducts?.target?.value +
+              "&type=" +
+              FilterProducts?.target[
+                FilterProducts.target.selectedIndex
+              ].getAttribute("datatype") +
+              "&location_filter=" +
+              e
+          : "?start_date=" +
+              startDt +
+              "&end_date=" +
+              endDt +
+              "&product_id=" +
+              FilterProducts?.target?.value +
+              "&type=" +
+              "card" +
+              "&location_filter=" +
+              e
       );
       if (response.data.status) {
         setData(response.data.data);
         setShowLoader(false);
       }
     } catch (error) {
+      console.log(error);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         localStorage.removeItem("url");
@@ -339,7 +353,7 @@ export default function DashboardProducts({ TitleData }) {
                           padding: "10px",
                         }}
                       >
-                        <option value="0">
+                        <option value="0" datatype="card">
                           Select {UserData?.titles?.card_products?.visible_name}
                         </option>
                         {Data &&

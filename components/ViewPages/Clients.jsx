@@ -50,7 +50,7 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                   return (
                     <SwiperSlide key={index}>
                       <div className="w-100" key={index}>
-                        <Image
+                        {/* <Image
                           className="slider-images w-100"
                           src={
                             process.env.NEXT_PUBLIC_MODE == "development"
@@ -60,7 +60,28 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                           alt="Logo"
                           width={0}
                           height={0}
-                        />
+                        /> */}
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet={
+                              process.env.NEXT_PUBLIC_MODE == "development"
+                                ? "https://dev.popipro.com/" + item.path
+                                : "https://admin.popipro.com/" + item.path
+                            }
+                          />
+                          <img
+                            className="slider-images w-100"
+                            src={
+                              process.env.NEXT_PUBLIC_MODE == "development"
+                                ? "https://dev.popipro.com/" + item.path
+                                : "https://admin.popipro.com/" + item.path
+                            }
+                            alt="Logo"
+                            width={0}
+                            height={0}
+                          />
+                        </picture>
                       </div>
                     </SwiperSlide>
                   );

@@ -279,14 +279,14 @@ const Banner = ({
         localStorage.setItem("fcm_token", token);
         const messaging = firebase.messaging();
         messaging.onMessage((payload) => {
-          console.log(payload);
+          // console.log(payload);
         });
         handleSaveToken();
       } catch (error) {
         console.log(error);
       }
     } else if (permission === "denied") {
-      console.log("we have denied permission!, Please alow the permission.");
+      // console.log("we have denied permission!, Please alow the permission.");
     }
   }
 
@@ -318,19 +318,7 @@ const Banner = ({
 
   return Loader == false ? (
     <>
-      <h5
-        className="d-flex align-items-center justify-content-center text-center"
-        style={{
-          height: "100vh",
-          position: "fixed",
-          top: "0px",
-          left: "0px",
-          bottom: "0px",
-          right: "0px",
-          zIndex: "99999",
-          background: "white",
-        }}
-      >
+      <h5 className="d-flex align-items-center justify-content-center text-center main-loader">
         Loading...
       </h5>
     </>
@@ -380,7 +368,10 @@ const Banner = ({
                 target="_blank"
                 onClick={() => HitClick("direct")}
               >
-                <img src="./static/img/whatsapp.png" alt="whatsaap" />
+                <picture>
+                  <source type="image/png" srcSet="./static/img/whatsapp.png" />
+                  <img src="./static/img/whatsapp.png" alt="whatsaap" />
+                </picture>
               </a>
             ) : (
               ""
@@ -402,13 +393,22 @@ const Banner = ({
                   bottom: "190px",
                   background: "white",
                   cursor: "pointer",
+                  fontSize: "24px",
                 }}
               >
-                <img
+                {/* <img
                   src="./static/img/google.png"
                   style={{ width: "25px" }}
                   alt="photos"
-                />
+                /> */}
+                <picture>
+                  <source type="image/png" srcSet="./static/img/google.png" />
+                  <img
+                    src="./static/img/google.png"
+                    style={{ width: "30px" }}
+                    alt="photos"
+                  />
+                </picture>
               </a>
             ) : (
               ""
@@ -417,8 +417,13 @@ const Banner = ({
             subscription?.subscription?.plan_id !== 1 &&
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
-              <a href={card.card_trustpilot} className="float" target="_blank">
-                <img
+              <a
+                href={card.card_trustpilot}
+                className="float"
+                target="_blank"
+                style={{ fontSize: "24px" }}
+              >
+                {/* <img
                   src="./static/img/trustpilot.png"
                   style={{
                     width: "30px",
@@ -427,7 +432,23 @@ const Banner = ({
                     background: "white",
                   }}
                   alt="photos"
-                />
+                /> */}
+                <picture>
+                  <source
+                    type="image/png"
+                    srcSet="./static/img/trustpilot.png"
+                  />
+                  <img
+                    src="./static/img/trustpilot.png"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "100px",
+                      background: "white",
+                    }}
+                    alt="photos"
+                  />
+                </picture>
               </a>
             ) : (
               ""
@@ -437,12 +458,24 @@ const Banner = ({
           <div className="pt-0" style={{ width: "45%" }}>
             <div>
               {card.card_cover !== "name" && card.card_cover !== "label" ? (
-                <img
-                  src={card.base_url + card.card_company_logo?.path}
-                  className="Logo-icon"
-                  style={{ width: "110px" }}
-                  alt="Logo"
-                />
+                // <img
+                //   src={card.base_url + card.card_company_logo?.path}
+                //   className="Logo-icon"
+                //   style={{ width: "110px" }}
+                //   alt="Logo"
+                // />
+                <picture>
+                  <source
+                    type="image/png"
+                    srcSet={card.base_url + card.card_company_logo?.path}
+                  />
+                  <img
+                    src={card.base_url + card.card_company_logo?.path}
+                    className="Logo-icon"
+                    style={{ width: "110px" }}
+                    alt="logo"
+                  />
+                </picture>
               ) : (
                 <h1
                   className="mt-1"
@@ -540,7 +573,11 @@ const Banner = ({
                 target="_blank"
                 onClick={() => HitClick("direct")}
               >
-                <img src="./static/img/whatsapp.png" alt="whatsaap" />
+                {/* <img src="./static/img/whatsapp.png" alt="whatsaap" /> */}
+                <picture>
+                  <source type="image/png" srcSet="./static/img/whatsapp.png" />
+                  <img src="./static/img/whatsapp.png" alt="whatsaap" />
+                </picture>
               </a>
             ) : (
               ""
@@ -562,13 +599,17 @@ const Banner = ({
                   bottom: "190px",
                   background: "white",
                   cursor: "pointer",
+                  fontSize: "24px",
                 }}
               >
-                <img
-                  src="./static/img/google.png"
-                  style={{ width: "25px" }}
-                  alt="photos"
-                />
+                <picture>
+                  <source type="image/png" srcSet="./static/img/google.png" />
+                  <img
+                    src="./static/img/google.png"
+                    style={{ width: "30px" }}
+                    alt="photos"
+                  />
+                </picture>
               </a>
             ) : (
               ""
@@ -583,18 +624,25 @@ const Banner = ({
                 target="_blank"
                 style={{
                   background: "white",
+                  fontSize: "24px",
                 }}
               >
-                <img
-                  src="./static/img/trustpilot.png"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "100px",
-                    background: "white",
-                  }}
-                  alt="photos"
-                />
+                <picture>
+                  <source
+                    type="image/png"
+                    srcSet="./static/img/trustpilot.png"
+                  />
+                  <img
+                    src="./static/img/trustpilot.png"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "100px",
+                      background: "white",
+                    }}
+                    alt="photos"
+                  />
+                </picture>
               </a>
             ) : (
               ""
@@ -604,12 +652,18 @@ const Banner = ({
           <div className="mt-1">
             <div>
               {card?.card_cover == "banner-logo" ? (
-                <img
-                  src={card?.base_url + card?.card_header?.logo?.path}
-                  alt="logo"
-                  className="Logo-icon"
-                  style={{ width: "110px" }}
-                />
+                <picture>
+                  <source
+                    type="image/png"
+                    srcSet={card.base_url + card.card_company_logo?.path}
+                  />
+                  <img
+                    src={card.base_url + card.card_company_logo?.path}
+                    className="Logo-icon"
+                    style={{ width: "110px" }}
+                    alt="logo"
+                  />
+                </picture>
               ) : card?.card_cover == "banner-label" ? (
                 <h5
                   className="mt-1"
@@ -743,7 +797,7 @@ const Banner = ({
                       >
                         <div className="media-icon-div">
                           <span className="social-media-icons">
-                            <img
+                            {/* <img
                               src={
                                 "./static/img/" +
                                 item.parent.platform_name.toLowerCase() +
@@ -754,7 +808,29 @@ const Banner = ({
                                 width: "50px",
                                 borderRadius: "100%",
                               }}
-                            />
+                            /> */}
+                            <picture>
+                              <source
+                                type="image/png"
+                                srcSet={
+                                  "./static/img/" +
+                                  item.parent.platform_name.toLowerCase() +
+                                  ".png"
+                                }
+                              />
+                              <img
+                                src={
+                                  "./static/img/" +
+                                  item.parent.platform_name.toLowerCase() +
+                                  ".png"
+                                }
+                                alt={item.parent.platform_name}
+                                style={{
+                                  width: "50px",
+                                  borderRadius: "100%",
+                                }}
+                              />
+                            </picture>
                           </span>
                         </div>
                       </Link>

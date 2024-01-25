@@ -130,19 +130,29 @@ const Work = ({
                               className="zIndex-1"
                             />
                           </div>
-                          <Image
-                            className="gallery-grid__image cover lazyload"
-                            src={
-                              process.env.NEXT_PUBLIC_MODE == "development"
-                                ? "https://dev.popipro.com/" + photo.path
-                                : "https://admin.popipro.com/" + photo.path
-                            }
-                            data-zoom
-                            alt="photos"
-                            onClick={() => openImagePopup(i)}
-                            width={0}
-                            height={0}
-                          />
+                          <picture>
+                            <source
+                              type="image/png"
+                              srcSet={
+                                process.env.NEXT_PUBLIC_MODE == "development"
+                                  ? "https://dev.popipro.com/" + photo.path
+                                  : "https://admin.popipro.com/" + photo.path
+                              }
+                            />
+                            <img
+                              className="gallery-grid__image cover lazyload"
+                              src={
+                                process.env.NEXT_PUBLIC_MODE == "development"
+                                  ? "https://dev.popipro.com/" + photo.path
+                                  : "https://admin.popipro.com/" + photo.path
+                              }
+                              data-zoom
+                              alt="photos"
+                              onClick={() => openImagePopup(i)}
+                              width={0}
+                              height={0}
+                            />
+                          </picture>
                         </div>
                       </SwiperSlide>
                     );
@@ -200,18 +210,30 @@ const Work = ({
                   <div className="swiper-slide review-items mt-3">
                     <div className="w-100">
                       <div className="w-100 vedio-flex" style={{ gap: "8px" }}>
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
-                          alt="photos"
-                          className="video-width h-100 vedio-height"
-                          style={{ borderRadius: "10px" }}
-                        />
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
-                          alt="photos"
-                          className="video-width h-100 vedio-height"
-                          style={{ borderRadius: "10px" }}
-                        />
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
+                          />
+                          <img
+                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
+                            alt="photos"
+                            className="video-width h-100 w-100 vedio-height"
+                            style={{ borderRadius: "10px" }}
+                          />
+                        </picture>
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
+                          />
+                          <img
+                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
+                            alt="photos"
+                            className="video-width h-100 w-100 vedio-height"
+                            style={{ borderRadius: "10px" }}
+                          />
+                        </picture>
                       </div>
                     </div>
                   </div>

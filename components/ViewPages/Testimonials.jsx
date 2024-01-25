@@ -234,19 +234,31 @@ const Testimonials = ({
                       <div className="swiper-slide review-item review-item-testimonials d-block">
                         <div className="d-flex align-items-center w-100">
                           {items.image.path ? (
-                            <Image
-                              className="case-item__icon"
-                              src={
-                                process.env.NEXT_PUBLIC_MODE == "development"
-                                  ? "https://dev.popipro.com/" +
-                                    items.image.path
-                                  : "https://admin.popipro.com/" +
-                                    items.image.path
-                              }
-                              alt="photos"
-                              width={0}
-                              height={0}
-                            />
+                            <picture>
+                              <source
+                                type="image/png"
+                                srcSet={
+                                  process.env.NEXT_PUBLIC_MODE == "development"
+                                    ? "https://dev.popipro.com/" +
+                                      items.image.path
+                                    : "https://admin.popipro.com/" +
+                                      items.image.path
+                                }
+                              />
+                              <img
+                                className="case-item__icon"
+                                src={
+                                  process.env.NEXT_PUBLIC_MODE == "development"
+                                    ? "https://dev.popipro.com/" +
+                                      items.image.path
+                                    : "https://admin.popipro.com/" +
+                                      items.image.path
+                                }
+                                alt="photos"
+                                width={0}
+                                height={0}
+                              />
+                            </picture>
                           ) : (
                             // <Image
                             //   className="case-item__icon"

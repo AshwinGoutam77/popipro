@@ -98,3 +98,12 @@ export const DeleteProductCategory = {
 };
 export const ProductsInsights = { path: "get-product-stats", method: "GET" };
 export const BlogsInsights = { path: "get-blog-stats", method: "GET" };
+export const SocailVisitsApi = { path: "save-social-visit", method: "POST" };
+export const GetSocailVisits = {
+  path: "get-all-social-visits",
+  method: "GET",
+};
+export const DeleteSocailVisit = {
+  path: "delete-social-visit",
+  method: "POST",
+};

@@ -49,6 +49,11 @@ export default function RootLayout({ children }) {
         src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0"
         nonce="your_nonce"
       ></Script>
+      <Script
+        async
+        src="https://platform.twitter.com/widgets.js"
+        charset="utf-8"
+      ></Script>
 
       <body className={poppins.className + " p-0"}>
         <AuthContextProvider>{children}</AuthContextProvider>

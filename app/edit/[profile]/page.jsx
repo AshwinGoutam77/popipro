@@ -29,6 +29,7 @@ import SimpleBackdrop from "@components/ViewPages/Backdrop";
 import { useAuthContext } from "@context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import EditRealEstate from "@components/EditPages/EditRealEstate";
+import SocailVisits from "@components/EditPages/SocailVisits";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -165,6 +166,19 @@ const Page = () => {
                     PlanData={cardData?.plan}
                     CardLinks={cardData?.card?.card_social_links}
                   />
+                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                    <SocailVisits
+                      Data={cardData?.card}
+                      card={cardData?.card}
+                      MainData={cardData}
+                      profile={profile}
+                      TitleData={cardData?.titles}
+                      APIDATA={getProfileData}
+                      PlanData={cardData?.plan}
+                    />
+                  ) : (
+                    ""
+                  )}
                   <EditDoing
                     Data={cardData?.card}
                     MainData={cardData}

@@ -24,7 +24,6 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
 
           <div className="flex-edit-class iframe-class" style={{ gap: "10px" }}>
             <InstagramProfileEmbed url={instagramProfileUrl} />
-
             {/* <iframe
               src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/popipro.global&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
               width="100%"

@@ -7,7 +7,7 @@ import React from "react";
 const SocialMedia = ({ card, Titles, CardLinks }) => {
   let links = [];
   const HitClick = async (type, social, id) => {
-     ("hello");
+    ("hello");
     try {
       let payload = {
         card: card?.id,
@@ -20,7 +20,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
       if (response.data.status) {
       }
     } catch (error) {
-       (error);
+      error;
     }
   };
   return (
@@ -53,18 +53,28 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
                         >
                           <div className="media-icon-div">
                             <span className="social-media-icons">
-                              <img
-                                src={
-                                  "./static/img/" +
-                                  item.parent.platform_name.toLowerCase() +
-                                  ".png"
-                                }
-                                alt={item.parent.platform_name}
-                                style={{
-                                  width: "50px",
-                                  borderRadius: "100%",
-                                }}
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={
+                                    "./static/img/" +
+                                    item.parent.platform_name.toLowerCase() +
+                                    ".png"
+                                  }
+                                />
+                                <img
+                                  src={
+                                    "./static/img/" +
+                                    item.parent.platform_name.toLowerCase() +
+                                    ".png"
+                                  }
+                                  alt={item.parent.platform_name}
+                                  style={{
+                                    width: "50px",
+                                    borderRadius: "100%",
+                                  }}
+                                />
+                              </picture>
                             </span>
                           </div>
                         </Link>
@@ -77,18 +87,28 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
                         >
                           <div className="media-icon-div">
                             <span className="social-media-icons">
-                              <img
-                                src={
-                                  "./static/img/" +
-                                  item.parent.platform_name.toLowerCase() +
-                                  ".png"
-                                }
-                                alt={item.parent.platform_name}
-                                style={{
-                                  width: "50px",
-                                  borderRadius: "100%",
-                                }}
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={
+                                    "./static/img/" +
+                                    item.parent.platform_name.toLowerCase() +
+                                    ".png"
+                                  }
+                                />
+                                <img
+                                  src={
+                                    "./static/img/" +
+                                    item.parent.platform_name.toLowerCase() +
+                                    ".png"
+                                  }
+                                  alt={item.parent.platform_name}
+                                  style={{
+                                    width: "50px",
+                                    borderRadius: "100%",
+                                  }}
+                                />
+                              </picture>
                             </span>
                           </div>
                         </Link>

@@ -374,26 +374,42 @@ export default function Product({
                         >
                           <SwiperSlide>
                             <div className="swiper-slide review-items position-relative mb-1">
-                              <img
-                                src={
-                                  item?.image?.path
-                                    ? Data?.base_url + item?.image?.path
-                                    : "../static/img/picture-1.jpg"
-                                }
-                                alt="product-gallery-images"
-                                className="coverr-modal lazyload mb-2"
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={
+                                    item?.image?.path
+                                      ? Data?.base_url + item?.image?.path
+                                      : "../static/img/picture-1.jpg"
+                                  }
+                                />
+                                <img
+                                  src={
+                                    item?.image?.path
+                                      ? Data?.base_url + item?.image?.path
+                                      : "../static/img/picture-1.jpg"
+                                  }
+                                  alt="product-gallery-images"
+                                  className="coverr-modal lazyload mb-2"
+                                />
+                              </picture>
                             </div>
                           </SwiperSlide>
                           {item?.gallery?.map((o, i) => {
                             return (
                               <SwiperSlide key={i}>
                                 <div className="swiper-slide review-items position-relative">
-                                  <img
-                                    src={Data?.base_url + o?.path}
-                                    alt="product-gallery-images"
-                                    className="coverr-modal lazyload mb-1"
-                                  />
+                                  <picture>
+                                    <source
+                                      type="image/png"
+                                      srcSet={Data?.base_url + o?.path}
+                                    />
+                                    <img
+                                      src={Data?.base_url + o?.path}
+                                      alt="product-gallery-images"
+                                      className="coverr-modal lazyload mb-1"
+                                    />
+                                  </picture>
                                 </div>
                               </SwiperSlide>
                             );
@@ -435,18 +451,30 @@ export default function Product({
                           )}
                         </SwiperComponent>
                       ) : item?.image?.path ? (
-                        <img
-                          className="coverr-modal lazyload"
-                          src={Data?.base_url + item?.image?.path}
-                          alt="product"
-                        />
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet={Data?.base_url + item?.image?.path}
+                          />
+                          <img
+                            className="coverr-modal lazyload"
+                            src={Data?.base_url + item?.image?.path}
+                            alt="product"
+                          />
+                        </picture>
                       ) : (
-                        <img
-                          className="coverr lazyload"
-                          src="../static/img/picture-1.jpg"
-                          style={{ width: "100%", height: "190px" }}
-                          alt="product"
-                        />
+                        <picture>
+                          <source
+                            type="image/png"
+                            srcSet="../static/img/picture-1.jpg"
+                          />
+                          <img
+                            className="coverr lazyload"
+                            src="../static/img/picture-1.jpg"
+                            style={{ width: "100%", height: "190px" }}
+                            alt="product"
+                          />
+                        </picture>
                       )}
                       <div className="d-flex align-items-center justify-content-end">
                         {/* <span
@@ -641,9 +669,9 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
-      {(Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
-      Category?.length !== 0 ||
-      (ProductSearching?.length !== 0 &&
+      {((Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
+        Category?.length !== 0) ||
+      (!ProductSearching !== "" &&
         PlanData?.is_expired == false &&
         PlanData?.subscription?.plan_id !== 1 &&
         PlanData?.subscription !== null) ? (
@@ -879,33 +907,53 @@ export default function Product({
                               ""
                             )}
                             {items?.image?.path ? (
-                              <Image
-                                className="case-item__icon-products cursor-pointer"
-                                src={
-                                  process.env.NEXT_PUBLIC_MODE == "development"
-                                    ? "https://dev.popipro.com/" +
-                                      items.image.path
-                                    : "https://admin.popipro.com/" +
-                                      items.image.path
-                                }
-                                alt="products"
-                                width={0}
-                                height={0}
-                                onClick={() =>
-                                  ShowModalID(items.id, items?.name)
-                                }
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={
+                                    process.env.NEXT_PUBLIC_MODE ==
+                                    "development"
+                                      ? "https://dev.popipro.com/" +
+                                        items.image.path
+                                      : "https://admin.popipro.com/" +
+                                        items.image.path
+                                  }
+                                />
+                                <img
+                                  className="case-item__icon-products cursor-pointer"
+                                  src={
+                                    process.env.NEXT_PUBLIC_MODE ==
+                                    "development"
+                                      ? "https://dev.popipro.com/" +
+                                        items.image.path
+                                      : "https://admin.popipro.com/" +
+                                        items.image.path
+                                  }
+                                  alt="products"
+                                  width={0}
+                                  height={0}
+                                  onClick={() =>
+                                    ShowModalID(items.id, items?.name)
+                                  }
+                                />
+                              </picture>
                             ) : (
-                              <Image
-                                className="case-item__icon-products cursor-pointer"
-                                src="./static/img/picture-1.jpg"
-                                alt="products"
-                                width={0}
-                                height={0}
-                                onClick={() =>
-                                  ShowModalID(items.id, items?.name)
-                                }
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet="./static/img/picture-1.jpg"
+                                />
+                                <img
+                                  className="case-item__icon-products cursor-pointer"
+                                  src="./static/img/picture-1.jpg"
+                                  alt="products"
+                                  width={0}
+                                  height={0}
+                                  onClick={() =>
+                                    ShowModalID(items.id, items?.name)
+                                  }
+                                />
+                              </picture>
                             )}
                             {items?.description?.length <= "0" ? (
                               ""
@@ -925,11 +973,17 @@ export default function Product({
                                     className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                     onClick={() => HitClick(items?.id)}
                                   >
-                                    <img
-                                      src="./static/img/whatsapp.png"
-                                      alt="whatsaap"
-                                      className="Whatsaapsvg"
-                                    />
+                                    <picture>
+                                      <source
+                                        type="image/png"
+                                        srcSet="./static/img/whatsapp.png"
+                                      />
+                                      <img
+                                        src="./static/img/whatsapp.png"
+                                        alt="whatsaap"
+                                        className="Whatsaapsvg"
+                                      />
+                                    </picture>
                                   </a>
                                 ) : (
                                   ""
@@ -1041,11 +1095,17 @@ export default function Product({
                                     onClick={() => HitClick(items?.id)}
                                   >
                                     {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
-                                    <img
-                                      src="./static/img/whatsapp.png"
-                                      alt="whatsaap"
-                                      className="Whatsaapsvg"
-                                    />
+                                    <picture>
+                                      <source
+                                        type="image/png"
+                                        srcSet="./static/img/whatsapp.png"
+                                      />
+                                      <img
+                                        src="./static/img/whatsapp.png"
+                                        alt="whatsaap"
+                                        className="Whatsaapsvg"
+                                      />
+                                    </picture>
                                   </a>
                                 ) : (
                                   ""

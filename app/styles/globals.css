@@ -602,12 +602,46 @@ input.date-time-input::-webkit-date-and-time-value {
 .iframe-class iframe {
   height: 100vh;
 }
+.main-loader {
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 99999999999;
+  background: white;
+}
 @media (max-width: 767px) {
   .responsive-row-signature {
     gap: 15px;
   }
   .iframe-class iframe {
     height: 40vh;
+    min-width: 226px !important;
+  }
+}
+@media (max-width: 2560px) and (min-width: 1778px) {
+  .iframe-class iframe {
+    height: 65vh;
+    min-width: 226px !important;
+  }
+}
+@media (max-width: 1000px) and (min-width: 768px) {
+  .iframe-class iframe {
+    height: 65vh;
+    min-width: 226px !important;
+  }
+}
+@media (max-width: 1240px) and (min-width: 900px) {
+  .iframe-class iframe {
+    height: 50vh;
+    min-width: 226px !important;
+  }
+}
+@media (max-width: 400px) and (min-width: 300px) {
+  .iframe-class iframe {
+    height: 55vh;
     min-width: 226px !important;
   }
 }

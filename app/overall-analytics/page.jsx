@@ -1096,7 +1096,9 @@ const Page = () => {
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Instagram}
+                            {Data?.social_interact?.stats?.Instagram
+                              ? Data?.social_interact?.stats?.Instagram
+                              : "0"}
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>

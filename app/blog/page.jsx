@@ -73,18 +73,29 @@ export default function DashboardBlogs() {
       const response = await Api(
         BlogsInsights,
         {},
-        "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&blog_id=" +
-          BlogFilter?.target?.value +
-          "&type=" +
-          BlogFilter?.target[BlogFilter.target.selectedIndex].getAttribute(
-            "datatype"
-          ) +
-          "&location_filter=" +
-          e
+        BlogFilter !== ""
+          ? "?start_date=" +
+              startDt +
+              "&end_date=" +
+              endDt +
+              "&blog_id=" +
+              BlogFilter?.target?.value +
+              "&type=" +
+              BlogFilter?.target[BlogFilter.target.selectedIndex].getAttribute(
+                "datatype"
+              ) +
+              "&location_filter=" +
+              e
+          : "?start_date=" +
+              startDt +
+              "&end_date=" +
+              endDt +
+              "&blog_id=" +
+              BlogFilter?.target?.value +
+              "&type=" +
+              "card" +
+              "&location_filter=" +
+              e
       );
       if (response.data.status) {
         setData(response.data.data);

@@ -51,25 +51,45 @@ const Services = ({ Titles, card, subscription }) => {
                         <div className="case-item pt-3">
                           <div className="w-100">
                             {item?.image?.path ? (
-                              <Image
-                                className="case-item__icon"
-                                src={
-                                  process.env.NEXT_PUBLIC_MODE == "development"
-                                    ? "https://dev.popipro.com/" +
-                                      item?.image?.path
-                                    : "https://admin.popipro.com/" +
-                                      item?.image?.path
-                                }
-                                alt="photos"
-                                width={0}
-                                height={0}
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet={
+                                    process.env.NEXT_PUBLIC_MODE ==
+                                    "development"
+                                      ? "https://dev.popipro.com/" +
+                                        item?.image?.path
+                                      : "https://admin.popipro.com/" +
+                                        item?.image?.path
+                                  }
+                                />
+                                <img
+                                  className="case-item__icon"
+                                  src={
+                                    process.env.NEXT_PUBLIC_MODE ==
+                                    "development"
+                                      ? "https://dev.popipro.com/" +
+                                        item?.image?.path
+                                      : "https://admin.popipro.com/" +
+                                        item?.image?.path
+                                  }
+                                  alt="photos"
+                                  width={0}
+                                  height={0}
+                                />
+                              </picture>
                             ) : (
-                              <img
-                                className="case-item__icon"
-                                src="../static/img/picture-1.jpg"
-                                alt="photos"
-                              />
+                              <picture>
+                                <source
+                                  type="image/png"
+                                  srcSet="../static/img/picture-1.jpg"
+                                />
+                                <img
+                                  className="case-item__icon"
+                                  src="../static/img/picture-1.jpg"
+                                  alt="photos"
+                                />
+                              </picture>
                             )}
                             <h3 className="title title--h4 mt-4 m-0">
                               {item.name}
