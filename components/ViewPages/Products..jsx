@@ -701,134 +701,127 @@ export default function Product({
                     : Titles?.card_products?.visible_name}
                 </h3>
                 <div className="d-flex" style={{ gap: "20px" }}>
-                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                    <>
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    style={{ fontSize: "18px" }}
+                    className="color-black cursor-pointer"
+                    onClick={() => handleShowSearchFilter()}
+                  />
+                  {Search ? (
+                    <div className="d-flex align-items-baseline position-relative">
+                      <input
+                        type="text"
+                        placeholder="Search..."
+                        className="form-control mb-4"
+                        onChange={(e) => handleSearch(e.target.value)}
+                      />
                       <FontAwesomeIcon
-                        icon={faSearch}
+                        icon={faXmark}
                         style={{ fontSize: "18px" }}
-                        className="color-black cursor-pointer"
+                        className="color-black cursor-pointer search-icon-products"
                         onClick={() => handleShowSearchFilter()}
                       />
-                      {Search ? (
-                        <div className="d-flex align-items-baseline position-relative">
-                          <input
-                            type="text"
-                            placeholder="Search..."
-                            className="form-control mb-4"
-                            onChange={(e) => handleSearch(e.target.value)}
-                          />
-                          <FontAwesomeIcon
-                            icon={faXmark}
-                            style={{ fontSize: "18px" }}
-                            className="color-black cursor-pointer search-icon-products"
-                            onClick={() => handleShowSearchFilter()}
-                          />
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                      <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle
-                          split
-                          variant="success"
-                          id="dropdown-split-basic"
-                          style={{
-                            background: "none",
-                            color: "black",
-                            boxShadow: "none",
-                            padding: "0",
-                            margin: "0",
-                            height: "0",
-                            fontSize: "22px",
-                          }}
-                        ></Dropdown.Toggle>
-                        <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                          <Dropdown.Item
-                            href=""
-                            onClick={() => setHighlightSort("name")}
-                            className={
-                              HighlightSort == "name"
-                                ? "dropdown-item-active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowDownAZ}
-                              className="user-select-auto"
-                            />{" "}
-                            Sort By Name
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href=""
-                            onClick={() => setHighlightSort("lowest-price")}
-                            className={
-                              HighlightSort == "lowest-price"
-                                ? "dropdown-item-active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowDown}
-                              className="user-select-auto"
-                            />{" "}
-                            Sort By Lowest Price
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href=""
-                            onClick={() => setHighlightSort("highest-price")}
-                            className={
-                              HighlightSort == "highest-price"
-                                ? "dropdown-item-active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowUp}
-                              className="user-select-auto"
-                            />{" "}
-                            Sort By Higest Price
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href=""
-                            onClick={() => setHighlightSort("latest")}
-                            className={
-                              HighlightSort == "latest"
-                                ? "dropdown-item-active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowUp}
-                              className="user-select-auto"
-                            />{" "}
-                            Sort By Latest
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href=""
-                            onClick={() => setHighlightSort("popularity")}
-                            className={
-                              HighlightSort == "popularity"
-                                ? "dropdown-item-active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowUpRightDots}
-                              className="user-select-auto"
-                            />{" "}
-                            Sort By Popularity
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </>
+                    </div>
                   ) : (
                     ""
                   )}
+                  <Dropdown as={ButtonGroup}>
+                    <Dropdown.Toggle
+                      split
+                      variant="success"
+                      id="dropdown-split-basic"
+                      style={{
+                        background: "none",
+                        color: "black",
+                        boxShadow: "none",
+                        padding: "0",
+                        margin: "0",
+                        height: "0",
+                        fontSize: "22px",
+                      }}
+                    ></Dropdown.Toggle>
+                    <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                      <Dropdown.Item
+                        href=""
+                        onClick={() => setHighlightSort("name")}
+                        className={
+                          HighlightSort == "name"
+                            ? "dropdown-item-active"
+                            : "dropdown-item"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowDownAZ}
+                          className="user-select-auto"
+                        />{" "}
+                        Sort By Name
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href=""
+                        onClick={() => setHighlightSort("lowest-price")}
+                        className={
+                          HighlightSort == "lowest-price"
+                            ? "dropdown-item-active"
+                            : "dropdown-item"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowDown}
+                          className="user-select-auto"
+                        />{" "}
+                        Sort By Lowest Price
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href=""
+                        onClick={() => setHighlightSort("highest-price")}
+                        className={
+                          HighlightSort == "highest-price"
+                            ? "dropdown-item-active"
+                            : "dropdown-item"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowUp}
+                          className="user-select-auto"
+                        />{" "}
+                        Sort By Higest Price
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href=""
+                        onClick={() => setHighlightSort("latest")}
+                        className={
+                          HighlightSort == "latest"
+                            ? "dropdown-item-active"
+                            : "dropdown-item"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowUp}
+                          className="user-select-auto"
+                        />{" "}
+                        Sort By Latest
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href=""
+                        onClick={() => setHighlightSort("popularity")}
+                        className={
+                          HighlightSort == "popularity"
+                            ? "dropdown-item-active"
+                            : "dropdown-item"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowUpRightDots}
+                          className="user-select-auto"
+                        />{" "}
+                        Sort By Popularity
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
               </div>
             )}
-            {process.env.NEXT_PUBLIC_MODE === "development" &&
-            Category?.length !== 0 ? (
+            {Category?.length !== 0 ? (
               <SwiperComponent
                 breakpoints={{
                   1110: {
