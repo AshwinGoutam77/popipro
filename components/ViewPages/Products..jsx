@@ -889,7 +889,7 @@ export default function Product({
                           : "swiper-slide review-item review-item-products review-item-products-border"
                       }
                     >
-                      <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
+                      <div className="row d-flex justify-content-between pt-3 product-bottom-padding">
                         <div className="col-6 col-sm-6 col-lg-4">
                           <div className="position-relative">
                             {items?.gallery?.length ? (
