@@ -140,7 +140,7 @@ export default function Signature() {
                         alt="Logo"
                         style={{ width: 90, height: "auto", border: 0 }}
                         src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                          "app.popipro.com/" + localStorage.getItem("url")
+                          "app.popipro.com/" + "prafull-gupta"
                         }&chs=160x160&chld=L|0`}
                         width={90}
                         border={0}
@@ -314,7 +314,7 @@ export default function Signature() {
                           alt="Logo"
                           style={{ width: 90, height: "auto", border: 0 }}
                           src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                            "app.popipro.com/" + localStorage.getItem("url")
+                            "app.popipro.com/" + "prafull-gupta"
                           }&chs=160x160&chld=L|0`}
                           width={90}
                           border={0}
@@ -613,7 +613,7 @@ export default function Signature() {
                           alt="Logo"
                           style={{ width: 90, height: "auto", border: 0 }}
                           src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                            "app.popipro.com/" + localStorage.getItem("url")
+                            "app.popipro.com/" + "prafull-gupta"
                           }&chs=160x160&chld=L|0`}
                           width={90}
                           border={0}
@@ -877,7 +877,7 @@ export default function Signature() {
                         alt="Logo"
                         style={{ width: 90, height: "auto", border: 0 }}
                         src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                          "app.popipro.com/" + localStorage.getItem("url")
+                          "app.popipro.com/" + "prafull-gupta"
                         }&chs=160x160&chld=L|0`}
                         width={90}
                         border={0}
