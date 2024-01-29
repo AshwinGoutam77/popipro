@@ -39,7 +39,7 @@ const ProfilePage = async ({ params }) => {
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
   let DataDecription = data?.data?.card?.card_description.substring(0, 160);
-  const jsonLd = {
+  const jsonLd = `{
     "@context": "https://schema.org",
     "@type":
       data?.data?.card?.card_name == "Popipro" ? "Person" : "Organization",
@@ -48,7 +48,7 @@ const ProfilePage = async ({ params }) => {
       "https://admin.popipro.com/" + data?.data?.card?.profile_picture?.path,
     ],
     description: DataDecription.replace(/(<([^>]+)>)/gi, ""),
-  };
+  }`;
   return (
     <>
       <script
