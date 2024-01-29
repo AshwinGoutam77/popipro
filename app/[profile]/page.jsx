@@ -41,7 +41,7 @@ const ProfilePage = async ({ params }) => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type":
-      data?.data?.card?.card_name == "popipro" ? "Person" : "Organization",
+      data?.data?.card?.card_name == "Popipro" ? "Person" : "Organization",
     name: data?.data?.card?.first_name,
     image:
       "https://admin.popipro.com/" + data?.data?.card?.profile_picture?.path,
