@@ -656,9 +656,10 @@ input.date-time-input::-webkit-date-and-time-value {
   padding: 12px 0;
 }
 .realEstateImage {
-  width: 240px;
+  /* width: 240px; */
   height: 190px;
   border-radius: 10px;
+  width: 100%;
 }
 .color-black {
   color: #000 !important;

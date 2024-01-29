@@ -353,7 +353,7 @@ const Banner = ({
                 >
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    className="ml-1"
+                    className="ml-1 position-relative"
                     style={{ position: "relative", right: "1px" }}
                   />
                 </div>
