@@ -25,6 +25,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import dynamic from "next/dynamic";
+import { ToastContainer, toast } from "react-toastify";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function Page() {
@@ -141,8 +142,20 @@ export default function Page() {
       );
       if (response.data.status) {
         setCustomFormData(response.data.data?.customForms);
-        setCustomFromGraph(response?.data?.data)
+        setCustomFromGraph(response?.data?.data);
         setShowLoader(false);
+      } else {
+        setShowLoader(false);
+        toast.error(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -254,6 +267,18 @@ export default function Page() {
 
   return FormsData ? (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <SimpleBackdrop visible={ShowLoader} />
       <Modal show={Show} onHide={() => setShow(false)} centered size="">
         <Modal.Header>
