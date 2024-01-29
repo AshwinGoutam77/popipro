@@ -38,14 +38,16 @@ const ProfilePage = async ({ params }) => {
   const referer = headersList.get("referer");
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
+  let DataDecription = data?.data?.card?.card_description.substring(0, 160);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type":
       data?.data?.card?.card_name == "Popipro" ? "Person" : "Organization",
     name: data?.data?.card?.first_name,
-    image:
+    image: [
       "https://admin.popipro.com/" + data?.data?.card?.profile_picture?.path,
-    description: data?.data?.card?.description,
+    ],
+    description: DataDecription.replace(/(<([^>]+)>)/gi, ""),
   };
   return (
     <>
@@ -63,7 +65,7 @@ const ProfilePage = async ({ params }) => {
       ></script>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
       <Suspense
         fallback={
