@@ -54,17 +54,13 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                     <div className="d-flex align-items-center flex-wrap">
                       <FontAwesomeIcon
                         icon={faPhone}
-                        className="pe-auto Iconcolor-black"
-                        style={{ fontSize: "15px" }}
+                        className="pe-auto Iconcolor-black fs-15"
                       />
-                      <p
-                        className="ml-2 font-weight-bold"
-                        style={{ color: "black" }}
-                      >
+                      <p className="ml-2 font-weight-bold color-black">
                         {item.title} :
                       </p>
                       {item.country_code == null ? (
-                        <p className="ml-1" style={{ color: "black" }}>
+                        <p className="ml-1 color-black">
                           {item?.country_code}
                           {item?.country_code ? "-" : ""}
                           {item?.number}
@@ -72,7 +68,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                           {item?.extension}
                         </p>
                       ) : (
-                        <p className="ml-1" style={{ color: "black" }}>
+                        <p className="ml-1 color-black">
                           {item?.country_code}
                           {item?.country_code ? "-" : ""}
                           {item?.number}
@@ -83,11 +79,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
                     </div>
                     <FontAwesomeIcon
                       icon={faChevronRight}
-                      className="pe-auto mr-2"
-                      style={{
-                        fontSize: "15px",
-                        color: "var(--color)",
-                      }}
+                      className="pe-auto mr-2 fs-15 VarColor"
                     />
                   </div>
                 </a>

@@ -38,8 +38,7 @@ const Services = ({ Titles, card, subscription }) => {
                     },
                   }}
                   spaceBetween={20}
-                  style={{ cursor: "pointer" }}
-                  className="mySwiper w-100 pb-0"
+                  className="mySwiper w-100 pb-0 cursor-pointer"
                   pagination={{
                     clickable: true,
                   }}

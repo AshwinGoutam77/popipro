@@ -6,11 +6,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../styles/about.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function Signature() {
+  const { APIDATA, UserData } = useAuthContext();
+  useEffect(() => {
+    APIDATA();
+    console.log(UserData);
+  }, []);
   const signatureRef1 = useRef(null);
   const signatureRef2 = useRef(null);
   const signatureRef3 = useRef(null);
@@ -85,8 +91,12 @@ export default function Signature() {
           <br />
           Or <br />
           See the steps to copy the email signature on{" "}
-          <a href="www.popipro.com" target="_blank" className="VarColor">
-            www.popipro.com
+          <a
+            href=" {UserData?.card?.card_website}"
+            target="_blank"
+            className="VarColor"
+          >
+            {UserData?.card?.card_website}
           </a>
         </h6>
       </div>
@@ -99,7 +109,6 @@ export default function Signature() {
           <div
             style={{
               borderRadius: "10px",
-              // marginTop: "45px",
               padding: "15px",
               boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
               background: "white",
@@ -109,10 +118,9 @@ export default function Signature() {
               ref={signatureRef1}
               className="signature"
               width="100%"
-              cellspacing="0"
-              cellpadding="0"
+              cellSpacing="0"
+              cellPadding="0"
               border="0"
-              // style="padding: 32px 0; font-size:13px;font-weight: 500; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
               style={{
                 padding: "32px 0",
                 fontSize: "13px",
@@ -123,16 +131,19 @@ export default function Signature() {
             >
               <tbody>
                 <tr>
-                  {/* <td width="120" style="vertical-align:top;padding:0 16px;"> */}
                   <td
                     width="120"
                     style={{ verticalAlign: "top", padding: "0 16px" }}
                   >
-                    <a href="https://konghq.com/" data-external="true">
+                    <a href="popipro.com" data-external="true">
                       <img
-                        width="100%"
-                        className="border-0 pt-3"
-                        src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                        alt="Logo"
+                        style={{ width: 90, height: "auto", border: 0 }}
+                        src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                          "app.popipro.com/" + localStorage.getItem("url")
+                        }&chs=160x160&chld=L|0`}
+                        width={90}
+                        border={0}
                       />
                     </a>
                   </td>
@@ -158,28 +169,17 @@ export default function Signature() {
                         fontWeight: "bold",
                       }}
                     >
-                      Prafull Gupta
+                      {UserData?.card?.first_name}
                     </span>
                     <br />
                     {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
                     <span style={{ marginBottom: "16px" }}>
-                      Founder at Popipro &{" "}
-                      <a
-                        href="https://front.popipro.com/prafull-gupta"
-                        data-external="true"
-                        // style="text-decoration:none;color:#17A956"
-                        style={{
-                          textDecoration: "none",
-                          color: "var(--color)",
-                        }}
-                      >
-                        DevWings
-                      </a>
+                      {UserData?.card?.card_profession}
                     </span>
                     <br />
                     <br />
                     <span style={{ color: "#8C8C8C" }}>
-                      Vaishali Nagar, Jaipur,
+                      {UserData?.card?.card_address},
                       <br />
                       Rajasthan, India.
                     </span>
@@ -245,18 +245,10 @@ export default function Signature() {
                       maxWidth: 370,
                     }}
                   >
-                    We are a digital transformation consulting and software
-                    development company that provides cutting edge engineering
-                    solutions. Our team is composed of passionate engineers who
-                    think and act as an extension to our customer’s product
-                    development teams. At Devwings, we aren’t afraid to get
-                    creative when it comes to finding a flexible business model
-                    or roll up our sleeves when it comes to debugging that
-                    important new product being readied for the production line.
-                    we aren’t afraid to get creative when it comes to finding a
-                    flexible business model or roll up our sleeves when it comes
-                    to debugging that important new product being readied for
-                    the production line.
+                    {UserData?.card?.card_description.replace(
+                      /(<([^>]+)>)/gi,
+                      ""
+                    )}
                   </td>
                 </tr>
               </tbody>
@@ -304,21 +296,26 @@ export default function Signature() {
                     valign="top"
                   >
                     <img
-                      src="https://admin.popipro.com/assets/user/logos/prafull-gupta-logo-240823072612000000000000820342.jpg?ver=1700643079.314"
+                      src={
+                        process.env.NEXT_PUBLIC_MODE == "development"
+                          ? "https://dev.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                          : "https://admin.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                      }
                       alt="photograph"
                       style={{ border: 0, height: "auto", width: 80 }}
                       width={80}
                       border={0}
                     />
                     <p style={{ marginTop: 35, marginBottom: 6, padding: 0 }}>
-                      <a
-                        href="https://www.codetwo.com/email-signatures/"
-                        target="_blank"
-                      >
+                      <a href="popipro.com" target="_blank">
                         <img
                           alt="Logo"
                           style={{ width: 90, height: "auto", border: 0 }}
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                          src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                            "app.popipro.com/" + localStorage.getItem("url")
+                          }&chs=160x160&chld=L|0`}
                           width={90}
                           border={0}
                         />
@@ -349,7 +346,7 @@ export default function Signature() {
                                   color: "black",
                                 }}
                               >
-                                Prafull Gupta
+                                {UserData?.card?.first_name}
                                 <br />
                               </span>
                               <span
@@ -359,17 +356,7 @@ export default function Signature() {
                                   color: "black",
                                 }}
                               >
-                                Founder of popipro
-                                <br />
-                              </span>
-                              <span
-                                style={{
-                                  fontFamily: "Arial, sans-serif",
-                                  fontSize: "10pt",
-                                  color: "black",
-                                }}
-                              >
-                                Devwings
+                                {UserData?.card?.card_profession}
                                 <br />
                               </span>
                             </strong>
@@ -384,7 +371,7 @@ export default function Signature() {
                               <span
                                 style={{ fontSize: "9pt", color: "#929292" }}
                               >
-                                9876543211
+                                {UserData?.card?.card_contact}
                               </span>
                             </span>
                           </td>
@@ -407,7 +394,7 @@ export default function Signature() {
                                   fontFamily: "Arial, sans-serif",
                                 }}
                               >
-                                er.prafullgupta@gmail.com
+                                {UserData?.card?.card_email}
                               </span>
                             </a>
                           </td>
@@ -431,7 +418,7 @@ export default function Signature() {
                                     fontFamily: "Arial, sans-serif",
                                   }}
                                 >
-                                  www.popipro.com
+                                  {UserData?.card?.card_website}
                                 </span>
                               </a>
                             </span>
@@ -446,7 +433,7 @@ export default function Signature() {
                                 color: "#929292",
                               }}
                             >
-                              Vaishali Nagar, Jaipur
+                              {UserData?.card?.card_address}
                               <span>,</span>
                             </span>
                           </td>
@@ -553,18 +540,10 @@ export default function Signature() {
                       maxWidth: 370,
                     }}
                   >
-                    We are a digital transformation consulting and software
-                    development company that provides cutting edge engineering
-                    solutions. Our team is composed of passionate engineers who
-                    think and act as an extension to our customer’s product
-                    development teams. At Devwings, we aren’t afraid to get
-                    creative when it comes to finding a flexible business model
-                    or roll up our sleeves when it comes to debugging that
-                    important new product being readied for the production line.
-                    we aren’t afraid to get creative when it comes to finding a
-                    flexible business model or roll up our sleeves when it comes
-                    to debugging that important new product being readied for
-                    the production line.
+                    {UserData?.card?.card_description.replace(
+                      /(<([^>]+)>)/gi,
+                      ""
+                    )}
                   </td>
                 </tr>
               </tbody>
@@ -578,6 +557,7 @@ export default function Signature() {
           </div>
         </div>
       </div>
+
       <div
         className="row w-100 pt-4 responsive-row-signature pb-4"
         style={{ paddingLeft: "30px" }}
@@ -615,21 +595,26 @@ export default function Signature() {
                     valign="top"
                   >
                     <img
-                      src="https://admin.popipro.com/assets/user/logos/prafull-gupta-logo-240823072612000000000000820342.jpg?ver=1700643079.314"
+                      src={
+                        process.env.NEXT_PUBLIC_MODE == "development"
+                          ? "https://dev.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                          : "https://admin.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                      }
                       alt="photograph"
                       style={{ border: 0, height: "auto", width: 80 }}
                       width={80}
                       border={0}
                     />
                     <p style={{ marginTop: 35, marginBottom: 6, padding: 0 }}>
-                      <a
-                        href="https://www.codetwo.com/email-signatures/"
-                        target="_blank"
-                      >
+                      <a href="popipro.com" target="_blank">
                         <img
                           alt="Logo"
                           style={{ width: 90, height: "auto", border: 0 }}
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                          src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                            "app.popipro.com/" + localStorage.getItem("url")
+                          }&chs=160x160&chld=L|0`}
                           width={90}
                           border={0}
                         />
@@ -660,7 +645,7 @@ export default function Signature() {
                                   color: "black",
                                 }}
                               >
-                                Prafull Gupta
+                                {UserData?.card?.first_name}
                                 <br />
                               </span>
                               <span
@@ -670,17 +655,7 @@ export default function Signature() {
                                   color: "black",
                                 }}
                               >
-                                Founder of popipro
-                                <br />
-                              </span>
-                              <span
-                                style={{
-                                  fontFamily: "Arial, sans-serif",
-                                  fontSize: "10pt",
-                                  color: "black",
-                                }}
-                              >
-                                Devwings
+                                {UserData?.card?.card_profession}
                                 <br />
                               </span>
                             </strong>
@@ -695,7 +670,7 @@ export default function Signature() {
                               <span
                                 style={{ fontSize: "9pt", color: "#929292" }}
                               >
-                                9876543211
+                                {UserData?.card?.card_contact}
                               </span>
                             </span>
                           </td>
@@ -718,7 +693,7 @@ export default function Signature() {
                                   fontFamily: "Arial, sans-serif",
                                 }}
                               >
-                                er.prafullgupta@gmail.com
+                                {UserData?.card?.card_email}
                               </span>
                             </a>
                           </td>
@@ -742,7 +717,7 @@ export default function Signature() {
                                     fontFamily: "Arial, sans-serif",
                                   }}
                                 >
-                                  www.popipro.com
+                                  {UserData?.card?.card_website}
                                 </span>
                               </a>
                             </span>
@@ -757,7 +732,7 @@ export default function Signature() {
                                 color: "#929292",
                               }}
                             >
-                              Vaishali Nagar, Jaipur
+                              {UserData?.card?.card_address}
                               <span>,</span>
                             </span>
                           </td>
@@ -853,34 +828,14 @@ export default function Signature() {
                     </table>
                   </td>
                 </tr>
-                {/* <tr>
-                  <td
-                    colSpan={3}
-                    style={{
-                      paddingTop: 14,
-                      textAlign: "justify",
-                      fontSize: "10pt",
-                      color: "#929292",
-                      maxWidth: 370,
-                    }}
-                  >
-                    We are a digital transformation consulting and software
-                    development company that provides cutting edge engineering
-                    solutions. Our team is composed of passionate engineers who
-                    think and act as an extension to our customer’s product
-                    development teams. At Devwings, we aren’t afraid to get
-                    creative when it comes to finding a flexible business model
-                    or roll up our sleeves when it comes to debugging that
-                    important new product being readied for the production line.
-                    we aren’t afraid to get creative when it comes to finding a
-                    flexible business model or roll up our sleeves when it comes
-                    to debugging that important new product being readied for
-                    the production line.
-                  </td>
-                </tr> */}
               </tbody>
             </table>
-            <button className="contact-btn w-auto"  onClick={() => copyToClipboard(signatureRef3)}>Copy Email Signature</button>
+            <button
+              className="contact-btn w-auto"
+              onClick={() => copyToClipboard(signatureRef3)}
+            >
+              Copy Email Signature
+            </button>
           </div>
         </div>
 
@@ -898,8 +853,8 @@ export default function Signature() {
               ref={signatureRef4}
               className="signature"
               width="100%"
-              cellspacing="0"
-              cellpadding="0"
+              cellSpacing="0"
+              cellPadding="0"
               border="0"
               // style="padding: 32px 0; font-size:13px;font-weight: 500; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
               style={{
@@ -917,11 +872,15 @@ export default function Signature() {
                     width="120"
                     style={{ verticalAlign: "top", padding: "0 16px" }}
                   >
-                    <a href="https://konghq.com/" data-external="true">
+                    <a href="popipro.com" data-external="true">
                       <img
-                        width="100%"
-                        className="border-0 pt-3"
-                        src="https://prafullgupta.com/connectwork/assets/chat/groups/17112307150492d8a885-a94a-4ba9-9c26-713086f49b2f.png"
+                        alt="Logo"
+                        style={{ width: 90, height: "auto", border: 0 }}
+                        src={`https://chart.googleapis.com/chart?cht=qr&chl=${
+                          "app.popipro.com/" + localStorage.getItem("url")
+                        }&chs=160x160&chld=L|0`}
+                        width={90}
+                        border={0}
                       />
                     </a>
                   </td>
@@ -947,25 +906,17 @@ export default function Signature() {
                         fontWeight: "bold",
                       }}
                     >
-                      Prafull Gupta
+                      {UserData?.card?.first_name}
                     </span>
                     <br />
                     {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
                     <span style={{ marginBottom: "16px", color: "#4C4C4C;" }}>
-                      Founder at Popipro & DevWings{" "}
-                      <a
-                        href="https://front.popipro.com/prafull-gupta"
-                        data-external="true"
-                        // style="text-decoration:none;color:#17A956"
-                        style={{ textDecoration: "none", color: "#17A956" }}
-                      >
-                        DevWings
-                      </a>
+                      {UserData?.card?.card_profession}
                     </span>
                     <br />
                     <br />
                     <span style={{ color: "#8C8C8C" }}>
-                      Vaishali Nagar, Jaipur,
+                      {UserData?.card?.card_address},
                       <br />
                       Rajasthan, India.
                     </span>
@@ -1020,31 +971,6 @@ export default function Signature() {
                     </a>
                   </td>
                 </tr>
-                {/* <tr>
-                  <td
-                    colSpan={3}
-                    style={{
-                      paddingTop: 14,
-                      textAlign: "justify",
-                      fontSize: "10pt",
-                      color: "#929292",
-                      maxWidth: 370,
-                    }}
-                  >
-                    We are a digital transformation consulting and software
-                    development company that provides cutting edge engineering
-                    solutions. Our team is composed of passionate engineers who
-                    think and act as an extension to our customer’s product
-                    development teams. At Devwings, we aren’t afraid to get
-                    creative when it comes to finding a flexible business model
-                    or roll up our sleeves when it comes to debugging that
-                    important new product being readied for the production line.
-                    we aren’t afraid to get creative when it comes to finding a
-                    flexible business model or roll up our sleeves when it comes
-                    to debugging that important new product being readied for
-                    the production line.
-                  </td>
-                </tr> */}
               </tbody>
             </table>
 
@@ -1058,6 +984,7 @@ export default function Signature() {
           </div>
         </div>
       </div>
+
       <div
         className="w-100 text-center text-white p-2 mt-0"
         style={{ bottom: "0", background: "black" }}

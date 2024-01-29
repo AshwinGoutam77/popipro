@@ -402,8 +402,6 @@ const Header = ({
                 name="image"
                 className="form-control"
                 accept="image/png, image/gif, image/jpeg"
-                style={{ border: "1px solid #ccc" }}
-                // ref={aRef}
                 onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
@@ -492,10 +490,7 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <div
-              className="d-flex align-items-center mb-4"
-              style={{ gap: "10px" }}
-            >
+            <div className="d-flex align-items-center mb-4 gap-10">
               <button
                 className={
                   ShowDownloadQr ? "filter-btns bg-varcolor" : "filter-btns"
@@ -525,15 +520,11 @@ const Header = ({
                       imageSrc +
                       "END%3AVCARD%0A"
                     }
-                    className="qr-img"
+                    className="qr-img w-250"
                     alt="we"
-                    style={{ width: "250px", height: "250px" }}
                   />
                 ) : (
-                  <div
-                    className="d-flex align-items-center justify-content-center"
-                    style={{ width: "250px", height: "250px" }}
-                  >
+                  <div className="d-flex align-items-center justify-content-center w-250">
                     <h6 className="color-black">Loading...</h6>
                   </div>
                 )}
@@ -543,12 +534,7 @@ const Header = ({
                 >
                   <FontAwesomeIcon
                     icon={faDownload}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "16px",
-                      color: "white",
-                      cursor: "pointer",
-                    }}
+                    className="user-select-auto mr-2 fs-16 text-white cursor-pointer"
                   />
                   Download QR
                 </button>
@@ -565,15 +551,11 @@ const Header = ({
                     src={`https://chart.googleapis.com/chart?cht=qr&chl=${
                       "app.popipro.com/" + profile
                     }&chs=160x160&chld=L|0`}
-                    className="qr-img"
+                    className="qr-img w-250"
                     alt="we"
-                    style={{ width: "250px", height: "250px" }}
                   />
                 ) : (
-                  <div
-                    className="d-flex align-items-center justify-content-center"
-                    style={{ width: "250px", height: "250px" }}
-                  >
+                  <div className="d-flex align-items-center justify-content-center w-250">
                     <h6 className="color-black">Loading...</h6>
                   </div>
                 )}
@@ -583,12 +565,7 @@ const Header = ({
                 >
                   <FontAwesomeIcon
                     icon={faDownload}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "16px",
-                      color: "white",
-                      cursor: "pointer",
-                    }}
+                    className="user-select-auto mr-2 fs-16 text-white cursor-pointer"
                   />
                   Download QR
                 </button>
@@ -620,7 +597,6 @@ const Header = ({
           <div
             className="calendly-inline-widget"
             data-url={MainData?.company_setting?.appointment_calendly_url}
-            style={{ height: "101vh" }}
           ></div>
         </Modal.Body>
       </Modal>
@@ -634,12 +610,7 @@ const Header = ({
         >
           <FontAwesomeIcon
             icon={faShareSquare}
-            className="user-select-auto mr-2"
-            style={{
-              fontSize: "18px",
-              color: "var(--color)",
-              cursor: "pointer",
-            }}
+            className="user-select-auto mr-2 VarColor cursor-pointer fs-18"
           />
         </button>
         <button
@@ -650,12 +621,7 @@ const Header = ({
         >
           <FontAwesomeIcon
             icon={faQrcode}
-            className="user-select-auto mr-2"
-            style={{
-              fontSize: "20px",
-              color: "var(--color)",
-              cursor: "pointer",
-            }}
+            className="user-select-auto mr-2 VarColor fs-20 cursor-pointer"
           />
         </button>
         <div className="header__left position-relative">
@@ -695,7 +661,7 @@ const Header = ({
                   : card.card_profession}
               </p>
             </div>
-            <div className="d-flex sm-class" style={{ gap: "8px" }}>
+            <div className="d-flex sm-class gap-8">
               <button className="contact-btn" onClick={shareContact}>
                 Add Contact
               </button>
@@ -708,7 +674,7 @@ const Header = ({
                 Share Contact
               </button>
             </div>
-            <div className="d-flex sm-class" style={{ gap: "8px" }}>
+            <div className="d-flex sm-class gap-8">
               {company_setting?.show_testimonial_button == 0 ||
               PlanData?.is_expired !== false ? (
                 ""
@@ -754,13 +720,7 @@ const Header = ({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faEnvelope}
-                      className="user-select-auto mr-2"
-                      style={{
-                        width: "15px",
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                        marginLeft: "3px",
-                      }}
+                      className="user-select-auto mr-2 w-15 fs-15 transform-180 margin-l"
                     />
                     <span className="overhead_a text-dark text-decoration-none getCard-a">
                       {" "}
@@ -769,11 +729,7 @@ const Header = ({
                   </div>
                   <FontAwesomeIcon
                     icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      width: "15px",
-                      fontSize: "15px",
-                    }}
+                    className="user-select-auto mr-2 w-15 fs-15"
                   />
                 </a>
               </li>
@@ -799,17 +755,9 @@ const Header = ({
                     <div className="align-div">
                       <FontAwesomeIcon
                         icon={faPhoneAlt}
-                        className="user-select-auto mr-2"
-                        style={{
-                          width: "15px",
-                          fontSize: "15px",
-                          transform: "rotateY(180deg)",
-                        }}
+                        className="user-select-auto mr-2 transform-180 w-15 fs-15"
                       />
-                      <span
-                        className="overhead_a text-dark text-decoration-none"
-                        style={{ marginLeft: "5px" }}
-                      >
+                      <span className="overhead_a text-dark text-decoration-none margin-l-5">
                         {card &&
                         card.contact_country_code &&
                         card.contact_extension !== null
@@ -827,11 +775,7 @@ const Header = ({
                     </div>
                     <FontAwesomeIcon
                       icon={faArrowRight}
-                      className="user-select-auto mr-2"
-                      style={{
-                        width: "15px",
-                        fontSize: "15px",
-                      }}
+                      className="user-select-auto mr-2 w-15 fs-15"
                     />
                   </a>
                 </li>
@@ -857,27 +801,15 @@ const Header = ({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faMapMarkerAlt}
-                      className="user-select-auto mr-1"
-                      style={{
-                        width: "15px",
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
+                      className="user-select-auto mr-1 transform-180 w-15 fs-15"
                     />
-                    <span
-                      className="overhead_a text-dark text-decoration-none"
-                      style={{ marginLeft: "7px" }}
-                    >
+                    <span className="overhead_a text-dark text-decoration-none margin-l-7">
                       {card.card_address}
                     </span>
                   </div>
                   <FontAwesomeIcon
                     icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      width: "15px",
-                      fontSize: "15px",
-                    }}
+                    className="user-select-auto mr-2 w-15 fs-15"
                   />
                 </a>
               </li>
@@ -889,22 +821,13 @@ const Header = ({
                 <div>
                   <FontAwesomeIcon
                     icon={faBuilding}
-                    className="user-select-auto mr-2"
-                    style={{
-                      width: "15px",
-                      fontSize: "15px",
-                      transform: "rotateY(180deg)",
-                    }}
+                    className="user-select-auto mr-2 transform-180 w-15 fs-15"
                   />
                   <p className="text-dark m-0">{card?.card_name}</p>
                 </div>
                 <FontAwesomeIcon
                   icon={faArrowRight}
-                  className="user-select-auto mr-2"
-                  style={{
-                    width: "15px",
-                    fontSize: "15px",
-                  }}
+                  className="user-select-auto mr-2 w-15 fs-15"
                 />
               </li>
             ) : (
@@ -927,17 +850,9 @@ const Header = ({
                   <div className="align-div">
                     <FontAwesomeIcon
                       icon={faLink}
-                      className="user-select-auto mr-2"
-                      style={{
-                        width: "15px",
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
+                      className="user-select-auto mr-2 w-15 fs-15 transform-180"
                     />
-                    <span
-                      className="overhead_a text-dark text-decoration-none getCard-a"
-                      style={{ marginLeft: "4px" }}
-                    >
+                    <span className="overhead_a text-dark text-decoration-none getCard-a margin-l-4">
                       {card.card_website &&
                       (card.card_website?.includes("http://") ||
                         card.card_website?.includes("https://"))
@@ -947,11 +862,7 @@ const Header = ({
                   </div>
                   <FontAwesomeIcon
                     icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      width: "15px",
-                      fontSize: "15px",
-                    }}
+                    className="user-select-auto mr-2 w-15 fs-15"
                   />
                 </a>
               </li>
@@ -966,14 +877,8 @@ const Header = ({
         <h2 className="title title--h1 first-title title__separate">
           {Titles?.card_social_links?.visible_name}
         </h2>
-        <div
-          className="d-flex flex-wrap align-items-center"
-          style={{ gap: "15px" }}
-        >
-          <div
-            className="d-flex flex-wrap align-items-center"
-            style={{ gap: "15px" }}
-          >
+        <div className="d-flex flex-wrap align-items-center gap-15">
+          <div className="d-flex flex-wrap align-items-center gap-15">
             {CardLinks &&
               CardLinks.map((item, i) => {
                 links[item?.parent?.platform_name] = item.link;
@@ -994,10 +899,6 @@ const Header = ({
                                 ".png"
                               }
                               alt={item.parent.platform_name}
-                              style={{
-                                width: "50px",
-                                borderRadius: "100%",
-                              }}
                             />
                           </span>
                         </div>
@@ -1013,10 +914,6 @@ const Header = ({
                                 ".png"
                               }
                               alt={item.parent.platform_name}
-                              style={{
-                                width: "50px",
-                                borderRadius: "100%",
-                              }}
                             />
                           </span>
                         </div>

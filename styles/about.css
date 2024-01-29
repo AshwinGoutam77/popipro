@@ -767,6 +767,7 @@ textarea:invalid {
 .Logo-icon {
   z-index: 99999999999;
   position: relative;
+  width: 110px;
 }
 
 .dashboard-h5 {

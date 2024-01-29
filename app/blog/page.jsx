@@ -260,13 +260,19 @@ export default function DashboardBlogs() {
                             return (
                               <tr key={o} className="cursor-pointer">
                                 <td data-column="Name">
-                                  {i?.state
-                                    ? i?.city +
-                                      ", " +
-                                      i?.state +
-                                      ", " +
-                                      i?.country
-                                    : i?.city + ", " + i?.country}
+                                  {i?.state !== "" ||
+                                  i?.city !== "" ||
+                                  i?.country !== ""
+                                    ? i?.state
+                                      ? i?.city +
+                                        `${i?.city ? ", " : ""}` +
+                                        i?.state +
+                                        `${i?.state ? ", " : ""}` +
+                                        i?.country
+                                      : i?.city +
+                                        `${i?.city ? ", " : ""}` +
+                                        i?.country
+                                    : "---"}
                                 </td>
                                 <td data-column="Email">
                                   {i?.created_at ? i?.created_at : "---"}

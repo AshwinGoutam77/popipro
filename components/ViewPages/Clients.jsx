@@ -39,8 +39,7 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                   },
                 }}
                 spaceBetween={20}
-                style={{ cursor: "pointer" }}
-                className="mySwiper"
+                className="mySwiper cursor-pointer"
                 pagination={{
                   clickable: true,
                 }}
@@ -50,17 +49,6 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
                   return (
                     <SwiperSlide key={index}>
                       <div className="w-100" key={index}>
-                        {/* <Image
-                          className="slider-images w-100"
-                          src={
-                            process.env.NEXT_PUBLIC_MODE == "development"
-                              ? "https://dev.popipro.com/" + item.path
-                              : "https://admin.popipro.com/" + item.path
-                          }
-                          alt="Logo"
-                          width={0}
-                          height={0}
-                        /> */}
                         <picture>
                           <source
                             type="image/png"

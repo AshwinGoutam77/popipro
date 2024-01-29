@@ -361,8 +361,7 @@ export default function Product({
                         <SwiperComponent
                           slidesPerView={1}
                           spaceBetween={10}
-                          style={{ cursor: "pointer" }}
-                          className="mySwiper pb-0"
+                          className="mySwiper pb-0 cursor-pointer"
                           autoplay={{
                             delay: 2500,
                             disableOnInteraction: false,
@@ -416,24 +415,7 @@ export default function Product({
                           })}
                           {item?.youtube_link !== null ? (
                             <SwiperSlide>
-                              <div className="swiper-slide review-items position-relative mb-1">
-                                <FontAwesomeIcon
-                                  icon={faCircleXmark}
-                                  onClick={() =>
-                                    handleDeleteGalleryImages(
-                                      o.path,
-                                      10,
-                                      item?.id
-                                    )
-                                  }
-                                  style={{
-                                    top: "-1px",
-                                    right: "0",
-                                    color: "rgb(213, 51, 51)",
-                                    fontSize: "20px",
-                                  }}
-                                  className="delete-icon3"
-                                />
+                              <div className="swiper-slide review-items position-relative mb-1 ">
                                 <div className="vedio-height">
                                   <div className="product-video-player-container">
                                     <ReactPlayer
@@ -469,20 +451,13 @@ export default function Product({
                             srcSet="../static/img/picture-1.jpg"
                           />
                           <img
-                            className="coverr lazyload"
+                            className="coverr lazyload w-100 h-190"
                             src="../static/img/picture-1.jpg"
-                            style={{ width: "100%", height: "190px" }}
                             alt="product"
                           />
                         </picture>
                       )}
                       <div className="d-flex align-items-center justify-content-end">
-                        {/* <span
-                          className="mt-3 mb-0 font-weight-bold"
-                          style={{ color: "black", fontSize: "14px" }}
-                        >
-                          {item.name}
-                        </span> */}
                         {item.is_label !== 0 ? (
                           <span className="product-price">{item.label}</span>
                         ) : item.price !== 0 &&
@@ -502,10 +477,7 @@ export default function Product({
                           __html: item.description,
                         }}
                       ></p>
-                      <div
-                        className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
-                        style={{ gap: "10px" }}
-                      >
+                      <div className="d-flex align-items-center justify-content-center mt-3 flex-wrap gap-10">
                         {item.url !== "" ? (
                           <a
                             href={
@@ -515,8 +487,7 @@ export default function Product({
                                 : "https://" + item?.url
                             }
                             target="_blank"
-                            className="contact-btn w-auto mt-0"
-                            style={{ background: "var(--color)" }}
+                            className="contact-btn w-auto mt-0 bgVarColor"
                             onClick={() => handleHitClick()}
                           >
                             <FontAwesomeIcon
@@ -567,10 +538,7 @@ export default function Product({
                             <img
                               src="./static/img/whatsapp.png"
                               alt="whatsaap"
-                              style={{
-                                width: "23px",
-                                marginBottom: "1px",
-                              }}
+                              className="w-23px margin-b-1"
                             />
                             Quick Connect
                           </a>
@@ -659,7 +627,6 @@ export default function Product({
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                style={{ padding: "10px 60px" }}
                 onClick={() => handleProductSubmit()}
               >
                 Send
@@ -687,8 +654,7 @@ export default function Product({
                 />
                 <FontAwesomeIcon
                   icon={faXmark}
-                  style={{ fontSize: "18px" }}
-                  className="color-black cursor-pointer search-icon-products"
+                  className="color-black cursor-pointer search-icon-products fs-18"
                   onClick={() => handleResetFilter()}
                 />
               </div>
@@ -700,11 +666,10 @@ export default function Product({
                     ? "card_products"
                     : Titles?.card_products?.visible_name}
                 </h3>
-                <div className="d-flex" style={{ gap: "20px" }}>
+                <div className="d-flex gap-20">
                   <FontAwesomeIcon
                     icon={faSearch}
-                    style={{ fontSize: "18px" }}
-                    className="color-black cursor-pointer"
+                    className="color-black cursor-pointer fs-18"
                     onClick={() => handleShowSearchFilter()}
                   />
                   {Search ? (
@@ -717,8 +682,7 @@ export default function Product({
                       />
                       <FontAwesomeIcon
                         icon={faXmark}
-                        style={{ fontSize: "18px" }}
-                        className="color-black cursor-pointer search-icon-products"
+                        className="color-black cursor-pointer search-icon-products fs-18"
                         onClick={() => handleShowSearchFilter()}
                       />
                     </div>
@@ -730,15 +694,7 @@ export default function Product({
                       split
                       variant="success"
                       id="dropdown-split-basic"
-                      style={{
-                        background: "none",
-                        color: "black",
-                        boxShadow: "none",
-                        padding: "0",
-                        margin: "0",
-                        height: "0",
-                        fontSize: "22px",
-                      }}
+                      className="sorting-dropdown"
                     ></Dropdown.Toggle>
                     <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                       <Dropdown.Item
@@ -832,8 +788,7 @@ export default function Product({
                   },
                 }}
                 spaceBetween={10}
-                style={{ cursor: "pointer" }}
-                className="mySwiper"
+                className="mySwiper cursor-pointer"
                 navigation={{
                   clickable: true,
                 }}
@@ -1026,17 +981,15 @@ export default function Product({
                         <div
                           className={
                             items?.description?.length <= "0"
-                              ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column"
-                              : "col-6 col-sm-6 col-lg-8"
+                              ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column text-left"
+                              : "col-6 col-sm-6 col-lg-8 text-left"
                           }
-                          style={{ textAlign: "initial" }}
                         >
                           <p
-                            style={{ fontSize: "14px", color: "black" }}
                             className={
                               items?.description?.length <= "0"
-                                ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer"
-                                : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer"
+                                ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black"
+                                : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black"
                             }
                             onClick={() => ShowModalID(items.id, items?.name)}
                           >
@@ -1069,10 +1022,7 @@ export default function Product({
                               </div>
                             )}
                             {items?.description?.length <= "0" ? (
-                              <div
-                                className="d-flex align-items-center justify-content-left weight-small-100"
-                                style={{ gap: "10px" }}
-                              >
+                              <div className="d-flex align-items-center justify-content-left weight-small-100 gap-10">
                                 {Data?.whatsapp_number !== null &&
                                 MainData?.company_setting
                                   ?.show_product_wp_button !== 0 ? (
@@ -1144,15 +1094,10 @@ export default function Product({
                               </div>
                             ) : (
                               <p
-                                style={{
-                                  fontSize: "15px",
-                                  marginRight: "10px",
-                                  cursor: "pointer",
-                                }}
                                 onClick={() =>
                                   ShowModalID(items.id, items?.name)
                                 }
-                                className="m-0 mr-2"
+                                className="m-0 mr-2 fs-15 cursor-pointer margin-r-10"
                               >
                                 <FontAwesomeIcon
                                   icon={faArrowRight}
@@ -1176,12 +1121,7 @@ export default function Product({
             LoadMore !== null ? (
               <div className="mx-auto text-center">
                 <span
-                  className="text-center cursor-pointer mx-auto"
-                  style={{
-                    textDecoration: "underline",
-                    fontSize: "16px",
-                    color: "var(--color)",
-                  }}
+                  className="text-center cursor-pointer mx-auto video-load-more fs-16"
                   onClick={() => incrementCount()}
                 >
                   Load More

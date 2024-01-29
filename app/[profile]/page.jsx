@@ -38,6 +38,15 @@ const ProfilePage = async ({ params }) => {
   const referer = headersList.get("referer");
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type":
+      data?.data?.card?.card_name == "popipro" ? "Person" : "Organization",
+    name: data?.data?.card?.first_name,
+    image:
+      "https://admin.popipro.com/" + data?.data?.card?.profile_picture?.path,
+    description: data?.data?.card?.description,
+  };
   return (
     <>
       <script
@@ -52,6 +61,10 @@ const ProfilePage = async ({ params }) => {
         defer
         strategy="worker"
       ></script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Suspense
         fallback={
           <h5

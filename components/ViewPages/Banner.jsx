@@ -341,20 +341,13 @@ const Banner = ({
               <div id="hide">
                 {" "}
                 <div
-                  className="float"
+                  className="float float-styles"
                   target="_blank"
-                  style={{
-                    bottom: "130px",
-                    background: "var(--color)",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
                   onClick={shareContact}
                 >
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    className="ml-1 position-relative"
-                    style={{ position: "relative", right: "1px" }}
+                    className="ml-1 position-relative right-1px"
                   />
                 </div>
               </div>
@@ -387,20 +380,9 @@ const Banner = ({
                     ? "https://" + card?.card_google_review
                     : card?.card_google_review
                 }
-                className="float"
+                className="float float-styles-2"
                 target="_blank"
-                style={{
-                  bottom: "190px",
-                  background: "white",
-                  cursor: "pointer",
-                  fontSize: "24px",
-                }}
               >
-                {/* <img
-                  src="./static/img/google.png"
-                  style={{ width: "25px" }}
-                  alt="photos"
-                /> */}
                 <picture>
                   <source type="image/png" srcSet="./static/img/google.png" />
                   <img
@@ -419,20 +401,9 @@ const Banner = ({
             subscription?.is_expired == false ? (
               <a
                 href={card.card_trustpilot}
-                className="float"
+                className="float fs-24"
                 target="_blank"
-                style={{ fontSize: "24px" }}
               >
-                {/* <img
-                  src="./static/img/trustpilot.png"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "100px",
-                    background: "white",
-                  }}
-                  alt="photos"
-                /> */}
                 <picture>
                   <source
                     type="image/png"
@@ -440,12 +411,7 @@ const Banner = ({
                   />
                   <img
                     src="./static/img/trustpilot.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "100px",
-                      background: "white",
-                    }}
+                    className="bg-white trustpilot-images"
                     alt="photos"
                   />
                 </picture>
@@ -455,15 +421,9 @@ const Banner = ({
             )}
           </div>
 
-          <div className="pt-0" style={{ width: "45%" }}>
+          <div className="pt-0 w-45">
             <div>
               {card.card_cover !== "name" && card.card_cover !== "label" ? (
-                // <img
-                //   src={card.base_url + card.card_company_logo?.path}
-                //   className="Logo-icon"
-                //   style={{ width: "110px" }}
-                //   alt="Logo"
-                // />
                 <picture>
                   <source
                     type="image/png"
@@ -472,7 +432,6 @@ const Banner = ({
                   <img
                     src={card.base_url + card.card_company_logo?.path}
                     className="Logo-icon"
-                    style={{ width: "110px" }}
                     alt="logo"
                   />
                 </picture>
@@ -516,11 +475,7 @@ const Banner = ({
               ) : (
                 <>
                   Order PopiCard now
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    style={{ width: "15px" }}
-                    className="ml-1"
-                  />
+                  <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
                 </>
               )}
             </Link>
@@ -546,20 +501,13 @@ const Banner = ({
               <div id="hide">
                 {" "}
                 <div
-                  className="float"
+                  className="float float-styles"
                   target="_blank"
-                  style={{
-                    bottom: "130px",
-                    background: "var(--color)",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
                   onClick={shareContact}
                 >
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    className="ml-1"
-                    style={{ position: "relative", right: "1px" }}
+                    className="ml-1 position-relative right-1px"
                   />
                 </div>
               </div>
@@ -573,7 +521,6 @@ const Banner = ({
                 target="_blank"
                 onClick={() => HitClick("direct")}
               >
-                {/* <img src="./static/img/whatsapp.png" alt="whatsaap" /> */}
                 <picture>
                   <source type="image/png" srcSet="./static/img/whatsapp.png" />
                   <img src="./static/img/whatsapp.png" alt="whatsaap" />
@@ -593,21 +540,15 @@ const Banner = ({
                     ? "https://" + card?.card_google_review
                     : card?.card_google_review
                 }
-                className="float"
+                className="float float-styles-2"
                 target="_blank"
-                style={{
-                  bottom: "190px",
-                  background: "white",
-                  cursor: "pointer",
-                  fontSize: "24px",
-                }}
               >
                 <picture>
                   <source type="image/png" srcSet="./static/img/google.png" />
                   <img
                     src="./static/img/google.png"
-                    style={{ width: "30px" }}
                     alt="photos"
+                    className="w-30"
                   />
                 </picture>
               </a>
@@ -620,12 +561,8 @@ const Banner = ({
             subscription?.is_expired == false ? (
               <a
                 href={card.card_trustpilot}
-                className="float"
+                className="float bg-white fs-24"
                 target="_blank"
-                style={{
-                  background: "white",
-                  fontSize: "24px",
-                }}
               >
                 <picture>
                   <source
@@ -634,13 +571,8 @@ const Banner = ({
                   />
                   <img
                     src="./static/img/trustpilot.png"
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "100px",
-                      background: "white",
-                    }}
                     alt="photos"
+                    className="trustpilot-images bg-white"
                   />
                 </picture>
               </a>
@@ -660,7 +592,6 @@ const Banner = ({
                   <img
                     src={card.base_url + card.card_company_logo?.path}
                     className="Logo-icon"
-                    style={{ width: "110px" }}
                     alt="logo"
                   />
                 </picture>
@@ -735,11 +666,7 @@ const Banner = ({
               ) : (
                 <>
                   Order PopiCard now
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    style={{ width: "15px" }}
-                    className="ml-1"
-                  />
+                  <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
                 </>
               )}
             </Link>
@@ -751,14 +678,8 @@ const Banner = ({
         <h1 className="title title--h1 first-title title__separate">
           {Titles?.card_social_links?.visible_name}
         </h1>
-        <div
-          className="d-flex flex-wrap align-items-center"
-          style={{ gap: "15px" }}
-        >
-          <div
-            className="d-flex flex-wrap align-items-center"
-            style={{ gap: "15px" }}
-          >
+        <div className="d-flex flex-wrap align-items-center gap-15">
+          <div className="d-flex flex-wrap align-items-center gap-15">
             {CardLinks &&
               CardLinks.map((item, i) => {
                 links[item?.parent?.platform_name] = item.link;

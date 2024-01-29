@@ -135,17 +135,13 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                             srcSet="./static/img/picture-1.jpg"
                           />
                           <img
-                            className="coverr lazyload"
+                            className="coverr lazyload w-100 h-190"
                             src="./static/img/picture-1.jpg"
                             alt="photos"
-                            style={{ width: "100%", height: "190px" }}
                           />
                         </picture>
                       )}
-                      <p
-                        className="mt-3 font-weight-bold mb-3"
-                        style={{ color: "black", fontSize: "14px" }}
-                      >
+                      <p className="mt-3 font-weight-bold mb-3 color-black fs-14">
                         {item.name}
                       </p>
                       <p
@@ -164,19 +160,10 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                               : "https://" + item?.url
                           }
                           target="_blank"
-                          className="mt-3 contact-btn mx-auto"
-                          style={{
-                            background: "var(--color)",
-                            width: "40%",
-                          }}
+                          className="mt-3 contact-btn mx-auto bgVarColor w-40"
                           onClick={() => handleHitClick()}
                         >
-                          <i
-                            className="fa fa-link mr-2"
-                            style={{
-                              fontSize: "16px",
-                            }}
-                          ></i>
+                          <i className="fa fa-link mr-2 fs-16"></i>
                           Visit Site{" "}
                         </a>
                       ) : (
@@ -212,10 +199,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                   AddMoreBlogs.map((item, index) => {
                     return (
                       <div key={index} className="blog-position col-lg-12 pr-0">
-                        <div
-                          className="flex-blog row w-100"
-                          style={{ gap: "0px" }}
-                        >
+                        <div className="flex-blog row w-100 gap-0">
                           <div className="col-sm-12 col-lg-6 pr-0">
                             <div>
                               {item?.image?.path ? (
@@ -275,21 +259,14 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                               ></p>
                               <div className="d-flex align-items-center justify-content-end">
                                 <span
-                                  style={{
-                                    fontSize: "13px",
-                                    cursor: "pointer",
-                                  }}
                                   onClick={() =>
                                     ShowModalID(item.id, item?.name)
                                   }
+                                  className="fs-13 cursor-pointer"
                                 >
                                   <FontAwesomeIcon
                                     icon={faArrowRight}
-                                    className="user-select-auto mr-2 mt-1"
-                                    style={{
-                                      fontSize: "22px",
-                                      color: "var(--color)",
-                                    }}
+                                    className="user-select-auto mr-2 mt-1 fs-22 VarColor"
                                     onClick={() => handleHitClick(item?.id)}
                                   />
                                 </span>
@@ -314,7 +291,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                             : "blog-position col-lg-6"
                         }
                       >
-                        <div className="flex-blog" style={{ gap: "16px" }}>
+                        <div className="flex-blog gap-15">
                           <div>
                             {item?.image?.path ? (
                               <picture>
@@ -353,18 +330,14 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                             ></p>
                             <div className="d-flex align-items-center justify-content-end">
                               <span
-                                style={{ fontSize: "13px", cursor: "pointer" }}
                                 data-toggle="modal"
                                 data-target="#BlogModal"
                                 onClick={() => ShowModalID(item.id, item?.name)}
+                                className="fs-13 cursor-pointer"
                               >
                                 <FontAwesomeIcon
                                   icon={faArrowRight}
-                                  className="user-select-auto mr-2 mt-1"
-                                  style={{
-                                    fontSize: "19px",
-                                    color: "var(--color)",
-                                  }}
+                                  className="user-select-auto mr-2 mt-1 fs-19 VarColor"
                                   onClick={() => handleHitClick(item?.id)}
                                 />
                               </span>
@@ -380,12 +353,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
             {PaginationData?.total_blogs !== AddMoreBlogs?.length ? (
               <div className="mx-auto text-center">
                 <a
-                  className="text-center cursor-pointer mx-auto"
-                  style={{
-                    textDecoration: "underline",
-                    fontSize: "16px",
-                    color: "var(--color)",
-                  }}
+                  className="text-center cursor-pointer mx-auto video-load-more"
                   onClick={LoadMoreFunction}
                 >
                   Load More

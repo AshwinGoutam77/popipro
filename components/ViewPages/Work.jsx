@@ -105,8 +105,7 @@ const Work = ({
               <SwiperComponent
                 slidesPerView={2}
                 spaceBetween={10}
-                style={{ cursor: "pointer" }}
-                className="mySwiper"
+                className="mySwiper cursor-pointer"
                 autoplay={{
                   delay: 2500,
                   disableOnInteraction: false,
@@ -209,7 +208,7 @@ const Work = ({
                 {card.id === "S7ZG" ? (
                   <div className="swiper-slide review-items mt-3">
                     <div className="w-100">
-                      <div className="w-100 vedio-flex" style={{ gap: "8px" }}>
+                      <div className="w-100 vedio-flex gap-8">
                         <picture>
                           <source
                             type="image/png"
@@ -218,8 +217,7 @@ const Work = ({
                           <img
                             src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
                             alt="photos"
-                            className="video-width h-100 w-100 vedio-height"
-                            style={{ borderRadius: "10px" }}
+                            className="video-width h-100 w-100 vedio-height br-10"
                           />
                         </picture>
                         <picture>
@@ -230,15 +228,14 @@ const Work = ({
                           <img
                             src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
                             alt="photos"
-                            className="video-width h-100 w-100 vedio-height"
-                            style={{ borderRadius: "10px" }}
+                            className="video-width h-100 w-100 vedio-height br-10"
                           />
                         </picture>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="flex-edit-class" style={{ gap: "10px" }}>
+                  <div className="flex-edit-class gap-10">
                     {Card_videos &&
                       Card_videos.map((video, i) => {
                         function getId(url) {
@@ -282,12 +279,7 @@ const Work = ({
                 card.id !== "S7ZG" ? (
                   <div className="mx-auto text-center mt-3">
                     <a
-                      className="text-center cursor-pointer mx-auto"
-                      style={{
-                        textDecoration: "underline",
-                        fontSize: "16px",
-                        color: "var(--color)",
-                      }}
+                      className="text-center cursor-pointer mx-auto video-load-more fs-16"
                       onClick={LoadMoreFunction}
                     >
                       Load More

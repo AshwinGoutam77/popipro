@@ -7,7 +7,6 @@ import React from "react";
 const SocialMedia = ({ card, Titles, CardLinks }) => {
   let links = [];
   const HitClick = async (type, social, id) => {
-    ("hello");
     try {
       let payload = {
         card: card?.id,
@@ -31,14 +30,8 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
           <h2 className="title title--h1 first-title title__separate">
             {Titles?.card_social_links?.visible_name}
           </h2>
-          <div
-            className="d-flex flex-wrap align-items-center"
-            style={{ gap: "15px" }}
-          >
-            <div
-              className="d-flex flex-wrap align-items-center"
-              style={{ gap: "15px" }}
-            >
+          <div className="d-flex flex-wrap align-items-center gap-15">
+            <div className="d-flex flex-wrap align-items-center gap-15">
               {CardLinks &&
                 CardLinks.map((item, i) => {
                   links[item?.parent?.platform_name] = item.link;
@@ -69,10 +62,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
                                     ".png"
                                   }
                                   alt={item.parent.platform_name}
-                                  style={{
-                                    width: "50px",
-                                    borderRadius: "100%",
-                                  }}
+                                  className="w-50px br-100"
                                 />
                               </picture>
                             </span>
@@ -103,10 +93,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
                                     ".png"
                                   }
                                   alt={item.parent.platform_name}
-                                  style={{
-                                    width: "50px",
-                                    borderRadius: "100%",
-                                  }}
+                                  className="w-50px br-100"
                                 />
                               </picture>
                             </span>

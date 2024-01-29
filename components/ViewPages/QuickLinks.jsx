@@ -56,18 +56,11 @@ const QuickLinks = ({ card, subscription, Titles }) => {
                         <div className="d-flex align-items-center">
                           <FontAwesomeIcon
                             icon={faLink}
-                            className="pe-auto Iconcolor-black"
-                            style={{
-                              fontSize: "15px",
-                              marginRight: "10px",
-                            }}
+                            className="pe-auto Iconcolor-black fs-15 margin-r-10"
                           />
-                          <p style={{ color: "black" }}>
+                          <p className="color-black">
                             {item.title}{" "}
-                            <span
-                              className="badge badge-pill badge-warning ml-2"
-                              style={{ top: "-15px", right: "0" }}
-                            >
+                            <span className="badge badge-pill badge-warning ml-2">
                               {item.tag}
                             </span>
                           </p>
@@ -75,11 +68,7 @@ const QuickLinks = ({ card, subscription, Titles }) => {
                       </div>
                       <FontAwesomeIcon
                         icon={faArrowRight}
-                        className="pe-auto mr-2"
-                        style={{
-                          fontSize: "15px",
-                          color: "var(--color)",
-                        }}
+                        className="pe-auto mr-2 fs-15 VarColor"
                       />
                     </div>
                   </a>

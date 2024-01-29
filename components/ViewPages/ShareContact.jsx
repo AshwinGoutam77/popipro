@@ -32,8 +32,6 @@ export default function ShareContact() {
                 name="image"
                 className="form-control"
                 accept="image/png, image/gif, image/jpeg"
-                style={{ border: "1px solid #ccc" }}
-                /* ref={aRef} */
                 /* onChange={(e) => setImage(e.target.files[0])} */
               />
             </div>
@@ -88,7 +86,6 @@ export default function ShareContact() {
               <button
                 type="submit"
                 className="contact-btn mt-0 w-auto"
-                style={{ padding: "10px 60px" }}
                 onClick={handleSubmit}
               >
                 Send

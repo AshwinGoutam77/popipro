@@ -157,8 +157,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                       type="date"
                       value={Date}
                       onChange={(e) => setDate(e.target.value)}
-                      className="date-time-input"
-                      style={{ minWidth: "95%", borderRadius: 0 }}
+                      className="date-time-input min-width-95 br-0"
                     />
                     <div className="help-block with-errors"></div>
                   </div>
@@ -171,8 +170,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                       type="time"
                       value={Time}
                       onChange={(e) => setTime(e.target.value)}
-                      className="date-time-input"
-                      style={{ minWidth: "95%", borderRadius: 0 }}
+                      className="date-time-input min-width-95 br-0"
                     />
                     <div className="help-block with-errors"></div>
                   </div>
@@ -213,7 +211,6 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
               <button
                 type="submit"
                 className="contact-btn mt-3 w-auto"
-                style={{ padding: "8px 55px" }}
                 onClick={handleAppointment}
               >
                 Send

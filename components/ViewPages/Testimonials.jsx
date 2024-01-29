@@ -134,8 +134,6 @@ const Testimonials = ({
                 name="image"
                 className="form-control"
                 accept="image/png, image/jpeg"
-                style={{ border: "1px solid #ccc" }}
-                /* ref={aRef} */
                 onChange={(e) => setImagee(e.target.files[0])}
               />
             </div>
@@ -220,8 +218,7 @@ const Testimonials = ({
                 </h2>
               </div>
               <SwiperComponent
-                style={{ cursor: "pointer" }}
-                className="mySwiper"
+                className="mySwiper cursor-pointer"
                 pagination={{
                   clickable: true,
                 }}
@@ -260,14 +257,6 @@ const Testimonials = ({
                               />
                             </picture>
                           ) : (
-                            // <Image
-                            //   className="case-item__icon"
-                            //   src="./static/img/demo.jpg"
-                            //   alt="photos"
-                            //   style={{ borderRadius: "100%" }}
-                            //   width={0}
-                            //   height={0}
-                            // />
                             <div className="no-image-testimonia-div">
                               <FontAwesomeIcon
                                 icon={faUser}
@@ -276,10 +265,7 @@ const Testimonials = ({
                             </div>
                           )}
                           <div className="pt-0">
-                            <h4
-                              className="title title--h5 text-align-start ml-2 mb-0"
-                              style={{ textAlign: "start" }}
-                            >
+                            <h4 className="title title--h5 text-left ml-2 mb-0">
                               {items.name}
                             </h4>
                             <p className="text-left ml-2 font-weight-bold m-0">
