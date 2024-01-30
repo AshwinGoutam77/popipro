@@ -38,7 +38,7 @@ const ProfilePage = async ({ params }) => {
   const referer = headersList.get("referer");
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
-  let DataDecription = data?.data?.card?.card_description.substring(0, 160);
+  let DataDecription = data?.data?.card?.card_description?.substring(0, 160);
   const jsonLd = `{
     "@context": "https://schema.org",
     "@type":
@@ -47,7 +47,7 @@ const ProfilePage = async ({ params }) => {
     image: [
       "https://admin.popipro.com/" + data?.data?.card?.profile_picture?.path,
     ],
-    description: DataDecription.replace(/(<([^>]+)>)/gi, ""),
+    description: ${DataDecription}.replace(/(<([^>]+)>)/gi, ""),
   }`;
   return (
     <>

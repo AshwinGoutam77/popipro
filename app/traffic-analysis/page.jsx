@@ -162,7 +162,7 @@ export default function Page() {
   const chartData5 = {
     series: [
       {
-        name: "Custom Forms",
+        name: "Total Traffic (Profile Hits)",
         data: GraphData?.graph?.overall?.map((i) => {
           return i;
         }),
@@ -201,7 +201,7 @@ export default function Page() {
       },
       tooltip: {
         x: {
-          format: "dd/MM/yy HH:mm",
+          show: false,
         },
       },
     },

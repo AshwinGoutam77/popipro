@@ -548,8 +548,12 @@ const Page = () => {
                         <p className="w-100">{item.contact}</p>
                       </div>
                       <div className="d-flex align-items-start">
-                        <p className="w-100 font-weight-bold">Date</p>
+                        <p className="w-100 font-weight-bold">Created Date</p>
                         <p className="w-100">{item.created_at}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Requested Date</p>
+                        <p className="w-100">{item.appointment}</p>
                       </div>
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Location</p>
