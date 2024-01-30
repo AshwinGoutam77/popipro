@@ -198,7 +198,7 @@ const Page = () => {
       },
       {
         name: "Shared Contacts",
-        data: Data?.profile_interact?.graphs?.save_contact?.map((i) => {
+        data: Data?.profile_interact?.graphs?.shared_contact?.map((i) => {
           return i;
         }),
       },
