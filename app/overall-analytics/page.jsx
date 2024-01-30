@@ -1100,54 +1100,24 @@ const Page = () => {
                 <div className="col-sm-12 col-lg-4">
                   <div className="dashboard-leads-col-4-div py-4">
                     <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          Instagram
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Instagram
-                              ? Data?.social_interact?.stats?.Instagram
-                              : "0"}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Facebook
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Facebook}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Linkedin
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Linkedin}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Twitter
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.social_interact?.stats?.Twitter
-                              ? Data?.social_interact?.stats?.Twitter
-                              : "0"}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
+                      {Data?.social_interact?.stats?.map((items, index) => {
+                        return (
+                          <div
+                            className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5"
+                            key={index}
+                          >
+                            <p className="text-xs font-weight-bold text-white">
+                              {items?.name}
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {items?.value}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -1157,7 +1127,9 @@ const Page = () => {
                       options={chartData2?.options}
                       series={chartData2?.series}
                       type="bar"
-                      height={210}
+                      height={
+                        Data?.social_interact?.stats?.length >= 5 ? 322 : 210
+                      }
                     />
                   </div>
                 </div>
