@@ -28,28 +28,12 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   }, []);
 
   const handleHitClick = async (id) => {
-    id;
     let payload = {
       card: Data?.id,
       type: "blog",
       device_id: navigator.userAgent,
       object_base: id,
       hit_type: "visit-site",
-      latitude: Latitude,
-      longitude: Longitude,
-      fb_token: await localforage.getItem("fcm_token"),
-    };
-    const response = await Api(HitClickApi, payload);
-    if (response.data.status) {
-    }
-  };
-  const HitClick = async () => {
-    let payload = {
-      card: Data?.id,
-      type: "blog",
-      device_id: navigator.userAgent,
-      object_base: Data?.id,
-      hit_type: "view-more",
       latitude: Latitude,
       longitude: Longitude,
       fb_token: await localforage.getItem("fcm_token"),
@@ -74,7 +58,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
     setBlogModalTitle(name);
     setModalId(id);
     handleShow();
-    HitClick();
+    // HitClick();
   };
   const LoadMoreFunction = async () => {
     const response = await fetch(
