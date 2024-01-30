@@ -551,10 +551,16 @@ const Page = () => {
                         <p className="w-100 font-weight-bold">Created Date</p>
                         <p className="w-100">{item.created_at}</p>
                       </div>
-                      <div className="d-flex align-items-start">
-                        <p className="w-100 font-weight-bold">Requested Date</p>
-                        <p className="w-100">{item.appointment}</p>
-                      </div>
+                      {item.appointment ? (
+                        <div className="d-flex align-items-start">
+                          <p className="w-100 font-weight-bold">
+                            Requested Date
+                          </p>
+                          <p className="w-100">{item.appointment}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Location</p>
                         {item.detail ? (
@@ -779,7 +785,7 @@ const Page = () => {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -830,7 +836,7 @@ const Page = () => {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -883,7 +889,7 @@ const Page = () => {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>

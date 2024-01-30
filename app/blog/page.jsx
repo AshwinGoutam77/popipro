@@ -86,16 +86,27 @@ export default function DashboardBlogs() {
               ) +
               "&location_filter=" +
               e
+          : BlogFilter?.target?.value
+          ? "?start_date=" +
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&blog_id=" +
+            BlogFilter?.target?.value +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
           : "?start_date=" +
-              startDt +
-              "&end_date=" +
-              endDt +
-              "&blog_id=" +
-              BlogFilter?.target?.value +
-              "&type=" +
-              "card" +
-              "&location_filter=" +
-              e
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&blog_id=" +
+            "" +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -148,6 +159,11 @@ export default function DashboardBlogs() {
             },
           },
         },
+      },
+      title: {
+        text:
+          "Total " + UserData?.titles?.card_blogs?.visible_name + " Hits",
+        align: "left",
       },
       dataLabels: {
         enabled: false,
@@ -402,9 +418,9 @@ export default function DashboardBlogs() {
                         className="w-auto location-filter"
                         onChange={(e) => handleSearchData(e.target.value)}
                       >
+                        <option value="country">Country</option>
                         <option value="city">City</option>
                         <option value="state">State</option>
-                        <option value="country">Country</option>
                       </select>
                     </div>
                     <Charts

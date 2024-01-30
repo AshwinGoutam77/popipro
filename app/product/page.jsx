@@ -89,16 +89,27 @@ export default function DashboardProducts({ TitleData }) {
               ].getAttribute("datatype") +
               "&location_filter=" +
               e
+          : FilterProducts?.target?.value
+          ? "?start_date=" +
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&product_id=" +
+            FilterProducts?.target?.value +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
           : "?start_date=" +
-              startDt +
-              "&end_date=" +
-              endDt +
-              "&product_id=" +
-              FilterProducts?.target?.value +
-              "&type=" +
-              "card" +
-              "&location_filter=" +
-              e
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&product_id=" +
+            "" +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -160,6 +171,10 @@ export default function DashboardProducts({ TitleData }) {
             },
           },
         },
+      },
+      title: {
+        text: "Total " + UserData?.titles?.card_products?.visible_name + " Hits",
+        align: "left",
       },
       dataLabels: {
         enabled: false,

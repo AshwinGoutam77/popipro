@@ -187,6 +187,10 @@ export default function Page() {
           },
         },
       },
+      title: {
+        text: "Total Traffic Hits (Profile Hits)",
+        align: "left",
+      },
       dataLabels: {
         enabled: false,
       },
@@ -200,8 +204,12 @@ export default function Page() {
         }),
       },
       tooltip: {
+        y: {
+          show: false,
+        },
         x: {
           show: false,
+          format: "dd/MM/yy HH:mm",
         },
       },
     },
