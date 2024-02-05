@@ -1437,7 +1437,8 @@ export default function EditRealEstate({
             })
           )}
           {PaginationData?.total_realestate == Data?.card_realestates?.length &&
-          LoadMoreData !== null ? (
+          LoadMoreData !== null &&
+          Data?.card_realestates?.length !== 0 ? (
             <div className="mx-auto text-center pt-2">
               <a
                 className="text-center cursor-pointer mx-auto"
