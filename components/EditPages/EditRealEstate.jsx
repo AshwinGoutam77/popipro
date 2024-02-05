@@ -39,8 +39,9 @@ export default function EditRealEstate({
   TitleData,
   PaginationData,
   card,
+  setRealEstateData,
+  RealEstateData,
 }) {
-  const [EstateData, setEstateData] = useState("");
   const [show, setshow] = useState(false);
   const [ShowModal, setShowModal] = useState(false);
   const [PriceRadio, setPriceRadio] = useState(true);
@@ -75,7 +76,7 @@ export default function EditRealEstate({
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
-    setEstateData(Data?.card_realestates);
+    setRealEstateData(Data?.card_realestates);
   }, []);
   useEffect(() => {
     setActive(TitleData?.card_realestates?.is_active == "1" ? true : false);
@@ -345,6 +346,7 @@ export default function EditRealEstate({
       if (result.isConfirmed) {
         const response = await Api(deleteSection, data);
         if (response.data.status) {
+          setRealEstateData(Data?.card_realestates);
           Swal.fire("Deleted!", "", "success");
           APIDATA();
         }
@@ -510,11 +512,11 @@ export default function EditRealEstate({
         setActiveFilter(item?.name);
       });
       Page > 1
-        ? setEstateData((prevData) => [
+        ? setRealEstateData((prevData) => [
             ...prevData,
             ...data?.data?.next_page_data?.data,
           ])
-        : setEstateData(() => data?.data?.next_page_data?.data);
+        : setRealEstateData(() => data?.data?.next_page_data?.data);
     }
   };
 
@@ -1219,11 +1221,11 @@ export default function EditRealEstate({
             </div>
           </div>
 
-          {EstateData?.length === 0 ? (
+          {RealEstateData?.length === 0 ? (
             <p>Real Estate are empty, to add click on the add icon.</p>
           ) : (
-            EstateData &&
-            EstateData?.map((items, index, { length }) => {
+            RealEstateData &&
+            RealEstateData?.map((items, index, { length }) => {
               return (
                 <div key={index}>
                   <div className="row realestaterow">

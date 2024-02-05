@@ -42,6 +42,7 @@ const Page = () => {
   const [ShowLoader, setShowLoader] = useState(false);
   const [AddMoreBlogs, setAddMoreBlogs] = useState([1]);
   const [AddMoreProduct, setAddMoreProduct] = useState([1]);
+  const [RealEstateData, setRealEstateData] = useState([1]);
   const [AddMoreVedios, setAddMoreVedios] = useState([1]);
   const pathname = usePathname();
   let card_url = pathname.split("/").pop();
@@ -56,6 +57,7 @@ const Page = () => {
         setAddMoreBlogs(response.data.data.card.card_blogs);
         setAddMoreProduct(response.data.data.card.card_products);
         setAddMoreVedios(response.data.data.card.card_videos);
+        setRealEstateData(response.data.data.card.card_realestates);
       } else {
         setErrorDataMessage(response.data.message);
         setNoData(true);
@@ -249,23 +251,18 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  {/* {cardData?.card.id === "S7ZG" &&
-                  process.env.NEXT_PUBLIC_MODE === "development" ? ( */}
                   <EditRealEstate
                     Data={cardData?.card}
                     MainData={cardData}
                     TitleData={cardData?.titles}
-                    AddMoreProduct={AddMoreProduct}
+                    RealEstateData={RealEstateData}
+                    setRealEstateData={setRealEstateData}
                     PlanData={cardData?.plan}
                     APIDATA={getProfileData}
                     PaginationData={cardData?.pagination_data}
                     card={profile}
                     Currency={cardData?.currency}
-                    setAddMoreProduct={setAddMoreProduct}
                   />
-                  {/* ) : (
-                    ""
-                  )} */}
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}

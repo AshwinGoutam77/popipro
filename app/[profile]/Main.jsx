@@ -34,8 +34,8 @@ export default async function Main({ profile, data, id, referer }) {
   let pagination_data = data?.data?.pagination_data;
   let AddMoreBlogs = data?.data?.card?.card_blogs;
   let Products = data?.data?.card?.card_products;
+  let RealEstateData = data?.data?.card?.card_realestates;
   let is_onboarding = data?.data?.card?.is_onboarding;
-  let FormData = data?.data?.forms;
 
   if (profile == "happy-helathy-homes") {
     redirect("happy-healthy-homes");
@@ -156,7 +156,7 @@ export default async function Main({ profile, data, id, referer }) {
                       Data={card}
                       card={card}
                       PaginationData={pagination_data}
-                      AddMoreBlogs={AddMoreBlogs}
+                      RealEstateData={RealEstateData}
                       card_url={profile}
                       MainData={MainData}
                     />
