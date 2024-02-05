@@ -91,7 +91,7 @@ const Page = () => {
     <>
       {cardData ? (
         <>
-          <ToastContainer
+          {/* <ToastContainer
             position="bottom-right"
             autoClose={2000}
             hideProgressBar={false}
@@ -102,7 +102,7 @@ const Page = () => {
             draggable
             pauseOnHover
             theme="light"
-          />
+          /> */}
           <EditBanner
             card={cardData.card}
             Permission={cardData?.permission}
