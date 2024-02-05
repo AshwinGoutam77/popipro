@@ -1,508 +1,474 @@
 "use client";
 import {
-  faAddressBook,
   faAngleLeft,
-  faChevronLeft,
-  faChevronRight,
-  faHomeAlt,
-  faPlus,
-  faTrash,
+  faAngleRight,
+  faBagShopping,
+  faChartSimple,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import "../../styles/about.css";
-import "../../styles/edit.css";
-import { Modal } from "react-bootstrap";
-import Swal from "sweetalert2";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import DataTable from "react-data-table-component";
+import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
+import Api from "@services/Api";
+import {
+  EditData,
+  GetInshights,
+  GetRealEstate,
+  ProductsInsights,
+} from "@services/Routes";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import "../../styles/about.css";
+import { redirect } from "next/navigation";
+import { useAuthContext } from "@context/AuthContext";
+import dynamic from "next/dynamic";
+import { Modal } from "react-bootstrap";
+const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function Page() {
-  const [showContact, setShowContact] = useState(false);
-  const [ShowSendMessage, setShowSendMessage] = useState(false);
+export default function DashboardProducts({ TitleData }) {
+  const { token, APIDATA, UserData } = useAuthContext();
+  const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-  const [DataTables, setDataTables] = useState([]);
-
-  const getDataTable = async () => {
-    setDataTables([
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-      {
-        Name: "Tester",
-        Date: "23 / 11 / 2023",
-        Message:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        Number: "9874563210",
-      },
-    ]);
-  };
-
-  const column = [
-    {
-      name: "Name",
-      selector: (row) => row.Name,
-    },
-    {
-      name: "Date",
-      selector: (row) => row.Date,
-    },
-    {
-      name: "Contact No.",
-      selector: (row) => row.Number,
-    },
-    {
-      name: "Message",
-      selector: (row) => row.Message,
-    },
-    {
-      name: "",
-      selector: (row) => (
-        <FontAwesomeIcon
-          icon={faChevronRight}
-          onClick={() => setShow(true)}
-          className="cursor-pointer"
-        />
-      ),
-    },
-  ];
+  const [ShowLoader, setShowLoader] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [FilterProducts, setFilterProducts] = useState("");
+  const [ModalId, setModalId] = useState("");
 
   useEffect(() => {
-    getDataTable();
+    api();
+    APIDATA();
   }, []);
 
-  const handleSearchData = async () => {};
-  return (
-    <>
-      <Modal show={showContact} onHide={() => setShowContact(false)} centered>
-        <Modal.Header>
-          <Modal.Title>
-            <h5 class="title title--h1 first-title title__separate mb-1 mb-0">
-              Add Contact
-            </h5>
-          </Modal.Title>
-          <button
-            type="button"
-            class="close"
-            onClick={() => setShowContact(false)}
-          >
-            <span aria-hidden="true">×</span>
-            <span class="sr-only">Close alert</span>
-          </button>
-        </Modal.Header>
-        <Modal.Body style={{ padding: "10px 15px" }}>
-          <label className="modalFormLable">Contact Name*</label>
-          <input
-            name="name"
-            rows="4"
-            cols="50"
-            className="form-control mb-4 mt-1 rounded-0"
-            placeholder=""
-            style={{ height: "40px", border: "1px solid #ccc" }}
-          ></input>
-          <label className="modalFormLable">Contact Number*</label>
-          <input
-            type="number"
-            name="text"
-            rows="4"
-            cols="50"
-            className="form-control mb-4 mt-1 rounded-0"
-            placeholder=""
-            style={{ height: "40px", border: "1px solid #ccc" }}
-          ></input>
-          <button className="contact-btn w-auto mb-2">Save Contact</button>
-        </Modal.Body>
-      </Modal>
-      <Modal
-        show={ShowSendMessage}
-        onHide={() => setShowSendMessage(false)}
-        centered
-      >
-        <Modal.Header>
-          <Modal.Title>
-            <h5
-              className="title title--h1 first-title title__separate mb-1 mb-0"
-              id="BlogModalTitle"
-            >
-              Send message
-            </h5>
-          </Modal.Title>
-          <button
-            type="button"
-            className="close"
-            onClick={() => setShowSendMessage(false)}
-          >
-            <span aria-hidden="true">×</span>
-            <span className="sr-only">Close alert</span>
-          </button>
-        </Modal.Header>
-        <Modal.Body style={{ padding: "10px 15px" }}>
-          <label className="modalFormLable">
-            Send message to selected users*
-          </label>
-          <textarea
-            name="name"
-            rows="4"
-            cols="50"
-            className="form-control mt-1 rounded-0"
-            placeholder=""
-            style={{ height: "140px", border: "1px solid #ccc" }}
-          ></textarea>
-          <div className="mb-2">
-            <button className="contact-btn w-auto">Send Message</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-      <Modal show={show} onHide={() => setShow(false)} centered>
-        <Modal.Header>
-          <Modal.Title>
-            <h5 className="title title--h1 first-title title__separate mb-1 mb-0">
-              Users
-            </h5>
-          </Modal.Title>
-          <button
-            type="button"
-            className="close"
-            onClick={() => setShow(false)}
-          >
-            <span aria-hidden="true">×</span>
-            <span className="sr-only">Close alert</span>
-          </button>
-        </Modal.Header>
-        <Modal.Body style={{ padding: "10px 15px" }}>
-          <div className="leads-custom-table mb-1">
-            <div className="d-flex align-items-start">
-              <p className="w-100 font-weight-bold">Property Name</p>
-              <p className="w-100">Emerald Oasis Mansion</p>
-            </div>
-            <div className="d-flex align-items-start">
-              <p className="w-100 font-weight-bold">Location</p>
-              <p className="w-100">Jaipur</p>
-            </div>
-            <div className="d-flex align-items-start">
-              <p className="w-100 font-weight-bold">Contact Number</p>
-              <p className="w-100">9876543210</p>
-            </div>
-            <div className="d-flex align-items-start">
-              <p className="w-100 font-weight-bold">Date</p>
-              <p className="w-100">23/11/2023</p>
-            </div>
-            <div className="d-flex align-items-start">
-              <p className="w-100 font-weight-bold">Message</p>
-              <p className="w-100">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum is simply dummy text of the
-                printing and typesetting industry. Lorem Ipsum is simply dummy
-                text of the printing and typesetting industry. Lorem Ipsum is
-                simply dummy text of the printing and typesetting industry.{" "}
-              </p>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+  const api = async () => {
+    setShowLoader(true);
+    const response = await Api(GetRealEstate, {});
+    if (response.data.status) {
+      setShowLoader(false);
+      setData(response.data.data);
+    }
+  };
 
-      <div
-        className="login-header p-3 text-center d-flex align-items-center justify-content-between"
-        style={{ background: "black" }}
-      >
-        <h5 className="text-white m-0">
-          <FontAwesomeIcon
-            icon={faHomeAlt}
-            className="text-white mr-2"
-            width="20"
-          />{" "}
-          Real Estate
-        </h5>
-        <Link href="/dashboard">
-          <h6 className="text-white m-0">
-            {" "}
-            <FontAwesomeIcon
-              icon={faAngleLeft}
-              className="text-white mr-2"
-              width="10"
-            />
-            Back
-          </h6>
-        </Link>
-      </div>
-      <div
-        className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
-        style={{ height: "calc(100vh - 58px)" }}
-      >
-        <div className="w-100">
-          <div className="mx-3 mt-3">
-            <div className="row w-100 m-0 p-0 mb-4 align-items-end">
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">From</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={StartDate}
-                  maxDate={new Date()}
-                  onChange={(date) => setStartDate(date)}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">To</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={EndDate}
-                  defaultValue={EndDate}
-                  onChange={(Date) => setEndDate(Date)}
-                  maxDate={new Date()}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">Property</label>
-                <select className="form-control insight-filter w-100">
-                  <option>Emerald Oasis Mansion</option>
-                  <option>Emerald Oasis Mansion</option>
-                  <option>Emerald Oasis Mansion</option>
-                  <option>Emerald Oasis Mansion</option>
-                  <option>Emerald Oasis Mansion</option>
-                  <option>Emerald Oasis Mansion</option>
-                </select>
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <button
-                  className="insight-search w-100 mt-3"
-                  onClick={handleSearchData}
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+  const handleSearchData = async (e) => {
+    try {
+      setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GetRealEstate,
+        {},
+        FilterProducts !== ""
+          ? "?start_date=" +
+              startDt +
+              "&end_date=" +
+              endDt +
+              "&product_id=" +
+              FilterProducts?.target?.value +
+              "&type=" +
+              FilterProducts?.target[
+                FilterProducts.target.selectedIndex
+              ].getAttribute("datatype") +
+              "&location_filter=" +
+              e
+          : FilterProducts?.target?.value
+          ? "?start_date=" +
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&product_id=" +
+            FilterProducts?.target?.value +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
+          : "?start_date=" +
+            startDt +
+            "&end_date=" +
+            endDt +
+            "&product_id=" +
+            "" +
+            "&type=" +
+            "card" +
+            "&location_filter=" +
+            e
+      );
+      if (response.data.status) {
+        setData(response.data.data);
+        setShowLoader(false);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        localStorage.removeItem("url");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      toast(error.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  let dSet =
+    Data?.location_graph &&
+    Data?.location_graph?.map((item) => {
+      return {
+        name: item?.name,
+        data: item?.value,
+      };
+    });
+  const chartData5 = {
+    series: [
+      {
+        name: UserData?.titles?.card_realestates?.visible_name,
+        data: Data?.graph?.overall?.map((i) => {
+          return i;
+        }),
+      },
+    ],
+    options: {
+      chart: {
+        zoom: {
+          enabled: false,
+          type: "x",
+          autoScaleYaxis: false,
+          zoomedArea: {
+            fill: {
+              color: "#90CAF9",
+              opacity: 0.4,
+            },
+            stroke: {
+              color: "#0D47A1",
+              opacity: 0.4,
+              width: 1,
+            },
+          },
+        },
+      },
+      title: {
+        text:
+          "Total " + UserData?.titles?.card_realestates?.visible_name + " Hits",
+        align: "left",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+
+  const chartData6 = {
+    series: dSet || [],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "month",
+        categories: Data?.ranges?.range?.map((i) => {
+          return i;
+        }),
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
+      },
+    },
+  };
+  const handleShowModal = (name) => {
+    setShowModal(true);
+    setModalId(name);
+  };
+
+  return token ? (
+    <>
+      {Data ? (
+        <>
+          <SimpleBackdrop visible={ShowLoader} />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal.Header>
+              <Modal.Title>
+                <h5
+                  class="title title--h1 first-title title__separate mb-1 mb-0"
+                  id=""
                 >
-                  Search
-                </button>
+                  Hits Details
+                </h5>
+              </Modal.Title>
+              <button
+                type="button"
+                class="close"
+                onClick={() => setShowModal(false)}
+              >
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close alert</span>
+              </button>
+            </Modal.Header>
+            <Modal.Body style={{ padding: "10px 0" }}>
+              <div className="box-shadow-leads hits-details-modal">
+                <table className="insight-table">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Data?.realestate_stats?.map((item, index) => {
+                      return item.name == ModalId
+                        ? item?.data?.map((i, o) => {
+                            return (
+                              <tr key={o} className="cursor-pointer">
+                                <td data-column="Name">
+                                  {i?.state !== "" ||
+                                  i?.city !== "" ||
+                                  i?.country !== ""
+                                    ? i?.state
+                                      ? i?.city +
+                                        `${i?.city ? ", " : ""}` +
+                                        i?.state +
+                                        `${i?.state ? ", " : ""}` +
+                                        i?.country
+                                      : i?.city +
+                                        `${i?.city ? ", " : ""}` +
+                                        i?.country
+                                    : "---"}
+                                </td>
+                                <td data-column="Email">{i?.created_at}</td>
+                                <td className="">{i?.name}</td>
+                              </tr>
+                            );
+                          })
+                        : "";
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Modal.Body>
+          </Modal>
+          <div
+            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
+            style={{ minHeight: "calc(100vh - 58px)" }}
+          >
+            <div className="w-100">
+              <div
+                className="login-header p-3 text-center d-flex align-items-center justify-content-between"
+                style={{ background: "black" }}
+              >
+                <h5 className="text-white m-0 text-left">
+                  <FontAwesomeIcon
+                    icon={faBagShopping}
+                    className="text-white mr-2"
+                    width="20"
+                  />{" "}
+                  {UserData?.titles?.card_realestates?.visible_name}
+                </h5>
+                <Link href="/dashboard">
+                  <h6 className="text-white m-0">
+                    {" "}
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      className="text-white mr-2"
+                      width="20"
+                    />
+                    Back
+                  </h6>
+                </Link>
+              </div>
+              <div
+                className="w-100 bg-custom"
+                style={{ minHeight: "calc(100vh - 58px)" }}
+              >
+                <div className="mx-3 pt-4">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">From</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={StartDate}
+                        maxDate={new Date()}
+                        onChange={(date) => setStartDate(date)}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">To</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
+                        maxDate={new Date()}
+                        minDate={StartDate}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <button
+                        className="contact-btn w-auto mt-3"
+                        onClick={() => handleSearchData()}
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row m-0 mb-4 row-gap-3">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <Charts
+                        options={chartData5?.options}
+                        series={chartData5?.series}
+                        type="area"
+                        height={340}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <div className="d-flex align-items-center justify-content-between mb-2">
+                        <p className="ml-4 color-black font-weight-bold">
+                          As per location
+                        </p>
+                        <select
+                          className="w-auto location-filter"
+                          onChange={(e) => handleSearchData(e.target.value)}
+                        >
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                          <option value="city">City</option>
+                        </select>
+                      </div>
+                      <Charts
+                        options={chartData6?.options}
+                        series={chartData6?.series}
+                        type="bar"
+                        height={300}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="box-shadow-leads">
+                  <table className="insight-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Views</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Data?.realestate_stats?.length === 0 ? (
+                        <tr>
+                          <td className="p-3 color-black">No data available</td>
+                        </tr>
+                      ) : (
+                        Data?.realestate_stats?.map((item, index) => {
+                          return (
+                            <tr key={index} className="cursor-pointer">
+                              <td data-column="Name">{item.name}</td>
+                              <td data-column="Email">{item.count}</td>
+                              <td
+                                className=""
+                                onClick={() => {
+                                  handleShowModal(item?.name);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  className="w-100 text-center text-white p-2 mt-3"
+                  style={{ bottom: "0", background: "black" }}
+                >
+                  <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="mt-4 d-flex align-items-center justify-content-between mx-4">
-            <button
-              className="contact-btn w-auto"
-              onClick={() => setShowSendMessage(true)}
-            >
-              Send message
-            </button>
-          </div>
-          <div className="box-shadow-leads">
-            {/* <table className="insight-table">
-              <thead>
-                <tr>
-                  <th className="d-flex align-items-center">
-                    <input type="checkbox" className="mr-2" />
-                  </th>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Message</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-                <tr
-                  data-column="Message"
-                  className="cursor-pointer"
-                  onClick={() => setShow(true)}
-                >
-                  <td className="d-flex align-items-center">
-                    <input type="checkbox" />
-                  </td>
-                  <td data-column="name">Tester</td>
-                  <td data-column="name">23/11/2023</td>
-                  <td data-column="name">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry
-                  </td>
-                  <td>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </td>
-                </tr>
-              </tbody>
-            </table> */}
-            <DataTable
-              columns={column}
-              data={DataTables}
-              pagination
-              fixedHeader
-              fixedHeaderScrollHeight="440px"
-              selectableRows
-              selectableRowsHighlight
-              highlightOnHover
-              subHeader
-              subHeaderComponent={
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-auto form-control mb-2"
-                />
-              }
-              subHeaderAlign="right"
-            />
-          </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <SimpleBackdrop visible={ShowLoader} />
+      )}
     </>
+  ) : (
+    redirect("/login")
   );
 }

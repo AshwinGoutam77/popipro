@@ -1441,6 +1441,9 @@ input[type="time"]:focus:before {
 .br-0 {
   border-radius: 0;
 }
+.real-estate-border {
+  border-bottom: 1px solid #ece1df;
+}
 
 @media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {

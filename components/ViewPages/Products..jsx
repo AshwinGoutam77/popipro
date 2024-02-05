@@ -636,502 +636,515 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
-      {((Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
+      {/* {((Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
         Category?.length !== 0) ||
       (!ProductSearching !== "" &&
         PlanData?.is_expired == false &&
         PlanData?.subscription?.plan_id !== 1 &&
-        PlanData?.subscription !== null) ? (
-        <div className="box-content boxxx mb-3" id="card_products">
-          <div className="mt-0 product-section-div">
-            {Search ? (
-              <div className="d-flex align-items-baseline position-relative">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="form-control mb-4"
-                  onChange={(e) => setProductSearching(e.target.value)}
-                />
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className="color-black cursor-pointer search-icon-products fs-18"
-                  onClick={() => handleResetFilter()}
-                />
-              </div>
-            ) : (
-              <div className="d-flex align-items-start justify-content-between">
-                <h3 className="title title--h1 first-title title__separate">
-                  {Titles &&
-                  Titles.card_products?.visible_name === "card_products"
-                    ? "card_products"
-                    : Titles?.card_products?.visible_name}
-                </h3>
-                <div className="d-flex gap-20">
-                  <FontAwesomeIcon
-                    icon={faSearch}
-                    className="color-black cursor-pointer fs-18"
-                    onClick={() => handleShowSearchFilter()}
+        PlanData?.subscription !== null) ? ( */}
+      {Titles &&
+      Titles?.card_products?.is_active &&
+      PlanData?.is_expired == false &&
+      PlanData?.PlanData?.plan_id !== 1 &&
+      PlanData?.PlanData !== null ? (
+        Data?.card_products?.length !== 0 &&
+        Titles?.card_products?.is_active !== 0 ? (
+          <div className="box-content boxxx mb-3" id="card_products">
+            <div className="mt-0 product-section-div">
+              {Search ? (
+                <div className="d-flex align-items-baseline position-relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="form-control mb-4"
+                    onChange={(e) => setProductSearching(e.target.value)}
                   />
-                  {Search ? (
-                    <div className="d-flex align-items-baseline position-relative">
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        className="form-control mb-4"
-                        onChange={(e) => handleSearch(e.target.value)}
-                      />
-                      <FontAwesomeIcon
-                        icon={faXmark}
-                        className="color-black cursor-pointer search-icon-products fs-18"
-                        onClick={() => handleShowSearchFilter()}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  <Dropdown as={ButtonGroup}>
-                    <Dropdown.Toggle
-                      split
-                      variant="success"
-                      id="dropdown-split-basic"
-                      className="sorting-dropdown"
-                    ></Dropdown.Toggle>
-                    <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                      <Dropdown.Item
-                        href=""
-                        onClick={() => setHighlightSort("name")}
-                        className={
-                          HighlightSort == "name"
-                            ? "dropdown-item-active"
-                            : "dropdown-item"
-                        }
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowDownAZ}
-                          className="user-select-auto"
-                        />{" "}
-                        Sort By Name
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href=""
-                        onClick={() => setHighlightSort("lowest-price")}
-                        className={
-                          HighlightSort == "lowest-price"
-                            ? "dropdown-item-active"
-                            : "dropdown-item"
-                        }
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowDown}
-                          className="user-select-auto"
-                        />{" "}
-                        Sort By Lowest Price
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href=""
-                        onClick={() => setHighlightSort("highest-price")}
-                        className={
-                          HighlightSort == "highest-price"
-                            ? "dropdown-item-active"
-                            : "dropdown-item"
-                        }
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowUp}
-                          className="user-select-auto"
-                        />{" "}
-                        Sort By Higest Price
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href=""
-                        onClick={() => setHighlightSort("latest")}
-                        className={
-                          HighlightSort == "latest"
-                            ? "dropdown-item-active"
-                            : "dropdown-item"
-                        }
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowUp}
-                          className="user-select-auto"
-                        />{" "}
-                        Sort By Latest
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href=""
-                        onClick={() => setHighlightSort("popularity")}
-                        className={
-                          HighlightSort == "popularity"
-                            ? "dropdown-item-active"
-                            : "dropdown-item"
-                        }
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowUpRightDots}
-                          className="user-select-auto"
-                        />{" "}
-                        Sort By Popularity
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className="color-black cursor-pointer search-icon-products fs-18"
+                    onClick={() => handleResetFilter()}
+                  />
                 </div>
-              </div>
-            )}
-            {Category?.length !== 0 ? (
-              <SwiperComponent
-                breakpoints={{
-                  1110: {
-                    slidesPerView: 10,
-                  },
-                  300: {
-                    slidesPerView: 3,
-                  },
-                }}
-                spaceBetween={10}
-                className="mySwiper cursor-pointer"
-                navigation={{
-                  clickable: true,
-                }}
-                modules={[Pagination, Navigation]}
-              >
-                <SwiperSlide className="w-auto">
-                  <div className="swiper-slide review-items position-relative">
-                    <button
-                      className={
-                        ActiveFilter == ""
-                          ? "filter-btns bg-varcolor"
-                          : "filter-btns"
-                      }
-                      onClick={() => handleResetFilter()}
-                    >
-                      All
-                    </button>
-                  </div>
-                </SwiperSlide>
-                {Category &&
-                  Category?.map((items, index) => {
-                    return (
-                      <SwiperSlide className="w-auto" key={index}>
-                        <div className="swiper-slide review-items position-relative">
-                          <button
-                            className={
-                              ActiveFilter == items?.name
-                                ? "filter-btns bg-varcolor"
-                                : "filter-btns"
-                            }
-                            onClick={() => setProductCategory(items?.id)}
-                          >
-                            {items?.name}
-                          </button>
-                        </div>
-                      </SwiperSlide>
-                    );
-                  })}
-              </SwiperComponent>
-            ) : (
-              ""
-            )}
-
-            {Products?.length !== 0 ? (
-              Products &&
-              Products?.map((items, index, { length }) => {
-                return (
-                  <div key={index}>
-                    <div
-                      className={
-                        index + 1 === length
-                          ? "swiper-slide review-item review-item-products"
-                          : "swiper-slide review-item review-item-products review-item-products-border"
-                      }
-                    >
-                      <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
-                        <div className="col-6 col-sm-6 col-lg-4">
-                          <div className="position-relative">
-                            {items?.gallery?.length ? (
-                              <span class="badge badge-primary product-images-badge">
-                                + {items?.gallery?.length} Images
-                              </span>
-                            ) : (
-                              ""
-                            )}
-                            {items?.image?.path ? (
-                              <picture>
-                                <source
-                                  type="image/png"
-                                  srcSet={
-                                    process.env.NEXT_PUBLIC_MODE ==
-                                    "development"
-                                      ? "https://dev.popipro.com/" +
-                                        items.image.path
-                                      : "https://admin.popipro.com/" +
-                                        items.image.path
-                                  }
-                                />
-                                <img
-                                  className="case-item__icon-products cursor-pointer"
-                                  src={
-                                    process.env.NEXT_PUBLIC_MODE ==
-                                    "development"
-                                      ? "https://dev.popipro.com/" +
-                                        items.image.path
-                                      : "https://admin.popipro.com/" +
-                                        items.image.path
-                                  }
-                                  alt="products"
-                                  width={0}
-                                  height={0}
-                                  onClick={() =>
-                                    ShowModalID(items.id, items?.name)
-                                  }
-                                />
-                              </picture>
-                            ) : (
-                              <picture>
-                                <source
-                                  type="image/png"
-                                  srcSet="./static/img/picture-1.jpg"
-                                />
-                                <img
-                                  className="case-item__icon-products cursor-pointer"
-                                  src="./static/img/picture-1.jpg"
-                                  alt="products"
-                                  width={0}
-                                  height={0}
-                                  onClick={() =>
-                                    ShowModalID(items.id, items?.name)
-                                  }
-                                />
-                              </picture>
-                            )}
-                            {items?.description?.length <= "0" ? (
-                              ""
-                            ) : (
-                              <div className="product-icons-div">
-                                {Data?.whatsapp_number !== null &&
-                                MainData?.company_setting
-                                  ?.show_product_wp_button !== 0 ? (
-                                  <a
-                                    href={
-                                      "https://api.whatsapp.com/send?phone=" +
-                                      Data?.whatsapp_number +
-                                      "&" +
-                                      `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
-                                    }
-                                    target="_blank"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                                    onClick={() => HitClick(items?.id)}
-                                  >
-                                    <picture>
-                                      <source
-                                        type="image/png"
-                                        srcSet="./static/img/whatsapp.png"
-                                      />
-                                      <img
-                                        src="./static/img/whatsapp.png"
-                                        alt="whatsaap"
-                                        className="Whatsaapsvg"
-                                      />
-                                    </picture>
-                                  </a>
-                                ) : (
-                                  ""
-                                )}
-                                {MainData?.company_setting
-                                  ?.show_product_enquiry_button !== 0 ? (
-                                  <span
-                                    data-toggle="modal"
-                                    data-target="#ProductEnquireModal"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                                    onClick={() =>
-                                      handleShowModal(items?.id, items?.name)
-                                    }
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faEnvelope}
-                                      className="user-select-auto"
-                                    />
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
-                                {items.url !== "" ? (
-                                  <a
-                                    href={
-                                      items?.url?.includes("https://") ||
-                                      items?.url?.includes("http://")
-                                        ? items?.url
-                                        : "https://" + items?.url
-                                    }
-                                    target="_blank"
-                                    className="whatsap-link-view d-flex align-items-center justify-content-center"
-                                    onClick={() => HitClick(items?.id)}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faLink}
-                                      className="user-select-auto"
-                                    />
-                                  </a>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div
+              ) : (
+                <div className="d-flex align-items-start justify-content-between">
+                  <h3 className="title title--h1 first-title title__separate">
+                    {Titles &&
+                    Titles.card_products?.visible_name === "card_products"
+                      ? "card_products"
+                      : Titles?.card_products?.visible_name}
+                  </h3>
+                  <div className="d-flex gap-20">
+                    <FontAwesomeIcon
+                      icon={faSearch}
+                      className="color-black cursor-pointer fs-18"
+                      onClick={() => handleShowSearchFilter()}
+                    />
+                    {Search ? (
+                      <div className="d-flex align-items-baseline position-relative">
+                        <input
+                          type="text"
+                          placeholder="Search..."
+                          className="form-control mb-4"
+                          onChange={(e) => handleSearch(e.target.value)}
+                        />
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          className="color-black cursor-pointer search-icon-products fs-18"
+                          onClick={() => handleShowSearchFilter()}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    <Dropdown as={ButtonGroup}>
+                      <Dropdown.Toggle
+                        split
+                        variant="success"
+                        id="dropdown-split-basic"
+                        className="sorting-dropdown"
+                      ></Dropdown.Toggle>
+                      <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
+                        <Dropdown.Item
+                          href=""
+                          onClick={() => setHighlightSort("name")}
                           className={
-                            items?.description?.length <= "0"
-                              ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column text-left"
-                              : "col-6 col-sm-6 col-lg-8 text-left"
+                            HighlightSort == "name"
+                              ? "dropdown-item-active"
+                              : "dropdown-item"
                           }
                         >
-                          <p
+                          <FontAwesomeIcon
+                            icon={faArrowDownAZ}
+                            className="user-select-auto"
+                          />{" "}
+                          Sort By Name
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href=""
+                          onClick={() => setHighlightSort("lowest-price")}
+                          className={
+                            HighlightSort == "lowest-price"
+                              ? "dropdown-item-active"
+                              : "dropdown-item"
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faArrowDown}
+                            className="user-select-auto"
+                          />{" "}
+                          Sort By Lowest Price
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href=""
+                          onClick={() => setHighlightSort("highest-price")}
+                          className={
+                            HighlightSort == "highest-price"
+                              ? "dropdown-item-active"
+                              : "dropdown-item"
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faArrowUp}
+                            className="user-select-auto"
+                          />{" "}
+                          Sort By Higest Price
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href=""
+                          onClick={() => setHighlightSort("latest")}
+                          className={
+                            HighlightSort == "latest"
+                              ? "dropdown-item-active"
+                              : "dropdown-item"
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faArrowUp}
+                            className="user-select-auto"
+                          />{" "}
+                          Sort By Latest
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href=""
+                          onClick={() => setHighlightSort("popularity")}
+                          className={
+                            HighlightSort == "popularity"
+                              ? "dropdown-item-active"
+                              : "dropdown-item"
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faArrowUpRightDots}
+                            className="user-select-auto"
+                          />{" "}
+                          Sort By Popularity
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </div>
+              )}
+              {Category?.length !== 0 ? (
+                <SwiperComponent
+                  breakpoints={{
+                    1110: {
+                      slidesPerView: 10,
+                    },
+                    300: {
+                      slidesPerView: 3,
+                    },
+                  }}
+                  spaceBetween={10}
+                  className="mySwiper cursor-pointer"
+                  navigation={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination, Navigation]}
+                >
+                  <SwiperSlide className="w-auto">
+                    <div className="swiper-slide review-items position-relative">
+                      <button
+                        className={
+                          ActiveFilter == ""
+                            ? "filter-btns bg-varcolor"
+                            : "filter-btns"
+                        }
+                        onClick={() => handleResetFilter()}
+                      >
+                        All
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                  {Category &&
+                    Category?.map((items, index) => {
+                      return (
+                        <SwiperSlide className="w-auto" key={index}>
+                          <div className="swiper-slide review-items position-relative">
+                            <button
+                              className={
+                                ActiveFilter == items?.name
+                                  ? "filter-btns bg-varcolor"
+                                  : "filter-btns"
+                              }
+                              onClick={() => setProductCategory(items?.id)}
+                            >
+                              {items?.name}
+                            </button>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                </SwiperComponent>
+              ) : (
+                ""
+              )}
+
+              {Products?.length !== 0 ? (
+                Products &&
+                Products?.map((items, index, { length }) => {
+                  return (
+                    <div key={index}>
+                      <div
+                        className={
+                          index + 1 === length
+                            ? "swiper-slide review-item review-item-products"
+                            : "swiper-slide review-item review-item-products review-item-products-border"
+                        }
+                      >
+                        <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
+                          <div className="col-6 col-sm-6 col-lg-4">
+                            <div className="position-relative">
+                              {items?.gallery?.length ? (
+                                <span class="badge badge-primary product-images-badge">
+                                  + {items?.gallery?.length} Images
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                              {items?.image?.path ? (
+                                <picture>
+                                  <source
+                                    type="image/png"
+                                    srcSet={
+                                      process.env.NEXT_PUBLIC_MODE ==
+                                      "development"
+                                        ? "https://dev.popipro.com/" +
+                                          items.image.path
+                                        : "https://admin.popipro.com/" +
+                                          items.image.path
+                                    }
+                                  />
+                                  <img
+                                    className="case-item__icon-products cursor-pointer"
+                                    src={
+                                      process.env.NEXT_PUBLIC_MODE ==
+                                      "development"
+                                        ? "https://dev.popipro.com/" +
+                                          items.image.path
+                                        : "https://admin.popipro.com/" +
+                                          items.image.path
+                                    }
+                                    alt="products"
+                                    width={0}
+                                    height={0}
+                                    onClick={() =>
+                                      ShowModalID(items.id, items?.name)
+                                    }
+                                  />
+                                </picture>
+                              ) : (
+                                <picture>
+                                  <source
+                                    type="image/png"
+                                    srcSet="./static/img/picture-1.jpg"
+                                  />
+                                  <img
+                                    className="case-item__icon-products cursor-pointer"
+                                    src="./static/img/picture-1.jpg"
+                                    alt="products"
+                                    width={0}
+                                    height={0}
+                                    onClick={() =>
+                                      ShowModalID(items.id, items?.name)
+                                    }
+                                  />
+                                </picture>
+                              )}
+                              {items?.description?.length <= "0" ? (
+                                ""
+                              ) : (
+                                <div className="product-icons-div">
+                                  {Data?.whatsapp_number !== null &&
+                                  MainData?.company_setting
+                                    ?.show_product_wp_button !== 0 ? (
+                                    <a
+                                      href={
+                                        "https://api.whatsapp.com/send?phone=" +
+                                        Data?.whatsapp_number +
+                                        "&" +
+                                        `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
+                                      }
+                                      target="_blank"
+                                      className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                                      onClick={() => HitClick(items?.id)}
+                                    >
+                                      <picture>
+                                        <source
+                                          type="image/png"
+                                          srcSet="./static/img/whatsapp.png"
+                                        />
+                                        <img
+                                          src="./static/img/whatsapp.png"
+                                          alt="whatsaap"
+                                          className="Whatsaapsvg"
+                                        />
+                                      </picture>
+                                    </a>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {MainData?.company_setting
+                                    ?.show_product_enquiry_button !== 0 ? (
+                                    <span
+                                      data-toggle="modal"
+                                      data-target="#ProductEnquireModal"
+                                      className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                      onClick={() =>
+                                        handleShowModal(items?.id, items?.name)
+                                      }
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faEnvelope}
+                                        className="user-select-auto"
+                                      />
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {items.url !== "" ? (
+                                    <a
+                                      href={
+                                        items?.url?.includes("https://") ||
+                                        items?.url?.includes("http://")
+                                          ? items?.url
+                                          : "https://" + items?.url
+                                      }
+                                      target="_blank"
+                                      className="whatsap-link-view d-flex align-items-center justify-content-center"
+                                      onClick={() => HitClick(items?.id)}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faLink}
+                                        className="user-select-auto"
+                                      />
+                                    </a>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div
                             className={
                               items?.description?.length <= "0"
-                                ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black"
-                                : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black"
+                                ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column text-left"
+                                : "col-6 col-sm-6 col-lg-8 text-left"
                             }
-                            onClick={() => ShowModalID(items.id, items?.name)}
                           >
-                            {items.name}
-                          </p>
-                          <p
-                            id="p_wrap"
-                            className="review-item__caption text-left products-review m-0 mt-1 cursor-pointer"
-                            dangerouslySetInnerHTML={{
-                              __html: items.description,
-                            }}
-                            onClick={() => ShowModalID(items.id, items?.name)}
-                          ></p>
-                          <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
-                            {items.is_label !== 0 ? (
-                              <span className="product-price">
-                                {items.label}
-                              </span>
-                            ) : (
-                              <div>
-                                {items.price !== 0 &&
-                                items.price !== "" &&
-                                items.currency !== null ? (
-                                  <span className="product-price">
-                                    {items.pcurrency?.currency} {items.price}
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            )}
-                            {items?.description?.length <= "0" ? (
-                              <div className="d-flex align-items-center justify-content-left weight-small-100 gap-10">
-                                {Data?.whatsapp_number !== null &&
-                                MainData?.company_setting
-                                  ?.show_product_wp_button !== 0 ? (
-                                  <a
-                                    href={
-                                      "https://api.whatsapp.com/send?phone=" +
-                                      Data?.whatsapp_number +
-                                      "&" +
-                                      `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
-                                    }
-                                    target="_blank"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                                    onClick={() => HitClick(items?.id)}
-                                  >
-                                    {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
-                                    <picture>
-                                      <source
-                                        type="image/png"
-                                        srcSet="./static/img/whatsapp.png"
+                            <p
+                              className={
+                                items?.description?.length <= "0"
+                                  ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black"
+                                  : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black"
+                              }
+                              onClick={() => ShowModalID(items.id, items?.name)}
+                            >
+                              {items.name}
+                            </p>
+                            <p
+                              id="p_wrap"
+                              className="review-item__caption text-left products-review m-0 mt-1 cursor-pointer"
+                              dangerouslySetInnerHTML={{
+                                __html: items.description,
+                              }}
+                              onClick={() => ShowModalID(items.id, items?.name)}
+                            ></p>
+                            <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
+                              {items.is_label !== 0 ? (
+                                <span className="product-price">
+                                  {items.label}
+                                </span>
+                              ) : (
+                                <div>
+                                  {items.price !== 0 &&
+                                  items.price !== "" &&
+                                  items.currency !== null ? (
+                                    <span className="product-price">
+                                      {items.pcurrency?.currency} {items.price}
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              )}
+                              {items?.description?.length <= "0" ? (
+                                <div className="d-flex align-items-center justify-content-left weight-small-100 gap-10">
+                                  {Data?.whatsapp_number !== null &&
+                                  MainData?.company_setting
+                                    ?.show_product_wp_button !== 0 ? (
+                                    <a
+                                      href={
+                                        "https://api.whatsapp.com/send?phone=" +
+                                        Data?.whatsapp_number +
+                                        "&" +
+                                        `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
+                                      }
+                                      target="_blank"
+                                      className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                                      onClick={() => HitClick(items?.id)}
+                                    >
+                                      {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
+                                      <picture>
+                                        <source
+                                          type="image/png"
+                                          srcSet="./static/img/whatsapp.png"
+                                        />
+                                        <img
+                                          src="./static/img/whatsapp.png"
+                                          alt="whatsaap"
+                                          className="Whatsaapsvg"
+                                        />
+                                      </picture>
+                                    </a>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {MainData?.company_setting
+                                    ?.show_product_enquiry_button !== 0 ? (
+                                    <span
+                                      data-toggle="modal"
+                                      data-target="#ProductEnquireModal"
+                                      className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                      onClick={() =>
+                                        handleShowModal(items?.id, items?.name)
+                                      }
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faEnvelope}
+                                        className="user-select-auto"
                                       />
-                                      <img
-                                        src="./static/img/whatsapp.png"
-                                        alt="whatsaap"
-                                        className="Whatsaapsvg"
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {items.url !== "" ? (
+                                    <a
+                                      href={
+                                        items?.url?.includes("https://") ||
+                                        items?.url?.includes("http://")
+                                          ? items?.url
+                                          : "https://" + items?.url
+                                      }
+                                      target="_blank"
+                                      className="whatsap-link-view d-flex align-items-center justify-content-center"
+                                      onClick={() => HitClick(items?.id)}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faLink}
+                                        className="user-select-auto"
                                       />
-                                    </picture>
-                                  </a>
-                                ) : (
-                                  ""
-                                )}
-                                {MainData?.company_setting
-                                  ?.show_product_enquiry_button !== 0 ? (
-                                  <span
-                                    data-toggle="modal"
-                                    data-target="#ProductEnquireModal"
-                                    className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                                    onClick={() =>
-                                      handleShowModal(items?.id, items?.name)
-                                    }
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faEnvelope}
-                                      className="user-select-auto"
-                                    />
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
-                                {items.url !== "" ? (
-                                  <a
-                                    href={
-                                      items?.url?.includes("https://") ||
-                                      items?.url?.includes("http://")
-                                        ? items?.url
-                                        : "https://" + items?.url
-                                    }
-                                    target="_blank"
-                                    className="whatsap-link-view d-flex align-items-center justify-content-center"
-                                    onClick={() => HitClick(items?.id)}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faLink}
-                                      className="user-select-auto"
-                                    />
-                                  </a>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            ) : (
-                              <p
-                                onClick={() =>
-                                  ShowModalID(items.id, items?.name)
-                                }
-                                className="m-0 mr-2 fs-15 cursor-pointer margin-r-10"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faArrowRight}
-                                  className="user-select-auto mr-2 viewmore-btn-product"
-                                />
-                              </p>
-                            )}
+                                    </a>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              ) : (
+                                <p
+                                  onClick={() =>
+                                    ShowModalID(items.id, items?.name)
+                                  }
+                                  className="m-0 mr-2 fs-15 cursor-pointer margin-r-10"
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faArrowRight}
+                                    className="user-select-auto mr-2 viewmore-btn-product"
+                                  />
+                                </p>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <div className="mt-2 mb-2" />
                     </div>
-                    <div className="mt-2 mb-2" />
-                  </div>
-                );
-              })
-            ) : (
-              <p className="mx-2 color-black">No Data Found</p>
-            )}
+                  );
+                })
+              ) : (
+                <p className="mx-2 color-black">No Data Found</p>
+              )}
 
-            {PaginationData?.total_product !== Products?.length &&
-            LoadMore !== null ? (
-              <div className="mx-auto text-center">
-                <span
-                  className="text-center cursor-pointer mx-auto video-load-more fs-16"
-                  onClick={() => incrementCount()}
-                >
-                  Load More
-                </span>
-              </div>
-            ) : (
-              ""
-            )}
+              {PaginationData?.total_product !== Products?.length &&
+              LoadMore !== null ? (
+                <div className="mx-auto text-center">
+                  <span
+                    className="text-center cursor-pointer mx-auto video-load-more fs-16"
+                    onClick={() => incrementCount()}
+                  >
+                    Load More
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          // ) : (
+          //   ""
+          // )}
+          ""
+        )
       ) : (
         ""
       )}

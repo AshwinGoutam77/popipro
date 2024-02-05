@@ -249,12 +249,23 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  {cardData?.card.id === "S7ZG" &&
-                  process.env.NEXT_PUBLIC_MODE === "development" ? (
-                    <EditRealEstate />
-                  ) : (
+                  {/* {cardData?.card.id === "S7ZG" &&
+                  process.env.NEXT_PUBLIC_MODE === "development" ? ( */}
+                  <EditRealEstate
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    AddMoreProduct={AddMoreProduct}
+                    PlanData={cardData?.plan}
+                    APIDATA={getProfileData}
+                    PaginationData={cardData?.pagination_data}
+                    card={profile}
+                    Currency={cardData?.currency}
+                    setAddMoreProduct={setAddMoreProduct}
+                  />
+                  {/* ) : (
                     ""
-                  )}
+                  )} */}
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}

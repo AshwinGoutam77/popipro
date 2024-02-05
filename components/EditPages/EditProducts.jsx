@@ -937,26 +937,6 @@ export default function EditProducts({
                   </div>
                 </div>
                 <div className="d-flex" style={{ gap: "10px" }}>
-                  {/* <select
-                    style={{
-                      height: "49px",
-                      padding: "6px 18px",
-                      background: "#f7f9fa",
-                      appearance: "auto",
-                    }}
-                    onChange={(e) => setProductPriceValue(e.target.value)}
-                    className="mt-1"
-                  >
-                    <option value="">Select currency</option>
-                    {Currency &&
-                      Currency?.map((item, index) => {
-                        return (
-                          <option key={index} value={item?.id}>
-                            {item?.currency}
-                          </option>
-                        );
-                      })}
-                  </select> */}
                   <input
                     type="text"
                     name="price"
@@ -1238,27 +1218,6 @@ export default function EditProducts({
                     <>
                       <label className="modalFormLable">Price</label>
                       <div className="d-flex" style={{ gap: "10px" }}>
-                        {/* <select
-                          style={{
-                            height: "40px",
-                            padding: "6px 18px",
-                            background: "#f7f9fa",
-                            border: "1px solid #ccc",
-                          }}
-                          onChange={(e) => setProductPriceValue(e.target.value)}
-                          defaultValue={items.currency || ""}
-                          className="mt-1"
-                        >
-                          <option value="">Select currency</option>
-                          {Currency &&
-                            Currency?.map((item, index) => {
-                              return (
-                                <option key={index} value={item?.id}>
-                                  {item?.currency}
-                                </option>
-                              );
-                            })}
-                        </select> */}
                         <input
                           type="text"
                           name="price"

@@ -107,3 +107,15 @@ export const DeleteSocailVisit = {
   path: "delete-social-visit",
   method: "POST",
 };
+export const RealEstateInquiry = {
+  path: "real-estate-enquiry",
+  method: "POST",
+};
+export const GetRealEstate = {
+  path: "get-realestate-stats",
+  method: "GET",
+};
+export const GetRealEstateLeads = {
+  path: "get-realestate-enquiries",
+  method: "GET",
+};

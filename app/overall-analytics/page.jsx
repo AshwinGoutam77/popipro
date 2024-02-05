@@ -329,12 +329,12 @@ const Page = () => {
       },
     },
   };
+
   let dSet2 =
     Data?.organic_interact?.graphs &&
     Data?.organic_interact?.graphs?.map((item) => {
       return {
-        name: item?.name.replace("https://", ""),
-        // name: new URL(item?.name).hostname,
+        name: item?.name.slice(0, -1).replace("https://", ""),
         data: item?.values,
       };
     });

@@ -2654,7 +2654,7 @@ button:focus {
 .login-form-section input {
   width: 100%;
   padding: 10px;
-  background-color: var(--themecolor) !important;
+  background-color: #f7f9fa !important;
   border-radius: 5px;
   border: none;
 }
@@ -2662,7 +2662,7 @@ button:focus {
 .changePassword-form-section input {
   width: 100%;
   padding: 10px;
-  background-color: var(--themecolor) !important;
+  background-color: #f7f9fa !important;
   border-radius: 5px;
   border: none;
 }
@@ -2939,6 +2939,11 @@ button:focus {
 .QrTabDiv:hover {
   background-color: var(--color) !important;
   color: white !important;
+}
+.bg-slate-active {
+  background-color: var(--color) !important;
+  color: white !important ;
+  font-weight: bold !important;
 }
 @media (max-width: 768px) {
   .contact-btn-header {

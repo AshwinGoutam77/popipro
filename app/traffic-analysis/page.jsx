@@ -170,6 +170,8 @@ export default function Page() {
     ],
     options: {
       chart: {
+        height: 350,
+        type: "area",
         zoom: {
           enabled: false,
           type: "x",
@@ -204,11 +206,7 @@ export default function Page() {
         }),
       },
       tooltip: {
-        y: {
-          show: false,
-        },
         x: {
-          show: false,
           format: "dd/MM/yy HH:mm",
         },
       },
