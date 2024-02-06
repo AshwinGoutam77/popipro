@@ -73,6 +73,7 @@ export default function EditRealEstate({
   const [EditRadioBtn, setEditRadioBtn] = useState("");
   const [Page, setPage] = useState(1);
   const [LoadMoreData, setLoadMoreData] = useState("");
+  const [ModalHeading, setModalHeading] = useState("");
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
@@ -105,6 +106,7 @@ export default function EditRealEstate({
   };
 
   const handleShowModal = (items) => {
+    setModalHeading("Edit " + TitleData?.card_realestates?.visible_name);
     setContentId(items?.id ? items?.id : null);
     setShowModal(true);
     setTitle(items?.heading);
@@ -236,6 +238,7 @@ export default function EditRealEstate({
     setContentId(null);
   };
   const handleShowAddModal = (id) => {
+    setModalHeading("Add " + TitleData?.card_realestates?.visible_name);
     setContentId(id?.id ? id?.id : null);
     setShowModal(true);
   };
@@ -719,7 +722,7 @@ export default function EditRealEstate({
               className="title title--h1 first-title title__separate mb-1 mb-0"
               id="BlogModalTitle"
             >
-              Add Real Estate
+              {ModalHeading}
             </h5>
           </Modal.Title>
           <button type="button" className="close" onClick={HandleEmptyFeilds}>
