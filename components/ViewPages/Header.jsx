@@ -661,7 +661,7 @@ const Header = ({
                   : card.card_profession}
               </p>
             </div>
-            <div className="d-flex sm-class gap-8">
+            <div className="d-flex sm-class header-btn-gap">
               <button className="contact-btn" onClick={shareContact}>
                 Add Contact
               </button>
@@ -674,7 +674,7 @@ const Header = ({
                 Share Contact
               </button>
             </div>
-            <div className="d-flex sm-class gap-8">
+            <div className="d-flex sm-class header-btn-gap">
               {company_setting?.show_testimonial_button == 0 ||
               PlanData?.is_expired !== false ? (
                 ""

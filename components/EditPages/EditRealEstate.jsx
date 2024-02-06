@@ -31,6 +31,7 @@ import {
   deleteSection,
 } from "@services/Routes";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import EditPlan from "./EditPlan";
 
 export default function EditRealEstate({
   MainData,
@@ -41,6 +42,7 @@ export default function EditRealEstate({
   card,
   setRealEstateData,
   RealEstateData,
+  PlanData,
 }) {
   const [show, setshow] = useState(false);
   const [ShowModal, setShowModal] = useState(false);
@@ -1141,60 +1143,75 @@ export default function EditRealEstate({
           )}
         </Modal.Body>
       </Modal>
-      <div className="box-content boxxx mb-3 mt-0" id="card_realestates">
-        <div className="pb-0 pb-sm-2">
-          <div className="flex-header">
-            {EditFields ? (
-              <input
-                name="years"
-                rows="4"
-                cols="50"
-                className="title-section-input w-auto"
-                onChange={(e) => setRealEstateTitle(e.target.value)}
-                defaultValue={
-                  TitleData &&
-                  TitleData.card_realestates?.visible_name == "card_realestates"
-                    ? "card_realestates"
-                    : TitleData?.card_realestates?.visible_name
-                }
-                placeholder="Title"
-              ></input>
-            ) : (
-              <>
-                <h1 className="title title--h1 first-title title__separate">
-                  {RealEstateTitle}
-                </h1>
-              </>
-            )}
-            <div className="d-flex align-items-center">
-              <div className="wrapper">
-                <div className="tooltip">
-                  Use this section as upload and show your property for the
-                  sell.
-                </div>
-                <FontAwesomeIcon
-                  icon={faInfo}
-                  className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                  onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                />
-              </div>
-              <div className="edit-pencile-div">
-                {EditFields ? (
-                  <FontAwesomeIcon
-                    icon={faFloppyDisk}
-                    className="ml-3 pe-auto floopySave-icon"
-                    onClick={() => handleChnageTitle()}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPencil}
-                    className="ml-3 pe-auto Iconcolor-black"
-                    onClick={() => setEditFields(true)}
-                  />
-                )}
-              </div>
+      <div className="position-relative">
+        {Data ? (
+          <EditPlan
+            Data={Data}
+            PlanData={PlanData}
+            APIDATA={APIDATA}
+            MainData={MainData}
+          />
+        ) : (
+          ""
+        )}
+        <div className="box-content boxxx mb-3 mt-0" id="card_realestates">
+          <div className="pb-0 pb-sm-2">
+            <div className="flex-header">
+              {EditFields ? (
+                <input
+                  name="years"
+                  rows="4"
+                  cols="50"
+                  className="title-section-input w-auto"
+                  onChange={(e) => setRealEstateTitle(e.target.value)}
+                  defaultValue={
+                    TitleData &&
+                    TitleData.card_realestates?.visible_name ==
+                      "card_realestates"
+                      ? "card_realestates"
+                      : TitleData?.card_realestates?.visible_name
+                  }
+                  placeholder="Title"
+                ></input>
+              ) : (
+                <>
+                  <h1 className="title title--h1 first-title title__separate">
+                    {RealEstateTitle}
+                  </h1>
+                </>
+              )}
+              {TitleData?.card_realestates?.source !== "2" &&
+              PlanData?.is_expired == false &&
+              PlanData?.subscription?.plan_id !== 1 ? (
+                <div className="d-flex align-items-center">
+                  <div className="wrapper">
+                    <div className="tooltip">
+                      Use this section as upload and show your property for the
+                      sell.
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faInfo}
+                      className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                    />
+                  </div>
+                  <div className="edit-pencile-div">
+                    {EditFields ? (
+                      <FontAwesomeIcon
+                        icon={faFloppyDisk}
+                        className="ml-3 pe-auto floopySave-icon"
+                        onClick={() => handleChnageTitle()}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faPencil}
+                        className="ml-3 pe-auto Iconcolor-black"
+                        onClick={() => setEditFields(true)}
+                      />
+                    )}
+                  </div>
 
-              {/* {MainData?.company_setting?.maximum_blogs !==
+                  {/* {MainData?.company_setting?.maximum_blogs !==
                   PaginationData?.total_blogs ? (
                     <button
                       className="addmore"
@@ -1205,261 +1222,269 @@ export default function EditRealEstate({
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
                   ) : ( */}
-              <button className="addmore" onClick={() => handleShowAddModal()}>
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-              {/* )} */}
-              <>
-                <label className="switch">
-                  <input
-                    data-status={TitleData.card_blogs?.is_active}
-                    data-active={Active}
-                    checked={Active}
-                    type="checkbox"
-                    onChange={() => handleActive()}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </>
+                  <button
+                    className="addmore"
+                    onClick={() => handleShowAddModal()}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                  {/* )} */}
+                  <>
+                    <label className="switch">
+                      <input
+                        data-status={TitleData.card_blogs?.is_active}
+                        data-active={Active}
+                        checked={Active}
+                        type="checkbox"
+                        onChange={() => handleActive()}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-          </div>
 
-          {RealEstateData?.length === 0 ? (
-            <p>Real Estate are empty, to add click on the add icon.</p>
-          ) : (
-            RealEstateData &&
-            RealEstateData?.map((items, index, { length }) => {
-              return (
-                <div key={index}>
-                  <div className="row realestaterow">
-                    <div className="col-lg-4 col-sm-12">
-                      <SwiperComponent
-                        slidesPerView={1}
-                        spaceBetween={10}
-                        style={{ cursor: "pointer" }}
-                        className="mySwiper pb-0"
-                        autoplay={{
-                          delay: 2500,
-                          disableOnInteraction: false,
-                        }}
-                        pagination={{
-                          clickable: true,
-                        }}
-                        modules={[Autoplay, Pagination, Navigation]}
-                      >
-                        <SwiperSlide>
-                          <div className="swiper-slide review-items position-relative">
-                            <img
-                              src={
-                                items?.image?.path
-                                  ? Data?.base_url + items?.image?.path
-                                  : "../static/img/picture-1.jpg"
-                              }
-                              alt="realestate_image"
-                              className="realEstateImage w-100"
-                            />
-                          </div>
-                        </SwiperSlide>
-                        {items?.gallery?.length
-                          ? items?.gallery?.map((i, o) => {
-                              return (
-                                <SwiperSlide key={o}>
-                                  <div className="swiper-slide review-items position-relative">
-                                    <img
-                                      src={Data?.base_url + i?.path}
-                                      alt="realestate_image"
-                                      className="realEstateImage w-100"
-                                    />
-                                  </div>
-                                </SwiperSlide>
-                              );
-                            })
-                          : ""}
-                      </SwiperComponent>
-                    </div>
-                    <div className="col-lg-8 col-sm-12">
-                      <div className="mt-2 cursor-pointer">
-                        <h6
-                          className="mb-0 color-black cursor-pointer d-flex align-items-center"
-                          onClick={() => setshow(true)}
+            {RealEstateData?.length === 0 ? (
+              <p>Real Estate are empty, to add click on the add icon.</p>
+            ) : (
+              RealEstateData &&
+              RealEstateData?.map((items, index, { length }) => {
+                return (
+                  <div key={index}>
+                    <div className="row realestaterow">
+                      <div className="col-lg-4 col-sm-12">
+                        <SwiperComponent
+                          slidesPerView={1}
+                          spaceBetween={10}
+                          style={{ cursor: "pointer" }}
+                          className="mySwiper pb-0"
+                          autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                          }}
+                          pagination={{
+                            clickable: true,
+                          }}
+                          modules={[Autoplay, Pagination, Navigation]}
                         >
-                          {items?.heading}
-                          <span className="real-estate-badge">
-                            {items?.property_type?.name}
-                          </span>
-                        </h6>
-                        <p
-                          className="color-black cursor-pointer"
-                          onClick={() => setshow(true)}
-                        >
-                          {items?.street_address}
-                        </p>
+                          <SwiperSlide>
+                            <div className="swiper-slide review-items position-relative">
+                              <img
+                                src={
+                                  items?.image?.path
+                                    ? Data?.base_url + items?.image?.path
+                                    : "../static/img/picture-1.jpg"
+                                }
+                                alt="realestate_image"
+                                className="realEstateImage w-100"
+                              />
+                            </div>
+                          </SwiperSlide>
+                          {items?.gallery?.length
+                            ? items?.gallery?.map((i, o) => {
+                                return (
+                                  <SwiperSlide key={o}>
+                                    <div className="swiper-slide review-items position-relative">
+                                      <img
+                                        src={Data?.base_url + i?.path}
+                                        alt="realestate_image"
+                                        className="realEstateImage w-100"
+                                      />
+                                    </div>
+                                  </SwiperSlide>
+                                );
+                              })
+                            : ""}
+                        </SwiperComponent>
                       </div>
-                      <div
-                        className="d-flex flex-wrap mt-2"
-                        style={{ gap: "10px", lineHeight: "0" }}
-                      >
-                        <div className="d-flex align-items-baseline">
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
-                            alt="image"
-                            width={15}
-                            height={15}
-                          />
-                          <p className="pl-2 color-black">
-                            {items?.bhk ? items?.bhk : "0"}
+                      <div className="col-lg-8 col-sm-12">
+                        <div className="mt-2 cursor-pointer">
+                          <h6
+                            className="mb-0 color-black cursor-pointer d-flex align-items-center"
+                            onClick={() => setshow(true)}
+                          >
+                            {items?.heading}
+                            <span className="real-estate-badge">
+                              {items?.property_type?.name}
+                            </span>
+                          </h6>
+                          <p
+                            className="color-black cursor-pointer"
+                            onClick={() => setshow(true)}
+                          >
+                            {items?.street_address}
                           </p>
                         </div>
-                        <div className="d-flex align-items-baseline">
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
-                            alt="image"
-                            width={15}
-                            height={15}
-                          />
-                          <p className="pl-2 color-black">
-                            {items?.bathroom ? items?.bathroom : "0"} Bathroom
-                          </p>
-                        </div>
-                        <div className="d-flex align-items-baseline">
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
-                            alt="image"
-                            width={15}
-                            height={15}
-                          />
-                          <p className="pl-2 color-black">
-                            {items?.looking_for?.name}
-                          </p>
-                        </div>
-                        <div className="d-flex align-items-baseline">
-                          <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
-                            alt="image"
-                            width={15}
-                            height={15}
-                          />
-                          <p className="pl-2 color-black">
-                            {items?.furnish_type}
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
-                        style={{ gap: "10px" }}
-                      >
-                        {items.is_label !== 0 ? (
-                          <span className="font-weight-bold color-black">
-                            {items?.label}
-                          </span>
-                        ) : (
-                          <p className="font-weight-bold color-black">
-                            {MainData?.company_setting?.currency?.currency}{" "}
-                            {items?.price}
-                          </p>
-                        )}
-                      </div>
-                      <div
-                        className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
-                        style={{ gap: "10px" }}
-                      >
                         <div
-                          className="d-flex flex-wrap"
+                          className="d-flex flex-wrap mt-2"
+                          style={{ gap: "10px", lineHeight: "0" }}
+                        >
+                          <div className="d-flex align-items-baseline">
+                            <img
+                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
+                              alt="image"
+                              width={15}
+                              height={15}
+                            />
+                            <p className="pl-2 color-black">
+                              {items?.bhk ? items?.bhk : "0"}
+                            </p>
+                          </div>
+                          <div className="d-flex align-items-baseline">
+                            <img
+                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
+                              alt="image"
+                              width={15}
+                              height={15}
+                            />
+                            <p className="pl-2 color-black">
+                              {items?.bathroom ? items?.bathroom : "0"} Bathroom
+                            </p>
+                          </div>
+                          <div className="d-flex align-items-baseline">
+                            <img
+                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
+                              alt="image"
+                              width={15}
+                              height={15}
+                            />
+                            <p className="pl-2 color-black">
+                              {items?.looking_for?.name}
+                            </p>
+                          </div>
+                          <div className="d-flex align-items-baseline">
+                            <img
+                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
+                              alt="image"
+                              width={15}
+                              height={15}
+                            />
+                            <p className="pl-2 color-black">
+                              {items?.furnish_type}
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
                           style={{ gap: "10px" }}
                         >
-                          <a
-                            href={
-                              "https://api.whatsapp.com/send?phone=" +
-                              "9874563210" +
-                              "&" +
-                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
-                            }
-                            target="_blank"
-                            className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                          >
-                            <img
-                              src="../static/img/whatsapp.png"
-                              alt="whatsaap"
-                              className="Whatsaapsvg"
-                            />
-                          </a>
-                          <span
-                            data-toggle="modal"
-                            data-target="#ProductEnquireModal"
-                            className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                            // onClick={() => setShowInquiry(true)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faEnvelope}
-                              className="user-select-auto"
-                            />
-                          </span>
-                          {items?.google_address_link !== null ? (
-                            <a
-                              href={items?.google_address_link}
-                              target="_blank"
-                              className="whatsap-link-view d-flex align-items-center justify-content-center"
-                            >
-                              <FontAwesomeIcon
-                                icon={faLocationDot}
-                                className="user-select-auto"
-                              />
-                            </a>
+                          {items.is_label !== 0 ? (
+                            <span className="font-weight-bold color-black">
+                              {items?.label}
+                            </span>
                           ) : (
-                            ""
+                            <p className="font-weight-bold color-black">
+                              {MainData?.company_setting?.currency?.currency}{" "}
+                              {items?.price}
+                            </p>
                           )}
                         </div>
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="user-select-auto mr-2 viewmore-btn-product cursor-pointer"
-                          onClick={() => handleShowDetailModal(items?.id)}
-                        />
+                        <div
+                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                          style={{ gap: "10px" }}
+                        >
+                          <div
+                            className="d-flex flex-wrap"
+                            style={{ gap: "10px" }}
+                          >
+                            <a
+                              href={
+                                "https://api.whatsapp.com/send?phone=" +
+                                "9874563210" +
+                                "&" +
+                                `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
+                              }
+                              target="_blank"
+                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                            >
+                              <img
+                                src="../static/img/whatsapp.png"
+                                alt="whatsaap"
+                                className="Whatsaapsvg"
+                              />
+                            </a>
+                            <span
+                              data-toggle="modal"
+                              data-target="#ProductEnquireModal"
+                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                              // onClick={() => setShowInquiry(true)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faEnvelope}
+                                className="user-select-auto"
+                              />
+                            </span>
+                            {items?.google_address_link !== null ? (
+                              <a
+                                href={items?.google_address_link}
+                                target="_blank"
+                                className="whatsap-link-view d-flex align-items-center justify-content-center"
+                              >
+                                <FontAwesomeIcon
+                                  icon={faLocationDot}
+                                  className="user-select-auto"
+                                />
+                              </a>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="user-select-auto mr-2 viewmore-btn-product cursor-pointer"
+                            onClick={() => handleShowDetailModal(items?.id)}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={
-                      index + 1 === length
-                        ? "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4"
-                        : "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4 real-estate-border"
-                    }
-                  >
-                    <button
-                      className="send-btnn m-0"
-                      onClick={() => handleShowModal(items)}
+                    <div
+                      className={
+                        index + 1 === length
+                          ? "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4"
+                          : "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4 real-estate-border"
+                      }
                     >
-                      Edit
-                    </button>
-                    <button
-                      className="delete-button m-0"
-                      onClick={() => handleDelete(items)}
-                    >
-                      Delete
-                    </button>
+                      <button
+                        className="send-btnn m-0"
+                        onClick={() => handleShowModal(items)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="delete-button m-0"
+                        onClick={() => handleDelete(items)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          )}
-          {PaginationData?.total_realestate == Data?.card_realestates?.length &&
-          LoadMoreData !== null &&
-          Data?.card_realestates?.length !== 0 ? (
-            <div className="mx-auto text-center pt-2">
-              <a
-                className="text-center cursor-pointer mx-auto"
-                style={{
-                  textDecoration: "underline",
-                  fontSize: "16px",
-                  color: "var(--color)",
-                }}
-                onClick={() => incrementCount()}
-              >
-                Load More
-              </a>
-            </div>
-          ) : (
-            ""
-          )}
+                );
+              })
+            )}
+            {PaginationData?.total_realestate ==
+              Data?.card_realestates?.length &&
+            LoadMoreData !== null &&
+            Data?.card_realestates?.length !== 0 ? (
+              <div className="mx-auto text-center pt-2">
+                <a
+                  className="text-center cursor-pointer mx-auto"
+                  style={{
+                    textDecoration: "underline",
+                    fontSize: "16px",
+                    color: "var(--color)",
+                  }}
+                  onClick={() => incrementCount()}
+                >
+                  Load More
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
     </>

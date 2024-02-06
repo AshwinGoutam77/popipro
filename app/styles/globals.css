@@ -1444,6 +1444,9 @@ input[type="time"]:focus:before {
 .real-estate-border {
   border-bottom: 1px solid #ece1df;
 }
+.header-btn-gap{
+  gap: 10px !important;
+}
 
 @media (max-width: 1045px) and (min-width: 772px) {
   .dashboard-web-margin {
