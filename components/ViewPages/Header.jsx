@@ -234,7 +234,7 @@ const Header = ({
 
       vcard += contact.about ? "\nNOTE:" + contact.about : "";
       vcard += "\nEND:VCARD";
-      //  (vcard);
+      // console.log(vcard);
       // return;
 
       var blob = new Blob([vcard], { type: "text/vcard" });
@@ -268,7 +268,7 @@ const Header = ({
       response?.data?.message == "Can not count this hit."
     ) {
       setImageSrc(
-        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AGupta%3BAshwin%0AFN%3A${
+        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AFN%3A${
           card?.first_name
         }%20%0AORG%3A${
           card?.card_profession

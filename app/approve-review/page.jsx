@@ -26,6 +26,8 @@ import { useAuthContext } from "@context/AuthContext";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function TestimonialsLeads() {
   const [Data, setData] = useState("");
@@ -342,7 +344,7 @@ export default function TestimonialsLeads() {
               </div>
             </div>
             <div className="box-shadow-leads">
-              <table className="insight-table">
+              {/* <table className="insight-table">
                 <thead>
                   <tr>
                     <th>Contact</th>
@@ -441,7 +443,107 @@ export default function TestimonialsLeads() {
                     })
                   )}
                 </tbody>
-              </table>
+              </table> */}
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>Contact</Th>
+                    <Th>Date</Th>
+                    <Th>Location</Th>
+                    <Th>Approve Review</Th>
+                    <Th>Actions</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {Data?.length === 0 ? (
+                    <Tr>
+                      <td className="p-3">No data available</td>
+                    </Tr>
+                  ) : (
+                    Data?.map((item, index) => {
+                      return (
+                        <Tr
+                          data-column="Message"
+                          key={index}
+                          className="cursor-pointer"
+                        >
+                          <Td
+                            data-column="name"
+                            onClick={() => {
+                              setModalId(item.id), setShowModal(true);
+                            }}
+                          >
+                            {item.user_contact_number
+                              ? item.user_contact_number
+                              : "---"}
+                          </Td>
+                          <Td
+                            data-column="created date"
+                            onClick={() => {
+                              setModalId(item.id), setShowModal(true);
+                            }}
+                          >
+                            {item.created_at}
+                          </Td>
+                          {item.detail ? (
+                            <Td data-column="created date">
+                              {item.detail?.state
+                                ? item.detail?.city +
+                                  ", " +
+                                  item.detail?.state +
+                                  ", " +
+                                  item.detail?.country
+                                : item.detail?.city +
+                                  ", " +
+                                  item.detail?.country}
+                            </Td>
+                          ) : (
+                            <Td>---</Td>
+                          )}
+
+                          {item?.status == "confirmed" ? (
+                            <Td data-column="status">
+                              <p href="#" class="badge badge-success">
+                                Approved
+                              </p>
+                            </Td>
+                          ) : (
+                            <Td
+                              data-column="status"
+                              onClick={() => handleActiveTestimonials(item.id)}
+                            >
+                              <p
+                                href="#"
+                                class="badge badge-danger bg-varcolor"
+                              >
+                                Mark Approve?
+                              </p>
+                            </Td>
+                          )}
+                          <Td>
+                            <p className="d-flex align-items-center justify-content-left">
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="text-dark ml-1"
+                                onClick={() =>
+                                  handleDeleteTestimonials(item.id)
+                                }
+                              />
+                              <FontAwesomeIcon
+                                icon={faEye}
+                                className="text-dark ml-4"
+                                onClick={() => {
+                                  setModalId(item.id), setShowModal(true);
+                                }}
+                              />
+                            </p>
+                          </Td>
+                        </Tr>
+                      );
+                    })
+                  )}
+                </Tbody>
+              </Table>
             </div>
           </div>
           <div

@@ -2,28 +2,18 @@
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import {
   faAngleLeft,
-  faBagShopping,
   faChartSimple,
   faChevronRight,
-  faDownload,
-  faEnvelope,
   faEye,
-  faLink,
-  faLocationDot,
-  faPhone,
-  faPhoneAlt,
-  faShare,
-  faSquarePhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
 import { ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Api from "@services/Api";
-import { EditData, GetInshights, GetOverallInsights } from "@services/Routes";
+import { GetOverallInsights } from "@services/Routes";
 import "../../styles/about.css";
 import "../styles/graph.css";
 import { redirect } from "next/navigation";
@@ -77,6 +67,55 @@ const Page = () => {
     setSelectValue(e);
     try {
       setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GetOverallInsights,
+        {},
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e
+      );
+      if (response.data.status) {
+        setData(response.data.data);
+        setShowLoader(false);
+      }
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        localStorage.removeItem("url");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  const handleSearchLocation = async (e) => {
+    setSelectValue(e);
+    try {
       let startDateNew = new Date(StartDate);
       let startDt =
         startDateNew?.getFullYear() +
@@ -962,7 +1001,7 @@ const Page = () => {
                       </p>
                       <select
                         className="w-auto location-filter"
-                        onChange={(e) => handleSearchData(e.target.value)}
+                        onChange={(e) => handleSearchLocation(e.target.value)}
                         defaultValue={SelectValue}
                       >
                         <option value="country">Country</option>

@@ -102,7 +102,7 @@ export default function Product({
   useEffect(() => {
     setPage(1);
     LoadMoreFunction();
-  }, [ProductCategory, HighlightSort, ProductSearching]);
+  }, [ProductCategory, HighlightSort]);
 
   const LoadMoreFunction = async () => {
     const response = await fetch(
@@ -333,6 +333,22 @@ export default function Product({
     setPage(1);
     setActiveFilter("");
     setSearch(false);
+  };
+  const handleSearchInProduct = () => {
+    if (ProductSearching == "") {
+      toast.error("Searching is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    LoadMoreFunction();
   };
 
   return (
@@ -663,6 +679,11 @@ export default function Product({
                     icon={faXmark}
                     className="color-black cursor-pointer search-icon-products fs-18"
                     onClick={() => handleResetFilter()}
+                  />
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    className="color-black cursor-pointer search-icon-products fs-18 mr-5"
+                    onClick={() => handleSearchInProduct()}
                   />
                 </div>
               ) : (

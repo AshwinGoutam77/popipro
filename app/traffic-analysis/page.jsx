@@ -16,58 +16,38 @@ import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import SimpleBackdrop from "@components/ViewPages/Backdrop";
 import dynamic from "next/dynamic";
+import { useAuthContext } from "@context/AuthContext";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Swiper as SwiperComponent } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Page() {
+  const { APIDATA, UserData } = useAuthContext();
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
   const [EndDate, setEndDate] = useState(new Date());
   const [Data, setData] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
   const [GraphData, setGraphData] = useState("");
+  const [Table, setTable] = useState(true);
+  const [Graph, setGraph] = useState(false);
 
   const handleGoogleData = async () => {
     setShowLoader(true);
     const res = await Api(GoogleAnalytics, {});
-    setData(res.data.data?.traffic_analysis);
-    setGraphData(res.data.data);
+    if (res?.data?.status) {
+      setShowLoader(false);
+      setData(res.data.data?.traffic_analysis);
+      setGraphData(res.data.data);
+    }
   };
   useEffect(() => {
     handleGoogleData();
     APIDATA();
   }, []);
-
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("url");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
-  };
 
   const column = [
     {
@@ -111,6 +91,56 @@ export default function Page() {
   const handleSearchData = async (e) => {
     try {
       setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GoogleAnalytics,
+        {},
+        "?start_date=" +
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e
+      );
+      if (response.data.status) {
+        setShowLoader(false);
+        setData(response.data.data?.traffic_analysis);
+        setGraphData(response.data.data);
+      }
+    } catch (error) {
+      setShowLoader(false);
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        localStorage.removeItem("url");
+        window.location.href = "/login";
+      }
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  const handleSearchLocation = async (e) => {
+    try {
+      // setShowLoader(true);
       let startDateNew = new Date(StartDate);
       let startDt =
         startDateNew?.getFullYear() +
@@ -248,6 +278,15 @@ export default function Page() {
     },
   };
 
+  const handleTable = () => {
+    setTable(true);
+    setGraph(false);
+  };
+  const handleGraph = () => {
+    setTable(false);
+    setGraph(true);
+  };
+
   return Data ? (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -314,52 +353,100 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="row m-0 mb-4 row-gap-3">
-            <div className="col-sm-12 col-lg-6">
-              <div className="barchart-div">
-                <Charts
-                  options={chartData5?.options}
-                  series={chartData5?.series}
-                  type="area"
-                  height={340}
-                />
-              </div>
-            </div>
-            <div className="col-sm-12 col-lg-6">
-              <div className="barchart-div">
-                <div className="d-flex align-items-center justify-content-between mb-2">
-                  <p className="ml-4 color-black font-weight-bold">
-                    As per location
-                  </p>
-                  <select
-                    className="w-auto location-filter"
-                    onChange={(e) => handleSearchData(e.target.value)}
+          <div className="mt-4 px-4">
+            <SwiperComponent
+              breakpoints={{
+                1110: {
+                  slidesPerView: 10,
+                },
+                300: {
+                  slidesPerView: 2,
+                },
+              }}
+              spaceBetween={10}
+              style={{ cursor: "pointer" }}
+              className="mySwiper mb-0"
+              modules={[Pagination]}
+            >
+              <SwiperSlide className="w-auto">
+                <div className="swiper-slide review-items position-relative">
+                  <button
+                    className={Table ? "filter-btns-active" : "filter-btns"}
+                    onClick={handleTable}
                   >
-                    <option value="country">Country</option>
-                    <option value="state">State</option>
-                    <option value="city">City</option>
-                  </select>
+                    Records
+                  </button>
                 </div>
-                <Charts
-                  options={chartData6?.options}
-                  series={chartData6?.series}
-                  type="bar"
-                  height={300}
-                />
+              </SwiperSlide>
+              <SwiperSlide className="w-auto">
+                <div className="swiper-slide review-items position-relative">
+                  <button
+                    className={Graph ? "filter-btns-active" : "filter-btns"}
+                    onClick={handleGraph}
+                  >
+                    Graph Reports
+                  </button>
+                </div>
+              </SwiperSlide>
+            </SwiperComponent>
+          </div>
+          {Graph ? (
+            <div className="row m-0 mb-4 row-gap-3">
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <Charts
+                    options={chartData5?.options}
+                    series={chartData5?.series}
+                    type="area"
+                    height={340}
+                  />
+                </div>
+              </div>
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <p className="ml-4 color-black font-weight-bold">
+                      As per location
+                    </p>
+                    <select
+                      className="w-auto location-filter"
+                      onChange={(e) => handleSearchLocation(e.target.value)}
+                    >
+                      <option value="country">Country</option>
+                      <option value="state">State</option>
+                      <option value="city">City</option>
+                    </select>
+                  </div>
+                  <Charts
+                    options={chartData6?.options}
+                    series={chartData6?.series}
+                    type="bar"
+                    height={300}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="box-shadow-leads mb-4" style={{ overflowX: "auto" }}>
-            <DataTable
-              columns={column}
-              data={Data}
-              pagination
-              fixedHeader
-              selectableRows
-              selectableRowsHighlight
-              highlightOnHover
-            />
-          </div>
+          ) : (
+            ""
+          )}
+          {Table ? (
+            <div
+              className="box-shadow-leads mb-4"
+              style={{ overflowX: "auto" }}
+            >
+              <DataTable
+                columns={column}
+                data={Data}
+                pagination
+                fixedHeader
+                selectableRows
+                selectableRowsHighlight
+                highlightOnHover
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

@@ -335,6 +335,21 @@ export default function Realestate({
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
                     </p>
                     <div
+                      className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                      style={{ gap: "10px" }}
+                    >
+                      {items.is_label !== 0 ? (
+                        <span className="font-weight-bold VarColor">
+                          {items?.label}
+                        </span>
+                      ) : (
+                        <p className="font-weight-bold VarColor">
+                          {MainData?.company_setting?.currency?.currency}{" "}
+                          {items?.price}
+                        </p>
+                      )}
+                    </div>
+                    <div
                       className="d-flex flex-wrap mt-3"
                       style={{ gap: "10px", lineHeight: "0" }}
                     >
@@ -382,22 +397,7 @@ export default function Realestate({
                       </div>
                     </div>
                     <div
-                      className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
-                      style={{ gap: "10px" }}
-                    >
-                      {items.is_label !== 0 ? (
-                        <span className="font-weight-bold color-black">
-                          {items?.label}
-                        </span>
-                      ) : (
-                        <p className="font-weight-bold color-black">
-                          {MainData?.company_setting?.currency?.currency}{" "}
-                          {items?.price}
-                        </p>
-                      )}
-                    </div>
-                    <div
-                      className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
+                      className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
                       style={{ gap: "5px" }}
                     >
                       <button className="contact-btn w-auto m-0">
@@ -670,50 +670,28 @@ export default function Realestate({
                       }
                       key={index}
                     >
-                      <div className="col-lg-4 col-sm-12">
-                        <SwiperComponent
-                          slidesPerView={1}
-                          spaceBetween={10}
-                          style={{ cursor: "pointer" }}
-                          className="mySwiper pb-0"
-                          autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                          }}
-                          pagination={{
-                            clickable: true,
-                          }}
-                          modules={[Autoplay, Pagination, Navigation]}
+                      <div className="col-lg-4 col-sm-12 cursor-pointer">
+                        <div
+                          className="position-relative"
+                          onClick={() => handleShowDetailModal(items?.id)}
                         >
-                          <SwiperSlide>
-                            <div className="swiper-slide review-items position-relative">
-                              <img
-                                src={
-                                  items?.image?.path
-                                    ? Data?.base_url + items?.image?.path
-                                    : "../static/img/picture-1.jpg"
-                                }
-                                alt="realestate_image"
-                                className="realEstateImage w-100"
-                              />
-                            </div>
-                          </SwiperSlide>
-                          {items?.gallery?.length
-                            ? items?.gallery?.map((i, o) => {
-                                return (
-                                  <SwiperSlide key={o}>
-                                    <div className="swiper-slide review-items position-relative">
-                                      <img
-                                        src={Data?.base_url + i?.path}
-                                        alt="realestate_image"
-                                        className="realEstateImage w-100"
-                                      />
-                                    </div>
-                                  </SwiperSlide>
-                                );
-                              })
-                            : ""}
-                        </SwiperComponent>
+                          {items?.gallery?.length ? (
+                            <span class="badge badge-primary product-images-badge">
+                              + {items?.gallery?.length} Images
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          <img
+                            src={
+                              items?.image?.path
+                                ? Data?.base_url + items?.image?.path
+                                : "../static/img/picture-1.jpg"
+                            }
+                            alt="realestate_image"
+                            className="realEstateImage w-100"
+                          />
+                        </div>
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
@@ -732,6 +710,21 @@ export default function Realestate({
                           >
                             {items?.street_address}
                           </p>
+                        </div>
+                        <div
+                          className="mt-2 d-flex flex-wrap align-items-center justify-content-between"
+                          style={{ gap: "10px" }}
+                        >
+                          {items.is_label !== 0 ? (
+                            <span className="font-weight-bold VarColor">
+                              {items?.label}
+                            </span>
+                          ) : (
+                            <p className="font-weight-bold VarColor">
+                              {MainData?.company_setting?.currency?.currency}{" "}
+                              {items?.price}
+                            </p>
+                          )}
                         </div>
                         <div
                           className="d-flex flex-wrap mt-2"
@@ -781,21 +774,6 @@ export default function Realestate({
                               {items?.furnish_type}
                             </p>
                           </div>
-                        </div>
-                        <div
-                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
-                          style={{ gap: "10px" }}
-                        >
-                          {items.is_label !== 0 ? (
-                            <span className="font-weight-bold color-black">
-                              {items?.label}
-                            </span>
-                          ) : (
-                            <p className="font-weight-bold color-black">
-                              {MainData?.company_setting?.currency?.currency}{" "}
-                              {items?.price}
-                            </p>
-                          )}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"

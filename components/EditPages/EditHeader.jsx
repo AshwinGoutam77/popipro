@@ -547,7 +547,7 @@ function EditHeader({
             style={{ gap: "8px" }}
           >
             <button
-              className="contact-btn w-100 mt-0"
+              className="contact-btn w-auto mt-0"
               onClick={getBlobData}
               defaultValue="1"
               // style={{ padding: "7px 20px" }}
@@ -555,7 +555,7 @@ function EditHeader({
               Save
             </button>
             <button
-              className="delete-button w-100"
+              className="delete-button w-auto"
               onClick={cancleChanges}
               defaultValue="1"
               // style={{ padding: "7px 20px" }}

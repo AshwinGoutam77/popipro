@@ -25,7 +25,7 @@ export default function MetaTags({
   const [InputState, setInputState] = useState("");
 
   const handleUpdateMetaTags = async () => {
-     (MetaTitle);
+    MetaTitle;
     let payload = {
       meta_title: MetaTitle ? MetaTitle : Title,
       meta_desc: MetaDescription ? MetaDescription : Description,
@@ -232,11 +232,12 @@ export default function MetaTags({
               }
               onChange={(e) => setMetaDescription(e.target.value)}
               style={{ minHeight: "100px" }}
+              maxlength="150"
               required
             />
             <button
               className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
-              style={{padding:"7px 19px"}}
+              style={{ padding: "7px 19px" }}
               onClick={handleUpdateMetaTags}
             >
               Save

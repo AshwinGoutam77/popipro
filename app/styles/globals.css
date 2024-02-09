@@ -1444,8 +1444,38 @@ input[type="time"]:focus:before {
 .real-estate-border {
   border-bottom: 1px solid #ece1df;
 }
-.header-btn-gap{
+.header-btn-gap {
   gap: 10px !important;
+}
+.edit-real-estate-images {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+.real-estate-edit-modal .delete-icon3 {
+  top: -4px !important;
+  right: -7px !important;
+}
+table {
+  width: 100%;
+}
+
+table thead {
+  background: hsl(0deg 0% 95.69%);
+  color: black;
+  width: 100%;
+}
+
+table th,
+td {
+  padding: 11px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #e7e7e7;
+}
+table tbody tr:last-child {
+  border: 0px !important;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {
@@ -1512,5 +1542,14 @@ input[type="time"]:focus:before {
     background-position: center;
     background-repeat: no-repeat;
     height: 120px;
+  }
+}
+@media screen and (max-width: 40em) {
+  .responsiveTable tbody tr {
+    border: 0px !important;
+    padding: 0.25em;
+    margin-bottom: 10px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #dddcdc !important;
   }
 }

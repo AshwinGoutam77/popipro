@@ -154,8 +154,8 @@ export default function Page() {
                   <div className="d-flex align-items-start w-100">
                     <p className="Heading-row font-weight-bold">Total Users</p>
                     <p className="content-row">
-                      {item.total_user} (Accurate Users: {item?.accurate_user} ,
-                      Anonymous Users:{item.total_user - item?.accurate_user})
+                      {item.total_user} (Accurate: {item?.accurate_user} ,
+                      Anonymous: {item.total_user - item?.accurate_user})
                     </p>
                   </div>
                   <div className="d-flex align-items-start w-100">
@@ -166,7 +166,7 @@ export default function Page() {
                     <p className="font-weight-bold Heading-row">Message</p>
                     <p className="content-row">{item.message?.body}</p>
                   </div>
-                  <h6 className="mt-3 color-black">Accurate Users</h6>
+                  <h6 className="mt-3 color-black">Accurate</h6>
                   {item?.users_log?.length !== 0 ? (
                     item?.users_log?.map((i, o) => {
                       return (
@@ -215,14 +215,6 @@ export default function Page() {
       </div>
       <div className="notification-form-div bg-white">
         <div className="notification-message-div">
-          {/* <label>Title</label>
-          <input
-            type="text"
-            className="form-control mb-3 w-50"
-            placeholder="Enter title"
-            value={Title}
-            onChange={(e) => setTitle(e.target.value)}
-          /> */}
           <label className="ml-1">
             Write Message *(Maximum limit 100 word)
           </label>
@@ -248,7 +240,6 @@ export default function Page() {
         <table className="insight-table">
           <thead>
             <tr>
-              <th>Title</th>
               <th>Date</th>
               <th>Total Users</th>
               <th>Action</th>
@@ -271,9 +262,6 @@ export default function Page() {
                     onClick={() => handleModalId(items?.id)}
                     className="cursor-pointer"
                   >
-                    <td data-column="Name">
-                      {items?.message?.title ? items?.message?.title : "---"}
-                    </td>
                     <td className="leads-short-para">{items.created_date}</td>
                     <td data-column="users">{items.total_user}</td>
                     <td>

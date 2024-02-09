@@ -254,8 +254,8 @@ div:where(.swal2-icon).swal2-info {
   border-radius: 5px;
   cursor: pointer;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  /* padding: 0 15px; */
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  padding: 0 15px;
 }
 .dashboard-boxes h6 {
   color: black;
@@ -416,28 +416,6 @@ div:where(.swal2-icon).swal2-info {
 
 .react-datepicker-wrapper {
   width: 100% !important;
-}
-
-.insight-table {
-  width: 100%;
-}
-
-.insight-table thead {
-  background: hsl(0deg 0% 95.69%);
-  color: black;
-  width: 100%;
-}
-
-.insight-table th,
-td {
-  padding: 11px;
-}
-
-.insight-table tbody tr {
-  border-bottom: 1px solid #e7e7e7;
-}
-.insight-table tbody tr:last-child {
-  border: 0px !important;
 }
 
 .insights-dashboard-boxes {

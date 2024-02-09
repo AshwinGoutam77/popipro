@@ -619,7 +619,7 @@ export default function EditAlternateNo({
                   ""
                 )}
                 <div
-                  className="d-flex align-items-center justify-content-between mt-1 mb-1"
+                  className="d-flex align-items-baseline justify-content-between mt-1 mb-1"
                   key={index}
                 >
                   <a href={"tel:" + item.number}>

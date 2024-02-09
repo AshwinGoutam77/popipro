@@ -37,8 +37,8 @@ export default function DashboardProducts({ TitleData }) {
   const [EndDate, setEndDate] = useState(new Date());
   const [ShowLoader, setShowLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [FilterProducts, setFilterProducts] = useState("");
   const [ModalId, setModalId] = useState("");
+  const [FilterRealEstate, setFilterRealEstate] = useState("");
 
   useEffect(() => {
     api();
@@ -79,26 +79,26 @@ export default function DashboardProducts({ TitleData }) {
       const response = await Api(
         GetRealEstate,
         {},
-        FilterProducts !== ""
+        FilterRealEstate !== ""
           ? "?start_date=" +
               startDt +
               "&end_date=" +
               endDt +
-              "&product_id=" +
-              FilterProducts?.target?.value +
+              "&realestates_id=" +
+              FilterRealEstate?.target?.value +
               "&type=" +
-              FilterProducts?.target[
-                FilterProducts.target.selectedIndex
+              FilterRealEstate?.target[
+                FilterRealEstate.target.selectedIndex
               ].getAttribute("datatype") +
               "&location_filter=" +
               e
-          : FilterProducts?.target?.value
+          : FilterRealEstate?.target?.value
           ? "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
             "&product_id=" +
-            FilterProducts?.target?.value +
+            FilterRealEstate?.target?.value +
             "&type=" +
             "card" +
             "&location_filter=" +
@@ -368,6 +368,33 @@ export default function DashboardProducts({ TitleData }) {
                         placeholderText={"End Date"}
                         className="form-control insight-filter w-100"
                       />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <select
+                        onChange={(e) => setFilterRealEstate(e)}
+                        className="form-control"
+                        style={{
+                          appearance: "auto",
+                          padding: "10px",
+                        }}
+                      >
+                        <option value="0" datatype="card">
+                          Select{" "}
+                          {UserData?.titles?.card_realestates?.visible_name}
+                        </option>
+                        {Data &&
+                          Data?.realestate_stats?.map((items, index) => {
+                            return (
+                              <option
+                                value={items?.id}
+                                key={index}
+                                datatype={items?.type}
+                              >
+                                {items?.name}
+                              </option>
+                            );
+                          })}
+                      </select>
                     </div>
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <button

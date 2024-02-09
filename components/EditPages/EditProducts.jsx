@@ -125,8 +125,8 @@ export default function EditProducts({
       mess =
         ProductHeading === ""
           ? "heading field is required"
-          : GalleryImages?.length > 4
-          ? "Gallery images can't be more than 4"
+          : GalleryImages?.length > 3
+          ? "Gallery images can't be more than 3"
           : "";
     } else {
       id !== null
@@ -315,6 +315,7 @@ export default function EditProducts({
     item_youtube_link,
     item_category
   ) => {
+    setModalId(id);
     handleEditShow();
     setProductModalId(id);
     setProductHeading(name);
@@ -652,23 +653,6 @@ export default function EditProducts({
                         return (
                           <SwiperSlide key={i}>
                             <div className="swiper-slide review-items position-relative mb-2">
-                              <FontAwesomeIcon
-                                icon={faCircleXmark}
-                                onClick={() =>
-                                  handleDeleteGalleryImages(
-                                    o.path,
-                                    10,
-                                    item?.id
-                                  )
-                                }
-                                style={{
-                                  top: "-1px",
-                                  right: "0",
-                                  color: "rgb(213, 51, 51)",
-                                  fontSize: "20px",
-                                }}
-                                className="delete-icon3"
-                              />
                               <img
                                 src={Data?.base_url + o?.path}
                                 alt="product-gallery-images"
@@ -1174,6 +1158,43 @@ export default function EditProducts({
                     onChange={(e) => setGalleryImages(e.target.files)}
                     multiple
                   />
+                  {AddMoreProduct &&
+                    AddMoreProduct?.map((item, index) => {
+                      return ModalId === item?.id ? (
+                        <div className="d-flex flex-wrap gap-2 px-2">
+                          {item?.gallery &&
+                            item?.gallery?.map((i, o) => {
+                              return (
+                                <div className="real-estate-edit-modal position-relative mb-4">
+                                  <FontAwesomeIcon
+                                    icon={faCircleXmark}
+                                    onClick={() =>
+                                      handleDeleteGalleryImages(
+                                        i?.path,
+                                        10,
+                                        items?.id
+                                      )
+                                    }
+                                    style={{
+                                      color: "rgb(213, 51, 51)",
+                                      fontSize: "20px",
+                                    }}
+                                    className="delete-icon3"
+                                  />
+                                  <img
+                                    src={Data?.base_url + i?.path}
+                                    alt="realestate_image"
+                                    className="edit-real-estate-images object-fit-cover"
+                                  />
+                                </div>
+                              );
+                            })}
+                        </div>
+                      ) : (
+                        ""
+                      );
+                    })}
+
                   <label className="modalFormLable">Heading*</label>
                   <input
                     name="name"

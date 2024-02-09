@@ -139,7 +139,8 @@ export default function EditRealEstate({
       Title == "" ||
       PropertyType == "" ||
       LookingTo == "" ||
-      Description == ""
+      Description == "" ||
+      GalleryImages?.length > 3
     ) {
       error = true;
       mess =
@@ -151,6 +152,8 @@ export default function EditRealEstate({
           ? "Looking too is requried"
           : Description === ""
           ? "Description is requried"
+          : GalleryImages?.length > 3
+          ? "Gallery images can't be more than 3"
           : "";
     }
     if (error) {
@@ -581,23 +584,6 @@ export default function EditRealEstate({
                         return (
                           <SwiperSlide key={o}>
                             <div className="swiper-slide review-items position-relative">
-                              <FontAwesomeIcon
-                                icon={faCircleXmark}
-                                onClick={() =>
-                                  handleDeleteGalleryImages(
-                                    i?.path,
-                                    12,
-                                    items?.id
-                                  )
-                                }
-                                style={{
-                                  top: "-1px",
-                                  right: "0",
-                                  color: "rgb(213, 51, 51)",
-                                  fontSize: "20px",
-                                }}
-                                className="delete-icon3"
-                              />
                               <img
                                 src={Data?.base_url + i?.path}
                                 alt="realestate_image"
@@ -618,6 +604,21 @@ export default function EditRealEstate({
                     <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
                     </p>
+                    <div
+                      className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
+                      style={{ gap: "10px" }}
+                    >
+                      {items.is_label !== 0 ? (
+                        <span className="font-weight-bold VarColor">
+                          {items?.label}
+                        </span>
+                      ) : (
+                        <p className="font-weight-bold VarColor">
+                          {MainData?.company_setting?.currency?.currency}{" "}
+                          {items?.price}
+                        </p>
+                      )}
+                    </div>
                     <div
                       className="d-flex flex-wrap mt-3"
                       style={{ gap: "10px", lineHeight: "0" }}
@@ -666,22 +667,7 @@ export default function EditRealEstate({
                       </div>
                     </div>
                     <div
-                      className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
-                      style={{ gap: "10px" }}
-                    >
-                      {items.is_label !== 0 ? (
-                        <span className="font-weight-bold color-black">
-                          {items?.label}
-                        </span>
-                      ) : (
-                        <p className="font-weight-bold color-black">
-                          {MainData?.company_setting?.currency?.currency}{" "}
-                          {items?.price}
-                        </p>
-                      )}
-                    </div>
-                    <div
-                      className="mt-3 d-flex align-items-center justify-content-center flex-wrap"
+                      className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
                       style={{ gap: "5px" }}
                     >
                       <button className="contact-btn w-auto m-0">
@@ -797,7 +783,7 @@ export default function EditRealEstate({
                   onChange={(e) => setImage(e.target.files[0])}
                 />
                 <label className="modalFormLable">
-                  Upload Upto 5 Images (*Recommended Size 347x160)
+                  Upload Upto 3 Images (*Recommended Size 347x160)
                 </label>
                 <input
                   type="file"
@@ -806,9 +792,44 @@ export default function EditRealEstate({
                   accept="image/png, image/gif, image/jpeg"
                   style={{ border: "1px solid #ccc" }}
                   multiple
-                  //   ref={aRef}
                   onChange={(e) => setGalleryImages(e.target.files)}
                 />
+                {Data?.card_realestates &&
+                  Data?.card_realestates?.map((items, index) => {
+                    return items?.id === ContentId ? (
+                      <div className="d-flex flex-wrap gap-2 px-2">
+                        {items?.gallery &&
+                          items?.gallery?.map((i, o) => {
+                            return (
+                              <div className="real-estate-edit-modal position-relative mb-4">
+                                <FontAwesomeIcon
+                                  icon={faCircleXmark}
+                                  onClick={() =>
+                                    handleDeleteGalleryImages(
+                                      i?.path,
+                                      12,
+                                      items?.id
+                                    )
+                                  }
+                                  style={{
+                                    color: "rgb(213, 51, 51)",
+                                    fontSize: "20px",
+                                  }}
+                                  className="delete-icon3"
+                                />
+                                <img
+                                  src={Data?.base_url + i?.path}
+                                  alt="realestate_image"
+                                  className="edit-real-estate-images object-fit-cover"
+                                />
+                              </div>
+                            );
+                          })}
+                      </div>
+                    ) : (
+                      ""
+                    );
+                  })}
                 <label className="modalFormLable">Title*</label>
                 <input
                   className="form-control mb-4 mt-1"
@@ -1255,50 +1276,25 @@ export default function EditRealEstate({
                 return (
                   <div key={index}>
                     <div className="row realestaterow">
-                      <div className="col-lg-4 col-sm-12">
-                        <SwiperComponent
-                          slidesPerView={1}
-                          spaceBetween={10}
-                          style={{ cursor: "pointer" }}
-                          className="mySwiper pb-0"
-                          autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                          }}
-                          pagination={{
-                            clickable: true,
-                          }}
-                          modules={[Autoplay, Pagination, Navigation]}
-                        >
-                          <SwiperSlide>
-                            <div className="swiper-slide review-items position-relative">
-                              <img
-                                src={
-                                  items?.image?.path
-                                    ? Data?.base_url + items?.image?.path
-                                    : "../static/img/picture-1.jpg"
-                                }
-                                alt="realestate_image"
-                                className="realEstateImage w-100"
-                              />
-                            </div>
-                          </SwiperSlide>
-                          {items?.gallery?.length
-                            ? items?.gallery?.map((i, o) => {
-                                return (
-                                  <SwiperSlide key={o}>
-                                    <div className="swiper-slide review-items position-relative">
-                                      <img
-                                        src={Data?.base_url + i?.path}
-                                        alt="realestate_image"
-                                        className="realEstateImage w-100"
-                                      />
-                                    </div>
-                                  </SwiperSlide>
-                                );
-                              })
-                            : ""}
-                        </SwiperComponent>
+                      <div className="col-lg-4 col-sm-12 mb-2">
+                        <div className="position-relative">
+                          {items?.gallery?.length ? (
+                            <span class="badge badge-primary product-images-badge">
+                              + {items?.gallery?.length} Images
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          <img
+                            src={
+                              items?.image?.path
+                                ? Data?.base_url + items?.image?.path
+                                : "../static/img/picture-1.jpg"
+                            }
+                            alt="realestate_image"
+                            className="realEstateImage w-100"
+                          />
+                        </div>
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
@@ -1317,6 +1313,21 @@ export default function EditRealEstate({
                           >
                             {items?.street_address}
                           </p>
+                        </div>
+                        <div
+                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                          style={{ gap: "10px" }}
+                        >
+                          {items.is_label !== 0 ? (
+                            <span className="font-weight-bold VarColor">
+                              {items?.label}
+                            </span>
+                          ) : (
+                            <p className="font-weight-bold VarColor">
+                              {MainData?.company_setting?.currency?.currency}{" "}
+                              {items?.price}
+                            </p>
+                          )}
                         </div>
                         <div
                           className="d-flex flex-wrap mt-2"
@@ -1366,21 +1377,6 @@ export default function EditRealEstate({
                               {items?.furnish_type}
                             </p>
                           </div>
-                        </div>
-                        <div
-                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
-                          style={{ gap: "10px" }}
-                        >
-                          {items.is_label !== 0 ? (
-                            <span className="font-weight-bold color-black">
-                              {items?.label}
-                            </span>
-                          ) : (
-                            <p className="font-weight-bold color-black">
-                              {MainData?.company_setting?.currency?.currency}{" "}
-                              {items?.price}
-                            </p>
-                          )}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"

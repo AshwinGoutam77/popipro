@@ -1,9 +1,7 @@
 "use client";
 import {
   faAngleLeft,
-  faAngleRight,
   faBagShopping,
-  faChartSimple,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Api from "@services/Api";
-import { EditData, GetInshights, ProductsInsights } from "@services/Routes";
+import { ProductsInsights } from "@services/Routes";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import "../../styles/about.css";
 import { redirect } from "next/navigation";
@@ -173,7 +171,8 @@ export default function DashboardProducts({ TitleData }) {
         },
       },
       title: {
-        text: "Total " + UserData?.titles?.card_products?.visible_name + " Hits",
+        text:
+          "Total " + UserData?.titles?.card_products?.visible_name + " Hits",
         align: "left",
       },
       dataLabels: {
