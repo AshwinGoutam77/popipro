@@ -1479,6 +1479,9 @@ table tbody tr:last-child {
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {
+  .responsiveTable td.pivoted {
+    padding: 5px;
+  }
   .dashboard-web-margin {
     margin: 0px 0px !important;
     padding: 2rem !important;
@@ -1494,6 +1497,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 1200px) and (min-width: 300px) {
+  .responsiveTable td.pivoted {
+    padding: 5px;
+  }
   .hits-details-modal {
     margin: 0px 18px !important;
   }
@@ -1505,6 +1511,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .responsiveTable td.pivoted {
+    padding: 5px;
+  }
   .dashboard-web-margin {
     margin: 0px 0px !important;
     padding: 2rem !important;

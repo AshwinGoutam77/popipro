@@ -23,6 +23,8 @@ import { useAuthContext } from "@context/AuthContext";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function DashboardBlogs() {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -161,8 +163,7 @@ export default function DashboardBlogs() {
         },
       },
       title: {
-        text:
-          "Total " + UserData?.titles?.card_blogs?.visible_name + " Hits",
+        text: "Total " + UserData?.titles?.card_blogs?.visible_name + " Hits",
         align: "left",
       },
       dataLabels: {
@@ -433,7 +434,7 @@ export default function DashboardBlogs() {
                 </div>
               </div>
               <div className="box-shadow-leads">
-                <table className="insight-table">
+                {/* <table className="insight-table">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -468,7 +469,47 @@ export default function DashboardBlogs() {
                       })
                     )}
                   </tbody>
-                </table>
+                </table> */}
+                <Table>
+                  <Thead>
+                    <Tr>
+                      <Th>Name</Th>
+                      <Th>Views</Th>
+                      <Th>Action</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {Data?.blog_stats?.length === 0 ? (
+                      <Tr>
+                        <td className="p-3">No data available</td>
+                      </Tr>
+                    ) : (
+                      Data?.blog_stats?.map((item, index) => {
+                        return (
+                          <Tr
+                            data-column="Message"
+                            key={index}
+                            className="cursor-pointer"
+                            onClick={() => {
+                              handleShowModal(item?.name);
+                            }}
+                          >
+                            <Td data-column="created date">{item.name}</Td>
+
+                            <Td data-column="created date">{item?.count}</Td>
+
+                            <Td data-column="status">
+                              <FontAwesomeIcon
+                                icon={faEye}
+                                className="text-dark"
+                              />
+                            </Td>
+                          </Tr>
+                        );
+                      })
+                    )}
+                  </Tbody>
+                </Table>
               </div>
             </div>
             <div

@@ -20,6 +20,8 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import Link from "next/link";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function Page() {
   const { APIDATA } = useAuthContext();
@@ -148,25 +150,21 @@ export default function Page() {
               return item.id == ModalID ? (
                 <div className="leads-custom-table mb-1" key={index}>
                   <div className="d-flex align-items-start w-100">
-                    <p className="font-weight-bold Heading-row">Title</p>
-                    <p className="content-row">{item.message?.title}</p>
-                  </div>
-                  <div className="d-flex align-items-start w-100">
                     <p className="Heading-row font-weight-bold">Total Users</p>
                     <p className="content-row">
-                      {item.total_user} (Accurate: {item?.accurate_user} ,
+                      {item.total_user} (Users: {item?.accurate_user} ,
                       Anonymous: {item.total_user - item?.accurate_user})
                     </p>
                   </div>
-                  <div className="d-flex align-items-start w-100">
+                  {/* <div className="d-flex align-items-start w-100">
                     <p className="Heading-row font-weight-bold">Date</p>
                     <p className="content-row">{item.created_date}</p>
                   </div>
                   <div className="d-flex align-items-start w-100">
                     <p className="font-weight-bold Heading-row">Message</p>
                     <p className="content-row">{item.message?.body}</p>
-                  </div>
-                  <h6 className="mt-3 color-black">Accurate</h6>
+                  </div> */}
+                  <h6 className="mt-3 color-black">Users</h6>
                   {item?.users_log?.length !== 0 ? (
                     item?.users_log?.map((i, o) => {
                       return (
@@ -237,42 +235,46 @@ export default function Page() {
         </div>
       </div>
       <div className="box-shadow-leads mb-4">
-        <table className="insight-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Total Users</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Date</Th>
+              <Th>Total Users</Th>
+              <Th>Message</Th>
+              <Th>Action</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {Data?.length === 0 ? (
-              <tr>
-                <td className="p-3" colSpan="5">
-                  No data available
-                </td>
-              </tr>
+              <Tr>
+                <td className="p-3">No data available</td>
+              </Tr>
             ) : (
-              Data &&
-              Data?.map((items, index) => {
+              Data?.map((item, index) => {
                 return (
-                  <tr
+                  <Tr
                     data-column="Message"
                     key={index}
-                    onClick={() => handleModalId(items?.id)}
                     className="cursor-pointer"
+                    onClick={() => handleModalId(item?.id)}
                   >
-                    <td className="leads-short-para">{items.created_date}</td>
-                    <td data-column="users">{items.total_user}</td>
-                    <td>
+                    <Td data-column="created date">{item.created_date}</Td>
+
+                    <Td data-column="created date">{item?.total_user}</Td>
+
+                    <Td data-column="status">
+                      {item.message?.body ? item.message?.body : "---"}
+                    </Td>
+
+                    <Td data-column="status">
                       <FontAwesomeIcon icon={faEye} className="text-dark" />
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 );
               })
             )}
-          </tbody>
-        </table>
+          </Tbody>
+        </Table>
       </div>
     </>
   );

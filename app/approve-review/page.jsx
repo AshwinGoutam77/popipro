@@ -229,6 +229,10 @@ export default function TestimonialsLeads() {
                 return item.id == ModalId ? (
                   <div className="leads-custom-table mb-1" key={index}>
                     <div className="d-flex align-items-start w-100">
+                      <p className="Heading-row font-weight-bold">Date</p>
+                      <p className="content-row">{item.created_at}</p>
+                    </div>
+                    <div className="d-flex align-items-start w-100">
                       <p className="font-weight-bold Heading-row">Name</p>
                       <p className="content-row">{item.name}</p>
                     </div>
@@ -247,10 +251,6 @@ export default function TestimonialsLeads() {
                           ? item.user_contact_number
                           : "---"}
                       </p>
-                    </div>
-                    <div className="d-flex align-items-start w-100">
-                      <p className="Heading-row font-weight-bold">Date</p>
-                      <p className="content-row">{item.created_at}</p>
                     </div>
                     <div className="d-flex align-items-start">
                       <p className="Heading-row font-weight-bold">Location</p>
@@ -344,111 +344,12 @@ export default function TestimonialsLeads() {
               </div>
             </div>
             <div className="box-shadow-leads">
-              {/* <table className="insight-table">
-                <thead>
-                  <tr>
-                    <th>Contact</th>
-                    <th>Date</th>
-                    <th>Location</th>
-                    <th>Approve Review</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Data?.length === 0 ? (
-                    <tr>
-                      <td className="p-3">No data available</td>
-                    </tr>
-                  ) : (
-                    Data?.map((item, index) => {
-                      return (
-                        <tr
-                          data-column="Message"
-                          key={index}
-                          className="cursor-pointer"
-                        >
-                          <td
-                            data-column="name"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.user_contact_number
-                              ? item.user_contact_number
-                              : "---"}
-                          </td>
-                          <td
-                            data-column="created date"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.created_at}
-                          </td>
-                          {item.detail ? (
-                            <td data-column="created date">
-                              {item.detail?.state
-                                ? item.detail?.city +
-                                  ", " +
-                                  item.detail?.state +
-                                  ", " +
-                                  item.detail?.country
-                                : item.detail?.city +
-                                  ", " +
-                                  item.detail?.country}
-                            </td>
-                          ) : (
-                            <td>---</td>
-                          )}
-
-                          {item?.status == "confirmed" ? (
-                            <td data-column="status">
-                              <p href="#" class="badge badge-success">
-                                Approved
-                              </p>
-                            </td>
-                          ) : (
-                            <td
-                              data-column="status"
-                              onClick={() => handleActiveTestimonials(item.id)}
-                            >
-                              <p
-                                href="#"
-                                class="badge badge-danger bg-varcolor"
-                              >
-                                Mark Approve?
-                              </p>
-                            </td>
-                          )}
-                          <td>
-                            <p className="d-flex align-items-center justify-content-left">
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className="text-dark ml-1"
-                                onClick={() =>
-                                  handleDeleteTestimonials(item.id)
-                                }
-                              />
-                              <FontAwesomeIcon
-                                icon={faEye}
-                                className="text-dark ml-4"
-                                onClick={() => {
-                                  setModalId(item.id), setShowModal(true);
-                                }}
-                              />
-                            </p>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table> */}
               <Table>
                 <Thead>
                   <Tr>
-                    <Th>Contact</Th>
                     <Th>Date</Th>
+                    <Th>Name</Th>
+                    <Th>Contact</Th>
                     <Th>Location</Th>
                     <Th>Approve Review</Th>
                     <Th>Actions</Th>
@@ -468,6 +369,22 @@ export default function TestimonialsLeads() {
                           className="cursor-pointer"
                         >
                           <Td
+                            data-column="created date"
+                            onClick={() => {
+                              setModalId(item.id), setShowModal(true);
+                            }}
+                          >
+                            {item.created_at}
+                          </Td>
+                          <Td
+                            data-column="created date"
+                            onClick={() => {
+                              setModalId(item.id), setShowModal(true);
+                            }}
+                          >
+                            {item.name}
+                          </Td>
+                          <Td
                             data-column="name"
                             onClick={() => {
                               setModalId(item.id), setShowModal(true);
@@ -476,14 +393,6 @@ export default function TestimonialsLeads() {
                             {item.user_contact_number
                               ? item.user_contact_number
                               : "---"}
-                          </Td>
-                          <Td
-                            data-column="created date"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.created_at}
                           </Td>
                           {item.detail ? (
                             <Td data-column="created date">
@@ -516,7 +425,7 @@ export default function TestimonialsLeads() {
                                 href="#"
                                 class="badge badge-danger bg-varcolor"
                               >
-                                Mark Approve?
+                                Mark as Approve?
                               </p>
                             </Td>
                           )}

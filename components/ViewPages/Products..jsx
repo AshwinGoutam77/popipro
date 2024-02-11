@@ -18,6 +18,7 @@ import {
   faCircleXmark,
   faEnvelope,
   faLink,
+  faRightFromBracket,
   faSearch,
   faSort,
   faXmark,
@@ -652,12 +653,6 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
-      {/* {((Titles?.card_products?.is_active === 1 || Products?.length !== 0) &&
-        Category?.length !== 0) ||
-      (!ProductSearching !== "" &&
-        PlanData?.is_expired == false &&
-        PlanData?.subscription?.plan_id !== 1 &&
-        PlanData?.subscription !== null) ? ( */}
       {Titles &&
       Titles?.card_products?.is_active &&
       PlanData?.is_expired == false &&
@@ -671,9 +666,14 @@ export default function Product({
                 <div className="d-flex align-items-baseline position-relative">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search and enter"
                     className="form-control mb-4"
                     onChange={(e) => setProductSearching(e.target.value)}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        handleSearchInProduct();
+                      }
+                    }}
                   />
                   <FontAwesomeIcon
                     icon={faXmark}
@@ -681,7 +681,7 @@ export default function Product({
                     onClick={() => handleResetFilter()}
                   />
                   <FontAwesomeIcon
-                    icon={faSearch}
+                    icon={faRightFromBracket}
                     className="color-black cursor-pointer search-icon-products fs-18 mr-5"
                     onClick={() => handleSearchInProduct()}
                   />
@@ -1161,9 +1161,6 @@ export default function Product({
             </div>
           </div>
         ) : (
-          // ) : (
-          //   ""
-          // )}
           ""
         )
       ) : (

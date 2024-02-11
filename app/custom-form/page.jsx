@@ -27,6 +27,8 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function Page() {
   const [Show, setShow] = useState(false);
@@ -158,7 +160,7 @@ export default function Page() {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.request.status == "401") {
         localStorage.removeItem("token");
         localStorage.removeItem("url");
@@ -300,7 +302,6 @@ export default function Page() {
           {RecordsData?.length !== 0 ? (
             RecordsData &&
             RecordsData?.map((items, index) => {
-              console.log(items);
               return (
                 <div key={index}>
                   <div className="leads-custom-table2 mb-1" key={index}>
@@ -443,29 +444,29 @@ export default function Page() {
             </div>
           </div>
           <div className="box-shadow-leads">
-            <table className="insight-table">
-              <thead>
-                <tr>
-                  <th>Form</th>
-                  <th>Location</th>
-                  <th>Submitted Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table className="insight-table">
+              <Thead>
+                <Tr>
+                  <Th>Submitted Date</Th>
+                  <Th>Form</Th>
+                  <Th>Location</Th>
+                  <Th>Action</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
                 {CustomFormData?.length === 0 || form_permissions == 0 ? (
-                  <tr>
-                    <td className="p-3" colspan="5">
+                  <Tr>
+                    <Td className="p-3" colspan="5">
                       {form_permissions !== 0
                         ? "No data available"
                         : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ) : (
                   CustomFormData &&
                   CustomFormData?.map((items, index) => {
                     return (
-                      <tr
+                      <Tr
                         data-column="Message"
                         key={index}
                         onClick={() =>
@@ -476,9 +477,10 @@ export default function Page() {
                         }
                         className="cursor-pointer"
                       >
-                        <td data-column="Name">{items?.form}</td>
+                        <Td className="leads-short-para">{items.created_at}</Td>
+                        <Td data-column="Name">{items?.form}</Td>
                         {items.detail ? (
-                          <td data-column="created date">
+                          <Td data-column="created date">
                             {items.detail?.state
                               ? items.detail?.city +
                                 ", " +
@@ -488,24 +490,23 @@ export default function Page() {
                               : items.detail?.city +
                                 ", " +
                                 items.detail?.country}
-                          </td>
+                          </Td>
                         ) : (
-                          <td>---</td>
+                          <Td>---</Td>
                         )}
-                        <td className="leads-short-para">{items.created_at}</td>
-                        <td
+                        <Td
                           onClick={() =>
                             handleGetCustomFormData(items?.id, items?.form)
                           }
                         >
                           <FontAwesomeIcon icon={faEye} className="text-dark" />
-                        </td>
-                      </tr>
+                        </Td>
+                      </Tr>
                     );
                   })
                 )}
-              </tbody>
-            </table>
+              </Tbody>
+            </Table>
           </div>
         </div>
       </div>

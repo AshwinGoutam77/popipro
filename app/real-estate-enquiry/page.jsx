@@ -32,6 +32,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function ProductEnquiry() {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -230,6 +232,10 @@ export default function ProductEnquiry() {
                   return item.id == ModalId ? (
                     <div className="leads-custom-table mb-1" key={index}>
                       <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">Date</p>
+                        <p className="w-100">{item.created_at}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">
                           {UserData?.titles?.card_realestates?.visible_name}{" "}
                           Name
@@ -247,10 +253,6 @@ export default function ProductEnquiry() {
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Contact Number</p>
                         <p className="w-100">{item.contact}</p>
-                      </div>
-                      <div className="d-flex align-items-start">
-                        <p className="w-100 font-weight-bold">Date</p>
-                        <p className="w-100">{item.created_at}</p>
                       </div>
                       <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Location</p>
@@ -382,44 +384,44 @@ export default function ProductEnquiry() {
                 </div>
               </div>
               <div className="box-shadow-leads">
-                <table className="insight-table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Contact</th>
-                      <th>Date</th>
-                      <th>Location</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <Table className="insight-table">
+                  <Thead>
+                    <Tr>
+                      <Th>Date</Th>
+                      <Th>Name</Th>
+                      <Th>Contact</Th>
+                      <Th>Location</Th>
+                      <Th>Action</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
                     {Data?.realestate_enquiries?.length === 0 ||
                     Data?.leads_permissions?.product_enquiry == 0 ? (
-                      <tr>
-                        <td className="p-3 color-black" colspan="5">
+                      <Tr>
+                        <Td className="p-3 color-black" colspan="5">
                           {Data?.leads_permissions?.product_enquiry !== 0
                             ? "No data available"
                             : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                        </td>
-                      </tr>
+                        </Td>
+                      </Tr>
                     ) : (
                       Data?.realestate_enquiries?.map((item, index) => {
                         return (
-                          <tr
+                          <Tr
                             data-column="Message"
                             key={index}
                             onClick={() => handleMessageTr(item.id)}
                             className="cursor-pointer"
                           >
-                            <td data-column="name">{item?.name}</td>
-                            <td data-column="name">
-                              {item.contact ? item.contact : "-"}
-                            </td>
-                            <td data-column="created date">
+                            <Td data-column="created date">
                               {item.created_at}
-                            </td>
+                            </Td>
+                            <Td data-column="name">{item?.name}</Td>
+                            <Td data-column="name">
+                              {item.contact ? item.contact : "-"}
+                            </Td>
                             {item.detail ? (
-                              <td data-column="created date">
+                              <Td data-column="created date">
                                 {item.detail?.state
                                   ? item.detail?.city +
                                     ", " +
@@ -429,22 +431,22 @@ export default function ProductEnquiry() {
                                   : item.detail?.city +
                                     ", " +
                                     item.detail?.country}
-                              </td>
+                              </Td>
                             ) : (
-                              <td>---</td>
+                              <Td>---</Td>
                             )}
-                            <td className="">
+                            <Td className="">
                               <FontAwesomeIcon
                                 icon={faEye}
                                 className="text-dark"
                               />
-                            </td>
-                          </tr>
+                            </Td>
+                          </Tr>
                         );
                       })
                     )}
-                  </tbody>
-                </table>
+                  </Tbody>
+                </Table>
               </div>
             </div>
             <div

@@ -123,7 +123,7 @@ export default function Suggestions({ active, handleClose }) {
               }}
               onClick={handlecontinue}
             >
-              Save
+              Submit
             </button>
             {/* </form> */}
           </div>

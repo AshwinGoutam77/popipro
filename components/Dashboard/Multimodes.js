@@ -381,7 +381,7 @@ export default function Multimodes({
                 </label>
               </li>
               <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Show Appointment Form</h6>
+                <h6 className="mb-0">Open Appointment Form</h6>
                 <label className="switch">
                   <input
                     data-status={ShowAppointment}

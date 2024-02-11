@@ -26,6 +26,8 @@ import "swiper/css/pagination";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 const Page = () => {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -573,6 +575,12 @@ const Page = () => {
                   return item.id == ModalId ? (
                     <div className="leads-custom-table mb-1" key={index}>
                       <div className="d-flex align-items-start">
+                        <p className="w-100 font-weight-bold">
+                          {item.appointment ? "Submitted Date" : "Date"}
+                        </p>
+                        <p className="w-100">{item.created_at}</p>
+                      </div>
+                      <div className="d-flex align-items-start">
                         <p className="w-100 font-weight-bold">Name</p>
                         <p className="w-100">{item?.name}</p>
                       </div>
@@ -586,14 +594,10 @@ const Page = () => {
                         <p className="w-100 font-weight-bold">Phone</p>
                         <p className="w-100">{item.contact}</p>
                       </div>
-                      <div className="d-flex align-items-start">
-                        <p className="w-100 font-weight-bold">Created Date</p>
-                        <p className="w-100">{item.created_at}</p>
-                      </div>
                       {item.appointment ? (
                         <div className="d-flex align-items-start">
                           <p className="w-100 font-weight-bold">
-                            Requested Date
+                            Appointment Date
                           </p>
                           <p className="w-100">{item.appointment}</p>
                         </div>
@@ -814,29 +818,30 @@ const Page = () => {
                       </button>
                     </div>
                   </SwiperSlide>
+                  <SwiperSlide className="w-auto"></SwiperSlide>
                 </SwiperComponent>
               </div>
               <div className="box-shadow-leads">
                 {AppointmentTab ? (
-                  <table className="insight-table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Created Date</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <Table className="insight-table">
+                    <Thead>
+                      <Tr>
+                        <Th>Name</Th>
+                        <Th>Email</Th>
+                        <Th>Phone</Th>
+                        <Th>Appointment Date</Th>
+                        <Th>Action</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
                       {Data?.latest_leads?.appointment?.length === 0 ? (
-                        <tr>
-                          <td className="p-3">No data available</td>
-                        </tr>
+                        <Tr>
+                          <Td className="p-3">No data available</Td>
+                        </Tr>
                       ) : (
                         Data?.latest_leads?.appointment?.map((item, index) => {
                           return (
-                            <tr
+                            <Tr
                               data-column="Message"
                               key={index}
                               onClick={() =>
@@ -847,48 +852,48 @@ const Page = () => {
                               }
                               className="cursor-pointer"
                             >
-                              <td data-column="name">{item.name}</td>
-                              <td data-column="name">
+                              <Td data-column="name">{item.name}</Td>
+                              <Td data-column="name">
                                 {item.email ? item.email : "---"}
-                              </td>
-                              <td data-column="name">{item.contact}</td>
-                              <td data-column="name">{item.appointment}</td>
-                              <td className="">
+                              </Td>
+                              <Td data-column="name">{item.contact}</Td>
+                              <Td data-column="name">{item.appointment}</Td>
+                              <Td className="">
                                 <FontAwesomeIcon
                                   icon={faEye}
                                   className="text-dark"
                                 />
-                              </td>
-                            </tr>
+                              </Td>
+                            </Tr>
                           );
                         })
                       )}
-                    </tbody>
-                  </table>
+                    </Tbody>
+                  </Table>
                 ) : (
                   ""
                 )}
                 {ProductInquiryTab ? (
-                  <table className="insight-table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Created Date</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <Table className="insight-table">
+                    <Thead>
+                      <Tr>
+                        <Th>Date</Th>
+                        <Th>Name</Th>
+                        <Th>Email</Th>
+                        <Th>Phone</Th>
+                        <Th>Action</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
                       {Data?.latest_leads?.product_enquiry?.length === 0 ? (
-                        <tr>
-                          <td className="p-3">No data available</td>
-                        </tr>
+                        <Tr>
+                          <Td className="p-3">No data available</Td>
+                        </Tr>
                       ) : (
                         Data?.latest_leads?.product_enquiry?.map(
                           (item, index) => {
                             return (
-                              <tr
+                              <Tr
                                 data-column="Message"
                                 key={index}
                                 onClick={() =>
@@ -899,49 +904,49 @@ const Page = () => {
                                 }
                                 className="cursor-pointer"
                               >
-                                <td data-column="name">{item.name}</td>
-                                <td data-column="name">
+                                <Td data-column="name">{item.created_at}</Td>
+                                <Td data-column="name">{item.name}</Td>
+                                <Td data-column="name">
                                   {item.email ? item.email : "---"}
-                                </td>
-                                <td data-column="name">{item.contact}</td>
-                                <td data-column="name">{item.created_at}</td>
-                                <td className="">
+                                </Td>
+                                <Td data-column="name">{item.contact}</Td>
+                                <Td className="">
                                   <FontAwesomeIcon
                                     icon={faEye}
                                     className="text-dark"
                                   />
-                                </td>
-                              </tr>
+                                </Td>
+                              </Tr>
                             );
                           }
                         )
                       )}
-                    </tbody>
-                  </table>
+                    </Tbody>
+                  </Table>
                 ) : (
                   ""
                 )}
                 {ShareContactTab ? (
-                  <table className="insight-table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Created Date</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <Table className="insight-table">
+                    <Thead>
+                      <Tr>
+                        <Th>Date</Th>
+                        <Th>Name</Th>
+                        <Th>Email</Th>
+                        <Th>Phone</Th>
+                        <Th>Action</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
                       {Data?.latest_leads?.shared_contact?.length === 0 ? (
-                        <tr>
-                          <td className="p-3">No data available</td>
-                        </tr>
+                        <Tr>
+                          <Td className="p-3">No data available</Td>
+                        </Tr>
                       ) : (
                         Data?.latest_leads?.shared_contact?.map(
                           (item, index) => {
                             return (
-                              <tr
+                              <Tr
                                 data-column="Message"
                                 key={index}
                                 onClick={() =>
@@ -952,25 +957,25 @@ const Page = () => {
                                 }
                                 className="cursor-pointer"
                               >
-                                <td data-column="name">{item.name}</td>
-                                <td data-column="name">
+                                <Td data-column="name">{item.created_at}</Td>
+                                <Td data-column="name">{item.name}</Td>
+                                <Td data-column="name">
                                   {item.email ? item.email : "---"}
-                                </td>
-                                <td data-column="name">{item.contact}</td>
-                                <td data-column="name">{item.created_at}</td>
-                                <td className="">
+                                </Td>
+                                <Td data-column="name">{item.contact}</Td>
+                                <Td className="">
                                   <FontAwesomeIcon
                                     icon={faEye}
                                     className="text-dark"
                                   />
-                                </td>
-                              </tr>
+                                </Td>
+                              </Tr>
                             );
                           }
                         )
                       )}
-                    </tbody>
-                  </table>
+                    </Tbody>
+                  </Table>
                 ) : (
                   ""
                 )}
@@ -1199,13 +1204,6 @@ const Page = () => {
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
                             {Data?.leads_interact?.stats?.shared_contact}{" "}
-                            <Link href="/shared-contact-leads">
-                              <FontAwesomeIcon
-                                icon={faChevronRight}
-                                width={10}
-                                className="cursor-pointer text-white"
-                              />
-                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1217,13 +1215,6 @@ const Page = () => {
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
                             {Data?.leads_interact?.stats?.appointment}
-                            <Link href="/appointment">
-                              <FontAwesomeIcon
-                                icon={faChevronRight}
-                                width={10}
-                                className="cursor-pointer text-white"
-                              />
-                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1236,13 +1227,6 @@ const Page = () => {
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
                             {Data?.leads_interact?.stats?.product_enquiry}
-                            <Link href="/product-enquiry">
-                              <FontAwesomeIcon
-                                icon={faChevronRight}
-                                width={10}
-                                className="cursor-pointer text-white"
-                              />
-                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
@@ -1254,13 +1238,6 @@ const Page = () => {
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
                             {Data?.leads_interact?.stats?.customform}
-                            <Link href="/custom-form">
-                              <FontAwesomeIcon
-                                icon={faChevronRight}
-                                width={10}
-                                className="cursor-pointer text-white"
-                              />
-                            </Link>
                           </p>
                         </div>
                         <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>

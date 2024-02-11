@@ -21,6 +21,8 @@ import { useAuthContext } from "@context/AuthContext";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 const Leads = () => {
   const { token, APIDATA } = useAuthContext();
@@ -281,6 +283,10 @@ const Leads = () => {
                 return item.id == ModalId ? (
                   <div className="leads-custom-table mb-1" key={index}>
                     <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Date</p>
+                      <p className="w-100">{item.created_at}</p>
+                    </div>
+                    <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Name</p>
                       <p className="w-100">{item.full_name}</p>
                     </div>
@@ -295,10 +301,6 @@ const Leads = () => {
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Contact Number</p>
                       <p className="w-100">{item.contact_number}</p>
-                    </div>
-                    <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Date</p>
-                      <p className="w-100">{item.created_at}</p>
                     </div>
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Location </p>
@@ -410,52 +412,52 @@ const Leads = () => {
               </div>
 
               <div className="box-shadow-leads">
-                <table className="insight-table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Contact</th>
-                      <th>Date</th>
-                      <th>Location</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <Table>
+                  <Thead>
+                    <Tr>
+                      <Th>Date</Th>
+                      <Th>Name</Th>
+                      <Th>Contact</Th>
+                      <Th>Location</Th>
+                      <Th>Actions</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
                     {Data?.leads?.length === 0 ||
                     Data?.leads_permissions?.sharecontact == 0 ? (
-                      <tr>
-                        <td className="p-3 color-black" colspan="5">
+                      <Tr>
+                        <Td className="p-3 color-black" colspan="5">
                           {Data?.leads_permissions?.sharecontact !== 1
                             ? "No data available"
                             : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                        </td>
-                      </tr>
+                        </Td>
+                      </Tr>
                     ) : (
                       Data?.leads?.map((item, index) => {
                         return (
-                          <tr
+                          <Tr
                             data-column="Message"
                             key={index}
                             onClick={() => setModalId(item.id)}
                             className="cursor-pointer"
                           >
-                            <td
+                            <Td
                               data-column="Name"
                               onClick={() => setShowModal(true)}
                             >
                               {item.full_name}
-                            </td>
-                            <td
+                            </Td>
+                            <Td
                               data-column="Name"
                               onClick={() => setShowModal(true)}
                             >
                               {item?.contact_number}
-                            </td>
-                            <td className="" onClick={() => setShowModal(true)}>
+                            </Td>
+                            <Td className="" onClick={() => setShowModal(true)}>
                               {item.created_at}
-                            </td>
+                            </Td>
                             {item.detail ? (
-                              <td data-column="created date">
+                              <Td data-column="created date">
                                 {item.detail?.state
                                   ? item.detail?.city +
                                     ", " +
@@ -465,11 +467,11 @@ const Leads = () => {
                                   : item.detail?.city +
                                     ", " +
                                     item.detail?.country}
-                              </td>
+                              </Td>
                             ) : (
-                              <td>---</td>
+                              <Td>---</Td>
                             )}
-                            <td>
+                            <Td>
                               <div
                                 className="d-flex align-items-center justify-content-left"
                                 style={{ gap: "10px" }}
@@ -491,13 +493,13 @@ const Leads = () => {
                                   className="text-dark"
                                 />
                               </div>
-                            </td>
-                          </tr>
+                            </Td>
+                          </Tr>
                         );
                       })
                     )}
-                  </tbody>
-                </table>
+                  </Tbody>
+                </Table>
               </div>
             </div>
             <div

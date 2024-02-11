@@ -21,6 +21,8 @@ import { useAuthContext } from "@context/AuthContext";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function DashboardProducts({ TitleData }) {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -438,7 +440,7 @@ export default function DashboardProducts({ TitleData }) {
                 </div>
 
                 <div className="box-shadow-leads">
-                  <table className="insight-table">
+                  {/* <table className="insight-table">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -473,7 +475,48 @@ export default function DashboardProducts({ TitleData }) {
                         })
                       )}
                     </tbody>
-                  </table>
+                  </table> */}
+
+                  <Table>
+                    <Thead>
+                      <Tr>
+                        <Th>Name</Th>
+                        <Th>Views</Th>
+                        <Th>Action</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {Data?.product_stats?.length === 0 ? (
+                        <Tr>
+                          <td className="p-3">No data available</td>
+                        </Tr>
+                      ) : (
+                        Data?.product_stats?.map((item, index) => {
+                          return (
+                            <Tr
+                              data-column="Message"
+                              key={index}
+                              className="cursor-pointer"
+                              onClick={() => {
+                                handleShowModal(item?.name);
+                              }}
+                            >
+                              <Td data-column="created date">{item.name}</Td>
+
+                              <Td data-column="created date">{item?.count}</Td>
+
+                              <Td data-column="status">
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </Td>
+                            </Tr>
+                          );
+                        })
+                      )}
+                    </Tbody>
+                  </Table>
                 </div>
                 <div
                   className="w-100 text-center text-white p-2 mt-3"

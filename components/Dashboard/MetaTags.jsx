@@ -206,7 +206,7 @@ export default function MetaTags({
               onChange={(e) => setMetaTitle(e.target.value)}
             />
             <div className="d-flex align-items-center justify-content-between">
-              <label>Meta Description</label>
+              <label>Meta Description (Only 150 characters are allowed.)</label>
               <div className="">
                 <p
                   onClick={handleChatModal}

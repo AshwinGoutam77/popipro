@@ -22,6 +22,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import Filters from "@components/Dashboard/Filters";
 import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function AppointmentLead() {
   const { token, APIDATA } = useAuthContext();
@@ -215,6 +217,10 @@ export default function AppointmentLead() {
                 return item.id == ModalId ? (
                   <div className="leads-custom-table mb-1" key={index}>
                     <div className="d-flex align-items-start">
+                      <p className="w-100 font-weight-bold">Created Date</p>
+                      <p className="w-100">{item.created_at}</p>
+                    </div>
+                    <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Name</p>
                       <p className="w-100">{item.name}</p>
                     </div>
@@ -236,10 +242,6 @@ export default function AppointmentLead() {
                       <p className="w-100 font-weight-bold">Appointment Time</p>
                       <p className="w-100">{item.time}</p>
                     </div> */}
-                    <div className="d-flex align-items-start">
-                      <p className="w-100 font-weight-bold">Created Date</p>
-                      <p className="w-100">{item.created_at}</p>
-                    </div>
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Location</p>
                       {item.detail ? (
@@ -370,30 +372,30 @@ export default function AppointmentLead() {
               </div>
             </div>
             <div className="box-shadow-leads">
-              <table className="insight-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Contact</th>
-                    <th>Requested Date</th>
-                    <th>Location</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <Table className="insight-table">
+                <Thead>
+                  <Tr>
+                    <Th>Date</Th>
+                    <Th>Name</Th>
+                    <Th>Contact</Th>
+                    <Th>Location</Th>
+                    <Th>Action</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
                   {Data?.bookings?.length === 0 ||
                   Data?.leads_permissions?.appointment == 0 ? (
-                    <tr>
-                      <td className="p-3 color-black" colspan="5">
+                    <Tr>
+                      <Td className="p-3 color-black" colspan="5">
                         {Data?.leads_permissions?.appointment !== 0
                           ? "No data available"
                           : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                      </td>
-                    </tr>
+                      </Td>
+                    </Tr>
                   ) : (
                     Data?.bookings?.map((item, index) => {
                       return (
-                        <tr
+                        <Tr
                           data-column="Message"
                           key={index}
                           onClick={() => {
@@ -401,13 +403,13 @@ export default function AppointmentLead() {
                           }}
                           className="cursor-pointer"
                         >
-                          <td data-column="name">{item.name}</td>
-                          <td data-column="name">
+                          <Td data-column="created date">{item.created_at}</Td>
+                          <Td data-column="name">{item.name}</Td>
+                          <Td data-column="name">
                             {item.contact ? item.contact : "-"}
-                          </td>
-                          <td data-column="created date">{item.created_at}</td>
+                          </Td>
                           {item.detail ? (
-                            <td data-column="created date">
+                            <Td data-column="created date">
                               {item.detail?.state
                                 ? item.detail?.city +
                                   ", " +
@@ -417,22 +419,22 @@ export default function AppointmentLead() {
                                 : item.detail?.city +
                                   ", " +
                                   item.detail?.country}
-                            </td>
+                            </Td>
                           ) : (
-                            <td>---</td>
+                            <Td>---</Td>
                           )}
-                          <td className="">
+                          <Td className="">
                             <FontAwesomeIcon
                               icon={faEye}
                               className="text-dark"
                             />
-                          </td>
-                        </tr>
+                          </Td>
+                        </Tr>
                       );
                     })
                   )}
-                </tbody>
-              </table>
+                </Tbody>
+              </Table>
             </div>
           </div>
           <div
