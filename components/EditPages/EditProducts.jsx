@@ -1161,11 +1161,11 @@ export default function EditProducts({
                   {AddMoreProduct &&
                     AddMoreProduct?.map((item, index) => {
                       return ModalId === item?.id ? (
-                        <div className="d-flex flex-wrap gap-2 px-2">
+                        <div className="d-flex flex-wrap gap-2 px-2" key={index}>
                           {item?.gallery &&
                             item?.gallery?.map((i, o) => {
                               return (
-                                <div className="real-estate-edit-modal position-relative mb-4">
+                                <div className="real-estate-edit-modal position-relative mb-4" key={o}>
                                   <FontAwesomeIcon
                                     icon={faCircleXmark}
                                     onClick={() =>
