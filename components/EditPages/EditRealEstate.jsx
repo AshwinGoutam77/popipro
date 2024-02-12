@@ -797,7 +797,7 @@ export default function EditRealEstate({
                 {Data?.card_realestates &&
                   Data?.card_realestates?.map((items, index) => {
                     return items?.id === ContentId ? (
-                      <div className="d-flex flex-wrap gap-2 px-2">
+                      <div className="d-flex flex-wrap gap-2 px-2" key={index}>
                         {items?.gallery &&
                           items?.gallery?.map((i, o) => {
                             return (
