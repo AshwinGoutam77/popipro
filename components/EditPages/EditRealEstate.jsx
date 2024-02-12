@@ -801,7 +801,10 @@ export default function EditRealEstate({
                         {items?.gallery &&
                           items?.gallery?.map((i, o) => {
                             return (
-                              <div className="real-estate-edit-modal position-relative mb-4">
+                              <div
+                                className="real-estate-edit-modal position-relative mb-4"
+                                key={o}
+                              >
                                 <FontAwesomeIcon
                                   icon={faCircleXmark}
                                   onClick={() =>
