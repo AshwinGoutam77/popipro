@@ -130,7 +130,7 @@ export default function Product({
     const data = await response.json();
     if (response.ok) {
       setLoadMore(data?.data?.next_page_data?.next_page_url);
-      data?.data?.categories?.map((item) => {
+      data?.data?.categories?.map((item, key) => {
         setActiveFilter(item?.name);
       });
       setHighlightSort(data?.data?.request.sortBy);
@@ -312,7 +312,7 @@ export default function Product({
         setProducts(() => data?.data?.next_page_data?.data);
         setPage(1);
         setLoadMore(data?.data?.next_page_data?.next_page_url);
-        data?.data?.categories?.map((item) => {
+        data?.data?.categories?.map((item, key) => {
           setActiveFilter(item?.name);
         });
       }
