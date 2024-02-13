@@ -125,7 +125,7 @@ export default function EditProducts({
       mess =
         ProductHeading === ""
           ? "heading field is required"
-          : GalleryImages?.length > 3
+          : GalleryImages?.length >= 3
           ? "Gallery images can't be more than 3"
           : "";
     } else {
@@ -636,32 +636,6 @@ export default function EditProducts({
                       }}
                       modules={[Pagination, Navigation]}
                     >
-                      <SwiperSlide>
-                        <div className="swiper-slide review-items position-relative mb-4">
-                          <img
-                            src={
-                              item?.image?.path
-                                ? Data?.base_url + item?.image?.path
-                                : "../static/img/picture-1.jpg"
-                            }
-                            alt="product-gallery-images"
-                            className="coverr-modal lazyload mb-2"
-                          />
-                        </div>
-                      </SwiperSlide>
-                      {item?.gallery?.map((o, i) => {
-                        return (
-                          <SwiperSlide key={i}>
-                            <div className="swiper-slide review-items position-relative mb-2">
-                              <img
-                                src={Data?.base_url + o?.path}
-                                alt="product-gallery-images"
-                                className="coverr-modal lazyload mb-2"
-                              />
-                            </div>
-                          </SwiperSlide>
-                        );
-                      })}
                       {item?.youtube_link !== null ? (
                         <SwiperSlide>
                           <div className="swiper-slide review-items position-relative mb-2">
@@ -693,6 +667,32 @@ export default function EditProducts({
                       ) : (
                         ""
                       )}
+                      <SwiperSlide>
+                        <div className="swiper-slide review-items position-relative mb-4">
+                          <img
+                            src={
+                              item?.image?.path
+                                ? Data?.base_url + item?.image?.path
+                                : "../static/img/picture-1.jpg"
+                            }
+                            alt="product-gallery-images"
+                            className="coverr-modal lazyload mb-2"
+                          />
+                        </div>
+                      </SwiperSlide>
+                      {item?.gallery?.map((o, i) => {
+                        return (
+                          <SwiperSlide key={i}>
+                            <div className="swiper-slide review-items position-relative mb-2">
+                              <img
+                                src={Data?.base_url + o?.path}
+                                alt="product-gallery-images"
+                                className="coverr-modal lazyload mb-2"
+                              />
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
                     </SwiperComponent>
                   ) : item?.image?.path ? (
                     <img
@@ -1157,15 +1157,22 @@ export default function EditProducts({
                     ref={aRef}
                     onChange={(e) => setGalleryImages(e.target.files)}
                     multiple
+                    disabled={items?.gallery?.length >= 3 ? true : false}
                   />
                   {AddMoreProduct &&
                     AddMoreProduct?.map((item, index) => {
                       return ModalId === item?.id ? (
-                        <div className="d-flex flex-wrap gap-2 px-2" key={index}>
+                        <div
+                          className="d-flex flex-wrap gap-2 px-2"
+                          key={index}
+                        >
                           {item?.gallery &&
                             item?.gallery?.map((i, o) => {
                               return (
-                                <div className="real-estate-edit-modal position-relative mb-4" key={o}>
+                                <div
+                                  className="real-estate-edit-modal position-relative mb-4"
+                                  key={o}
+                                >
                                   <FontAwesomeIcon
                                     icon={faCircleXmark}
                                     onClick={() =>
@@ -1647,13 +1654,13 @@ export default function EditProducts({
                           <div className="row d-flex justify-content-between pb-3 pt-3">
                             <div className="col-6 col-sm-6 col-lg-4">
                               <div className="position-relative">
-                                {items?.gallery?.length ? (
+                                {/* {items?.gallery?.length ? (
                                   <span class="badge badge-primary product-images-badge">
                                     + {items?.gallery?.length} Images
                                   </span>
                                 ) : (
                                   ""
-                                )}
+                                )} */}
                                 {items?.image?.path ? (
                                   <img
                                     className="case-item__icon-products"
@@ -1724,6 +1731,30 @@ export default function EditProducts({
                                       ""
                                     )}
                                   </div>
+                                )}
+                              </div>
+                              <div className="text-left mt-3">
+                                {items?.youtube_link ? (
+                                  <span class="VarColor font-weight-bold mr-1">
+                                    1 Video
+                                  </span>
+                                ) : (
+                                  ""
+                                )}
+                                {items?.youtube_link &&
+                                items?.gallery?.length ? (
+                                  <span class="VarColor font-weight-bold mr-1">
+                                    and
+                                  </span>
+                                ) : (
+                                  ""
+                                )}
+                                {items?.gallery?.length ? (
+                                  <span class="VarColor font-weight-bold">
+                                    + {items?.gallery?.length} Images
+                                  </span>
+                                ) : (
+                                  ""
                                 )}
                               </div>
                             </div>

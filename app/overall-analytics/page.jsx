@@ -412,6 +412,10 @@ const Page = () => {
           return i;
         }),
       },
+      title: {
+        text: "As per referer",
+        align: "left",
+      },
       tooltip: {
         x: {
           format: "dd/MM/yy HH:mm",
@@ -446,6 +450,10 @@ const Page = () => {
         categories: Data?.ranges?.range?.map((i) => {
           return i;
         }),
+      },
+      title: {
+        text: "As per location",
+        align: "left",
       },
       tooltip: {
         x: {
@@ -554,7 +562,7 @@ const Page = () => {
             <Modal.Header>
               <Modal.Title>
                 <h5
-                  class="title title--h1 first-title title__separate mb-1 mb-0"
+                  className="title title--h1 first-title title__separate mb-1 mb-0"
                   id="BlogModalTitle"
                 >
                   More Details
@@ -562,11 +570,11 @@ const Page = () => {
               </Modal.Title>
               <button
                 type="button"
-                class="close"
+                className="close"
                 onClick={() => setShowModal(false)}
               >
                 <span aria-hidden="true">×</span>
-                <span class="sr-only">Close alert</span>
+                <span className="sr-only">Close alert</span>
               </button>
             </Modal.Header>
             <Modal.Body style={{ padding: "10px" }}>
@@ -987,25 +995,22 @@ const Page = () => {
               <div className="row m-0 mb-4 row-gap-3">
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
-                    <p className="ml-4 mb-2 color-black font-weight-bold">
+                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       As per referer
-                    </p>
+                    </p> */}
                     <Charts
                       options={chartData5?.options}
                       series={chartData5?.series}
                       type="area"
-                      height={315}
+                      height={300}
                     />
                   </div>
                 </div>
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
-                    <div className="d-flex align-items-center justify-content-between mb-2">
-                      <p className="ml-4 color-black font-weight-bold">
-                        As per location
-                      </p>
+                    <div className="d-flex align-items-center justify-content-end">
                       <select
-                        className="w-auto location-filter"
+                        className="w-auto location-filter dashboard-location-select"
                         onChange={(e) => handleSearchLocation(e.target.value)}
                         defaultValue={SelectValue}
                       >

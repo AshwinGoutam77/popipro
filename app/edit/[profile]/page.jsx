@@ -239,18 +239,22 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  <EditRealEstate
-                    Data={cardData?.card}
-                    MainData={cardData}
-                    TitleData={cardData?.titles}
-                    RealEstateData={RealEstateData}
-                    setRealEstateData={setRealEstateData}
-                    PlanData={cardData?.plan}
-                    APIDATA={getProfileData}
-                    PaginationData={cardData?.pagination_data}
-                    card={profile}
-                    Currency={cardData?.currency}
-                  />
+                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                    <EditRealEstate
+                      Data={cardData?.card}
+                      MainData={cardData}
+                      TitleData={cardData?.titles}
+                      RealEstateData={RealEstateData}
+                      setRealEstateData={setRealEstateData}
+                      PlanData={cardData?.plan}
+                      APIDATA={getProfileData}
+                      PaginationData={cardData?.pagination_data}
+                      card={profile}
+                      Currency={cardData?.currency}
+                    />
+                  ) : (
+                    ""
+                  )}
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}

@@ -284,32 +284,6 @@ div:where(.swal2-icon).swal2-info {
 .dashboard-boxes2:hover h6 {
   color: white !important;
 }
-
-/* .dashboard-boxes::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0096ff;
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.5s;
-  border-radius: 10px;
-} */
-/* 
-.dashboard-boxes:hover::before {
-  transform: scaleY(1);
-  transform-origin: bottom;
-  transition: transform 0.9s;
-}
-.dashboard-boxes:hover h6,
-.dashboard-boxes:hover svg {
-  opacity: 1;
-  color: #fff;
-  transform: translateY(0px);
-} */
 .modal-share {
   display: block !important;
 }
@@ -441,6 +415,7 @@ div:where(.swal2-icon).swal2-info {
   background-color: white;
   border-radius: 8px;
   padding: 20px;
+  position: relative;
 }
 
 .leads-para {

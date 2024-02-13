@@ -388,6 +388,24 @@ export default function Product({
                           }}
                           modules={[Pagination, Navigation]}
                         >
+                          {item?.youtube_link !== null ? (
+                            <SwiperSlide>
+                              <div className="swiper-slide review-items position-relative mb-1 ">
+                                <div className="vedio-height">
+                                  <div className="product-video-player-container">
+                                    <ReactPlayer
+                                      url={item?.youtube_link}
+                                      controls
+                                      width="560"
+                                      height="315"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </SwiperSlide>
+                          ) : (
+                            ""
+                          )}
                           <SwiperSlide>
                             <div className="swiper-slide review-items position-relative mb-1">
                               <picture>
@@ -430,24 +448,6 @@ export default function Product({
                               </SwiperSlide>
                             );
                           })}
-                          {item?.youtube_link !== null ? (
-                            <SwiperSlide>
-                              <div className="swiper-slide review-items position-relative mb-1 ">
-                                <div className="vedio-height">
-                                  <div className="product-video-player-container">
-                                    <ReactPlayer
-                                      url={item?.youtube_link}
-                                      controls
-                                      width="560"
-                                      height="315"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </SwiperSlide>
-                          ) : (
-                            ""
-                          )}
                         </SwiperComponent>
                       ) : item?.image?.path ? (
                         <picture>
@@ -875,13 +875,13 @@ export default function Product({
                         <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
                           <div className="col-6 col-sm-6 col-lg-4">
                             <div className="position-relative">
-                              {items?.gallery?.length ? (
+                              {/* {items?.gallery?.length ? (
                                 <span class="badge badge-primary product-images-badge">
                                   + {items?.gallery?.length} Images
                                 </span>
                               ) : (
                                 ""
-                              )}
+                              )} */}
                               {items?.image?.path ? (
                                 <picture>
                                   <source
@@ -1003,6 +1003,29 @@ export default function Product({
                                     ""
                                   )}
                                 </div>
+                              )}
+                            </div>
+                            <div className="mt-3">
+                              {items?.youtube_link ? (
+                                <span class="VarColor font-weight-bold mr-1">
+                                  1 Video
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                              {items?.youtube_link && items?.gallery?.length ? (
+                                <span class="VarColor font-weight-bold mr-1">
+                                  and
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                              {items?.gallery?.length ? (
+                                <span class="VarColor font-weight-bold">
+                                  + {items?.gallery?.length} Images
+                                </span>
+                              ) : (
+                                ""
                               )}
                             </div>
                           </div>

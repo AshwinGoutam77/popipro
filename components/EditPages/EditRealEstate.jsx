@@ -32,6 +32,8 @@ import {
 } from "@services/Routes";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import EditPlan from "./EditPlan";
+import ReactPlayer from "react-player";
+import CreatableSelect from "react-select/creatable";
 
 export default function EditRealEstate({
   MainData,
@@ -76,14 +78,27 @@ export default function EditRealEstate({
   const [Page, setPage] = useState(1);
   const [LoadMoreData, setLoadMoreData] = useState("");
   const [ModalHeading, setModalHeading] = useState("");
+  const [YouTubeLink, setYouTubeLink] = useState("");
+  const [Address, setAddress] = useState("");
+  const [City, setCity] = useState("");
+  const [Country, setCountry] = useState("");
+  const [ZipCode, setZipCode] = useState("");
+  const [State, setState] = useState("");
+  const [Amenities, setAmenities] = useState(false);
+  const [AmenitiesId, setAmenitiesId] = useState("");
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
     setRealEstateData(Data?.card_realestates);
   }, []);
+
   useEffect(() => {
     setActive(TitleData?.card_realestates?.is_active == "1" ? true : false);
   }, [TitleData]);
+
+  const [inputList, setInputList] = useState([
+    { amenities_id: "", description: "" },
+  ]);
 
   const handleCanclebtn = () => {
     setshow(false);
@@ -125,12 +140,27 @@ export default function EditRealEstate({
     setPriceText(items?.label);
     setEditRadioBtn(items?.is_label);
     setPriceRadio(items?.is_label == 0 ? true : false);
+    setYouTubeLink(items?.youtube_link);
+    setCity(items?.city);
+    setCountry(items?.country);
+    setZipCode(items?.zipcode);
+    setAddress(items?.address);
+    setState(items?.state);
+    console.log(items?.amenities);
+    setInputList(
+      items?.amenities.map((item) => ({
+        amenities_id: item?.pivot?.amenities_id,
+        description: item?.pivot?.description,
+      }))
+    );
+    console.log(inputList);
   };
 
   const handleSettings1 = () => {
     setGeneralSetting(true);
     setCatSetting(false);
     setLocationSetting(false);
+    setAmenities(false);
   };
   const handleSettings2 = () => {
     let error = false;
@@ -174,13 +204,17 @@ export default function EditRealEstate({
       setCatSetting(true);
       setActiveSteps(true);
       setLocationSetting(false);
+      setAmenities(false);
     }
   };
   const handleSettings3 = () => {
     let error = false;
     let mess = "";
     if (
-      Locality == "" ||
+      Address == "" ||
+      City == "" ||
+      ZipCode == "" ||
+      State == "" ||
       BhkValue == "" ||
       BathroomValue == "" ||
       BuiltUpArea == "" ||
@@ -188,8 +222,8 @@ export default function EditRealEstate({
     ) {
       error = true;
       mess =
-        Locality === ""
-          ? "Locality field is required"
+        Address === ""
+          ? "Address field is required"
           : BhkValue === ""
           ? "BHK  is requried"
           : BathroomValue === ""
@@ -198,6 +232,12 @@ export default function EditRealEstate({
           ? "Build up area is requried"
           : FurnishType === ""
           ? "Furnish type is requried"
+          : City
+          ? "City field is requried"
+          : ZipCode
+          ? "Zip code is requried"
+          : State
+          ? "State field is requried"
           : "";
     }
     if (error) {
@@ -217,13 +257,22 @@ export default function EditRealEstate({
       setLocationSetting(true);
       setGeneralSetting(false);
       setCatSetting(false);
+      setAmenities(false);
     }
   };
+  const handleSettings4 = () => {
+    setGeneralSetting(false);
+    setCatSetting(false);
+    setLocationSetting(false);
+    setAmenities(true);
+  };
+
   const HandleEmptyFeilds = () => {
     setGeneralSetting(true);
     setCatSetting(false);
     setLocationSetting(false);
     setActiveSteps(false);
+    setAmenities(false);
     setShowModal(false);
     setPropertyType("");
     setTitle("");
@@ -241,6 +290,12 @@ export default function EditRealEstate({
     setPriceRadio(true);
     setEditRadioBtn(false);
     setContentId(null);
+    setYouTubeLink("");
+    setCity("");
+    setCountry("");
+    setZipCode("");
+    setCity("");
+    setAddress("");
   };
   const handleShowAddModal = (id) => {
     setModalHeading("Add " + TitleData?.card_realestates?.visible_name);
@@ -270,6 +325,13 @@ export default function EditRealEstate({
             furnish_type: FurnishType,
             area: BuiltUpArea,
             gallery: GalleryImages ? [...GalleryImages] : "",
+            youtube_link: YouTubeLink,
+            city: City,
+            address: Address,
+            zipcode: ZipCode,
+            state: State,
+            country: Country,
+            amenities: inputList,
             saved_realestates: ContentId,
           },
         ])
@@ -292,9 +354,19 @@ export default function EditRealEstate({
             furnish_type: FurnishType,
             area: BuiltUpArea,
             gallery: GalleryImages ? [...GalleryImages] : "",
+            youtube_link: YouTubeLink,
+            city: City,
+            address: Address,
+            zipcode: ZipCode,
+            country: Country,
+            state: State,
+            amenities: inputList,
           },
         ]);
     try {
+      // console.log(".....", data);
+      // setShowLoader(false);
+      // return;
       const response = await Api(CardData, { realestates: data });
       if (response.data.status) {
         setShowLoader(false);
@@ -498,7 +570,6 @@ export default function EditRealEstate({
   useEffect(() => {
     LoadMoreFunction();
   }, [Page]);
-
   const LoadMoreFunction = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
@@ -527,7 +598,31 @@ export default function EditRealEstate({
         : setRealEstateData(() => data?.data?.next_page_data?.data);
     }
   };
+  const [isLoading, setIsLoading] = useState(false);
+  const AmenitiesOption = [];
+  Data?.amenities &&
+    Data?.amenities.map((item) => {
+      AmenitiesOption.push({
+        amenities_id: item.id,
+        value: item.id,
+        label: item.name,
+      });
+    });
 
+  const deme = [];
+  AmenitiesOption?.map((item) => {
+    deme.push(item?.amenities_id);
+  });
+
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
+  };
+  const handleAddClick = () => {
+    setInputList([...inputList, { amenities_id: "", description: "" }]);
+  };
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -566,6 +661,37 @@ export default function EditRealEstate({
                     }}
                     modules={[Autoplay, Pagination, Navigation]}
                   >
+                    {items?.youtube_link !== null ? (
+                      <SwiperSlide>
+                        <div className="swiper-slide review-items position-relative mb-2">
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            onClick={() =>
+                              handleDeleteGalleryImages("null", 12, items?.id)
+                            }
+                            style={{
+                              top: "-1px",
+                              right: "0",
+                              color: "rgb(213, 51, 51)",
+                              fontSize: "20px",
+                            }}
+                            className="delete-icon3"
+                          />
+                          <div className="vedio-height">
+                            <div className="product-video-player-container">
+                              <ReactPlayer
+                                url={items?.youtube_link}
+                                controls
+                                width="560"
+                                height="315"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ) : (
+                      ""
+                    )}
                     <SwiperSlide>
                       <div className="swiper-slide review-items position-relative">
                         <img
@@ -623,48 +749,25 @@ export default function EditRealEstate({
                       className="d-flex flex-wrap mt-3"
                       style={{ gap: "10px", lineHeight: "0" }}
                     >
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">{items?.bhk}</p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.bathroom} Bathroom
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.looking_for?.name}
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.furnish_type}
-                        </p>
-                      </div>
+                      {items?.amenities &&
+                        items?.amenities?.map((amenities, key) => {
+                          return (
+                            <div
+                              className="d-flex align-items-baseline amenities-div"
+                              key={key}
+                            >
+                              <span
+                                style={{ fontSize: "16px" }}
+                                dangerouslySetInnerHTML={{
+                                  __html: amenities.icon,
+                                }}
+                              ></span>
+                              <p className="pl-2 color-black">
+                                {amenities?.name}
+                              </p>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div
                       className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
@@ -752,7 +855,7 @@ export default function EditRealEstate({
               <li className="step before:bg-slate-200 dark:before:bg-navy-500">
                 <div
                   className={
-                    LocationSetting
+                    LocationSetting || ActiveSteps
                       ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
                       : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
                   }
@@ -761,6 +864,20 @@ export default function EditRealEstate({
                 </div>
                 <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
                   Price Details
+                </p>
+              </li>
+              <li className="step before:bg-slate-200 dark:before:bg-navy-500 mt-1">
+                <div
+                  className={
+                    Amenities
+                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
+                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
+                  }
+                >
+                  4
+                </div>
+                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
+                  Amenities
                 </p>
               </li>
             </ol>
@@ -793,6 +910,7 @@ export default function EditRealEstate({
                   style={{ border: "1px solid #ccc" }}
                   multiple
                   onChange={(e) => setGalleryImages(e.target.files)}
+                  disabled={GalleryImages?.length >= 3 ? true : false}
                 />
                 {Data?.card_realestates &&
                   Data?.card_realestates?.map((items, index) => {
@@ -890,6 +1008,19 @@ export default function EditRealEstate({
                     </select>
                   </div>
                 </div>
+                <label className="modalFormLable">
+                  Upload Youtube Video URL
+                </label>
+                <input
+                  type="url"
+                  name="name"
+                  rows="4"
+                  cols="50"
+                  className="form-control mb-4 mt-1"
+                  value={YouTubeLink}
+                  placeholder="Video Url"
+                  onChange={(e) => setYouTubeLink(e.target.value)}
+                ></input>
                 <label className="modalFormLable">Description*</label>
                 <CKEditor
                   editor={ClassicEditor}
@@ -943,20 +1074,76 @@ export default function EditRealEstate({
             ""
           )}
 
-          {/* Catagory div */}
+          {/* property details */}
           {CatSetting ? (
             <div className="w-100">
-              <label className="modalFormLable mt-2">Locality/Address*</label>
+              <label className="modalFormLable mt-2">Address*</label>
               <input
                 type="text"
                 name="name"
                 rows="4"
                 cols="50"
                 className="form-control mb-4 mt-1 w-100"
-                value={Locality}
+                defaultValue={Address}
                 placeholder="Locality/Address"
-                onChange={(e) => setLocality(e.target.value)}
+                onChange={(e) => setAddress(e.target.value)}
               ></input>
+              <div className="row">
+                <div className="col-6">
+                  <label className="modalFormLable mt-2">City*</label>
+                  <input
+                    type="text"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 w-100"
+                    defaultValue={City}
+                    placeholder="Locality/Address"
+                    onChange={(e) => setCity(e.target.value)}
+                  ></input>
+                </div>
+                <div className="col-6">
+                  <label className="modalFormLable mt-2">State*</label>
+                  <input
+                    type="text"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 w-100"
+                    defaultValue={State}
+                    placeholder="Locality/Address"
+                    onChange={(e) => setState(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-6">
+                  <label className="modalFormLable mt-2">Country*</label>
+                  <input
+                    type="text"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 w-100"
+                    defaultValue={Country}
+                    placeholder="Locality/Address"
+                    onChange={(e) => setCountry(e.target.value)}
+                  ></input>
+                </div>
+                <div className="col-6">
+                  <label className="modalFormLable mt-2">Zip Code*</label>
+                  <input
+                    type="text"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mb-4 mt-1 w-100"
+                    defaultValue={ZipCode}
+                    placeholder="Locality/Address"
+                    onChange={(e) => setZipCode(e.target.value)}
+                  ></input>
+                </div>
+              </div>
               <div className="d-flex align-items-center gap-2">
                 <div className="w-100">
                   <label className="modalFormLable">BHK*</label>
@@ -1154,6 +1341,75 @@ export default function EditRealEstate({
                 <button className="send-btnn" onClick={() => handleSettings2()}>
                   Back
                 </button>
+                <button className="send-btnn" onClick={() => handleSettings4()}>
+                  Next
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {/* amenities */}
+          {Amenities ? (
+            <div>
+              {inputList?.map((x, i) => {
+                return (
+                  <div className="d-flex align-items-center row">
+                    <div className="col-6">
+                      <label className="modalFormLab  le mt-2">
+                        Select Amenities*
+                      </label>
+                      <select
+                        onChange={(e) => handleInputChange(e, i)}
+                        name="amenities_id"
+                        style={{
+                          appearance: "auto",
+                        }}
+                        defaultValue={x.amenities_id}
+                      >
+                        {AmenitiesOption?.map((item, o) => {
+                          return (
+                            <option value={item?.value} key={o}>
+                              {item?.label}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="col-6">
+                      <label className="modalFormLable mt-2">
+                        Description*
+                      </label>
+                      <input
+                        type="text"
+                        name="description"
+                        rows="4"
+                        cols="50"
+                        className="form-control mt-1"
+                        defaultValue={x.description}
+                        onChange={(e) => handleInputChange(e, i)}
+                        placeholder="description"
+                      ></input>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="text-right">
+                <button onClick={handleAddClick} className="send-btnn mb-0">
+                  <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add More
+                  Amenities
+                </button>
+              </div>
+
+              <div
+                className="d-flex align-items-center justify-content-start"
+                style={{ gap: "10px" }}
+              >
+                <button className="send-btnn" onClick={() => handleSettings3()}>
+                  Back
+                </button>
                 <button
                   className="send-btnn"
                   onClick={() => handleSaveDetails()}
@@ -1270,24 +1526,16 @@ export default function EditRealEstate({
                 ""
               )}
             </div>
-
             {RealEstateData?.length === 0 ? (
               <p>Real Estate are empty, to add click on the add icon.</p>
             ) : (
               RealEstateData &&
-              RealEstateData?.map((items, index, { length }) => {
+              RealEstateData.map((items, index, { length }) => {
                 return (
                   <div key={index}>
                     <div className="row realestaterow">
                       <div className="col-lg-4 col-sm-12 mb-2">
-                        <div className="position-relative">
-                          {items?.gallery?.length ? (
-                            <span class="badge badge-primary product-images-badge">
-                              + {items?.gallery?.length} Images
-                            </span>
-                          ) : (
-                            ""
-                          )}
+                        <div className="position-relative mb-2">
                           <img
                             src={
                               items?.image?.path
@@ -1298,6 +1546,27 @@ export default function EditRealEstate({
                             className="realEstateImage w-100"
                           />
                         </div>
+                        {items?.youtube_link ? (
+                          <span class="VarColor font-weight-bold mr-1">
+                            1 Video
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        {items?.youtube_link && items?.gallery?.length ? (
+                          <span class="VarColor font-weight-bold mr-1">
+                            and
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        {items?.gallery?.length ? (
+                          <span class="VarColor font-weight-bold">
+                            + {items?.gallery?.length} Images
+                          </span>
+                        ) : (
+                          ""
+                        )}
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
@@ -1336,50 +1605,25 @@ export default function EditRealEstate({
                           className="d-flex flex-wrap mt-2"
                           style={{ gap: "10px", lineHeight: "0" }}
                         >
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.bhk ? items?.bhk : "0"}
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.bathroom ? items?.bathroom : "0"} Bathroom
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.looking_for?.name}
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.furnish_type}
-                            </p>
-                          </div>
+                          {items?.amenities &&
+                            items?.amenities?.map((amenities, key) => {
+                              return (
+                                <div
+                                  className="d-flex align-items-baseline amenities-div"
+                                  key={key}
+                                >
+                                  <span
+                                    style={{ fontSize: "16px" }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: amenities.icon,
+                                    }}
+                                  ></span>
+                                  <p className="pl-2 color-black">
+                                    {amenities?.name}
+                                  </p>
+                                </div>
+                              );
+                            })}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
@@ -1442,8 +1686,8 @@ export default function EditRealEstate({
                     <div
                       className={
                         index + 1 === length
-                          ? "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4"
-                          : "d-flex align-items-center justify-content-start gap-2 mt-3 pb-4 mb-4 real-estate-border"
+                          ? "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4"
+                          : "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4 real-estate-border"
                       }
                     >
                       <button

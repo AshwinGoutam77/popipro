@@ -216,6 +216,10 @@ export default function DashboardProducts({ TitleData }) {
           return i;
         }),
       },
+      title: {
+        text: "As per location",
+        align: "left",
+      },
       tooltip: {
         x: {
           format: "dd/MM/yy HH:mm",
@@ -414,16 +418,16 @@ export default function DashboardProducts({ TitleData }) {
                         options={chartData5?.options}
                         series={chartData5?.series}
                         type="area"
-                        height={340}
+                        height={300}
                       />
                     </div>
                   </div>
                   <div className="col-sm-12 col-lg-6">
-                    <div className="barchart-div">
-                      <div className="d-flex align-items-center justify-content-between mb-2">
-                        <p className="ml-4 color-black font-weight-bold">
+                    <div className="barchart-div position-relative">
+                      <div className="d-flex align-items-center justify-content-end mb-2 dashboard-location-select">
+                        {/* <p className="ml-4 color-black font-weight-bold">
                           As per location
-                        </p>
+                        </p> */}
                         <select
                           className="w-auto location-filter"
                           onChange={(e) => handleSearchData(e.target.value)}

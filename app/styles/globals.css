@@ -1477,6 +1477,16 @@ table tbody tr {
 table tbody tr:last-child {
   border: 0px !important;
 }
+.dashboard-location-select {
+  position: absolute;
+  top: 16px;
+  right: 71px;
+  z-index: 9;
+}
+.amenities-div svg {
+  height: 23px;
+  width: 23px;
+}
 
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {

@@ -23,6 +23,8 @@ import { Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function Page() {
   const { APIDATA, UserData } = useAuthContext();
@@ -32,7 +34,7 @@ export default function Page() {
   const [Data, setData] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
   const [GraphData, setGraphData] = useState("");
-  const [Table, setTable] = useState(true);
+  const [TableData, setTableData] = useState(true);
   const [Graph, setGraph] = useState(false);
 
   const handleGoogleData = async () => {
@@ -188,16 +190,16 @@ export default function Page() {
       });
     }
   };
-
+  let dSet2 =
+    GraphData?.graph &&
+    GraphData?.graph?.map((item) => {
+      return {
+        name: item?.name.slice(0, -1).replace("https://", ""),
+        data: item?.values,
+      };
+    });
   const chartData5 = {
-    series: [
-      {
-        name: "Total Traffic (Profile Hits)",
-        data: GraphData?.graph?.overall?.map((i) => {
-          return i;
-        }),
-      },
-    ],
+    series: dSet2 || [],
     options: {
       chart: {
         height: 350,
@@ -270,6 +272,10 @@ export default function Page() {
           return i;
         }),
       },
+      title: {
+        text: "As per location",
+        align: "left",
+      },
       tooltip: {
         x: {
           format: "dd/MM/yy HH:mm",
@@ -279,11 +285,11 @@ export default function Page() {
   };
 
   const handleTable = () => {
-    setTable(true);
+    setTableData(true);
     setGraph(false);
   };
   const handleGraph = () => {
-    setTable(false);
+    setTableData(false);
     setGraph(true);
   };
 
@@ -371,7 +377,7 @@ export default function Page() {
               <SwiperSlide className="w-auto">
                 <div className="swiper-slide review-items position-relative">
                   <button
-                    className={Table ? "filter-btns-active" : "filter-btns"}
+                    className={TableData ? "filter-btns-active" : "filter-btns"}
                     onClick={handleTable}
                   >
                     Records
@@ -398,16 +404,16 @@ export default function Page() {
                     options={chartData5?.options}
                     series={chartData5?.series}
                     type="area"
-                    height={340}
+                    height={300}
                   />
                 </div>
               </div>
               <div className="col-sm-12 col-lg-6">
                 <div className="barchart-div">
-                  <div className="d-flex align-items-center justify-content-between mb-2">
-                    <p className="ml-4 color-black font-weight-bold">
+                  <div className="d-flex align-items-center justify-content-end dashboard-location-select">
+                    {/* <p className="ml-4 color-black font-weight-bold">
                       As per location
-                    </p>
+                    </p> */}
                     <select
                       className="w-auto location-filter"
                       onChange={(e) => handleSearchLocation(e.target.value)}
@@ -429,20 +435,55 @@ export default function Page() {
           ) : (
             ""
           )}
-          {Table ? (
-            <div
-              className="box-shadow-leads mb-4"
-              style={{ overflowX: "auto" }}
-            >
-              <DataTable
-                columns={column}
-                data={Data}
-                pagination
-                fixedHeader
-                selectableRows
-                selectableRowsHighlight
-                highlightOnHover
-              />
+          {TableData ? (
+            <div className="box-shadow-leads">
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>Browser</Th>
+                    <Th>Device</Th>
+                    <Th>Location</Th>
+                    <Th>Referer</Th>
+                    <Th>Date / Time</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {Data?.length === 0 ? (
+                    <Tr>
+                      <Td className="p-3 color-black" colspan="5">
+                        No data available
+                      </Td>
+                    </Tr>
+                  ) : (
+                    Data &&
+                    Data?.map((item, index) => {
+                      return (
+                        <Tr data-column="Message" key={index}>
+                          <Td data-column="Name">{item?.detail?.browser}</Td>
+                          <Td data-column="Name">{item?.detail?.device}</Td>
+                          {item?.detail ? (
+                            <Td data-column="created date">
+                              {item?.detail?.state
+                                ? item?.detail?.city +
+                                  ", " +
+                                  item?.detail?.state +
+                                  ", " +
+                                  item?.detail?.country
+                                : item?.detail?.city +
+                                  ", " +
+                                  item?.detail?.country}
+                            </Td>
+                          ) : (
+                            <Td>---</Td>
+                          )}
+                          <Td className="">{item?.referer}</Td>
+                          <Td>{item?.created_date_time}</Td>
+                        </Tr>
+                      );
+                    })
+                  )}
+                </Tbody>
+              </Table>
             </div>
           ) : (
             ""

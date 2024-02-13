@@ -148,21 +148,20 @@ export default async function Main({ profile, data, id, referer }) {
                       AddMoreBlogs={AddMoreBlogs}
                       card_url={profile}
                     />
-                    {/* {card.id === "S7ZG" &&
-                    process.env.NEXT_PUBLIC_MODE === "development" ? ( */}
-                    <Realestate
-                      PlanData={plan}
-                      Titles={titles}
-                      Data={card}
-                      card={card}
-                      PaginationData={pagination_data}
-                      RealEstateData={RealEstateData}
-                      card_url={profile}
-                      MainData={MainData}
-                    />
-                    {/* ) : (
+                    {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                      <Realestate
+                        PlanData={plan}
+                        Titles={titles}
+                        Data={card}
+                        card={card}
+                        PaginationData={pagination_data}
+                        RealEstateData={RealEstateData}
+                        card_url={profile}
+                        MainData={MainData}
+                      />
+                    ) : (
                       ""
-                    )} */}
+                    )}
                     {MainData?.company_setting?.show_insta_feed == 1 ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}

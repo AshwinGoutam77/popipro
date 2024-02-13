@@ -9,6 +9,7 @@ import {
   faEnvelope,
   faLocationDot,
   faMapLocation,
+  faRightFromBracket,
   faRightLong,
   faSearch,
   faXmark,
@@ -26,6 +27,7 @@ import { toast } from "react-toastify";
 import { HitClickApi, RealEstateInquiry } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "./SimpleBackDrop";
+import ReactPlayer from "react-player";
 
 export default function Realestate({
   Data,
@@ -95,6 +97,23 @@ export default function Realestate({
     setPage(1);
     setActiveFilter("");
     setSearch(false);
+  };
+
+  const handleSearchInProduct = () => {
+    if (ProductSearching == "") {
+      toast.error("Searching is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    LoadMoreFunction();
   };
 
   const handleShowEnquiry = (id) => {
@@ -216,7 +235,7 @@ export default function Realestate({
   useEffect(() => {
     setPage(1);
     LoadMoreFunction();
-  }, [ProductCategory, HighlightSort, ProductSearching]);
+  }, [ProductCategory, HighlightSort]);
 
   const LoadMoreFunction = async () => {
     const response = await fetch(
@@ -296,6 +315,24 @@ export default function Realestate({
                     }}
                     modules={[Autoplay, Pagination, Navigation]}
                   >
+                    {items?.youtube_link !== null ? (
+                      <SwiperSlide>
+                        <div className="swiper-slide review-items position-relative mb-2">
+                          <div className="vedio-height">
+                            <div className="product-video-player-container">
+                              <ReactPlayer
+                                url={items?.youtube_link}
+                                controls
+                                width="560"
+                                height="315"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ) : (
+                      ""
+                    )}
                     <SwiperSlide>
                       <div className="swiper-slide review-items position-relative">
                         <img
@@ -353,48 +390,25 @@ export default function Realestate({
                       className="d-flex flex-wrap mt-3"
                       style={{ gap: "10px", lineHeight: "0" }}
                     >
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">{items?.bhk}</p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.bathroom} Bathroom
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.looking_for?.name}
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-baseline">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
-                          alt="image"
-                          width={15}
-                          height={15}
-                        />
-                        <p className="pl-2 color-black">
-                          {items?.furnish_type}
-                        </p>
-                      </div>
+                      {items?.amenities &&
+                        items?.amenities?.map((amenities, key) => {
+                          return (
+                            <div
+                              className="d-flex align-items-baseline amenities-div"
+                              key={key}
+                            >
+                              <span
+                                style={{ fontSize: "16px" }}
+                                dangerouslySetInnerHTML={{
+                                  __html: amenities.icon,
+                                }}
+                              ></span>
+                              <p className="pl-2 color-black">
+                                {amenities?.name}
+                              </p>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div
                       className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
@@ -529,14 +543,24 @@ export default function Realestate({
                 <div className="d-flex align-items-baseline position-relative">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search and enter"
                     className="form-control mb-4"
                     onChange={(e) => setProductSearching(e.target.value)}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        handleSearchInProduct();
+                      }
+                    }}
                   />
                   <FontAwesomeIcon
                     icon={faXmark}
                     className="color-black cursor-pointer search-icon-products fs-18"
                     onClick={() => handleResetFilter()}
+                  />
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="color-black cursor-pointer search-icon-products fs-18 mr-5"
+                    onClick={() => handleSearchInProduct()}
                   />
                 </div>
               ) : (
@@ -560,11 +584,21 @@ export default function Realestate({
                           placeholder="Search..."
                           className="form-control mb-4"
                           onChange={(e) => handleSearch(e.target.value)}
+                          onKeyPress={(event) => {
+                            if (event.key === "Enter") {
+                              handleSearchInProduct();
+                            }
+                          }}
                         />
                         <FontAwesomeIcon
                           icon={faXmark}
                           className="color-black cursor-pointer search-icon-products fs-18"
                           onClick={() => handleShowSearchFilter()}
+                        />
+                        <FontAwesomeIcon
+                          icon={faRightFromBracket}
+                          className="color-black cursor-pointer search-icon-products fs-18 mr-5"
+                          onClick={() => handleSearchInProduct()}
                         />
                       </div>
                     ) : (
@@ -675,13 +709,13 @@ export default function Realestate({
                           className="position-relative"
                           onClick={() => handleShowDetailModal(items?.id)}
                         >
-                          {items?.gallery?.length ? (
+                          {/* {items?.gallery?.length ? (
                             <span class="badge badge-primary product-images-badge">
                               + {items?.gallery?.length} Images
                             </span>
                           ) : (
                             ""
-                          )}
+                          )} */}
                           <img
                             src={
                               items?.image?.path
@@ -691,6 +725,29 @@ export default function Realestate({
                             alt="realestate_image"
                             className="realEstateImage w-100"
                           />
+                        </div>
+                        <div className="mt-3">
+                          {items?.youtube_link ? (
+                            <span class="VarColor font-weight-bold mr-1">
+                              1 Video
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          {items?.youtube_link && items?.gallery?.length ? (
+                            <span class="VarColor font-weight-bold mr-1">
+                              and
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          {items?.gallery?.length ? (
+                            <span class="VarColor font-weight-bold">
+                              + {items?.gallery?.length} Images
+                            </span>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                       <div className="col-lg-8 col-sm-12">
@@ -730,50 +787,25 @@ export default function Realestate({
                           className="d-flex flex-wrap mt-2"
                           style={{ gap: "10px", lineHeight: "0" }}
                         >
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123112440icons8-bedroom-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.bhk ? items?.bhk : "0"}
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113010icons8-bathroom-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.bathroom ? items?.bathroom : "0"} Bathroom
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-garage-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.looking_for?.name}
-                            </p>
-                          </div>
-                          <div className="d-flex align-items-baseline">
-                            <img
-                              src="https://prafullgupta.com/connectwork/assets/chat/groups/221123113243icons8-sofa-100.png"
-                              alt="image"
-                              width={15}
-                              height={15}
-                            />
-                            <p className="pl-2 color-black">
-                              {items?.furnish_type}
-                            </p>
-                          </div>
+                          {items?.amenities &&
+                            items?.amenities?.map((amenities, key) => {
+                              return (
+                                <div
+                                  className="d-flex align-items-baseline amenities-div"
+                                  key={key}
+                                >
+                                  <span
+                                    style={{ fontSize: "16px" }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: amenities.icon,
+                                    }}
+                                  ></span>
+                                  <p className="pl-2 color-black">
+                                    {amenities?.name}
+                                  </p>
+                                </div>
+                              );
+                            })}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"

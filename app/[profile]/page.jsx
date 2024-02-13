@@ -22,7 +22,7 @@ export async function generateMetadata({ params, searchParams }) {
   return {
     title,
     description,
-    //robots: 'noindex',
+    robots: 'noindex',
     openGraph: {
       title,
       description,
