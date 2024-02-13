@@ -404,7 +404,7 @@ export default function Realestate({
                                 }}
                               ></span>
                               <p className="pl-2 color-black">
-                                {amenities?.name}
+                                {amenities?.pivot?.description}
                               </p>
                             </div>
                           );
@@ -801,7 +801,7 @@ export default function Realestate({
                                     }}
                                   ></span>
                                   <p className="pl-2 color-black">
-                                    {amenities?.name}
+                                    {amenities?.pivot?.description}
                                   </p>
                                 </div>
                               );

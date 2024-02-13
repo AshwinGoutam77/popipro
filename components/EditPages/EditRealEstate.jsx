@@ -153,7 +153,6 @@ export default function EditRealEstate({
         description: item?.pivot?.description,
       }))
     );
-    console.log(inputList);
   };
 
   const handleSettings1 = () => {
@@ -598,7 +597,6 @@ export default function EditRealEstate({
         : setRealEstateData(() => data?.data?.next_page_data?.data);
     }
   };
-  const [isLoading, setIsLoading] = useState(false);
   const AmenitiesOption = [];
   Data?.amenities &&
     Data?.amenities.map((item) => {
@@ -608,11 +606,6 @@ export default function EditRealEstate({
         label: item.name,
       });
     });
-
-  const deme = [];
-  AmenitiesOption?.map((item) => {
-    deme.push(item?.amenities_id);
-  });
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -763,7 +756,7 @@ export default function EditRealEstate({
                                 }}
                               ></span>
                               <p className="pl-2 color-black">
-                                {amenities?.name}
+                                {amenities?.pivot?.description}
                               </p>
                             </div>
                           );
@@ -976,7 +969,7 @@ export default function EditRealEstate({
                       {Data?.property_type &&
                         Data?.property_type?.map((item, index) => {
                           return (
-                            <option key={index} value={item?.id}>
+                            <option value={item?.id} key={index}>
                               {item?.name}
                             </option>
                           );
@@ -1355,7 +1348,7 @@ export default function EditRealEstate({
             <div>
               {inputList?.map((x, i) => {
                 return (
-                  <div className="d-flex align-items-center row">
+                  <div className="d-flex align-items-center row" key={i}>
                     <div className="col-6">
                       <label className="modalFormLab  le mt-2">
                         Select Amenities*
@@ -1619,7 +1612,7 @@ export default function EditRealEstate({
                                     }}
                                   ></span>
                                   <p className="pl-2 color-black">
-                                    {amenities?.name}
+                                    {amenities?.pivot?.description}
                                   </p>
                                 </div>
                               );
