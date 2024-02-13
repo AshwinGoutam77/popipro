@@ -1600,7 +1600,7 @@ export default function EditRealEstate({
                         >
                           {items?.amenities &&
                             items?.amenities?.map((amenities, key) => {
-                              return (
+                              return key > 4 ? (
                                 <div
                                   className="d-flex align-items-baseline amenities-div"
                                   key={key}
@@ -1615,6 +1615,8 @@ export default function EditRealEstate({
                                     {amenities?.pivot?.description}
                                   </p>
                                 </div>
+                              ) : (
+                                ""
                               );
                             })}
                         </div>
