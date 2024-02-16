@@ -119,3 +119,7 @@ export const GetRealEstateLeads = {
   path: "get-realestate-enquiries",
   method: "GET",
 };
+export const DeleteAmenities = {
+  path: "delete-realestate-amenities",
+  method: "DELETE",
+};

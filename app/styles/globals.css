@@ -1486,6 +1486,15 @@ table tbody tr:last-child {
 .amenities-div svg {
   height: 23px;
   width: 23px;
+  fill: var(--color);
+}
+.amenities-delete-icon {
+  position: absolute;
+  right: 11px;
+  z-index: 9;
+  color: var(--color);
+  font-size: 18px;
+  cursor: pointer;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {

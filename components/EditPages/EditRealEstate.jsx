@@ -9,6 +9,7 @@ import {
   faLocationDot,
   faPencil,
   faPlus,
+  faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -26,6 +27,7 @@ import { toast } from "react-toastify";
 import Api from "@services/Api";
 import {
   CardData,
+  DeleteAmenities,
   LoadMoreApi,
   deleteFiles,
   deleteSection,
@@ -146,7 +148,6 @@ export default function EditRealEstate({
     setZipCode(items?.zipcode);
     setAddress(items?.address);
     setState(items?.state);
-    console.log(items?.amenities);
     setInputList(
       items?.amenities.map((item) => ({
         amenities_id: item?.pivot?.amenities_id,
@@ -615,6 +616,44 @@ export default function EditRealEstate({
   };
   const handleAddClick = () => {
     setInputList([...inputList, { amenities_id: "", description: "" }]);
+  };
+  const handleDeleteAmeities = async (realestate_id, amenitiesId, index) => {
+    if (amenitiesId) {
+      const res = await Api(
+        DeleteAmenities,
+        {},
+        "?realestate_id=" + realestate_id + "&amenity_id=" + amenitiesId
+      );
+      if (res.data.status) {
+        const list = [...inputList];
+        const remove = list.filter(
+          (_, indexFilter) => !(indexFilter === index)
+        );
+        setInputList(remove);
+        APIDATA();
+        setRealEstateData(Data?.card_realestates);
+        toast.success(res.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        const list = [...inputList];
+        const remove = list.filter(
+          (_, indexFilter) => !(indexFilter === index)
+        );
+        setInputList(remove);
+      }
+    } else {
+      const list = [...inputList];
+      const remove = list.filter((_, indexFilter) => !(indexFilter === index));
+      setInputList(remove);
+    }
   };
   return (
     <>
@@ -1348,7 +1387,17 @@ export default function EditRealEstate({
             <div>
               {inputList?.map((x, i) => {
                 return (
-                  <div className="d-flex align-items-center row" key={i}>
+                  <div
+                    className="d-flex align-items-center row position-realtive"
+                    key={i}
+                  >
+                    <FontAwesomeIcon
+                      icon={faXmarkCircle}
+                      className="amenities-delete-icon"
+                      onClick={() =>
+                        handleDeleteAmeities(ContentId, x.amenities_id, i)
+                      }
+                    />
                     <div className="col-6">
                       <label className="modalFormLab  le mt-2">
                         Select Amenities*
@@ -1361,6 +1410,7 @@ export default function EditRealEstate({
                         }}
                         defaultValue={x.amenities_id}
                       >
+                        <option value="">Select Amenities</option>
                         {AmenitiesOption?.map((item, o) => {
                           return (
                             <option value={item?.value} key={o}>
@@ -1600,7 +1650,7 @@ export default function EditRealEstate({
                         >
                           {items?.amenities &&
                             items?.amenities?.map((amenities, key) => {
-                              return key > 4 ? (
+                              return key < 4 ? (
                                 <div
                                   className="d-flex align-items-baseline amenities-div"
                                   key={key}
