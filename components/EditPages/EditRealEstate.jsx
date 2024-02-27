@@ -894,66 +894,7 @@ export default function EditRealEstate({
           </button>
         </Modal.Header>
         <Modal.Body className="position-relative">
-          {/* <div>
-            <ol className="steps line-space pl-0 ml-0 d-flex align-items-center">
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    GeneralSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  1
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Basic Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    CatSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  2
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Property Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    LocationSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  3
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Price Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500 mt-1">
-                <div
-                  className={
-                    Amenities
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  4
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Amenities
-                </p>
-              </li>
-            </ol>
-          </div> */}
+         
 
           {/* General div */}
           {GeneralSetting ? (
@@ -1344,7 +1285,7 @@ export default function EditRealEstate({
           )}
 
           {/* price div */}
-          {LocationSetting ? (
+          {LocationSetting ? (  
             <div className="mt-0">
               <div className="tab-progress-bar">
                 <ProgressBar now={75} />;
@@ -1444,7 +1385,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={100} />;
               </div>
-              <h6 className="mb-2 color-black pl-2">Amenities Details</h6>
+              <h6 className="mb-2 color-black pl-1">Amenities Details</h6>
               {inputList?.map((x, i) => {
                 return (
                   <div
