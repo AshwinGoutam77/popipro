@@ -49,6 +49,7 @@ export default function Realestate({
   const [ShowLoader, setShowLoader] = useState(false);
   const [LoadMore, setLoadMore] = useState("");
   const [ActiveFilter, setActiveFilter] = useState("");
+  const [ActiveLooking, setActiveLooking] = useState("");
   const [HighlightSort, setHighlightSort] = useState("");
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
@@ -241,8 +242,9 @@ export default function Realestate({
 
   const LoadMoreFunction = async () => {
     setActiveFilter([ProductCategory]);
+    setActiveLooking([LookingFor]);
     // setActiveFilter([...ActiveFilter, ProductCategory]);
-    // console.log(ActiveFilter);
+    console.log(ActiveFilter);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
@@ -750,14 +752,14 @@ export default function Realestate({
                     </button>
                   </div>
                 </SwiperSlide>
-                {/* {Data?.looking_for &&
+                {Data?.looking_for &&
                   Data?.looking_for?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
                           <button
                             className={
-                              ActiveFilter == items?.id
+                              ActiveLooking == items?.id
                                 ? "filter-btns bg-varcolor"
                                 : "filter-btns"
                             }
@@ -768,16 +770,17 @@ export default function Realestate({
                         </div>
                       </SwiperSlide>
                     );
-                  })} */}
+                  })}
                 {Data?.amenities &&
                   Data?.amenities?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
                           <button
-                          // idArray.filter(item => item !== id)
+                            // idArray.filter(item => item !== id)
                             className={
                               ActiveFilter == items?.id
+                              // ActiveFilter.includes(items?.id)
                                 ? "filter-btns bg-varcolor"
                                 : "filter-btns"
                             }
