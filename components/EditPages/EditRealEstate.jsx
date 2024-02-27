@@ -270,10 +270,31 @@ export default function EditRealEstate({
   };
 
   const handleSettings4 = () => {
-    setGeneralSetting(false);
-    setCatSetting(false);
-    setLocationSetting(false);
-    setAmenities(true);
+    let error = false;
+    let mess = "";
+    if (Price === "" && PriceRadio === "") {
+      error = true;
+      mess = Price === "" ? "Price is requried" : PriceRadio === "" ? "Price Text is required" : "";
+    }
+    if (error) {
+      setShowLoader(false);
+      toast.error(mess, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else {
+      setGeneralSetting(false);
+      setCatSetting(false);
+      setLocationSetting(false);
+      setAmenities(true);
+    }
   };
 
   const HandleEmptyFeilds = () => {
@@ -942,7 +963,7 @@ export default function EditRealEstate({
                   <ProgressBar now={25} />;
                 </div>
 
-                <h5 className="mb-2 color-black pl-2">Basic Details</h5>
+                <h6 className="mb-2 color-black pl-2">Basic Details</h6>
 
                 <label className="modalFormLable mt-2">
                   Featured Image* (*Recommended Size 347x160)
@@ -1138,7 +1159,7 @@ export default function EditRealEstate({
                 <ProgressBar now={50} />;
               </div>
 
-              <h5 className="mb-2 color-black pl-2">Property Details</h5>
+              <h6 className="mb-2 color-black pl-2">Property Details</h6>
 
               <label className="modalFormLable mt-2">Address*</label>
               <input
@@ -1322,13 +1343,13 @@ export default function EditRealEstate({
             ""
           )}
 
-          {/* Location div */}
+          {/* price div */}
           {LocationSetting ? (
             <div className="mt-0">
               <div className="tab-progress-bar">
                 <ProgressBar now={75} />;
               </div>
-              <h5 className="mb-3 color-black pl-2">Price Details</h5>
+              <h6 className="mb-3 color-black pl-1">Price Details</h6>
               <div className="d-flex align-items-center mb-3 mt-1 ml-2">
                 <div className="d-flex align-items-center">
                   <input
@@ -1423,7 +1444,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={100} />;
               </div>
-              <h5 className="mb-2 color-black pl-2">Amenities Details</h5>
+              <h6 className="mb-2 color-black pl-2">Amenities Details</h6>
               {inputList?.map((x, i) => {
                 return (
                   <div
