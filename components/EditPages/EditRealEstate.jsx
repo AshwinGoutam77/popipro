@@ -942,7 +942,7 @@ export default function EditRealEstate({
                   <ProgressBar now={25} />;
                 </div>
 
-                <h5 className="my-2 color-black pl-2">Basic Details</h5>
+                <h5 className="mb-2 color-black pl-2">Basic Details</h5>
 
                 <label className="modalFormLable mt-2">
                   Featured Image* (*Recommended Size 347x160)
@@ -1138,7 +1138,7 @@ export default function EditRealEstate({
                 <ProgressBar now={50} />;
               </div>
 
-              <h5 className="my-2 color-black pl-2">Property Details</h5>
+              <h5 className="mb-2 color-black pl-2">Property Details</h5>
 
               <label className="modalFormLable mt-2">Address*</label>
               <input
@@ -1328,7 +1328,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={75} />;
               </div>
-              <h5 className="my-3 color-black pl-2">Price Details</h5>
+              <h5 className="mb-3 color-black pl-2">Price Details</h5>
               <div className="d-flex align-items-center mb-3 mt-1 ml-2">
                 <div className="d-flex align-items-center">
                   <input
@@ -1423,7 +1423,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={100} />;
               </div>
-              <h5 className="my-2 color-black pl-2">Amenities Details</h5>
+              <h5 className="mb-2 color-black pl-2">Amenities Details</h5>
               {inputList?.map((x, i) => {
                 return (
                   <div
