@@ -35,7 +35,7 @@ import {
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import EditPlan from "./EditPlan";
 import ReactPlayer from "react-player";
-import CreatableSelect from "react-select/creatable";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 export default function EditRealEstate({
   MainData,
@@ -305,7 +305,7 @@ export default function EditRealEstate({
     setZipCode("");
     setCity("");
     setAddress("");
-    setState("")
+    setState("");
   };
 
   const handleShowAddModal = (id) => {
@@ -872,8 +872,8 @@ export default function EditRealEstate({
             <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
-        <Modal.Body>
-          <div>
+        <Modal.Body className="position-relative">
+          {/* <div>
             <ol className="steps line-space pl-0 ml-0 d-flex align-items-center">
               <li className="step before:bg-slate-200 dark:before:bg-navy-500">
                 <div
@@ -932,12 +932,18 @@ export default function EditRealEstate({
                 </p>
               </li>
             </ol>
-          </div>
+          </div> */}
 
           {/* General div */}
           {GeneralSetting ? (
             <>
               <div>
+                <div className="tab-progress-bar">
+                  <ProgressBar now={25} />;
+                </div>
+
+                <h5 className="my-2 color-black pl-2">Basic Details</h5>
+
                 <label className="modalFormLable mt-2">
                   Featured Image* (*Recommended Size 347x160)
                 </label>
@@ -1128,6 +1134,12 @@ export default function EditRealEstate({
           {/* property details */}
           {CatSetting ? (
             <div className="w-100">
+              <div className="tab-progress-bar">
+                <ProgressBar now={50} />;
+              </div>
+
+              <h5 className="my-2 color-black pl-2">Property Details</h5>
+
               <label className="modalFormLable mt-2">Address*</label>
               <input
                 type="text"
@@ -1312,7 +1324,11 @@ export default function EditRealEstate({
 
           {/* Location div */}
           {LocationSetting ? (
-            <div className="mt-4">
+            <div className="mt-0">
+              <div className="tab-progress-bar">
+                <ProgressBar now={75} />;
+              </div>
+              <h5 className="my-3 color-black pl-2">Price Details</h5>
               <div className="d-flex align-items-center mb-3 mt-1 ml-2">
                 <div className="d-flex align-items-center">
                   <input
@@ -1404,6 +1420,10 @@ export default function EditRealEstate({
           {/* amenities */}
           {Amenities ? (
             <div>
+              <div className="tab-progress-bar">
+                <ProgressBar now={100} />;
+              </div>
+              <h5 className="my-2 color-black pl-2">Amenities Details</h5>
               {inputList?.map((x, i) => {
                 return (
                   <div

@@ -1496,8 +1496,24 @@ table tbody tr:last-child {
   font-size: 18px;
   cursor: pointer;
 }
-.leads-custom-table p{
+.leads-custom-table p {
   word-break: break-all;
+}
+.tab-progress-bar {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  left: 0;
+}
+.tab-progress-bar .progress {
+  border-radius: 0;
+  background: transparent;
+}
+.tab-progress-bar .progress .progress-bar {
+  height: 5px;
+  border-radius: 0px !important;
+  background-color: var(--color) !important;
+  background-image: none !important;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {
