@@ -1496,6 +1496,9 @@ table tbody tr:last-child {
   font-size: 18px;
   cursor: pointer;
 }
+.leads-custom-table p{
+  word-break: break-all;
+}
 
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {

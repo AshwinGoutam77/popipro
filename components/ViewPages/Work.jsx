@@ -62,16 +62,18 @@ const Work = ({
     setSelectedImageIndex(null);
   };
 
-  const goToPreviousImage = () => {
+  const goToPreviousImage = (i) => {
     if (selectedImageIndex > 0) {
       setSelectedImageIndex(selectedImageIndex - 1);
     }
+    HitClick(i, "photo");
   };
 
-  const goToNextImage = () => {
+  const goToNextImage = (i) => {
     if (selectedImageIndex < Card_photos.length - 1) {
       setSelectedImageIndex(selectedImageIndex + 1);
     }
+    HitClick(i, "photo");
   };
 
   const HitClick = async (id, type) => {
@@ -168,14 +170,20 @@ const Work = ({
                     alt="images"
                   />
                   {selectedImageIndex > 0 && (
-                    <button className="prev-button" onClick={goToPreviousImage}>
+                    <button
+                      className="prev-button"
+                      onClick={() => goToPreviousImage(i)}
+                    >
                       <FontAwesomeIcon icon={faChevronLeft} /> Previous
                     </button>
                   )}
 
                   {/* Right (Next) button */}
                   {selectedImageIndex < Card_photos.length - 1 && (
-                    <button className="next-button" onClick={goToNextImage}>
+                    <button
+                      className="next-button"
+                      onClick={() => goToNextImage(i)}
+                    >
                       Next <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                   )}

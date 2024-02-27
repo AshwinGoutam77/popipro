@@ -450,42 +450,6 @@ export default function DashboardProducts({ TitleData }) {
                 </div>
 
                 <div className="box-shadow-leads">
-                  {/* <table className="insight-table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Views</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Data?.realestate_stats?.length === 0 ? (
-                        <tr>
-                          <td className="p-3 color-black">No data available</td>
-                        </tr>
-                      ) : (
-                        Data?.realestate_stats?.map((item, index) => {
-                          return (
-                            <tr key={index} className="cursor-pointer">
-                              <td data-column="Name">{item.name}</td>
-                              <td data-column="Email">{item.count}</td>
-                              <td
-                                className=""
-                                onClick={() => {
-                                  handleShowModal(item?.name);
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faEye}
-                                  className="text-dark"
-                                />
-                              </td>
-                            </tr>
-                          );
-                        })
-                      )}
-                    </tbody>
-                  </table> */}
                   <Table>
                     <Thead>
                       <Tr>
@@ -527,14 +491,14 @@ export default function DashboardProducts({ TitleData }) {
                     </Tbody>
                   </Table>
                 </div>
-                <div
-                  className="w-100 text-center text-white p-2 mt-3"
-                  style={{ bottom: "0", background: "black" }}
-                >
-                  <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
-                </div>
               </div>
             </div>
+          </div>
+          <div
+            className="w-100 text-center text-white p-2 mt-3"
+            style={{background: "black" }}
+          >
+            <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
           </div>
         </>
       ) : (

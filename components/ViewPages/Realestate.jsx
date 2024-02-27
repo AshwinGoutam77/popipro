@@ -54,6 +54,7 @@ export default function Realestate({
   const [ProductSearching, setProductSearching] = useState("");
   const [Page, setPage] = useState(1);
   const [EstateData, setEstateData] = useState("");
+  const [LookingFor, setLookingFor] = useState("");
 
   useEffect(() => {
     setEstateData(Data?.card_realestates);
@@ -75,7 +76,7 @@ export default function Realestate({
         setEstateData(() => data?.data?.next_page_data?.data);
         setPage(1);
         setLoadMore(data?.data?.next_page_data?.next_page_url);
-        data?.data?.categories?.map((item) => {
+        data?.data?.amenities?.map((item) => {
           setActiveFilter(item?.name);
         });
       }
@@ -238,19 +239,19 @@ export default function Realestate({
   }, [ProductCategory, HighlightSort]);
 
   const LoadMoreFunction = async () => {
+    setActiveFilter([ProductCategory]);
+    // setActiveFilter([LookingFor]);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
             Page && Page
-          }${
-            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
           }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
             ProductSearching ? "&realestate_search=" + ProductSearching : ""
+          }${ProductCategory ? "&amenities[]=" + ProductCategory : ""}${
+            LookingFor ? "&looking_for[]=" + LookingFor : ""
           }`
         : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
             Page && Page
-          }${
-            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
           }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
             ProductSearching ? "&realestate_search=" + ProductSearching : ""
           }`,
@@ -262,9 +263,6 @@ export default function Realestate({
     const data = await response.json();
     if (response.ok) {
       setLoadMore(data?.data?.next_page_data?.next_page_url);
-      data?.data?.categories?.map((item) => {
-        setActiveFilter(item?.name);
-      });
       setHighlightSort(data?.data?.request.sortBy);
       Page > 1
         ? ProductCategory
@@ -275,6 +273,11 @@ export default function Realestate({
             ])
         : setEstateData(() => data?.data?.next_page_data?.data);
     }
+  };
+
+  const handleShowModalEnquiry = () => {
+    setShowInquiry(true);
+    setShow(false);
   };
 
   return (
@@ -414,29 +417,51 @@ export default function Realestate({
                       className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
                       style={{ gap: "5px" }}
                     >
-                      <button className="contact-btn w-auto m-0">
-                        <FontAwesomeIcon
-                          icon={faLocationDot}
-                          className="mr-1"
-                        />{" "}
-                        Open Map
-                      </button>{" "}
+                      {items?.google_address_link && (
+                        <a
+                          href={
+                            items?.google_address_link?.includes("https://") ||
+                            items?.google_address_link?.includes("http://")
+                              ? "https://" + items?.google_address_link
+                              : items?.google_address_link
+                          }
+                          target="_blank"
+                        >
+                          <button className="contact-btn w-auto m-0">
+                            <FontAwesomeIcon
+                              icon={faLocationDot}
+                              className="mr-1"
+                            />{" "}
+                            Open Map
+                          </button>{" "}
+                        </a>
+                      )}
                       <button
                         className="contact-btn w-auto m-0"
-                        onClick={() => setShowInquiry(true)}
+                        onClick={() => handleShowModalEnquiry()}
                       >
                         <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
                         Enquiry
                       </button>
-                      <button className="contact-btn w-auto m-0 d-flex align-items-center">
-                        <img
-                          src="../static/img/whatsapp.png"
-                          alt="whatsaap"
-                          className="Whatsaapsvg m-0"
-                          width={20}
-                        />{" "}
-                        Whatsaap Enquiry
-                      </button>
+                      <a
+                        href={
+                          "https://api.whatsapp.com/send?phone=" +
+                          "9874563210" +
+                          "&" +
+                          `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                        }
+                        target="_blank"
+                      >
+                        <button className="contact-btn w-auto m-0 d-flex align-items-center">
+                          <img
+                            src="../static/img/whatsapp.png"
+                            alt="whatsaap"
+                            className="Whatsaapsvg m-0"
+                            width={20}
+                          />{" "}
+                          Whatsaap Enquiry
+                        </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -452,7 +477,7 @@ export default function Realestate({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Enquire
+              Enquiry
             </h5>
           </Modal.Title>
           <button
@@ -692,6 +717,75 @@ export default function Realestate({
                   </div>
                 </div>
               )}
+              <SwiperComponent
+                breakpoints={{
+                  1110: {
+                    slidesPerView: 10,
+                  },
+                  300: {
+                    slidesPerView: 3,
+                  },
+                }}
+                spaceBetween={10}
+                className="mySwiper cursor-pointer"
+                navigation={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation]}
+              >
+                <SwiperSlide className="w-auto">
+                  <div className="swiper-slide review-items position-relative">
+                    <button
+                      className={
+                        ActiveFilter == ""
+                          ? "filter-btns bg-varcolor"
+                          : "filter-btns"
+                      }
+                      onClick={() => handleResetFilter()}
+                    >
+                      All
+                    </button>
+                  </div>
+                </SwiperSlide>
+                {/* {Data?.looking_for &&
+                  Data?.looking_for?.map((items, index) => {
+                    return (
+                      <SwiperSlide className="w-auto" key={index}>
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              ActiveFilter == items?.id
+                                ? "filter-btns bg-varcolor"
+                                : "filter-btns"
+                            }
+                            onClick={() => setLookingFor(items?.id)}
+                          >
+                            {items?.name}
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })} */}
+                {Data?.amenities &&
+                  Data?.amenities?.map((items, index) => {
+                    return (
+                      <SwiperSlide className="w-auto" key={index}>
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              ActiveFilter == items?.id
+                                ? "filter-btns bg-varcolor"
+                                : "filter-btns"
+                            }
+                            onClick={() => setProductCategory(items?.id)}
+                          >
+                            {items?.name}
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+              </SwiperComponent>
               {EstateData?.length !== 0 ? (
                 EstateData &&
                 EstateData?.map((items, index, { length }) => {
@@ -709,13 +803,6 @@ export default function Realestate({
                           className="position-relative"
                           onClick={() => handleShowDetailModal(items?.id)}
                         >
-                          {/* {items?.gallery?.length ? (
-                            <span class="badge badge-primary product-images-badge">
-                              + {items?.gallery?.length} Images
-                            </span>
-                          ) : (
-                            ""
-                          )} */}
                           <img
                             src={
                               items?.image?.path
@@ -762,10 +849,11 @@ export default function Realestate({
                             </span>
                           </h6>
                           <p
-                            className="color-black cursor-pointer"
+                            className="color-black cursor-pointer mt-2"
                             onClick={() => handleShowDetailModal(items?.id)}
                           >
-                            {items?.street_address}
+                            {items?.street_address}, {items?.city},{" "}
+                            {items?.state}, {items?.country}
                           </p>
                         </div>
                         <div
@@ -784,12 +872,12 @@ export default function Realestate({
                           )}
                         </div>
                         <div
-                          className="d-flex flex-wrap mt-2"
+                          className="d-flex align-items-center flex-wrap mt-2"
                           style={{ gap: "10px", lineHeight: "0" }}
                         >
                           {items?.amenities &&
                             items?.amenities?.map((amenities, key) => {
-                              return (
+                              return key < 4 ? (
                                 <div
                                   className="d-flex align-items-baseline amenities-div"
                                   key={key}
@@ -804,6 +892,8 @@ export default function Realestate({
                                     {amenities?.pivot?.description}
                                   </p>
                                 </div>
+                              ) : (
+                                ""
                               );
                             })}
                         </div>

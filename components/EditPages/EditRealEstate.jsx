@@ -87,7 +87,6 @@ export default function EditRealEstate({
   const [ZipCode, setZipCode] = useState("");
   const [State, setState] = useState("");
   const [Amenities, setAmenities] = useState(false);
-  const [AmenitiesId, setAmenitiesId] = useState("");
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
@@ -146,7 +145,7 @@ export default function EditRealEstate({
     setCity(items?.city);
     setCountry(items?.country);
     setZipCode(items?.zipcode);
-    setAddress(items?.address);
+    setAddress(items?.street_address);
     setState(items?.state);
     setInputList(
       items?.amenities.map((item) => ({
@@ -162,15 +161,18 @@ export default function EditRealEstate({
     setLocationSetting(false);
     setAmenities(false);
   };
+
   const handleSettings2 = () => {
     let error = false;
     let mess = "";
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
     if (
       Title == "" ||
       PropertyType == "" ||
       LookingTo == "" ||
       Description == "" ||
-      GalleryImages?.length > 3
+      GalleryImages?.length > 3 ||
+      (YouTubeLink && urlPattern.test(YouTubeLink) == false)
     ) {
       error = true;
       mess =
@@ -184,6 +186,8 @@ export default function EditRealEstate({
           ? "Description is requried"
           : GalleryImages?.length > 3
           ? "Gallery images can't be more than 3"
+          : urlPattern.test(YouTubeLink) == false
+          ? "Enter a valid youtube url"
           : "";
     }
     if (error) {
@@ -207,14 +211,16 @@ export default function EditRealEstate({
       setAmenities(false);
     }
   };
+
   const handleSettings3 = () => {
     let error = false;
     let mess = "";
     if (
       Address == "" ||
       City == "" ||
-      ZipCode == "" ||
       State == "" ||
+      Country == "" ||
+      ZipCode == "" ||
       BhkValue == "" ||
       BathroomValue == "" ||
       BuiltUpArea == "" ||
@@ -224,6 +230,14 @@ export default function EditRealEstate({
       mess =
         Address === ""
           ? "Address field is required"
+          : City === ""
+          ? "City field is requried"
+          : Country === ""
+          ? "Country field is requried"
+          : State === ""
+          ? "State field is requried"
+          : ZipCode === ""
+          ? "Zip code is requried"
           : BhkValue === ""
           ? "BHK  is requried"
           : BathroomValue === ""
@@ -232,12 +246,6 @@ export default function EditRealEstate({
           ? "Build up area is requried"
           : FurnishType === ""
           ? "Furnish type is requried"
-          : City
-          ? "City field is requried"
-          : ZipCode
-          ? "Zip code is requried"
-          : State
-          ? "State field is requried"
           : "";
     }
     if (error) {
@@ -260,6 +268,7 @@ export default function EditRealEstate({
       setAmenities(false);
     }
   };
+
   const handleSettings4 = () => {
     setGeneralSetting(false);
     setCatSetting(false);
@@ -296,12 +305,15 @@ export default function EditRealEstate({
     setZipCode("");
     setCity("");
     setAddress("");
+    setState("")
   };
+
   const handleShowAddModal = (id) => {
     setModalHeading("Add " + TitleData?.card_realestates?.visible_name);
     setContentId(id?.id ? id?.id : null);
     setShowModal(true);
   };
+
   const handleSaveDetails = async () => {
     setShowLoader(true);
     let data = [];
@@ -327,7 +339,7 @@ export default function EditRealEstate({
             gallery: GalleryImages ? [...GalleryImages] : "",
             youtube_link: YouTubeLink,
             city: City,
-            address: Address,
+            street_address: Address,
             zipcode: ZipCode,
             state: State,
             country: Country,
@@ -433,6 +445,7 @@ export default function EditRealEstate({
       }
     });
   };
+
   const handleDeleteGalleryImages = async (path, type, DataId) => {
     let data = {
       type: type,
@@ -564,12 +577,15 @@ export default function EditRealEstate({
       });
     }
   };
+
   const incrementCount = () => {
     setPage((prevCount) => prevCount + 1);
   };
+
   useEffect(() => {
     LoadMoreFunction();
   }, [Page]);
+
   const LoadMoreFunction = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
@@ -598,6 +614,7 @@ export default function EditRealEstate({
         : setRealEstateData(() => data?.data?.next_page_data?.data);
     }
   };
+
   const AmenitiesOption = [];
   Data?.amenities &&
     Data?.amenities.map((item) => {
@@ -614,9 +631,11 @@ export default function EditRealEstate({
     list[index][name] = value;
     setInputList(list);
   };
+
   const handleAddClick = () => {
     setInputList([...inputList, { amenities_id: "", description: "" }]);
   };
+
   const handleDeleteAmeities = async (realestate_id, amenitiesId, index) => {
     if (amenitiesId) {
       const res = await Api(
@@ -926,7 +945,7 @@ export default function EditRealEstate({
                   type="file"
                   name="image"
                   className="form-control mb-4 p-1"
-                  accept="image/png, image/gif, image/jpeg"
+                  accept="image/png, image/jpeg"
                   style={{ border: "1px solid #ccc" }}
                   // ref={aRef}
                   onChange={(e) => setImage(e.target.files[0])}
@@ -938,7 +957,7 @@ export default function EditRealEstate({
                   type="file"
                   name="image"
                   className="form-control mb-4 p-1"
-                  accept="image/png, image/gif, image/jpeg"
+                  accept="image/png, image/jpeg"
                   style={{ border: "1px solid #ccc" }}
                   multiple
                   onChange={(e) => setGalleryImages(e.target.files)}
@@ -1346,7 +1365,7 @@ export default function EditRealEstate({
                       value={Price}
                       placeholder="Price"
                       onChange={(e) => setPrice(e.target.value)}
-                      maxlength="10"
+                      maxLength="10"
                     ></input>
                   </div>
                 </div>
@@ -1362,7 +1381,7 @@ export default function EditRealEstate({
                     value={PriceText}
                     placeholder="Text"
                     onChange={(e) => setPriceText(e.target.value)}
-                    maxlength="12"
+                    maxLength="12"
                   ></input>
                 </div>
               )}
@@ -1466,6 +1485,7 @@ export default function EditRealEstate({
           )}
         </Modal.Body>
       </Modal>
+
       <div className="position-relative">
         {Data ? (
           <EditPlan
@@ -1623,14 +1643,15 @@ export default function EditRealEstate({
                             </span>
                           </h6>
                           <p
-                            className="color-black cursor-pointer"
+                            className="color-black cursor-pointer mt-2"
                             onClick={() => setshow(true)}
                           >
-                            {items?.street_address}
+                            {items?.street_address}, {items?.city},{" "}
+                            {items?.state}, {items?.country}
                           </p>
                         </div>
                         <div
-                          className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
+                          className="mt-2 d-flex flex-wrap align-items-center justify-content-between"
                           style={{ gap: "10px" }}
                         >
                           {items.is_label !== 0 ? (
