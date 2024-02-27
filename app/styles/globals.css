@@ -1280,7 +1280,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   padding: 7px 10px !important;
   appearance: auto !important;
   border: 0px !important;
-  background-color: var(--themecolor) !important;
+  background-color: #f7f9fa !important;
 }
 .hits-details-modal {
   margin: 0px !important;
@@ -1488,9 +1488,10 @@ table tbody tr:last-child {
   width: 23px;
   fill: var(--color);
 }
+
 .amenities-delete-icon {
   position: absolute;
-  right: 11px;
+  right: 25px;
   z-index: 9;
   color: var(--color);
   font-size: 18px;

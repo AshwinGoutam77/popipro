@@ -97,6 +97,7 @@ export default function Realestate({
     setProductSearching("");
     setPage(1);
     setActiveFilter("");
+    setLookingFor("");
     setSearch(false);
   };
 
@@ -236,11 +237,12 @@ export default function Realestate({
   useEffect(() => {
     setPage(1);
     LoadMoreFunction();
-  }, [ProductCategory, HighlightSort]);
+  }, [ProductCategory, HighlightSort, LookingFor]);
 
   const LoadMoreFunction = async () => {
     setActiveFilter([ProductCategory]);
-    // setActiveFilter([LookingFor]);
+    // setActiveFilter([...ActiveFilter, ProductCategory]);
+    // console.log(ActiveFilter);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
@@ -555,6 +557,7 @@ export default function Realestate({
           </div>
         </Modal.Body>
       </Modal>
+
       {Titles &&
       Titles?.card_realestates?.is_active &&
       PlanData?.is_expired == false &&
@@ -772,6 +775,7 @@ export default function Realestate({
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
                           <button
+                          // idArray.filter(item => item !== id)
                             className={
                               ActiveFilter == items?.id
                                 ? "filter-btns bg-varcolor"
@@ -846,6 +850,9 @@ export default function Realestate({
                             {items?.heading}
                             <span className="real-estate-badge">
                               {items?.property_type?.name}
+                            </span>
+                            <span className="real-estate-badge">
+                              {items?.looking_for?.name}
                             </span>
                           </h6>
                           <p

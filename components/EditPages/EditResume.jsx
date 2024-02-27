@@ -426,10 +426,9 @@ export default function EditResume({
                 name="designation"
                 rows="4"
                 cols="50"
-                className="form-control mb-4 mt-1 border border-#ccc"
+                className="form-control mb-4 mt-1"
                 placeholder="Title"
                 value={ExpDesignation}
-                style={{ height: "40px" }}
                 onChange={(evnt) => setExpDesignation(evnt.target.value)}
               ></input>
               <label className="modalFormLable">Steps</label>
@@ -437,10 +436,9 @@ export default function EditResume({
                 name="years"
                 rows="4"
                 cols="50"
-                className="form-control mb-4 mt-1 border border-#ccc"
+                className="form-control mb-4 mt-1 "
                 placeholder="Steps"
                 value={ExpYears}
-                style={{ height: "40px" }}
                 onChange={(evnt) => setExpYears(evnt.target.value)}
               ></input>
               <div className="d-flex align-items-center justify-content-between">
@@ -552,10 +550,9 @@ export default function EditResume({
                     name="designation"
                     rows="4"
                     cols="50"
-                    className="form-control mb-4 mt-1 border border-#ccc"
+                    className="form-control mb-4 mt-1 "
                     placeholder="Title"
                     defaultValue={item.designation}
-                    style={{ height: "40px" }}
                     onChange={(evnt) => setExpDesignation(evnt.target.value)}
                   ></input>
                   <label className="modalFormLable">Steps</label>
@@ -563,10 +560,9 @@ export default function EditResume({
                     name="years"
                     rows="4"
                     cols="50"
-                    className="form-control mb-4 mt-1 border border-#ccc"
+                    className="form-control mb-4 mt-1 "
                     placeholder="Steps"
                     defaultValue={item.years}
-                    style={{ height: "40px" }}
                     onChange={(evnt) => setExpYears(evnt.target.value)}
                   ></input>
                   <div className="d-flex align-items-center justify-content-between">

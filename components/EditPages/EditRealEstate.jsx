@@ -181,7 +181,7 @@ export default function EditRealEstate({
           : PropertyType === ""
           ? "Property type is requried"
           : LookingTo === ""
-          ? "Looking too is requried"
+          ? "Looking to is requried"
           : Description === ""
           ? "Description is requried"
           : GalleryImages?.length > 3
@@ -894,7 +894,66 @@ export default function EditRealEstate({
           </button>
         </Modal.Header>
         <Modal.Body className="position-relative">
-         
+          {/* <div>
+            <ol className="steps line-space pl-0 ml-0 d-flex align-items-center">
+              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
+                <div
+                  className={
+                    GeneralSetting || ActiveSteps
+                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
+                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
+                  }
+                >
+                  1
+                </div>
+                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
+                  Basic Details
+                </p>
+              </li>
+              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
+                <div
+                  className={
+                    CatSetting || ActiveSteps
+                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
+                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
+                  }
+                >
+                  2
+                </div>
+                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
+                  Property Details
+                </p>
+              </li>
+              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
+                <div
+                  className={
+                    LocationSetting || ActiveSteps
+                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
+                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
+                  }
+                >
+                  3
+                </div>
+                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
+                  Price Details
+                </p>
+              </li>
+              <li className="step before:bg-slate-200 dark:before:bg-navy-500 mt-1">
+                <div
+                  className={
+                    Amenities
+                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
+                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
+                  }
+                >
+                  4
+                </div>
+                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
+                  Amenities
+                </p>
+              </li>
+            </ol>
+          </div> */}
 
           {/* General div */}
           {GeneralSetting ? (
