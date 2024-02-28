@@ -325,8 +325,11 @@ export default function Dashboard() {
                   </button>
                 ) : (
                   <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
-                    Your subscription valid till{" "}
-                    {MainData?.plan?.subscription_left_days} days.
+                    {MainData?.plan?.subscription_left_days !== 0
+                      ? "Your subscription valid till " +
+                        MainData?.plan?.subscription_left_days +
+                        " days."
+                      : "Upgrade to premium."}
                   </button>
                 )
               ) : (

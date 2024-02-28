@@ -349,7 +349,7 @@ export default function DashboardProducts({ TitleData }) {
                 style={{ minHeight: "calc(100vh - 58px)" }}
               >
                 <div className="mx-3 pt-4">
-                  <div className="row w-100 m-0 p-0 mb-4 align-items-end filter-section-row bg-white">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
                     <div className="col-6 col-lg-2 p-0 px-2">
                       <label className="ml-1">From</label>
                       <DatePicker
@@ -526,13 +526,14 @@ export default function DashboardProducts({ TitleData }) {
                     </Tbody>
                   </Table>
                 </div>
-                <div
+                
+              </div>
+              <div
                   className="w-100 text-center text-white p-2 mt-3"
-                  style={{ bottom: "0", background: "black" }}
+                  style={{ background: "black" }}
                 >
                   <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
                 </div>
-              </div>
             </div>
           </div>
         </>

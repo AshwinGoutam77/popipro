@@ -105,12 +105,14 @@ export default function EditRealEstate({
     setshow(false);
     setShowModal(false);
   };
+
   const handleRadioBTN = (e) => {
     setLabelRadio(false);
     if (PriceRadio == false) {
       setPriceRadio(true);
     }
   };
+
   const handleLabelRadio = () => {
     setEditRadioBtn(1);
     setPriceRadio(false);
@@ -118,6 +120,7 @@ export default function EditRealEstate({
       setLabelRadio(true);
     }
   };
+
   const handleShowDetailModal = (id) => {
     setContentId(id);
     setshow(true);
@@ -1213,11 +1216,14 @@ export default function EditRealEstate({
                     className="mt-1"
                   >
                     <option value="">Select Bathroom</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5 or 5+">5 or 5+</option>
+                    {Data?.bathroom_dropdown &&
+                      Data?.bathroom_dropdown?.map((item, index) => {
+                        return (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
                   </select>
                 </div>
               </div>
