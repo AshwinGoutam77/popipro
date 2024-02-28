@@ -318,7 +318,6 @@ export default function EditAlternateNo({
               className="form-control mb-4 mt-1"
               value={NumberLabel}
               placeholder="Enter label for Alternate number"
-               
               onChange={(e) => setNumberLabel(e.target.value)}
             ></input>
           </div>
@@ -333,7 +332,6 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1 w-50"
                 value={CountryCode}
                 placeholder="+91"
-                 
                 onChange={(e) => setCountryCode(e.target.value)}
               ></input>
               <input
@@ -344,7 +342,6 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1"
                 value={MobileNumber}
                 placeholder="xxxxxxxxxx"
-                 
                 onChange={(e) => setMobileNumber(e.target.value)}
               ></input>
               <input
@@ -355,16 +352,12 @@ export default function EditAlternateNo({
                 className="form-control mb-4 mt-1 w-50"
                 value={Extension}
                 placeholder="xxxx"
-                 
                 onChange={(e) => setExtension(e.target.value)}
               ></input>
             </div>
           </div>
 
-          <div
-            className="d-flex align-items-center"
-            style={{ gap: "10px" }}
-          >
+          <div className="d-flex align-items-center" style={{ gap: "10px" }}>
             <button className="send-btnn" onClick={() => handleSaveDetails()}>
               Save
             </button>
@@ -488,212 +481,217 @@ export default function EditAlternateNo({
         </Modal.Body>
       </Modal>
 
-      <div className="position-relative">
-        {Data ? (
-          <EditPlan
-            Data={Data}
-            PlanData={PlanData}
-            APIDATA={APIDATA}
-            MainData={MainData}
-          />
-        ) : (
-          ""
-        )}
-        <div className="mb-3 box-content boxxx sm-mt-0" id="about_us">
-          <div className="flex-header">
-            <div className="d-flex align-items-baseline">
-              {EditFields ? (
-                <input
-                  type="text"
-                  name="AboutMe"
-                  className="title-section-input mb-3"
-                  placeholder="Custom Numbers"
-                  onChange={(e) => setAlterNumber(e.target.value)}
-                  defaultValue={AlterNumber || ""}
-                />
-              ) : (
-                <>
-                  <h1 className="title title--h1 first-title title__separate">
-                    {AlterNumber}
-                  </h1>
-                </>
-              )}
-            </div>
-
-            <div>
-              {TitleData?.card_alternate_phone?.source == "2" &&
-              PlanData?.is_expired == false &&
-              PlanData?.subscription?.plan_id !== 1 ? (
-                <div className="d-flex align-items-center">
-                  <div class="wrapper">
-                    <div class="tooltip">
-                      You can utilize this section to add any contact number,
-                      skype number, whatsaap number.
-                    </div>
-                    <FontAwesomeIcon
-                      icon={faInfo}
-                      className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                    />
-                  </div>
-                  <div className="edit-pencile-div">
-                    {EditFields ? (
-                      <FontAwesomeIcon
-                        icon={faFloppyDisk}
-                        className="ml-3 pe-auto floopySave-icon"
-                        onClick={() => handleChnageTitle()}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faPencil}
-                        className="ml-3 pe-auto Iconcolor-black"
-                        onClick={() => setEditFields(true)}
-                      />
-                    )}
-                  </div>
-                  <>
-                    {MainData?.company_setting?.maximum_alternate_phone <=
-                    Data?.card_alternate_phone?.length ? (
-                      <button
-                        className="addmore"
-                        data-toggle="modal"
-                        data-target="#AlternateNumberModal"
-                        onClick={handleUpgradePlan}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    ) : (
-                      <button className="addmore" onClick={handleShow}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    )}
-                    <>
-                      <label className="switch">
-                        <input
-                          data-status={
-                            TitleData.card_alternate_phone?.is_active
-                          }
-                          data-active={Active}
-                          checked={Active}
-                          type="checkbox"
-                          onChange={() => handleActive()}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </>
-                  </>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          {Data?.card_alternate_phone?.length == 0 ? (
-            <p>
-              Alternate Numbers are empty, to add numbers click on the add icon.
-            </p>
+      {TitleData?.card_alternate_phone?.source !== 0 ? (
+        <div className="position-relative">
+          {Data ? (
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
-          {Data?.card_alternate_phone?.map((item, index) => {
-            return (
-              <div className="alternate-number-div" key={index}>
+          <div className="mb-3 box-content boxxx sm-mt-0" id="about_us">
+            <div className="flex-header">
+              <div className="d-flex align-items-baseline">
+                {EditFields ? (
+                  <input
+                    type="text"
+                    name="AboutMe"
+                    className="title-section-input mb-3"
+                    placeholder="Custom Numbers"
+                    onChange={(e) => setAlterNumber(e.target.value)}
+                    defaultValue={AlterNumber || ""}
+                  />
+                ) : (
+                  <>
+                    <h1 className="title title--h1 first-title title__separate">
+                      {AlterNumber}
+                    </h1>
+                  </>
+                )}
+              </div>
+
+              <div>
                 {TitleData?.card_alternate_phone?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <FontAwesomeIcon
-                    icon={faXmarkCircle}
-                    className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
-                    style={{
-                      top: "0",
-                      right: "0",
-                      cursor: "pointer",
-                      color: "var(--color)",
-                      fontSize: "20px",
-                      zIndex: "1",
-                      background: "white",
-                    }}
-                    onClick={() => handleDeleteNumber(item.id, 9, Data?.id)}
-                  />
+                  <div className="d-flex align-items-center">
+                    <div class="wrapper">
+                      <div class="tooltip">
+                        You can utilize this section to add any contact number,
+                        skype number, whatsaap number.
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faInfo}
+                        className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                      />
+                    </div>
+                    <div className="edit-pencile-div">
+                      {EditFields ? (
+                        <FontAwesomeIcon
+                          icon={faFloppyDisk}
+                          className="ml-3 pe-auto floopySave-icon"
+                          onClick={() => handleChnageTitle()}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faPencil}
+                          className="ml-3 pe-auto Iconcolor-black"
+                          onClick={() => setEditFields(true)}
+                        />
+                      )}
+                    </div>
+                    <>
+                      {MainData?.company_setting?.maximum_alternate_phone <=
+                      Data?.card_alternate_phone?.length ? (
+                        <button
+                          className="addmore"
+                          data-toggle="modal"
+                          data-target="#AlternateNumberModal"
+                          onClick={handleUpgradePlan}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      ) : (
+                        <button className="addmore" onClick={handleShow}>
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      )}
+                      <>
+                        <label className="switch">
+                          <input
+                            data-status={
+                              TitleData.card_alternate_phone?.is_active
+                            }
+                            data-active={Active}
+                            checked={Active}
+                            type="checkbox"
+                            onChange={() => handleActive()}
+                          />
+                          <span className="slider round"></span>
+                        </label>
+                      </>
+                    </>
+                  </div>
                 ) : (
                   ""
                 )}
-                <div
-                  className="d-flex align-items-baseline justify-content-between mt-1 mb-1"
-                  key={index}
-                >
-                  <a href={"tel:" + item.number}>
-                    <div className="d-flex align-items-center flex-wrap">
-                      <FontAwesomeIcon
-                        icon={faPhone}
-                        className="pe-auto Iconcolor-black"
-                        style={{ fontSize: "15px" }}
-                      />
-                      <p
-                        className="ml-2 font-weight-bold"
-                        style={{ color: "black" }}
-                      >
-                        {item.title} :
-                      </p>
-                      <a
-                        // href={
-                        //   "tel:" +
-                        //   item.country_code +
-                        //   "-" +
-                        //   item?.number +
-                        //   "-" +
-                        //   item?.extension
-                        // }
-                        href={`tel: ${
-                          item.country_code
-                            ? item.country_code + "-"
-                            : item.country_code
-                        } ${item?.number} ${
-                          item?.extension ? "- " + item?.extension : ""
-                        }`}
-                        className="ml-1"
-                        style={{ color: "black" }}
-                      >
-                        {item?.country_code}
-                        {item?.country_code ? "-" : ""}
-                        {item?.number}
-                        {item?.extension ? "-" : ""}
-                        {item?.extension}
-                      </a>
-                    </div>
-                  </a>
-                  {TitleData?.card_services?.source == "2" &&
+              </div>
+            </div>
+            {Data?.card_alternate_phone?.length == 0 ? (
+              <p>
+                Alternate Numbers are empty, to add numbers click on the add
+                icon.
+              </p>
+            ) : (
+              ""
+            )}
+            {Data?.card_alternate_phone?.map((item, index) => {
+              return (
+                <div className="alternate-number-div" key={index}>
+                  {TitleData?.card_alternate_phone?.source == "2" &&
                   PlanData?.is_expired == false &&
-                  PlanData?.current_plan?.plan_name !== "basic" ? (
+                  PlanData?.subscription?.plan_id !== 1 ? (
                     <FontAwesomeIcon
-                      data-toggle="modal"
-                      data-target="#AlternateNumberModalEdit"
-                      icon={faPencil}
-                      className="pe-auto cursor-pointer"
+                      icon={faXmarkCircle}
+                      className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
                       style={{
-                        fontSize: "15px",
+                        top: "0",
+                        right: "0",
+                        cursor: "pointer",
                         color: "var(--color)",
-                        marginRight: "35px",
+                        fontSize: "20px",
+                        zIndex: "1",
+                        background: "white",
                       }}
-                      onClick={() =>
-                        handleSetId(
-                          item.id,
-                          item.title,
-                          item.number,
-                          item?.country_code,
-                          item?.extension
-                        )
-                      }
+                      onClick={() => handleDeleteNumber(item.id, 9, Data?.id)}
                     />
                   ) : (
                     ""
                   )}
+                  <div
+                    className="d-flex align-items-baseline justify-content-between mt-1 mb-1"
+                    key={index}
+                  >
+                    <a href={"tel:" + item.number}>
+                      <div className="d-flex align-items-center flex-wrap">
+                        <FontAwesomeIcon
+                          icon={faPhone}
+                          className="pe-auto Iconcolor-black"
+                          style={{ fontSize: "15px" }}
+                        />
+                        <p
+                          className="ml-2 font-weight-bold"
+                          style={{ color: "black" }}
+                        >
+                          {item.title} :
+                        </p>
+                        <a
+                          // href={
+                          //   "tel:" +
+                          //   item.country_code +
+                          //   "-" +
+                          //   item?.number +
+                          //   "-" +
+                          //   item?.extension
+                          // }
+                          href={`tel: ${
+                            item.country_code
+                              ? item.country_code + "-"
+                              : item.country_code
+                          } ${item?.number} ${
+                            item?.extension ? "- " + item?.extension : ""
+                          }`}
+                          className="ml-1"
+                          style={{ color: "black" }}
+                        >
+                          {item?.country_code}
+                          {item?.country_code ? "-" : ""}
+                          {item?.number}
+                          {item?.extension ? "-" : ""}
+                          {item?.extension}
+                        </a>
+                      </div>
+                    </a>
+                    {TitleData?.card_services?.source == "2" &&
+                    PlanData?.is_expired == false &&
+                    PlanData?.current_plan?.plan_name !== "basic" ? (
+                      <FontAwesomeIcon
+                        data-toggle="modal"
+                        data-target="#AlternateNumberModalEdit"
+                        icon={faPencil}
+                        className="pe-auto cursor-pointer"
+                        style={{
+                          fontSize: "15px",
+                          color: "var(--color)",
+                          marginRight: "35px",
+                        }}
+                        onClick={() =>
+                          handleSetId(
+                            item.id,
+                            item.title,
+                            item.number,
+                            item?.country_code,
+                            item?.extension
+                          )
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

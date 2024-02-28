@@ -249,259 +249,264 @@ export default function EditContact({
           </div>
         </Modal.Body>
       </Modal>
-      <div className="position-relative">
-        {Data ? (
-          <EditPlan
-            Data={Data}
-            PlanData={PlanData}
-            APIDATA={APIDATA}
-            MainData={MainData}
-          />
-        ) : (
-          ""
-        )}
 
-        <div className="mb-3 box-content boxxx" id="about_us">
-          <div className="flex-header">
-            <div className="d-flex align-items-baseline">
-              {EditFields ? (
-                <input
-                  type="text"
-                  name="AboutMe"
-                  className="title-section-input mb-3"
-                  placeholder="Custom Links"
-                  onChange={(e) => setAppointment(e.target.value)}
-                  defaultValue={Appointment || ""}
-                />
-              ) : (
-                <>
-                  <h1 className="title title--h1 first-title title__separate">
-                    {Appointment}
-                  </h1>
-                </>
-              )}
-            </div>
-
-            <div>
-              {TitleData?.card_booking?.source == "2" &&
-              PlanData?.is_expired == false &&
-              PlanData?.subscription?.plan_id !== 1 ? (
-                <div className="d-flex align-items-center">
-                  <div className="wrapper">
-                    <div className="tooltip">
-                      Use this section to incorporate for appointment booking.
-                    </div>
-                    <FontAwesomeIcon
-                      icon={faInfo}
-                      className="mr-4 pe-auto Iconcolor-black cursor-pointer"
-                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                    />
-                  </div>
-                  <div className="edit-pencile-div mr-2">
-                    {EditFields ? (
-                      <FontAwesomeIcon
-                        icon={faFloppyDisk}
-                        className="mr-4 pe-auto floopySave-icon"
-                        onClick={() => handleChnageTitle()}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faPencil}
-                        className="mr-4 pe-auto Iconcolor-black"
-                        onClick={() => setEditFields(true)}
-                      />
-                    )}
-                  </div>
-                  <>
-                    <label className="switch">
-                      <input
-                        data-status={Appointment?.card_booking?.is_active}
-                        data-active={Active}
-                        checked={Active}
-                        type="checkbox"
-                        onChange={() => handleActive()}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-
-          <div className="">
-            <h6 className="font-weight-bold">
-              How you want to receive appointment:
-            </h6>
-            <div
-              className="d-flex align-items-start"
-              onClick={() => handleForm()}
-            >
-              <input
-                type="radio"
-                id="product-enq3"
-                className="mt-1"
-                name="real-estate-radio"
-                value={
-                  MainData?.company_setting?.appointment_enquiry_method ===
-                  "form"
-                    ? true
-                    : false
-                }
-                checked={
-                  MainData?.company_setting?.appointment_enquiry_method ==
-                  "form"
-                    ? true
-                    : false
-                }
-              />
-              <label
-                htmlFor="product-whatsaap3"
-                className="ml-2 Varcolor font-weight-bold"
-              >
-                Via Appointment Form?
-              </label>
-            </div>
-            <div
-              className="d-flex align-items-start"
-              onClick={() => setShow(true)}
-            >
-              <input
-                type="radio"
-                id="product-enq3"
-                className="mt-1"
-                name="real-estate-radio"
-                value={
-                  MainData?.company_setting?.appointment_enquiry_method ===
-                  "calendly"
-                    ? true
-                    : false
-                }
-                // onChange={() => handleProductsbtn("wp")}
-                checked={
-                  MainData?.company_setting?.appointment_enquiry_method ==
-                  "calendly"
-                    ? true
-                    : false
-                }
-                // value={AppForm}
-                // checked={AppForm ? true : false}
-                onChange={() => setAppForm(false)}
-              />
-              <label
-                for="product-enq3"
-                className="ml-2 Varcolor font-weight-bold"
-              >
-                Via Calendly?
-              </label>
-            </div>
-          </div>
-
-          <div className="row align-items-center justify-content-center mb-3"></div>
-          {Show ||
-          MainData?.company_setting?.appointment_enquiry_method ==
-            "calendly" ? (
-            ""
+      {TitleData?.card_booking?.source !== 0 ? (
+        <div className="position-relative">
+          {Data ? (
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
-            <div className="row">
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Name</label> */}
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Name*"
-                  required="required"
-                  autoComplete="on"
-                  readOnly
-                />
-                <div className="help-block with-errors"></div>
+            ""
+          )}
+
+          <div className="mb-3 box-content boxxx" id="about_us">
+            <div className="flex-header">
+              <div className="d-flex align-items-baseline">
+                {EditFields ? (
+                  <input
+                    type="text"
+                    name="AboutMe"
+                    className="title-section-input mb-3"
+                    placeholder="Custom Links"
+                    onChange={(e) => setAppointment(e.target.value)}
+                    defaultValue={Appointment || ""}
+                  />
+                ) : (
+                  <>
+                    <h1 className="title title--h1 first-title title__separate">
+                      {Appointment}
+                    </h1>
+                  </>
+                )}
               </div>
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Contact number</label> */}
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Mobile/Phone"
-                  required="required"
-                  autoComplete="on"
-                  readOnly
-                />
-                <div className="help-block with-errors"></div>
+
+              <div>
+                {TitleData?.card_booking?.source == "2" &&
+                PlanData?.is_expired == false &&
+                PlanData?.subscription?.plan_id !== 1 ? (
+                  <div className="d-flex align-items-center">
+                    <div className="wrapper">
+                      <div className="tooltip">
+                        Use this section to incorporate for appointment booking.
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faInfo}
+                        className="mr-4 pe-auto Iconcolor-black cursor-pointer"
+                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                      />
+                    </div>
+                    <div className="edit-pencile-div mr-2">
+                      {EditFields ? (
+                        <FontAwesomeIcon
+                          icon={faFloppyDisk}
+                          className="mr-4 pe-auto floopySave-icon"
+                          onClick={() => handleChnageTitle()}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faPencil}
+                          className="mr-4 pe-auto Iconcolor-black"
+                          onClick={() => setEditFields(true)}
+                        />
+                      )}
+                    </div>
+                    <>
+                      <label className="switch">
+                        <input
+                          data-status={Appointment?.card_booking?.is_active}
+                          data-active={Active}
+                          checked={Active}
+                          type="checkbox"
+                          onChange={() => handleActive()}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                    </>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Meeting Date</label> */}
+            </div>
+
+            <div className="">
+              <h6 className="font-weight-bold">
+                How you want to receive appointment:
+              </h6>
+              <div
+                className="d-flex align-items-start"
+                onClick={() => handleForm()}
+              >
                 <input
-                  type="date"
-                  className="form-control"
-                  placeholder="Date"
-                  required="required"
-                  autoComplete="on"
-                  readOnly
-                />
-                <div className="help-block with-errors"></div>
-              </div>
-              <div className="form-group col-lg-6 col-md-6 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Meeting Time</label> */}
-                <input
-                  type="time"
-                  className="form-control"
-                  placeholder="time"
-                  required="required"
-                  autoComplete="on"
-                  readOnly
-                />
-                <div className="help-block with-errors"></div>
-              </div>
-              <div className="d-flex align-items-start justify-content-start form-group col-lg-6 col-md-6 mb-2 px-4">
-                <input
-                  type="checkbox"
-                  id="contact"
-                  className="mr-2 mt-1"
+                  type="radio"
+                  id="product-enq3"
+                  className="mt-1"
+                  name="real-estate-radio"
                   value={
-                    MainData?.company_setting?.show_appointment_button !== 0
+                    MainData?.company_setting?.appointment_enquiry_method ===
+                    "form"
                       ? true
                       : false
                   }
-                  onChange={(e) => handleShowAppointment(e.target.checked)}
                   checked={
-                    MainData?.company_setting?.show_appointment_button !== 0
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "form"
                       ? true
                       : false
                   }
                 />
-                <label for="contact" className="Varcolor">
-                  Do you want to show date and time field?
+                <label
+                  htmlFor="product-whatsaap3"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via Appointment Form?
                 </label>
               </div>
-              <div className="form-group col-lg-12 col-md-12 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Email address</label> */}
+              <div
+                className="d-flex align-items-start"
+                onClick={() => setShow(true)}
+              >
                 <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email address"
-                  required="required"
-                  autoComplete="on"
-                  readOnly
+                  type="radio"
+                  id="product-enq3"
+                  className="mt-1"
+                  name="real-estate-radio"
+                  value={
+                    MainData?.company_setting?.appointment_enquiry_method ===
+                    "calendly"
+                      ? true
+                      : false
+                  }
+                  // onChange={() => handleProductsbtn("wp")}
+                  checked={
+                    MainData?.company_setting?.appointment_enquiry_method ==
+                    "calendly"
+                      ? true
+                      : false
+                  }
+                  // value={AppForm}
+                  // checked={AppForm ? true : false}
+                  onChange={() => setAppForm(false)}
                 />
-                <div className="help-block with-errors"></div>
-              </div>
-              <div className="form-group col-12 col-md-12 mb-2">
-                {/* <label className="ml-2 font-weight-normal">Your message</label> */}
-                <textarea
-                  className="textarea form-control"
-                  placeholder="Your message"
-                  rows="4"
-                  required="required"
-                  readOnly
-                ></textarea>
-                <div className="help-block with-errors"></div>
+                <label
+                  for="product-enq3"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via Calendly?
+                </label>
               </div>
             </div>
-          )}
+
+            <div className="row align-items-center justify-content-center mb-3"></div>
+            {Show ||
+            MainData?.company_setting?.appointment_enquiry_method ==
+              "calendly" ? (
+              ""
+            ) : (
+              <div className="row">
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Name</label> */}
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Name*"
+                    required="required"
+                    autoComplete="on"
+                    readOnly
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Contact number</label> */}
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="Mobile/Phone"
+                    required="required"
+                    autoComplete="on"
+                    readOnly
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Meeting Date</label> */}
+                  <input
+                    type="date"
+                    className="form-control"
+                    placeholder="Date"
+                    required="required"
+                    autoComplete="on"
+                    readOnly
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+                <div className="form-group col-lg-6 col-md-6 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Meeting Time</label> */}
+                  <input
+                    type="time"
+                    className="form-control"
+                    placeholder="time"
+                    required="required"
+                    autoComplete="on"
+                    readOnly
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+                <div className="d-flex align-items-start justify-content-start form-group col-lg-6 col-md-6 mb-2 px-4">
+                  <input
+                    type="checkbox"
+                    id="contact"
+                    className="mr-2 mt-1"
+                    value={
+                      MainData?.company_setting?.show_appointment_button !== 0
+                        ? true
+                        : false
+                    }
+                    onChange={(e) => handleShowAppointment(e.target.checked)}
+                    checked={
+                      MainData?.company_setting?.show_appointment_button !== 0
+                        ? true
+                        : false
+                    }
+                  />
+                  <label for="contact" className="Varcolor">
+                    Do you want to show date and time field?
+                  </label>
+                </div>
+                <div className="form-group col-lg-12 col-md-12 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Email address</label> */}
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Email address"
+                    required="required"
+                    autoComplete="on"
+                    readOnly
+                  />
+                  <div className="help-block with-errors"></div>
+                </div>
+                <div className="form-group col-12 col-md-12 mb-2">
+                  {/* <label className="ml-2 font-weight-normal">Your message</label> */}
+                  <textarea
+                    className="textarea form-control"
+                    placeholder="Your message"
+                    rows="4"
+                    required="required"
+                    readOnly
+                  ></textarea>
+                  <div className="help-block with-errors"></div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

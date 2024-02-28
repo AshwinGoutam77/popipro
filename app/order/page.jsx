@@ -39,6 +39,7 @@ const getListStyle = (isDraggingOver) => ({
 
 const Order = () => {
   const [items, setItems] = useState([]);
+  const [OrderItems, setOrderItems] = useState("");
   const APIDATA = async () => {
     try {
       const response = await Api(
@@ -81,18 +82,13 @@ const Order = () => {
     }
   };
 
-  const handleSequence = async (name, seq) => {
-    return;
-    let item1;
-    let item2;
-    items.map((item, index) => {
-      (item1 = item.menu_name), (item2 = index);
-    });
-    let payload = {
-      control_name: item1,
-      sequence: item2,
-    };
-    const response = await Api(CardSequence, { control: payload });
+  const handleSequence = async () => {
+    let abc = items?.map((item, index) => ({
+      control_name: item?.attribute,
+      sequence: index + 1,
+    }));
+    setOrderItems(abc);
+    const response = await Api(CardSequence, { control: abc });
     if (response.data.status) {
       response;
     }
@@ -102,19 +98,26 @@ const Order = () => {
     APIDATA();
   }, []);
 
+  useEffect(() => {
+    handleSequence();
+  }, [items]);
+
   const onDragEnd = (result) => {
     handleSq();
-    result;
-    //  (items);
-    handleSequence();
-    if (!result.destination) {
-      return;
-    }
+    if (!result.destination) return; // Dragged outside the droppable area
 
-    const reorderedItems = reorder(
-      items,
-      result.source.index,
-      result.destination.index
+    const reorderedItems = Array.from(items);
+    const [removed] = reorderedItems.splice(result.source.index, 1);
+    reorderedItems.splice(result.destination.index, 0, removed);
+    console.log(reorderedItems);
+    reorderedItems?.map(
+      (item, index) => (
+        console.log(item),
+        {
+          control_name: item?.attribute,
+          sequence: index,
+        }
+      )
     );
     setItems(reorderedItems);
   };

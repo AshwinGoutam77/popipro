@@ -448,206 +448,215 @@ export default function EditCustomLink({
         </Modal.Body>
       </Modal>
 
-      <div className="position-relative">
-        {Data ? (
-          <EditPlan
-            Data={Data}
-            PlanData={PlanData}
-            APIDATA={APIDATA}
-            MainData={MainData}
-          />
-        ) : (
-          ""
-        )}
-        <div className="mb-3 box-content boxxx" id="about_us">
-          <div className="flex-header">
-            <div className="d-flex align-items-baseline">
-              {EditFields ? (
-                <input
-                  type="text"
-                  name="AboutMe"
-                  className="title-section-input mb-3"
-                  placeholder="Custom Links"
-                  onChange={(e) => setCustomLinkTitle(e.target.value)}
-                  defaultValue={CustomLinkTitle || ""}
-                />
-              ) : (
-                <>
-                  <h1 className="title title--h1 first-title title__separate">
-                    {CustomLinkTitle}
-                  </h1>
-                </>
-              )}
-            </div>
-
-            <div>
-              {TitleData?.card_custom_url?.source == "2" &&
-              PlanData?.is_expired == false &&
-              PlanData?.subscription?.plan_id !== 1 ? (
-                <div className="d-flex align-items-center">
-                  <div class="wrapper">
-                    <div class="tooltip">
-                      Add links to external sites, shop pages, landing pages,
-                      coming soon, invites and more...
-                    </div>
-                    <FontAwesomeIcon
-                      icon={faInfo}
-                      className="mr-1 pe-auto Iconcolor-black cursor-pointer"
-                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                    />
-                  </div>
-                  <>
-                    <div className="edit-pencile-div">
-                      {EditFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="ml-3 pe-auto floopySave-icon"
-                          onClick={() => handleChnageTitle()}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="ml-3 pe-auto Iconcolor-black"
-                          onClick={() => setEditFields(true)}
-                        />
-                      )}
-                    </div>
-                    {MainData?.company_setting?.maximum_custom_link >=
-                    Data?.card_custom_url?.length ? (
-                      <button
-                        className="addmore"
-                        data-toggle="modal"
-                        data-target="#CustomLinkModal"
-                        onClick={handleShow}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    ) : (
-                      <button className="addmore" onClick={handleUpgradePlan}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    )}
-                    <>
-                      <label className="switch">
-                        <input
-                          data-status={
-                            CustomLinkTitle?.card_custom_url?.is_active
-                          }
-                          data-active={Active}
-                          checked={Active}
-                          type="checkbox"
-                          onChange={() => handleActive()}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </>
-                  </>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          {Data?.card_custom_url?.length == 0 ? (
-            <p>Custom Links are empty, to add links click on the add icon.</p>
+      {TitleData?.card_custom_url?.source !== 0 ? (
+        <div className="position-relative">
+          {Data ? (
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+            />
           ) : (
             ""
           )}
-          <div>
-            {Data?.card_custom_url?.map((item, index) => {
-              return (
-                <div className="alternate-number-div" key={index}>
-                  {TitleData?.card_custom_url?.source == "2" &&
-                  PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
-                    <FontAwesomeIcon
-                      icon={faXmarkCircle}
-                      className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
-                      style={{
-                        top: "0",
-                        right: "0",
-                        cursor: "pointer",
-                        color: "var(--color)",
-                        fontSize: "20px",
-                        zIndex: "1",
-                        background: "white",
-                      }}
-                      onClick={() => handleDeleteNumber(item.id, 8, Data?.id)}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <div
-                    className="d-flex align-items-center justify-content-between mt-1 mb-1"
-                    key={index}
-                  >
-                    <a
-                      href={
-                        item &&
-                        item.link &&
-                        (item.link?.includes("http://") ||
-                          item.link?.includes("https://"))
-                          ? item.link
-                          : "https://" + item.link
-                      }
-                      target="_blank"
-                    >
-                      <div className="d-flex align-items-center position-relative">
-                        <FontAwesomeIcon
-                          icon={faLink}
-                          className="pe-auto Iconcolor-black"
-                          style={{ fontSize: "15px" }}
-                        />
-                        <a
-                          href={
-                            item &&
-                            item.link &&
-                            (item.link?.includes("http://") ||
-                              item.link?.includes("https://"))
-                              ? item.link
-                              : "https://" + item.link
-                          }
-                          target="_blank"
-                          className="ml-3 font-weight-bold"
-                          style={{ color: "black" }}
-                        >
-                          {item.title}
-                          <span
-                            class="badge badge-pill badge-warning ml-2"
-                            style={{ top: "-15px", right: "0" }}
-                          >
-                            {item.tag}
-                          </span>
-                        </a>
+          <div className="mb-3 box-content boxxx" id="about_us">
+            <div className="flex-header">
+              <div className="d-flex align-items-baseline">
+                {EditFields ? (
+                  <input
+                    type="text"
+                    name="AboutMe"
+                    className="title-section-input mb-3"
+                    placeholder="Custom Links"
+                    onChange={(e) => setCustomLinkTitle(e.target.value)}
+                    defaultValue={CustomLinkTitle || ""}
+                  />
+                ) : (
+                  <>
+                    <h1 className="title title--h1 first-title title__separate">
+                      {CustomLinkTitle}
+                    </h1>
+                  </>
+                )}
+              </div>
+
+              <div>
+                {TitleData?.card_custom_url?.source == "2" &&
+                PlanData?.is_expired == false &&
+                PlanData?.subscription?.plan_id !== 1 ? (
+                  <div className="d-flex align-items-center">
+                    <div class="wrapper">
+                      <div class="tooltip">
+                        Add links to external sites, shop pages, landing pages,
+                        coming soon, invites and more...
                       </div>
-                    </a>
-                    {TitleData?.card_services?.source == "2" &&
+                      <FontAwesomeIcon
+                        icon={faInfo}
+                        className="mr-1 pe-auto Iconcolor-black cursor-pointer"
+                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                      />
+                    </div>
+                    <>
+                      <div className="edit-pencile-div">
+                        {EditFields ? (
+                          <FontAwesomeIcon
+                            icon={faFloppyDisk}
+                            className="ml-3 pe-auto floopySave-icon"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            className="ml-3 pe-auto Iconcolor-black"
+                            onClick={() => setEditFields(true)}
+                          />
+                        )}
+                      </div>
+                      {MainData?.company_setting?.maximum_custom_link >=
+                      Data?.card_custom_url?.length ? (
+                        <button
+                          className="addmore"
+                          data-toggle="modal"
+                          data-target="#CustomLinkModal"
+                          onClick={handleShow}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      ) : (
+                        <button className="addmore" onClick={handleUpgradePlan}>
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      )}
+                      <>
+                        <label className="switch">
+                          <input
+                            data-status={
+                              CustomLinkTitle?.card_custom_url?.is_active
+                            }
+                            data-active={Active}
+                            checked={Active}
+                            type="checkbox"
+                            onChange={() => handleActive()}
+                          />
+                          <span className="slider round"></span>
+                        </label>
+                      </>
+                    </>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            {Data?.card_custom_url?.length == 0 ? (
+              <p>Custom Links are empty, to add links click on the add icon.</p>
+            ) : (
+              ""
+            )}
+            <div>
+              {Data?.card_custom_url?.map((item, index) => {
+                return (
+                  <div className="alternate-number-div" key={index}>
+                    {TitleData?.card_custom_url?.source == "2" &&
                     PlanData?.is_expired == false &&
                     PlanData?.subscription?.plan_id !== 1 ? (
                       <FontAwesomeIcon
-                        data-toggle="modal"
-                        data-target="#CustomLinkModalEdit"
-                        icon={faPencil}
-                        className="pe-auto cursor-pointer"
+                        icon={faXmarkCircle}
+                        className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
                         style={{
-                          fontSize: "15px",
+                          top: "0",
+                          right: "0",
+                          cursor: "pointer",
                           color: "var(--color)",
-                          marginRight: "35px",
+                          fontSize: "20px",
+                          zIndex: "1",
+                          background: "white",
                         }}
-                        onClick={() =>
-                          handleSetId(item.id, item.title, item.link, item.tag)
-                        }
+                        onClick={() => handleDeleteNumber(item.id, 8, Data?.id)}
                       />
                     ) : (
                       ""
                     )}
+                    <div
+                      className="d-flex align-items-center justify-content-between mt-1 mb-1"
+                      key={index}
+                    >
+                      <a
+                        href={
+                          item &&
+                          item.link &&
+                          (item.link?.includes("http://") ||
+                            item.link?.includes("https://"))
+                            ? item.link
+                            : "https://" + item.link
+                        }
+                        target="_blank"
+                      >
+                        <div className="d-flex align-items-center position-relative">
+                          <FontAwesomeIcon
+                            icon={faLink}
+                            className="pe-auto Iconcolor-black"
+                            style={{ fontSize: "15px" }}
+                          />
+                          <a
+                            href={
+                              item &&
+                              item.link &&
+                              (item.link?.includes("http://") ||
+                                item.link?.includes("https://"))
+                                ? item.link
+                                : "https://" + item.link
+                            }
+                            target="_blank"
+                            className="ml-3 font-weight-bold"
+                            style={{ color: "black" }}
+                          >
+                            {item.title}
+                            <span
+                              class="badge badge-pill badge-warning ml-2"
+                              style={{ top: "-15px", right: "0" }}
+                            >
+                              {item.tag}
+                            </span>
+                          </a>
+                        </div>
+                      </a>
+                      {TitleData?.card_services?.source == "2" &&
+                      PlanData?.is_expired == false &&
+                      PlanData?.subscription?.plan_id !== 1 ? (
+                        <FontAwesomeIcon
+                          data-toggle="modal"
+                          data-target="#CustomLinkModalEdit"
+                          icon={faPencil}
+                          className="pe-auto cursor-pointer"
+                          style={{
+                            fontSize: "15px",
+                            color: "var(--color)",
+                            marginRight: "35px",
+                          }}
+                          onClick={() =>
+                            handleSetId(
+                              item.id,
+                              item.title,
+                              item.link,
+                              item.tag
+                            )
+                          }
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

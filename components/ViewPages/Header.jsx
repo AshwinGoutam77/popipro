@@ -164,10 +164,10 @@ const Header = ({
       var contact = {
         website: card?.card_website,
         address: card?.card_address,
-        // Imagee: response.data.data.base_image?.replace(
-        //   "data:image/png;base64,",
-        //   ""
-        // ),
+        Imagee: response.data.data.base_image?.replace(
+          "data:image/png;base64,",
+          ""
+        ),
         name: card?.first_name,
         phone: card?.card_contact,
         email: card.card_email,
