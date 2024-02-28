@@ -244,7 +244,6 @@ export default function Realestate({
     setActiveFilter([ProductCategory]);
     setActiveLooking([LookingFor]);
     // setActiveFilter([...ActiveFilter, ProductCategory]);
-    console.log(ActiveFilter);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
         ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
@@ -596,7 +595,7 @@ export default function Realestate({
                     onClick={() => handleSearchInProduct()}
                   />
                 </div>
-              ) : (
+              ) : ( 
                 <div className="d-flex align-items-start justify-content-between">
                   <h3 className="title title--h1 first-title title__separate">
                     {Titles &&
@@ -745,7 +744,7 @@ export default function Realestate({
                   <div className="swiper-slide review-items position-relative">
                     <button
                       className={
-                        ActiveFilter == ""
+                        ActiveFilter == "" || ActiveLooking == ""
                           ? "filter-btns bg-varcolor"
                           : "filter-btns"
                       }
@@ -755,6 +754,7 @@ export default function Realestate({
                     </button>
                   </div>
                 </SwiperSlide>
+
                 {Data?.looking_for &&
                   Data?.looking_for?.map((items, index) => {
                     return (
@@ -774,6 +774,7 @@ export default function Realestate({
                       </SwiperSlide>
                     );
                   })}
+
                 {Data?.amenities &&
                   Data?.amenities?.map((items, index) => {
                     return (
@@ -795,6 +796,7 @@ export default function Realestate({
                     );
                   })}
               </SwiperComponent>
+              
               {EstateData?.length !== 0 ? (
                 EstateData &&
                 EstateData?.map((items, index, { length }) => {

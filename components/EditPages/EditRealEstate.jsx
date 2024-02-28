@@ -272,9 +272,14 @@ export default function EditRealEstate({
   const handleSettings4 = () => {
     let error = false;
     let mess = "";
-    if (Price === "" && PriceRadio === "") {
+    if (Price === "" || PriceRadio === "") {
       error = true;
-      mess = Price === "" ? "Price is requried" : PriceRadio === "" ? "Price Text is required" : "";
+      mess =
+        Price === ""
+          ? "Price is requried"
+          : PriceRadio === ""
+          ? "Price Text is required"
+          : "";
     }
     if (error) {
       setShowLoader(false);
@@ -348,7 +353,6 @@ export default function EditRealEstate({
             price: Price,
             label: PriceText,
             currency: MainData?.company_setting?.currency?.id,
-            street_address: Locality,
             property_type: PropertyType,
             google_address_link: GoogleMapLink,
             bhk: BhkValue,
@@ -377,7 +381,6 @@ export default function EditRealEstate({
             price: Price,
             label: PriceText,
             currency: MainData?.company_setting?.currency?.id,
-            street_address: Locality,
             property_type: PropertyType,
             google_address_link: GoogleMapLink,
             bhk: BhkValue,
@@ -389,7 +392,7 @@ export default function EditRealEstate({
             gallery: GalleryImages ? [...GalleryImages] : "",
             youtube_link: YouTubeLink,
             city: City,
-            address: Address,
+            street_address: Address,
             zipcode: ZipCode,
             country: Country,
             state: State,
@@ -695,6 +698,7 @@ export default function EditRealEstate({
       setInputList(remove);
     }
   };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -798,6 +802,9 @@ export default function EditRealEstate({
                       <span className="real-estate-badge">
                         {items?.property_type?.name}
                       </span>
+                      <span className="real-estate-badge">
+                        {items?.looking_for?.name}
+                      </span>
                     </h6>
                     <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
@@ -894,67 +901,6 @@ export default function EditRealEstate({
           </button>
         </Modal.Header>
         <Modal.Body className="position-relative">
-          {/* <div>
-            <ol className="steps line-space pl-0 ml-0 d-flex align-items-center">
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    GeneralSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  1
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Basic Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    CatSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  2
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Property Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500">
-                <div
-                  className={
-                    LocationSetting || ActiveSteps
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  3
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Price Details
-                </p>
-              </li>
-              <li className="step before:bg-slate-200 dark:before:bg-navy-500 mt-1">
-                <div
-                  className={
-                    Amenities
-                      ? "cursor-pointer step-header rounded-full bg-slate-active text-slate-800 dark:bg-navy-500 dark:text-white "
-                      : "cursor-pointer step-header rounded-full bg-slate-200 text-slate-800 dark:bg-navy-500 dark:text-white"
-                  }
-                >
-                  4
-                </div>
-                <p className="text-slate-600 dark:text-navy-100 font-weight-bold">
-                  Amenities
-                </p>
-              </li>
-            </ol>
-          </div> */}
-
           {/* General div */}
           {GeneralSetting ? (
             <>
@@ -1034,7 +980,7 @@ export default function EditRealEstate({
                   className="form-control mb-4 mt-1"
                   defaultValue={Title}
                   placeholder="Title"
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value.trim())}
                 ></input>
                 <div className="d-flex align-items-center gap-2 mb-4">
                   <div className="w-100">
@@ -1170,7 +1116,7 @@ export default function EditRealEstate({
                 className="form-control mb-4 mt-1 w-100"
                 defaultValue={Address}
                 placeholder="Locality/Address"
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => setAddress(e.target.value.trim())}
               ></input>
               <div className="row">
                 <div className="col-6">
@@ -1183,7 +1129,7 @@ export default function EditRealEstate({
                     className="form-control mb-4 mt-1 w-100"
                     defaultValue={City}
                     placeholder="Locality/Address"
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => setCity(e.target.value.trim())}
                   ></input>
                 </div>
                 <div className="col-6">
@@ -1196,7 +1142,7 @@ export default function EditRealEstate({
                     className="form-control mb-4 mt-1 w-100"
                     defaultValue={State}
                     placeholder="Locality/Address"
-                    onChange={(e) => setState(e.target.value)}
+                    onChange={(e) => setState(e.target.value.trim())}
                   ></input>
                 </div>
               </div>
@@ -1287,7 +1233,7 @@ export default function EditRealEstate({
                     className="form-control mt-1 w-100"
                     value={BuiltUpArea}
                     placeholder="Area"
-                    onChange={(e) => setBuiltUpArea(e.target.value)}
+                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
                   ></input>
                 </div>
                 <div className="w-100">
@@ -1325,7 +1271,7 @@ export default function EditRealEstate({
                 className="form-control mb-4 mt-1 w-100"
                 value={GoogleMapLink}
                 placeholder="Google map link"
-                onChange={(e) => setGoogleMapLink(e.target.value)}
+                onChange={(e) => setGoogleMapLink(e.target.value.trim())}
               ></input>
               <div
                 className="d-flex align-items-center mt-3 justify-content-start"
@@ -1344,7 +1290,7 @@ export default function EditRealEstate({
           )}
 
           {/* price div */}
-          {LocationSetting ? (  
+          {LocationSetting ? (
             <div className="mt-0">
               <div className="tab-progress-bar">
                 <ProgressBar now={75} />;
@@ -1681,6 +1627,9 @@ export default function EditRealEstate({
                             {items?.heading}
                             <span className="real-estate-badge">
                               {items?.property_type?.name}
+                            </span>
+                            <span className="real-estate-badge">
+                              {items?.looking_for?.name}
                             </span>
                           </h6>
                           <p
