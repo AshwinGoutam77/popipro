@@ -374,6 +374,9 @@ export default function Realestate({
                       <span className="real-estate-badge">
                         {items?.property_type?.name}
                       </span>
+                      <span className="real-estate-badge">
+                        {items?.looking_for?.name}
+                      </span>
                     </h6>
                     <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
@@ -777,10 +780,9 @@ export default function Realestate({
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
                           <button
-                            // idArray.filter(item => item !== id)
                             className={
-                              ActiveFilter == items?.id
                               // ActiveFilter.includes(items?.id)
+                              ActiveFilter == items?.id
                                 ? "filter-btns bg-varcolor"
                                 : "filter-btns"
                             }
