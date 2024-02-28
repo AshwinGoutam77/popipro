@@ -164,10 +164,10 @@ const Header = ({
       var contact = {
         website: card?.card_website,
         address: card?.card_address,
-        Imagee: response.data.data.base_image?.replace(
-          "data:image/png;base64,",
-          ""
-        ),
+        // Imagee: response.data.data.base_image?.replace(
+        //   "data:image/png;base64,",
+        //   ""
+        // ),
         name: card?.first_name,
         phone: card?.card_contact,
         email: card.card_email,
@@ -198,7 +198,7 @@ const Header = ({
       vcard += contact.Imagee
         ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.Imagee
         : "";
-      vcard += contact.card_website
+      vcard += contact.website
         ? "\nURL;Website URL=UTF-8:" + contact.website
         : "";
       let alt_str = card?.card_alternate_phone?.map((item) => {
@@ -212,7 +212,7 @@ const Header = ({
       });
       vcard += alt_str.join("");
       vcard += contact.address ? "\nADR;CHARSET=UTF-8:" + contact.address : "";
-      vcard += contact.links["instagram"]
+      vcard += contact.links["Instagram"]
         ? "\nURL;type=Instagram;Instagram=UTF-8:" + contact.links["Instagram"]
         : "";
       vcard += contact.links["Facebook"]
