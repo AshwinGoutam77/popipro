@@ -377,6 +377,10 @@ export default function Realestate({
                         {items?.looking_for?.name}
                       </span>
                     </h6>
+                    <p className="color-black cursor-pointer mt-2">
+                      {items?.street_address}, {items?.city}, {items?.state},{" "}
+                      {items?.country}, ({items?.zipcode})
+                    </p>
                     <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
                     </p>
@@ -595,7 +599,7 @@ export default function Realestate({
                     onClick={() => handleSearchInProduct()}
                   />
                 </div>
-              ) : ( 
+              ) : (
                 <div className="d-flex align-items-start justify-content-between">
                   <h3 className="title title--h1 first-title title__separate">
                     {Titles &&
@@ -755,7 +759,7 @@ export default function Realestate({
                   </div>
                 </SwiperSlide>
 
-                {Data?.looking_for &&
+                {/* {Data?.looking_for &&
                   Data?.looking_for?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
@@ -773,7 +777,7 @@ export default function Realestate({
                         </div>
                       </SwiperSlide>
                     );
-                  })}
+                  })} */}
 
                 {Data?.amenities &&
                   Data?.amenities?.map((items, index) => {
@@ -796,7 +800,7 @@ export default function Realestate({
                     );
                   })}
               </SwiperComponent>
-              
+
               {EstateData?.length !== 0 ? (
                 EstateData &&
                 EstateData?.map((items, index, { length }) => {
@@ -867,7 +871,8 @@ export default function Realestate({
                             onClick={() => handleShowDetailModal(items?.id)}
                           >
                             {items?.street_address}, {items?.city},{" "}
-                            {items?.state}, {items?.country}
+                            {items?.state}, {items?.country}, ({items?.zipcode}
+                            )
                           </p>
                         </div>
                         <div

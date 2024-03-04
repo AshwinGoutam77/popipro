@@ -22,7 +22,7 @@ export async function generateMetadata({ params, searchParams }) {
   return {
     title,
     description,
-    robots: 'noindex',
+    robots: "noindex",
     openGraph: {
       title,
       description,
@@ -33,12 +33,12 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-const ProfilePage = async ({ params }) => {
+const ProfilePage = async ({ params}) => {
   const headersList = headers();
   const referer = headersList.get("referer");
   const { profile } = params;
   const data = (await getProfileData(profile)) || {};
-  console.log(data?.data?.card?.card_description);
+
   let DataDecription = data?.data?.card?.card_description?.substring(0, 160);
   const jsonLd = `{
     "@context": "https://schema.org",

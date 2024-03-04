@@ -285,7 +285,7 @@ export default function DashboardProducts({ TitleData }) {
                           {item?.data?.map((i, o) => {
                             return (
                               <tr key={o} className="cursor-pointer">
-                                <td data-column="Name">
+                                <td>
                                   {i?.state !== "" ||
                                   i?.city !== "" ||
                                   i?.country !== ""
@@ -298,10 +298,10 @@ export default function DashboardProducts({ TitleData }) {
                                       : i?.city +
                                         `${i?.city ? ", " : ""}` +
                                         i?.country
-                                    : "---"}
+                                    : "---" } 
                                 </td>
-                                <td data-column="Email">{i?.created_at}</td>
-                                <td className="">{i?.name}</td>
+                                <td>{i?.created_at}</td>
+                                <td>{i?.name}</td>
                               </tr>
                             );
                           })}
@@ -526,14 +526,13 @@ export default function DashboardProducts({ TitleData }) {
                     </Tbody>
                   </Table>
                 </div>
-                
               </div>
               <div
-                  className="w-100 text-center text-white p-2 mt-3"
-                  style={{ background: "black" }}
-                >
-                  <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
-                </div>
+                className="w-100 text-center text-white p-2 mt-3"
+                style={{ background: "black" }}
+              >
+                <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
+              </div>
             </div>
           </div>
         </>

@@ -1654,13 +1654,6 @@ export default function EditProducts({
                           <div className="row d-flex justify-content-between pb-3 pt-3">
                             <div className="col-6 col-sm-6 col-lg-4">
                               <div className="position-relative">
-                                {/* {items?.gallery?.length ? (
-                                  <span class="badge badge-primary product-images-badge">
-                                    + {items?.gallery?.length} Images
-                                  </span>
-                                ) : (
-                                  ""
-                                )} */}
                                 {items?.image?.path ? (
                                   <img
                                     className="case-item__icon-products"

@@ -89,6 +89,18 @@ const Page = () => {
   }
   return token ? (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {cardData ? (
         <>
           <EditBanner
@@ -156,7 +168,7 @@ const Page = () => {
                     PlanData={cardData?.plan}
                     CardLinks={cardData?.card?.card_social_links}
                   />
-                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
                     <SocailVisits
                       Data={cardData?.card}
                       card={cardData?.card}
@@ -168,7 +180,7 @@ const Page = () => {
                     />
                   ) : (
                     ""
-                  )}
+                  )} */}
                   <EditDoing
                     Data={cardData?.card}
                     MainData={cardData}

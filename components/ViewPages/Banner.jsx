@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
-import { HitClickApi, SaveToken } from "@services/Routes";
+import { GetCardSequence, HitClickApi, SaveToken } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/app";
@@ -37,6 +37,18 @@ const Banner = ({
   const [modalShow, setModalShow] = useState("");
   const [LocalStorageUrl, setLocalStorageUrl] = useState("");
 
+  const handleSq = async () => {
+    const response = await Api(
+      GetCardSequence,
+      {},
+      "?card_url=" + localStorage.getItem("url")
+    );
+    if (response.data.status) {
+      localforage.setItem("arrangeItems", response?.data?.data);
+      localStorage.setItem("arrangeItems", response?.data?.data);
+    }
+  };
+
   useEffect(() => {
     if (card) {
       setLoader(true);
@@ -56,6 +68,7 @@ const Banner = ({
     } else {
       setLoader(false);
     }
+    // handleSq();
   }, []);
 
   useEffect(() => {

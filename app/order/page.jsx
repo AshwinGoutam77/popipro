@@ -49,7 +49,7 @@ const Order = () => {
       );
       if (response.data.status) {
         ".....", response.data.data.headers;
-        setItems(response.data.data.headers);
+        setItems(response.data.data.sequence);
         document.documentElement.style.setProperty(
           "--color",
           response.data.data.card.color_code
@@ -78,13 +78,12 @@ const Order = () => {
       "?card_url=" + localStorage.getItem("url")
     );
     if (response.data.status) {
-      response.data.data;
     }
   };
 
   const handleSequence = async () => {
     let abc = items?.map((item, index) => ({
-      control_name: item?.attribute,
+      control_name: item?.name,
       sequence: index + 1,
     }));
     setOrderItems(abc);
@@ -96,6 +95,7 @@ const Order = () => {
 
   useEffect(() => {
     APIDATA();
+    handleSq();
   }, []);
 
   useEffect(() => {
@@ -110,21 +110,15 @@ const Order = () => {
     const [removed] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, removed);
     console.log(reorderedItems);
-    reorderedItems?.map(
-      (item, index) => (
-        console.log(item),
-        {
-          control_name: item?.attribute,
-          sequence: index,
-        }
-      )
-    );
+    reorderedItems?.map((item, index) => ({
+      control_name: item?.name,
+      sequence: index,
+    }));
     setItems(reorderedItems);
   };
 
   return (
     <>
-      {/* <button className="contact-btn w-auto mt-5 ml-5">Save Order</button> */}
       <div
         className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
         style={{ height: "calc(100vh - 0px)" }}
@@ -164,8 +158,8 @@ const Order = () => {
                 >
                   {items.map((item, index) => (
                     <Draggable
-                      key={item.attribute}
-                      draggableId={item.attribute}
+                      key={item.name}
+                      draggableId={item.name}
                       index={index}
                     >
                       {(provided, snapshot) => (
@@ -179,7 +173,7 @@ const Order = () => {
                             provided.draggableProps.style
                           )}
                         >
-                          {item.menu_name}
+                          {item.visible_name}
                         </div>
                       )}
                     </Draggable>

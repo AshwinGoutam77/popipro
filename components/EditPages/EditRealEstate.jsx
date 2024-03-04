@@ -194,6 +194,7 @@ export default function EditRealEstate({
           : "";
     }
     if (error) {
+      console.log(mess);
       setShowLoader(false);
       toast.error(mess, {
         position: "top-right",
@@ -224,8 +225,6 @@ export default function EditRealEstate({
       State == "" ||
       Country == "" ||
       ZipCode == "" ||
-      BhkValue == "" ||
-      BathroomValue == "" ||
       BuiltUpArea == "" ||
       FurnishType == ""
     ) {
@@ -241,10 +240,6 @@ export default function EditRealEstate({
           ? "State field is requried"
           : ZipCode === ""
           ? "Zip code is requried"
-          : BhkValue === ""
-          ? "BHK  is requried"
-          : BathroomValue === ""
-          ? "Bathroom field is requried"
           : BuiltUpArea === ""
           ? "Build up area is requried"
           : FurnishType === ""
@@ -273,39 +268,41 @@ export default function EditRealEstate({
   };
 
   const handleSettings4 = () => {
-    let error = false;
-    let mess = "";
-    if (Price === "" || PriceRadio === "") {
-      error = true;
-      mess =
-        Price === ""
-          ? "Price is requried"
-          : PriceRadio === ""
-          ? "Price Text is required"
-          : "";
-    }
-    if (error) {
-      setShowLoader(false);
-      toast.error(mess, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    } else {
-      setGeneralSetting(false);
-      setCatSetting(false);
-      setLocationSetting(false);
-      setAmenities(true);
-    }
+    // let error = false;
+    // let mess = "";
+    // if (Price === "" || PriceRadio === "") {
+    //   error = true;
+    //   mess =
+    //     Price === ""
+    //       ? "Price is requried"
+    //       : PriceRadio === ""
+    //       ? "Price Text is required"
+    //       : "";
+    // }
+    // if (error) {
+    //   setShowLoader(false);
+    //   toast.error(mess, {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   return;
+    // } else {
+    setGeneralSetting(false);
+    setCatSetting(false);
+    setLocationSetting(false);
+    setAmenities(true);
+    // }
   };
 
   const HandleEmptyFeilds = () => {
+    setImage("");
+    setGalleryImages("");
     setGeneralSetting(true);
     setCatSetting(false);
     setLocationSetting(false);
@@ -809,9 +806,16 @@ export default function EditRealEstate({
                         {items?.looking_for?.name}
                       </span>
                     </h6>
-                    <p className="mt-3">
+                    {/* <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
-                    </p>
+                    </p> */}
+                    <p
+                      id="p_wrap"
+                      className="mt-3"
+                      dangerouslySetInnerHTML={{
+                        __html: items?.description.replace(/(<([^>]+)>)/gi, ""),
+                      }}
+                    ></p>
                     <div
                       className="mt-4 d-flex flex-wrap align-items-center justify-content-between"
                       style={{ gap: "10px" }}

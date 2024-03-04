@@ -33,7 +33,7 @@ export default function DashboardPlan({ Data, PlanData, APIDATA, MainData }) {
           if (response.data.status) {
             Swal.fire("Done", "", "success");
             APIDATA();
-            toast(response.data.message, {
+            toast.success(response.data.message, {
               position: "bottom-right",
               autoClose: 2000,
               hideProgressBar: false,
