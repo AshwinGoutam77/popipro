@@ -754,6 +754,9 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 100px;
   width: max-content;
 }
+.filter-active{
+  border: 1px solid transparent;
+}
 .filter-btns-active {
   background-color: var(--color);
   color: white;
@@ -767,7 +770,7 @@ input.date-time-input::-webkit-date-and-time-value {
   background-color: var(--color);
   color: white;
   transition: 0.3s;
-  /* border: 1px solid transparent; */
+  border: 1px solid transparent;
 }
 .filter-btns:focus {
   /* background: var(--color);
@@ -1014,7 +1017,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border: 1px solid var(--color);
   background: var(--color);
   color: white;
-  padding: 1px 5px;
+  padding: 2px 5px;
   border-radius: 6px;
   font-size: 11px;
   margin-left: 10px;

@@ -1450,6 +1450,7 @@ export default function EditRealEstate({
                         defaultValue={x.description}
                         onChange={(e) => handleInputChange(e, i)}
                         placeholder="description"
+                        maxLength={40}
                       ></input>
                     </div>
                   </div>

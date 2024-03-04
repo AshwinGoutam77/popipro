@@ -207,7 +207,7 @@ export default function MetaTags({
             />
             <div className="d-flex align-items-center justify-content-between">
               <label>Meta Description (Only 150 characters are allowed.)</label>
-              <div className="">
+              {/* <div className="">
                 <p
                   onClick={handleChatModal}
                   className="cursor-pointer text-right"
@@ -219,7 +219,7 @@ export default function MetaTags({
                     style={{ width: "20%" }}
                   />
                 </p>
-              </div>
+              </div> */}
             </div>
             <textarea
               name="number"

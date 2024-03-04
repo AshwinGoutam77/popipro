@@ -748,8 +748,9 @@ export default function Realestate({
                   <div className="swiper-slide review-items position-relative">
                     <button
                       className={
-                        ActiveFilter == "" || ActiveLooking == ""
-                          ? "filter-btns bg-varcolor"
+                        ActiveFilter == ""
+                          ? // || ActiveLooking == ""
+                            "filter-btns bg-varcolor"
                           : "filter-btns"
                       }
                       onClick={() => handleResetFilter()}
@@ -788,7 +789,7 @@ export default function Realestate({
                             className={
                               // ActiveFilter.includes(items?.id)
                               ActiveFilter == items?.id
-                                ? "filter-btns bg-varcolor"
+                                ? "filter-btns bg-varcolor filter-active"
                                 : "filter-btns"
                             }
                             onClick={() => setProductCategory(items?.id)}
@@ -854,25 +855,28 @@ export default function Realestate({
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
-                          <h6
-                            className="mb-0 color-black cursor-pointer d-flex align-items-center"
-                            onClick={() => handleShowDetailModal(items?.id)}
-                          >
-                            {items?.heading}
-                            <span className="real-estate-badge">
-                              {items?.property_type?.name}
-                            </span>
-                            <span className="real-estate-badge">
-                              {items?.looking_for?.name}
-                            </span>
-                          </h6>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <h6
+                              className="mb-0 color-black cursor-pointer "
+                              onClick={() => handleShowDetailModal(items?.id)}
+                            >
+                              {items?.heading}
+                            </h6>
+                            <p>
+                              <span className="real-estate-badge">
+                                {items?.property_type?.name}
+                              </span>
+                              <span className="real-estate-badge">
+                                {items?.looking_for?.name}
+                              </span>
+                            </p>
+                          </div>
                           <p
                             className="color-black cursor-pointer mt-2"
                             onClick={() => handleShowDetailModal(items?.id)}
                           >
                             {items?.street_address}, {items?.city},{" "}
-                            {items?.state}, {items?.country}, ({items?.zipcode}
-                            )
+                            {items?.state}, {items?.country}, ({items?.zipcode})
                           </p>
                         </div>
                         <div

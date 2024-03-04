@@ -488,7 +488,7 @@ export default function EditBlogs({
             ></input>
             <div className="d-flex align-items-center justify-content-between">
               <label className="modalFormLable">Description*</label>
-              <p
+              {/* <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
@@ -500,7 +500,7 @@ export default function EditBlogs({
                   alt="stick"
                   style={{ width: "20%" }}
                 />
-              </p>
+              </p> */}
             </div>
             <CKEditor
               editor={ClassicEditor}

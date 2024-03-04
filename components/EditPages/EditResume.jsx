@@ -443,7 +443,7 @@ export default function EditResume({
               ></input>
               <div className="d-flex align-items-center justify-content-between">
                 <label className="modalFormLable">Description*</label>
-                <p
+                {/* <p
                   onClick={handleChatModal}
                   data-toggle={ExpDescription ? "modal" : ""}
                   data-target="#chatapimodal"
@@ -455,7 +455,7 @@ export default function EditResume({
                     alt="stick"
                     style={{ width: "20%" }}
                   />
-                </p>
+                </p> */}
               </div>
               <CKEditor
                 editor={ClassicEditor}
@@ -567,7 +567,7 @@ export default function EditResume({
                   ></input>
                   <div className="d-flex align-items-center justify-content-between">
                     <label className="modalFormLable">Description*</label>
-                    <p
+                    {/* <p
                       onClick={handleChatModal}
                       data-toggle={ExpDescription ? "modal" : ""}
                       data-target="#chatapimodal"
@@ -579,7 +579,7 @@ export default function EditResume({
                         alt="stick"
                         style={{ width: "20%" }}
                       />
-                    </p>
+                    </p> */}
                   </div>
                   <CKEditor
                     editor={ClassicEditor}

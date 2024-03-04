@@ -346,7 +346,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             </div>
             {TextArea ? (
               <div className="">
-                <p
+                {/* <p
                   onClick={handleChatModal}
                   className="cursor-pointer text-right"
                 >
@@ -356,7 +356,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                     alt="stick"
                     style={{ width: "20%" }}
                   />
-                </p>
+                </p> */}
               </div>
             ) : (
               <div>
