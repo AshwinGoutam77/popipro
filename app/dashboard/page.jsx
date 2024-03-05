@@ -200,6 +200,73 @@ export default function Dashboard() {
     setInsightsTab(Tabs == "insights" ? true : false);
   }, [handleProfileTab, handleLeadsTab, handleInsightsTab]);
 
+  const handleFreeTrail = async () => {
+    try {
+      Swal.fire({
+        title: MainData?.is_individual == 0 ? "" : "Are you sure?",
+        text:
+          MainData?.is_individual == 0
+            ? "Kindly contact to your company to upgrade the plan."
+            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
+        icon: "warning",
+        showCancelButton: MainData?.is_individual == 0 ? false : true,
+        confirmButtonColor: "rgb(24 123 249)",
+        cancelButtonColor: "#d33",
+        showConfirmButton: MainData?.is_individual == 0 ? false : true,
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await Api(UpgradePlan, {
+            total_month: "1",
+            is_trial: "1",
+          });
+          setShowLoader(false);
+          if (response.data.status) {
+            Swal.fire("Done", "", "success");
+            APIDATA();
+            toast.success(response.data.message, {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          } else {
+            toast.error(response.data.message, {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        }
+      });
+    } catch (error) {
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      toast(error.response.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return Data ? (
     <>
       <ToastContainer
@@ -320,11 +387,28 @@ export default function Dashboard() {
                 Data &&
                 PlanData?.is_expired !== false &&
                 PlanData?.is_trial_taken !== 0 ? (
-                  <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
-                    Your subscription is expired, Click to renew it.
-                  </button>
+                  <a
+                    href={
+                      PlanData?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0
+                        ? "https://www.popipro.com/order"
+                        : ""
+                    }
+                    target="_blank"
+                  >
+                    <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                      Your subscription is expired, Click to renew it.
+                    </button>
+                  </a>
                 ) : (
-                  <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                  <button
+                    className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                    onClick={() =>
+                      MainData?.plan?.subscription_left_days == 0
+                        ? handleFreeTrail()
+                        : ""
+                    }
+                  >
                     {MainData?.plan?.subscription_left_days !== 0
                       ? "Your subscription valid till " +
                         MainData?.plan?.subscription_left_days +
