@@ -1560,6 +1560,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .header-nav-length {
+    padding-left: revert !important;
+  }
   .responsiveTable td.pivoted {
     padding: 5px;
   }

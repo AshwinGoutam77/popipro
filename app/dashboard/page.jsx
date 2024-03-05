@@ -44,7 +44,7 @@ import ChangePassword from "@components/Dashboard/ChangePassword";
 import Theme from "@components/Dashboard/Theme";
 import Suggestions from "@components/Dashboard/Suggestions";
 import { Swiper as SwiperComponent } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -353,13 +353,12 @@ export default function Dashboard() {
                   slidesPerView: 10,
                 },
                 300: {
-                  slidesPerView: 3,
+                  slidesPerView: 2,
                 },
               }}
               spaceBetween={10}
-              style={{ cursor: "pointer" }}
-              className="mySwiper mb-0"
-              modules={[Pagination]}
+              className="mySwiper cursor-pointer"
+              modules={[Pagination, Navigation]}
             >
               <SwiperSlide className="w-auto">
                 <div className="swiper-slide review-items position-relative">

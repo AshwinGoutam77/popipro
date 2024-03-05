@@ -30,7 +30,7 @@ const Navbar = ({ card, HeaderData }) => {
             className={
               HeaderData?.length > 4
                 ? "nav navscroll-bar d-flex align-items-center justify-content-between"
-                : "nav d-flex align-items-center justify-content-between"
+                : "nav d-flex align-items-center justify-content-between header-nav-length"
             }
           >
             <li

@@ -273,10 +273,12 @@ const Header = ({
         }%20%0AORG%3A${
           card?.card_profession
         }%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${
-          card?.card_contact
-        }%0ATEL%3BCELL%3A${card?.card_contact}%0AEMAIL%3BWORK%3BINTERNET%3A${
-          card?.card_email
-        }%0AWEBSITE%3A${
+          card.contact_country_code
+            ? card?.contact_country_code + "-"
+            : ""
+        } ${card?.card_contact} ${
+          card?.contact_extension ? "-" + card?.contact_extension : ""
+        }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
         }%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
       );

@@ -11,7 +11,7 @@ const AboutMe = ({ card, Titles }) => {
       setReadmore(false);
     }
   };
-  
+
   return (
     <>
       {Titles?.card_description?.source !== 0 &&

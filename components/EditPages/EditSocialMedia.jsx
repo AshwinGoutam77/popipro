@@ -630,33 +630,40 @@ function EditLinks({
               </div>
             )}
 
-            <div className="mt-3 d-flex align-items-center">
-              <input
-                type="checkbox"
-                id="insta"
-                value={
-                  MainData?.company_setting?.show_insta_feed !== 0
-                    ? true
-                    : false
-                }
-                checked={
-                  MainData?.company_setting?.show_insta_feed !== 0
-                    ? true
-                    : false
-                }
-                onChange={() => handleToogleFeed()}
-              />
-              <label
-                className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
-                htmlFor="insta"
-              >
-                Would you like to display the Instagram feeds as well?
-              </label>
-            </div>
-            <p className="VarColor font-weight-bold cursor-pointer m-0">
-              <span className="color-black">Note:</span> Only public profile
-              will be visible.
-            </p>
+            {MainData?.plan?.subscription?.plan_id !== null ||
+            MainData?.plan?.subscription?.plan_id == 2 ? (
+              <>
+                <div className="mt-3 d-flex align-items-center">
+                  <input
+                    type="checkbox"
+                    id="insta"
+                    value={
+                      MainData?.company_setting?.show_insta_feed !== 0
+                        ? true
+                        : false
+                    }
+                    checked={
+                      MainData?.company_setting?.show_insta_feed !== 0
+                        ? true
+                        : false
+                    }
+                    onChange={() => handleToogleFeed()}
+                  />
+                  <label
+                    className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
+                    htmlFor="insta"
+                  >
+                    Would you like to display the Instagram feeds as well?
+                  </label>
+                </div>
+                <p className="VarColor font-weight-bold cursor-pointer m-0">
+                  <span className="color-black">Note:</span> Only public profile
+                  will be visible.
+                </p>
+              </>
+            ) : (
+              ""
+            )}
           </>
         </div>
       ) : (
