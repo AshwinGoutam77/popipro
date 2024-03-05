@@ -23,6 +23,8 @@ import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function EditHeader({
   Data,
@@ -354,14 +356,32 @@ function EditHeader({
             {TitleData?.card_contact?.source == "2" ? (
               <>
                 <span className="overhead">Phone</span>
-                <div className="d-flex" style={{ gap: "16px" }}>
-                  <input
+                <div className="d-flex" style={{ gap: "10px" }}>
+                  {/* <input
                     type="number"
                     placeholder="Country Code"
                     onChange={(e) => setCountryCode(e.target.value)}
                     defaultValue={CountryCode}
                     className="form-control mt-2"
-                  />
+                  /> */}
+                  <select
+                    className="form-control mt-2"
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    defaultValue={CountryCode}
+                    style={{ height: "45px", width: "50%" }}
+                  >
+                    <option value="">Select Country Code</option>
+                    <option value="+1">United States: +1</option>
+                    <option value="+1">Canada: +1</option>
+                    <option value="+52">Mexico: +52</option>
+                    <option value="+44">United Kingdom: +44</option>
+                    <option value="+49">Germany: +49</option>
+                    <option value="+33">France: +33</option>
+                    <option value="+86">China: +86</option>
+                    <option value="+81">Japan: +81</option>
+                    <option value="+91">India: +91</option>
+                    <option value="+61">Australia: +61</option>
+                  </select>
                   <input
                     type="number"
                     placeholder="Phone number"
@@ -375,8 +395,15 @@ function EditHeader({
                     onChange={(e) => setExtension(e.target.value)}
                     defaultValue={Extension}
                     className="form-control mt-2"
+                    style={{ height: "45px", width: "50%" }}
                   />
                 </div>
+                {/* <PhoneInput
+                  country={userCountry.toLowerCase()}
+                  placeholder={"(555) 000-000"}
+                  prefix=""
+                  onChange={(phone) => setPhone({ phone })}
+                /> */}
               </>
             ) : (
               <>

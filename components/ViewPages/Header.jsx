@@ -346,6 +346,7 @@ const Header = ({
     setShowProfileQr(true);
     setShowDownloadQr(false);
   };
+  
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />

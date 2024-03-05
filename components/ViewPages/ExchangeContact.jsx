@@ -139,8 +139,11 @@ export default function ExchangeContact({
         </Modal.Header>
         <Modal.Body>
           <p className="text-center pb-4">
-            *<b>{card.first_name}</b> will receive the information via Email or
-            Whatsapp.
+            {/* *<b>{card.first_name}</b> will receive the information via Email or
+            Whatsapp. */}
+            *You are going to share your information with{" "}
+            <b>{card.first_name}</b>, {card.first_name} will receive the
+            information via Email or WhatsApp
           </p>
           <div className="row">
             <div className="form-group col-lg-6 col-md-6 mb-3">
@@ -201,7 +204,7 @@ export default function ExchangeContact({
                 onChange={() => handleSendWhatsaapMessage()}
               />
               <p className="ml-2">
-                Do you want to send message on whatsaap also?
+                Do you want to send message on WhatsApp also?
               </p>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">

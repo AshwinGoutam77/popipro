@@ -466,7 +466,7 @@ const Banner = ({
               href={
                 LocalStorageUrl == profile
                   ? "/dashboard"
-                  : "https://www.popipro.com/shop"
+                  : MainData?.company_setting?.request_popicard_url
               }
               target={LocalStorageUrl == profile ? "" : "_blank"}
               onClick={() => HitClick("order", "card", id)}
@@ -657,7 +657,7 @@ const Banner = ({
               href={
                 LocalStorageUrl == profile
                   ? "/dashboard"
-                  : "https://www.popipro.com/shop"
+                  : MainData?.company_setting?.request_popicard_url
               }
               target={LocalStorageUrl == profile ? "" : "_blank"}
               onClick={() => HitClick("order", id, id)}

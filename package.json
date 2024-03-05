@@ -46,6 +46,8 @@
     "react-dom": "^18",
     "react-easy-crop": "^5.0.2",
     "react-modal": "^3.16.1",
+    "react-phone-input-2": "^2.15.1",
+    "react-phone-number-input": "^3.3.9",
     "react-player": "^2.13.0",
     "react-qr-code": "^2.0.12",
     "react-scroll": "^1.9.0",
