@@ -630,7 +630,8 @@ function EditLinks({
               </div>
             )}
 
-            {MainData?.plan?.subscription?.plan_id !== null ||
+            {MainData?.plan?.subscription !== null ||
+            MainData?.plan?.subscription?.plan_id !== null ||
             MainData?.plan?.subscription?.plan_id == 2 ? (
               <>
                 <div className="mt-3 d-flex align-items-center">
