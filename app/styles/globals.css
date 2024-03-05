@@ -602,6 +602,9 @@ input.date-time-input::-webkit-date-and-time-value {
 .iframe-class iframe {
   height: 100vh;
 }
+.iframe-class iframe{
+  position: relative !important;
+}
 .main-loader {
   height: 100vh;
   position: fixed;

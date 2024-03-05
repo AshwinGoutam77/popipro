@@ -871,6 +871,7 @@ export default function EditBlogs({
                         : TitleData?.card_blogs?.visible_name
                     }
                     placeholder="Title"
+                    maxLength="20"
                   ></input>
                 ) : (
                   <>

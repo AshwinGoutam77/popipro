@@ -302,6 +302,7 @@ export default function EditClients({
                         ? "Clients Sections"
                         : TitleData?.card_clients?.visible_name
                     }
+                    maxLength="20"
                   />
                 ) : (
                   <>

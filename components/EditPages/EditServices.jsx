@@ -736,6 +736,7 @@ export default function EditDoing({
                         ? "Services"
                         : TitleData?.card_services?.visible_name
                     }
+                    maxLength="20"
                   />
                 ) : (
                   <div className="d-flex align-items-baseline">
@@ -754,6 +755,7 @@ export default function EditDoing({
                             : TitleData?.card_services?.visible_name
                         }
                         placeholder="Title"
+                        maxLength="20"
                       ></input>
                     ) : (
                       <>

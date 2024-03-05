@@ -434,6 +434,7 @@ function EditLinks({
                         : TitleData?.card_social_links?.visible_name
                     }
                     placeholder="Title"
+                    maxLength="20"
                   ></input>
                 ) : (
                   <>

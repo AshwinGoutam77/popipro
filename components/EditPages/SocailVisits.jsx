@@ -335,6 +335,7 @@ export default function SocailVisits({
                     : TitleData?.card_social_visits?.visible_name
                 }
                 placeholder="Title"
+                maxLength="20"
               ></input>
             ) : (
               <>

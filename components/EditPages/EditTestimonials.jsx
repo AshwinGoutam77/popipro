@@ -808,6 +808,7 @@ export default function EditTestimonials({
                         ? "Card Testimonials"
                         : TitleData?.card_testimonials?.visible_name
                     }
+                    maxLength="20"
                   />
                 ) : (
                   <div className="d-flex align-items-baseline">
@@ -826,6 +827,7 @@ export default function EditTestimonials({
                             : TitleData?.card_testimonials?.visible_name
                         }
                         placeholder="Title"
+                        maxLength="20"
                       ></input>
                     ) : (
                       <>

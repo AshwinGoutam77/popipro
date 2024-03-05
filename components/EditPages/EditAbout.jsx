@@ -336,6 +336,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                   placeholder="About Yourself"
                   onChange={(e) => setAboutMe(e.target.value)}
                   defaultValue={AboutMe || ""}
+                  maxLength="20"
                 />
               ) : (
                 <>

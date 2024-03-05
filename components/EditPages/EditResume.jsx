@@ -735,6 +735,7 @@ export default function EditResume({
                             : TitleData?.card_experience?.visible_name
                         }
                         placeholder="Title"
+                        maxLength="20"
                       ></input>
                     ) : (
                       <>

@@ -1517,7 +1517,7 @@ export default function EditProducts({
           </div>
         </Modal.Body>
       </Modal>
-      
+
       {TitleData?.card_products?.source !== 0 ? (
         <>
           <div className="position-relative">
@@ -1548,6 +1548,7 @@ export default function EditProducts({
                           : TitleData?.card_products?.visible_name
                       }
                       placeholder="Title"
+                      maxLength="20"
                     ></input>
                   ) : (
                     <>

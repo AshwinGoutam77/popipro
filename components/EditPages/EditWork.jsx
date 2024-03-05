@@ -621,6 +621,7 @@ export default function EditWorks({
                         : TitleData?.card_photos?.visible_name
                     }
                     placeholder="Title"
+                    maxLength="20"
                   ></input>
                 ) : (
                   <>
@@ -895,6 +896,7 @@ export default function EditWorks({
                         : TitleData?.card_videos?.visible_name
                     }
                     placeholder="Title"
+                    maxLength="20"
                   ></input>
                 ) : (
                   <>
