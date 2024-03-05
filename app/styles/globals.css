@@ -754,7 +754,7 @@ input.date-time-input::-webkit-date-and-time-value {
   border-radius: 100px;
   width: max-content;
 }
-.filter-active{
+.filter-active {
   border: 1px solid transparent;
 }
 .filter-btns-active {
@@ -1487,10 +1487,17 @@ table tbody tr:last-child {
   z-index: 9;
 }
 .amenities-div svg {
-  height: 23px;
-  width: 23px;
+  height: 16px;
+  width: 16px;
   fill: var(--color);
 }
+
+/* .amenities-div span {
+  font-size: 16px;
+  background: #ccc;
+  padding: 5px;
+  border-radius: 25px;
+} */
 
 .amenities-delete-icon {
   position: absolute;

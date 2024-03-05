@@ -564,13 +564,26 @@ export default function EditProducts({
   const HandleProjectSelect = (ProjectOptions) => {
     setCategoryId(ProjectOptions);
   };
+
   const handleCreate = async (inputValue) => {
     setIsLoading(true);
     const response = await Api(ManageCategory, { category_name: inputValue });
-    const newOption = { label: inputValue, value: response.data.data.id };
-    ProjectOptions.push(newOption);
-    setCategoryId(newOption);
-    setIsLoading(false);
+    console.log("res", response);
+    const newOption = {
+      value: response.data.data.id,
+      label: response.data.data.name,
+    };
+    if (response.data.status) {
+      APIDATA();
+      console.log(newOption);
+      Category.push(newOption);
+      ProjectOptions.push(newOption);
+      console.log("...", ProjectOptions);
+      console.log("<<", Category);
+      setCategoryId(newOption);
+      console.log("catId", CategoryId);
+      setIsLoading(false);
+    }
   };
 
   const handleDeleteGalleryImages = async (path, type, DataId) => {
@@ -1504,6 +1517,7 @@ export default function EditProducts({
           </div>
         </Modal.Body>
       </Modal>
+      
       {TitleData?.card_products?.source !== 0 ? (
         <>
           <div className="position-relative">

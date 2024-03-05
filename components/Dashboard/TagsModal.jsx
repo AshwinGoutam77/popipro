@@ -52,6 +52,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
     if (response?.data?.status) {
       setEditCategory(false);
       APIDATA();
+      setCategoryData(Data?.categories);
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 2000,

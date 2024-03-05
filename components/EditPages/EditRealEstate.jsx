@@ -1633,7 +1633,7 @@ export default function EditRealEstate({
                         <div className="mt-2 cursor-pointer">
                           <h6
                             className="mb-0 color-black cursor-pointer d-flex align-items-center"
-                            onClick={() => setshow(true)}
+                            onClick={() => handleShowDetailModal(items?.id)}
                           >
                             {items?.heading}
                             <span className="real-estate-badge">
@@ -1645,7 +1645,7 @@ export default function EditRealEstate({
                           </h6>
                           <p
                             className="color-black cursor-pointer mt-2"
-                            onClick={() => setshow(true)}
+                            onClick={() => handleShowDetailModal(items?.id)}
                           >
                             {items?.street_address}, {items?.city},{" "}
                             {items?.state}, {items?.country}
