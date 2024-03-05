@@ -271,7 +271,7 @@ const Header = ({
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AFN%3A${
           card?.first_name
         }%20%0AORG%3A${card?.first_name}%0ATITLE%3A%0AADR%3A%3B%3B${
-          card?.card_address
+          card?.card_address ? card?.card_address : ""
         }%0ATEL%3BWORK%3BVOICE%3A ${
           card.contact_country_code ||
           card.contact_extension ||
