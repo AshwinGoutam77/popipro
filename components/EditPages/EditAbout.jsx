@@ -249,7 +249,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
     handleShowshowChatModal();
     handleButtonClick();
   };
-  
   const handleCopyMessage = () => {
     toast.success("Message copied succesfully", {
       position: "top-right",
@@ -471,8 +470,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                   }}
                 ></div>
               )}
-              {Data?.card_description?.length > "480" &&
-              Data?.card_description !== null ? (
+              {Data?.card_description?.length > "480" ||
+              Data?.card_description == null ? (
                 <p
                   className="read-more text-align-end"
                   onClick={HandleReadmore}

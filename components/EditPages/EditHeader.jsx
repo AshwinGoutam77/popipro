@@ -283,7 +283,7 @@ function EditHeader({
               placeholder="Name"
               onChange={(e) => setFirstName(e.target.value)}
               defaultValue={FirstName || ""}
-              className="email-input w-100 text-left"
+              className="form-control mt-2"
               autoFocus="autofocus"
               style={{
                 borderBottom: "1px solid rgb(204, 204, 204);",
@@ -299,7 +299,7 @@ function EditHeader({
                   placeholder="Profession"
                   onChange={(e) => setProfession(e.target.value)}
                   defaultValue={Profession || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{
                     borderBottom: "1px solid rgb(204, 204, 204);",
                   }}
@@ -332,7 +332,7 @@ function EditHeader({
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                   defaultValue={Email || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -343,7 +343,7 @@ function EditHeader({
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                   defaultValue={Email || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -360,21 +360,21 @@ function EditHeader({
                     placeholder="Country Code"
                     onChange={(e) => setCountryCode(e.target.value)}
                     defaultValue={CountryCode}
-                    className="email-input"
+                    className="form-control mt-2"
                   />
                   <input
                     type="number"
                     placeholder="Phone number"
                     onChange={(e) => setPhone(e.target.value)}
                     defaultValue={Phone}
-                    className="email-input"
+                    className="form-control mt-2"
                   />
                   <input
                     type="number"
                     placeholder="Phone Extension"
                     onChange={(e) => setExtension(e.target.value)}
                     defaultValue={Extension}
-                    className="email-input"
+                    className="form-control mt-2"
                   />
                 </div>
               </>
@@ -390,7 +390,7 @@ function EditHeader({
                       ? CountryCode + "-" + Phone
                       : Phone || "" || ""
                   }
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -412,7 +412,7 @@ function EditHeader({
                   placeholder="Whatsapp number"
                   onChange={(e) => setWhatsaapNumber(e.target.value)}
                   defaultValue={WhatsaapNumber || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -423,7 +423,7 @@ function EditHeader({
                   placeholder="Whatsapp Number"
                   onChange={(e) => setWhatsaapNumber(e.target.value)}
                   defaultValue={WhatsaapNumber || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -439,7 +439,7 @@ function EditHeader({
                   placeholder="Address"
                   onChange={(e) => setAddress(e.target.value)}
                   defaultValue={Address || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -450,7 +450,7 @@ function EditHeader({
                   placeholder="Address"
                   onChange={(e) => setAddress(e.target.value)}
                   defaultValue={Address || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -466,7 +466,7 @@ function EditHeader({
                   placeholder="Website URL"
                   onChange={(e) => setWebUrl(e.target.value)}
                   defaultValue={WebUrl || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -477,7 +477,7 @@ function EditHeader({
                   placeholder="Website URL"
                   onChange={(e) => setWebUrl(e.target.value)}
                   defaultValue={WebUrl || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -495,7 +495,7 @@ function EditHeader({
                   placeholder="Your google Review url"
                   onChange={(e) => setGoogleReview(e.target.value)}
                   defaultValue={GoogleReview || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -506,7 +506,7 @@ function EditHeader({
                   placeholder="Your google Review url"
                   onChange={(e) => setGoogleReview(e.target.value)}
                   defaultValue={GoogleReview || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -524,7 +524,7 @@ function EditHeader({
                   placeholder="Your Trust Pilot url"
                   onChange={(e) => setTrustPilot(e.target.value)}
                   defaultValue={TrustPilot || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                 />
               </>
             ) : (
@@ -535,7 +535,7 @@ function EditHeader({
                   placeholder="Your Trust Pilot url"
                   onChange={(e) => setTrustPilot(e.target.value)}
                   defaultValue={TrustPilot || ""}
-                  className="email-input"
+                  className="form-control mt-2"
                   style={{ background: "#dcdcdcd9" }}
                   readOnly
                 />
@@ -550,7 +550,6 @@ function EditHeader({
               className="contact-btn w-auto mt-0"
               onClick={getBlobData}
               defaultValue="1"
-              // style={{ padding: "7px 20px" }}
             >
               Save
             </button>
@@ -558,7 +557,6 @@ function EditHeader({
               className="delete-button w-auto"
               onClick={cancleChanges}
               defaultValue="1"
-              // style={{ padding: "7px 20px" }}
             >
               Cancel
             </button>
