@@ -2841,7 +2841,6 @@ button:focus {
 }
 .email-input {
   color: black;
-  font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 1;
   width: -webkit-fill-available;
@@ -2849,6 +2848,7 @@ button:focus {
   border-bottom: 1px solid #ccc;
   font-size: 14px;
   width: 100%;
+  padding: 10px 5px;
 }
 #txt-custom {
   display: block;

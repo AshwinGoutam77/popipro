@@ -630,7 +630,7 @@ function EditLinks({
               </div>
             )}
 
-            <div className="mt-3 mx-3 d-flex align-items-center">
+            <div className="mt-3 d-flex align-items-center">
               <input
                 type="checkbox"
                 id="insta"
@@ -653,7 +653,7 @@ function EditLinks({
                 Would you like to display the Instagram feeds as well?
               </label>
             </div>
-            <p className="VarColor font-weight-bold ml-3 cursor-pointer m-0">
+            <p className="VarColor font-weight-bold cursor-pointer m-0">
               <span className="color-black">Note:</span> Only public profile
               will be visible.
             </p>
