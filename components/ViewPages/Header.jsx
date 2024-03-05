@@ -272,10 +272,16 @@ const Header = ({
           card?.first_name
         }%20%0AORG%3A${card?.first_name}%0ATITLE%3A%0AADR%3A%3B%3B${
           card?.card_address
-        }%0ATEL%3BWORK%3BVOICE%3A${
-          card.contact_country_code ? card?.contact_country_code + "-" : ""
-        } ${card?.card_contact} ${
-          card?.contact_extension ? "-" + card?.contact_extension : ""
+        }%0ATEL%3BWORK%3BVOICE%3A ${
+          card.contact_country_code ||
+          card.contact_extension ||
+          card.card_contact
+            ? card.contact_country_code
+              ? card?.contact_country_code + "-" + card?.card_contact
+              : "" + card?.contact_extension
+              ? "-" + card?.contact_extension
+              : ""
+            : ""
         }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
         }%0AURL%3A${
@@ -306,6 +312,7 @@ const Header = ({
     if (response.data.status) {
     }
   };
+
   if (sharePopup == false && card?.landing_mode === "share-contact") {
     setShow(true);
     setsharePopup(true);
@@ -328,6 +335,7 @@ const Header = ({
   const downloadImage = () => {
     saveAs(imageSrc, "image.jpg");
   };
+
   const DownloadProfile = () => {
     saveAs(
       `https://chart.googleapis.com/chart?cht=qr&chl=${
@@ -346,7 +354,7 @@ const Header = ({
     setShowProfileQr(true);
     setShowDownloadQr(false);
   };
-  
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
