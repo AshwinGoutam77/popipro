@@ -270,17 +270,17 @@ const Header = ({
       setImageSrc(
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AFN%3A${
           card?.first_name
-        }%20%0AORG%3A${
-          card?.card_profession
-        }%0ATITLE%3A%0AADR%3A%3B%3BVaishali%20Nagar%3BJaipur%3BRajasthan%3B302012%3BIndia%0ATEL%3BWORK%3BVOICE%3A${
-          card.contact_country_code
-            ? card?.contact_country_code + "-"
-            : ""
+        }%20%0AORG%3A${card?.first_name}%0ATITLE%3A%0AADR%3A%3B%3B${
+          card?.card_address
+        }%0ATEL%3BWORK%3BVOICE%3A${
+          card.contact_country_code ? card?.contact_country_code + "-" : ""
         } ${card?.card_contact} ${
           card?.contact_extension ? "-" + card?.contact_extension : ""
         }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
-        }%0AURL%3Ahttps%3A%2F%2Fwww.qr-code-generator.com%2F%0AEND%3AVCARD`
+        }%0AURL%3A${
+          card?.card_website ? card?.card_website : ""
+        }%2F%0AEND%3AVCARD`
       );
       imageSrc;
     }
