@@ -544,7 +544,7 @@ export default function Product({
                           <a
                             href={
                               "https://api.whatsapp.com/send?phone=" +
-                              Data?.whatsapp_country_code.replace(
+                              Data?.whatsapp_country_code?.replace(
                                 /\+/g,
                                 "%2B"
                               ) +
@@ -945,7 +945,7 @@ export default function Product({
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
-                                        Data?.whatsapp_country_code.replace(
+                                        Data?.whatsapp_country_code?.replace(
                                           /\+/g,
                                           "%2B"
                                         ) +
@@ -1088,7 +1088,7 @@ export default function Product({
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
-                                        Data?.whatsapp_country_code.replace(
+                                        Data?.whatsapp_country_code?.replace(
                                           /\+/g,
                                           "%2B"
                                         ) +
