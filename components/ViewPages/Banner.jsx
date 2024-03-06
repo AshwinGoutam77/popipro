@@ -368,9 +368,12 @@ const Banner = ({
             {card.whatsapp_number !== null ? (
               <a
                 href={
-                  "https://api.whatsapp.com/send?phone=" +
-                  card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-                  card.whatsapp_number
+                  card?.whatsapp_country_code
+                    ? "https://api.whatsapp.com/send?phone=" +
+                      card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+                      card.whatsapp_number
+                    : "https://api.whatsapp.com/send?phone=" +
+                      card.whatsapp_number
                 }
                 className="float"
                 target="_blank"
@@ -530,9 +533,12 @@ const Banner = ({
             {card.whatsapp_number !== null ? (
               <a
                 href={
-                  "https://api.whatsapp.com/send?phone=" +
-                  card?.whatsapp_country_code.replace(/\+/g, "%2B") +
-                  card.whatsapp_number
+                  card?.whatsapp_country_code
+                    ? "https://api.whatsapp.com/send?phone=" +
+                      card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+                      card.whatsapp_number
+                    : "https://api.whatsapp.com/send?phone=" +
+                      card.whatsapp_number
                 }
                 className="float"
                 target="_blank"

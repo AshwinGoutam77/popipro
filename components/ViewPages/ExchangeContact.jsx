@@ -93,20 +93,32 @@ export default function ExchangeContact({
         });
 
         window.location.href = SendWhatsaap
-          ? "https://api.whatsapp.com/send?phone=" +
-            card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-            card.whatsapp_number +
-            "&" +
-            `text=Popipro Enquiry %0a Name =${FirstName} ${
-              Email ? `%0a Email = ${Email}` : ""
-            } %0a Number =${Number} ${
-              Message ? ` %0a Message = ${Message}` : ""
-            }`
+          ? card?.whatsapp_country_code
+            ? "https://api.whatsapp.com/send?phone=" +
+              card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+              card.whatsapp_number +
+              "&" +
+              `text=Popipro Enquiry %0a Name =${FirstName} ${
+                Email ? `%0a Email = ${Email}` : ""
+              } %0a Number =${Number} ${
+                Message ? ` %0a Message = ${Message}` : ""
+              }`
+            : "https://api.whatsapp.com/send?phone=" +
+              card.whatsapp_number +
+              "&" +
+              `text=Popipro Enquiry %0a Name =${FirstName} ${
+                Email ? `%0a Email = ${Email}` : ""
+              } %0a Number =${Number} ${
+                Message ? ` %0a Message = ${Message}` : ""
+              }`
           : "#";
         // href={
-        //   "https://api.whatsapp.com/send?phone=" +
-        //   card?.whatsapp_country_code.replace(/\+/g, "%2B") +
-        //   card.whatsapp_number
+        //   card?.whatsapp_country_code
+        //     ? "https://api.whatsapp.com/send?phone=" +
+        //       card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+        //       card.whatsapp_number
+        //     : "https://api.whatsapp.com/send?phone=" +
+        //       card.whatsapp_number
         // }
         handleEmptyFields();
       } else {
