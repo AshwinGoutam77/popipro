@@ -169,7 +169,10 @@ const Header = ({
           ""
         ),
         name: card?.first_name,
-        phone: card?.card_contact,
+        phone:
+          (card.contact_country_code ? card.contact_country_code : "") +
+          (card?.card_contact ? card?.card_contact : "") +
+          (card?.contact_extension ? card?.contact_extension : ""),
         email: card.card_email,
         url: "app.popipro.com/" + profile,
         location: card.card_address,
