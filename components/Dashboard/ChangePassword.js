@@ -14,8 +14,21 @@ export default function ChangePassword({ active, handleClose }) {
   const [OldPassword, setOldPassword] = useState("");
 
   const handlecontinue = async () => {
+    event.preventDefault();
     if (Password === "") {
       toast.error("Password field is required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else if (Password !== Confirm_Password) {
+      toast.error("Password should be match with confirm password", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -109,7 +122,7 @@ export default function ChangePassword({ active, handleClose }) {
                 className="title title--h1 first-title title__separate mb-0"
                 id="BlogModalTitle"
               >
-               Change Password
+                Change Password
               </h5>
             </Modal.Title>
 
@@ -124,7 +137,10 @@ export default function ChangePassword({ active, handleClose }) {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <form className="changePassword-form-section px-0 pt-1 mb-0 mt-0">
+              <form
+                className="changePassword-form-section px-0 pt-1 mb-0 mt-0"
+                onSubmit={(e) => handlecontinue(e)}
+              >
                 <input
                   type="password"
                   name="number"
@@ -153,6 +169,7 @@ export default function ChangePassword({ active, handleClose }) {
                   required
                 />
                 <button
+                  type="submit"
                   className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4 mb-0"
                   data-wow-delay=".6s"
                   style={{
@@ -160,7 +177,7 @@ export default function ChangePassword({ active, handleClose }) {
                     animationDelay: "0.6s",
                     animationName: "fadeInUp",
                   }}
-                  onClick={handlecontinue}
+                  // onClick={handlecontinue}
                 >
                   Update Password
                 </button>
