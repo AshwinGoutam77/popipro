@@ -172,7 +172,7 @@ export default function ExchangeContact({
           </button>
         </Modal.Header>
         <Modal.Body>
-          <p className="text-center">
+          <p className="text-center pb-4">
             {/* *<b>{card.first_name}</b> will receive the information via Email or
             Whatsapp. */}
             You are going to share your information with{" "}
