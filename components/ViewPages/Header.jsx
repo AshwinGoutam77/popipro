@@ -284,9 +284,11 @@ const Header = ({
             : ""
         }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
-        }%0AURL%3A${
-          card?.card_website ? card?.card_website : ""
-        }%2F%0AEND%3AVCARD`
+        }${
+          card?.card_website !== null
+            ? "%0AURL%3A" + card?.card_website + "%2F"
+            : ""
+        }%0AEND%3AVCARD`
       );
       imageSrc;
     }
