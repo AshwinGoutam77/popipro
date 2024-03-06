@@ -63,8 +63,6 @@ const Header = ({
   const [ShowProfileQr, setShowProfileQr] = useState(false);
   const [ShowDownloadQr, setShowDownloadQr] = useState(true);
 
-  console.log(",,,", card.contact_country_code);
-
   useEffect(() => {
     setTime(new Date().getTime() / 1000);
   }, [card]);
@@ -285,7 +283,7 @@ const Header = ({
           card?.card_address ? card?.card_address : ""
         }%0ATEL%3BWORK%3BVOICE%3A ${
           (card.contact_country_code ? card.contact_country_code : "") +
-          card?.card_contact +
+          (card?.card_contact ? card?.card_contact : "") +
           (card?.contact_extension ? card?.contact_extension : "")
         }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
