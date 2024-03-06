@@ -409,7 +409,7 @@ function EditHeader({
                     {MainData?.countrycode_listing &&
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
-                          <option value={item?.value}>
+                          <option value={item?.value} key={index}>
                             {item?.name + ": " + item?.value}
                           </option>
                         );
@@ -487,7 +487,7 @@ function EditHeader({
                     {MainData?.countrycode_listing &&
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
-                          <option value={item?.value}>
+                          <option value={item?.value} key={index}>
                             {item?.name + ": " + item?.value}
                           </option>
                         );
