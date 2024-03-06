@@ -62,7 +62,6 @@ export default function ChangePassword({ active, handleClose }) {
         setPassword("");
         setConfirm_Password("");
         setOldPassword("");
-        // window["closeModal"]();
         localStorage.removeItem("token");
         window.location.href = "/login";
       } else {
