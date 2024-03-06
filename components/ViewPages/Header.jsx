@@ -63,6 +63,8 @@ const Header = ({
   const [ShowProfileQr, setShowProfileQr] = useState(false);
   const [ShowDownloadQr, setShowDownloadQr] = useState(true);
 
+  console.log(",,,", card.contact_country_code);
+
   useEffect(() => {
     setTime(new Date().getTime() / 1000);
   }, [card]);
@@ -267,21 +269,24 @@ const Header = ({
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
+      // card.contact_country_code ||
+      //     card.contact_extension ||
+      //     card.card_contact
+      //       ? card.contact_country_code
+      //         ? card?.contact_country_code + "-" + card?.card_contact
+      //         : card?.card_contact + card?.contact_extension
+      //         ? "-" + card?.contact_extension
+      //         : card?.card_contact
+      //       : ""
       setImageSrc(
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AFN%3A${
           card?.first_name
         }%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3B${
           card?.card_address ? card?.card_address : ""
         }%0ATEL%3BWORK%3BVOICE%3A ${
-          card.contact_country_code ||
-          card.contact_extension ||
-          card.card_contact
-            ? card.contact_country_code
-              ? card?.contact_country_code + "-" + card?.card_contact
-              : "" + card?.contact_extension
-              ? "-" + card?.contact_extension
-              : ""
-            : ""
+          (card.contact_country_code ? card.contact_country_code : "") +
+          card?.card_contact +
+          (card?.contact_extension ? card?.contact_extension : "")
         }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
           "app.popipro.com/" + profile
         }${
@@ -561,9 +566,15 @@ const Header = ({
               <div className="d-flex flex-column justify-content-center align-items-center">
                 {profile ? (
                   <img
-                    src={`https://chart.googleapis.com/chart?cht=qr&chl=${
-                      "app.popipro.com/" + profile
-                    }&chs=160x160&chld=L|0`}
+                    src={
+                      process.env.NEXT_PUBLIC_MODE === "development"
+                        ? `https://chart.googleapis.com/chart?cht=qr&chl=${
+                            "front.popipro.com/" + profile
+                          }&chs=160x160&chld=L|0`
+                        : `https://chart.googleapis.com/chart?cht=qr&chl=${
+                            "app.popipro.com/" + profile
+                          }&chs=160x160&chld=L|0`
+                    }
                     className="qr-img w-250"
                     alt="we"
                   />
