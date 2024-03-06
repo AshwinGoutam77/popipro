@@ -94,7 +94,7 @@ export default function ExchangeContact({
 
         window.location.href = SendWhatsaap
           ? "https://api.whatsapp.com/send?phone=" +
-            card?.whatsapp_country_code.replace(/\+/g, "%2B") +
+            card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
             card.whatsapp_number +
             "&" +
             `text=Popipro Enquiry %0a Name =${FirstName} ${
