@@ -23,8 +23,7 @@ import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 function EditHeader({
   Data,
@@ -34,6 +33,7 @@ function EditHeader({
   card,
   APIDATA,
   updateImage,
+  MainData,
 }) {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState();
@@ -61,6 +61,7 @@ function EditHeader({
   const [ShowCropperBtn, setShowCropperBtn] = useState(false);
   const [cropDataImage, setCropDataImage] = useState("#");
   const cropperRef = createRef();
+  const [Whatsapp_code, setWhatsapp_code] = useState("");
 
   const onChange = (e) => {
     setShowCropper(true);
@@ -101,12 +102,13 @@ function EditHeader({
         website: WebUrl,
         google_review_url: GoogleReview,
         whatsapp_number: WhatsaapNumber,
+        whatsapp_country_code: Whatsapp_code,
         trustpilot_url: TrustPilot,
       };
       setShowLoader(true);
       try {
         const response = await Api(CardData, info);
-        setShowLoader(true);
+        setShowLoader(false);
         if (response.data?.status) {
           setShowCropper(false);
           APIDATA();
@@ -119,6 +121,7 @@ function EditHeader({
           }
         }
       } catch (error) {
+        setShowLoader(false);
         if (error.request.status == "401") {
           localStorage.removeItem("token");
           window.location.href = "/login";
@@ -149,6 +152,7 @@ function EditHeader({
         website: WebUrl,
         google_review_url: GoogleReview,
         whatsapp_number: WhatsaapNumber,
+        whatsapp_country_code: Whatsapp_code,
         trustpilot_url: TrustPilot,
       };
       setShowLoader(true);
@@ -194,20 +198,19 @@ function EditHeader({
   };
   const editHandler = async () => {
     handleShow();
-    setShowLoader(true);
     setShow(true);
     if (Show) {
       setShow(false);
     }
     const response = await Api(GetCardData, {}, "?card_url=" + card);
-    setShowLoader(true);
     if (response.data.status) {
       setFirstName(response.data.data.card.first_name);
       setLastName(response.data.data.card.last_name);
       setEmail(response.data.data.card.card_email);
       setProfession(response.data.data.card.card_profession);
       setPhone(response.data.data.card.card_contact);
-      setCountryCode(response.data.data.card.contact_country_code);
+      setCountryCode(response.data.data.card?.contact_country_code);
+      setWhatsapp_code(response.data.data.card?.whatsapp_country_code);
       setAddress(response.data.data.card.card_address);
       setGoogleReview(response.data.data.card.card_google_review);
       setWebUrl(response.data.data.card.card_website);
@@ -221,6 +224,7 @@ function EditHeader({
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -357,30 +361,21 @@ function EditHeader({
               <>
                 <span className="overhead">Phone</span>
                 <div className="d-flex" style={{ gap: "10px" }}>
-                  {/* <input
-                    type="number"
-                    placeholder="Country Code"
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    defaultValue={CountryCode}
-                    className="form-control mt-2"
-                  /> */}
                   <select
                     className="form-control mt-2"
                     onChange={(e) => setCountryCode(e.target.value)}
-                    defaultValue={CountryCode}
+                    value={CountryCode}
                     style={{ height: "45px", width: "50%" }}
                   >
-                    <option value="">Select Country Code</option>
-                    <option value="+1">United States: +1</option>
-                    <option value="+1">Canada: +1</option>
-                    <option value="+52">Mexico: +52</option>
-                    <option value="+44">United Kingdom: +44</option>
-                    <option value="+49">Germany: +49</option>
-                    <option value="+33">France: +33</option>
-                    <option value="+86">China: +86</option>
-                    <option value="+81">Japan: +81</option>
-                    <option value="+91">India: +91</option>
-                    <option value="+61">Australia: +61</option>
+                    <option value="">Code</option>
+                    {MainData?.countrycode_listing &&
+                      MainData?.countrycode_listing?.map((item, index) => {
+                        return (
+                          <option value={item?.value}>
+                            {item?.name + ": " + item?.value}
+                          </option>
+                        );
+                      })}
                   </select>
                   <input
                     type="number"
@@ -398,29 +393,46 @@ function EditHeader({
                     style={{ height: "45px", width: "50%" }}
                   />
                 </div>
-                {/* <PhoneInput
-                  country={userCountry.toLowerCase()}
-                  placeholder={"(555) 000-000"}
-                  prefix=""
-                  onChange={(phone) => setPhone({ phone })}
-                /> */}
               </>
             ) : (
               <>
                 <span className="overhead">Phone</span>
-                <input
-                  type="text"
-                  placeholder="Phone number"
-                  onChange={(e) => setPhone(e.target.value)}
-                  defaultValue={
-                    CountryCode !== ""
-                      ? CountryCode + "-" + Phone
-                      : Phone || "" || ""
-                  }
-                  className="form-control mt-2"
-                  style={{ background: "#dcdcdcd9" }}
-                  readOnly
-                />
+                <div className="d-flex" style={{ gap: "10px" }}>
+                  <select
+                    className="form-control mt-2"
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    defaultValue={CountryCode}
+                    style={{ height: "45px", width: "50%" }}
+                    disabled
+                  >
+                    <option value="">Select Country Code</option>
+                    {MainData?.countrycode_listing &&
+                      MainData?.countrycode_listing?.map((item, index) => {
+                        return (
+                          <option value={item?.value}>
+                            {item?.name + ": " + item?.value}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <input
+                    type="number"
+                    placeholder="Phone number"
+                    onChange={(e) => setPhone(e.target.value)}
+                    defaultValue={Phone}
+                    className="form-control mt-2"
+                    readOnly
+                  />
+                  <input
+                    type="number"
+                    placeholder="Phone Extension"
+                    onChange={(e) => setExtension(e.target.value)}
+                    defaultValue={Extension}
+                    className="form-control mt-2"
+                    style={{ height: "45px", width: "50%" }}
+                    readOnly
+                  />
+                </div>
               </>
             )}
           </div>
@@ -429,31 +441,67 @@ function EditHeader({
               <>
                 <span className="overhead">
                   whatsapp Number{" "}
-                  <span style={{ color: "var(--color)", fontWeight: "normal" }}>
+                  {/* <span style={{ color: "var(--color)", fontWeight: "normal" }}>
                     (*Please enter number with country code and without any
                     spaces)
-                  </span>
+                  </span> */}
                 </span>
-                <input
-                  type="number"
-                  placeholder="Whatsapp number"
-                  onChange={(e) => setWhatsaapNumber(e.target.value)}
-                  defaultValue={WhatsaapNumber || ""}
-                  className="form-control mt-2"
-                />
+                <div className="d-flex" style={{ gap: "10px" }}>
+                  <select
+                    className="form-control mt-2"
+                    onChange={(e) => setWhatsapp_code(e.target.value)}
+                    value={Whatsapp_code}
+                    style={{ height: "45px", width: "34%" }}
+                  >
+                    <option value="">Code</option>
+                    {MainData?.countrycode_listing &&
+                      MainData?.countrycode_listing?.map((item, index) => {
+                        return (
+                          <option value={item?.value}>
+                            {item?.name + ": " + item?.value}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <input
+                    type="number"
+                    placeholder="Whatsapp number"
+                    onChange={(e) => setWhatsaapNumber(e.target.value)}
+                    defaultValue={WhatsaapNumber || ""}
+                    className="form-control mt-2"
+                  />
+                </div>
               </>
             ) : (
               <>
                 <span className="overhead">Whatsapp Number</span>
-                <input
-                  type="text"
-                  placeholder="Whatsapp Number"
-                  onChange={(e) => setWhatsaapNumber(e.target.value)}
-                  defaultValue={WhatsaapNumber || ""}
-                  className="form-control mt-2"
-                  style={{ background: "#dcdcdcd9" }}
-                  readOnly
-                />
+                <div className="d-flex" style={{ gap: "10px" }}>
+                  <select
+                    className="form-control mt-2"
+                    onChange={(e) => setWhatsapp_code(e.target.value)}
+                    value={Whatsapp_code}
+                    style={{ height: "45px", width: "34%" }}
+                    disabled
+                  >
+                    <option value="">Code</option>
+                    {MainData?.countrycode_listing &&
+                      MainData?.countrycode_listing?.map((item, index) => {
+                        return (
+                          <option value={item?.value}>
+                            {item?.name + ": " + item?.value}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <input
+                    type="number"
+                    placeholder="Whatsapp number"
+                    onChange={(e) => setWhatsaapNumber(e.target.value)}
+                    defaultValue={WhatsaapNumber || ""}
+                    className="form-control mt-2"
+                    readOnly
+                  />
+                </div>
               </>
             )}
           </div>

@@ -119,6 +119,7 @@ const Page = () => {
                 PlanData={cardData?.plan}
                 card={profile}
                 APIDATA={getProfileData}
+                MainData={cardData}
                 updateImage={() => {}}
               />
               <div className="row sticky-parent">
@@ -133,18 +134,29 @@ const Page = () => {
                   />
                 </aside>
                 <div className="col-12 col-md-12 col-lg-10">
-                  <EditAlternateNo
-                    Data={cardData?.card}
-                    MainData={cardData}
-                    TitleData={cardData?.titles}
-                    PlanData={cardData?.plan}
-                    APIDATA={getProfileData}
-                  />
                   <EditAbout
                     Data={cardData?.card}
                     MainData={cardData}
                     Description={cardData?.card?.card_description}
                     TitleData={cardData?.titles}
+                    APIDATA={getProfileData}
+                  />{" "}
+                  <EditLinks
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    LinksTitle={
+                      cardData?.titles?.card_social_links?.visible_name
+                    }
+                    APIDATA={getProfileData}
+                    PlanData={cardData?.plan}
+                    CardLinks={cardData?.card?.card_social_links}
+                  />
+                  <EditAlternateNo
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    PlanData={cardData?.plan}
                     APIDATA={getProfileData}
                   />
                   <EditCustomLink
@@ -156,17 +168,6 @@ const Page = () => {
                     TitleData={cardData?.titles}
                     PlanData={cardData?.plan}
                     APIDATA={getProfileData}
-                  />
-                  <EditLinks
-                    Data={cardData?.card}
-                    MainData={cardData}
-                    TitleData={cardData?.titles}
-                    LinksTitle={
-                      cardData?.titles?.card_social_links?.visible_name
-                    }
-                    APIDATA={getProfileData}
-                    PlanData={cardData?.plan}
-                    CardLinks={cardData?.card?.card_social_links}
                   />
                   {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
                     <SocailVisits

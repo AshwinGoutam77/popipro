@@ -544,7 +544,11 @@ export default function Product({
                           <a
                             href={
                               "https://api.whatsapp.com/send?phone=" +
-                              Data?.card_contact +
+                              Data?.whatsapp_country_code.replace(
+                                /\+/g,
+                                "%2B"
+                              ) +
+                              Data.whatsapp_number +
                               "&" +
                               `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${item.name}?`
                             }
@@ -941,7 +945,11 @@ export default function Product({
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
-                                        Data?.whatsapp_number +
+                                        Data?.whatsapp_country_code.replace(
+                                          /\+/g,
+                                          "%2B"
+                                        ) +
+                                        Data.whatsapp_number +
                                         "&" +
                                         `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
                                       }
@@ -1080,8 +1088,12 @@ export default function Product({
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
-                                        Data?.whatsapp_number +
-                                        "&" +
+                                        Data?.whatsapp_country_code.replace(
+                                          /\+/g,
+                                          "%2B"
+                                        ) +
+                                        Data.whatsapp_number +
+                                        +"&" +
                                         `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items.name}?`
                                       }
                                       target="_blank"

@@ -74,12 +74,17 @@ function EditLinks({
     let links = [];
     let error = false;
     let mess = "";
-    if (SelectOption == "" || SocialType == "") {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    if (
+      SelectOption == "" ||
+      SocialType == "" ||
+      urlPattern.test(SocialType) == false
+    ) {
       error = true;
       mess =
         SelectOption == ""
           ? "Please select an option"
-          : "Social media url is required";
+          : "Please enter a valid URL";
     } else {
       id !== null
         ? (links = [
@@ -273,7 +278,7 @@ function EditLinks({
               Add {LinksTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -303,7 +308,7 @@ function EditLinks({
             <input
               type="text"
               name="name"
-              placeholder="Please Enter Your Complete Url*"
+              placeholder="Please Enter Your Complete URL*"
               className="px-2 form-control border border-#ccc border-0"
               style={{ height: "auto", border: "none" }}
               value={SocialType}
@@ -338,7 +343,7 @@ function EditLinks({
               Edit {LinksTitle}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={() => handleEditClose()}>
+          <button type="button" class="close" onClick={() => handleCanclebtn()}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -379,7 +384,7 @@ function EditLinks({
                       <input
                         type="text"
                         name="name"
-                        placeholder="Please Enter Your Complete Url"
+                        placeholder="Please Enter Your Complete URL"
                         className="px-2 form-control border border-#ccc border-0"
                         style={{ height: "auto", border: "none" }}
                         value={SocialType}

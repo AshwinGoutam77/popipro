@@ -26,6 +26,7 @@ export default function ExchangeContact({
       setSendWhatsaap(false);
     }
   };
+
   const handleSaveData = async () => {
     if (FirstName === "") {
       toast.error("Name is required", {
@@ -51,6 +52,18 @@ export default function ExchangeContact({
         theme: "light",
       });
       return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      toast.error("Invalid email format", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
     }
     let payloadData = {
       full_name: FirstName,
@@ -64,13 +77,10 @@ export default function ExchangeContact({
     };
     try {
       setShowLoader(true);
-      payloadData;
-      // return;
       const response = await Api(contactUs, payloadData);
       handleClose();
       if (response.data.status) {
         setShowLoader(false);
-        // HitClick();
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1000,
@@ -84,7 +94,8 @@ export default function ExchangeContact({
 
         window.location.href = SendWhatsaap
           ? "https://api.whatsapp.com/send?phone=" +
-            card?.card_contact +
+            card?.whatsapp_country_code.replace(/\+/g, "%2B") +
+            card.whatsapp_number +
             "&" +
             `text=Popipro Enquiry %0a Name =${FirstName} ${
               Email ? `%0a Email = ${Email}` : ""
@@ -92,10 +103,12 @@ export default function ExchangeContact({
               Message ? ` %0a Message = ${Message}` : ""
             }`
           : "#";
-        setFirstName("");
-        setNumber("");
-        setEmail("");
-        setMessage("");
+        // href={
+        //   "https://api.whatsapp.com/send?phone=" +
+        //   card?.whatsapp_country_code.replace(/\+/g, "%2B") +
+        //   card.whatsapp_number
+        // }
+        handleEmptyFields();
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
@@ -122,28 +135,40 @@ export default function ExchangeContact({
       });
     }
   };
+
+  const handleEmptyFields = () => {
+    handleClose();
+    setFirstName("");
+    setNumber("");
+    setMessage("");
+    setEmail("");
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
-      <Modal show={active} onHide={handleClose} centered>
+      <Modal show={active} onHide={handleEmptyFields} centered>
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
               Share Contact
             </h5>
           </Modal.Title>
-          <button type="button" className="close" onClick={handleClose}>
+          <button type="button" className="close" onClick={handleEmptyFields}>
             <span aria-hidden="true">×</span>
             <span className="sr-only">Close alert</span>
           </button>
         </Modal.Header>
         <Modal.Body>
-          <p className="text-center pb-4">
+          <p className="text-center">
             {/* *<b>{card.first_name}</b> will receive the information via Email or
             Whatsapp. */}
             *You are going to share your information with{" "}
-            <b>{card.first_name}</b>, {card.first_name} will receive the
-            information via Email or WhatsApp
+            <b>{card.first_name}</b>,
+          </p>
+          <p className="text-center pb-4">
+            <b>{card.first_name}</b> will receive the information via Email or
+            WhatsApp.
           </p>
           <div className="row">
             <div className="form-group col-lg-6 col-md-6 mb-3">
@@ -198,15 +223,19 @@ export default function ExchangeContact({
             <div className="col-12 col-md-6 order-2 order-md-1 text-center text-md-left">
               <div id="validator-contact" className="hidden"></div>
             </div>
-            <div className="col-12 mx-2 d-flex align-items-center mb-2">
-              <input
-                type="checkbox"
-                onChange={() => handleSendWhatsaapMessage()}
-              />
-              <p className="ml-2">
-                Do you want to send message on WhatsApp also?
-              </p>
-            </div>
+            {card?.whatsapp_number ? (
+              <div className="col-12 mx-2 d-flex align-items-center mb-2">
+                <input
+                  type="checkbox"
+                  onChange={() => handleSendWhatsaapMessage()}
+                />
+                <p className="ml-2">
+                  Do you want to send message on WhatsApp also?
+                </p>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
               <button
                 type="submit"
