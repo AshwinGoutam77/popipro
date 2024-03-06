@@ -718,7 +718,7 @@ textarea:invalid {
 }
 
 .Logo-icon {
-  z-index: 99999999999;
+  z-index: 99;
   position: relative;
   width: 110px;
 }

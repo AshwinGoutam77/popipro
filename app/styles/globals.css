@@ -20,6 +20,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+/* .modal {
+  z-index: 9999999999 !important;
+} */
 .modal-body {
   padding: 30px 25px;
 }
@@ -630,9 +633,14 @@ input.date-time-input::-webkit-date-and-time-value {
   border: 0 !important;
   border-right: 1px solid #f5f5f5 !important;
 }
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #e9ecef !important;
+  opacity: 1;
+}
 
 @media (max-width: 767px) {
-  #about_us{
+  #about_us {
     margin-top: 0;
   }
   .responsive-row-signature {
