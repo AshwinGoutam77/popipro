@@ -99,6 +99,8 @@ const Banner = ({
       device_id: navigator.userAgent,
       object_base: card?.id,
       hit_type: "contact-download",
+      latitude: await localforage.getItem("latitude"),
+      longitude: await localforage.getItem("longitude"),
       fb_token: await localforage.getItem("fcm_token"),
     };
     const response = await Api(HitClickApi, payload);
@@ -111,14 +113,14 @@ const Banner = ({
       var contact = {
         website: card?.card_website,
         address: card?.card_address,
-        image: response.data.data.base_image?.replace(
+        Imagee: response.data.data.base_image?.replace(
           "data:image/png;base64,",
           ""
         ),
         name: card?.first_name,
         phone: card?.card_contact,
         email: card.card_email,
-        url: "app.popipro.com/" + card,
+        url: "app.popipro.com/" + profile,
         location: card.card_address,
         links: links,
         title: card?.card_profession,
@@ -129,7 +131,7 @@ const Banner = ({
             : item.title + item.number + " ";
         }),
       };
-      // console.log(contact);
+      //  (contact);
       // return;
       // create a vcard file
       var vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:";
@@ -142,10 +144,10 @@ const Banner = ({
         "\nURL;TYPE=Popipro - Digital Business Card:" +
         contact.url;
 
-      vcard += contact.image
-        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.image
+      vcard += contact.Imagee
+        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.Imagee
         : "";
-      vcard += contact.card_website
+      vcard += contact.website
         ? "\nURL;Website URL=UTF-8:" + contact.website
         : "";
       let alt_str = card?.card_alternate_phone?.map((item) => {
@@ -159,7 +161,7 @@ const Banner = ({
       });
       vcard += alt_str.join("");
       vcard += contact.address ? "\nADR;CHARSET=UTF-8:" + contact.address : "";
-      vcard += contact.links["instagram"]
+      vcard += contact.links["Instagram"]
         ? "\nURL;type=Instagram;Instagram=UTF-8:" + contact.links["Instagram"]
         : "";
       vcard += contact.links["Facebook"]
@@ -193,9 +195,12 @@ const Banner = ({
       newLink.href = url;
 
       newLink.click();
+
+      setImageSrc(contact.name + contact.phone);
       setModalShow("ExchangeContact");
     }
   };
+  
   const HitClick = async (type, social, id) => {
     let payload = {
       card: card?.id,
