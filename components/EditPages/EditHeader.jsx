@@ -372,7 +372,7 @@ function EditHeader({
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
                           <option value={item?.value} key={index}>
-                            {item?.name + ": " + item?.value}
+                            {item?.value + "-" + item?.name}
                           </option>
                         );
                       })}
@@ -386,7 +386,7 @@ function EditHeader({
                   />
                   <input
                     type="number"
-                    placeholder="Phone Extension"
+                    placeholder="Extension"
                     onChange={(e) => setExtension(e.target.value)}
                     defaultValue={Extension}
                     className="form-control mt-2"
@@ -458,7 +458,7 @@ function EditHeader({
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
                           <option value={item?.value} key={index}>
-                            {item?.name + ": " + item?.value}
+                            {item?.value + "-" + item?.name}
                           </option>
                         );
                       })}

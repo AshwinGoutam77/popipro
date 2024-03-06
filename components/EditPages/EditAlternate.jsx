@@ -324,7 +324,7 @@ export default function EditAlternateNo({
           <div>
             <label className="modalFormLable">Phone Number *</label>
             <div className="d-flex align-items-center" style={{ gap: "8px" }}>
-              <input
+              {/* <input
                 type="text"
                 name="number"
                 rows="4"
@@ -333,7 +333,23 @@ export default function EditAlternateNo({
                 value={CountryCode}
                 placeholder="+91"
                 onChange={(e) => setCountryCode(e.target.value)}
-              ></input>
+              ></input> */}
+              <select
+                className="form-control mb-4 mt-1"
+                onChange={(e) => setCountryCode(e.target.value)}
+                value={CountryCode}
+                style={{ height: "45px", width: "50%" }}
+              >
+                <option value="">Code</option>
+                {MainData?.countrycode_listing &&
+                  MainData?.countrycode_listing?.map((item, index) => {
+                    return (
+                      <option value={item?.value} key={index}>
+                        {item?.name + ": " + item?.value}
+                      </option>
+                    );
+                  })}
+              </select>
               <input
                 type="number"
                 name="number"

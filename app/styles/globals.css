@@ -1556,6 +1556,12 @@ table tbody tr:last-child {
   background-color: var(--color) !important;
   background-image: none !important;
 }
+.text-transform-none {
+  text-transform: none !important;
+}
+.main-popipro-class {
+  min-height: calc(-207px + 100vh);
+}
 
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {
@@ -1590,6 +1596,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .main-popipro-class {
+    /* min-height: auto; */
+  }
   .header-nav-length {
     padding-left: revert !important;
   }

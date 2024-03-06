@@ -175,13 +175,13 @@ export default function ExchangeContact({
           <p className="text-center">
             {/* *<b>{card.first_name}</b> will receive the information via Email or
             Whatsapp. */}
-            *You are going to share your information with{" "}
-            <b>{card.first_name}</b>,
+            You are going to share your information with{" "}
+            <b>{card.first_name}</b>.
           </p>
-          <p className="text-center pb-4">
+          {/* <p className="text-center pb-4">
             <b>{card.first_name}</b> will receive the information via Email or
             WhatsApp.
-          </p>
+          </p> */}
           <div className="row">
             <div className="form-group col-lg-6 col-md-6 mb-3">
               <input

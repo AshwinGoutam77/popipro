@@ -56,7 +56,7 @@ export default async function Main({ profile, data, id, referer }) {
               MainData={MainData}
               referer={referer}
             />
-            <main className="main">
+            <main className="main main-popipro-class">
               <div className="container gutter-top">
                 <Header
                   profile={profile}

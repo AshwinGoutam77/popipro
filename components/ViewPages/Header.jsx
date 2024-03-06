@@ -280,7 +280,7 @@ const Header = ({
       //         : card?.card_contact
       //       : ""
       setImageSrc(
-        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AFN%3A${
+        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AN%3A${
           card?.first_name
         }%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3B${
           card?.card_address ? card?.card_address : ""

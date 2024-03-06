@@ -396,13 +396,13 @@ export default function Dashboard() {
                     }
                     target="_blank"
                   >
-                    <button className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                    <button className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
                       Your subscription is expired, Click to renew it.
                     </button>
                   </a>
                 ) : (
                   <button
-                    className="contact-btn w-auto mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                    className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
                     onClick={() =>
                       MainData?.plan?.subscription_left_days == 0
                         ? handleFreeTrail()
@@ -410,10 +410,10 @@ export default function Dashboard() {
                     }
                   >
                     {MainData?.plan?.subscription_left_days !== 0
-                      ? "Your subscription valid till " +
+                      ? "Your subscription is valid till " +
                         MainData?.plan?.subscription_left_days +
                         " days."
-                      : "Upgrade to premium."}
+                      : "Upgrade to premium"}
                   </button>
                 )
               ) : (
@@ -549,7 +549,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 {/* Meta Title */}
-                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     data-toggle={
@@ -589,7 +589,7 @@ export default function Dashboard() {
                     />
                     <h6 className="text-white text-center mb-0">Meta Tags</h6>
                   </div>
-                </div>
+                </div> */}
                 {/* Multiple Mode */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -830,20 +830,7 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
-                {/* Chnage password */}
-                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => setModalShow("password")}
-                  >
-                    <FontAwesomeIcon
-                      icon={faGear}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Password</h6>
-                  </div>
-                </div>
+
                 {/* Subscription */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -880,6 +867,22 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+                
+                {/* Chnage password */}
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => setModalShow("password")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faGear}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Password</h6>
+                  </div>
+                </div>
+
                 {/* Suggestions */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
