@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export default function Footer({ Data, profile }) {
+export default function Footer({ Data, profile, MainData }) {
   const [LocalStorageUrl, setLocalStorageUrl] = useState("");
   const handleLOGOUT = () => {
     localStorage.removeItem("token");
@@ -53,7 +53,7 @@ export default function Footer({ Data, profile }) {
         >
           <button className="footer-btn">
             <Link
-              href="https://www.popipro.com/shop"
+              href={MainData?.company_setting?.request_popicard_url}
               className="text-white"
               target="_blank"
             >

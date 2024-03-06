@@ -218,7 +218,7 @@ export default async function Main({ profile, data, id, referer }) {
                 </div>
               </div>
             </main>
-            <Footer profile={profile} />
+            <Footer profile={profile} MainData={MainData} />
           </>
         ) : (
           redirect("/")
