@@ -756,7 +756,7 @@ const Header = ({
                     href={`tel: ${
                       card.contact_country_code
                         ? card?.contact_country_code + "-"
-                        : card?.contact_country_code
+                        : ""
                     } ${card?.card_contact} ${
                       card?.contact_extension
                         ? "- " + card?.contact_extension
