@@ -75,7 +75,7 @@ const EditBanner = ({
               <a
                 href={
                   "https://api.whatsapp.com/send?phone=" +
-                  card?.whatsapp_country_code.replace(/\+/g, "%2B") +
+                  card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
                   card.whatsapp_number
                 }
                 className="float"
@@ -217,7 +217,7 @@ const EditBanner = ({
               <a
                 href={
                   "https://api.whatsapp.com/send?phone=" +
-                  card?.whatsapp_country_code.replace(/\+/g, "%2B") +
+                  card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
                   card.whatsapp_number
                 }
                 className="float"
