@@ -249,7 +249,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
     handleShowshowChatModal();
     handleButtonClick();
   };
-  
+
   const handleCopyMessage = () => {
     toast.success("Message copied succesfully", {
       position: "top-right",
@@ -366,8 +366,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        Enter an about section. it can be as long or as short as
-                        you want it to be.
+                        Share a brief overview of your professional background
+                        and expertise.
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

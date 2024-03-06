@@ -452,8 +452,8 @@ function EditLinks({
               <div className="d-flex align-items-center">
                 <div class="wrapper">
                   <div class="tooltip">
-                    Add your social links, please add the full url to your
-                    social media pages.
+                    Link Your Social Media Handles. Please Fill The Complete URL
+                    of your Profile.
                   </div>
                   <FontAwesomeIcon
                     icon={faInfo}
