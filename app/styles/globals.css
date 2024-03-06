@@ -632,6 +632,9 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 
 @media (max-width: 767px) {
+  #about_us{
+    margin-top: 0;
+  }
   .responsive-row-signature {
     gap: 15px;
   }
