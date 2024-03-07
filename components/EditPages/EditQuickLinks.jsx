@@ -488,8 +488,8 @@ export default function EditCustomLink({
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        Add links to external sites, shop pages, landing pages,
-                        coming soon, invites and more...
+                        Enter URLs such as your LinkedIn profile, personal
+                        website, or any other relevant online presence.
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

@@ -752,8 +752,9 @@ export default function EditResume({
                       <div className="d-flex align-items-center">
                         <div class="wrapper">
                           <div class="tooltip">
-                            This section can be used for your work experience,
-                            your work process, or show off your current skills.
+                            Detail your professional experience by listing your
+                            past roles, responsibilities, achievements, and
+                            notable projects to showcase your expertise.
                           </div>
                           <FontAwesomeIcon
                             icon={faInfo}

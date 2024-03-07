@@ -380,7 +380,9 @@ function EditHeader({
                   <input
                     type="number"
                     placeholder="Phone number"
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) =>
+                      setPhone(e.target.value ? e.target.value : "")
+                    }
                     defaultValue={Phone}
                     className="form-control mt-2"
                   />

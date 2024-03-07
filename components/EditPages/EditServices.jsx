@@ -773,8 +773,9 @@ export default function EditDoing({
                     <div className="d-flex align-items-center">
                       <div class="wrapper">
                         <div class="tooltip">
-                          Add your services to this section. You can add a
-                          square image, text and link to your main website.
+                          Add services you offer, including details such as
+                          service descriptions, links and any additional
+                          information.
                         </div>
                         <FontAwesomeIcon
                           icon={faInfo}

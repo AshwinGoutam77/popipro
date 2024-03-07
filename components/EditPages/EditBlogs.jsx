@@ -891,8 +891,8 @@ export default function EditBlogs({
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        Present yourself/business by writing blogs, articles,
-                        poetry, story...
+                        Add your latest insights, updates, and thoughts through
+                        your blog.
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

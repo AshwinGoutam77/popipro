@@ -240,10 +240,11 @@ export default function ExchangeContact({
                 <input
                   type="checkbox"
                   onChange={() => handleSendWhatsaapMessage()}
+                  id="whatsapp"
                 />
-                <p className="ml-2">
+                <label className="ml-2" htmlFor="whatsapp">
                   Do you want to send message on WhatsApp also?
-                </p>
+                </label>
               </div>
             ) : (
               ""

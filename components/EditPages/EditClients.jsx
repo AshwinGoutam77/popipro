@@ -322,8 +322,7 @@ export default function EditClients({
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        Upload a secure image no larger than 600 x 600px at
-                        roughly 96px. JPG, PNG are allowed
+                        Add only JPG and PNG image with max size of 600 X 600px.
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

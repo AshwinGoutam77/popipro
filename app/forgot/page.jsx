@@ -1,4 +1,5 @@
 "use client";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { faLongArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
@@ -17,7 +18,8 @@ export default function Forgot() {
   const [buttonLoader, setbuttonLoader] = useState(false);
   const [ShowLoader, setShowLoader] = useState(false);
 
-  const handlecontinue = async () => {
+  const handlecontinue = async (e) => {
+    e.preventDefault();
     if (Email === "") {
       toast.error("Email field is required", {
         position: "bottom-right",
@@ -37,8 +39,10 @@ export default function Forgot() {
       let payload = {
         email: Email,
       };
+      setShowLoader(true);
       const response = await Api(ForgotPassword, payload);
       if (response.status) {
+        setShowLoader(false);
         setConfirmation(true);
       }
     } catch (error) {
@@ -57,7 +61,9 @@ export default function Forgot() {
     setbuttonLoader(false);
     setShowLoader(false);
   };
-  const handleResetPassword = async () => {
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
     if (Otp === "") {
       toast.error("Otp is required", {
         position: "bottom-right",
@@ -97,6 +103,19 @@ export default function Forgot() {
       });
       return;
     }
+    if (Password !== Confirm_Password) {
+      toast.error("Password should be match with confirm password", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     setShowLoader(true);
     try {
       let payload = {
@@ -109,7 +128,7 @@ export default function Forgot() {
       if (response.data.status) {
         window.location.href = "/login";
       } else {
-        toast(response.data.message, {
+        toast.error(response.data.message, {
           position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -121,7 +140,7 @@ export default function Forgot() {
         });
       }
     } catch (error) {
-      toast(error.response.data.message, {
+      toast.error(error.response.data.message, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -137,6 +156,7 @@ export default function Forgot() {
 
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -216,7 +236,7 @@ export default function Forgot() {
                       animationDelay: "0.6s",
                       animationName: "fadeInUp",
                     }}
-                    onClick={handleResetPassword}
+                    onClick={(e) => handleResetPassword(e)}
                   >
                     Continue
                   </button>
@@ -233,7 +253,7 @@ export default function Forgot() {
                     animationDelay: "0.6s",
                     animationName: "fadeInUp",
                   }}
-                  onClick={handlecontinue}
+                  onClick={(e) => handlecontinue(e)}
                 >
                   Continue
                 </button>
@@ -248,7 +268,7 @@ export default function Forgot() {
                         animationDelay: "0.6s",
                         animationName: "fadeInUp",
                       }}
-                      onClick={handlecontinue}
+                      onClick={(e) => handlecontinue(e)}
                     >
                       Continue
                     </button>
@@ -259,11 +279,7 @@ export default function Forgot() {
               )}
               <div className="align-bottom col-sm-12 d-flex justify-content-center text-center mt-3">
                 <Link href={"/login"} className="m-2 VarColor">
-                  {/* <i className="fa fa-long-arrow-left"></i> Back to Login */}
-                  <FontAwesomeIcon
-                    icon={faLongArrowLeft}
-                  />{" "}
-                  Back to Login
+                  <FontAwesomeIcon icon={faLongArrowLeft} /> Back to Login
                 </Link>
               </div>
             </form>

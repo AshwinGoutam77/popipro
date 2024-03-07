@@ -913,8 +913,8 @@ export default function EditWorks({
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        Here you can upload your videos to this section, simply
-                        copy the link from youtube or vimeo and paste it in.
+                        Add videos and links to your youtube and other social
+                        media videos link.
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

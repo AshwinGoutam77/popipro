@@ -537,8 +537,8 @@ export default function EditAlternateNo({
                   <div className="d-flex align-items-center">
                     <div class="wrapper">
                       <div class="tooltip">
-                        You can utilize this section to add any contact number,
-                        skype number, whatsaap number.
+                        Please add any relevant phone numbers, including
+                        WhatsApp, Skype, and contact numbers
                       </div>
                       <FontAwesomeIcon
                         icon={faInfo}

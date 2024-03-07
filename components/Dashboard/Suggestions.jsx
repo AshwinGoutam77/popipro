@@ -40,7 +40,7 @@ export default function Suggestions({ active, handleClose }) {
           theme: "light",
         });
         setMessage("");
-        window["closeModal"]();
+        handleClose();
       } else {
         toast.error(response?.data.message, {
           position: "top-right",
@@ -69,18 +69,6 @@ export default function Suggestions({ active, handleClose }) {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <Modal show={active} onHide={() => handleClose("")} centered>
         <Modal.Header>
           <Modal.Title>

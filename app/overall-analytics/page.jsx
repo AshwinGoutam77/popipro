@@ -379,6 +379,7 @@ const Page = () => {
         data: item?.values,
       };
     });
+
   const chartData5 = {
     series: dSet2 || [],
     options: {
@@ -432,6 +433,7 @@ const Page = () => {
         data: item?.value,
       };
     });
+
   const chartData6 = {
     series: dSet3,
     options: {
@@ -533,7 +535,7 @@ const Page = () => {
     setModalData(MapData);
   };
 
-  return token ? (
+  return token  ? (
     <>
       {ShowLoader ? (
         <h5
