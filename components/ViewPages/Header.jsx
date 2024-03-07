@@ -188,7 +188,7 @@ const Header = ({
       //  (contact);
       // return;
       // create a vcard file
-      var vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:";
+      var vcard = "BEGIN:VCARD\nVERSION:3.0\nN:";
       vcard +=
         contact.name +
         "\nTEL;TYPE=work,voice:" +
@@ -270,15 +270,6 @@ const Header = ({
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
-      // card.contact_country_code ||
-      //     card.contact_extension ||
-      //     card.card_contact
-      //       ? card.contact_country_code
-      //         ? card?.contact_country_code + "-" + card?.card_contact
-      //         : card?.card_contact + card?.contact_extension
-      //         ? "-" + card?.contact_extension
-      //         : card?.card_contact
-      //       : ""
       setImageSrc(
         `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AN%3A${
           card?.first_name
@@ -292,7 +283,7 @@ const Header = ({
           "app.popipro.com/" + profile
         }${
           card?.card_website !== null
-            ? "%0AURL%3A" + card?.card_website + "%2F"
+            ? "%0AURL%3A" + "app.popipro.com/" + profile + "%2F"
             : ""
         }%0AEND%3AVCARD`
       );
