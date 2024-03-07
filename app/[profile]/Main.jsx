@@ -161,9 +161,10 @@ export default async function Main({ profile, data, id, referer }) {
                     ) : (
                       ""
                     )}
-                    {(MainData?.company_setting?.show_insta_feed == 1 &&
-                      MainData?.plan?.subscription?.plan_id !== null) ||
-                    MainData?.plan?.subscription?.plan_id == 2 ? (
+                    {MainData?.company_setting?.show_insta_feed == "1" &&
+                    MainData?.company_setting?.insta_feed_url &&
+                    MainData?.plan?.subscription?.plan?.plan_name ==
+                      "Premium" ? (
                       <EmbedPost
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}
