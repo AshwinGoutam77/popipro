@@ -1654,7 +1654,7 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 450px) and (min-width: 300px) {
-  .title {
+  .flex-header .title {
     color: black !important;
     word-wrap: break-word;
     width: 126px;
