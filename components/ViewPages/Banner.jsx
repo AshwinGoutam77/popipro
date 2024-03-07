@@ -137,7 +137,7 @@ const Banner = ({
       //  (contact);
       // return;
       // create a vcard file
-      var vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:";
+      var vcard = "BEGIN:VCARD\nVERSION:3.0\nN:";
       vcard +=
         contact.name +
         "\nTEL;TYPE=work,voice:" +
