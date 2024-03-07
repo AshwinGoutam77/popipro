@@ -53,6 +53,18 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
         theme: "light",
       });
       return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      toast.error("Invalid email format", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
     }
     try {
       setShowLoader(true);
