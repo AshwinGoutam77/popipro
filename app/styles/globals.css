@@ -1518,8 +1518,11 @@ table tbody tr:last-child {
 }
 .amenities-div svg {
   height: 16px;
-  width: 16px;
+  width: 20px;
   fill: var(--color);
+}
+.web-real-estate-price {
+  font-size: 15px !important;
 }
 
 /* .amenities-div span {
@@ -1563,6 +1566,22 @@ table tbody tr:last-child {
   min-height: calc(-207px + 100vh);
 }
 
+.amenities-main-section {
+  gap: 10px;
+  line-height: 0;
+  background: var(--themecolor);
+  padding: 12px;
+  width: fit-content;
+  padding-right: 50px;
+}
+
+.mobile-real-estate-price {
+  display: none;
+}
+.real-estate-price{
+  font-size: 18px !important;
+}
+
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {
     padding: 5px;
@@ -1596,6 +1615,13 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .web-real-estate-price {
+    display: none;
+  }
+  .mobile-real-estate-price {
+    display: block;
+    font-size: 15px !important;
+  }
   .main-popipro-class {
     /* min-height: auto; */
   }
@@ -1653,10 +1679,3 @@ table tbody tr:last-child {
     border-bottom: 1px solid #dddcdc !important;
   }
 }
-/* @media (max-width: 450px) and (min-width: 300px) {
-  .flex-header .title {
-    color: black !important;
-    word-wrap: break-word;
-    width: 126px;
-  }
-} */

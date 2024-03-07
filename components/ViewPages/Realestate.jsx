@@ -368,44 +368,20 @@ export default function Realestate({
                       })}
                   </SwiperComponent>
                   <div className="mt-2 color-black mb-3">
-                    <h6 className="mb-0 color-black cursor-pointer d-flex align-items-center">
+                    <h5 className="mb-0 color-black cursor-pointer d-flex align-items-center justify-content-between">
                       {items?.heading}
                       <span className="real-estate-badge">
                         {items?.property_type?.name}
                       </span>
-                      <span className="real-estate-badge">
-                        {items?.looking_for?.name}
-                      </span>
-                    </h6>
-                    <p className="color-black cursor-pointer mt-2">
-                      {items?.street_address}, {items?.city}, {items?.state},{" "}
-                      {items?.country}, ({items?.zipcode})
-                    </p>
-                    <p className="mt-3">
-                      {items?.description.replace(/(<([^>]+)>)/gi, "")}
-                    </p>
+                    </h5>
+
                     <div
-                      className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
-                      style={{ gap: "10px" }}
-                    >
-                      {items.is_label !== 0 ? (
-                        <span className="font-weight-bold VarColor">
-                          {items?.label}
-                        </span>
-                      ) : (
-                        <p className="font-weight-bold VarColor">
-                          {MainData?.company_setting?.currency?.currency}{" "}
-                          {items?.price}
-                        </p>
-                      )}
-                    </div>
-                    <div
-                      className="d-flex flex-wrap mt-3"
+                      className="d-flex flex-wrap mt-3 amenities-main-section w-100"
                       style={{ gap: "10px", lineHeight: "0" }}
                     >
                       {items?.amenities &&
                         items?.amenities?.map((amenities, key) => {
-                          return (
+                          return key < 4 ? (
                             <div
                               className="d-flex align-items-baseline amenities-div"
                               key={key}
@@ -420,9 +396,72 @@ export default function Realestate({
                                 {amenities?.pivot?.description}
                               </p>
                             </div>
+                          ) : (
+                            ""
                           );
                         })}
                     </div>
+
+                    <div
+                      className="mt-3 mb-2 d-flex flex-wrap align-items-center justify-content-between"
+                      style={{ gap: "10px" }}
+                    >
+                      {items.is_label !== 0 ? (
+                        <span className="font-weight-bold VarColor real-estate-price">
+                          {items?.label}
+                        </span>
+                      ) : (
+                        <p className="font-weight-bold VarColor real-estate-price">
+                          {MainData?.company_setting?.currency?.currency}{" "}
+                          {items?.price}
+                        </p>
+                      )}
+                    </div>
+
+                    <a
+                      href={items?.google_address_link}
+                      target="_blank"
+                      className="color-black cursor-pointer mt-2 font-weight-bold"
+                    >
+                      {items?.street_address}, {items?.city}, {items?.state},{" "}
+                      {items?.country}, ({items?.zipcode})
+                    </a>
+
+                    <p className="mt-3">
+                      {items?.description.replace(/(<([^>]+)>)/gi, "")}
+                    </p>
+
+                    {items?.amenities?.length > 4 ? (
+                      <div
+                        className="d-flex flex-column mt-3 amenities-main-section w-100"
+                        style={{ gap: "10px", lineHeight: "0" }}
+                      >
+                        {items?.amenities &&
+                          items?.amenities?.map((amenities, key) => {
+                            return key > 4 ? (
+                              <div
+                                className="d-flex align-items-baseline amenities-div"
+                                key={key}
+                              >
+                                <span
+                                  style={{ fontSize: "16px" }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: amenities.icon,
+                                  }}
+                                ></span>
+                                <p className="pl-2 color-black">
+                                  {amenities?.pivot?.description}
+                                </p>
+                              </div>
+                            ) : (
+                              ""
+                            );
+                          })}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
                     <div
                       className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
                       style={{ gap: "5px" }}
@@ -829,35 +868,52 @@ export default function Realestate({
                             className="realEstateImage w-100"
                           />
                         </div>
-                        <div className="mt-3">
-                          {items?.youtube_link ? (
-                            <span class="VarColor font-weight-bold mr-1">
-                              1 Video
-                            </span>
-                          ) : (
-                            ""
-                          )}
-                          {items?.youtube_link && items?.gallery?.length ? (
-                            <span class="VarColor font-weight-bold mr-1">
-                              and
-                            </span>
-                          ) : (
-                            ""
-                          )}
-                          {items?.gallery?.length ? (
-                            <span class="VarColor font-weight-bold">
-                              + {items?.gallery?.length} Images
-                            </span>
-                          ) : (
-                            ""
-                          )}
+                        <div
+                          className="mt-3 d-flex align-items-center justify-content-between"
+                          onClick={() => handleShowDetailModal(items?.id)}
+                        >
+                          <p>
+                            {items?.youtube_link ? (
+                              <span class="VarColor font-weight-bold mr-1">
+                                1 Video
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {items?.youtube_link && items?.gallery?.length ? (
+                              <span class="VarColor font-weight-bold mr-1">
+                                and
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {items?.gallery?.length ? (
+                              <span class="VarColor font-weight-bold">
+                                More Images
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </p>
+                          <p className="mobile-real-estate-price">
+                            {items.is_label !== 0 ? (
+                              <span className="font-weight-bold VarColor">
+                                {items?.label}
+                              </span>
+                            ) : (
+                              <span className="font-weight-bold VarColor">
+                                {MainData?.company_setting?.currency?.currency}{" "}
+                                {items?.price}
+                              </span>
+                            )}
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
                           <div className="d-flex align-items-center justify-content-between">
                             <h6
-                              className="mb-0 color-black cursor-pointer "
+                              className="mb-0 color-black cursor-pointer real-estate-heading"
                               onClick={() => handleShowDetailModal(items?.id)}
                             >
                               {items?.heading}
@@ -866,9 +922,9 @@ export default function Realestate({
                               <span className="real-estate-badge">
                                 {items?.property_type?.name}
                               </span>
-                              <span className="real-estate-badge">
+                              {/* <span className="real-estate-badge">
                                 {items?.looking_for?.name}
-                              </span>
+                              </span> */}
                             </p>
                           </div>
                           <p
@@ -884,20 +940,17 @@ export default function Realestate({
                           style={{ gap: "10px" }}
                         >
                           {items.is_label !== 0 ? (
-                            <span className="font-weight-bold VarColor">
+                            <span className="font-weight-bold VarColor web-real-estate-price">
                               {items?.label}
                             </span>
                           ) : (
-                            <p className="font-weight-bold VarColor">
+                            <p className="font-weight-bold VarColor web-real-estate-price">
                               {MainData?.company_setting?.currency?.currency}{" "}
                               {items?.price}
                             </p>
                           )}
                         </div>
-                        <div
-                          className="d-flex align-items-center flex-wrap mt-2"
-                          style={{ gap: "10px", lineHeight: "0" }}
-                        >
+                        <div className="d-flex align-items-center flex-wrap mt-2 amenities-main-section">
                           {items?.amenities &&
                             items?.amenities?.map((amenities, key) => {
                               return key < 4 ? (
@@ -919,6 +972,54 @@ export default function Realestate({
                                 ""
                               );
                             })}
+                          {/* <div className="d-flex align-items-baseline amenities-div">
+                            <span style={{ fontSize: "16px" }}>
+                              <svg
+                                id="a"
+                                data-name="Layer 1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="8mm"
+                                height="8.005mm"
+                                viewBox="0 0 22.677 22.691"
+                              >
+                                <rect
+                                  x="2.24"
+                                  y="2.094"
+                                  width="18.197"
+                                  height="18.504"
+                                  fill="none"
+                                  stroke="#1f1d1e"
+                                  stroke-miterlimit="10"
+                                  stroke-width=".6"
+                                ></rect>
+                                <g>
+                                  <line
+                                    x1="5.59"
+                                    y1="5.444"
+                                    x2="17.151"
+                                    y2="17.005"
+                                    fill="none"
+                                    stroke="#1f1d1e"
+                                    stroke-miterlimit="10"
+                                    stroke-width=".6"
+                                  ></line>
+                                  <polygon
+                                    points="5.26 8.585 5.86 8.564 5.752 5.607 8.709 5.715 8.73 5.115 5.129 4.984 5.26 8.585"
+                                    fill="#1f1d1e"
+                                    stroke-width="0"
+                                  ></polygon>
+                                  <polygon
+                                    points="14.01 17.335 14.031 16.734 16.987 16.843 16.879 13.886 17.48 13.865 17.61 17.466 14.01 17.335"
+                                    fill="#1f1d1e"
+                                    stroke-width="0"
+                                  ></polygon>
+                                </g>
+                              </svg>
+                            </span>
+                            <p className="pl-2 color-black">
+                              {items?.area}
+                            </p>
+                          </div> */}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"

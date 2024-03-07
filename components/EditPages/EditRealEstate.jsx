@@ -172,7 +172,6 @@ export default function EditRealEstate({
     if (
       Title == "" ||
       PropertyType == "" ||
-      LookingTo == "" ||
       Description == "" ||
       GalleryImages?.length > 3 ||
       (YouTubeLink && urlPattern.test(YouTubeLink) == false)
@@ -1015,43 +1014,22 @@ export default function EditRealEstate({
                     </select>
                   </div>
                   <div className="w-100">
-                    <label className="modalFormLable">Looking To*</label>
-                    <select
-                      style={{
-                        height: "49px",
-                        padding: "6px 18px",
-                        background: "#f7f9fa",
-                        appearance: "auto",
-                      }}
-                      onChange={(e) => setLookingTo(e.target.value)}
-                      defaultValue={LookingTo || ""}
-                      className="mt-1"
-                    >
-                      <option value="">Looking to</option>
-                      {Data?.looking_for &&
-                        Data?.looking_for?.map((item, index) => {
-                          return (
-                            <option key={index} value={item?.id}>
-                              {item?.name}
-                            </option>
-                          );
-                        })}
-                    </select>
+                    <label className="modalFormLable">
+                      Upload Youtube Video URL
+                    </label>
+                    <input
+                      type="url"
+                      name="name"
+                      rows="4"
+                      cols="50"
+                      className="form-control mt-1"
+                      value={YouTubeLink}
+                      placeholder="Video Url"
+                      onChange={(e) => setYouTubeLink(e.target.value)}
+                    ></input>
                   </div>
                 </div>
-                <label className="modalFormLable">
-                  Upload Youtube Video URL
-                </label>
-                <input
-                  type="url"
-                  name="name"
-                  rows="4"
-                  cols="50"
-                  className="form-control mb-4 mt-1"
-                  value={YouTubeLink}
-                  placeholder="Video Url"
-                  onChange={(e) => setYouTubeLink(e.target.value)}
-                ></input>
+
                 <label className="modalFormLable">Description*</label>
                 <CKEditor
                   editor={ClassicEditor}
@@ -1181,7 +1159,7 @@ export default function EditRealEstate({
                   ></input>
                 </div>
               </div>
-              <div className="d-flex align-items-center gap-2">
+              {/* <div className="d-flex align-items-center gap-2">
                 <div className="w-100">
                   <label className="modalFormLable">BHK*</label>
                   <select
@@ -1230,9 +1208,9 @@ export default function EditRealEstate({
                       })}
                   </select>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="d-flex align-items-center gap-2 mt-4 mb-4">
+              <div className="d-flex align-items-center gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">Built Up Area*</label>
                   <input
@@ -1438,18 +1416,16 @@ export default function EditRealEstate({
                     </div>
 
                     <div className="col-6">
-                      <label className="modalFormLable mt-2">
-                        Description*
-                      </label>
+                      <label className="modalFormLable mt-2">Quantity</label>
                       <input
-                        type="text"
+                        type="number"
                         name="description"
                         rows="4"
                         cols="50"
                         className="form-control mt-1"
                         defaultValue={x.description}
                         onChange={(e) => handleInputChange(e, i)}
-                        placeholder="description"
+                        placeholder="Enter number of amenities"
                         maxLength={40}
                       ></input>
                     </div>
