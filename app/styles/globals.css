@@ -1653,3 +1653,10 @@ table tbody tr:last-child {
     border-bottom: 1px solid #dddcdc !important;
   }
 }
+@media (max-width: 450px) and (min-width: 300px) {
+  .title {
+    color: black !important;
+    word-wrap: break-word;
+    width: 126px;
+  }
+}
