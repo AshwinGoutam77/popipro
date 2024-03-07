@@ -325,7 +325,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       </Modal>
 
       {TitleData?.card_description?.source !== 0 ? (
-        <div className="mb-3 box-content boxxx" id="about_us">
+        <div className="mb-3 box-content boxxx" id="card_description">
           <div className="flex-header">
             <div className="d-flex align-items-baseline">
               {TextArea ? (
