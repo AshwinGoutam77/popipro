@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   userLogin: () => {},
   APIDATA: () => {},
   UserData: null,
+  PlanData: null,
 });
 
 export const useAuthContext = () => useContext(AuthContext);

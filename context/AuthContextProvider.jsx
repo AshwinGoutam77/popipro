@@ -9,6 +9,8 @@ import { EditData } from "@services/Routes";
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState([]);
   const [UserData, setUserData] = useState("");
+  const [PlanData, setPlanData] = useState("");
+
   const userLogin = (info) => {
     setToken(info.token);
     localStorage.setItem("url", info.current_url);
@@ -24,6 +26,7 @@ const AuthContextProvider = ({ children }) => {
       );
       if (response.data.status) {
         setUserData(response?.data?.data);
+        setPlanData(response?.data?.data?.plan);
         document.documentElement.style.setProperty(
           "--color",
           response.data.data.card.color_code
@@ -51,6 +54,7 @@ const AuthContextProvider = ({ children }) => {
         userLogin,
         APIDATA,
         UserData,
+        PlanData,
       }}
     >
       {children}
