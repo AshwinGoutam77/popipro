@@ -496,7 +496,7 @@ const Banner = ({
                     icon={faChevronLeft}
                     className="ml-2 mr-1 font-weight-bold"
                   />
-                  Back To Dashboard
+                  Dashboard
                 </>
               ) : (
                 <>
@@ -692,7 +692,7 @@ const Banner = ({
                     icon={faChevronLeft}
                     className="ml-2 mr-1 font-weight-bold"
                   />
-                  Back To Dashboard
+                  Dashboard
                 </>
               ) : (
                 <>

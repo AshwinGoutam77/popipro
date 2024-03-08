@@ -9,6 +9,7 @@ import {
   faEnvelope,
   faLocationDot,
   faMapLocation,
+  faPhone,
   faRightFromBracket,
   faRightLong,
   faSearch,
@@ -56,6 +57,7 @@ export default function Realestate({
   const [Page, setPage] = useState(1);
   const [EstateData, setEstateData] = useState("");
   const [LookingFor, setLookingFor] = useState("");
+  const [ModalHeading, setModalHeading] = useState("");
 
   useEffect(() => {
     setEstateData(Data?.card_realestates);
@@ -119,9 +121,11 @@ export default function Realestate({
     LoadMoreFunction();
   };
 
-  const handleShowEnquiry = (id) => {
+  const handleShowEnquiry = (id, name) => {
+    console.log("ff", name);
     setShowInquiry(true);
     setContentId(id);
+    setModalHeading(name);
   };
 
   const handleShowDetailModal = (id) => {
@@ -278,9 +282,10 @@ export default function Realestate({
     }
   };
 
-  const handleShowModalEnquiry = () => {
+  const handleShowModalEnquiry = (name) => {
     setShowInquiry(true);
     setShow(false);
+    setModalHeading(name);
   };
 
   return (
@@ -462,59 +467,59 @@ export default function Realestate({
                       ""
                     )}
 
-                    <div
-                      className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
-                      style={{ gap: "5px" }}
-                    >
-                      {items?.google_address_link && (
-                        <a
-                          href={
-                            items?.google_address_link?.includes("https://") ||
-                            items?.google_address_link?.includes("http://")
-                              ? "https://" + items?.google_address_link
-                              : items?.google_address_link
-                          }
-                          target="_blank"
+                    <div className="mt-4 w-100" style={{ gap: "5px" }}>
+                      <div className="d-flex align-items-center justify-content-center gap-10">
+                        {items?.google_address_link && (
+                          <a
+                            href={
+                              items?.google_address_link?.includes(
+                                "https://"
+                              ) ||
+                              items?.google_address_link?.includes("http://")
+                                ? "https://" + items?.google_address_link
+                                : items?.google_address_link
+                            }
+                            target="_blank"
+                            className="w-100"
+                          >
+                            <button className="contact-btn w-100 m-0">
+                              Visit Site
+                            </button>
+                          </a>
+                        )}
+                        {Data?.whatsapp_number && (
+                          <a
+                            href={
+                              "https://api.whatsapp.com/send?phone=" +
+                              Data?.whatsapp_number +
+                              "&" +
+                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                            }
+                            target="_blank"
+                            className="w-100"
+                          >
+                            <button className="contact-btn w-100 m-0">
+                              <FontAwesomeIcon
+                                icon={faPhone}
+                                className="mr-2"
+                              />{" "}
+                              WhatsApp
+                            </button>
+                          </a>
+                        )}
+                      </div>
+                      <div className="d-flex align-items-center justify-content-center gap-10 mt-2">
+                        <button className="contact-btn w-100 m-0">
+                          Contact Agent
+                        </button>
+                        <button
+                          className="contact-btn w-100 m-0"
+                          onClick={() => handleShowModalEnquiry(items?.heading)}
                         >
-                          <button className="contact-btn w-auto m-0">
-                            <FontAwesomeIcon
-                              icon={faLocationDot}
-                              className="mr-1"
-                            />{" "}
-                            Open Map
-                          </button>{" "}
-                        </a>
-                      )}
-                      <button
-                        className="contact-btn w-auto m-0"
-                        onClick={() => handleShowModalEnquiry()}
-                      >
-                        <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
-                        Enquiry
-                      </button>
-                      {Data?.whatsapp_number ? (
-                        <a
-                          href={
-                            "https://api.whatsapp.com/send?phone=" +
-                            Data?.whatsapp_number +
-                            "&" +
-                            `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
-                          }
-                          target="_blank"
-                        >
-                          <button className="contact-btn w-auto m-0 d-flex align-items-center">
-                            <img
-                              src="../static/img/whatsapp.png"
-                              alt="whatsaap"
-                              className="Whatsaapsvg m-0"
-                              width={20}
-                            />{" "}
-                            Whatsaap Enquiry
-                          </button>
-                        </a>
-                      ) : (
-                        ""
-                      )}
+                          <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
+                          Email
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -530,7 +535,7 @@ export default function Realestate({
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
-              Enquiry
+              Enquiry for {ModalHeading}
             </h5>
           </Modal.Title>
           <button
@@ -892,7 +897,7 @@ export default function Realestate({
                               ""
                             )}
                             {items?.gallery?.length ? (
-                              <span class="VarColor font-weight-bold">
+                              <span class="VarColor font-weight-bold text-decoration-underline">
                                 More Images
                               </span>
                             ) : (
@@ -1050,7 +1055,9 @@ export default function Realestate({
                               data-toggle="modal"
                               data-target="#ProductEnquireModal"
                               className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                              onClick={() => handleShowEnquiry(items?.id)}
+                              onClick={() =>
+                                handleShowEnquiry(items?.id, items?.heading)
+                              }
                             >
                               <FontAwesomeIcon
                                 icon={faEnvelope}
@@ -1083,7 +1090,7 @@ export default function Realestate({
                   );
                 })
               ) : (
-                <p className="mx-2 color-black">No Data Found</p>
+                <p className="mx-2 color-black">No property found</p>
               )}
             </div>
             {PaginationData?.total_realestate ==

@@ -941,12 +941,6 @@ export default function EditTestimonials({
                                       alt="testimonials"
                                     />
                                   ) : (
-                                    // <img
-                                    //   className="case-item__icon"
-                                    //   src="../static/img/demo.jpg"
-                                    //   alt="testimonials"
-                                    //   style={{ borderRadius: "100%" }}
-                                    // />
                                     <div className="no-image-testimonia-div">
                                       <FontAwesomeIcon
                                         icon={faUser}

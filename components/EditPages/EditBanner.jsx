@@ -170,7 +170,7 @@ const EditBanner = ({
                   icon={faChevronLeft}
                   className="ml-2 mr-1 font-weight-bold"
                 />
-                Back To Dashboard
+                Dashboard
               </div>
             </Link>
           </div>
@@ -343,7 +343,7 @@ const EditBanner = ({
                 icon={faChevronLeft}
                 className="ml-2 mr-1 font-weight-bold"
               />
-              Back To Dashboard
+              Dashboard
             </div>
           </Link>
         </div>

@@ -8,6 +8,7 @@ import {
   faInfo,
   faLocationDot,
   faPencil,
+  faPhone,
   faPlus,
   faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -879,7 +880,7 @@ export default function EditRealEstate({
                       ""
                     )}
 
-                    <div
+                    {/* <div
                       className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
                       style={{ gap: "5px" }}
                     >
@@ -928,6 +929,57 @@ export default function EditRealEstate({
                           Whatsaap Enquiry
                         </button>
                       </a>
+                    </div> */}
+                    <div className="mt-4 w-100" style={{ gap: "5px" }}>
+                      <div className="d-flex align-items-center justify-content-center gap-2">
+                        {items?.google_address_link && (
+                          <a
+                            href={
+                              items?.google_address_link?.includes(
+                                "https://"
+                              ) ||
+                              items?.google_address_link?.includes("http://")
+                                ? "https://" + items?.google_address_link
+                                : items?.google_address_link
+                            }
+                            target="_blank"
+                            className="w-100"
+                          >
+                            <button className="contact-btn w-100 m-0">
+                              Visit Site
+                            </button>
+                          </a>
+                        )}
+                        {Data?.whatsapp_number && (
+                          <a
+                            href={
+                              "https://api.whatsapp.com/send?phone=" +
+                              Data?.whatsapp_number +
+                              "&" +
+                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                            }
+                            target="_blank"
+                            className="w-100"
+                          >
+                            <button className="contact-btn w-100 m-0">
+                              <FontAwesomeIcon
+                                icon={faPhone}
+                                className="mr-2"
+                              />{" "}
+                              WhatsApp
+                            </button>
+                          </a>
+                        )}
+                      </div>
+                      <div className="d-flex align-items-center justify-content-center gap-2 mt-2">
+                        <button className="contact-btn w-100 m-0">
+                          Contact Agent
+                        </button>
+                        <button className="contact-btn w-100 m-0">
+                          <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
+                          Email
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1117,7 +1169,7 @@ export default function EditRealEstate({
                 />
               </div>
               <div
-                className="d-flex align-items-center mt-3 justify-content-start"
+                className="d-flex align-items-center mt-3 justify-content-end"
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings2()}>
@@ -1308,7 +1360,7 @@ export default function EditRealEstate({
                 onChange={(e) => setGoogleMapLink(e.target.value.trim())}
               ></input>
               <div
-                className="d-flex align-items-center mt-3 justify-content-start"
+                className="d-flex align-items-center mt-3 justify-content-between"
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings1()}>
@@ -1404,7 +1456,7 @@ export default function EditRealEstate({
                 </div>
               )}
               <div
-                className="d-flex align-items-center justify-content-start"
+                className="d-flex align-items-center justify-content-between"
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings2()}>
@@ -1487,7 +1539,7 @@ export default function EditRealEstate({
               </div>
 
               <div
-                className="d-flex align-items-center justify-content-start"
+                className="d-flex align-items-center justify-content-between"
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings3()}>
@@ -1644,7 +1696,7 @@ export default function EditRealEstate({
                               ""
                             )}
                             {items?.gallery?.length ? (
-                              <span class="VarColor font-weight-bold">
+                              <span class="VarColor font-weight-bold text-decoration-underline">
                                 More Images
                               </span>
                             ) : (

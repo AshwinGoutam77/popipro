@@ -228,7 +228,7 @@ const Testimonials = ({
                 {card_testimonials.map((items, index) => {
                   return (
                     <SwiperSlide key={index}>
-                      <div className="swiper-slide review-item review-item-testimonials d-block">
+                      <div className="swiper-slide review-item position-relative review-item-testimonials d-block">
                         <div className="d-flex align-items-center w-100">
                           {items.image.path ? (
                             <picture>

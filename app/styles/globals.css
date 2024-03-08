@@ -1582,6 +1582,10 @@ table tbody tr:last-child {
   font-size: 18px !important;
 }
 
+.text-decoration-underline{
+  text-decoration: underline;
+}
+
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {
     padding: 5px;
