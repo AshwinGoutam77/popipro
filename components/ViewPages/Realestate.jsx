@@ -492,25 +492,29 @@ export default function Realestate({
                         <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
                         Enquiry
                       </button>
-                      <a
-                        href={
-                          "https://api.whatsapp.com/send?phone=" +
-                          "9874563210" +
-                          "&" +
-                          `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
-                        }
-                        target="_blank"
-                      >
-                        <button className="contact-btn w-auto m-0 d-flex align-items-center">
-                          <img
-                            src="../static/img/whatsapp.png"
-                            alt="whatsaap"
-                            className="Whatsaapsvg m-0"
-                            width={20}
-                          />{" "}
-                          Whatsaap Enquiry
-                        </button>
-                      </a>
+                      {Data?.whatsapp_number ? (
+                        <a
+                          href={
+                            "https://api.whatsapp.com/send?phone=" +
+                            Data?.whatsapp_number +
+                            "&" +
+                            `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                          }
+                          target="_blank"
+                        >
+                          <button className="contact-btn w-auto m-0 d-flex align-items-center">
+                            <img
+                              src="../static/img/whatsapp.png"
+                              alt="whatsaap"
+                              className="Whatsaapsvg m-0"
+                              width={20}
+                            />{" "}
+                            Whatsaap Enquiry
+                          </button>
+                        </a>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>
