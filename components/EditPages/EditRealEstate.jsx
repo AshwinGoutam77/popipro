@@ -841,9 +841,12 @@ export default function EditRealEstate({
                       {items?.country}, ({items?.zipcode})
                     </a>
 
-                    <p className="mt-3">
-                      {items?.description.replace(/(<([^>]+)>)/gi, "")}
-                    </p>
+                    <p
+                      className="mt-3"
+                      dangerouslySetInnerHTML={{
+                        __html: items.description,
+                      }}
+                    ></p>
 
                     {items?.amenities?.length > 3 ? (
                       <div
@@ -1032,12 +1035,12 @@ export default function EditRealEstate({
                   placeholder="Title"
                   onChange={(e) => setTitle(e.target.value.trim())}
                 ></input>
-                <div className="d-flex align-items-center gap-2 mb-4">
+                <div className="d-flex align-items-baseline gap-2 mb-4">
                   <div className="w-100">
                     <label className="modalFormLable">Property Type*</label>
                     <select
                       style={{
-                        height: "49px",
+                        height: "45px",
                         padding: "6px 18px",
                         background: "#f7f9fa",
                         appearance: "auto",
@@ -1086,7 +1089,6 @@ export default function EditRealEstate({
                       "TableToolbar",
                       "Indent",
                       "BlockQuote",
-                      "Heading",
                       "Emoji",
                     ],
                     placeholder:

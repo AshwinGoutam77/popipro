@@ -415,7 +415,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                     "TableToolbar",
                     "Indent",
                     "BlockQuote",
-                    "Heading",
                     "Emoji",
                   ],
                   placeholder:

@@ -1571,14 +1571,14 @@ table tbody tr:last-child {
   line-height: 0;
   background: var(--themecolor);
   padding: 12px;
-  width: fit-content;
+  width: 100%;
   padding-right: 50px;
 }
 
 .mobile-real-estate-price {
   display: none;
 }
-.real-estate-price{
+.real-estate-price {
   font-size: 18px !important;
 }
 

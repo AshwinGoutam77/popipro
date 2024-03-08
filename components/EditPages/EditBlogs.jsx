@@ -513,7 +513,6 @@ export default function EditBlogs({
                   "TableToolbar",
                   "Indent",
                   "BlockQuote",
-                  "Heading",
                   "Emoji",
                 ],
                 link: {
@@ -652,7 +651,6 @@ export default function EditBlogs({
                         "TableToolbar",
                         "Indent",
                         "BlockQuote",
-                        "Heading",
                         "Emoji",
                       ],
                       link: {

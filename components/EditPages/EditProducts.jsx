@@ -1068,7 +1068,6 @@ export default function EditProducts({
                   "TableToolbar",
                   "Indent",
                   "BlockQuote",
-                  "Heading",
                   "Emoji",
                 ],
                 placeholder:
@@ -1408,7 +1407,6 @@ export default function EditProducts({
                         "TableToolbar",
                         "Indent",
                         "BlockQuote",
-                        "Heading",
                         "Emoji",
                       ],
                       placeholder:

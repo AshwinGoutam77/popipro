@@ -468,7 +468,6 @@ export default function EditResume({
                     "TableToolbar",
                     "Indent",
                     "BlockQuote",
-                    "Heading",
                     "Emoji",
                   ],
                   placeholder:
@@ -592,7 +591,6 @@ export default function EditResume({
                         "TableToolbar",
                         "Indent",
                         "BlockQuote",
-                        "Heading",
                         "Emoji",
                       ],
                       placeholder:

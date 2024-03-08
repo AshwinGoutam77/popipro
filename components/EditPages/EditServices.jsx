@@ -465,7 +465,6 @@ export default function EditDoing({
                   "TableToolbar",
                   "Indent",
                   "BlockQuote",
-                  "Heading",
                   "Emoji",
                 ],
                 placeholder:
@@ -594,7 +593,6 @@ export default function EditDoing({
                               "TableToolbar",
                               "Indent",
                               "BlockQuote",
-                              "Heading",
                               "Emoji",
                             ],
                             placeholder:

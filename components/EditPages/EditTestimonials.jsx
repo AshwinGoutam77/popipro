@@ -534,7 +534,6 @@ export default function EditTestimonials({
                   "TableToolbar",
                   "Indent",
                   "BlockQuote",
-                  "Heading",
                   "Emoji",
                 ],
                 placeholder:
@@ -670,7 +669,6 @@ export default function EditTestimonials({
                             "TableToolbar",
                             "Indent",
                             "BlockQuote",
-                            "Heading",
                             "Emoji",
                           ],
                           placeholder:
