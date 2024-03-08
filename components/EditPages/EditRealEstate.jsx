@@ -1782,22 +1782,26 @@ export default function EditRealEstate({
                             className="d-flex flex-wrap"
                             style={{ gap: "10px" }}
                           >
-                            <a
-                              href={
-                                "https://api.whatsapp.com/send?phone=" +
-                                "9874563210" +
-                                "&" +
-                                `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
-                              }
-                              target="_blank"
-                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                            >
-                              <img
-                                src="../static/img/whatsapp.png"
-                                alt="whatsaap"
-                                className="Whatsaapsvg"
-                              />
-                            </a>
+                            {Data?.whatsapp_number ? (
+                              <a
+                                href={
+                                  "https://api.whatsapp.com/send?phone=" +
+                                  Data?.whatsapp_number +
+                                  "&" +
+                                  `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
+                                }
+                                target="_blank"
+                                className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                              >
+                                <img
+                                  src="../static/img/whatsapp.png"
+                                  alt="whatsaap"
+                                  className="Whatsaapsvg"
+                                />
+                              </a>
+                            ) : (
+                              ""
+                            )}
                             <span
                               data-toggle="modal"
                               data-target="#ProductEnquireModal"
