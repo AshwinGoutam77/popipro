@@ -959,7 +959,7 @@ export default function EditRealEstate({
             <>
               <div>
                 <div className="tab-progress-bar">
-                  <ProgressBar now={25} />;
+                  <ProgressBar now={25} />
                 </div>
 
                 <h6 className="mb-2 color-black pl-2">Basic Details</h6>
