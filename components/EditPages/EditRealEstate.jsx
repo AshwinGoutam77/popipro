@@ -983,7 +983,7 @@ export default function EditRealEstate({
                   style={{ border: "1px solid #ccc" }}
                   multiple
                   onChange={(e) => setGalleryImages(e.target.files)}
-                  disabled={GalleryImages?.length >= 3 ? true : false}
+                  disabled={GalleryImages?.length === 3 ? true : false}
                 />
                 {Data?.card_realestates &&
                   Data?.card_realestates?.map((items, index) => {
