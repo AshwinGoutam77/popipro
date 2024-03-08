@@ -1526,15 +1526,9 @@ export default function EditRealEstate({
                   name="years"
                   rows="4"
                   cols="50"
-                  className="title-section-input w-auto"
+                  className="title-section-input"
                   onChange={(e) => setRealEstateTitle(e.target.value)}
-                  defaultValue={
-                    TitleData &&
-                    TitleData.card_realestates?.visible_name ==
-                      "card_realestates"
-                      ? "card_realestates"
-                      : TitleData?.card_realestates?.visible_name
-                  }
+                  defaultValue={TitleData.card_realestates?.visible_name}
                   placeholder="Title"
                 ></input>
               ) : (
