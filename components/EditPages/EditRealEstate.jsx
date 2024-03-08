@@ -107,6 +107,7 @@ export default function EditRealEstate({
   };
 
   const handleRadioBTN = (e) => {
+    setEditRadioBtn(0);
     setLabelRadio(false);
     if (PriceRadio == false) {
       setPriceRadio(true);
@@ -1355,9 +1356,10 @@ export default function EditRealEstate({
                   </label>
                 </div>
               </div>
+              {console.log("PriceRadio", PriceRadio)}
               {PriceRadio ? (
                 <div className="mt-2">
-                  <label className="modalFormLable">Price*</label>
+                  <label className="modalFormLable">Price</label>
                   <div className="d-flex" style={{ gap: "10px" }}>
                     <input
                       type="text"
