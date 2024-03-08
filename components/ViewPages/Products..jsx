@@ -494,7 +494,7 @@ export default function Product({
                           __html: item.description,
                         }}
                       ></p>
-                      <div className="d-flex align-items-center justify-content-center mt-3 flex-wrap gap-10">
+                      <div className="d-flex align-items-center justify-content-center mt-3 flex-wrap gap-2">
                         {item.url !== "" ? (
                           <a
                             href={
