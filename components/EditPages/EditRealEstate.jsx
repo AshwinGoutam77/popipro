@@ -182,8 +182,6 @@ export default function EditRealEstate({
           ? "Title field is required"
           : PropertyType === ""
           ? "Property type is requried"
-          : LookingTo === ""
-          ? "Looking to is requried"
           : Description === ""
           ? "Description is requried"
           : GalleryImages?.length > 3
