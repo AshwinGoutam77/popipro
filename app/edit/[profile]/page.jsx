@@ -89,7 +89,7 @@ const Page = () => {
   }
   return token ? (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-right"
         autoClose={1000}
         hideProgressBar={false}
@@ -100,7 +100,7 @@ const Page = () => {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       {cardData ? (
         <>
           <EditBanner

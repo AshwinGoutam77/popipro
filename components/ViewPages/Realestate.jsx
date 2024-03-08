@@ -431,14 +431,14 @@ export default function Realestate({
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
                     </p>
 
-                    {items?.amenities?.length > 4 ? (
+                    {items?.amenities?.length > 3 ? (
                       <div
                         className="d-flex flex-column mt-3 amenities-main-section w-100"
                         style={{ gap: "10px", lineHeight: "0" }}
                       >
                         {items?.amenities &&
                           items?.amenities?.map((amenities, key) => {
-                            return key > 4 ? (
+                            return key > 3 ? (
                               <div
                                 className="d-flex align-items-baseline amenities-div"
                                 key={key}
@@ -922,9 +922,6 @@ export default function Realestate({
                               <span className="real-estate-badge">
                                 {items?.property_type?.name}
                               </span>
-                              {/* <span className="real-estate-badge">
-                                {items?.looking_for?.name}
-                              </span> */}
                             </p>
                           </div>
                           <p

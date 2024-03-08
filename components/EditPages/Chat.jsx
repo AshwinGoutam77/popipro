@@ -101,7 +101,7 @@ const ChatbotApp = ({
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-right"
         autoClose={2000}
         hideProgressBar={false}
@@ -112,7 +112,7 @@ const ChatbotApp = ({
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
 
       <div className="container text-right">
         <div className="prompt-area">

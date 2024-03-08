@@ -28,6 +28,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axios from "axios";
+import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 
 export default function EditTestimonials({
   TitleData,
@@ -448,6 +449,7 @@ export default function EditTestimonials({
   };
   return (
     <>
+      <SimpleBackdrop visible={ShowLoader} />
       {/* Add More MODAL */}
       <Modal
         show={show}

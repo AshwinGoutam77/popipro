@@ -324,16 +324,6 @@ export default function EditAlternateNo({
           <div>
             <label className="modalFormLable">Phone Number *</label>
             <div className="d-flex align-items-center" style={{ gap: "8px" }}>
-              {/* <input
-                type="text"
-                name="number"
-                rows="4"
-                cols="50"
-                className="form-control mb-4 mt-1 w-50"
-                value={CountryCode}
-                placeholder="+91"
-                onChange={(e) => setCountryCode(e.target.value)}
-              ></input> */}
               <select
                 className="form-control mb-4 mt-1"
                 onChange={(e) => setCountryCode(e.target.value)}
@@ -345,7 +335,7 @@ export default function EditAlternateNo({
                   MainData?.countrycode_listing?.map((item, index) => {
                     return (
                       <option value={item?.value} key={index}>
-                        {item?.name + ": " + item?.value}
+                        {item?.value + ": " + item?.name}
                       </option>
                     );
                   })}
@@ -395,7 +385,7 @@ export default function EditAlternateNo({
               Edit {AlterNumber}
             </h5>
           </Modal.Title>
-          <button type="button" class="close" onClick={handleClose}>
+          <button type="button" class="close" onClick={handleCanclebtn}>
             <span aria-hidden="true">×</span>
             <span class="sr-only">Close alert</span>
           </button>
@@ -422,25 +412,27 @@ export default function EditAlternateNo({
                   ></input>
                 </div>
                 <div>
-                  <label className="modalFormLable">Phone Number</label>
+                  <label className="modalFormLable">Phone Number *</label>
                   <div
                     className="d-flex align-items-center"
                     style={{ gap: "8px" }}
                   >
-                    <input
-                      type="text"
-                      name="number"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1 w-50"
-                      value={CountryCode}
-                      placeholder="+91"
-                      style={{
-                        height: "40px",
-                        border: "1px solid #ccc",
-                      }}
+                    <select
+                      className="form-control mb-4 mt-1"
                       onChange={(e) => setCountryCode(e.target.value)}
-                    ></input>
+                      value={CountryCode}
+                      style={{ height: "45px", width: "50%" }}
+                    >
+                      <option value="">Code</option>
+                      {MainData?.countrycode_listing &&
+                        MainData?.countrycode_listing?.map((item, index) => {
+                          return (
+                            <option value={item?.value} key={index}>
+                              {item?.value + ": " + item?.name}
+                            </option>
+                          );
+                        })}
+                    </select>
                     <input
                       type="number"
                       name="number"
@@ -449,10 +441,6 @@ export default function EditAlternateNo({
                       className="form-control mb-4 mt-1"
                       value={MobileNumber}
                       placeholder="xxxxxxxxxx"
-                      style={{
-                        height: "40px",
-                        border: "1px solid #ccc",
-                      }}
                       onChange={(e) => setMobileNumber(e.target.value)}
                     ></input>
                     <input
@@ -463,10 +451,6 @@ export default function EditAlternateNo({
                       className="form-control mb-4 mt-1 w-50"
                       value={Extension}
                       placeholder="xxxx"
-                      style={{
-                        height: "40px",
-                        border: "1px solid #ccc",
-                      }}
                       onChange={(e) => setExtension(e.target.value)}
                     ></input>
                   </div>
