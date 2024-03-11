@@ -8,12 +8,12 @@ import "../../styles/navbar.css";
 import { Tooltip } from "@mui/material";
 
 const Navbar = ({ card, HeaderData }) => {
-  /* const handleScrollRight = () => {
+  const handleScrollRight = () => {
     document.getElementById("content").scrollBy(30, 0); // for right scroll
   };
   const handleScrollLeft = () => {
     document.getElementById("content").scrollBy(-30, 0); // for left scroll
-  }; */
+  };
 
   const handleScroll = (href) => {
     var elem = document.getElementById(href);
@@ -42,7 +42,7 @@ const Navbar = ({ card, HeaderData }) => {
             >
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                /* onClick={handleScrollLeft} */
+                onClick={handleScrollLeft}
                 className="pe-auto Iconcolor-black"
                 style={{
                   cursor: "pointer",
@@ -83,7 +83,7 @@ const Navbar = ({ card, HeaderData }) => {
             >
               <FontAwesomeIcon
                 icon={faChevronRight}
-                /* onClick={handleScrollRight} */
+                onClick={handleScrollRight}
                 className="pe-auto Iconcolor-black"
                 style={{
                   cursor: "pointer",

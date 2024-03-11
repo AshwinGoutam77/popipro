@@ -562,6 +562,7 @@ export default function EditProducts({
     });
 
   const HandleProjectSelect = (ProjectOptions) => {
+    console.log("ProjectOptions", ProjectOptions);
     setCategoryId(ProjectOptions);
   };
 
@@ -884,6 +885,7 @@ export default function EditProducts({
               value={ProductHeading}
               placeholder="Heading"
               onChange={(e) => setProductHeading(e.target.value)}
+              maxLength="200"
             ></input>
 
             <div className="d-flex align-items-center mb-3 mt-1 ml-2">
@@ -1223,6 +1225,7 @@ export default function EditProducts({
                     defaultValue={items.name || ""}
                     placeholder="Heading"
                     onChange={(e) => setProductHeading(e.target.value)}
+                    maxLength="200"
                   ></input>
 
                   <div className="d-flex align-items-center mb-3 mt-1 ml-2">
@@ -1789,7 +1792,7 @@ export default function EditProducts({
                                   __html: items.description,
                                 }}
                               ></p>
-                              <div className="text-align-end mt-1 d-flex align-items-center justify-content-between">
+                              <div className="text-align-end mt-1 d-flex align-items-center justify-content-between flex-wrap" style={{gap:'10px'}}>
                                 {items.is_label !== 0 ? (
                                   <span className="product-price">
                                     {items.label}

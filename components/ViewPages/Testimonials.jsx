@@ -229,33 +229,19 @@ const Testimonials = ({
                   return (
                     <SwiperSlide key={index}>
                       <div className="swiper-slide review-item position-relative review-item-testimonials d-block">
-                        <div className="d-flex align-items-center w-100">
-                          {items.image.path ? (
-                            <picture>
-                              <source
-                                type="image/png"
-                                srcSet={
-                                  process.env.NEXT_PUBLIC_MODE == "development"
-                                    ? "https://dev.popipro.com/" +
-                                      items.image.path
-                                    : "https://admin.popipro.com/" +
-                                      items.image.path
-                                }
-                              />
-                              <img
-                                className="case-item__icon"
-                                src={
-                                  process.env.NEXT_PUBLIC_MODE == "development"
-                                    ? "https://dev.popipro.com/" +
-                                      items.image.path
-                                    : "https://admin.popipro.com/" +
-                                      items.image.path
-                                }
-                                alt="photos"
-                                width={0}
-                                height={0}
-                              />
-                            </picture>
+                        <div className="d-flex align-items-center">
+                          {items?.image?.path ? (
+                            <img
+                              className="case-item__icon"
+                              src={
+                                process.env.NEXT_PUBLIC_MODE == "development"
+                                  ? "https://dev.popipro.com/" +
+                                    items.image.path
+                                  : "https://admin.popipro.com/" +
+                                    items.image.path
+                              }
+                              alt="testimonials"
+                            />
                           ) : (
                             <div className="no-image-testimonia-div">
                               <FontAwesomeIcon
@@ -265,7 +251,10 @@ const Testimonials = ({
                             </div>
                           )}
                           <div className="pt-0">
-                            <h4 className="title title--h5 text-left ml-2 mb-0">
+                            <h4
+                              className="title title--h5 text-align-start ml-2 mb-0"
+                              style={{ textAlign: "start" }}
+                            >
                               {items.name}
                             </h4>
                             <p className="text-left ml-2 font-weight-bold m-0">

@@ -437,6 +437,7 @@ export default function EditDoing({
               value={ServicesName}
               placeholder="Heading"
               onChange={(e) => setServicesName(e.target.value)}
+              maxLength="200"
             ></input>
             <div className="d-flex align-items-center justify-content-between">
               <label className="modalFormLable">Description*</label>
@@ -564,6 +565,7 @@ export default function EditDoing({
                         defaultValue={items.name || ""}
                         placeholder="Heading"
                         onChange={(e) => setServicesName(e.target.value)}
+                        maxLength="200"
                       ></input>
                       <div className="d-flex align-items-center justify-content-between">
                         <label className="modalFormLable">Description*</label>

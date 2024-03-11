@@ -191,6 +191,7 @@ const Leads = () => {
         data: item?.value,
       };
     });
+
   const chartData6 = {
     series: dSet || [],
     options: {
@@ -309,7 +310,7 @@ const Leads = () => {
                     <div className="d-flex align-items-start">
                       <p className="w-100 font-weight-bold">Location </p>
                       {item.detail ? (
-                        <p className="w-100 ml-5">
+                        <p className="w-100">
                           {item.detail?.state
                             ? item.detail?.city +
                               ", " +

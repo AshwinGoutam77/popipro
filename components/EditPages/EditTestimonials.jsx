@@ -496,6 +496,7 @@ export default function EditTestimonials({
               value={ServicesName || ""}
               placeholder="Heading"
               onChange={(e) => setServicesName(e.target.value)}
+              maxLength="200"
             ></input>
             <label className="modalFormLable">Company Name</label>
             <input
@@ -631,6 +632,7 @@ export default function EditTestimonials({
                         defaultValue={items.name || ""}
                         placeholder="Heading"
                         onChange={(e) => setServicesName(e.target.value)}
+                        maxLength="200"
                       ></input>
                       <label className="modalFormLable">Company Name</label>
                       <input
@@ -1021,30 +1023,34 @@ export default function EditTestimonials({
                   </div>
                 </SwiperComponent>
               )}
-              <div className="d-flex align-items-start">
-                <input
-                  type="checkbox"
-                  id="testimonials"
-                  className="mt-1"
-                  value={
-                    MainData?.company_setting?.show_testimonial_button !== 0
-                      ? true
-                      : false
-                  }
-                  onChange={(e) => handleGetReview(e.target.checked)}
-                  checked={
-                    MainData?.company_setting?.show_testimonial_button !== 0
-                      ? true
-                      : false
-                  }
-                />
-                <label
-                  for="testimonials"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Click the box to allow clients to leave a review.
-                </label>
-              </div>
+              {TitleData?.card_testimonials?.source == "2" &&
+                PlanData?.is_expired == false &&
+                PlanData?.subscription?.plan_id !== 1 && (
+                  <div className="d-flex align-items-start">
+                    <input
+                      type="checkbox"
+                      id="testimonials"
+                      className="mt-1"
+                      value={
+                        MainData?.company_setting?.show_testimonial_button !== 0
+                          ? true
+                          : false
+                      }
+                      onChange={(e) => handleGetReview(e.target.checked)}
+                      checked={
+                        MainData?.company_setting?.show_testimonial_button !== 0
+                          ? true
+                          : false
+                      }
+                    />
+                    <label
+                      for="testimonials"
+                      className="ml-2 Varcolor font-weight-bold"
+                    >
+                      Click the box to allow clients to leave a review.
+                    </label>
+                  </div>
+                )}
             </div>
           </div>
         </div>

@@ -167,6 +167,18 @@ export default function Realestate({
         theme: "light",
       });
       return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      toast.error("Invalid email format", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
     }
     setShowLoader(true);
     try {
@@ -418,7 +430,7 @@ export default function Realestate({
                       ) : (
                         <p className="font-weight-bold VarColor real-estate-price">
                           {MainData?.company_setting?.currency?.currency}{" "}
-                          {items?.price}
+                          {new Intl.NumberFormat().format(items?.price)}
                         </p>
                       )}
                     </div>
@@ -468,7 +480,10 @@ export default function Realestate({
                     )}
 
                     <div className="mt-4 w-100" style={{ gap: "5px" }}>
-                      <div className="d-flex align-items-center justify-content-center gap-10">
+                      <div
+                        className="d-flex align-items-center justify-content-center"
+                        style={{ gap: "10px" }}
+                      >
                         {items?.google_address_link && (
                           <a
                             href={
@@ -508,7 +523,10 @@ export default function Realestate({
                           </a>
                         )}
                       </div>
-                      <div className="d-flex align-items-center justify-content-center gap-10 mt-2">
+                      <div
+                        className="d-flex align-items-center justify-content-center mt-2"
+                        style={{ gap: "10px" }}
+                      >
                         <button className="contact-btn w-100 m-0">
                           Contact Agent
                         </button>
@@ -912,7 +930,7 @@ export default function Realestate({
                             ) : (
                               <span className="font-weight-bold VarColor">
                                 {MainData?.company_setting?.currency?.currency}{" "}
-                                {items?.price}
+                                {new Intl.NumberFormat().format(items?.price)}
                               </span>
                             )}
                           </p>
@@ -952,7 +970,7 @@ export default function Realestate({
                           ) : (
                             <p className="font-weight-bold VarColor web-real-estate-price">
                               {MainData?.company_setting?.currency?.currency}{" "}
-                              {items?.price}
+                              {new Intl.NumberFormat().format(items?.price)}
                             </p>
                           )}
                         </div>

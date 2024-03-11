@@ -170,6 +170,18 @@ export default function Product({
         theme: "light",
       });
       return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      toast.error("Invalid email format", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
     }
     setShowLoader(true);
     try {
@@ -494,7 +506,10 @@ export default function Product({
                           __html: item.description,
                         }}
                       ></p>
-                      <div className="d-flex align-items-center justify-content-center mt-3 flex-wrap gap-2">
+                      <div
+                        className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
+                        style={{ gap: "5px" }}
+                      >
                         {item.url !== "" ? (
                           <a
                             href={
@@ -1062,7 +1077,10 @@ export default function Product({
                               }}
                               onClick={() => ShowModalID(items.id, items?.name)}
                             ></p>
-                            <div className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left">
+                            <div
+                              className="text-align-end mt-2 d-flex align-items-center justify-content-between text-left flex-wrap"
+                              style={{ gap: "10px" }}
+                            >
                               {items.is_label !== 0 ? (
                                 <span className="product-price">
                                   {items.label}

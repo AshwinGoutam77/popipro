@@ -1174,6 +1174,8 @@ a:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
+  word-wrap: break-word;
+  width: 100%;
 }
 
 .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {

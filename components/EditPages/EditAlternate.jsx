@@ -55,6 +55,7 @@ export default function EditAlternateNo({
     setCountryCode("");
     setExtension("");
   };
+
   const handleActive = async () => {
     const titles = [
       {
@@ -104,14 +105,22 @@ export default function EditAlternateNo({
       }
     });
   };
+
   const handleSaveDetails = async (id = null) => {
     setShowLoader(true);
     let alternate_phones = [];
     let error = false;
     let mess = "";
-    if (MobileNumber == "" || NumberLabel == "") {
+    if (MobileNumber == "" || NumberLabel == "" || CountryCode == "") {
       error = true;
-      mess = NumberLabel == "" ? "Label is required" : "Number is required";
+      mess =
+        NumberLabel == ""
+          ? "Label is required"
+          : NumberLabel == ""
+          ? "Number is required"
+          : CountryCode == ""
+          ? "Country code is required"
+          : "";
     } else {
       id !== null
         ? (alternate_phones = [
@@ -319,6 +328,7 @@ export default function EditAlternateNo({
               value={NumberLabel}
               placeholder="Enter label for Alternate number"
               onChange={(e) => setNumberLabel(e.target.value)}
+              maxLength="50"
             ></input>
           </div>
           <div>
@@ -409,6 +419,7 @@ export default function EditAlternateNo({
                       border: "1px solid #ccc",
                     }}
                     onChange={(e) => setNumberLabel(e.target.value)}
+                    maxLength="50"
                   ></input>
                 </div>
                 <div>

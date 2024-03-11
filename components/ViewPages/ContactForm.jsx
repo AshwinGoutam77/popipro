@@ -1,20 +1,54 @@
 "use client";
 import Api from "@services/Api";
 import { AppointmentBooking } from "@services/Routes";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
+import SpinLoader from "./SpinLoader";
 
-export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
+export default function ContactForm({
+  card_url,
+  Titles,
+  PlanData,
+  MainData,
+  card,
+}) {
+  const contactRef = useRef();
+
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    // Add leading zero if month or day is less than 10
+    month = month < 10 ? "0" + month : month;
+    day = day < 10 ? "0" + day : day;
+
+    return `${year}-${month}-${day}`;
+  }
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Contact, setContact] = useState("");
   const [Message, setMessage] = useState("");
-  const [Date, setDate] = useState("");
+  const [MinDate, setMinDate] = useState(getCurrentDate());
   const [Time, setTime] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
+  const [Loader, setLoader] = useState(true);
+
+  // useEffect(() => {
+  //   if (typeof window === "object" && card?.landing_mode === "appointment") {
+  //     if (contactRef.current) {
+  //       console.log(contactRef);
+  //       contactRef.current.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "start",
+  //       });
+  //     }
+  //   }
+  // }, []);
 
   const handleAppointment = async () => {
     if (Name == "") {
@@ -67,14 +101,15 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       return;
     }
     try {
-      setShowLoader(true);
+      // setShowLoader(true);
+      setLoader(true);
       let data = {
         card_url: card_url,
         name: Name,
         contact: Contact,
         email: Email,
         message: Message,
-        date: Date,
+        date: MinDate,
         time: Time,
         latitude: await localforage.getItem("latitude"),
         longitude: await localforage.getItem("longitude"),
@@ -83,6 +118,7 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       const response = await Api(AppointmentBooking, data);
       if (response.data.status) {
         setShowLoader(false);
+        setLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -115,12 +151,14 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
       });
     }
   };
+
   const checkInput = (e) => {
     const onlyDigits = e.target.value.replace(/\D/g, "");
     setContact(onlyDigits);
   };
+
   return (
-    <>
+    <div ref={contactRef}>
       <SimpleBackdrop visible={ShowLoader} />
       {Titles.card_booking?.is_active === 1 &&
       PlanData?.is_expired == false &&
@@ -167,9 +205,10 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
                   <div className="col-lg-6 col-md-6 mb-2">
                     <input
                       type="date"
-                      value={Date}
-                      onChange={(e) => setDate(e.target.value)}
+                      value={MinDate}
+                      onChange={(e) => setMinDate(e.target.value)}
                       className="date-time-input min-width-95 br-0"
+                      min={MinDate}
                     />
                     <div className="help-block with-errors"></div>
                   </div>
@@ -219,20 +258,22 @@ export default function ContactForm({ card_url, Titles, PlanData, MainData }) {
             </div>
           </div>
           <div className="row">
-            <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
+            <div className="col-12 col-md-12 order-1 order-md-2 submitbutton d-flex align-items-center mt-3 gap-10">
               <button
                 type="submit"
-                className="contact-btn mt-3 w-auto"
+                className="contact-btn w-auto"
                 onClick={handleAppointment}
               >
                 Send
               </button>
+
+              {/* {Loader && <SpinLoader />} */}
             </div>
           </div>
         </div>
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 }

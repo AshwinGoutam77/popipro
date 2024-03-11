@@ -243,7 +243,7 @@ const Work = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex-edit-class gap-10">
+                  <div className="flex-edit-class" style={{gap:'12px'}}>
                     {Card_videos &&
                       Card_videos.map((video, i) => {
                         function getId(url) {

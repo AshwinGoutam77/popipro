@@ -430,6 +430,7 @@ export default function EditResume({
                 placeholder="Title"
                 value={ExpDesignation}
                 onChange={(evnt) => setExpDesignation(evnt.target.value)}
+                maxLength="200"
               ></input>
               <label className="modalFormLable">Steps</label>
               <input
@@ -553,6 +554,7 @@ export default function EditResume({
                     placeholder="Title"
                     defaultValue={item.designation}
                     onChange={(evnt) => setExpDesignation(evnt.target.value)}
+                    maxLength="200"
                   ></input>
                   <label className="modalFormLable">Steps</label>
                   <input

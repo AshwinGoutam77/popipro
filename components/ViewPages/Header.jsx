@@ -315,6 +315,7 @@ const Header = ({
   if (sharePopup == false && card?.landing_mode === "share-contact") {
     setShow(true);
     setsharePopup(true);
+    setModalShow("ExchangeContact");
   }
 
   const [Show, setShowModal] = useState(false);
@@ -433,7 +434,7 @@ const Header = ({
               <input
                 type="text"
                 className="form-control"
-                placeholder="Sub-Title"
+                placeholder="Sub Title"
                 required="required"
                 autoComplete="on"
                 value={ReviewSubTitle}
@@ -460,7 +461,7 @@ const Header = ({
             <div className="form-group col-12 col-md-12 mb-3">
               <textarea
                 className="textarea form-control"
-                placeholder="Your message*"
+                placeholder="Your Message*"
                 rows="4"
                 required="required"
                 value={ReviewDescription}
@@ -500,7 +501,10 @@ const Header = ({
         </Modal.Header>
         <Modal.Body className="text-center">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <div className="d-flex align-items-center mb-4 gap-10">
+            <div
+              className="d-flex align-items-center mb-4"
+              style={{ gap: "10px" }}
+            >
               <button
                 className={
                   ShowDownloadQr ? "filter-btns bg-varcolor" : "filter-btns"

@@ -224,8 +224,7 @@ export default function EditRealEstate({
       State == "" ||
       Country == "" ||
       ZipCode == "" ||
-      BuiltUpArea == "" ||
-      FurnishType == ""
+      BuiltUpArea == ""
     ) {
       error = true;
       mess =
@@ -241,8 +240,6 @@ export default function EditRealEstate({
           ? "Zip code is requried"
           : BuiltUpArea === ""
           ? "Build up area is requried"
-          : FurnishType === ""
-          ? "Furnish type is requried"
           : "";
     }
     if (error) {
@@ -1086,6 +1083,7 @@ export default function EditRealEstate({
                   defaultValue={Title}
                   placeholder="Title"
                   onChange={(e) => setTitle(e.target.value.trim())}
+                  maxLength="200"
                 ></input>
                 <div className="d-flex align-items-baseline gap-2 mb-4">
                   <div className="w-100">
@@ -1323,7 +1321,7 @@ export default function EditRealEstate({
                   ></input>
                 </div>
                 <div className="w-100">
-                  <label className="modalFormLable">Furnish Type*</label>
+                  <label className="modalFormLable">Furnish Type</label>
                   <select
                     style={{
                       height: "49px",

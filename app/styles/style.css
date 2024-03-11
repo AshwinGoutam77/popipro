@@ -2745,7 +2745,7 @@ button:focus {
   border-radius: 9999px !important;
   background-color: var(--color) !important;
   font-weight: 500 !important;
-  color: white;
+  color: var(--text-color);
   text-align: center;
   transition-duration: 0.2s;
   transition-property: all;
@@ -2768,14 +2768,6 @@ button:focus {
 }
 
 .contact-btn-header {
-  /* border: 1px solid var(--color) !important;
-  padding: 6px 19px;
-  background-color: white;
-  color: var(--color);
-  font-weight: 600;
-  border-radius: 100px;
-  margin-top: 8px;
-  width: 100%; */
   align-items: center;
   cursor: pointer;
   display: inline-flex;
@@ -3007,7 +2999,7 @@ button:focus {
     border-radius: 9999px !important;
     background-color: var(--color) !important;
     font-weight: 500 !important;
-    color: white;
+    color: var(--text-color);
     text-align: center;
     transition-duration: 0.2s;
     transition-property: all;

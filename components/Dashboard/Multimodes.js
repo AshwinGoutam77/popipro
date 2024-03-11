@@ -285,7 +285,8 @@ export default function Multimodes({
         <Modal.Body>
           <div>
             <h6 className="text-center mb-2 Varcolor font-weight-normal">
-              Change your default card tap behaviour. <br />When user visits your profile.
+              Change your default card tap behaviour, <br />
+              When user visits your profile.
             </h6>
             <ul className="m-0 p-0 multimodes-ul">
               <li className="d-flex align-items-center justify-content-between mb-2">
@@ -359,7 +360,9 @@ export default function Multimodes({
                       data-active={ActiveTrustPilot}
                       checked={ActiveTrustPilot}
                       type="checkbox"
-                      onChange={() => handleLandingMode("open-trustpilot-review")}
+                      onChange={() =>
+                        handleLandingMode("open-trustpilot-review")
+                      }
                     />
                     <span className="slider round"></span>
                   </label>
@@ -380,7 +383,7 @@ export default function Multimodes({
                   <span className="slider round"></span>
                 </label>
               </li>
-              <li className="d-flex align-item-center justify-content-between mb-2">
+              {/* <li className="d-flex align-item-center justify-content-between mb-2">
                 <h6 className="mb-0">Open Appointment Form</h6>
                 <label className="switch">
                   <input
@@ -392,7 +395,7 @@ export default function Multimodes({
                   />
                   <span className="slider round"></span>
                 </label>
-              </li>
+              </li> */}
               {/* <li className="d-flex align-item-center justify-content-between mb-2">
                 <h6 className="mb-0">Open Review</h6>
                 <label className="switch">

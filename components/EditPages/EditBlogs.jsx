@@ -475,6 +475,7 @@ export default function EditBlogs({
               value={ServicesName}
               placeholder="Heading"
               onChange={(e) => setServicesName(e.target.value)}
+              maxLength="200"
             ></input>
             <label className="modalFormLable">Url</label>
             <input
@@ -612,6 +613,7 @@ export default function EditBlogs({
                     placeholder="Heading"
                     // onChange={(evnt) => handleWhatImChange(i, evnt)}
                     onChange={(e) => setServicesName(e.target.value)}
+                    maxLength="200"
                   ></input>
                   <label className="modalFormLable">Url</label>
                   <input

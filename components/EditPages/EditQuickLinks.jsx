@@ -321,6 +321,7 @@ export default function EditCustomLink({
               value={LinkLabel}
               placeholder="Enter label*"
               onChange={(e) => setLinkLabel(e.target.value)}
+              maxLength="50"
             ></input>
           </div>
           <div>
@@ -395,6 +396,7 @@ export default function EditCustomLink({
                     value={LinkLabel}
                     placeholder="Enter label"
                     onChange={(e) => setLinkLabel(e.target.value)}
+                    maxLength="50"
                   ></input>
                 </div>
                 <div>

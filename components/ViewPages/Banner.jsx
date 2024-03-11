@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
 import { GetCardSequence, HitClickApi, SaveToken } from "@services/Routes";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseCloudMessaging } from "../../app/firebase";
@@ -26,6 +26,7 @@ const Banner = ({
   MainData,
   referer,
 }) => {
+  const divRef = useRef(null);
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
@@ -247,12 +248,6 @@ const Banner = ({
     setFunctionState(true);
   } else if (
     typeof window === "object" &&
-    card?.landing_mode === "appointment"
-  ) {
-    var elem = document.getElementById("card_booking");
-    elem?.scrollIntoView();
-  } else if (
-    typeof window === "object" &&
     GoogleReviewState == false &&
     card?.landing_mode === "open-google-review"
   ) {
@@ -265,7 +260,11 @@ const Banner = ({
     setGoogleReviewState(true);
   } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
     window.location =
-      "https://api.whatsapp.com/send?phone=" + card.card_contact;
+      "https://api.whatsapp.com/send?phone=" +
+      (card?.whatsapp_country_code
+        ? card?.whatsapp_country_code?.replace(/\+/g, "%2B")
+        : "") +
+      card.whatsapp_number;
   } else if (
     typeof window === "object" &&
     GoogleReviewState == false &&
@@ -426,21 +425,23 @@ const Banner = ({
             subscription?.subscription !== null &&
             subscription?.is_expired == false ? (
               <a
-                href={card.card_trustpilot}
-                className="float fs-24"
+                href={card?.card_trustpilot}
+                className="float"
                 target="_blank"
+                style={{
+                  background: "white",
+                }}
               >
-                <picture>
-                  <source
-                    type="image/png"
-                    srcSet="./static/img/trustpilot.png"
-                  />
-                  <img
-                    src="./static/img/trustpilot.png"
-                    className="bg-white trustpilot-images"
-                    alt="photos"
-                  />
-                </picture>
+                <img
+                  src="../static/img/trustpilot.png"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "100px",
+                    background: "white",
+                  }}
+                  alt="photos"
+                />
               </a>
             ) : (
               ""

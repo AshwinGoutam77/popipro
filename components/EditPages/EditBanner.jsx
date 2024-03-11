@@ -46,31 +46,6 @@ const EditBanner = ({
         Data?.card_cover !== "banner-logo") ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
-            {Data?.card_trustpilot !== null &&
-            PlanData?.current_plan?.plan_name !== "basic" &&
-            PlanData?.is_expired == false ? (
-              <a
-                href={Data?.card_trustpilot}
-                className="float"
-                target="_blank"
-                style={{
-                  background: "white",
-                }}
-              >
-                <img
-                  src="../static/img/trustpilot.png"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "100px",
-                    background: "white",
-                  }}
-                  alt="photos"
-                />
-              </a>
-            ) : (
-              ""
-            )}
             {Data?.whatsapp_number !== null ? (
               <a
                 href={
@@ -110,6 +85,31 @@ const EditBanner = ({
                 <img
                   src="../static/img/google.png"
                   style={{ width: "25px" }}
+                  alt="photos"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+            {Data?.card_trustpilot !== null &&
+            PlanData?.current_plan?.plan_name !== "basic" &&
+            PlanData?.is_expired == false ? (
+              <a
+                href={Data?.card_trustpilot}
+                className="float"
+                target="_blank"
+                style={{
+                  background: "white",
+                }}
+              >
+                <img
+                  src="../static/img/trustpilot.png"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "100px",
+                    background: "white",
+                  }}
                   alt="photos"
                 />
               </a>
@@ -191,31 +191,6 @@ const EditBanner = ({
           }}
         >
           <div className="fixed-b-icons">
-            {Data?.card_trustpilot !== null &&
-            PlanData?.current_plan?.plan_name !== "basic" &&
-            PlanData?.is_expired == false ? (
-              <a
-                href={Data?.card_trustpilot}
-                className="float"
-                target="_blank"
-                style={{
-                  background: "white",
-                }}
-              >
-                <img
-                  src="../static/img/trustpilot.png"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "100px",
-                    background: "white",
-                  }}
-                  alt="photos"
-                />
-              </a>
-            ) : (
-              ""
-            )}
             {Data?.whatsapp_number !== null ? (
               <a
                 href={
@@ -255,6 +230,31 @@ const EditBanner = ({
                 <img
                   src="../static/img/google.png"
                   style={{ width: "25px" }}
+                  alt="photos"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+            {Data?.card_trustpilot !== null &&
+            PlanData?.current_plan?.plan_name !== "basic" &&
+            PlanData?.is_expired == false ? (
+              <a
+                href={Data?.card_trustpilot}
+                className="float"
+                target="_blank"
+                style={{
+                  background: "white",
+                }}
+              >
+                <img
+                  src="../static/img/trustpilot.png"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "100px",
+                    background: "white",
+                  }}
                   alt="photos"
                 />
               </a>
