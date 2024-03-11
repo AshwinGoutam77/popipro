@@ -59,7 +59,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   };
   const handleEditAbout = async () => {
     if (Description == null) {
-      toast.error("Please fill the discription", {
+      toast.error("Please fill the description", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
