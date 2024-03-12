@@ -140,8 +140,8 @@ export default function ContactForm({
         setTime("");
       }
     } catch (error) {
-      console.log(error);
       setShowLoader(false);
+      setLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
