@@ -3050,7 +3050,12 @@ button:focus {
   }
 }
 @media (max-width: 390px) and (min-width: 360px) {
-  .contact-btn {
+  .media-icon-div {
+    height: 43px !important;
+    width: 43px !important;
+  }
+  .contact-btn,
+  .delete-button {
     font-size: 12px !important;
   }
   .send-btnn {

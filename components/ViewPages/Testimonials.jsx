@@ -272,12 +272,12 @@ const Testimonials = ({
                           )}
                           <div className="pt-0">
                             <h4
-                              className="title title--h5 text-align-start ml-2 mb-0"
+                              className="title title--h5 text-align-start ml-3 mb-0"
                               style={{ textAlign: "start" }}
                             >
                               {items.name}
                             </h4>
-                            <p className="text-left ml-2 font-weight-bold m-0">
+                            <p className="text-left ml-3 font-weight-bold m-0">
                               {items.company_name}
                             </p>
                           </div>
