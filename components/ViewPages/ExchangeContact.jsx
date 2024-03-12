@@ -6,6 +6,8 @@ import localforage from "localforage";
 import { toast } from "react-toastify";
 import { contactUs } from "@services/Routes";
 import Api from "@services/Api";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ExchangeContact({
   profile,
@@ -19,6 +21,7 @@ export default function ExchangeContact({
   const [Message, setMessage] = useState("");
   const [SendWhatsaap, setSendWhatsaap] = useState(false);
   const [ShowLoader, setShowLoader] = useState(false);
+  const [Loader, setLoader] = useState(false);
 
   const handleSendWhatsaapMessage = () => {
     setSendWhatsaap(true);
@@ -76,11 +79,13 @@ export default function ExchangeContact({
       fb_token: await localforage.getItem("fcm_token"),
     };
     try {
-      setShowLoader(true);
+      // setShowLoader(true);
+      setLoader(true);
       const response = await Api(contactUs, payloadData);
       handleClose();
       if (response.data.status) {
         setShowLoader(false);
+        setLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1000,
@@ -135,6 +140,7 @@ export default function ExchangeContact({
       }
     } catch (error) {
       setShowLoader(false);
+      setLoader(false);
       toast.error(error.response?.data.message, {
         position: "top-right",
         autoClose: 3000,
@@ -250,13 +256,20 @@ export default function ExchangeContact({
               ""
             )}
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="contact-btn mt-0 w-auto"
-                onClick={handleSaveData}
-              >
-                Share Contact
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="contact-btn mt-0 w-auto"
+                  onClick={handleSaveData}
+                >
+                  Share Contact
+                </button>
+              ) : (
+                <button class="contact-btn mt-0 w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  Processing
+                </button>
+              )}
             </div>
           </div>
         </Modal.Body>

@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
 import SpinLoader from "./SpinLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function ContactForm({
   card_url,
@@ -36,7 +38,7 @@ export default function ContactForm({
   const [MinDate, setMinDate] = useState(getCurrentDate());
   const [Time, setTime] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
-  const [Loader, setLoader] = useState(true);
+  const [Loader, setLoader] = useState(false);
 
   // useEffect(() => {
   //   if (typeof window === "object" && card?.landing_mode === "appointment") {
@@ -259,15 +261,22 @@ export default function ContactForm({
           </div>
           <div className="row">
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton d-flex align-items-center mt-3 gap-10">
-              <button
-                type="submit"
-                className="contact-btn w-auto"
-                onClick={handleAppointment}
-              >
-                Send
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="contact-btn w-auto"
+                  onClick={handleAppointment}
+                >
+                  Send
+                </button>
+              ) : (
+                <button class="contact-btn w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  Processing
+                </button>
+              )}
 
-              {/* {Loader && <SpinLoader />} */}
+              {/* {Loader && <p>Loading please wait...</p>} */}
             </div>
           </div>
         </div>

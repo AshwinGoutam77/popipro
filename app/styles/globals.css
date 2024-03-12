@@ -1598,6 +1598,23 @@ table tbody tr:last-child {
   animation: rotation 1s linear infinite;
 }
 
+.contact-btn:disabled {
+  cursor: default !important;
+}
+
+.spinner-fa {
+  margin-right: 8px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
