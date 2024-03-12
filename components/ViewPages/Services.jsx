@@ -90,12 +90,12 @@ const Services = ({ Titles, card, subscription }) => {
                                 />
                               </picture>
                             )}
-                            <h3 className="title title--h4 mt-4 m-0">
+                            <h3 className="title title--h4 mt-2 m-0">
                               {item.name}
                             </h3>
                             <div
                               id="p_wrap"
-                              className="review-item__caption text-left mt-3"
+                              className="review-item__caption text-left mt-2"
                               dangerouslySetInnerHTML={{
                                 __html: item.description,
                               }}

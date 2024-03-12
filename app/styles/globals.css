@@ -954,7 +954,7 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 .swiper-button-next,
 .swiper-button-prev {
-  width: 22px !important;
+  width: 20px !important;
   height: 22px !important;
   background: var(--color);
   border-radius: 100px;
@@ -1606,6 +1606,11 @@ table tbody tr:last-child {
   margin-right: 8px;
   animation: spin 2s linear infinite;
 }
+
+.real-estate-modal-buttons {
+  padding: 0 70px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -1657,6 +1662,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .real-estate-modal-buttons {
+    padding: 0;
+  }
   .web-real-estate-price {
     display: none;
   }

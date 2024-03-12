@@ -457,9 +457,15 @@ export default function Realestate({
                       {items?.country}, ({items?.zipcode})
                     </a>
 
-                    <p className="mt-3">
+                    {/* <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
-                    </p>
+                    </p> */}
+                    <p
+                      id="p_wrap mt-3"
+                      dangerouslySetInnerHTML={{
+                        __html: items.description,
+                      }}
+                    ></p>
 
                     {items?.amenities?.length > 3 ? (
                       <div
@@ -492,7 +498,10 @@ export default function Realestate({
                       ""
                     )}
 
-                    <div className="mt-4 w-100" style={{ gap: "5px" }}>
+                    <div
+                      className="mt-4 w-100 real-estate-modal-buttons"
+                      style={{ gap: "5px" }}
+                    >
                       <div
                         className="d-flex align-items-center justify-content-center"
                         style={{ gap: "10px" }}

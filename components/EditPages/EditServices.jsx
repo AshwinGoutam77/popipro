@@ -900,12 +900,12 @@ export default function EditDoing({
                                   />
                                 )}
                                 <div>
-                                  <h3 className="title title--h4 mt-2 m-0 mt-4">
+                                  <h3 className="title title--h4 m-0 mt-3">
                                     {item.name}
                                   </h3>
                                   <div
                                     id="p_wrap"
-                                    className="case-item__caption text-start mb-2 mt-3"
+                                    className="case-item__caption text-start mb-2 mt-2"
                                     dangerouslySetInnerHTML={{
                                       __html: item.description,
                                     }}
