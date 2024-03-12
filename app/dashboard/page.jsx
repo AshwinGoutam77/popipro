@@ -949,7 +949,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 {/* Traffic Analysis */}
-                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
                       PlanData?.is_expired !== false &&
@@ -983,7 +983,7 @@ export default function Dashboard() {
                       </h6>
                     </div>
                   </Link>
-                </div>
+                </div> */}
                 {/* Product analytics */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link

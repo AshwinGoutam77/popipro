@@ -10,6 +10,7 @@ import {
   faPencil,
   faPhone,
   faPlus,
+  faSpinner,
   faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,6 +38,7 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import EditPlan from "./EditPlan";
 import ReactPlayer from "react-player";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditRealEstate({
   MainData,
@@ -697,7 +699,7 @@ export default function EditRealEstate({
 
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={show} onHide={() => setshow(false)} centered>
         <Modal.Header>
           <Modal.Title>
@@ -1543,12 +1545,19 @@ export default function EditRealEstate({
                 <button className="send-btnn" onClick={() => handleSettings3()}>
                   Back
                 </button>
-                <button
-                  className="send-btnn"
-                  onClick={() => handleSaveDetails()}
-                >
-                  Save
-                </button>
+                {!ShowLoader ? (
+                  <button
+                    className="send-btnn"
+                    onClick={() => handleSaveDetails()}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button class="send-btnn" disabled>
+                    <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                    <LoadingText />
+                  </button>
+                )}
               </div>
             </div>
           ) : (

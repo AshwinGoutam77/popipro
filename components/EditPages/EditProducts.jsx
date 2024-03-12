@@ -18,6 +18,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
@@ -48,6 +49,7 @@ import "swiper/css/pagination";
 import ReactPlayer from "react-player";
 import TagsModal from "@components/Dashboard/TagsModal";
 import { Tooltip } from "@mui/material";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditProducts({
   APIDATA,
@@ -614,7 +616,7 @@ export default function EditProducts({
 
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={ShowProductModal} onHide={handleProductClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -1101,12 +1103,19 @@ export default function EditProducts({
             className="d-flex align-items-center mt-3"
             style={{ gap: "10px" }}
           >
-            <button
-              className="send-btnn"
-              onClick={() => handleSaveProductDetail()}
-            >
-              Save
-            </button>
+            {!ShowLoader ? (
+              <button
+                className="send-btnn"
+                onClick={() => handleSaveProductDetail()}
+              >
+                Save
+              </button>
+            ) : (
+              <button class="send-btnn" disabled>
+                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                <LoadingText />
+              </button>
+            )}
             <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
@@ -1440,12 +1449,22 @@ export default function EditProducts({
                     className="d-flex align-items-center mt-3"
                     style={{ gap: "10px" }}
                   >
-                    <button
-                      className="send-btnn"
-                      onClick={() => handleSaveProductDetail(items.id)}
-                    >
-                      Update
-                    </button>
+                    {!ShowLoader ? (
+                      <button
+                        className="send-btnn"
+                        onClick={() => handleSaveProductDetail(items.id)}
+                      >
+                        Update
+                      </button>
+                    ) : (
+                      <button class="send-btnn" disabled>
+                        <FontAwesomeIcon
+                          icon={faSpinner}
+                          className="spinner-fa"
+                        />
+                        <LoadingText />
+                      </button>
+                    )}
                     <button
                       className="delete-button m-0"
                       onClick={handleCanclebtn}
@@ -1792,7 +1811,10 @@ export default function EditProducts({
                                   __html: items.description,
                                 }}
                               ></p>
-                              <div className="text-align-end mt-1 d-flex align-items-center justify-content-between flex-wrap" style={{gap:'10px'}}>
+                              <div
+                                className="text-align-end mt-1 d-flex align-items-center justify-content-between flex-wrap"
+                                style={{ gap: "10px" }}
+                              >
                                 {items.is_label !== 0 ? (
                                   <span className="product-price">
                                     {items.label}

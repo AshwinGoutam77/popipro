@@ -8,6 +8,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
@@ -20,6 +21,7 @@ import { CardData, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import axios from "axios";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditResume({
   APIDATA,
@@ -34,7 +36,7 @@ export default function EditResume({
   PlanData,
 }) {
   const [Active, setActive] = useState("");
-  const [ShowLoader, setShowLoader] = useState("");
+  const [ShowLoader, setShowLoader] = useState(false);
   const [ModalId, setModalId] = useState("");
   const [ExpYears, setExpYears] = useState("");
   const [ExpDescription, setExpDescription] = useState("");
@@ -60,7 +62,6 @@ export default function EditResume({
   }, [TitleData]);
 
   const handleSaveExp = async (id) => {
-    setShowLoader(true);
     let titles = [
       {
         name: "card_experience",
@@ -113,8 +114,7 @@ export default function EditResume({
     }
 
     try {
-      //  (data);
-      // return
+      setShowLoader(true);
       const response = await Api(CardData, { titles, experience: data });
       setShowLoader(false);
       if (response?.data?.status) {
@@ -500,9 +500,16 @@ export default function EditResume({
               className="d-flex align-items-center mt-3"
               style={{ gap: "10px" }}
             >
-              <button className="send-btnn" onClick={() => handleSaveExp()}>
-                Save
-              </button>
+              {!ShowLoader ? (
+                <button className="send-btnn" onClick={() => handleSaveExp()}>
+                  Save
+                </button>
+              ) : (
+                <button class="send-btnn" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  <LoadingText />
+                </button>
+              )}
               <button className="delete-button m-0" onClick={handleCanclebtn}>
                 Cancel
               </button>
@@ -623,12 +630,22 @@ export default function EditResume({
                     className="d-flex align-items-center mt-3"
                     style={{ gap: "10px" }}
                   >
-                    <button
-                      className="send-btnn"
-                      onClick={() => handleSaveExp(item.id)}
-                    >
-                      Update
-                    </button>
+                    {!ShowLoader ? (
+                      <button
+                        className="send-btnn"
+                        onClick={() => handleSaveExp(item.id)}
+                      >
+                        Update
+                      </button>
+                    ) : (
+                      <button class="send-btnn" disabled>
+                        <FontAwesomeIcon
+                          icon={faSpinner}
+                          className="spinner-fa"
+                        />
+                        <LoadingText />
+                      </button>
+                    )}
                     <button
                       className="delete-button m-0"
                       onClick={handleCanclebtn}

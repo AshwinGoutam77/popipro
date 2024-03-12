@@ -674,7 +674,6 @@ const Page = () => {
           <div className="pt-2 bg-white insights-main-div">
             <div className="px-1">
               {/* Quick Analytics */}
-
               <div className="row d-flex align-items-center justify-content-between row-gap-3">
                 <div className="col-lg-3 col-sm-12">
                   <h5 className="first-title title__separate mx-4  text-black">
@@ -719,7 +718,6 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-
               <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
@@ -766,9 +764,7 @@ const Page = () => {
                   <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
               </div>
-
               {/* Top 5 Leads table */}
-
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Top 5 Leads
               </h5>
@@ -988,7 +984,6 @@ const Page = () => {
                   ""
                 )}
               </div>
-
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Organic Insights
               </h5>
@@ -1028,7 +1023,6 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-
               {/* Profile Intreacts */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Profile Interacts
@@ -1141,48 +1135,53 @@ const Page = () => {
               </div>
 
               {/* Socail Links */}
-
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Social Hits
-              </h5>
-              <div className="row m-0 mt-4 row-gap-3">
-                <div className="col-sm-12 col-lg-4">
-                  <div className="dashboard-leads-col-4-div py-4">
-                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                      {Data?.social_interact?.stats?.map((items, index) => {
-                        return (
-                          <div
-                            className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5"
-                            key={index}
-                          >
-                            <p className="text-xs font-weight-bold text-white">
-                              {items?.name}
-                            </p>
-                            <div className="flex items-end justify-between space-x-2">
-                              <p className="mt-4 text-2xl font-medium text-white">
-                                {items?.value}
-                              </p>
-                            </div>
-                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                          </div>
-                        );
-                      })}
+              {Data?.social_interact?.stats?.length !== 0 && (
+                <>
+                  <h5 className="first-title title__separate mx-4 mt-4 text-black">
+                    Social Hits
+                  </h5>
+                  <div className="row m-0 mt-4 row-gap-3">
+                    <div className="col-sm-12 col-lg-4">
+                      <div className="dashboard-leads-col-4-div py-4">
+                        <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
+                          {Data?.social_interact?.stats?.map((items, index) => {
+                            return (
+                              <div
+                                className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5"
+                                key={index}
+                              >
+                                <p className="text-xs font-weight-bold text-white">
+                                  {items?.name}
+                                </p>
+                                <div className="flex items-end justify-between space-x-2">
+                                  <p className="mt-4 text-2xl font-medium text-white">
+                                    {items?.value}
+                                  </p>
+                                </div>
+                                <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-lg-8">
+                      <div className="barchart-div">
+                        <Charts
+                          options={chartData2?.options}
+                          series={chartData2?.series}
+                          type="bar"
+                          height={
+                            Data?.social_interact?.stats?.length >= 5
+                              ? 322
+                              : 210
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-sm-12 col-lg-8">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData2?.options}
-                      series={chartData2?.series}
-                      type="bar"
-                      height={
-                        Data?.social_interact?.stats?.length >= 5 ? 322 : 210
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
+                </>
+              )}
 
               {/* Leads */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
@@ -1251,7 +1250,6 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-
               {/* Resources Hits */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Resources Hits

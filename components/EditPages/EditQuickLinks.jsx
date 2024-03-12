@@ -108,8 +108,8 @@ export default function EditCustomLink({
         APIDATA();
         handleClose();
         handleEditClose();
-        toast(response.data.message, {
-          position: "bottom-right",
+        toast.success(response.data.message, {
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,

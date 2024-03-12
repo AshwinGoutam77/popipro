@@ -11,6 +11,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
@@ -23,6 +24,7 @@ import EditPlan from "./EditPlan";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditClients({
   APIDATA,
@@ -37,7 +39,7 @@ export default function EditClients({
   const [Clients, setClients] = useState(false);
   const [photos, setPhotos] = useState("");
   const [Active, setActive] = useState("");
-  const [ShowLoader, setShowLoader] = useState("");
+  const [ShowLoader, setShowLoader] = useState(false);
   const [EditFields, setEditFields] = useState(false);
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [ClientName, setClientName] = useState("");
@@ -89,7 +91,6 @@ export default function EditClients({
   };
 
   const SendFiles = async (e) => {
-    console.log(photos);
     if (photos == []) {
       toast.error("Images are required", {
         position: "top-right",
@@ -122,6 +123,7 @@ export default function EditClients({
     try {
       const response = await Api(CardData, data);
       if (response.data.status) {
+        setShowLoader(false);
         APIDATA();
         toast.success(response.data.message, {
           position: "top-right",
@@ -441,9 +443,19 @@ export default function EditClients({
                   className="d-flex align-items-center mt-3"
                   style={{ gap: "10px" }}
                 >
-                  <button className="send-btnn" onClick={SendFiles}>
-                    SAVE
-                  </button>
+                  {!ShowLoader ? (
+                    <button className="send-btnn" onClick={SendFiles}>
+                      Save
+                    </button>
+                  ) : (
+                    <button class="send-btnn" disabled>
+                      <FontAwesomeIcon
+                        icon={faSpinner}
+                        className="spinner-fa"
+                      />
+                      <LoadingText />
+                    </button>
+                  )}
                   <button className="delete-button m-0" onClick={CancleFiles}>
                     Cancel
                   </button>

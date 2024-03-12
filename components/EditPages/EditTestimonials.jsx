@@ -9,6 +9,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
   faUser,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +30,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditTestimonials({
   TitleData,
@@ -449,7 +451,7 @@ export default function EditTestimonials({
   };
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -566,9 +568,16 @@ export default function EditTestimonials({
             className="d-flex align-items-center mt-3"
             style={{ gap: "10px" }}
           >
-            <button className="send-btnn" onClick={() => handleSaveTesti()}>
-              Save
-            </button>
+            {!ShowLoader ? (
+              <button className="send-btnn" onClick={() => handleSaveTesti()}>
+                Save
+              </button>
+            ) : (
+              <button class="send-btnn" disabled>
+                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                <LoadingText />
+              </button>
+            )}
             <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
@@ -701,12 +710,22 @@ export default function EditTestimonials({
                         className="d-flex align-items-center mt-3"
                         style={{ gap: "10px" }}
                       >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveTesti(items.id)}
-                        >
-                          Update
-                        </button>
+                        {!ShowLoader ? (
+                          <button
+                            className="send-btnn"
+                            onClick={() => handleSaveTesti(items.id)}
+                          >
+                            Update
+                          </button>
+                        ) : (
+                          <button class="send-btnn" disabled>
+                            <FontAwesomeIcon
+                              icon={faSpinner}
+                              className="spinner-fa"
+                            />
+                            <LoadingText />
+                          </button>
+                        )}
                         <button
                           className="delete-button m-0"
                           onClick={handleCanclebtn}

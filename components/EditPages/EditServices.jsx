@@ -10,6 +10,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { Swiper as SwiperComponent } from "swiper/react";
@@ -29,6 +30,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditDoing({
   TitleData,
@@ -390,7 +392,7 @@ export default function EditDoing({
 
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -499,9 +501,16 @@ export default function EditDoing({
             className="d-flex align-items-center mt-3"
             style={{ gap: "10px" }}
           >
-            <button className="send-btnn" onClick={() => handleEditWhat()}>
-              Save
-            </button>
+            {!ShowLoader ? (
+              <button className="send-btnn" onClick={() => handleEditWhat()}>
+                Save
+              </button>
+            ) : (
+              <button class="send-btnn" disabled>
+                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                <LoadingText />
+              </button>
+            )}
             <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
@@ -628,12 +637,22 @@ export default function EditDoing({
                         className="d-flex align-items-center mt-3"
                         style={{ gap: "10px" }}
                       >
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleEditWhat(items.id)}
-                        >
-                          Update
-                        </button>
+                        {!ShowLoader ? (
+                          <button
+                            className="send-btnn"
+                            onClick={() => handleEditWhat(items.id)}
+                          >
+                            Update
+                          </button>
+                        ) : (
+                          <button class="send-btnn" disabled>
+                            <FontAwesomeIcon
+                              icon={faSpinner}
+                              className="spinner-fa"
+                            />
+                            <LoadingText />
+                          </button>
+                        )}
                         <button
                           className="delete-button m-0"
                           onClick={handleCanclebtn}

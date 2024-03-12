@@ -12,6 +12,7 @@ import {
   faLock,
   faPencil,
   faPlus,
+  faSpinner,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
@@ -25,6 +26,7 @@ import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 export default function EditBlogs({
   APIDATA,
@@ -428,7 +430,7 @@ export default function EditBlogs({
 
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -544,12 +546,19 @@ export default function EditBlogs({
             className="d-flex align-items-center mt-3"
             style={{ gap: "10px" }}
           >
-            <button
-              className="send-btnn"
-              onClick={() => handleSaveBlogDetail()}
-            >
-              Save
-            </button>
+            {!ShowLoader ? (
+              <button
+                className="send-btnn"
+                onClick={() => handleSaveBlogDetail()}
+              >
+                Save
+              </button>
+            ) : (
+              <button class="send-btnn" disabled>
+                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                <LoadingText />
+              </button>
+            )}
             <button className="delete-button m-0" onClick={handleCanclebtn}>
               Cancel
             </button>
@@ -681,12 +690,22 @@ export default function EditBlogs({
                     className="d-flex align-items-center mt-3"
                     style={{ gap: "10px" }}
                   >
-                    <button
-                      className="send-btnn"
-                      onClick={() => handleSaveBlogDetail(items.id)}
-                    >
-                      Update
-                    </button>
+                    {!ShowLoader ? (
+                      <button
+                        className="send-btnn"
+                        onClick={() => handleSaveBlogDetail(items.id)}
+                      >
+                        Update
+                      </button>
+                    ) : (
+                      <button class="send-btnn" disabled>
+                        <FontAwesomeIcon
+                          icon={faSpinner}
+                          className="spinner-fa"
+                        />
+                        <LoadingText />
+                      </button>
+                    )}
                     <button
                       className="delete-button m-0"
                       onClick={handleCanclebtn}

@@ -264,6 +264,7 @@ const Leads = () => {
               </h6>
             </Link>
           </div>
+
           <Modal show={showModal} onHide={() => setShowModal("")} centered>
             <Modal.Header>
               <Modal.Title>
@@ -338,6 +339,7 @@ const Leads = () => {
               })}
             </Modal.Body>
           </Modal>
+
           <div
             className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-custom"
             style={{ height: "calc(100vh - 58px)" }}
@@ -394,9 +396,6 @@ const Leads = () => {
                 <div className="col-sm-12 col-lg-6">
                   <div className="barchart-div">
                     <div className="d-flex align-items-center justify-content-between dashboard-location-select">
-                      {/* <p className="ml-4 color-black font-weight-bold">
-                        As per location
-                      </p> */}
                       <select
                         className="w-auto location-filter"
                         onChange={(e) => handleSearchData(e.target.value)}
@@ -420,9 +419,9 @@ const Leads = () => {
                 <Table>
                   <Thead>
                     <Tr>
-                      <Th>Date</Th>
                       <Th>Name</Th>
                       <Th>Contact</Th>
+                      <Th>Date</Th>
                       <Th>Location</Th>
                       <Th>Actions</Th>
                     </Tr>
