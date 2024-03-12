@@ -9,6 +9,7 @@ import localforage from "localforage";
 import SpinLoader from "./SpinLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingText from "./LoadingText";
 
 export default function ContactForm({
   card_url,
@@ -154,9 +155,11 @@ export default function ContactForm({
     }
   };
 
-  const checkInput = (e) => {
-    const onlyDigits = e.target.value.replace(/\D/g, "");
-    setContact(onlyDigits);
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setContact(value);
+    }
   };
 
   return (
@@ -196,8 +199,7 @@ export default function ContactForm({
                 required="required"
                 autoComplete="on"
                 value={Contact}
-                // onChange={(e) => setContact(e.target.value)}
-                onChange={(e) => checkInput(e)}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -272,7 +274,7 @@ export default function ContactForm({
               ) : (
                 <button class="contact-btn w-auto" disabled>
                   <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
-                  Processing
+                  <LoadingText />
                 </button>
               )}
 

@@ -6,6 +6,9 @@ import React, { Component, createRef, useRef, useState } from "react"; //For rea
 import { toast } from "react-toastify";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingText from "./LoadingText";
 
 if (typeof window !== "undefined") {
   window.jQuery = $; //JQuery alias
@@ -82,12 +85,19 @@ function Builder({ JsonData, card_url }) {
   return (
     JsonData && (
       <>
-        <SimpleBackdrop visible={ShowLoader} />
+        {/* <SimpleBackdrop visible={ShowLoader} /> */}
         <form onSubmit={(e) => handleSubmitForm(e)} id="form-builder-popipro">
           <FormBuilder JsonData={JsonData} card_url={card_url} />
-          <button type="submit" className="contact-btn w-auto">
-            Submit Form
-          </button>
+          {!ShowLoader ? (
+            <button type="submit" className="contact-btn w-auto">
+              Submit Form
+            </button>
+          ) : (
+            <button class="contact-btn w-auto" disabled>
+              <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+              <LoadingText />
+            </button>
+          )}
         </form>
       </>
     )

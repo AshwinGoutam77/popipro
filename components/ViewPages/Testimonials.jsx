@@ -10,10 +10,11 @@ import Api from "@services/Api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-bootstrap";
 import Image from "next/image";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
+import LoadingText from "./LoadingText";
 
 const Testimonials = ({
   InquiryModal,
@@ -34,6 +35,7 @@ const Testimonials = ({
   const [Number, setNumber] = useState("");
   const [Description, setDescription] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
+  const [Loader, setLoader] = useState(false);
 
   const handleSubmit = async () => {
     if (Name == "") {
@@ -61,7 +63,8 @@ const Testimonials = ({
       });
       return;
     }
-    setShowLoader(true);
+    // setShowLoader(true);
+    setLoader(true);
     try {
       let payload = {
         testimonial_image: Imagee,
@@ -87,6 +90,7 @@ const Testimonials = ({
           theme: "light",
         });
         setShowLoader(false);
+        setLoader(false);
         handleClose();
         setName("");
         setNumber("");
@@ -96,6 +100,7 @@ const Testimonials = ({
       }
     } catch (error) {
       setShowLoader(false);
+      setLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 3000,
@@ -108,6 +113,14 @@ const Testimonials = ({
       });
     }
   };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setNumber(value);
+    }
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -169,7 +182,7 @@ const Testimonials = ({
                 required="required"
                 autoComplete="on"
                 value={Number}
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -185,13 +198,20 @@ const Testimonials = ({
               <div className="help-block with-errors"></div>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="contact-btn mt-0 w-auto"
-                onClick={handleSubmit}
-              >
-                Send Review
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="contact-btn mt-0 w-auto"
+                  onClick={handleSubmit}
+                >
+                  Send Review
+                </button>
+              ) : (
+                <button class="contact-btn mt-0 w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  <LoadingText />
+                </button>
+              )}
             </div>
           </div>
         </Modal.Body>

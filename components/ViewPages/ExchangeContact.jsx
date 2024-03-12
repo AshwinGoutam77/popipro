@@ -8,6 +8,7 @@ import { contactUs } from "@services/Routes";
 import Api from "@services/Api";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoadingText from "./LoadingText";
 
 export default function ExchangeContact({
   profile,
@@ -27,6 +28,13 @@ export default function ExchangeContact({
     setSendWhatsaap(true);
     if (SendWhatsaap) {
       setSendWhatsaap(false);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setNumber(value);
     }
   };
 
@@ -209,7 +217,7 @@ export default function ExchangeContact({
                 required="required"
                 autoComplete="on"
                 value={Number}
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -267,7 +275,7 @@ export default function ExchangeContact({
               ) : (
                 <button class="contact-btn mt-0 w-auto" disabled>
                   <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
-                  Processing
+                  <LoadingText />
                 </button>
               )}
             </div>

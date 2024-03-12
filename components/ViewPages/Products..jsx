@@ -21,6 +21,7 @@ import {
   faRightFromBracket,
   faSearch,
   faSort,
+  faSpinner,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
@@ -39,6 +40,7 @@ import "swiper/css/pagination";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
 import ReactPlayer from "react-player";
+import LoadingText from "./LoadingText";
 
 export default function Product({
   Titles,
@@ -73,6 +75,7 @@ export default function Product({
   const [HighlightSort, setHighlightSort] = useState("");
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
+  const [Loader, setLoader] = useState(false);
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -183,7 +186,8 @@ export default function Product({
       });
       return;
     }
-    setShowLoader(true);
+    // setShowLoader(true);
+    setLoader(true);
     try {
       let data = {
         product: MessageId,
@@ -199,7 +203,8 @@ export default function Product({
       const response = await Api(ProductEnquiry, data);
       if (response.data.status) {
         // APIDATA();
-        setShowLoader(false);
+        // setShowLoader(false);
+        setLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -218,6 +223,7 @@ export default function Product({
       }
     } catch (error) {
       setShowLoader(false);
+      setLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
@@ -362,6 +368,13 @@ export default function Product({
       return;
     }
     LoadMoreFunction();
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setContact(value);
+    }
   };
 
   return (
@@ -627,7 +640,7 @@ export default function Product({
                 required="required"
                 autoComplete="on"
                 value={Contact}
-                onChange={(e) => setContact(e.target.value)}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -660,13 +673,20 @@ export default function Product({
               <div id="validator-contact" className="hidden"></div>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="contact-btn mt-0 w-auto"
-                onClick={() => handleProductSubmit()}
-              >
-                Send
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="contact-btn mt-0 w-auto"
+                  onClick={() => handleProductSubmit()}
+                >
+                  Send
+                </button>
+              ) : (
+                <button class="contact-btn mt-0 w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  <LoadingText />
+                </button>
+              )}
             </div>
           </div>
         </Modal.Body>

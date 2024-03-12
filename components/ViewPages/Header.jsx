@@ -10,6 +10,7 @@ import {
   faPhoneAlt,
   faQrcode,
   faShareSquare,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -28,6 +29,7 @@ import ShareUi from "./ShareUi";
 import { saveAs } from "file-saver";
 import localforage from "localforage";
 import ExchangeContact from "./ExchangeContact";
+import LoadingText from "./LoadingText";
 
 const Header = ({
   profile,
@@ -62,6 +64,7 @@ const Header = ({
   const [time, setTime] = useState(new Date().getTime() / 1000);
   const [ShowProfileQr, setShowProfileQr] = useState(false);
   const [ShowDownloadQr, setShowDownloadQr] = useState(true);
+  const [Loader, setLoader] = useState(false);
 
   useEffect(() => {
     setTime(new Date().getTime() / 1000);
@@ -94,7 +97,8 @@ const Header = ({
       return;
     }
     try {
-      setShowLoader(true);
+      // setShowLoader(true);
+      setLoader(true);
       let payload = {
         testimonial_image: Imagee,
         card_url: profile,
@@ -109,6 +113,7 @@ const Header = ({
       const response = await Api(AddTestimonials, payload);
       if (response.data.status) {
         setShowLoader(false);
+        setLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -127,7 +132,7 @@ const Header = ({
         setReviewSubTitle("");
       }
     } catch (error) {
-      error;
+      setLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
@@ -355,6 +360,13 @@ const Header = ({
     setShowDownloadQr(false);
   };
 
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setReviewNumber(value);
+    }
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -452,9 +464,7 @@ const Header = ({
                 required="required"
                 autoComplete="on"
                 value={ReviewNumber}
-                onChange={(e) => {
-                  setReviewNumber(e.target.value);
-                }}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -472,13 +482,20 @@ const Header = ({
               <div className="help-block with-errors"></div>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="contact-btn mt-0 w-auto"
-                onClick={handleReviewSubmit}
-              >
-                Send Review
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="contact-btn mt-0 w-auto"
+                  onClick={handleReviewSubmit}
+                >
+                  Send Review
+                </button>
+              ) : (
+                <button class="contact-btn mt-0 w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  <LoadingText />
+                </button>
+              )}
             </div>
           </div>
         </Modal.Body>

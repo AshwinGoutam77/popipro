@@ -14,6 +14,7 @@ import {
   faMapMarkerAlt,
   faPencil,
   faPhoneAlt,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +25,7 @@ import Image from "next/image";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import LoadingText from "@components/ViewPages/LoadingText";
 
 function EditHeader({
   Data,
@@ -225,7 +227,7 @@ function EditHeader({
 
   return (
     <>
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -624,13 +626,20 @@ function EditHeader({
             className="d-flex align-items-center pb-4 mt-3"
             style={{ gap: "8px" }}
           >
-            <button
-              className="contact-btn w-auto mt-0"
-              onClick={getBlobData}
-              defaultValue="1"
-            >
-              Save
-            </button>
+            {!ShowLoader ? (
+              <button
+                className="contact-btn w-auto mt-0"
+                onClick={getBlobData}
+                defaultValue="1"
+              >
+                Save
+              </button>
+            ) : (
+              <button class="contact-btn mt-0 w-auto" disabled>
+                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                <LoadingText />
+              </button>
+            )}
             <button
               className="delete-button w-auto"
               onClick={cancleChanges}
@@ -860,19 +869,6 @@ function EditHeader({
                           transform: "rotateY(180deg)",
                         }}
                       />
-                      {/* <a
-                          href={
-                            Data &&
-                            Data?.card_website &&
-                            (Data?.card_website?.includes("http://") ||
-                              Data?.card_website?.includes("https://"))
-                              ? Data.card_website
-                              : "https://" + Data.card_website
-                          }
-                          target="_blank"
-                          className="overhead_a text-dark text-decoration-none"
-                          style={{ marginLeft: "2px" }}
-                        > */}
                       {Data &&
                       Data?.card_website &&
                       (Data?.card_website?.includes("http://") ||

@@ -13,6 +13,7 @@ import {
   faRightFromBracket,
   faRightLong,
   faSearch,
+  faSpinner,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,6 +30,7 @@ import { HitClickApi, RealEstateInquiry } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "./SimpleBackDrop";
 import ReactPlayer from "react-player";
+import LoadingText from "./LoadingText";
 
 export default function Realestate({
   Data,
@@ -58,6 +60,7 @@ export default function Realestate({
   const [EstateData, setEstateData] = useState("");
   const [LookingFor, setLookingFor] = useState("");
   const [ModalHeading, setModalHeading] = useState("");
+  const [Loader, setLoader] = useState(false);
 
   useEffect(() => {
     setEstateData(Data?.card_realestates);
@@ -180,7 +183,8 @@ export default function Realestate({
       });
       return;
     }
-    setShowLoader(true);
+    // setShowLoader(true);
+    setLoader(true);
     try {
       let data = {
         realestate: ContentId,
@@ -197,6 +201,7 @@ export default function Realestate({
       if (response.data.status) {
         handleEmptyField();
         setShowLoader(false);
+        setLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -215,6 +220,7 @@ export default function Realestate({
       }
     } catch (error) {
       setShowLoader(false);
+      setLoader(false);
       toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
@@ -298,6 +304,13 @@ export default function Realestate({
     setShowInquiry(true);
     setShow(false);
     setModalHeading(name);
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setPhone(value);
+    }
   };
 
   return (
@@ -587,7 +600,7 @@ export default function Realestate({
                 required="required"
                 autoComplete="on"
                 value={Phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handleChange}
               />
               <div className="help-block with-errors"></div>
             </div>
@@ -620,13 +633,20 @@ export default function Realestate({
               <div id="validator-contact" className="hidden"></div>
             </div>
             <div className="col-12 col-md-12 order-1 order-md-2 submitbutton">
-              <button
-                type="submit"
-                className="send-btnn mt-0 w-auto"
-                onClick={() => handleSubmitEnquiry()}
-              >
-                Send
-              </button>
+              {!Loader ? (
+                <button
+                  type="submit"
+                  className="send-btnn mt-0 w-auto"
+                  onClick={() => handleSubmitEnquiry()}
+                >
+                  Send
+                </button>
+              ) : (
+                <button class="contact-btn mt-0 w-auto" disabled>
+                  <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                  <LoadingText />
+                </button>
+              )}
             </div>
           </div>
         </Modal.Body>
