@@ -448,20 +448,22 @@ export default function Realestate({
                       )}
                     </div>
 
-                    <a
-                      href={items?.google_address_link}
-                      target="_blank"
-                      className="color-black cursor-pointer mt-2 font-weight-bold"
-                    >
-                      {items?.street_address}, {items?.city}, {items?.state},{" "}
-                      {items?.country}, ({items?.zipcode})
-                    </a>
+                    <div className="mt-2 mb-2">
+                      <a
+                        href={items?.google_address_link}
+                        target="_blank"
+                        className="color-black cursor-pointer font-weight-bold"
+                      >
+                        {items?.street_address}, {items?.city}, {items?.state},{" "}
+                        {items?.country}, ({items?.zipcode})
+                      </a>
+                    </div>
 
                     {/* <p className="mt-3">
                       {items?.description.replace(/(<([^>]+)>)/gi, "")}
                     </p> */}
                     <p
-                      id="p_wrap mt-3"
+                      id="p_wrap"
                       dangerouslySetInnerHTML={{
                         __html: items.description,
                       }}
