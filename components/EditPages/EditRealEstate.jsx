@@ -879,58 +879,14 @@ export default function EditRealEstate({
                       ""
                     )}
 
-                    {/* <div
-                      className="mt-4 d-flex align-items-center justify-content-center flex-wrap"
+                    <div
+                      className="mt-4 w-100 real-estate-modal-buttons"
                       style={{ gap: "5px" }}
                     >
-                      {items?.google_address_link && (
-                        <a
-                          href={
-                            items?.google_address_link?.includes("https://") ||
-                            items?.google_address_link?.includes("http://")
-                              ? "https://" + items?.google_address_link
-                              : items?.google_address_link
-                          }
-                          target="_blank"
-                        >
-                          <button className="contact-btn w-auto m-0">
-                            <FontAwesomeIcon
-                              icon={faLocationDot}
-                              className="mr-1"
-                            />{" "}
-                            Open Map
-                          </button>{" "}
-                        </a>
-                      )}
-                      <button
-                        className="contact-btn w-auto m-0"
-                        onClick={() => handleShowModalEnquiry()}
+                      <div
+                        className="d-flex align-items-center justify-content-center"
+                        style={{ gap: "10px" }}
                       >
-                        <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
-                        Enquiry
-                      </button>
-                      <a
-                        href={
-                          "https://api.whatsapp.com/send?phone=" +
-                          "9874563210" +
-                          "&" +
-                          `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
-                        }
-                        target="_blank"
-                      >
-                        <button className="contact-btn w-auto m-0 d-flex align-items-center">
-                          <img
-                            src="../static/img/whatsapp.png"
-                            alt="whatsaap"
-                            className="Whatsaapsvg m-0"
-                            width={20}
-                          />{" "}
-                          Whatsaap Enquiry
-                        </button>
-                      </a>
-                    </div> */}
-                    <div className="mt-4 w-100" style={{ gap: "5px" }}>
-                      <div className="d-flex align-items-center justify-content-center gap-2">
                         {items?.google_address_link && (
                           <a
                             href={
@@ -970,11 +926,16 @@ export default function EditRealEstate({
                           </a>
                         )}
                       </div>
-                      <div className="d-flex align-items-center justify-content-center gap-2 mt-2">
+                      <div
+                        className="d-flex align-items-center justify-content-center mt-2"
+                        style={{ gap: "10px" }}
+                      >
                         <button className="contact-btn w-100 m-0">
                           Contact Agent
                         </button>
-                        <button className="contact-btn w-100 m-0">
+                        <button
+                          className="contact-btn w-100 m-0"
+                        >
                           <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
                           Email
                         </button>

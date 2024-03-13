@@ -117,10 +117,26 @@ export default function TestimonialsLeads() {
       cancelButtonText: "No",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await Api(ActiveTestimonials, data);
-        if (response.data.status) {
-          Swal.fire("Request Approved!", "", "success");
-          handleTestimonialsData();
+        try {
+          const response = await Api(ActiveTestimonials, data);
+          if (response.data.status) {
+            Swal.fire("Request Approved!", "", "success");
+            handleTestimonialsData();
+          } else {
+            Swal.fire(response.data?.message, "", "error");
+            handleTestimonialsData();
+          }
+        } catch (error) {
+          toast(error?.response?.data?.message, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       }
     });
@@ -150,11 +166,13 @@ export default function TestimonialsLeads() {
       }
     });
   };
+
   function pad(n, width, z) {
     z = z || "0";
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
+
   const handleSearchData = async () => {
     try {
       setShowLoader(true);
