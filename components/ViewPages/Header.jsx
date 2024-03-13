@@ -338,10 +338,12 @@ const Header = ({
   };
 
   const downloadImage = () => {
+    handleHitClick("qr-download");
     saveAs(imageSrc, "image.jpg");
   };
 
   const DownloadProfile = () => {
+    handleHitClick("qr-download");
     saveAs(
       `https://chart.googleapis.com/chart?cht=qr&chl=${
         "app.popipro.com/" + profile

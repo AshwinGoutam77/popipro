@@ -273,7 +273,7 @@ export default function Realestate({
           }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
             ProductSearching ? "&realestate_search=" + ProductSearching : ""
           }${ProductCategory ? "&amenities[]=" + ProductCategory : ""}${
-            LookingFor ? "&looking_for[]=" + LookingFor : ""
+            LookingFor ? "&property_type[]=" + LookingFor : ""
           }`
         : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
             Page && Page
@@ -845,9 +845,8 @@ export default function Realestate({
                   <div className="swiper-slide review-items position-relative">
                     <button
                       className={
-                        ActiveFilter == ""
-                          ? // || ActiveLooking == ""
-                            "filter-btns bg-varcolor"
+                        ActiveFilter == "" && ActiveLooking == ""
+                          ? "filter-btns bg-varcolor"
                           : "filter-btns"
                       }
                       onClick={() => handleResetFilter()}
@@ -857,8 +856,8 @@ export default function Realestate({
                   </div>
                 </SwiperSlide>
 
-                {/* {Data?.looking_for &&
-                  Data?.looking_for?.map((items, index) => {
+                {Data?.filters_property_type &&
+                  Data?.filters_property_type?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
@@ -875,7 +874,7 @@ export default function Realestate({
                         </div>
                       </SwiperSlide>
                     );
-                  })} */}
+                  })}
 
                 {Data?.filters_amenities &&
                   Data?.filters_amenities?.map((items, index) => {
