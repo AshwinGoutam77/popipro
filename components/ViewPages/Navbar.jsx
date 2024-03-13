@@ -8,6 +8,7 @@ import "../../styles/navbar.css";
 import { Tooltip } from "@mui/material";
 
 const Navbar = ({ card, HeaderData }) => {
+  console.log(HeaderData);
   const handleScrollRight = () => {
     document.getElementById("content").scrollBy(30, 0); // for right scroll
   };
@@ -22,7 +23,7 @@ const Navbar = ({ card, HeaderData }) => {
   return (
     <>
       {/* <aside className="col-12 col-md-12 col-lg-2"> */}
-      {card?.card_description?.length == null ? (
+      {HeaderData?.length == 0 ? (
         <></>
       ) : (
         <div className="sidebar box sticky-column sidebarr" id="content">
