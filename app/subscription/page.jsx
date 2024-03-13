@@ -87,7 +87,10 @@ const PlanManagment = () => {
           </h6>
         </Link>
       </div>
-      <div className="w-100 bg-custom mt-4" style={{ height: "calc(100vh - 58px)" }}>
+      <div
+        className="w-100 bg-custom mt-4"
+        style={{ height: "calc(100vh - 58px)" }}
+      >
         <div className="box-shadow-leads">
           <table className="insight-table">
             <thead>
@@ -112,7 +115,7 @@ const PlanManagment = () => {
                   </td>
                   <td data-column="Name">
                     {Data?.plan?.subscription?.plan_currency?.currency +
-                      Data?.plan?.subscription?.plan?.plan_price_per_month}
+                      Data?.plan?.subscription?.plan_price}
                   </td>
                   <td data-column="Name">
                     {Data?.plan?.subscription?.start_date}

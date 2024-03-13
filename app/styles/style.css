@@ -470,6 +470,29 @@ select:focus {
   line-height: inherit;
 }
 
+/* input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: 8px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+}
+
+.form-control {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+label {
+  position: absolute;
+  pointer-events: none;
+  left: 20px;
+  top: 18px;
+  transition: 0.2s ease all;
+} */
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   html.is-scroll-disabled {
     overflow: hidden;
