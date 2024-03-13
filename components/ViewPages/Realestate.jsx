@@ -877,8 +877,8 @@ export default function Realestate({
                     );
                   })} */}
 
-                {Data?.amenities &&
-                  Data?.amenities?.map((items, index) => {
+                {Data?.filters_amenities &&
+                  Data?.filters_amenities?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
                         <div className="swiper-slide review-items position-relative">
