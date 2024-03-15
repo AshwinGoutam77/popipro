@@ -8,7 +8,6 @@ import "../../styles/navbar.css";
 import { Tooltip } from "@mui/material";
 
 const Navbar = ({ card, HeaderData }) => {
-  console.log(HeaderData);
   const handleScrollRight = () => {
     document.getElementById("content").scrollBy(30, 0); // for right scroll
   };

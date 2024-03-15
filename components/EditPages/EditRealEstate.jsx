@@ -933,9 +933,7 @@ export default function EditRealEstate({
                         <button className="contact-btn w-100 m-0">
                           Contact Agent
                         </button>
-                        <button
-                          className="contact-btn w-100 m-0"
-                        >
+                        <button className="contact-btn w-100 m-0">
                           <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
                           Email
                         </button>
@@ -1558,7 +1556,7 @@ export default function EditRealEstate({
                   </h1>
                 </>
               )}
-              {TitleData?.card_realestates?.source !== "2" &&
+              {TitleData?.card_realestates?.source == "2" &&
               PlanData?.is_expired == false &&
               PlanData?.subscription?.plan_id !== 1 ? (
                 <div className="d-flex align-items-center">
