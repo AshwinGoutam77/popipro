@@ -561,10 +561,7 @@ function EditLinks({
                         return (
                           <>
                             <div className="position-relative w-100" key={i}>
-                              {(TitleData?.card_social_links?.source == "2" &&
-                                PlanData?.is_expired == false &&
-                                PlanData?.subscription?.plan_id !== 1) ||
-                              PlanData?.subscription?.plan_id !== null ? (
+                              {TitleData.card_social_links?.source !== 1 ? (
                                 <FontAwesomeIcon
                                   data-toggle="modal"
                                   data-target="#SocialLinksModalEdit"
