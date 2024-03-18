@@ -400,7 +400,6 @@ export default async function Main({ profile, data, id, referer }) {
                       ) : (
                         ""
                       )}
-                      
                     </div>
                   )}
                 </div>
