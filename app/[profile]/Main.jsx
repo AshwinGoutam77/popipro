@@ -241,7 +241,7 @@ export default async function Main({ profile, data, id, referer }) {
                       {sortedData &&
                         sortedData?.map((items, index) => {
                           return (
-                            <div>
+                            <div key={index}>
                               {items.status == "card_alternate_phone" ? (
                                 <Alternateno
                                   Data={card}
