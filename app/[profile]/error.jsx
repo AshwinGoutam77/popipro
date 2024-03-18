@@ -1,6 +1,7 @@
 "use client";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React from "react";
 
 export default function Error() {
@@ -15,13 +16,15 @@ export default function Error() {
         to="https://www.popipro.com/"
         className="w-100 d-flex align-items-center justify-content-center"
       >
-        <button
-          className="contact-btn backHomebtn d-flex align-items-center justify-content-center"
-          style={{ fontSize: "16px" }}
-        >
-          Back to popipro
-          <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
-        </button>
+        <Link href="/" className="w-100 d-flex align-items-center justify-content-center">
+          <button
+            className="contact-btn backHomebtn d-flex align-items-center justify-content-center"
+            style={{ fontSize: "16px" }}
+          >
+            Back to popipro
+            <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+          </button>
+        </Link>
       </a>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   faAngleLeft,
   faArrowUpWideShort,
   faNewspaper,
+  faSort,
   faUpDownLeftRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
@@ -148,11 +149,11 @@ const Order = () => {
             </h6>
           </Link>
         </div>
-        <div className="main_content w-100">
-          <DragDropContext
-            onDragEnd={onDragEnd}
-            className="w-100 droppable-div"
-          >
+        <div className="main_content w-100 flex-column">
+          <h5 className="my-4 text-center color-black">
+            Rearrange your profile sections through drag and drop.
+          </h5>
+          <DragDropContext onDragEnd={onDragEnd} className="droppable-div">
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div
@@ -177,7 +178,10 @@ const Order = () => {
                             provided.draggableProps.style
                           )}
                         >
-                          {item.visible_name}
+                          <div className="d-flex align-items-center justify-content-between">
+                            {item.visible_name}
+                            <FontAwesomeIcon icon={faSort} />
+                          </div>
                         </div>
                       )}
                     </Draggable>

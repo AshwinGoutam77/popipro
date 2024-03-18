@@ -1623,6 +1623,10 @@ table tbody tr:last-child {
   border-radius: 0.25rem !important;
 }
 
+.draggable-item {
+  width: 10px !important; 
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
