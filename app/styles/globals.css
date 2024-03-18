@@ -1611,6 +1611,18 @@ table tbody tr:last-child {
   padding: 0 70px;
 }
 
+[data-rbd-droppable-id="droppable"] {
+  background: transparent !important;
+}
+
+.dragable-cards {
+  background-color: var(--color) !important;
+  color: white !important;
+  font-weight: bold;
+  border: none !important;
+  border-radius: 0.25rem !important;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

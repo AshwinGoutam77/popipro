@@ -24,6 +24,7 @@ import {
   faSliders,
   faStar,
   faTag,
+  faUpDownLeftRight,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -867,7 +868,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
-                
+
                 {/* Chnage password */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -900,6 +901,47 @@ export default function Dashboard() {
                     <h6 className="text-white text-center mb-0">Suggestions</h6>
                   </div>
                 </div>
+
+                {/* Order */}
+                {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                    <Link
+                      href={
+                        PlanData?.is_expired !== false &&
+                        PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : PlanData?.subscription?.plan_id !== 1 &&
+                            PlanData?.subscription !== null
+                          ? "/order"
+                          : ""
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <FontAwesomeIcon
+                          icon={faUpDownLeftRight}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Change Sequence
+                        </h6>
+                      </div>
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
               </>
             ) : (
               ""

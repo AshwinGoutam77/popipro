@@ -9,6 +9,7 @@ import {
   faAngleLeft,
   faArrowUpWideShort,
   faNewspaper,
+  faUpDownLeftRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -148,7 +149,10 @@ const Order = () => {
           </Link>
         </div>
         <div className="main_content w-100">
-          <DragDropContext onDragEnd={onDragEnd} className="w-100">
+          <DragDropContext
+            onDragEnd={onDragEnd}
+            className="w-100 droppable-div"
+          >
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div
@@ -164,7 +168,7 @@ const Order = () => {
                     >
                       {(provided, snapshot) => (
                         <div
-                          className="card"
+                          className="card dragable-cards"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
