@@ -84,7 +84,7 @@ const Order = () => {
   const handleSequence = async () => {
     let abc = items?.map((item, index) => ({
       control_name: item?.name,
-      sequence: index,
+      sequence: index + 1,
     }));
     setOrderItems(abc);
     const response = await Api(CardSequence, { control: abc });
@@ -147,7 +147,6 @@ const Order = () => {
             </h6>
           </Link>
         </div>
-
         <div className="main_content w-100">
           <DragDropContext onDragEnd={onDragEnd} className="w-100">
             <Droppable droppableId="droppable">

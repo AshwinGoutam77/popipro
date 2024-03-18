@@ -372,34 +372,33 @@ export default async function Main({ profile, data, id, referer }) {
                                 ) : (
                                   ""
                                 )
-                              ) : items?.status == "BuilderForm" ? (
-                                MainData?.custom_forms !== null &&
-                                plan?.is_expired == false ? (
-                                  <div
-                                    className="mb-3 box-content boxxx mt-0"
-                                    id="custom_form"
-                                  >
-                                    <div className="flex-header">
-                                      <h2 className="title title--h1 first-title title__separate">
-                                        {MainData?.forms?.heading
-                                          ? MainData?.forms?.heading
-                                          : "Custom Form"}
-                                      </h2>
-                                    </div>
-                                    <BuilderForm
-                                      card_url={profile}
-                                      JsonData={MainData?.forms?.json}
-                                    />
-                                  </div>
-                                ) : (
-                                  ""
-                                )
                               ) : (
                                 ""
                               )}
                             </div>
                           );
                         })}
+                      {MainData?.custom_forms !== null &&
+                      plan?.is_expired == false ? (
+                        <div
+                          className="mb-3 box-content boxxx mt-0"
+                          id="custom_form"
+                        >
+                          <div className="flex-header">
+                            <h2 className="title title--h1 first-title title__separate">
+                              {MainData?.forms?.heading
+                                ? MainData?.forms?.heading
+                                : "Custom Form"}
+                            </h2>
+                          </div>
+                          <BuilderForm
+                            card_url={profile}
+                            JsonData={MainData?.forms?.json}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   )}
                 </div>
