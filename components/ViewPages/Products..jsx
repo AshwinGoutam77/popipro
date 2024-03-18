@@ -377,6 +377,10 @@ export default function Product({
     }
   };
 
+  // Data?.card_products.map((item) => {
+  //   console.log(item.some((product) => product.price === ""));
+  // });
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -733,7 +737,7 @@ export default function Product({
                       ? "card_products"
                       : Titles?.card_products?.visible_name}
                   </h3>
-                  <div className="d-flex gap-20">
+                  <div className="d-flex align-items-center gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
                       className="color-black cursor-pointer fs-18"
@@ -779,6 +783,7 @@ export default function Product({
                           />{" "}
                           Sort By Name
                         </Dropdown.Item>
+
                         <Dropdown.Item
                           href=""
                           onClick={() => setHighlightSort("lowest-price")}
@@ -809,6 +814,7 @@ export default function Product({
                           />{" "}
                           Sort By Higest Price
                         </Dropdown.Item>
+
                         <Dropdown.Item
                           href=""
                           onClick={() => setHighlightSort("latest")}

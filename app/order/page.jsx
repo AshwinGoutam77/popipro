@@ -84,7 +84,7 @@ const Order = () => {
   const handleSequence = async () => {
     let abc = items?.map((item, index) => ({
       control_name: item?.name,
-      sequence: index + 1,
+      sequence: index,
     }));
     setOrderItems(abc);
     const response = await Api(CardSequence, { control: abc });
@@ -109,7 +109,7 @@ const Order = () => {
     const reorderedItems = Array.from(items);
     const [removed] = reorderedItems.splice(result.source.index, 1);
     reorderedItems.splice(result.destination.index, 0, removed);
-    console.log(reorderedItems);
+    // console.log(reorderedItems);
     reorderedItems?.map((item, index) => ({
       control_name: item?.name,
       sequence: index,
@@ -147,6 +147,7 @@ const Order = () => {
             </h6>
           </Link>
         </div>
+
         <div className="main_content w-100">
           <DragDropContext onDragEnd={onDragEnd} className="w-100">
             <Droppable droppableId="droppable">
