@@ -116,6 +116,10 @@ export default function Dashboard() {
           const color = getComputedStyle(
             document.documentElement
           ).getPropertyValue("--color");
+        } else {
+          localStorage.removeItem("token");
+          localStorage.removeItem("url");
+          window.location.href = "/login";
         }
       } catch (error) {
         error;
