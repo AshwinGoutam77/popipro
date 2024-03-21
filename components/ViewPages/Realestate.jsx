@@ -459,9 +459,6 @@ export default function Realestate({
                       </a>
                     </div>
 
-                    {/* <p className="mt-3">
-                      {items?.description.replace(/(<([^>]+)>)/gi, "")}
-                    </p> */}
                     <p
                       id="p_wrap"
                       dangerouslySetInnerHTML={{
@@ -505,7 +502,7 @@ export default function Realestate({
                       style={{ gap: "5px" }}
                     >
                       <div
-                        className="d-flex align-items-center justify-content-center"
+                        className="d-flex flex-wrap align-items-center justify-content-center"
                         style={{ gap: "10px" }}
                       >
                         {items?.google_address_link && (
@@ -519,10 +516,16 @@ export default function Realestate({
                                 : items?.google_address_link
                             }
                             target="_blank"
-                            className="w-100"
+                            className="w-30px"
                           >
                             <button className="contact-btn w-100 m-0">
-                              Visit Site
+                              <img
+                                src="../static/img/location.svg"
+                                alt="image"
+                                width={14}
+                                className="mr-1"
+                              />
+                              View Location
                             </button>
                           </a>
                         )}
@@ -535,30 +538,43 @@ export default function Realestate({
                               `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
                             }
                             target="_blank"
-                            className="w-100"
+                            className="w-30px"
                           >
                             <button className="contact-btn w-100 m-0">
-                              <FontAwesomeIcon
-                                icon={faPhone}
-                                className="mr-2"
-                              />{" "}
+                              <img
+                                src="../static/img/whatsapp.svg"
+                                alt="image"
+                                width={14}
+                                className="mr-1"
+                              />
                               WhatsApp
                             </button>
                           </a>
                         )}
-                      </div>
-                      <div
+                        {/* </div> */}
+                        {/* <div
                         className="d-flex align-items-center justify-content-center mt-2"
                         style={{ gap: "10px" }}
-                      >
-                        <button className="contact-btn w-100 m-0">
+                      > */}
+                        <button className="contact-btn w-30px m-0">
+                          <img
+                            src="../static/img/phone.svg"
+                            alt="image"
+                            width={14}
+                            className="mr-1"
+                          />
                           Contact Agent
                         </button>
                         <button
-                          className="contact-btn w-100 m-0"
+                          className="contact-btn w-30px m-0"
                           onClick={() => handleShowModalEnquiry(items?.heading)}
                         >
-                          <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
+                          <img
+                            src="../static/img/mail.svg"
+                            alt="image"
+                            width={14}
+                            className="mr-1"
+                          />
                           Email
                         </button>
                       </div>
@@ -704,7 +720,7 @@ export default function Realestate({
                       ? "card_products"
                       : Titles?.card_realestates?.visible_name}
                   </h3>
-                  <div className="d-flex gap-20">
+                  <div className="d-flex align-items-center gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
                       className="color-black cursor-pointer fs-18"
@@ -930,20 +946,20 @@ export default function Realestate({
                           onClick={() => handleShowDetailModal(items?.id)}
                         >
                           <p>
-                            {items?.youtube_link ? (
+                            {/* {items?.youtube_link ? (
                               <span class="VarColor font-weight-bold mr-1">
                                 1 Video
                               </span>
                             ) : (
                               ""
-                            )}
-                            {items?.youtube_link && items?.gallery?.length ? (
+                            )} */}
+                            {/* {items?.youtube_link && items?.gallery?.length ? (
                               <span class="VarColor font-weight-bold mr-1">
                                 and
                               </span>
                             ) : (
                               ""
-                            )}
+                            )} */}
                             {items?.gallery?.length ? (
                               <span class="VarColor font-weight-bold text-decoration-underline">
                                 More Images

@@ -791,7 +791,7 @@ input.date-time-input::-webkit-date-and-time-value {
 .filter-btns-active {
   background-color: var(--color);
   color: white;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   padding: 6px 19px;
   font-weight: 600;
   border-radius: 100px;
@@ -1624,7 +1624,37 @@ table tbody tr:last-child {
 }
 
 .draggable-item {
-  width: 10px !important; 
+  width: 10px !important;
+}
+
+.w-30px {
+  width: 48% !important;
+}
+
+.edit-dropdown .dropdown button {
+  background: none !important;
+  box-shadow: none !important;
+  color: black;
+  padding: 0;
+  height: auto !important;
+}
+
+.edit-dropdown .dropdown button::after {
+  content: none !important;
+}
+
+.btn-success:not(:disabled):not(.disabled).active,
+.btn-success:not(:disabled):not(.disabled):active,
+.show > .btn-success.dropdown-toggle {
+  color: black !important;
+}
+
+.web-edit-icons {
+  display: block;
+}
+
+.mobile-edit-icons {
+  display: none;
 }
 
 @keyframes spin {
@@ -1678,6 +1708,14 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .web-edit-icons {
+    display: none !important;
+  }
+  
+  .mobile-edit-icons {
+    display: block;
+  }
+
   .real-estate-modal-buttons {
     padding: 0;
   }

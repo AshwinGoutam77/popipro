@@ -757,9 +757,15 @@ const Header = ({
                   target="_blank"
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faEnvelope}
                       className="user-select-auto mr-2 w-15 fs-15 transform-180 margin-l"
+                    /> */}
+                    <img
+                      src="../static/img/mail-dark.svg"
+                      alt="image"
+                      width={14}
+                      className="mr-1"
                     />
                     <span className="overhead_a text-dark text-decoration-none getCard-a">
                       {" "}
@@ -792,9 +798,15 @@ const Header = ({
                     onClick={() => handleHitClick("call")}
                   >
                     <div className="align-div">
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faPhoneAlt}
                         className="user-select-auto mr-2 transform-180 w-15 fs-15"
+                      /> */}
+                      <img
+                        src="../static/img/phone-dark.svg"
+                        alt="image"
+                        width={14}
+                        className="mr-1"
                       />
                       <span className="overhead_a text-dark text-decoration-none margin-l-5">
                         {card &&
@@ -838,9 +850,15 @@ const Header = ({
                   onClick={() => handleHitClick("location")}
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faMapMarkerAlt}
                       className="user-select-auto mr-1 transform-180 w-15 fs-15"
+                    /> */}
+                    <img
+                      src="../static/img/location-dark.svg"
+                      alt="image"
+                      width={10}
+                      className="mr-1"
                     />
                     <span className="overhead_a text-dark text-decoration-none margin-l-7">
                       {card.card_address}
@@ -887,9 +905,15 @@ const Header = ({
                   onClick={() => handleHitClick("website")}
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faLink}
                       className="user-select-auto mr-2 w-15 fs-15 transform-180"
+                    /> */}
+                    <img
+                      src="../static/img/website.svg"
+                      alt="image"
+                      width={14}
+                      className="mr-1"
                     />
                     <span className="overhead_a text-dark text-decoration-none getCard-a margin-l-4">
                       {card.card_website &&

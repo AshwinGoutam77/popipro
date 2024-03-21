@@ -267,6 +267,7 @@ export default function Product({
     if (response.data.status) {
     }
   };
+  
   const handleShowModal = (id, name) => {
     setProductModalTitle(name);
     HitClick(id);
@@ -737,7 +738,7 @@ export default function Product({
                       ? "card_products"
                       : Titles?.card_products?.visible_name}
                   </h3>
-                  <div className="d-flex align-items-center gap-20">
+                  <div className="d-flex align-items-baseline gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
                       className="color-black cursor-pointer fs-18"

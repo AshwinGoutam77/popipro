@@ -39,6 +39,7 @@ import EditPlan from "./EditPlan";
 import ReactPlayer from "react-player";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LoadingText from "@components/ViewPages/LoadingText";
+import EditDropdown from "./Dropdown";
 
 export default function EditRealEstate({
   MainData,
@@ -884,7 +885,7 @@ export default function EditRealEstate({
                       style={{ gap: "5px" }}
                     >
                       <div
-                        className="d-flex align-items-center justify-content-center"
+                        className="d-flex flex-wrap align-items-center justify-content-center"
                         style={{ gap: "10px" }}
                       >
                         {items?.google_address_link && (
@@ -898,10 +899,16 @@ export default function EditRealEstate({
                                 : items?.google_address_link
                             }
                             target="_blank"
-                            className="w-100"
+                            className="w-30px"
                           >
                             <button className="contact-btn w-100 m-0">
-                              Visit Site
+                              <img
+                                src="../static/img/location.svg"
+                                alt="image"
+                                width={14}
+                                className="mr-1"
+                              />
+                              View Location
                             </button>
                           </a>
                         )}
@@ -914,27 +921,40 @@ export default function EditRealEstate({
                               `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
                             }
                             target="_blank"
-                            className="w-100"
+                            className="w-30px"
                           >
                             <button className="contact-btn w-100 m-0">
-                              <FontAwesomeIcon
-                                icon={faPhone}
-                                className="mr-2"
-                              />{" "}
+                              <img
+                                src="../static/img/whatsapp.svg"
+                                alt="image"
+                                width={14}
+                                className="mr-1"
+                              />
                               WhatsApp
                             </button>
                           </a>
                         )}
-                      </div>
-                      <div
+                        {/* </div> */}
+                        {/* <div
                         className="d-flex align-items-center justify-content-center mt-2"
                         style={{ gap: "10px" }}
-                      >
-                        <button className="contact-btn w-100 m-0">
+                      > */}
+                        <button className="contact-btn w-30px m-0">
+                          <img
+                            src="../static/img/phone.svg"
+                            alt="image"
+                            width={14}
+                            className="mr-1"
+                          />
                           Contact Agent
                         </button>
-                        <button className="contact-btn w-100 m-0">
-                          <FontAwesomeIcon icon={faEnvelope} className="mr-1" />{" "}
+                        <button className="contact-btn w-30px m-0">
+                          <img
+                            src="../static/img/mail.svg"
+                            alt="image"
+                            width={14}
+                            className="mr-1"
+                          />
                           Email
                         </button>
                       </div>
@@ -1307,7 +1327,7 @@ export default function EditRealEstate({
                 </div>
               </div>
 
-              <label className="modalFormLable">Google Map Link</label>
+              <label className="modalFormLable">Google Map Address</label>
               <input
                 type="text"
                 name="name"
@@ -1509,7 +1529,7 @@ export default function EditRealEstate({
                     className="send-btnn"
                     onClick={() => handleSaveDetails()}
                   >
-                    Save
+                    Save and close
                   </button>
                 ) : (
                   <button class="send-btnn" disabled>
@@ -1544,7 +1564,7 @@ export default function EditRealEstate({
                   name="years"
                   rows="4"
                   cols="50"
-                  className="title-section-input"
+                  className="title-section-input w-auto"
                   onChange={(e) => setRealEstateTitle(e.target.value)}
                   defaultValue={TitleData.card_realestates?.visible_name}
                   placeholder="Title"
@@ -1559,65 +1579,74 @@ export default function EditRealEstate({
               {TitleData?.card_realestates?.source == "2" &&
               PlanData?.is_expired == false &&
               PlanData?.subscription?.plan_id !== 1 ? (
-                <div className="d-flex align-items-center">
-                  <div className="wrapper">
-                    <div className="tooltip">
-                      Use this section as upload and show your property for the
-                      sell.
+                <>
+                  <div className="web-edit-icons">
+                    <div className="d-flex align-items-center">
+                      <div className="wrapper">
+                        <div className="tooltip">
+                          Use this section as upload and show your property for
+                          the sell.
+                        </div>
+                        <FontAwesomeIcon
+                          icon={faInfo}
+                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                        />
+                      </div>
+                      <div className="edit-pencile-div">
+                        {EditFields ? (
+                          <FontAwesomeIcon
+                            icon={faFloppyDisk}
+                            className="ml-3 pe-auto floopySave-icon"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            className="ml-3 pe-auto Iconcolor-black"
+                            onClick={() => setEditFields(true)}
+                          />
+                        )}
+                      </div>
+
+                      <button
+                        className="addmore"
+                        onClick={() => handleShowAddModal()}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+
+                      <label className="switch">
+                        <input
+                          data-status={TitleData.card_blogs?.is_active}
+                          data-active={Active}
+                          checked={Active}
+                          type="checkbox"
+                          onChange={() => handleActive()}
+                        />
+                        <span className="slider round"></span>
+                      </label>
                     </div>
-                    <FontAwesomeIcon
-                      icon={faInfo}
-                      className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                      onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                    />
                   </div>
-                  <div className="edit-pencile-div">
+                  <div className="mobile-edit-icons">
                     {EditFields ? (
-                      <FontAwesomeIcon
-                        icon={faFloppyDisk}
-                        className="ml-3 pe-auto floopySave-icon"
+                      <p
+                        className="ml-2 font-weight-bold color-black text-decoration-underline w-auto cursor-pointer"
                         onClick={() => handleChnageTitle()}
-                      />
+                      >
+                        Save
+                      </p>
                     ) : (
-                      <FontAwesomeIcon
-                        icon={faPencil}
-                        className="ml-3 pe-auto Iconcolor-black"
-                        onClick={() => setEditFields(true)}
+                      <EditDropdown
+                        TitleData={TitleData}
+                        Active={Active}
+                        handleActive={handleActive}
+                        setEditFields={setEditFields}
+                        handleShowAddModal={handleShowAddModal}
                       />
                     )}
                   </div>
-
-                  {/* {MainData?.company_setting?.maximum_blogs !==
-                  PaginationData?.total_blogs ? (
-                    <button
-                      className="addmore"
-                      data-toggle="modal"
-                      data-target="#AddMoreBlogModal"
-                      onClick={() => handleShow()}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                  ) : ( */}
-                  <button
-                    className="addmore"
-                    onClick={() => handleShowAddModal()}
-                  >
-                    <FontAwesomeIcon icon={faPlus} />
-                  </button>
-                  {/* )} */}
-                  <>
-                    <label className="switch">
-                      <input
-                        data-status={TitleData.card_blogs?.is_active}
-                        data-active={Active}
-                        checked={Active}
-                        type="checkbox"
-                        onChange={() => handleActive()}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </>
-                </div>
+                </>
               ) : (
                 ""
               )}
@@ -1874,6 +1903,60 @@ export default function EditRealEstate({
                 );
               })
             )}
+
+            <div className="mt-4">
+              <h6 className="font-weight-bold">
+                How you want to receive inquiry:
+              </h6>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="real-estate-whatsaap"
+                  className="mt-1"
+                  // value={
+                  //   MainData?.company_setting?.show_product_wp_button !== 0
+                  //     ? true
+                  //     : false
+                  // }
+                  // onChange={() => handleProductsbtn("wp")}
+                  // checked={
+                  //   MainData?.company_setting?.show_product_wp_button !== 0
+                  //     ? true
+                  //     : false
+                  // }
+                />
+                <label
+                  for="real-estate-whatsaap"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via whatsaap only?
+                </label>
+              </div>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="real-estate-enq"
+                  className="mt-1"
+                  // value={
+                  //   MainData?.company_setting?.show_product_enquiry_button !== 0
+                  //     ? true
+                  //     : false
+                  // }
+                  // onChange={() => handleProductsbtn("enq")}
+                  // checked={
+                  //   MainData?.company_setting?.show_product_enquiry_button !== 0
+                  //     ? true
+                  //     : false
+                  // }
+                />
+                <label
+                  for="real-estate-enq"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via enquiry form?
+                </label>
+              </div>
+            </div>
             {PaginationData?.total_realestate ==
               Data?.card_realestates?.length &&
             LoadMoreData !== null &&

@@ -873,39 +873,6 @@ export default function Dashboard() {
                   </Link>
                 </div>
 
-                {/* Chnage password */}
-                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => setModalShow("password")}
-                  >
-                    <FontAwesomeIcon
-                      icon={faGear}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Password</h6>
-                  </div>
-                </div>
-
-                {/* Suggestions */}
-                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                      ("abc");
-                      setModalShow("suggestion");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faLightbulb}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Suggestions</h6>
-                  </div>
-                </div>
-
                 {/* Order */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -946,6 +913,39 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
+
+                {/* Chnage password */}
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => setModalShow("password")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faGear}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Password</h6>
+                  </div>
+                </div>
+
+                {/* Suggestions */}
+                <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      ("abc");
+                      setModalShow("suggestion");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faLightbulb}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">Suggestions</h6>
+                  </div>
+                </div>
               </>
             ) : (
               ""
