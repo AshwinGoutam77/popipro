@@ -53,7 +53,7 @@ export default function Realestate({
   const [LoadMore, setLoadMore] = useState("");
   const [ActiveFilter, setActiveFilter] = useState("");
   const [ActiveLooking, setActiveLooking] = useState("");
-  const [HighlightSort, setHighlightSort] = useState("");
+  const [HighlightSort, setHighlightSort] = useState("latest");
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
   const [Page, setPage] = useState(1);
@@ -535,7 +535,7 @@ export default function Realestate({
                               "https://api.whatsapp.com/send?phone=" +
                               Data?.whatsapp_number +
                               "&" +
-                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.heading}?`
                             }
                             target="_blank"
                             className="w-30px"
@@ -720,7 +720,7 @@ export default function Realestate({
                       ? "card_products"
                       : Titles?.card_realestates?.visible_name}
                   </h3>
-                  <div className="d-flex align-items-center gap-20">
+                  <div className="d-flex align-items-baseline gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
                       className="color-black cursor-pointer fs-18"

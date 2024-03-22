@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import localforage from "localforage";
 import Api from "@services/Api";
@@ -10,6 +10,22 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState([]);
   const [UserData, setUserData] = useState("");
   const [PlanData, setPlanData] = useState("");
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
+  const addItemToCart = (item) => {
+    setCartItems([...cartItems, item]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const userLogin = (info) => {
     setToken(info.token);
@@ -55,6 +71,8 @@ const AuthContextProvider = ({ children }) => {
         APIDATA,
         UserData,
         PlanData,
+        cartItems,
+        addItemToCart,
       }}
     >
       {children}

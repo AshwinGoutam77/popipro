@@ -1683,8 +1683,7 @@ export default function EditProducts({
                             handleActive={handleActive}
                             setEditFields={setEditFields}
                             AddTitle={
-                              "Add " +
-                              TitleData?.card_products?.visible_name
+                              "Add " + TitleData?.card_products?.visible_name
                             }
                             handleShowAddModal={handleShow}
                             setTooltipIsOpen={setTooltipIsOpen}
@@ -1797,7 +1796,7 @@ export default function EditProducts({
                                 )}
                               </div>
                               <div className="text-left mt-3">
-                                {items?.youtube_link ? (
+                                {/* {items?.youtube_link ? (
                                   <span class="VarColor font-weight-bold mr-1">
                                     1 Video
                                   </span>
@@ -1811,10 +1810,10 @@ export default function EditProducts({
                                   </span>
                                 ) : (
                                   ""
-                                )}
+                                )} */}
                                 {items?.gallery?.length ? (
-                                  <span class="VarColor font-weight-bold">
-                                    + {items?.gallery?.length} Images
+                                  <span class="VarColor font-weight-bold text-decoration-underline">
+                                   More Images
                                   </span>
                                 ) : (
                                   ""

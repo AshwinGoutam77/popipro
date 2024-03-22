@@ -13,6 +13,7 @@ import {
   faArrowUpRightDots,
   faArrowUpWideShort,
   faArrowUpZA,
+  faBagShopping,
   faChevronLeft,
   faChevronRight,
   faCircleXmark,
@@ -25,7 +26,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
 import { ToastContainer, toast } from "react-toastify";
@@ -41,6 +42,8 @@ import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
 import ReactPlayer from "react-player";
 import LoadingText from "./LoadingText";
+import { AuthContext } from "@context/AuthContext";
+import Cart from "@components/Dashboard/Cart";
 
 export default function Product({
   Titles,
@@ -76,6 +79,8 @@ export default function Product({
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
   const [Loader, setLoader] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [CartModal, setCartModal] = useState(false);
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -267,7 +272,7 @@ export default function Product({
     if (response.data.status) {
     }
   };
-  
+
   const handleShowModal = (id, name) => {
     setProductModalTitle(name);
     HitClick(id);
@@ -381,6 +386,17 @@ export default function Product({
   // Data?.card_products.map((item) => {
   //   console.log(item.some((product) => product.price === ""));
   // });
+
+  const { cartItems, addItemToCart } = useContext(AuthContext);
+
+  const handleAddToCart = (item) => {
+    addItemToCart(item);
+  };
+
+  let TotalId = [];
+  cartItems?.forEach((item) => {
+    TotalId.push(item?.id);
+  });
 
   return (
     <>
@@ -697,6 +713,12 @@ export default function Product({
         </Modal.Body>
       </Modal>
 
+      <Cart
+        active={CartModal == "CartModal" ? true : false}
+        handleClose={setCartModal}
+        MainData={MainData}
+      />
+
       {Titles &&
       Titles?.card_products?.is_active &&
       PlanData?.is_expired == false &&
@@ -744,6 +766,13 @@ export default function Product({
                       className="color-black cursor-pointer fs-18"
                       onClick={() => handleShowSearchFilter()}
                     />
+                    {cartItems?.length !== 0 && (
+                      <FontAwesomeIcon
+                        icon={faBagShopping}
+                        className="color-black cursor-pointer fs-18"
+                        onClick={() => setCartModal("CartModal")}
+                      />
+                    )}
                     {Search ? (
                       <div className="d-flex align-items-baseline position-relative">
                         <input
@@ -1056,7 +1085,7 @@ export default function Product({
                               )}
                             </div>
                             <div className="mt-3">
-                              {items?.youtube_link ? (
+                              {/* {items?.youtube_link ? (
                                 <span class="VarColor font-weight-bold mr-1">
                                   1 Video
                                 </span>
@@ -1069,10 +1098,10 @@ export default function Product({
                                 </span>
                               ) : (
                                 ""
-                              )}
+                              )} */}
                               {items?.gallery?.length ? (
-                                <span class="VarColor font-weight-bold">
-                                  + {items?.gallery?.length} Images
+                                <span class="VarColor font-weight-bold text-decoration-underline">
+                                  More Images
                                 </span>
                               ) : (
                                 ""
@@ -1214,6 +1243,40 @@ export default function Product({
                                 </p>
                               )}
                             </div>
+                            {!TotalId.includes(items?.id) ? (
+                              <p
+                                className="VarColor mt-2 font-weight-bold cursor-pointer"
+                                onClick={() =>
+                                  handleAddToCart({
+                                    image:
+                                      process.env.NEXT_PUBLIC_MODE ==
+                                      "development"
+                                        ? "https://dev.popipro.com/" +
+                                          items.image.path
+                                        : "https://admin.popipro.com/" +
+                                          items.image.path,
+                                    name: items?.name,
+                                    price: items?.price,
+                                    currency: items.pcurrency?.currency,
+                                    id: items?.id,
+                                  })
+                                }
+                              >
+                                <FontAwesomeIcon
+                                  icon={faBagShopping}
+                                  className="mr-1"
+                                />{" "}
+                                Add to cart
+                              </p>
+                            ) : (
+                              <p className="VarColor mt-2 font-weight-bold cursor-pointer">
+                                <FontAwesomeIcon
+                                  icon={faBagShopping}
+                                  className="mr-1"
+                                />{" "}
+                                Product added to cart
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
