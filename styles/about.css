@@ -12,17 +12,6 @@
   height: 160px !important;
 }
 
-.swiper-backface-hidden .swiper-slide {
-  /* display: flex;
-  align-items: center;*/
-}
-
-.flex-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
 .about-textarea {
   width: 100%;
   height: 130px;

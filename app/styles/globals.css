@@ -1657,6 +1657,10 @@ table tbody tr:last-child {
   display: none;
 }
 
+.CheckTitle {
+  font-size: 21px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -1708,10 +1712,17 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  #card_description {
+    margin-top: 0;
+  }
+  .wrapper .tooltip {
+    left: auto !important;
+    right: -18px !important;
+  }
   .web-edit-icons {
     display: none !important;
   }
-  
+
   .mobile-edit-icons {
     display: block;
   }

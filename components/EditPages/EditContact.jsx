@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import {
+  faCheckCircle,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
@@ -13,6 +14,7 @@ import { Appointmentbtns, CardData, ChangeAppointment } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import { Modal } from "react-bootstrap";
+import EditDropdown from "./Dropdown";
 
 export default function EditContact({
   APIDATA,
@@ -288,45 +290,76 @@ export default function EditContact({
                 {TitleData?.card_booking?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div className="wrapper">
-                      <div className="tooltip">
-                        Use this section to incorporate for appointment booking.
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div className="wrapper">
+                          <div className="tooltip">
+                            Use this section to incorporate for appointment
+                            booking.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-4 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+                        <div className="edit-pencile-div mr-2">
+                          {EditFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="mr-4 pe-auto floopySave-icon"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="mr-4 pe-auto Iconcolor-black"
+                              onClick={() => setEditFields(true)}
+                            />
+                          )}
+                        </div>
+                        <>
+                          <label className="switch">
+                            <input
+                              data-status={Appointment?.card_booking?.is_active}
+                              data-active={Active}
+                              checked={Active}
+                              type="checkbox"
+                              onChange={() => handleActive()}
+                            />
+                            <span className="slider round"></span>
+                          </label>
+                        </>
                       </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-4 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
                     </div>
-                    <div className="edit-pencile-div mr-2">
+                    <div className="mobile-edit-icons">
                       {EditFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="mr-4 pe-auto floopySave-icon"
-                          onClick={() => handleChnageTitle()}
-                        />
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        </div>
                       ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="mr-4 pe-auto Iconcolor-black"
-                          onClick={() => setEditFields(true)}
+                        <EditDropdown
+                          TitleData={TitleData}
+                          Active={Active}
+                          handleActive={handleActive}
+                          setEditFields={setEditFields}
+                          AddTitle={
+                            "Add " + TitleData?.card_booking?.visible_name
+                          }
+                          handleShowAddModal=""
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message=" Use this section to incorporate for appointment
+                          booking."
+                          tooltipIsOpen={tooltipIsOpen}
                         />
                       )}
                     </div>
-                    <>
-                      <label className="switch">
-                        <input
-                          data-status={Appointment?.card_booking?.is_active}
-                          data-active={Active}
-                          checked={Active}
-                          type="checkbox"
-                          onChange={() => handleActive()}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </>
-                  </div>
+                  </>
                 ) : (
                   ""
                 )}

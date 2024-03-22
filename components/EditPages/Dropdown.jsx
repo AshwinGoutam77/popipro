@@ -1,6 +1,7 @@
 "use client";
 import {
   faEllipsisVertical,
+  faInfo,
   faPencil,
   faPlus,
   faToggleOff,
@@ -16,42 +17,66 @@ export default function EditDropdown({
   Active,
   setEditFields,
   handleShowAddModal,
+  AddTitle,
+  setTooltipIsOpen,
+  tooltipIsOpen,
+  message,
 }) {
   return (
-    <div className="edit-dropdown">
+    <div className="edit-dropdown d-flex align-items-center">
+      <div class="wrapper">
+        <div class="tooltip">{message}</div>
+        <img
+          src="../static/img/info.svg"
+          alt="image"
+          width={18}
+          className="mr-4 cursor-pointer"
+          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+        />
+      </div>
+
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           <FontAwesomeIcon icon={faEllipsisVertical} />
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item
-            className="mb-1 mt-1 font-weight-bold"
-            onClick={() => setEditFields(true)}
-          >
-            {" "}
-            <FontAwesomeIcon
-              icon={faPencil}
-              className="mr-2 pe-auto Iconcolor-black"
-            />
-            Edit Title
-          </Dropdown.Item>
-          <Dropdown.Item
-            className="mb-1 font-weight-bold"
-            onClick={() => handleShowAddModal()}
-          >
-            <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Property
-          </Dropdown.Item>
-          <Dropdown.Item
-            className="mb-1 font-weight-bold"
-            onClick={() => handleActive()}
-          >
-            <FontAwesomeIcon
-              icon={Active ? faToggleOn : faToggleOff}
-              className="mr-2"
-            />{" "}
-            {Active ? "Enable" : "Disabled"}
-          </Dropdown.Item>
+          {setEditFields && (
+            <Dropdown.Item
+              className="mb-1 mt-1 font-weight-bold"
+              onClick={() => setEditFields(true)}
+            >
+              <img
+                src="../static/img/edit-icon.svg"
+                alt="image"
+                width={14}
+                style={{ marginRight: "11px" }}
+              />
+              Edit Title
+            </Dropdown.Item>
+          )}
+
+          {handleShowAddModal && (
+            <Dropdown.Item
+              className="mb-1 font-weight-bold"
+              onClick={() => handleShowAddModal()}
+            >
+              <FontAwesomeIcon icon={faPlus} className="mr-2" /> {AddTitle}
+            </Dropdown.Item>
+          )}
+
+          {Active !== undefined && (
+            <Dropdown.Item
+              className="mb-1 font-weight-bold"
+              onClick={() => handleActive()}
+            >
+              <FontAwesomeIcon
+                icon={Active ? faToggleOn : faToggleOff}
+                className="mr-1"
+              />{" "}
+              {!Active ? "Enable Section" : "Disable Section"}
+            </Dropdown.Item>
+          )}
         </Dropdown.Menu>
       </Dropdown>
     </div>

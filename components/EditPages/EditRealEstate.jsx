@@ -2,6 +2,7 @@
 import {
   faAngleDoubleRight,
   faArrowRight,
+  faCheckCircle,
   faCircleXmark,
   faEnvelope,
   faFloppyDisk,
@@ -1289,9 +1290,43 @@ export default function EditRealEstate({
 
               <div className="d-flex align-items-center gap-2 mt-2 mb-4">
                 <div className="w-100">
-                  <label className="modalFormLable">Built Up Area*</label>
+                  <label className="modalFormLable">
+                    Built Up Area* (in SQM)
+                  </label>
                   <input
-                    type="text"
+                    type="number"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mt-1 w-100"
+                    value={BuiltUpArea}
+                    placeholder="Area"
+                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
+                  ></input>
+                </div>
+                <div className="w-100">
+                  <label className="modalFormLable">
+                    Internal Built Up Area* (in SQM)
+                  </label>
+                  <input
+                    type="number"
+                    name="name"
+                    rows="4"
+                    cols="50"
+                    className="form-control mt-1 w-100"
+                    value={BuiltUpArea}
+                    placeholder="Area"
+                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
+                  ></input>
+                </div>
+              </div>
+              <div className="d-flex align-items-center gap-2 mt-2 mb-4">
+                <div className="w-100">
+                  <label className="modalFormLable">
+                    External Built Up Area (in SQM)
+                  </label>
+                  <input
+                    type="number"
                     name="name"
                     rows="4"
                     cols="50"
@@ -1630,19 +1665,27 @@ export default function EditRealEstate({
                   </div>
                   <div className="mobile-edit-icons">
                     {EditFields ? (
-                      <p
-                        className="ml-2 font-weight-bold color-black text-decoration-underline w-auto cursor-pointer"
-                        onClick={() => handleChnageTitle()}
-                      >
-                        Save
-                      </p>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                          onClick={() => handleChnageTitle()}
+                        />
+                      </div>
                     ) : (
                       <EditDropdown
                         TitleData={TitleData}
                         Active={Active}
                         handleActive={handleActive}
                         setEditFields={setEditFields}
+                        AddTitle={
+                          "Add " + TitleData?.card_realestates?.visible_name
+                        }
                         handleShowAddModal={handleShowAddModal}
+                        setTooltipIsOpen={setTooltipIsOpen}
+                        message="Use this section as upload and show your property for
+                        the sell."
+                        tooltipIsOpen={tooltipIsOpen}
                       />
                     )}
                   </div>

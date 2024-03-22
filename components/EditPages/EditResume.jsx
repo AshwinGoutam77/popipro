@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheckCircle,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
@@ -22,6 +23,7 @@ import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import axios from "axios";
 import LoadingText from "@components/ViewPages/LoadingText";
+import EditDropdown from "./Dropdown";
 
 export default function EditResume({
   APIDATA,
@@ -766,69 +768,104 @@ export default function EditResume({
                     {TitleData?.card_experience?.source == 2 &&
                     PlanData?.is_expired == false &&
                     PlanData?.subscription?.plan_id !== 1 ? (
-                      <div className="d-flex align-items-center">
-                        <div class="wrapper">
-                          <div class="tooltip">
-                            Detail your professional experience by listing your
-                            past roles, responsibilities, achievements, and
-                            notable projects to showcase your expertise.
+                      <>
+                        <div className="web-edit-icons">
+                          <div className="d-flex align-items-center">
+                            <div class="wrapper">
+                              <div class="tooltip">
+                                Detail your professional experience by listing
+                                your past roles, responsibilities, achievements,
+                                and notable projects to showcase your expertise.
+                              </div>
+                              <FontAwesomeIcon
+                                icon={faInfo}
+                                className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                              />
+                            </div>
+                            <div
+                              className="edit-pencile-div"
+                              style={{ top: "8px", right: "60px" }}
+                            >
+                              {EditFields ? (
+                                <FontAwesomeIcon
+                                  icon={faFloppyDisk}
+                                  className="ml-3 pe-auto floopySave-icon"
+                                  onClick={() => handleChnageTitle()}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPencil}
+                                  className="ml-3 pe-auto Iconcolor-black"
+                                  onClick={() => setEditFields(true)}
+                                />
+                              )}
+                            </div>
+                            {MainData?.company_setting?.maximum_experience <=
+                            AddMoreExp?.length ? (
+                              <button
+                                className="addmore"
+                                onClick={handleUpgradePlan}
+                                // onClick={() => handleShow()}
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                            ) : (
+                              <button
+                                className="addmore"
+                                data-toggle="modal"
+                                data-target="#AddMoreExpModal"
+                                onClick={() => handleShow()}
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                            )}
+                            <>
+                              <label className="switch">
+                                <input
+                                  data-status={
+                                    TitleData.card_experience?.is_active
+                                  }
+                                  data-active={Active}
+                                  checked={Active}
+                                  type="checkbox"
+                                  onChange={() => handleActive()}
+                                />
+                                <span className="slider round"></span>
+                              </label>
+                            </>
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                          />
                         </div>
-                        <div
-                          className="edit-pencile-div"
-                          style={{ top: "8px", right: "60px" }}
-                        >
+
+                        <div className="mobile-edit-icons">
                           {EditFields ? (
-                            <FontAwesomeIcon
-                              icon={faFloppyDisk}
-                              className="ml-3 pe-auto floopySave-icon"
-                              onClick={() => handleChnageTitle()}
-                            />
+                            <div>
+                              <FontAwesomeIcon
+                                icon={faCheckCircle}
+                                className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                                onClick={() => handleChnageTitle()}
+                              />
+                            </div>
                           ) : (
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="ml-3 pe-auto Iconcolor-black"
-                              onClick={() => setEditFields(true)}
+                            <EditDropdown
+                              TitleData={TitleData}
+                              Active={Active}
+                              handleActive={handleActive}
+                              setEditFields={setEditFields}
+                              AddTitle={
+                                "Add " +
+                                TitleData?.card_experience?.visible_name
+                              }
+                              handleShowAddModal={handleShow}
+                              setTooltipIsOpen={setTooltipIsOpen}
+                              message="Detail your professional experience by listing
+                              your past roles, responsibilities, achievements,
+                              and notable projects to showcase your expertise."
+                              tooltipIsOpen={tooltipIsOpen}
                             />
                           )}
                         </div>
-                        {MainData?.company_setting?.maximum_experience <=
-                        AddMoreExp?.length ? (
-                          <button
-                            className="addmore"
-                            onClick={handleUpgradePlan}
-                            // onClick={() => handleShow()}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
-                        ) : (
-                          <button
-                            className="addmore"
-                            data-toggle="modal"
-                            data-target="#AddMoreExpModal"
-                            onClick={() => handleShow()}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
-                        )}
-                        <>
-                          <label className="switch">
-                            <input
-                              data-status={TitleData.card_experience?.is_active}
-                              data-active={Active}
-                              checked={Active}
-                              type="checkbox"
-                              onChange={() => handleActive()}
-                            />
-                            <span className="slider round"></span>
-                          </label>
-                        </>
-                      </div>
+                      </>
                     ) : (
                       ""
                     )}

@@ -1,4 +1,6 @@
 import {
+  faCheck,
+  faCheckCircle,
   faFloppyDisk,
   faInfo,
   faPencil,
@@ -14,6 +16,7 @@ import Api from "@services/Api";
 import { CardData, deleteSection } from "@services/Routes";
 import { Modal } from "react-bootstrap";
 import EditPlan from "./EditPlan";
+import EditDropdown from "./Dropdown";
 
 export default function EditAlternateNo({
   APIDATA,
@@ -529,65 +532,97 @@ export default function EditAlternateNo({
                 {TitleData?.card_alternate_phone?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        Please add any relevant phone numbers, including
-                        WhatsApp, Skype, and contact numbers
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
-                    </div>
-                    <div className="edit-pencile-div">
-                      {EditFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="ml-3 pe-auto floopySave-icon"
-                          onClick={() => handleChnageTitle()}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="ml-3 pe-auto Iconcolor-black"
-                          onClick={() => setEditFields(true)}
-                        />
-                      )}
-                    </div>
-                    <>
-                      {MainData?.company_setting?.maximum_alternate_phone <=
-                      Data?.card_alternate_phone?.length ? (
-                        <button
-                          className="addmore"
-                          data-toggle="modal"
-                          data-target="#AlternateNumberModal"
-                          onClick={handleUpgradePlan}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                      ) : (
-                        <button className="addmore" onClick={handleShow}>
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                      )}
-                      <>
-                        <label className="switch">
-                          <input
-                            data-status={
-                              TitleData.card_alternate_phone?.is_active
-                            }
-                            data-active={Active}
-                            checked={Active}
-                            type="checkbox"
-                            onChange={() => handleActive()}
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Please add any relevant phone numbers, including
+                            WhatsApp, Skype, and contact numbers.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
-                          <span className="slider round"></span>
-                        </label>
-                      </>
-                    </>
-                  </div>
+                        </div>
+                        <div className="edit-pencile-div">
+                          {EditFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="ml-3 pe-auto floopySave-icon"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="ml-3 pe-auto Iconcolor-black"
+                              onClick={() => setEditFields(true)}
+                            />
+                          )}
+                        </div>
+                        <>
+                          {MainData?.company_setting?.maximum_alternate_phone <=
+                          Data?.card_alternate_phone?.length ? (
+                            <button
+                              className="addmore"
+                              data-toggle="modal"
+                              data-target="#AlternateNumberModal"
+                              onClick={handleUpgradePlan}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          ) : (
+                            <button className="addmore" onClick={handleShow}>
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          )}
+                          <>
+                            <label className="switch">
+                              <input
+                                data-status={
+                                  TitleData.card_alternate_phone?.is_active
+                                }
+                                data-active={Active}
+                                checked={Active}
+                                type="checkbox"
+                                onChange={() => handleActive()}
+                              />
+                              <span className="slider round"></span>
+                            </label>
+                          </>
+                        </>
+                      </div>
+                    </div>
+
+                    <div className="mobile-edit-icons">
+                      {EditFields ? (
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        </div>
+                      ) : (
+                        <EditDropdown
+                          TitleData={TitleData}
+                          Active={Active}
+                          handleActive={handleActive}
+                          setEditFields={setEditFields}
+                          AddTitle={
+                            "Add " +
+                            TitleData?.card_alternate_phone?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="Please add any relevant phone numbers, including
+                        WhatsApp, Skype, and contact numbers."
+                          tooltipIsOpen={tooltipIsOpen}
+                        />
+                      )}
+                    </div>
+                  </>
                 ) : (
                   ""
                 )}

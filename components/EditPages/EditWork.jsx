@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheckCircle,
   faCircleXmark,
   faCloudArrowUp,
   faFloppyDisk,
@@ -32,6 +33,7 @@ import EditPlan from "./EditPlan";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import EditDropdown from "./Dropdown";
 
 export default function EditWorks({
   APIDATA,
@@ -635,66 +637,107 @@ export default function EditWorks({
                 {TitleData?.card_photos?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        You can add your portfolio, business images, project
-                        images etc.
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
-                    </div>
-                    {/* {ShowSlidesImage ? (
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            You can add your portfolio, business images, project
+                            images etc.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+                        {/* {ShowSlidesImage ? (
                       ""
                     ) : (
                       <> */}
-                    <div className="edit-pencile-div">
+                        <div className="edit-pencile-div">
+                          {EditFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="ml-3 pe-auto floopySave-icon"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="ml-3 pe-auto Iconcolor-black"
+                              onClick={() => setEditFields(true)}
+                            />
+                          )}
+                        </div>
+                        {MainData?.company_setting?.maximum_photos <=
+                        Card_photos?.length ? (
+                          <button
+                            className="addmore"
+                            onClick={handleUpgradePlan}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        ) : (
+                          <button
+                            className="addmore"
+                            onClick={handleShowSlider}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        )}
+                        {/* </>
+                    )} */}
+                        <>
+                          <Tooltip
+                            title="Mark As Feature"
+                            placement="top"
+                            arrow
+                          >
+                            <>
+                              <label className="switch">
+                                <input
+                                  data-status={TitleData.card_photos?.is_active}
+                                  data-active={Active}
+                                  checked={Active}
+                                  type="checkbox"
+                                  onChange={() => handleActive()}
+                                />
+                                <span className="slider round"></span>
+                              </label>
+                            </>
+                          </Tooltip>
+                        </>
+                      </div>
+                    </div>
+
+                    <div className="mobile-edit-icons">
                       {EditFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="ml-3 pe-auto floopySave-icon"
-                          onClick={() => handleChnageTitle()}
-                        />
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        </div>
                       ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="ml-3 pe-auto Iconcolor-black"
-                          onClick={() => setEditFields(true)}
+                        <EditDropdown
+                          TitleData={TitleData}
+                          Active={Active}
+                          handleActive={handleActive}
+                          setEditFields={setEditFields}
+                          AddTitle={
+                            "Add " + TitleData?.card_photos?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="You can add your portfolio, business images, project
+                            images etc."
+                          tooltipIsOpen={tooltipIsOpen}
                         />
                       )}
                     </div>
-                    {MainData?.company_setting?.maximum_photos <=
-                    Card_photos?.length ? (
-                      <button className="addmore" onClick={handleUpgradePlan}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    ) : (
-                      <button className="addmore" onClick={handleShowSlider}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    )}
-                    {/* </>
-                    )} */}
-                    <>
-                      <Tooltip title="Mark As Feature" placement="top" arrow>
-                        <>
-                          <label className="switch">
-                            <input
-                              data-status={TitleData.card_photos?.is_active}
-                              data-active={Active}
-                              checked={Active}
-                              type="checkbox"
-                              onChange={() => handleActive()}
-                            />
-                            <span className="slider round"></span>
-                          </label>
-                        </>
-                      </Tooltip>
-                    </>
-                  </div>
+                  </>
                 ) : (
                   ""
                 )}
@@ -910,65 +953,103 @@ export default function EditWorks({
                 {TitleData?.card_videos?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        Add videos and links to your youtube and other social
-                        media videos link.
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Add videos and links to your youtube and other
+                            social media videos link.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+                        <div className="edit-pencile-div">
+                          {EditVideoFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="ml-3 pe-auto floopySave-icon"
+                              onClick={() => handleChnageVideoTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="ml-3 pe-auto Iconcolor-black"
+                              onClick={() => setEditVideoFields(true)}
+                            />
+                          )}
+                        </div>
+                        {MainData?.company_setting?.maximum_videos <=
+                        Card_videos?.length ? (
+                          <button
+                            className="addmore"
+                            onClick={handleUpgradePlan}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        ) : (
+                          <button
+                            className="addmore"
+                            data-toggle="modal"
+                            data-target="#AddVideoModal"
+                            onClick={() => HandleEmptyFeilds()}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        )}
+                        <>
+                          <Tooltip
+                            title="Mark As Feature"
+                            placement="top"
+                            arrow
+                          >
+                            <>
+                              <label className="switch">
+                                <input
+                                  data-status={TitleData.card_videos?.is_active}
+                                  data-active={ActiveVideo}
+                                  checked={ActiveVideo}
+                                  type="checkbox"
+                                  onChange={() => handleActiveVedio()}
+                                />
+                                <span className="slider round"></span>
+                              </label>
+                            </>
+                          </Tooltip>
+                        </>
                       </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
                     </div>
-                    <div className="edit-pencile-div">
+                    <div className="mobile-edit-icons">
                       {EditVideoFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="ml-3 pe-auto floopySave-icon"
-                          onClick={() => handleChnageVideoTitle()}
-                        />
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageVideoTitle()}
+                          />
+                        </div>
                       ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="ml-3 pe-auto Iconcolor-black"
-                          onClick={() => setEditVideoFields(true)}
+                        <EditDropdown
+                          TitleData={TitleData}
+                          Active={Active}
+                          handleActive={handleActive}
+                          setEditFields={setEditVideoFields}
+                          AddTitle={
+                            "Add " +
+                            TitleData?.card_videos?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="Add videos and links to your youtube and other
+                          social media videos link."
+                          tooltipIsOpen={tooltipIsOpen}
                         />
                       )}
                     </div>
-                    {MainData?.company_setting?.maximum_videos <=
-                    Card_videos?.length ? (
-                      <button className="addmore" onClick={handleUpgradePlan}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    ) : (
-                      <button
-                        className="addmore"
-                        data-toggle="modal"
-                        data-target="#AddVideoModal"
-                        onClick={() => HandleEmptyFeilds()}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    )}
-                    <>
-                      <Tooltip title="Mark As Feature" placement="top" arrow>
-                        <>
-                          <label className="switch">
-                            <input
-                              data-status={TitleData.card_videos?.is_active}
-                              data-active={ActiveVideo}
-                              checked={ActiveVideo}
-                              type="checkbox"
-                              onChange={() => handleActiveVedio()}
-                            />
-                            <span className="slider round"></span>
-                          </label>
-                        </>
-                      </Tooltip>
-                    </>
-                  </div>
+                  </>
                 ) : (
                   ""
                 )}

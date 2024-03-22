@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheckCircle,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
@@ -20,6 +21,7 @@ import {
   socialMedia,
 } from "@services/Routes";
 import Modal from "react-bootstrap/Modal";
+import EditDropdown from "./Dropdown";
 
 function EditLinks({
   Data,
@@ -449,45 +451,79 @@ function EditLinks({
                   </>
                 )}
               </div>
-              <div className="d-flex align-items-center">
-                <div class="wrapper">
-                  <div class="tooltip">
-                    Link Your Social Media Handles. Please Fill The Complete URL
-                    of your Profile.
+
+              {TitleData?.card_social_links.source !== 1 ? (
+                <>
+                  <div className="web-edit-icons">
+                    <div className="d-flex align-items-center">
+                      <div class="wrapper">
+                        <div class="tooltip">
+                          Link Your Social Media Handles. Please Fill The
+                          Complete URL of your Profile.
+                        </div>
+                        <FontAwesomeIcon
+                          icon={faInfo}
+                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                        />
+                      </div>
+
+                      <div className="edit-pencile-div">
+                        {EditFields ? (
+                          <FontAwesomeIcon
+                            icon={faFloppyDisk}
+                            className="ml-3 pe-auto floopySave-icon"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            className="ml-3 pe-auto Iconcolor-black"
+                            onClick={() => setEditFields(true)}
+                          />
+                        )}
+                        {TitleData?.card_social_links.source !== 1 ? (
+                          <button
+                            className="addmore mr-0"
+                            onClick={() => handleShow()}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <FontAwesomeIcon
-                    icon={faInfo}
-                    className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                    onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                  />
-                </div>
-                {TitleData?.card_social_links.source !== 1 ? (
-                  <div className="edit-pencile-div">
+
+                  <div className="mobile-edit-icons">
                     {EditFields ? (
-                      <FontAwesomeIcon
-                        icon={faFloppyDisk}
-                        className="ml-3 pe-auto floopySave-icon"
-                        onClick={() => handleChnageTitle()}
-                      />
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                          onClick={() => handleChnageTitle()}
+                        />
+                      </div>
                     ) : (
-                      <FontAwesomeIcon
-                        icon={faPencil}
-                        className="ml-3 pe-auto Iconcolor-black"
-                        onClick={() => setEditFields(true)}
+                      <EditDropdown
+                        TitleData={TitleData}
+                        setEditFields={setEditFields}
+                        AddTitle={
+                          "Add " + TitleData?.card_social_links?.visible_name
+                        }
+                        handleShowAddModal={handleShow}
+                        setTooltipIsOpen={setTooltipIsOpen}
+                        message="Link Your Social Media Handles. Please Fill The Complete URL
+                        of your Profile."
+                        tooltipIsOpen={tooltipIsOpen}
                       />
                     )}
                   </div>
-                ) : (
-                  ""
-                )}
-                {TitleData?.card_social_links.source !== 1 ? (
-                  <button className="addmore mr-0" onClick={() => handleShow()}>
-                    <FontAwesomeIcon icon={faPlus} />
-                  </button>
-                ) : (
-                  ""
-                )}
-              </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
 
             {Links ? (

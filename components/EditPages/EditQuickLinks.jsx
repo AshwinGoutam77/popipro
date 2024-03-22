@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 "use client";
 import {
+  faCheckCircle,
   faChevronRight,
   faCircleInfo,
   faFloppyDisk,
@@ -20,6 +21,7 @@ import { CardData, deleteSection } from "@services/Routes";
 import Api from "@services/Api";
 import Modal from "react-bootstrap/Modal";
 import EditPlan from "./EditPlan";
+import EditDropdown from "./Dropdown";
 
 export default function EditCustomLink({
   APIDATA,
@@ -244,7 +246,7 @@ export default function EditCustomLink({
       if (response.data.status) {
         APIDATA();
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -273,6 +275,7 @@ export default function EditCustomLink({
       // });
     }
   };
+
   const handleSetId = (id, title, link, tag) => {
     handleEditShow();
     setModalId(id);
@@ -487,65 +490,98 @@ export default function EditCustomLink({
                 {TitleData?.card_custom_url?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        Enter URLs such as your LinkedIn profile, personal
-                        website, or any other relevant online presence.
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-1 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
-                    </div>
-                    <>
-                      <div className="edit-pencile-div">
-                        {EditFields ? (
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Enter URLs such as your LinkedIn profile, personal
+                            website, or any other relevant online presence.
+                          </div>
                           <FontAwesomeIcon
-                            icon={faFloppyDisk}
-                            className="ml-3 pe-auto floopySave-icon"
+                            icon={faInfo}
+                            className="mr-1 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+                        <>
+                          <div className="edit-pencile-div">
+                            {EditFields ? (
+                              <FontAwesomeIcon
+                                icon={faFloppyDisk}
+                                className="ml-3 pe-auto floopySave-icon"
+                                onClick={() => handleChnageTitle()}
+                              />
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={faPencil}
+                                className="ml-3 pe-auto Iconcolor-black"
+                                onClick={() => setEditFields(true)}
+                              />
+                            )}
+                          </div>
+                          {MainData?.company_setting?.maximum_custom_link >=
+                          Data?.card_custom_url?.length ? (
+                            <button
+                              className="addmore"
+                              data-toggle="modal"
+                              data-target="#CustomLinkModal"
+                              onClick={handleShow}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          ) : (
+                            <button
+                              className="addmore"
+                              onClick={handleUpgradePlan}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          )}
+                          <>
+                            <label className="switch">
+                              <input
+                                data-status={
+                                  CustomLinkTitle?.card_custom_url?.is_active
+                                }
+                                data-active={Active}
+                                checked={Active}
+                                type="checkbox"
+                                onChange={() => handleActive()}
+                              />
+                              <span className="slider round"></span>
+                            </label>
+                          </>
+                        </>
+                      </div>
+                    </div>
+                    <div className="mobile-edit-icons">
+                      {EditFields ? (
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
                             onClick={() => handleChnageTitle()}
                           />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            className="ml-3 pe-auto Iconcolor-black"
-                            onClick={() => setEditFields(true)}
-                          />
-                        )}
-                      </div>
-                      {MainData?.company_setting?.maximum_custom_link >=
-                      Data?.card_custom_url?.length ? (
-                        <button
-                          className="addmore"
-                          data-toggle="modal"
-                          data-target="#CustomLinkModal"
-                          onClick={handleShow}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
+                        </div>
                       ) : (
-                        <button className="addmore" onClick={handleUpgradePlan}>
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
+                        <EditDropdown
+                          TitleData={TitleData}
+                          setEditFields={setEditFields}
+                          Active={Active}
+                          handleActive={handleActive}
+                          AddTitle={
+                            "Add " + TitleData?.card_custom_url?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="Enter URLs such as your LinkedIn profile, personal
+                          website, or any other relevant online presence."
+                          tooltipIsOpen={tooltipIsOpen}
+                        />
                       )}
-                      <>
-                        <label className="switch">
-                          <input
-                            data-status={
-                              CustomLinkTitle?.card_custom_url?.is_active
-                            }
-                            data-active={Active}
-                            checked={Active}
-                            type="checkbox"
-                            onChange={() => handleActive()}
-                          />
-                          <span className="slider round"></span>
-                        </label>
-                      </>
-                    </>
-                  </div>
+                    </div>
+                  </>
                 ) : (
                   ""
                 )}

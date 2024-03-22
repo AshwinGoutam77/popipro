@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
+  faCheckCircle,
   faChevronRight,
   faCircleInfo,
   faCircleXmark,
@@ -50,6 +51,7 @@ import ReactPlayer from "react-player";
 import TagsModal from "@components/Dashboard/TagsModal";
 import { Tooltip } from "@mui/material";
 import LoadingText from "@components/ViewPages/LoadingText";
+import EditDropdown from "./Dropdown";
 
 export default function EditProducts({
   APIDATA,
@@ -350,6 +352,7 @@ export default function EditProducts({
     handleEditClose();
     HandleEmptyFeilds();
   };
+
   const handleChnageTitle = async () => {
     if (ProductTitle == "") {
       toast.error("Section title is required", {
@@ -407,6 +410,7 @@ export default function EditProducts({
       });
     }
   };
+
   const handleLoadMore = async () => {
     LoadMoreFunction();
   };
@@ -1582,84 +1586,115 @@ export default function EditProducts({
                   {TitleData?.card_products?.source == "2" &&
                   PlanData?.is_expired == false &&
                   PlanData?.subscription?.plan_id !== 1 ? (
-                    <div className="d-flex align-items-center">
-                      <div className="wrapper">
-                        <div className="tooltip">
-                          Here you can manage services, products, advisory,
-                          packages...
+                    <>
+                      <div className="web-edit-icons">
+                        <div className="d-flex align-items-center">
+                          <div className="wrapper">
+                            <div className="tooltip">
+                              Here you can manage services, products, advisory,
+                              packages...
+                            </div>
+                            <FontAwesomeIcon
+                              icon={faInfo}
+                              className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                            />
+                          </div>
+                          <div className="edit-pencile-div">
+                            {EditFields ? (
+                              <FontAwesomeIcon
+                                icon={faFloppyDisk}
+                                className="ml-3 pe-auto floopySave-icon"
+                                onClick={() => handleChnageTitle()}
+                              />
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={faPencil}
+                                className="ml-3 pe-auto Iconcolor-black"
+                                onClick={() => setEditFields(true)}
+                              />
+                            )}
+                          </div>
+                          {Data?.categories?.length !== 0 ? (
+                            <Tooltip placement="top" title="Manage Category">
+                              <button
+                                className="addmore mr-0"
+                                onClick={() => setModalShow("TagsModal")}
+                              >
+                                <FontAwesomeIcon icon={faGear} />
+                              </button>
+                            </Tooltip>
+                          ) : (
+                            ""
+                          )}
+                          {MainData?.company_setting?.maximum_products <=
+                          PaginationData?.total_product ? (
+                            <button
+                              className="addmore"
+                              data-toggle="modal"
+                              data-target="#AddProductModal"
+                              onClick={handleUpgradePlan}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          ) : (
+                            <>
+                              <button
+                                className="addmore"
+                                onClick={() => handleShow()}
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                              <TagsModal
+                                active={modalShow == "TagsModal" ? true : false}
+                                handleClose={setModalShow}
+                                Data={Data}
+                                APIDATA={APIDATA}
+                              />
+                            </>
+                          )}
+                          <>
+                            <label className="switch">
+                              <input
+                                data-status={TitleData.card_products?.is_active}
+                                data-active={Active}
+                                checked={Active}
+                                type="checkbox"
+                                onChange={() => handleActive()}
+                              />
+                              <span className="slider round"></span>
+                            </label>
+                          </>
                         </div>
-                        <FontAwesomeIcon
-                          icon={faInfo}
-                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                        />
                       </div>
-                      <div className="edit-pencile-div">
+                      <div className="mobile-edit-icons">
                         {EditFields ? (
-                          <FontAwesomeIcon
-                            icon={faFloppyDisk}
-                            className="ml-3 pe-auto floopySave-icon"
-                            onClick={() => handleChnageTitle()}
-                          />
+                          <div>
+                            <FontAwesomeIcon
+                              icon={faCheckCircle}
+                              className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          </div>
                         ) : (
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            className="ml-3 pe-auto Iconcolor-black"
-                            onClick={() => setEditFields(true)}
+                          <EditDropdown
+                            TitleData={TitleData}
+                            Active={Active}
+                            handleActive={handleActive}
+                            setEditFields={setEditFields}
+                            AddTitle={
+                              "Add " +
+                              TitleData?.card_products?.visible_name
+                            }
+                            handleShowAddModal={handleShow}
+                            setTooltipIsOpen={setTooltipIsOpen}
+                            message="Here you can manage services, products, advisory,
+                            packages..."
+                            tooltipIsOpen={tooltipIsOpen}
                           />
                         )}
                       </div>
-                      {Data?.categories?.length !== 0 ? (
-                        <Tooltip placement="top" title="Manage Category">
-                          <button
-                            className="addmore mr-0"
-                            onClick={() => setModalShow("TagsModal")}
-                          >
-                            <FontAwesomeIcon icon={faGear} />
-                          </button>
-                        </Tooltip>
-                      ) : (
-                        ""
-                      )}
-                      {MainData?.company_setting?.maximum_products <=
-                      PaginationData?.total_product ? (
-                        <button
-                          className="addmore"
-                          data-toggle="modal"
-                          data-target="#AddProductModal"
-                          onClick={handleUpgradePlan}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                      ) : (
-                        <>
-                          <button
-                            className="addmore"
-                            onClick={() => handleShow()}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
-                          <TagsModal
-                            active={modalShow == "TagsModal" ? true : false}
-                            handleClose={setModalShow}
-                            Data={Data}
-                            APIDATA={APIDATA}
-                          />
-                        </>
-                      )}
-                      <>
-                        <label className="switch">
-                          <input
-                            data-status={TitleData.card_products?.is_active}
-                            data-active={Active}
-                            checked={Active}
-                            type="checkbox"
-                            onChange={() => handleActive()}
-                          />
-                          <span className="slider round"></span>
-                        </label>
-                      </>
-                    </div>
+                    </>
                   ) : (
                     ""
                   )}

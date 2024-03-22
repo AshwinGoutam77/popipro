@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
+  faCheckCircle,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
@@ -27,6 +28,7 @@ import EditPlan from "./EditPlan";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
+import EditDropdown from "./Dropdown";
 
 export default function EditBlogs({
   APIDATA,
@@ -907,62 +909,95 @@ export default function EditBlogs({
                 {TitleData?.card_blogs?.source == "2" &&
                 PlanData?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        Add your latest insights, updates, and thoughts through
-                        your blog.
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Add your latest insights, updates, and thoughts
+                            through your blog.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+                        <div className="edit-pencile-div">
+                          {EditFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="ml-3 pe-auto floopySave-icon"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="ml-3 pe-auto Iconcolor-black"
+                              onClick={() => setEditFields(true)}
+                            />
+                          )}
+                        </div>
+
+                        {MainData?.company_setting?.maximum_blogs !==
+                        PaginationData?.total_blogs ? (
+                          <button
+                            className="addmore"
+                            data-toggle="modal"
+                            data-target="#AddMoreBlogModal"
+                            onClick={() => handleShow()}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        ) : (
+                          <button
+                            className="addmore"
+                            onClick={handleUpgradePlan}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        )}
+                        <>
+                          <label className="switch">
+                            <input
+                              data-status={TitleData.card_blogs?.is_active}
+                              data-active={Active}
+                              checked={Active}
+                              type="checkbox"
+                              onChange={() => handleActive()}
+                            />
+                            <span className="slider round"></span>
+                          </label>
+                        </>
                       </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
                     </div>
-                    <div className="edit-pencile-div">
+                    <div className="mobile-edit-icons">
                       {EditFields ? (
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          className="ml-3 pe-auto floopySave-icon"
-                          onClick={() => handleChnageTitle()}
-                        />
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        </div>
                       ) : (
-                        <FontAwesomeIcon
-                          icon={faPencil}
-                          className="ml-3 pe-auto Iconcolor-black"
-                          onClick={() => setEditFields(true)}
+                        <EditDropdown
+                          TitleData={TitleData}
+                          Active={Active}
+                          handleActive={handleActive}
+                          setEditFields={setEditFields}
+                          AddTitle={
+                            "Add " + TitleData?.card_blogs?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="Add your latest insights, updates, and thoughts
+                            through your blog."
+                          tooltipIsOpen={tooltipIsOpen}
                         />
                       )}
                     </div>
-
-                    {MainData?.company_setting?.maximum_blogs !==
-                    PaginationData?.total_blogs ? (
-                      <button
-                        className="addmore"
-                        data-toggle="modal"
-                        data-target="#AddMoreBlogModal"
-                        onClick={() => handleShow()}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    ) : (
-                      <button className="addmore" onClick={handleUpgradePlan}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    )}
-                    <>
-                      <label className="switch">
-                        <input
-                          data-status={TitleData.card_blogs?.is_active}
-                          data-active={Active}
-                          checked={Active}
-                          type="checkbox"
-                          onChange={() => handleActive()}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </>
-                  </div>
+                  </>
                 ) : (
                   ""
                 )}

@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheckCircle,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
@@ -31,6 +32,7 @@ import "swiper/css/pagination";
 import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
+import EditDropdown from "./Dropdown";
 
 export default function EditDoing({
   TitleData,
@@ -789,70 +791,102 @@ export default function EditDoing({
                   {TitleData?.card_services?.source == "2" &&
                   PlanData?.is_expired == false &&
                   PlanData?.subscription?.plan_id !== 1 ? (
-                    <div className="d-flex align-items-center">
-                      <div class="wrapper">
-                        <div class="tooltip">
-                          Add services you offer, including details such as
-                          service descriptions, links and any additional
-                          information.
-                        </div>
-                        <FontAwesomeIcon
-                          icon={faInfo}
-                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
-                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                        />
-                      </div>
-                      <>
-                        <div className="edit-pencile-div">
-                          {EditFields ? (
+                    <>
+                      <div className="web-edit-icons">
+                        <div className="d-flex align-items-center">
+                          <div class="wrapper">
+                            <div class="tooltip">
+                              Add services you offer, including details such as
+                              service descriptions, links and any additional
+                              information.
+                            </div>
                             <FontAwesomeIcon
-                              icon={faFloppyDisk}
-                              className="ml-3 pe-auto floopySave-icon"
+                              icon={faInfo}
+                              className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                            />
+                          </div>
+                          <>
+                            <div className="edit-pencile-div">
+                              {EditFields ? (
+                                <FontAwesomeIcon
+                                  icon={faFloppyDisk}
+                                  className="ml-3 pe-auto floopySave-icon"
+                                  onClick={() => handleChnageTitle()}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPencil}
+                                  className="ml-3 pe-auto Iconcolor-black"
+                                  onClick={() => setEditFields(true)}
+                                />
+                              )}
+                            </div>
+                            {MainData?.company_setting?.maximum_services !==
+                            CardServices?.length ? (
+                              <button
+                                className="addmore"
+                                data-toggle="modal"
+                                data-target="#AddMoreServicesModal"
+                                onClick={handleShow}
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                            ) : (
+                              <button
+                                className="addmore"
+                                onClick={handleUpgradePlan}
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                            )}
+                            <label className="switch">
+                              <input
+                                data-status={TitleData.card_services?.is_active}
+                                data-active={Active}
+                                checked={Active}
+                                type="checkbox"
+                                onChange={() => handleActive()}
+                              />
+                              <span className="slider round"></span>
+                            </label>
+                          </>
+                        </div>
+                      </div>
+                      <div className="mobile-edit-icons">
+                        {EditFields ? (
+                          <div>
+                            <FontAwesomeIcon
+                              icon={faCheckCircle}
+                              className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
                               onClick={() => handleChnageTitle()}
                             />
-                          ) : (
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="ml-3 pe-auto Iconcolor-black"
-                              onClick={() => setEditFields(true)}
-                            />
-                          )}
-                        </div>
-                        {MainData?.company_setting?.maximum_services !==
-                        CardServices?.length ? (
-                          <button
-                            className="addmore"
-                            data-toggle="modal"
-                            data-target="#AddMoreServicesModal"
-                            onClick={handleShow}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
+                          </div>
                         ) : (
-                          <button
-                            className="addmore"
-                            onClick={handleUpgradePlan}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
-                        )}
-                        <label className="switch">
-                          <input
-                            data-status={TitleData.card_services?.is_active}
-                            data-active={Active}
-                            checked={Active}
-                            type="checkbox"
-                            onChange={() => handleActive()}
+                          <EditDropdown
+                            TitleData={TitleData}
+                            Active={Active}
+                            handleActive={handleActive}
+                            setEditFields={setEditFields}
+                            AddTitle={
+                              "Add " + TitleData?.card_services?.visible_name
+                            }
+                            handleShowAddModal={handleShow}
+                            setTooltipIsOpen={setTooltipIsOpen}
+                            message="Add services you offer, including details such as
+                            service descriptions, links and any additional
+                            information."
+                            tooltipIsOpen={tooltipIsOpen}
                           />
-                          <span className="slider round"></span>
-                        </label>
-                      </>
-                    </div>
+                        )}
+                      </div>
+                    </>
                   ) : (
                     ""
                   )}
                 </div>
               </div>
+
               {AddMoredoings?.length == 0 ? (
                 <>
                   <div>

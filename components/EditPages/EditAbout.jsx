@@ -19,6 +19,7 @@ import { CardData } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
+import EditDropdown from "./Dropdown";
 
 export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [TextArea, setTextArea] = useState(false);
@@ -363,39 +364,59 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             ) : (
               <div>
                 {TitleData?.card_description?.source == "2" ? (
-                  <div className="d-flex align-items-center">
-                    <div class="wrapper">
-                      <div class="tooltip">
-                        Share a brief overview of your professional background
-                        and expertise.
+                  <>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Share a brief overview of your professional
+                            background and expertise.
+                          </div>
+                          <FontAwesomeIcon
+                            icon={faInfo}
+                            className="mr-4 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+
+                        {/* </Tooltip> */}
+                        <>
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            onClick={handleEditAboutt}
+                            className="pe-auto Iconcolor-black"
+                            style={{ cursor: "pointer", marginRight: "28px" }}
+                          />
+                          <label className="switch">
+                            <input
+                              data-status={
+                                TitleData.card_description?.is_active
+                              }
+                              data-active={Active}
+                              checked={Active}
+                              type="checkbox"
+                              onChange={() => handleActive()}
+                            />
+                            <span className="slider round"></span>
+                          </label>
+                        </>
                       </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="mr-4 pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
                     </div>
 
-                    {/* </Tooltip> */}
-                    <>
-                      <FontAwesomeIcon
-                        icon={faPencil}
-                        onClick={handleEditAboutt}
-                        className="pe-auto Iconcolor-black"
-                        style={{ cursor: "pointer", marginRight: "28px" }}
+                    <div className="mobile-edit-icons">
+                      <EditDropdown
+                        TitleData={TitleData}
+                        Active={Active}
+                        handleActive={handleActive}
+                        setEditFields={""}
+                        AddTitle={"Add / Edit "+TitleData?.card_description?.visible_name}
+                        handleShowAddModal={handleEditAboutt}
+                        setTooltipIsOpen={setTooltipIsOpen}
+                        message="Share a brief overview of your professional background and expertise."
+                        tooltipIsOpen={tooltipIsOpen}
                       />
-                      <label className="switch">
-                        <input
-                          data-status={TitleData.card_description?.is_active}
-                          data-active={Active}
-                          checked={Active}
-                          type="checkbox"
-                          onChange={() => handleActive()}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </>
-                  </div>
+                    </div>
+                  </>
                 ) : (
                   ""
                 )}

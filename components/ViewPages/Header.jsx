@@ -651,6 +651,7 @@ const Header = ({
             icon={faShareSquare}
             className="user-select-auto mr-2 VarColor cursor-pointer fs-18"
           />
+          {/* <img src="../static/img/share.svg" alt="image" width={20} /> */}
         </button>
         <button
           className="edit-header mr-5"
@@ -662,6 +663,11 @@ const Header = ({
             icon={faQrcode}
             className="user-select-auto mr-2 VarColor fs-20 cursor-pointer"
           />
+          {/* <img
+            src="../static/img/qr.svg"
+            alt="image"
+            width={20}
+          /> */}
         </button>
         <div className="header__left position-relative">
           <div className="header__photo">
