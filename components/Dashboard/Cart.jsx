@@ -35,7 +35,7 @@ export default function Cart({ active, handleClose, MainData }) {
         {cartItems &&
           cartItems?.map((item, index) => {
             return (
-              <div className="row cart-section">
+              <div className="row cart-section" key={index}>
                 <div className="col-sm-12 col-lg-4">
                   <img
                     src={item?.image}
@@ -76,7 +76,8 @@ export default function Cart({ active, handleClose, MainData }) {
           })}
         <div className="d-flex align-items-baseline justify-content-between mt-3">
           <p className="font-weight-bold color-black">
-            Total price: {MainData?.company_setting?.currency?.currency}{sum}
+            Total price: {MainData?.company_setting?.currency?.currency}
+            {sum}
           </p>
           <button className="contact-btn w-auto">Checkout</button>
         </div>
