@@ -29,6 +29,7 @@ export default function Cart({
 
   const [Checkout, setCheckout] = useState(false);
   const [SuccessBtn, setSuccessBtn] = useState(false);
+  const [Scanner, setScanner] = useState(false);
 
   const handleRemoveCartItem = (id) => {
     removeFromCart(id);
@@ -49,8 +50,8 @@ export default function Cart({
 
   const handleHide = () => {
     handleClose();
-    setSuccessBtn(false)
-    setCheckout(false)
+    setSuccessBtn(false);
+    setCheckout(false);
   };
 
   return (
@@ -123,18 +124,43 @@ export default function Cart({
                   )
                 );
               })}
-            <div className="d-flex align-items-baseline justify-content-between mt-3">
-              <p className="font-weight-bold color-black">
-                Total price: {MainData?.company_setting?.currency?.currency}
-                {totalPrice}
+            <div className="align-items-baseline justify-content-between mt-3">
+              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+                <p>Sub-total</p>
+                <p>
+                  {MainData?.company_setting?.currency?.currency}
+                  {totalPrice}
+                </p>
               </p>
-              <button
-                className="contact-btn w-auto"
-                onClick={() => setCheckout(true)}
-              >
-                Checkout
-              </button>
+              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+                <p>Shipping Charges </p>
+                <p>
+                  {MainData?.company_setting?.currency?.currency}
+                  0.00
+                </p>
+              </p>
+              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+                <p>Tax and other charges </p>
+                <p>
+                  {MainData?.company_setting?.currency?.currency}
+                  0.00
+                </p>
+              </p>
+
+              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+                <p>Total price </p>
+                <p>
+                  {MainData?.company_setting?.currency?.currency}
+                  {totalPrice}
+                </p>
+              </p>
             </div>
+            <button
+              className="contact-btn w-auto mt-2"
+              onClick={() => setCheckout(true)}
+            >
+              Checkout
+            </button>
           </div>
         ) : (
           <div>
@@ -169,6 +195,7 @@ export default function Cart({
                         type="number"
                         className="form-control"
                         placeholder="Phone Number"
+                        required
                       />
                     </div>
                     <input
@@ -178,11 +205,51 @@ export default function Cart({
                       required
                     />
                     <textarea
-                      className="form-control mt-3"
+                      className="form-control mt-3 mb-3"
                       placeholder="Enter Message"
                     ></textarea>
+
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="options"
+                        id="cod"
+                        defaultChecked
+                        onClick={() => setScanner(false)}
+                      />
+                      <label htmlFor="cod">Cash on delivery</label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="options"
+                        id="scanner"
+                        onClick={() => setScanner(true)}
+                      />
+                      <label htmlFor="scanner">Via Scanner</label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="options"
+                        id="mode"
+                        onClick={() => setScanner(false)}
+                      />
+                      <label htmlFor="mode">Other payment mode?</label>
+                    </div>
+
+                    {Scanner && (
+                      <p className="mt-3 font-weight-bold">
+                        *Note: You need to send a screenshot of the order to the owner
+                        via WhatsApp for confirmation.
+                      </p>
+                    )}
+
                     <button className="contact-btn w-auto mt-3" type="submit">
-                      Place Order
+                      Place your Order
                     </button>
                   </form>
                 </div>
@@ -195,7 +262,7 @@ export default function Cart({
                 />
                 <h6 className="mt-3">
                   Thank you for your order. The owner will receive your order
-                  via email and will be in touch with you shortly.
+                  and will be in touch with you shortly.
                 </h6>
               </div>
             )}

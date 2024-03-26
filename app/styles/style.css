@@ -3074,8 +3074,8 @@ button:focus {
 }
 @media (max-width: 390px) and (min-width: 360px) {
   .media-icon-div {
-    height: 43px !important;
-    width: 43px !important;
+    height: 40px !important;
+    width: 40px !important;
   }
   .contact-btn,
   .delete-button {

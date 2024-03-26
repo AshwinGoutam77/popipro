@@ -40,6 +40,7 @@ const AuthContextProvider = ({ children }) => {
     localStorage.setItem("token", info.token);
     localforage.setItem("url", info.current_url);
   };
+
   const APIDATA = async () => {
     try {
       const response = await Api(
@@ -74,7 +75,6 @@ const AuthContextProvider = ({ children }) => {
   const incrementQuantity = (productId) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId) {
-       
         return { ...item, quantity: item.quantity + 1 };
       }
       return item;
@@ -96,9 +96,9 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const calculateTotalPrice = (cartItems) => {
-    console.log(UserData);
+    // console.log(cartItems?.[0]?.card_id == (await localforage.getItem("cart_id")));
     const total = cartItems?.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+      async (acc, item) => acc + item.price * item.quantity,
       0
     );
     setTotalPrice(total);

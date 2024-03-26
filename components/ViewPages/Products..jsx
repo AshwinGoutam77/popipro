@@ -400,6 +400,7 @@ export default function Product({
 
   const cartValue = cartItems?.[0]?.card_id == MainData?.card?.id;
 
+  // localforage.setItem('cart_id',MainData?.card?.id)
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -956,16 +957,9 @@ export default function Product({
                             : "swiper-slide review-item review-item-products review-item-products-border"
                         }
                       >
-                        <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
-                          <div className="col-6 col-sm-6 col-lg-4">
+                        <div className="row d-flex justify-content-between pt-3 product-bottom-padding">
+                          <div className="col-6 col-sm-6 col-lg-4 pr-0">
                             <div className="position-relative">
-                              {/* {items?.gallery?.length ? (
-                                <span class="badge badge-primary product-images-badge">
-                                  + {items?.gallery?.length} Images
-                                </span>
-                              ) : (
-                                ""
-                              )} */}
                               {items?.image?.path ? (
                                 <picture>
                                   <source

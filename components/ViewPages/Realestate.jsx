@@ -892,7 +892,7 @@ export default function Realestate({
                     );
                   })}
 
-                {Data?.filters_amenities &&
+                {/* {Data?.filters_amenities &&
                   Data?.filters_amenities?.map((items, index) => {
                     return (
                       <SwiperSlide className="w-auto" key={index}>
@@ -911,7 +911,7 @@ export default function Realestate({
                         </div>
                       </SwiperSlide>
                     );
-                  })}
+                  })} */}
               </SwiperComponent>
 
               {EstateData?.length !== 0 ? (
