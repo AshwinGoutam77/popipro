@@ -28,6 +28,7 @@ export default function Cart({
   } = useContext(AuthContext);
 
   const [Checkout, setCheckout] = useState(false);
+  const [SuccessBtn, setSuccessBtn] = useState(false);
 
   const handleRemoveCartItem = (id) => {
     removeFromCart(id);
@@ -41,8 +42,19 @@ export default function Cart({
     decrementQuantity(id);
   };
 
+  const handleform = (e) => {
+    e.preventDefault();
+    setSuccessBtn(true);
+  };
+
+  const handleHide = () => {
+    handleClose();
+    setSuccessBtn(false)
+    setCheckout(false)
+  };
+
   return (
-    <Modal show={active} onHide={() => handleClose("")} centered>
+    <Modal show={active} onHide={() => handleHide()} centered>
       <Modal.Header>
         <Modal.Title>
           <h5 className="title title--h1 first-title title__separate mb-0">
@@ -126,38 +138,67 @@ export default function Cart({
           </div>
         ) : (
           <div>
-            <div className="d-flex align-items-center justify-content-between">
-              <p
-                onClick={() => setCheckout(false)}
-                className="font-weight-bold cursor-pointer color-black"
-              >
-                <FontAwesomeIcon icon={faChevronLeft} /> Back to cart
-              </p>
-              <p className="font-weight-bold color-black">
-                Total price: {MainData?.company_setting?.currency?.currency}
-                {totalPrice}
-              </p>
-            </div>
-            <div className="mt-4">
-              <div
-                className="d-flex align-items-center"
-                style={{ gap: "10px" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Name"
+            {!SuccessBtn ? (
+              <>
+                {" "}
+                <div className="d-flex align-items-center justify-content-between">
+                  <p
+                    onClick={() => setCheckout(false)}
+                    className="font-weight-bold cursor-pointer color-black"
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} /> Back to cart
+                  </p>
+                  <p className="font-weight-bold color-black">
+                    Total price: {MainData?.company_setting?.currency?.currency}
+                    {totalPrice}
+                  </p>
+                </div>
+                <div className="mt-4">
+                  <form onSubmit={(e) => handleform(e)}>
+                    <div
+                      className="d-flex align-items-center"
+                      style={{ gap: "10px" }}
+                    >
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Name"
+                        required
+                      />
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Phone Number"
+                      />
+                    </div>
+                    <input
+                      type="email"
+                      className="form-control mt-3"
+                      placeholder="Email"
+                      required
+                    />
+                    <textarea
+                      className="form-control mt-3"
+                      placeholder="Enter Message"
+                    ></textarea>
+                    <button className="contact-btn w-auto mt-3" type="submit">
+                      Place Order
+                    </button>
+                  </form>
+                </div>
+              </>
+            ) : (
+              <div className="text-center">
+                <img
+                  src="https://prafullgupta.com/connectwork/assets/chat/groups/2603240337156-2-success-png-image-thumb.png"
+                  alt="image"
                 />
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Phone Number"
-                />
+                <h6 className="mt-3">
+                  Thank you for your order. The owner will receive your order
+                  via email and will be in touch with you shortly.
+                </h6>
               </div>
-              <input type="text" className="form-control mt-3" placeholder="Email" />
-              <textarea className="form-control mt-3" placeholder="Enter Message"></textarea>
-              <button className="contact-btn w-auto mt-3">Place Order</button>
-            </div>
+            )}
           </div>
         )}
       </Modal.Body>
