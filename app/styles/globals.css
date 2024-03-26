@@ -1667,6 +1667,22 @@ table tbody tr:last-child {
   padding: 10px 0;
 }
 
+.cart-length {
+  position: absolute;
+  top: -5px;
+  background: var(--color);
+  border-radius: 100%;
+  width: 15px;
+  height: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 14px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

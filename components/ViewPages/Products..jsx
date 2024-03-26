@@ -398,6 +398,8 @@ export default function Product({
     TotalId.push(item?.id);
   });
 
+  const cartValue = cartItems?.[0]?.card_id == MainData?.card?.id;
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -717,6 +719,8 @@ export default function Product({
         active={CartModal == "CartModal" ? true : false}
         handleClose={setCartModal}
         MainData={MainData}
+        product={Products}
+        card_url={card_url}
       />
 
       {Titles &&
@@ -766,12 +770,17 @@ export default function Product({
                       className="color-black cursor-pointer fs-18"
                       onClick={() => handleShowSearchFilter()}
                     />
-                    {cartItems?.length !== 0 && (
-                      <FontAwesomeIcon
-                        icon={faBagShopping}
-                        className="color-black cursor-pointer fs-18"
-                        onClick={() => setCartModal("CartModal")}
-                      />
+                    {cartItems?.length !== 0 || cartValue ? (
+                      <div className="position-relative">
+                        <FontAwesomeIcon
+                          icon={faBagShopping}
+                          className="color-black cursor-pointer fs-18"
+                          onClick={() => setCartModal("CartModal")}
+                        />
+                        {/* <span className="cart-length">{cartItems?.length}</span> */}
+                      </div>
+                    ) : (
+                      ""
                     )}
                     {Search ? (
                       <div className="d-flex align-items-baseline position-relative">
@@ -1243,39 +1252,45 @@ export default function Product({
                                 </p>
                               )}
                             </div>
-                            {!TotalId.includes(items?.id) ? (
-                              <p
-                                className="VarColor mt-2 font-weight-bold cursor-pointer"
-                                onClick={() =>
-                                  handleAddToCart({
-                                    image:
-                                      process.env.NEXT_PUBLIC_MODE ==
-                                      "development"
-                                        ? "https://dev.popipro.com/" +
-                                          items.image.path
-                                        : "https://admin.popipro.com/" +
-                                          items.image.path,
-                                    name: items?.name,
-                                    price: items?.price,
-                                    currency: items.pcurrency?.currency,
-                                    id: items?.id,
-                                  })
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={faBagShopping}
-                                  className="mr-1"
-                                />{" "}
-                                Add to cart
-                              </p>
-                            ) : (
-                              <p className="VarColor mt-2 font-weight-bold cursor-pointer">
-                                <FontAwesomeIcon
-                                  icon={faBagShopping}
-                                  className="mr-1"
-                                />{" "}
-                                Product added to cart
-                              </p>
+                            {items?.price && (
+                              <div>
+                                {!TotalId.includes(items?.id) ? (
+                                  <p
+                                    className="VarColor mt-2 font-weight-bold cursor-pointer"
+                                    onClick={() =>
+                                      handleAddToCart({
+                                        image:
+                                          process.env.NEXT_PUBLIC_MODE ==
+                                          "development"
+                                            ? "https://dev.popipro.com/" +
+                                              items.image.path
+                                            : "https://admin.popipro.com/" +
+                                              items.image.path,
+                                        name: items?.name,
+                                        price: items?.price,
+                                        currency: items.pcurrency?.currency,
+                                        id: items?.id,
+                                        card_id: MainData?.card?.id,
+                                        quantity: 1,
+                                      })
+                                    }
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faBagShopping}
+                                      className="mr-1"
+                                    />{" "}
+                                    Add to cart
+                                  </p>
+                                ) : (
+                                  <p className="VarColor mt-2 font-weight-bold cursor-pointer">
+                                    <FontAwesomeIcon
+                                      icon={faBagShopping}
+                                      className="mr-1"
+                                    />{" "}
+                                    Product added to cart
+                                  </p>
+                                )}
+                              </div>
                             )}
                           </div>
                         </div>

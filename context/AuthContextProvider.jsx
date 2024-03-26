@@ -11,6 +11,8 @@ const AuthContextProvider = ({ children }) => {
   const [UserData, setUserData] = useState("");
   const [PlanData, setPlanData] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [increaseCount, setIncreaseCount] = useState(0);
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem("cartItems");
@@ -21,6 +23,11 @@ const AuthContextProvider = ({ children }) => {
 
   const addItemToCart = (item) => {
     setCartItems([...cartItems, item]);
+  };
+
+  const removeFromCart = (productId) => {
+    const newCart = cartItems.filter((item) => item.id !== productId);
+    setCartItems(newCart);
   };
 
   useEffect(() => {
@@ -63,6 +70,44 @@ const AuthContextProvider = ({ children }) => {
       }
     }
   };
+
+  const incrementQuantity = (productId) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === productId) {
+       
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    calculateTotalPrice(updatedCart);
+  };
+
+  const decrementQuantity = (productId) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === productId && item.quantity > 1) {
+        setIncreaseCount((prevCount) => prevCount - 1);
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    calculateTotalPrice(updatedCart);
+  };
+
+  const calculateTotalPrice = (cartItems) => {
+    console.log(UserData);
+    const total = cartItems?.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(total);
+  };
+
+  useEffect(() => {
+    calculateTotalPrice(cartItems);
+  }, [cartItems]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -73,6 +118,12 @@ const AuthContextProvider = ({ children }) => {
         PlanData,
         cartItems,
         addItemToCart,
+        removeFromCart,
+        incrementQuantity,
+        decrementQuantity,
+        calculateTotalPrice,
+        totalPrice,
+        increaseCount,
       }}
     >
       {children}
