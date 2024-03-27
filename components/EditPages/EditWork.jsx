@@ -731,7 +731,7 @@ export default function EditWorks({
                           AddTitle={
                             "Add " + TitleData?.card_photos?.visible_name
                           }
-                          handleShowAddModal={handleShow}
+                          handleShowAddModal={handleShowSlider}
                           setTooltipIsOpen={setTooltipIsOpen}
                           message="You can add your portfolio, business images, project
                             images etc."
