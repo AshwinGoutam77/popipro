@@ -85,7 +85,7 @@ export default function Product({
   useEffect(() => {
     setProducts(Data?.card_products);
     setCategory(Data?.product_categories);
-    localStorage?.setItem("cardId",MainData?.card?.id)
+    localStorage?.setItem("cardId", MainData?.card?.id);
   }, []);
 
   const handleCloseProduct = () => {
@@ -732,7 +732,7 @@ export default function Product({
       PlanData?.PlanData !== null ? (
         Data?.card_products?.length !== 0 &&
         Titles?.card_products?.is_active !== 0 ? (
-          <div className="box-content boxxx mb-3" id="card_products">
+          <div className="box-content boxxx" id="card_products">
             <div className="mt-0 product-section-div">
               {Search ? (
                 <div className="d-flex align-items-baseline position-relative">
@@ -957,7 +957,7 @@ export default function Product({
                             : "swiper-slide review-item review-item-products review-item-products-border"
                         }
                       >
-                        <div className="row d-flex justify-content-between pt-3 product-bottom-padding">
+                        <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
                           <div className="col-6 col-sm-6 col-lg-4 pr-0">
                             <div className="position-relative">
                               {items?.image?.path ? (
@@ -1087,23 +1087,14 @@ export default function Product({
                                 </div>
                               )}
                             </div>
-                            <div className="mt-3">
-                              {/* {items?.youtube_link ? (
-                                <span class="VarColor font-weight-bold mr-1">
-                                  1 Video
-                                </span>
-                              ) : (
-                                ""
-                              )}
-                              {items?.youtube_link && items?.gallery?.length ? (
-                                <span class="VarColor font-weight-bold mr-1">
-                                  and
-                                </span>
-                              ) : (
-                                ""
-                              )} */}
+                            <div className="mt-2 text-left">
                               {items?.gallery?.length ? (
-                                <span class="VarColor font-weight-bold text-decoration-underline">
+                                <span
+                                  class="VarColor font-weight-bold text-decoration-underline cursor-pointer"
+                                  onClick={() =>
+                                    ShowModalID(items.id, items?.name)
+                                  }
+                                >
                                   More Images
                                 </span>
                               ) : (

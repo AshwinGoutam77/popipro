@@ -28,7 +28,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
       PlanData?.is_expired == false &&
       PlanData?.subscription?.plan_id !== 1 &&
       PlanData?.subscription !== null ? (
-        <div className="mb-3 box-content boxxx mt-0" id="about_us">
+        <div className="box-content boxxx" id="about_us">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">
               {Titles?.card_alternate_phone?.visible_name}

@@ -686,7 +686,7 @@ export default function Realestate({
       PlanData?.PlanData !== null ? (
         Data?.card_realestates?.length !== 0 &&
         Titles?.card_realestates?.is_active !== 0 ? (
-          <div className="box-content boxxx mb-3 mt-0" id="card_realestates">
+          <div className="box-content boxxx" id="card_realestates">
             <div className="mt-0 product-section-div">
               {Search ? (
                 <div className="d-flex align-items-baseline position-relative">

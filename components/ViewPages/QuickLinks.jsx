@@ -26,7 +26,7 @@ const QuickLinks = ({ card, subscription, Titles }) => {
       subscription?.is_expired == false &&
       subscription?.subscription?.plan_id !== 1 &&
       subscription?.subscription !== null ? (
-        <div className="mb-3 box-content boxxx" id="about_us">
+        <div className="box-content boxxx" id="about_us">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">
               {Titles?.card_custom_url?.visible_name}

@@ -815,7 +815,7 @@ export default function EditTestimonials({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx" id="card_testimonials">
+          <div className="box-content boxxx" id="card_testimonials">
             <div className="">
               <div className="flex-header">
                 {Testimonials ? (
@@ -877,9 +877,11 @@ export default function EditTestimonials({
                               Here you can show testimonials, reviews, feedbacks
                               etc. Make sure to tick the get review button.
                             </div>
-                            <FontAwesomeIcon
-                              icon={faInfo}
-                              className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            <img
+                              src="../static/img/info.svg"
+                              alt="image"
+                              width={18}
+                              className="mr-2 cursor-pointer"
                               onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                             />
                           </div>

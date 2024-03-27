@@ -537,7 +537,7 @@ code {
     /* height: 300px; */
     padding: 20px 43px;
     color: white;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
   }
 }
 .footer-slider {
@@ -1684,6 +1684,10 @@ table tbody tr:last-child {
   font-weight: bold;
 }
 
+.services-swiper-slider {
+  padding: 0 16px 16px 16px !important;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -1735,6 +1739,9 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .services-swiper-slider {
+    padding: 0 !important;
+  }
   #card_description {
     margin-top: 0;
   }

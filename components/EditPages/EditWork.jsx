@@ -605,7 +605,7 @@ export default function EditWorks({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx" id="card_photos">
+          <div className="box-content boxxx" id="card_photos">
             <div className="pb-2 flex-header">
               <div className="d-flex align-items-baseline">
                 {EditFields ? (
@@ -645,9 +645,11 @@ export default function EditWorks({
                             You can add your portfolio, business images, project
                             images etc.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>
@@ -921,7 +923,7 @@ export default function EditWorks({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx" id="work">
+          <div className="box-content boxxx" id="work">
             {/* <!-- Videos-slider --> */}
             <div className="pb-0 flex-header mt-0">
               <div className="d-flex align-items-baseline">
@@ -961,9 +963,11 @@ export default function EditWorks({
                             Add videos and links to your youtube and other
                             social media videos link.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>
@@ -1038,8 +1042,7 @@ export default function EditWorks({
                           handleActive={handleActive}
                           setEditFields={setEditVideoFields}
                           AddTitle={
-                            "Add " +
-                            TitleData?.card_videos?.visible_name
+                            "Add " + TitleData?.card_videos?.visible_name
                           }
                           handleShowAddModal={handleShow}
                           setTooltipIsOpen={setTooltipIsOpen}

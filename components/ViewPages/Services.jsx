@@ -13,7 +13,7 @@ const Services = ({ Titles, card, subscription }) => {
       subscription?.is_expired == false &&
       subscription?.subscription?.plan_id !== 1 &&
       subscription?.subscription !== null ? (
-        <div className="box-content boxxx mb-3" id="card_services">
+        <div className="box-content boxxx" id="card_services">
           {/* <!-- What --> */}
           {Titles &&
           Titles?.card_services.is_active &&
@@ -38,7 +38,7 @@ const Services = ({ Titles, card, subscription }) => {
                     },
                   }}
                   spaceBetween={20}
-                  className="mySwiper w-100 pb-0 cursor-pointer"
+                  className="mySwiper w-100 pb-0 cursor-pointer services-swiper-slider"
                   pagination={{
                     clickable: true,
                   }}

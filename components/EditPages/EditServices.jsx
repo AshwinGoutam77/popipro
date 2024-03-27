@@ -742,7 +742,7 @@ export default function EditDoing({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx" id="card_services">
+          <div className="box-content boxxx" id="card_services">
             <div className="mt-0">
               <div className="flex-header">
                 {WhatIm ? (
@@ -800,9 +800,11 @@ export default function EditDoing({
                               service descriptions, links and any additional
                               information.
                             </div>
-                            <FontAwesomeIcon
-                              icon={faInfo}
-                              className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            <img
+                              src="../static/img/info.svg"
+                              alt="image"
+                              width={18}
+                              className="mr-2 cursor-pointer"
                               onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                             />
                           </div>

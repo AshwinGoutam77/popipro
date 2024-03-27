@@ -496,10 +496,16 @@ export default function Dashboard() {
                     className="w-100  text-decoration-none"
                   >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faUser}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
+                      /> */}
+                      <img
+                        src="../static/img/edit-profile.svg"
+                        alt="image"
+                        width={20}
+                        className="text-white mb-2"
                       />
                       <h6 className="text-white text-center mb-0">
                         Edit Profile
@@ -666,10 +672,16 @@ export default function Dashboard() {
                       ) : (
                         ""
                       )}
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faMessage}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
+                      /> */}
+                      <img
+                        src="../static/img/notification.svg"
+                        alt="image"
+                        width={20}
+                        style={{ transform: "rotate(-45deg)" }}
                       />
                       <h6 className="text-white text-center mb-0">
                         Notification
@@ -708,6 +720,11 @@ export default function Dashboard() {
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
                         />
+                        {/* <img
+                          src="../static/img/approve-review.svg"
+                          alt="image"
+                          width={20}
+                        /> */}
                         <h6 className="text-white text-center mb-0">
                           Approve Review
                         </h6>
@@ -741,10 +758,15 @@ export default function Dashboard() {
                         ) : (
                           ""
                         )}
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faEnvelope}
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
+                        /> */}
+                        <img
+                          src="../static/img/email-signature.svg"
+                          alt="image"
+                          width={20}
                         />
                         <h6 className="text-white text-center mb-0">
                           Email Signature
@@ -781,10 +803,15 @@ export default function Dashboard() {
                         ) : (
                           ""
                         )}
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faImage}
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
+                        /> */}
+                        <img
+                          src="../static/img/virtual-bg.svg"
+                          alt="image"
+                          width={20}
                         />
                         <h6 className="text-white text-center mb-0">
                           Virtual Background
@@ -982,10 +1009,16 @@ export default function Dashboard() {
                         ""
                       )}
                       <>
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faChartSimple}
                           className="text-white mb-2"
                           style={{ fontSize: "20px" }}
+                        /> */}
+                        <img
+                          src="../static/img/analytics.svg"
+                          alt="image"
+                          width={20}
+                          className="text-white mb-2"
                         />
                         <h6 className="text-white text-center mb-0">
                           Overall Analytics

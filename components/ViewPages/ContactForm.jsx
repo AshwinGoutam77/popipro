@@ -171,7 +171,7 @@ export default function ContactForm({
         PlanData?.is_expired == false &&
         PlanData?.subscription?.plan_id !== 1 &&
         PlanData?.subscription !== null) ? (
-        <div className="mt-3 box-content boxxx" id="card_booking">
+        <div className="box-content boxxx" id="card_booking">
           <div className="pb-2">
             <h3 className="title title--h1 first-title title__separate">
               {Titles && Titles.card_booking?.visible_name}

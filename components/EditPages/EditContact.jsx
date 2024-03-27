@@ -265,7 +265,7 @@ export default function EditContact({
             ""
           )}
 
-          <div className="mb-3 box-content boxxx" id="about_us">
+          <div className="box-content boxxx" id="about_us">
             <div className="flex-header">
               <div className="d-flex align-items-baseline">
                 {EditFields ? (
@@ -298,9 +298,11 @@ export default function EditContact({
                             Use this section to incorporate for appointment
                             booking.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-4 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-4 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>

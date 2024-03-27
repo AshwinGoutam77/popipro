@@ -134,6 +134,7 @@ export default function Cart({
                   )
                 );
               })}
+
             <div className="align-items-baseline justify-content-between mt-3">
               <p className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Sub-total</p>

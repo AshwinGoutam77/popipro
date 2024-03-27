@@ -16,7 +16,7 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
       PlanData?.is_expired == false &&
       PlanData?.subscription?.plan_id !== 1 &&
       PlanData?.subscription !== null ? (
-        <section className="box-content boxxx mb-3">
+        <section className="box-content boxxx">
           {/* <!-- Clients --> */}
           {Titles &&
           Titles?.card_clients.is_active &&

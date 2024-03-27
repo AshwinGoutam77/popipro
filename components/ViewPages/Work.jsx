@@ -35,7 +35,9 @@ const Work = ({
 
   const LoadMoreFunction = async () => {
     const response = await fetch(
-      `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_videos&current_page=${Page} `,
+      process.env.NEXT_PUBLIC_MODE == "development"
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_videos&current_page=${Page} `
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_videos&current_page=${Page} `,
       {
         method: "GET",
         cache: "no-cache",
@@ -94,7 +96,7 @@ const Work = ({
       {Card_photos?.length !== 0 &&
       Titles?.card_photos?.is_active !== 0 &&
       PlanData?.is_expired == false ? (
-        <div className="mt-3 box-content boxxx" id="card_photos">
+        <div className="box-content boxxx" id="card_photos">
           {Titles && Titles?.card_photos?.is_active ? (
             <div>
               <div className="pb-2">
@@ -202,7 +204,7 @@ const Work = ({
       Titles?.card_videos?.source !== 0 &&
       Titles?.card_videos?.is_active !== 0 &&
       PlanData?.is_expired == false ? (
-        <div className="mt-3 box-content boxxx">
+        <div className="box-content boxxx">
           {Titles && Titles?.card_videos?.is_active ? (
             <>
               <div>
@@ -243,7 +245,7 @@ const Work = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex-edit-class" style={{gap:'12px'}}>
+                  <div className="flex-edit-class" style={{ gap: "12px" }}>
                     {Card_videos &&
                       Card_videos.map((video, i) => {
                         function getId(url) {

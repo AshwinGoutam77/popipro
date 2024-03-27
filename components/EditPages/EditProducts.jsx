@@ -110,10 +110,12 @@ export default function EditProducts({
     handleProductShow();
     setModalId(id);
   };
+
   useEffect(() => {
     setProductTitle(TitleData?.card_products?.visible_name);
     setCategory(Data?.product_categories);
   }, []);
+
   useEffect(() => {
     setActive(TitleData?.card_products?.is_active == "1" ? true : false);
   }, [TitleData]);
@@ -870,7 +872,7 @@ export default function EditProducts({
               onChange={(e) => setImage(e.target.files[0])}
             />
             <label className="modalFormLable">
-              Upload Gallery Images (*Recommended Size 150*150)
+              Upload Gallery Images (Upto 3 Images only)
             </label>
             <input
               type="file"
@@ -1555,7 +1557,7 @@ export default function EditProducts({
             ) : (
               ""
             )}
-            <div className="mt-3 box-content boxxx mb-3" id="card_products">
+            <div className="box-content boxxx mb-3" id="card_products">
               <div className="pb-2 flex-header">
                 <div className="d-flex align-items-baseline">
                   {EditFields ? (
@@ -1594,9 +1596,11 @@ export default function EditProducts({
                               Here you can manage services, products, advisory,
                               packages...
                             </div>
-                            <FontAwesomeIcon
-                              icon={faInfo}
-                              className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                            <img
+                              src="../static/img/info.svg"
+                              alt="image"
+                              width={18}
+                              className="mr-2 cursor-pointer"
                               onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                             />
                           </div>

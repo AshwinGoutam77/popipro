@@ -1332,10 +1332,9 @@ input[type="radio" i] {
 }
 
 .socail-media-add-div {
-  /* border: 1px solid #ccc; */
   border-radius: 20px;
   padding: 5px 10px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 .socail-media-add-div div {

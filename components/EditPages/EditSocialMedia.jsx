@@ -461,9 +461,11 @@ function EditLinks({
                           Link Your Social Media Handles. Please Fill The
                           Complete URL of your Profile.
                         </div>
-                        <FontAwesomeIcon
-                          icon={faInfo}
-                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                        <img
+                          src="../static/img/info.svg"
+                          alt="image"
+                          width={18}
+                          className="mr-2 cursor-pointer"
                           onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                         />
                       </div>

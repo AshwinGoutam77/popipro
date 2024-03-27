@@ -223,7 +223,7 @@ const Testimonials = ({
       subscription?.is_expired == false &&
       subscription?.subscription?.plan_id !== 1 &&
       subscription?.subscription !== null ? (
-        <div className="box-content boxxx mb-3" id="card_testimonials">
+        <div className="box-content boxxx" id="card_testimonials">
           {/* <!-- Testimonials --> */}
           {Titles &&
           Titles.card_testimonials.is_active &&

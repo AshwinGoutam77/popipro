@@ -875,7 +875,7 @@ export default function EditBlogs({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx mb-3" id="card_blogs">
+          <div className="box-content boxxx" id="card_blogs">
             <div className="pb-2 flex-header">
               <div className="d-flex align-items-baseline">
                 {EditFields ? (
@@ -917,9 +917,11 @@ export default function EditBlogs({
                             Add your latest insights, updates, and thoughts
                             through your blog.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>

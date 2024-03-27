@@ -507,7 +507,7 @@ export default function EditAlternateNo({
           ) : (
             ""
           )}
-          <div className="mb-3 box-content boxxx sm-mt-0" id="about_us">
+          <div className="box-content boxxx sm-mt-0" id="about_us">
             <div className="flex-header">
               <div className="d-flex align-items-baseline">
                 {EditFields ? (
@@ -540,9 +540,11 @@ export default function EditAlternateNo({
                             Please add any relevant phone numbers, including
                             WhatsApp, Skype, and contact numbers.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>

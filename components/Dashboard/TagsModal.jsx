@@ -145,19 +145,19 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
                           {EditCategory && CategoryId === items?.id ? (
                             <FontAwesomeIcon
                               icon={faSave}
-                              className="mr-4 cursor-pointer"
+                              className="mr-4 cursor-pointer color-black"
                               onClick={() => handleUpdateCategory(items?.id)}
                             />
                           ) : (
                             <FontAwesomeIcon
                               icon={faPencil}
-                              className="mr-4 cursor-pointer"
+                              className="mr-4 cursor-pointer color-black"
                               onClick={() => handleSaveCategory(items?.id)}
                             />
                           )}
                           <FontAwesomeIcon
                             icon={faTrash}
-                            className="cursor-pointer"
+                            className="cursor-pointer color-black"
                             onClick={() => handleDelteCategry(items?.id)}
                           />
                         </div>

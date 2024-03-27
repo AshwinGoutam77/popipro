@@ -26,7 +26,7 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
     <>
       {Titles?.card_social_links?.source !== 0 &&
       card.card_social_links?.length !== 0 ? (
-        <div className="box-content boxxx mb-3 mt-0">
+        <div className="box-content boxxx">
           <h2 className="title title--h1 first-title title__separate">
             {Titles?.card_social_links?.visible_name}
           </h2>

@@ -733,7 +733,7 @@ export default function EditResume({
           ) : (
             ""
           )}
-          <div className="mt-3 box-content boxxx" id="card_experience">
+          <div className="box-content boxxx" id="card_experience">
             {/* <!-- Experience --> */}
             <div className="row">
               <div className="col-12">
@@ -777,9 +777,11 @@ export default function EditResume({
                                 your past roles, responsibilities, achievements,
                                 and notable projects to showcase your expertise.
                               </div>
-                              <FontAwesomeIcon
-                                icon={faInfo}
-                                className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                              <img
+                                src="../static/img/info.svg"
+                                alt="image"
+                                width={18}
+                                className="mr-2 cursor-pointer"
                                 onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                               />
                             </div>

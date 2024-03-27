@@ -465,7 +465,7 @@ export default function EditCustomLink({
           ) : (
             ""
           )}
-          <div className="mb-3 box-content boxxx" id="about_us">
+          <div className="box-content boxxx" id="about_us">
             <div className="flex-header">
               <div className="d-flex align-items-baseline">
                 {EditFields ? (
@@ -498,9 +498,11 @@ export default function EditCustomLink({
                             Enter URLs such as your LinkedIn profile, personal
                             website, or any other relevant online presence.
                           </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="mr-1 pe-auto Iconcolor-black cursor-pointer"
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>

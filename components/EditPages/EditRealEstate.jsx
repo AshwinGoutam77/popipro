@@ -1591,7 +1591,7 @@ export default function EditRealEstate({
         ) : (
           ""
         )}
-        <div className="box-content boxxx mb-3 mt-0" id="card_realestates">
+        <div className="box-content boxxx" id="card_realestates">
           <div className="pb-0 pb-sm-2">
             <div className="flex-header">
               {EditFields ? (
@@ -1622,9 +1622,11 @@ export default function EditRealEstate({
                           Use this section as upload and show your property for
                           the sell.
                         </div>
-                        <FontAwesomeIcon
-                          icon={faInfo}
-                          className="mr-2 pe-auto Iconcolor-black cursor-pointer"
+                        <img
+                          src="../static/img/info.svg"
+                          alt="image"
+                          width={18}
+                          className="mr-2 cursor-pointer"
                           onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                         />
                       </div>

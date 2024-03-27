@@ -326,7 +326,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
       </Modal>
 
       {TitleData?.card_description?.source !== 0 ? (
-        <div className="mb-3 box-content boxxx" id="card_description">
+        <div className="box-content boxxx" id="card_description">
           <div className="flex-header">
             <div className="d-flex align-items-baseline">
               {TextArea ? (
@@ -372,9 +372,16 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                             Share a brief overview of your professional
                             background and expertise.
                           </div>
-                          <FontAwesomeIcon
+                          {/* <FontAwesomeIcon
                             icon={faInfo}
                             className="mr-4 pe-auto Iconcolor-black cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          /> */}
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-4 cursor-pointer"
                             onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
                           />
                         </div>
@@ -409,7 +416,10 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                         Active={Active}
                         handleActive={handleActive}
                         setEditFields={""}
-                        AddTitle={"Add / Edit "+TitleData?.card_description?.visible_name}
+                        AddTitle={
+                          "Add / Edit " +
+                          TitleData?.card_description?.visible_name
+                        }
                         handleShowAddModal={handleEditAboutt}
                         setTooltipIsOpen={setTooltipIsOpen}
                         message="Share a brief overview of your professional background and expertise."

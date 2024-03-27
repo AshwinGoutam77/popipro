@@ -10,7 +10,7 @@ const Resume = ({ Titles, subscription, card_experience }) => {
       subscription?.subscription !== null ? (
         card_experience?.length !== 0 && Titles?.card_experience?.is_active !== 0 ? (
           <div>
-            <div className="mt-3 box-content boxxx" id="card_experience">
+            <div className="box-content boxxx" id="card_experience">
               <div className="pb-2">
                 <h3 className="title title--h1 first-title title__separate">
                   {Titles && Titles.card_experience.visible_name}
