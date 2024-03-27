@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, createRef } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRight,
   faBuilding,
   faChevronRight,
   faEnvelope,
@@ -712,18 +713,24 @@ function EditHeader({
                   className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faEnvelope}
                       className="user-select-auto mr-3"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
+                    /> */}
+                    <img
+                      src="../static/img/mail-dark.svg"
+                      alt="image"
+                      width={14}
+                      className="mr-2"
                     />
                     {Data && Data.card_email}
                   </div>
                   <FontAwesomeIcon
-                    icon={faChevronRight}
+                    icon={faArrowRight}
                     className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
@@ -750,13 +757,19 @@ function EditHeader({
                   // style={{ marginLeft: "5px" }}
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faPhoneAlt}
                       className="user-select-auto mr-3"
                       style={{
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
+                    /> */}
+                    <img
+                      src="../static/img/phone-dark.svg"
+                      alt="image"
+                      width={14}
+                      className="mr-2"
                     />
                     {Data &&
                     Data.contact_country_code &&
@@ -771,7 +784,7 @@ function EditHeader({
                       : Data?.card_contact}
                   </div>
                   <FontAwesomeIcon
-                    icon={faChevronRight}
+                    icon={faArrowRight}
                     className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
@@ -797,7 +810,7 @@ function EditHeader({
                   className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                 >
                   <div className="align-div">
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faMapMarkerAlt}
                       className="user-select-auto"
                       style={{
@@ -805,11 +818,17 @@ function EditHeader({
                         fontSize: "15px",
                         transform: "rotateY(180deg)",
                       }}
+                    /> */}
+                    <img
+                      src="../static/img/location-dark.svg"
+                      alt="image"
+                      width={10}
+                      className="mr-2"
                     />
                     {Data && Data?.card_address}
                   </div>
                   <FontAwesomeIcon
-                    icon={faChevronRight}
+                    icon={faArrowRight}
                     className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
@@ -835,7 +854,7 @@ function EditHeader({
                     <p className="text-dark m-0">{Data?.card_name}</p>
                   </div>
                   <FontAwesomeIcon
-                    icon={faChevronRight}
+                    icon={faArrowRight}
                     className="user-select-auto mr-2"
                     style={{
                       fontSize: "15px",
@@ -861,13 +880,19 @@ function EditHeader({
                     className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
                   >
                     <div className="align-div">
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faLink}
                         className="user-select-auto mr-3"
                         style={{
                           fontSize: "15px",
                           transform: "rotateY(180deg)",
                         }}
+                      /> */}
+                      <img
+                        src="../static/img/website.svg"
+                        alt="image"
+                        width={14}
+                        className="mr-2"
                       />
                       {Data &&
                       Data?.card_website &&
@@ -878,7 +903,7 @@ function EditHeader({
                       {/* </a> */}
                     </div>
                     <FontAwesomeIcon
-                      icon={faChevronRight}
+                      icon={faArrowRight}
                       className="user-select-auto mr-2"
                       style={{
                         fontSize: "15px",

@@ -85,6 +85,7 @@ export default function Product({
   useEffect(() => {
     setProducts(Data?.card_products);
     setCategory(Data?.product_categories);
+    localStorage?.setItem("cardId",MainData?.card?.id)
   }, []);
 
   const handleCloseProduct = () => {
@@ -778,7 +779,6 @@ export default function Product({
                           className="color-black cursor-pointer fs-18"
                           onClick={() => setCartModal("CartModal")}
                         />
-                        {/* <span className="cart-length">{cartItems?.length}</span> */}
                       </div>
                     ) : (
                       ""

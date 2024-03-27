@@ -25,6 +25,11 @@ export default function Cart({
     incrementQuantity,
     increaseCount,
     totalPrice,
+    clearCart,
+    incrementPrice,
+    decrementPrice,
+    incrementCount,
+    decrementCount,
   } = useContext(AuthContext);
 
   const [Checkout, setCheckout] = useState(false);
@@ -54,6 +59,11 @@ export default function Cart({
     setCheckout(false);
   };
 
+  const handleClearCart = () => {
+    clearCart();
+    handleClose();
+  };
+
   return (
     <Modal show={active} onHide={() => handleHide()} centered>
       <Modal.Header>
@@ -63,7 +73,7 @@ export default function Cart({
           </h5>
         </Modal.Title>
 
-        <button type="button" className="close" onClick={() => handleClose("")}>
+        <button type="button" className="close" onClick={() => handleHide()}>
           <span aria-hidden="true">×</span>
           <span className="sr-only">Close alert</span>
         </button>
@@ -77,14 +87,14 @@ export default function Cart({
                 return (
                   item?.card_id === MainData?.card?.id && (
                     <div className="row cart-section" key={index}>
-                      <div className="col-sm-12 col-lg-4">
+                      <div className="col-4">
                         <img
                           src={item?.image}
                           alt="cart"
                           style={{ borderRadius: "10px" }}
                         />
                       </div>
-                      <div className="col-sm-12 col-lg-8">
+                      <div className="col-8">
                         <div className="d-flex align-items-center justify-content-between">
                           <h6 className="mb-0 color-black">{item?.name}</h6>
                           <p className="font-weight-bold color-black">
@@ -108,7 +118,7 @@ export default function Cart({
                               onClick={() => handleDecrement(item?.id)}
                             />{" "}
                             <p className="mx-2 font-weight-bold color-black">
-                              {}
+                              {/* {incrementCount} */}
                             </p>
                             <FontAwesomeIcon
                               icon={faPlusCircle}
@@ -155,12 +165,20 @@ export default function Cart({
                 </p>
               </p>
             </div>
-            <button
-              className="contact-btn w-auto mt-2"
-              onClick={() => setCheckout(true)}
-            >
-              Checkout
-            </button>
+            <div className="d-flex align-items-center">
+              <button
+                className="contact-btn w-auto mt-2"
+                onClick={() => setCheckout(true)}
+              >
+                Checkout
+              </button>
+              <button
+                className="contact-btn w-auto mt-2 ml-2"
+                onClick={() => handleClearCart()}
+              >
+                Clear Cart
+              </button>
+            </div>
           </div>
         ) : (
           <div>
@@ -243,8 +261,8 @@ export default function Cart({
 
                     {Scanner && (
                       <p className="mt-3 font-weight-bold">
-                        *Note: You need to send a screenshot of the order to the owner
-                        via WhatsApp for confirmation.
+                        *Note: You need to send a screenshot of the order to the
+                        owner via WhatsApp for confirmation.
                       </p>
                     )}
 

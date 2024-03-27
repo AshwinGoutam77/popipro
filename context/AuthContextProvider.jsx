@@ -13,11 +13,17 @@ const AuthContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [increaseCount, setIncreaseCount] = useState(0);
+  const [incrementCount, setIncrementCount] = useState(1);
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem("cartItems");
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
+    }
+
+    const storedIncrementCount = localStorage.getItem("incrementCount");
+    if (storedIncrementCount) {
+      setIncrementCount(parseInt(storedIncrementCount));
     }
   }, []);
 
@@ -79,6 +85,7 @@ const AuthContextProvider = ({ children }) => {
       }
       return item;
     });
+
     setCartItems(updatedCart);
     calculateTotalPrice(updatedCart);
   };
@@ -86,7 +93,8 @@ const AuthContextProvider = ({ children }) => {
   const decrementQuantity = (productId) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId && item.quantity > 1) {
-        setIncreaseCount((prevCount) => prevCount - 1);
+        setIncrementCount(incrementCount - 1);
+        localStorage.setItem("incrementCount", incrementCount - 1);
         return { ...item, quantity: item.quantity - 1 };
       }
       return item;
@@ -96,9 +104,10 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const calculateTotalPrice = (cartItems) => {
-    // console.log(cartItems?.[0]?.card_id == (await localforage.getItem("cart_id")));
     const total = cartItems?.reduce(
-      async (acc, item) => acc + item.price * item.quantity,
+      (acc, item) =>
+        // item?.card_id == localStorage.getItem("cardId") &&
+        acc + item.price * item.quantity,
       0
     );
     setTotalPrice(total);
@@ -107,6 +116,11 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     calculateTotalPrice(cartItems);
   }, [cartItems]);
+
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
 
   return (
     <AuthContext.Provider
@@ -124,6 +138,8 @@ const AuthContextProvider = ({ children }) => {
         calculateTotalPrice,
         totalPrice,
         increaseCount,
+        clearCart,
+        incrementCount,
       }}
     >
       {children}

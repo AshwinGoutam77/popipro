@@ -999,7 +999,7 @@ export default function EditProducts({
                 ></input>
               </div>
               <div className="w-100">
-                <label className="modalFormLable">Url / Links</label>
+                <label className="modalFormLable">URL / Links</label>
                 <input
                   name="url"
                   rows="4"
@@ -1813,7 +1813,7 @@ export default function EditProducts({
                                 )} */}
                                 {items?.gallery?.length ? (
                                   <span class="VarColor font-weight-bold text-decoration-underline">
-                                   More Images
+                                    More Images
                                   </span>
                                 ) : (
                                   ""
