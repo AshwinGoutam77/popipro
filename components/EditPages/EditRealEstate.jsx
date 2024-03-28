@@ -1353,7 +1353,7 @@ export default function EditRealEstate({
                 </div>
               </div> */}
 
-              <div className="d-flex align-items-center gap-2 mt-2 mb-4">
+              <div className="d-flex align-items-baseline gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">
                     Built Up Area* (SQM/ Yard/ Feet)
@@ -1385,7 +1385,7 @@ export default function EditRealEstate({
                   ></input>
                 </div>
               </div>
-              <div className="d-flex align-items-center gap-2 mt-2 mb-4">
+              <div className="d-flex align-items-baseline gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">
                     Property Size (SQM/ Yard/ Feet)
