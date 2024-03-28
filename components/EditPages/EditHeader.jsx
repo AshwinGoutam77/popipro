@@ -200,6 +200,7 @@ function EditHeader({
       setShow(false);
     }
   };
+
   const editHandler = async () => {
     handleShow();
     setShow(true);
@@ -407,7 +408,7 @@ function EditHeader({
                   <select
                     className="form-control mt-2"
                     onChange={(e) => setCountryCode(e.target.value)}
-                    defaultValue={CountryCode}
+                    value={CountryCode}
                     style={{ height: "45px", width: "50%" }}
                     disabled
                   >
@@ -416,7 +417,7 @@ function EditHeader({
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
                           <option value={item?.value} key={index}>
-                            {item?.name + ": " + item?.value}
+                            {item?.value + "-" + item?.name}
                           </option>
                         );
                       })}
@@ -494,7 +495,7 @@ function EditHeader({
                       MainData?.countrycode_listing?.map((item, index) => {
                         return (
                           <option value={item?.value} key={index}>
-                            {item?.name + ": " + item?.value}
+                            {item?.value + "-" + item?.name}
                           </option>
                         );
                       })}

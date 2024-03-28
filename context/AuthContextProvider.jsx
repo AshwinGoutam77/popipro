@@ -87,7 +87,7 @@ const AuthContextProvider = ({ children }) => {
     });
 
     setCartItems(updatedCart);
-    calculateTotalPrice(updatedCart);
+    // calculateTotalPrice(updatedCart);
   };
 
   const decrementQuantity = (productId) => {
@@ -100,22 +100,8 @@ const AuthContextProvider = ({ children }) => {
       return item;
     });
     setCartItems(updatedCart);
-    calculateTotalPrice(updatedCart);
+    // calculateTotalPrice(updatedCart);
   };
-
-  const calculateTotalPrice = (cartItems) => {
-    const total = cartItems?.reduce(
-      (acc, item) =>
-        // item?.card_id == localStorage.getItem("cardId") &&
-        acc + item.price * item.quantity,
-      0
-    );
-    setTotalPrice(total);
-  };
-
-  useEffect(() => {
-    calculateTotalPrice(cartItems);
-  }, [cartItems]);
 
   const clearCart = () => {
     setCartItems([]);
@@ -135,7 +121,6 @@ const AuthContextProvider = ({ children }) => {
         removeFromCart,
         incrementQuantity,
         decrementQuantity,
-        calculateTotalPrice,
         totalPrice,
         increaseCount,
         clearCart,

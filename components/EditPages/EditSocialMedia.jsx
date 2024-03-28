@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
+  faCircleCheck,
   faCircleInfo,
   faFloppyDisk,
   faInfo,
   faMinusCircle,
+  faPenToSquare,
   faPencil,
   faPlus,
   faXmarkCircle,

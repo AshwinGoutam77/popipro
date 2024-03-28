@@ -529,33 +529,31 @@ export default function Realestate({
                             </button>
                           </a>
                         )}
-                        {Data?.whatsapp_number && (
-                          <a
-                            href={
-                              "https://api.whatsapp.com/send?phone=" +
-                              Data?.whatsapp_number +
-                              "&" +
-                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.heading}?`
-                            }
-                            target="_blank"
-                            className="w-30px"
-                          >
-                            <button className="contact-btn w-100 m-0">
-                              <img
-                                src="../static/img/whatsapp.svg"
-                                alt="image"
-                                width={14}
-                                className="mr-1"
-                              />
-                              WhatsApp
-                            </button>
-                          </a>
-                        )}
-                        {/* </div> */}
-                        {/* <div
-                        className="d-flex align-items-center justify-content-center mt-2"
-                        style={{ gap: "10px" }}
-                      > */}
+
+                        {Data?.whatsapp_number &&
+                          MainData?.company_setting
+                            ?.show_realestate_wp_button !== 0 && (
+                            <a
+                              href={
+                                "https://api.whatsapp.com/send?phone=" +
+                                Data?.whatsapp_number +
+                                "&" +
+                                `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.heading}?`
+                              }
+                              target="_blank"
+                              className="w-30px"
+                            >
+                              <button className="contact-btn w-100 m-0">
+                                <img
+                                  src="../static/img/whatsapp.svg"
+                                  alt="image"
+                                  width={14}
+                                  className="mr-1"
+                                />
+                                WhatsApp
+                              </button>
+                            </a>
+                          )}
                         <button className="contact-btn w-30px m-0">
                           <img
                             src="../static/img/phone.svg"
@@ -565,18 +563,23 @@ export default function Realestate({
                           />
                           Contact Agent
                         </button>
-                        <button
-                          className="contact-btn w-30px m-0"
-                          onClick={() => handleShowModalEnquiry(items?.heading)}
-                        >
-                          <img
-                            src="../static/img/mail.svg"
-                            alt="image"
-                            width={14}
-                            className="mr-1"
-                          />
-                          Email
-                        </button>
+                        {MainData?.company_setting
+                          ?.show_realestate_enquiry_button !== 0 && (
+                          <button
+                            className="contact-btn w-30px m-0"
+                            onClick={() =>
+                              handleShowModalEnquiry(items?.heading)
+                            }
+                          >
+                            <img
+                              src="../static/img/mail.svg"
+                              alt="image"
+                              width={14}
+                              className="mr-1"
+                            />
+                            Email
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1099,35 +1102,42 @@ export default function Realestate({
                             className="d-flex flex-wrap"
                             style={{ gap: "10px" }}
                           >
-                            <a
-                              href={
-                                "https://api.whatsapp.com/send?phone=" +
-                                "9874563210" +
-                                "&" +
-                                `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
-                              }
-                              target="_blank"
-                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
-                            >
-                              <img
-                                src="../static/img/whatsapp.png"
-                                alt="whatsaap"
-                                className="Whatsaapsvg"
-                              />
-                            </a>
-                            <span
-                              data-toggle="modal"
-                              data-target="#ProductEnquireModal"
-                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                              onClick={() =>
-                                handleShowEnquiry(items?.id, items?.heading)
-                              }
-                            >
-                              <FontAwesomeIcon
-                                icon={faEnvelope}
-                                className="user-select-auto"
-                              />
-                            </span>
+                            {Data?.whatsapp_number &&
+                              MainData?.company_setting
+                                ?.show_realestate_wp_button !== 0 && (
+                                <a
+                                  href={
+                                    "https://api.whatsapp.com/send?phone=" +
+                                    Data?.whatsapp_number +
+                                    "&" +
+                                    `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ....?`
+                                  }
+                                  target="_blank"
+                                  className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
+                                >
+                                  <img
+                                    src="../static/img/whatsapp.png"
+                                    alt="whatsaap"
+                                    className="Whatsaapsvg"
+                                  />
+                                </a>
+                              )}
+                            {MainData?.company_setting
+                              ?.show_realestate_enquiry_button !== 0 && (
+                              <span
+                                data-toggle="modal"
+                                data-target="#ProductEnquireModal"
+                                className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                onClick={() =>
+                                  handleShowEnquiry(items?.id, items?.heading)
+                                }
+                              >
+                                <FontAwesomeIcon
+                                  icon={faEnvelope}
+                                  className="user-select-auto"
+                                />
+                              </span>
+                            )}
                             {items?.google_address_link !== null ? (
                               <a
                                 href={items?.google_address_link}

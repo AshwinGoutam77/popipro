@@ -37,7 +37,13 @@ export default function EditDropdown({
 
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          <FontAwesomeIcon icon={faEllipsisVertical} />
+          {/* <FontAwesomeIcon icon={faEllipsisVertical} /> */}
+          <img
+            src="../static/img/nine-dots.svg"
+            alt="image"
+            width={16}
+            className="cursor-pointer"
+          />
         </Dropdown.Toggle>
 
         <Dropdown.Menu>

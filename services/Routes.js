@@ -123,3 +123,7 @@ export const DeleteAmenities = {
   path: "delete-realestate-amenities",
   method: "DELETE",
 };
+export const ToogleRealEstateBtn = {
+  path: "toggle-realestate-button",
+  method: "GET",
+};

@@ -892,7 +892,7 @@ export default function EditResume({
                             </h5>
                             <p
                               id="p_wrap"
-                              className="timeline__description"
+                              className="timeline__description content_description"
                               dangerouslySetInnerHTML={{
                                 __html: item.description,
                               }}

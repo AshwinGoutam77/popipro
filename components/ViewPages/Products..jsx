@@ -395,13 +395,14 @@ export default function Product({
   };
 
   let TotalId = [];
+  let TotalCard_id = [];
   cartItems?.forEach((item) => {
     TotalId.push(item?.id);
+    TotalCard_id.push(item?.card_id);
   });
 
-  const cartValue = cartItems?.[0]?.card_id == MainData?.card?.id;
+  const cartValue = TotalCard_id?.includes(MainData?.card?.id);
 
-  // localforage.setItem('cart_id',MainData?.card?.id)
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -723,6 +724,7 @@ export default function Product({
         MainData={MainData}
         product={Products}
         card_url={card_url}
+        cartId={MainData?.card?.id}
       />
 
       {Titles &&
@@ -772,7 +774,7 @@ export default function Product({
                       className="color-black cursor-pointer fs-18"
                       onClick={() => handleShowSearchFilter()}
                     />
-                    {cartItems?.length !== 0 || cartValue ? (
+                    {cartItems?.length !== 0 && cartValue ? (
                       <div className="position-relative">
                         <FontAwesomeIcon
                           icon={faBagShopping}
@@ -1087,7 +1089,7 @@ export default function Product({
                                 </div>
                               )}
                             </div>
-                            <div className="mt-2 text-left">
+                            <div className="mt-3 text-left">
                               {items?.gallery?.length ? (
                                 <span
                                   class="VarColor font-weight-bold text-decoration-underline cursor-pointer"

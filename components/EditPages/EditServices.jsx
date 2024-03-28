@@ -941,7 +941,7 @@ export default function EditDoing({
                                   </h3>
                                   <div
                                     id="p_wrap"
-                                    className="case-item__caption text-start mb-2 mt-2"
+                                    className="case-item__caption text-start mb-2 mt-2 content_description"
                                     dangerouslySetInnerHTML={{
                                       __html: item.description,
                                     }}

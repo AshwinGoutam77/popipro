@@ -26,6 +26,7 @@ import {
   faTag,
   faUpDownLeftRight,
   faUser,
+  faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -496,17 +497,17 @@ export default function Dashboard() {
                     className="w-100  text-decoration-none"
                   >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                      {/* <FontAwesomeIcon
-                        icon={faUser}
+                      <FontAwesomeIcon
+                        icon={faUserEdit}
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
-                      /> */}
-                      <img
+                      />
+                      {/* <img
                         src="../static/img/edit-profile.svg"
                         alt="image"
                         width={20}
                         className="text-white mb-2"
-                      />
+                      /> */}
                       <h6 className="text-white text-center mb-0">
                         Edit Profile
                       </h6>

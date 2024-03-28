@@ -753,7 +753,7 @@ export default function EditProducts({
                   </div>
                   <p
                     id="p_wrap"
-                    className="review-item__caption text-left mt-1 mb-1"
+                    className="review-item__caption text-left mt-1 mb-1 content_description"
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}
@@ -1800,21 +1800,6 @@ export default function EditProducts({
                                 )}
                               </div>
                               <div className="text-left mt-3">
-                                {/* {items?.youtube_link ? (
-                                  <span class="VarColor font-weight-bold mr-1">
-                                    1 Video
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
-                                {items?.youtube_link &&
-                                items?.gallery?.length ? (
-                                  <span class="VarColor font-weight-bold mr-1">
-                                    and
-                                  </span>
-                                ) : (
-                                  ""
-                                )} */}
                                 {items?.gallery?.length ? (
                                   <span class="VarColor font-weight-bold text-decoration-underline">
                                     More Images
@@ -1844,7 +1829,7 @@ export default function EditProducts({
                               </p>
                               <p
                                 id="p_wrap"
-                                className="review-item__caption text-left products-review mt-1"
+                                className="review-item__caption text-left products-review mt-1 content_description"
                                 dangerouslySetInnerHTML={{
                                   __html: items.description,
                                 }}

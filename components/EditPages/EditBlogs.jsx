@@ -764,7 +764,7 @@ export default function EditBlogs({
                     {item.name}
                   </p>
                   <p
-                    id="p_wrap"
+                    id="p_wrap content_description"
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}
@@ -1050,7 +1050,7 @@ export default function EditBlogs({
                                     {item.name}
                                   </h2>
                                   <p
-                                    id="p_wrap"
+                                    id="p_wrap content_description"
                                     className="blogTextHeight text-dark mt-2"
                                     dangerouslySetInnerHTML={{
                                       __html: item.description,
@@ -1150,7 +1150,7 @@ export default function EditBlogs({
                                   {item.name}
                                 </h2>
                                 <p
-                                  id="p_wrap"
+                                  id="p_wrap content_description"
                                   dangerouslySetInnerHTML={{
                                     __html: item.description,
                                   }}

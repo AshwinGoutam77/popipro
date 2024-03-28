@@ -8,7 +8,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function Cart({
@@ -17,6 +17,7 @@ export default function Cart({
   MainData,
   product,
   card_url,
+  cartId,
 }) {
   const {
     cartItems,
@@ -24,7 +25,6 @@ export default function Cart({
     decrementQuantity,
     incrementQuantity,
     increaseCount,
-    totalPrice,
     clearCart,
     incrementPrice,
     decrementPrice,
@@ -35,6 +35,7 @@ export default function Cart({
   const [Checkout, setCheckout] = useState(false);
   const [SuccessBtn, setSuccessBtn] = useState(false);
   const [Scanner, setScanner] = useState(false);
+  const [totalPrice, setTotalPrice] = useState("");
 
   const handleRemoveCartItem = (id) => {
     removeFromCart(id);
@@ -63,6 +64,22 @@ export default function Cart({
     clearCart();
     handleClose();
   };
+
+  const userCartItems = cartItems.filter((item) => item.card_id === cartId);
+
+  const calculateTotalPrice = () => {
+    console.log("==", cartId);
+    const total = userCartItems?.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+
+    setTotalPrice(total);
+  };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems]);
 
   return (
     <Modal show={active} onHide={() => handleHide()} centered>
@@ -136,35 +153,35 @@ export default function Cart({
               })}
 
             <div className="align-items-baseline justify-content-between mt-3">
-              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+              <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Sub-total</p>
                 <p>
                   {MainData?.company_setting?.currency?.currency}
                   {totalPrice}
                 </p>
-              </p>
-              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+              </div>
+              <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Shipping Charges </p>
                 <p>
                   {MainData?.company_setting?.currency?.currency}
                   0.00
                 </p>
-              </p>
-              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+              </div>
+              <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Tax and other charges </p>
                 <p>
                   {MainData?.company_setting?.currency?.currency}
                   0.00
                 </p>
-              </p>
+              </div>
 
-              <p className="font-weight-bold color-black d-flex justify-content-between w-100">
+              <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Total price </p>
                 <p>
                   {MainData?.company_setting?.currency?.currency}
                   {totalPrice}
                 </p>
-              </p>
+              </div>
             </div>
             <div className="d-flex align-items-center">
               <button

@@ -1688,6 +1688,45 @@ table tbody tr:last-child {
   padding: 0 16px 16px 16px !important;
 }
 
+.amenities-select-div label {
+  background: var(--themecolor);
+  border-radius: 10px;
+  color: var(--color);
+  gap: 3px;
+  cursor: pointer;
+  width: 85px;
+  height: 71px;
+}
+
+.amenities-select-div input {
+  display: none !important;
+}
+
+.amenities-select-div input:checked + label {
+  background: var(--color);
+  border-radius: 10px;
+  color: var(--themecolor);
+  gap: 3px;
+  cursor: pointer;
+  width: 85px;
+  height: 71px;
+}
+
+#p_wrap h2, .content_description h2 {
+  font-size: 25px !important;
+  color: #000;
+}
+#p_wrap h3, #p_wrap h4, .content_description h3,
+.content_description h4 {
+  font-size: 23px !important;
+  color: #000;
+}
+
+#p_wrap ul, .content_description ul,
+#p_wrap ol, .content_description ol {
+  padding-left: 20px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

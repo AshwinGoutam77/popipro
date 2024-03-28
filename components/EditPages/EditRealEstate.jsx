@@ -32,6 +32,7 @@ import {
   CardData,
   DeleteAmenities,
   LoadMoreApi,
+  ToogleRealEstateBtn,
   deleteFiles,
   deleteSection,
 } from "@services/Routes";
@@ -92,6 +93,9 @@ export default function EditRealEstate({
   const [ZipCode, setZipCode] = useState("");
   const [State, setState] = useState("");
   const [Amenities, setAmenities] = useState(false);
+  const [OtherAmenities, setOtherAmenities] = useState(false);
+  const [InternalBuildUp, setInternalBuildUp] = useState("");
+  const [ExternalBuildUp, setExternalBuildUp] = useState("");
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
@@ -103,6 +107,10 @@ export default function EditRealEstate({
   }, [TitleData]);
 
   const [inputList, setInputList] = useState([
+    { amenities_id: "", description: "" },
+  ]);
+
+  const [inputList2, setInputList2] = useState([
     { amenities_id: "", description: "" },
   ]);
 
@@ -162,6 +170,8 @@ export default function EditRealEstate({
         description: item?.pivot?.description,
       }))
     );
+    setInternalBuildUp(items?.internal_area);
+    setExternalBuildUp(items?.external_area);
   };
 
   const handleSettings1 = () => {
@@ -169,6 +179,7 @@ export default function EditRealEstate({
     setCatSetting(false);
     setLocationSetting(false);
     setAmenities(false);
+    setOtherAmenities(false);
   };
 
   const handleSettings2 = () => {
@@ -216,6 +227,7 @@ export default function EditRealEstate({
       setActiveSteps(true);
       setLocationSetting(false);
       setAmenities(false);
+      setOtherAmenities(false);
     }
   };
 
@@ -264,40 +276,24 @@ export default function EditRealEstate({
       setGeneralSetting(false);
       setCatSetting(false);
       setAmenities(false);
+      setOtherAmenities(false);
     }
   };
 
   const handleSettings4 = () => {
-    // let error = false;
-    // let mess = "";
-    // if (Price === "" || PriceRadio === "") {
-    //   error = true;
-    //   mess =
-    //     Price === ""
-    //       ? "Price is requried"
-    //       : PriceRadio === ""
-    //       ? "Price Text is required"
-    //       : "";
-    // }
-    // if (error) {
-    //   setShowLoader(false);
-    //   toast.error(mess, {
-    //     position: "top-right",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   return;
-    // } else {
     setGeneralSetting(false);
     setCatSetting(false);
     setLocationSetting(false);
     setAmenities(true);
-    // }
+    setOtherAmenities(false);
+  };
+
+  const handleSettings5 = () => {
+    setGeneralSetting(false);
+    setCatSetting(false);
+    setLocationSetting(false);
+    setAmenities(false);
+    setOtherAmenities(true);
   };
 
   const HandleEmptyFeilds = () => {
@@ -369,6 +365,8 @@ export default function EditRealEstate({
             state: State,
             country: Country,
             amenities: inputList,
+            external_area: ExternalBuildUp,
+            internal_area: InternalBuildUp,
             saved_realestates: ContentId,
           },
         ])
@@ -397,6 +395,8 @@ export default function EditRealEstate({
             country: Country,
             state: State,
             amenities: inputList,
+            external_area: ExternalBuildUp,
+            internal_area: InternalBuildUp,
           },
         ]);
     try {
@@ -656,8 +656,29 @@ export default function EditRealEstate({
     setInputList(list);
   };
 
+  const OtherAmenitiesOption = [];
+  Data?.secondary_amenities &&
+    Data?.secondary_amenities.map((item) => {
+      OtherAmenitiesOption.push({
+        amenities_id: item.id,
+        value: item.id,
+        label: item.name,
+      });
+    });
+
+  const handleInputChange2 = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList2];
+    list[index][name] = value;
+    setInputList2(list);
+  };
+
   const handleAddClick = () => {
     setInputList([...inputList, { amenities_id: "", description: "" }]);
+  };
+
+  const handleAddClick2 = () => {
+    setInputList2([...inputList2, { amenities_id: "", description: "" }]);
   };
 
   const handleDeleteAmeities = async (realestate_id, amenitiesId, index) => {
@@ -696,6 +717,36 @@ export default function EditRealEstate({
       const list = [...inputList];
       const remove = list.filter((_, indexFilter) => !(indexFilter === index));
       setInputList(remove);
+    }
+  };
+
+  const handleRealEstateBtn = async (type) => {
+    try {
+      const response = await Api(ToogleRealEstateBtn, {}, "?type=" + type);
+      if (response.data.status) {
+        APIDATA();
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -783,6 +834,7 @@ export default function EditRealEstate({
                         );
                       })}
                   </SwiperComponent>
+
                   <div className="mt-2 color-black mb-3">
                     <h5 className="mb-0 color-black cursor-pointer d-flex align-items-center justify-content-between">
                       {items?.heading}
@@ -843,8 +895,16 @@ export default function EditRealEstate({
                       {items?.country}, ({items?.zipcode})
                     </a>
 
+                    <p className="mt-3 font-weight-bold">
+                      Total Build Up Area: {items?.area} SQM{" "}
+                      {items?.internal_area &&
+                        ", Land Size: " + items?.internal_area + "SQM"}{" "}
+                      {items?.external_area &&
+                        ", Property Size: " + items?.external_area + "SQM"}
+                    </p>
+
                     <p
-                      className="mt-3"
+                      className="mt-3 content_description"
                       dangerouslySetInnerHTML={{
                         __html: items.description,
                       }}
@@ -913,33 +973,32 @@ export default function EditRealEstate({
                             </button>
                           </a>
                         )}
-                        {Data?.whatsapp_number && (
-                          <a
-                            href={
-                              "https://api.whatsapp.com/send?phone=" +
-                              Data?.whatsapp_number +
-                              "&" +
-                              `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
-                            }
-                            target="_blank"
-                            className="w-30px"
-                          >
-                            <button className="contact-btn w-100 m-0">
-                              <img
-                                src="../static/img/whatsapp.svg"
-                                alt="image"
-                                width={14}
-                                className="mr-1"
-                              />
-                              WhatsApp
-                            </button>
-                          </a>
-                        )}
-                        {/* </div> */}
-                        {/* <div
-                        className="d-flex align-items-center justify-content-center mt-2"
-                        style={{ gap: "10px" }}
-                      > */}
+
+                        {Data?.whatsapp_number &&
+                          MainData?.company_setting
+                            ?.show_realestate_wp_button !== 0 && (
+                            <a
+                              href={
+                                "https://api.whatsapp.com/send?phone=" +
+                                Data?.whatsapp_number +
+                                "&" +
+                                `text=Hey there, I have recently visited your profile on popipro.com. Could you kindly provide additional information about ${items?.name}?`
+                              }
+                              target="_blank"
+                              className="w-30px"
+                            >
+                              <button className="contact-btn w-100 m-0">
+                                <img
+                                  src="../static/img/whatsapp.svg"
+                                  alt="image"
+                                  width={14}
+                                  className="mr-1"
+                                />
+                                WhatsApp
+                              </button>
+                            </a>
+                          )}
+
                         <button className="contact-btn w-30px m-0">
                           <img
                             src="../static/img/phone.svg"
@@ -949,15 +1008,21 @@ export default function EditRealEstate({
                           />
                           Contact Agent
                         </button>
-                        <button className="contact-btn w-30px m-0">
-                          <img
-                            src="../static/img/mail.svg"
-                            alt="image"
-                            width={14}
-                            className="mr-1"
-                          />
-                          Email
-                        </button>
+
+                        {MainData?.company_setting
+                          ?.show_realestate_enquiry_button !== 0 ? (
+                          <button className="contact-btn w-30px m-0">
+                            <img
+                              src="../static/img/mail.svg"
+                              alt="image"
+                              width={14}
+                              className="mr-1"
+                            />
+                            Email
+                          </button>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1291,10 +1356,10 @@ export default function EditRealEstate({
               <div className="d-flex align-items-center gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">
-                    Built Up Area* (in SQM)
+                    Built Up Area* (SQM/ Yard/ Feet)
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="name"
                     rows="4"
                     cols="50"
@@ -1306,34 +1371,34 @@ export default function EditRealEstate({
                 </div>
                 <div className="w-100">
                   <label className="modalFormLable">
-                    Internal Built Up Area* (in SQM)
+                    Land Size (SQM/ Yard/ Feet)
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="name"
                     rows="4"
                     cols="50"
                     className="form-control mt-1 w-100"
-                    value={BuiltUpArea}
+                    value={InternalBuildUp}
                     placeholder="Area"
-                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
+                    onChange={(e) => setInternalBuildUp(e.target.value.trim())}
                   ></input>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">
-                    External Built Up Area (in SQM)
+                    Property Size (SQM/ Yard/ Feet)
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="name"
                     rows="4"
                     cols="50"
                     className="form-control mt-1 w-100"
-                    value={BuiltUpArea}
+                    value={ExternalBuildUp}
                     placeholder="Area"
-                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
+                    onChange={(e) => setExternalBuildUp(e.target.value.trim())}
                   ></input>
                 </div>
                 <div className="w-100">
@@ -1424,7 +1489,6 @@ export default function EditRealEstate({
                   </label>
                 </div>
               </div>
-              {console.log("PriceRadio", PriceRadio)}
               {PriceRadio ? (
                 <div className="mt-2">
                   <label className="modalFormLable">Price</label>
@@ -1489,9 +1553,9 @@ export default function EditRealEstate({
           {Amenities ? (
             <div>
               <div className="tab-progress-bar">
-                <ProgressBar now={100} />;
+                <ProgressBar now={80} />;
               </div>
-              <h6 className="mb-2 color-black pl-1">Amenities Details</h6>
+              <h6 className="mb-2 color-black pl-1">Main Amenities</h6>
               {inputList?.map((x, i) => {
                 return (
                   <div
@@ -1557,6 +1621,88 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings3()}>
+                  Back
+                </button>
+                <button className="send-btnn" onClick={() => handleSettings5()}>
+                  Next
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {OtherAmenities ? (
+            <div>
+              <div className="tab-progress-bar">
+                <ProgressBar now={100} />;
+              </div>
+              <h6 className="mb-2 color-black pl-1">Other Amenities</h6>
+              {inputList2?.map((x, i) => {
+                return (
+                  <div
+                    className="d-flex align-items-center row position-realtive"
+                    key={i}
+                  >
+                    <FontAwesomeIcon
+                      icon={faXmarkCircle}
+                      className="amenities-delete-icon"
+                      onClick={() =>
+                        handleDeleteAmeities(ContentId, x.amenities_id, i)
+                      }
+                    />
+                    <div className="col-6">
+                      <label className="modalFormLab  le mt-2">
+                        Select Amenities*
+                      </label>
+                      <select
+                        onChange={(e) => handleInputChange2(e, i)}
+                        name="amenities_id"
+                        style={{
+                          appearance: "auto",
+                        }}
+                        defaultValue={x.amenities_id}
+                      >
+                        <option value="">Select Amenities</option>
+                        {OtherAmenitiesOption?.map((item, o) => {
+                          return (
+                            <option value={item?.value} key={o}>
+                              {item?.label}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="col-6">
+                      <label className="modalFormLable mt-2">Quantity</label>
+                      <input
+                        type="number"
+                        name="description"
+                        rows="4"
+                        cols="50"
+                        className="form-control mt-1"
+                        defaultValue={x.description}
+                        onChange={(e) => handleInputChange2(e, i)}
+                        placeholder="Enter number of amenities"
+                        maxLength={40}
+                      ></input>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="text-right">
+                <button onClick={handleAddClick2} className="send-btnn mb-0">
+                  <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add More
+                  Amenities
+                </button>
+              </div>
+
+              <div
+                className="d-flex align-items-center justify-content-between"
+                style={{ gap: "10px" }}
+              >
+                <button className="send-btnn" onClick={() => handleSettings4()}>
                   Back
                 </button>
                 {!ShowLoader ? (
@@ -1721,20 +1867,6 @@ export default function EditRealEstate({
                           onClick={() => handleShowDetailModal(items?.id)}
                         >
                           <p>
-                            {items?.youtube_link ? (
-                              <span class="VarColor font-weight-bold mr-1">
-                                1 Video
-                              </span>
-                            ) : (
-                              ""
-                            )}
-                            {items?.youtube_link && items?.gallery?.length ? (
-                              <span class="VarColor font-weight-bold mr-1">
-                                and
-                              </span>
-                            ) : (
-                              ""
-                            )}
                             {items?.gallery?.length ? (
                               <span class="VarColor font-weight-bold text-decoration-underline">
                                 More Images
@@ -1870,7 +2002,9 @@ export default function EditRealEstate({
                             className="d-flex flex-wrap"
                             style={{ gap: "10px" }}
                           >
-                            {Data?.whatsapp_number ? (
+                            {Data?.whatsapp_number &&
+                            MainData?.company_setting
+                              ?.show_realestate_wp_button !== 0 ? (
                               <a
                                 href={
                                   "https://api.whatsapp.com/send?phone=" +
@@ -1890,16 +2024,19 @@ export default function EditRealEstate({
                             ) : (
                               ""
                             )}
-                            <span
-                              data-toggle="modal"
-                              data-target="#ProductEnquireModal"
-                              className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                            >
-                              <FontAwesomeIcon
-                                icon={faEnvelope}
-                                className="user-select-auto"
-                              />
-                            </span>
+                            {MainData?.company_setting
+                              ?.show_realestate_enquiry_button !== 0 && (
+                              <span
+                                data-toggle="modal"
+                                data-target="#ProductEnquireModal"
+                                className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                              >
+                                <FontAwesomeIcon
+                                  icon={faEnvelope}
+                                  className="user-select-auto"
+                                />
+                              </span>
+                            )}
                             {items?.google_address_link !== null ? (
                               <a
                                 href={items?.google_address_link}
@@ -1958,17 +2095,17 @@ export default function EditRealEstate({
                   type="checkbox"
                   id="real-estate-whatsaap"
                   className="mt-1"
-                  // value={
-                  //   MainData?.company_setting?.show_product_wp_button !== 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("wp")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_wp_button !== 0
-                  //     ? true
-                  //     : false
-                  // }
+                  value={
+                    MainData?.company_setting?.show_realestate_wp_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleRealEstateBtn("wp")}
+                  checked={
+                    MainData?.company_setting?.show_realestate_wp_button !== 0
+                      ? true
+                      : false
+                  }
                 />
                 <label
                   for="real-estate-whatsaap"
@@ -1982,17 +2119,19 @@ export default function EditRealEstate({
                   type="checkbox"
                   id="real-estate-enq"
                   className="mt-1"
-                  // value={
-                  //   MainData?.company_setting?.show_product_enquiry_button !== 0
-                  //     ? true
-                  //     : false
-                  // }
-                  // onChange={() => handleProductsbtn("enq")}
-                  // checked={
-                  //   MainData?.company_setting?.show_product_enquiry_button !== 0
-                  //     ? true
-                  //     : false
-                  // }
+                  value={
+                    MainData?.company_setting
+                      ?.show_realestate_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleRealEstateBtn("enq")}
+                  checked={
+                    MainData?.company_setting
+                      ?.show_realestate_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
                 />
                 <label
                   for="real-estate-enq"
@@ -2002,6 +2141,7 @@ export default function EditRealEstate({
                 </label>
               </div>
             </div>
+
             {PaginationData?.total_realestate ==
               Data?.card_realestates?.length &&
             LoadMoreData !== null &&

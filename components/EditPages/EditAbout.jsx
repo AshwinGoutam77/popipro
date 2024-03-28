@@ -7,6 +7,7 @@ import {
   faArrowRight,
   faCircleInfo,
   faInfo,
+  faPenToSquare,
   faPencil,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
@@ -392,7 +393,10 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                             icon={faPencil}
                             onClick={handleEditAboutt}
                             className="pe-auto Iconcolor-black"
-                            style={{ cursor: "pointer", marginRight: "28px" }}
+                            style={{
+                              cursor: "pointer",
+                              marginRight: "28px",
+                            }}
                           />
                           <label className="switch">
                             <input
@@ -495,7 +499,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                 </div>
               ) : (
                 <div
-                  id="p_wrap"
+                  id="p_wrap content_description"
                   className={Readmore ? "card-p " : "card-description"}
                   dangerouslySetInnerHTML={{
                     __html: Data?.card_description,

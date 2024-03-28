@@ -1021,7 +1021,7 @@ export default function EditTestimonials({
                                 <div className="review-item__textbox">
                                   <p
                                     id="p_wrap"
-                                    className="review-item__caption text-left mb-2 mt-2"
+                                    className="review-item__caption text-left mb-2 mt-2 content_description"
                                     dangerouslySetInnerHTML={{
                                       __html: items.description,
                                     }}
