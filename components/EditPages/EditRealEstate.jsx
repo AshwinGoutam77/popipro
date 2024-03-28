@@ -304,6 +304,7 @@ export default function EditRealEstate({
     setLocationSetting(false);
     setActiveSteps(false);
     setAmenities(false);
+    setOtherAmenities(false);
     setShowModal(false);
     setPropertyType("");
     setTitle("");
@@ -1302,56 +1303,6 @@ export default function EditRealEstate({
                   ></input>
                 </div>
               </div>
-              {/* <div className="d-flex align-items-center gap-2">
-                <div className="w-100">
-                  <label className="modalFormLable">BHK*</label>
-                  <select
-                    style={{
-                      height: "49px",
-                      padding: "6px 18px",
-                      background: "#f7f9fa",
-                      appearance: "auto",
-                    }}
-                    onChange={(e) => setBhkValue(e.target.value)}
-                    defaultValue={BhkValue || ""}
-                    className="mt-1"
-                  >
-                    <option value="">Select BHK</option>
-                    {Data?.bhk_dropdown &&
-                      Data?.bhk_dropdown?.map((item, index) => {
-                        return (
-                          <option key={index} value={item}>
-                            {item}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-                <div className="w-100">
-                  <label className="modalFormLable">Bathroom*</label>
-                  <select
-                    style={{
-                      height: "49px",
-                      padding: "6px 18px",
-                      background: "#f7f9fa",
-                      appearance: "auto",
-                    }}
-                    onChange={(e) => setBathroomValue(e.target.value)}
-                    defaultValue={BathroomValue || ""}
-                    className="mt-1"
-                  >
-                    <option value="">Select Bathroom</option>
-                    {Data?.bathroom_dropdown &&
-                      Data?.bathroom_dropdown?.map((item, index) => {
-                        return (
-                          <option key={index} value={item}>
-                            {item}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              </div> */}
 
               <div className="d-flex align-items-baseline gap-2 mt-2 mb-4">
                 <div className="w-100">
@@ -1385,6 +1336,7 @@ export default function EditRealEstate({
                   ></input>
                 </div>
               </div>
+
               <div className="d-flex align-items-baseline gap-2 mt-2 mb-4">
                 <div className="w-100">
                   <label className="modalFormLable">
