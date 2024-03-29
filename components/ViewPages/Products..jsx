@@ -777,9 +777,16 @@ export default function Product({
                     />
                     {cartItems?.length !== 0 && cartValue ? (
                       <div className="position-relative">
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faBagShopping}
                           className="color-black cursor-pointer fs-18 mt-1"
+                          onClick={() => setCartModal("CartModal")}
+                        /> */}
+                        <img
+                          src="../static/img/cart.png"
+                          alt="image"
+                          width={25}
+                          className="cursor-pointer"
                           onClick={() => setCartModal("CartModal")}
                         />
                       </div>
