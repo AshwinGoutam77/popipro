@@ -30,6 +30,9 @@ import { useAuthContext } from "@context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import EditRealEstate from "@components/EditPages/EditRealEstate";
 import SocailVisits from "@components/EditPages/SocailVisits";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -79,10 +82,23 @@ const Page = () => {
     return (
       <>
         <div
-          className="d-flex align-items-center justify-content-center text-center"
+          className="d-flex align-items-center justify-content-center text-center flex-column"
           style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
         >
-          <p>{ErrorDataMessage && ErrorDataMessage}</p>
+          <img
+            src="https://prafullgupta.com/connectwork/assets/chat/groups/290324125550undraw_access_denied_re_awnf.svg"
+            alt="error"
+            width={300}
+          />
+          <h5 className="mt-4 color-black">
+            {ErrorDataMessage && ErrorDataMessage}
+          </h5>
+          <Link href="/">
+            <button className="send-btnn w-auto py-2">
+              <FontAwesomeIcon icon={faChevronLeft} className="mr-2" /> Back to
+              popipro
+            </button>
+          </Link>
         </div>
       </>
     );

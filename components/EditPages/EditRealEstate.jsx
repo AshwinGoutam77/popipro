@@ -754,7 +754,12 @@ export default function EditRealEstate({
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
-      <Modal show={show} onHide={() => setshow(false)} centered>
+      <Modal
+        show={show}
+        onHide={() => setshow(false)}
+        centered
+        className="pl-0"
+      >
         <Modal.Header>
           <Modal.Title>
             <h5 className="title title--h1 first-title title__separate mb-1">
@@ -897,11 +902,11 @@ export default function EditRealEstate({
                     </a>
 
                     <p className="mt-3 font-weight-bold">
-                      Total Build Up Area: {items?.area} SQM{" "}
+                      Total Build Up Area: {items?.area}
                       {items?.internal_area &&
-                        ", Land Size: " + items?.internal_area + "SQM"}{" "}
+                        ", Land Size: " + items?.internal_area}{" "}
                       {items?.external_area &&
-                        ", Property Size: " + items?.external_area + "SQM"}
+                        ", Property Size: " + items?.external_area}
                     </p>
 
                     <p
@@ -1035,7 +1040,13 @@ export default function EditRealEstate({
         </Modal.Body>
       </Modal>
 
-      <Modal size="md" show={ShowModal} onHide={HandleEmptyFeilds} centered>
+      <Modal
+        size="md"
+        show={ShowModal}
+        onHide={HandleEmptyFeilds}
+        centered
+        className="pl-0"
+      >
         <Modal.Header>
           <Modal.Title>
             <h5
@@ -1317,7 +1328,7 @@ export default function EditRealEstate({
                     className="form-control mt-1 w-100"
                     value={BuiltUpArea}
                     placeholder="Area"
-                    onChange={(e) => setBuiltUpArea(e.target.value.trim())}
+                    onChange={(e) => setBuiltUpArea(e.target.value)}
                   ></input>
                 </div>
                 <div className="w-100">
@@ -1332,7 +1343,7 @@ export default function EditRealEstate({
                     className="form-control mt-1 w-100"
                     value={InternalBuildUp}
                     placeholder="Area"
-                    onChange={(e) => setInternalBuildUp(e.target.value.trim())}
+                    onChange={(e) => setInternalBuildUp(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -1350,7 +1361,7 @@ export default function EditRealEstate({
                     className="form-control mt-1 w-100"
                     value={ExternalBuildUp}
                     placeholder="Area"
-                    onChange={(e) => setExternalBuildUp(e.target.value.trim())}
+                    onChange={(e) => setExternalBuildUp(e.target.value)}
                   ></input>
                 </div>
                 <div className="w-100">

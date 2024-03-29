@@ -1727,6 +1727,10 @@ table tbody tr:last-child {
   padding-left: 20px;
 }
 
+.dropdown-toggle-split::after{
+  content: none !important;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

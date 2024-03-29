@@ -18,6 +18,7 @@ export default function Cart({
   product,
   card_url,
   cartId,
+  TotalCard_id,
 }) {
   const {
     cartItems,
@@ -190,12 +191,12 @@ export default function Cart({
               >
                 Checkout
               </button>
-              <button
+              {/* <button
                 className="contact-btn w-auto mt-2 ml-2"
                 onClick={() => handleClearCart()}
               >
                 Clear Cart
-              </button>
+              </button> */}
             </div>
           </div>
         ) : (

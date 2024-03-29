@@ -459,6 +459,14 @@ export default function Realestate({
                       </a>
                     </div>
 
+                    <p className="mt-3 font-weight-bold">
+                      Total Build Up Area: {items?.area}
+                      {items?.internal_area &&
+                        ", Land Size: " + items?.internal_area}{" "}
+                      {items?.external_area &&
+                        ", Property Size: " + items?.external_area}
+                    </p>
+
                     <p
                       id="p_wrap"
                       dangerouslySetInnerHTML={{
@@ -723,10 +731,10 @@ export default function Realestate({
                       ? "card_products"
                       : Titles?.card_realestates?.visible_name}
                   </h3>
-                  <div className="d-flex align-items-baseline gap-20">
+                  <div className="d-flex align-items-start gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
-                      className="color-black cursor-pointer fs-18"
+                      className="color-black cursor-pointer fs-18 mt-1"
                       onClick={() => handleShowSearchFilter()}
                     />
                     {Search ? (
@@ -762,7 +770,14 @@ export default function Realestate({
                         variant="success"
                         id="dropdown-split-basic"
                         className="sorting-dropdown"
-                      ></Dropdown.Toggle>
+                      >
+                        <img
+                          src="../static/img/down-arrow.svg"
+                          alt="image"
+                          width={18}
+                          className="cursor-pointer"
+                        />
+                      </Dropdown.Toggle>
                       <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                         <Dropdown.Item
                           href=""

@@ -75,7 +75,7 @@ export default function Product({
   const [Category, setCategory] = useState("");
   const [LoadMore, setLoadMore] = useState("");
   const [ActiveFilter, setActiveFilter] = useState("");
-  const [HighlightSort, setHighlightSort] = useState("");
+  const [HighlightSort, setHighlightSort] = useState("latest");
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
   const [Loader, setLoader] = useState(false);
@@ -725,6 +725,7 @@ export default function Product({
         product={Products}
         card_url={card_url}
         cartId={MainData?.card?.id}
+        TotalCard_id={TotalCard_id}
       />
 
       {Titles &&
@@ -768,17 +769,17 @@ export default function Product({
                       ? "card_products"
                       : Titles?.card_products?.visible_name}
                   </h3>
-                  <div className="d-flex align-items-baseline gap-20">
+                  <div className="d-flex align-items-start gap-20">
                     <FontAwesomeIcon
                       icon={faSearch}
-                      className="color-black cursor-pointer fs-18"
+                      className="color-black cursor-pointer fs-18 mt-1"
                       onClick={() => handleShowSearchFilter()}
                     />
                     {cartItems?.length !== 0 && cartValue ? (
                       <div className="position-relative">
                         <FontAwesomeIcon
                           icon={faBagShopping}
-                          className="color-black cursor-pointer fs-18"
+                          className="color-black cursor-pointer fs-18 mt-1"
                           onClick={() => setCartModal("CartModal")}
                         />
                       </div>
@@ -802,13 +803,22 @@ export default function Product({
                     ) : (
                       ""
                     )}
+
                     <Dropdown as={ButtonGroup}>
                       <Dropdown.Toggle
                         split
                         variant="success"
                         id="dropdown-split-basic"
                         className="sorting-dropdown"
-                      ></Dropdown.Toggle>
+                      >
+                        {" "}
+                        <img
+                          src="../static/img/down-arrow.svg"
+                          alt="image"
+                          width={18}
+                          className="cursor-pointer"
+                        />
+                      </Dropdown.Toggle>
                       <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
                         <Dropdown.Item
                           href=""
