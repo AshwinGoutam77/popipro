@@ -1724,7 +1724,7 @@ table tbody tr:last-child {
 
 #p_wrap ul, .content_description ul,
 #p_wrap ol, .content_description ol {
-  padding-left: 20px;
+  padding-left: 15px;
 }
 
 .dropdown-toggle-split::after{

@@ -430,9 +430,9 @@ export default function Dashboard() {
             <div className="col-lg-6 col-sm-12 order-1 order-lg-2">
               <img
                 className="h-40 sm:mt-0 dashboard-web-margin-image w-100"
-                src="../static/img/dashboard-image.png"
+                src="https://prafullgupta.com/connectwork/assets/chat/chats/290324063550finalillustration.png"
                 alt="image"
-                style={{ objectFit: "contain" }}
+                style={{objectFit:'contain'}}
               />
             </div>
           </div>

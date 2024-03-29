@@ -87,6 +87,13 @@ export default function Cart({
       <Modal.Header>
         <Modal.Title>
           <h5 className="title title--h1 first-title title__separate mb-0">
+            <img
+              src="../static/img/cart.png"
+              alt="image"
+              width={18}
+              className="cursor-pointer mr-2"
+              style={{marginTop:'-5px'}}
+            />
             Shopping Cart
           </h5>
         </Modal.Title>
