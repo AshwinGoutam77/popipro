@@ -1812,7 +1812,7 @@ table tbody tr:last-child {
 }
 
 .css-9emuhu-MuiPaper-root-MuiDrawer-paper {
-  padding: 30px 10px;
+  padding: 30px 10px !important;
 }
 
 .css-9emuhu-MuiPaper-root-MuiDrawer-paper {
