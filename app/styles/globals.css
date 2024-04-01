@@ -1801,21 +1801,18 @@ table tbody tr:last-child {
 
 .save-contact-drawer {
   position: relative;
+  padding: 30px 10px !important;
 }
 
 .save-contact-drawer .close-svg {
   position: absolute;
-  right: 18px;
+  right: 25px;
   font-size: 16px;
   cursor: pointer;
-  top: -14px;
+  top: 13px;
 }
 
-.css-9emuhu-MuiPaper-root-MuiDrawer-paper {
-  padding: 30px 10px !important;
-}
-
-.css-9emuhu-MuiPaper-root-MuiDrawer-paper {
+.MuiDrawer-paper {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
@@ -1858,7 +1855,7 @@ table tbody tr:last-child {
 }
 @media (max-width: 768px) {
   .mobile-contact-btn {
-    display: block  !important;
+    display: block !important;
   }
   .web-contact-btn {
     display: none !important;
