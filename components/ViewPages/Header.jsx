@@ -30,6 +30,7 @@ import { saveAs } from "file-saver";
 import localforage from "localforage";
 import ExchangeContact from "./ExchangeContact";
 import LoadingText from "./LoadingText";
+import AddContact from "@components/Dashboard/AddContact";
 
 const Header = ({
   profile,
@@ -707,9 +708,13 @@ const Header = ({
               </p>
             </div>
             <div className="d-flex sm-class header-btn-gap">
-              <button className="contact-btn" onClick={shareContact}>
+              <button
+                className="contact-btn web-contact-btn"
+                onClick={shareContact}
+              >
                 Add Contact
               </button>
+                <AddContact />
               <button
                 className="contact-btn"
                 data-toggle="modal"
@@ -863,7 +868,7 @@ const Header = ({
                     <img
                       src="../static/img/location-dark.svg"
                       alt="image"
-                      width={10}
+                      width={16}
                       className="mr-1"
                     />
                     <span className="overhead_a text-dark text-decoration-none margin-l-7">

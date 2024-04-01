@@ -7,7 +7,6 @@ import { redirect, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-
 async function loginUser(credentials) {
   return fetch(
     process.env.NEXT_PUBLIC_MODE == "development"
@@ -140,7 +139,7 @@ const LoginPage = () => {
                 </label>
               </div>
               <button
-                className="delete-button w-auto bg-btn7 lnk wow fadeInUp mt-4"
+                className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4"
                 data-wow-delay=".6s"
                 style={{
                   visibility: "visible",
@@ -156,7 +155,6 @@ const LoginPage = () => {
                 </Link>
                 <br />
               </div>
-              {/* <p className="m-0" onClick={goBack}>View PopiCard</p> */}
             </form>
           </div>
         </div>

@@ -5,13 +5,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
-import { EditData } from "@services/Routes";
+import { EditData, Subscription } from "@services/Routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "../../styles/about.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
+import { useAuthContext } from "@context/AuthContext";
 
 const PlanManagment = () => {
+  const { APIDATA, UserData } = useAuthContext();
+  console.log(UserData);
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -25,45 +28,10 @@ const PlanManagment = () => {
   }, []);
 
   const api = async () => {
-    const response = await Api(
-      EditData,
-      {},
-      "?card_url=" + localStorage.getItem("url")
-    );
-    if (response.data.status) {
-      setData(response.data.data);
-    }
-  };
-
-  const APIDATA = async () => {
-    setShowLoader(true);
-    try {
-      const response = await Api(
-        EditData,
-        {},
-        "?card_url=" + localStorage.getItem("url")
-      );
-      if (response.data.status) {
-        setShowLoader(false);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
-      }
-    } catch (error) {
-      if (error.request.status == "401") {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      }
-    }
-    setShowLoader(false);
+    const response = await Api(Subscription, {});
+    // if (response.data.status) {
+    setData(response.data);
+    // }
   };
 
   return Data ? (
@@ -88,10 +56,10 @@ const PlanManagment = () => {
         </Link>
       </div>
       <div
-        className="w-100 bg-custom mt-4"
-        style={{ height: "calc(100vh - 58px)" }}
+        className="w-100 bg-custom pt-4"
+        style={{ height: "calc(100vh - 58px)", padding: "20px" }}
       >
-        <div className="box-shadow-leads">
+        {/* <div className="box-shadow-leads">
           <table className="insight-table">
             <thead>
               <tr>
@@ -129,7 +97,42 @@ const PlanManagment = () => {
               )}
             </tbody>
           </table>
+        </div> */}
+        <h5 className="pl-2 color-black">Subscription History</h5>
+
+        {/* {Data &&
+          Data?.map((item, index) => {
+            return ( */}
+        <div className="subscription-section mt-3">
+          <div className="d-flex align-items-center justify-content-between divider">
+            <div>
+              <h6 className="color-black m-0">
+                {UserData?.plan?.current_plan?.plan_name} Plan
+              </h6>
+              <p>{Data?.message}</p>
+            </div>
+            <button className="contact-btn w-auto mt-0">Active</button>
+          </div>
+
+          <div className="d-flex align-items-center justify-content-between mt-3">
+            <p>Price</p>
+            <p>
+              {UserData?.plan?.subscription?.plan_currency?.currency}
+              {UserData?.plan?.subscription?.plan_price}
+            </p>
+          </div>
+          <div className="d-flex align-items-center justify-content-between mt-1">
+            <p>Start Date</p>
+            <p>{UserData?.plan?.subscription?.start_date}</p>
+          </div>
+          <div className="d-flex align-items-center justify-content-between mt-1">
+            <p>End Date</p>
+            <p>{UserData?.plan?.subscription?.end_date}</p>
+          </div>
         </div>
+        {/* );
+          })} */}
+
         <div
           className="w-100 text-center text-white p-2 position-absolute mt-3"
           style={{ bottom: "0", background: "black" }}

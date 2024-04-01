@@ -3,12 +3,14 @@ import { useAuthContext } from "@context/AuthContext";
 import {
   faAngleLeft,
   faBell,
+  faChevronRight,
   faCircleCheck,
   faEye,
   faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  AccurateUsers,
   GetNotitficationHistory,
   SendPushNotification,
 } from "@services/Routes";
@@ -29,8 +31,10 @@ export default function Page() {
   const [Message, setMessage] = useState("");
   const [Data, setData] = useState("");
   const [Show, setShow] = useState("");
+  const [ShowList, setShowList] = useState(false);
   const [ModalID, setModalID] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
+  const [AccurateUsersList, setAccurateUsersList] = useState("");
 
   const handleSendNotification = async () => {
     if (Message === "") {
@@ -79,6 +83,7 @@ export default function Page() {
           theme: "light",
         });
         APIDATA();
+        handleGetMessageHistory();
         setTitle("");
         setMessage("");
       }
@@ -104,9 +109,18 @@ export default function Page() {
       setData(res?.data?.data?.firebase_notification_log);
     }
   };
+
+  const handleGetAccurateUsers = async () => {
+    const res = await Api(AccurateUsers, {});
+    if (res.status) {
+      setAccurateUsersList(res?.data?.data);
+    }
+  };
+
   useEffect(() => {
     APIDATA();
     handleGetMessageHistory();
+    handleGetAccurateUsers();
   }, []);
 
   const handleModalId = (id) => {
@@ -187,6 +201,44 @@ export default function Page() {
             })}
         </Modal.Body>
       </Modal>
+
+      {/* user list modal */}
+      <Modal show={ShowList} onHide={() => setShowList(false)} centered>
+        <Modal.Header>
+          <Modal.Title>
+            <h5
+              class="title title--h1 first-title title__separate mb-1 mb-0"
+              id="BlogModalTitle"
+            >
+              List of users
+            </h5>
+          </Modal.Title>
+          <button
+            type="button"
+            class="close"
+            onClick={() => setShowList(false)}
+          >
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close alert</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "10px 5px" }}>
+          {AccurateUsersList?.details &&
+            AccurateUsersList?.details?.map((item, index) => {
+              return (
+                <div className="leads-custom-table mb-0" key={index}>
+                  <div className="d-flex align-items-start w-100">
+                    <p className="font-weight-bold Heading-row color-black">
+                      <span className="mr-2">{index + 1}.</span>
+                      {item?.name}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+        </Modal.Body>
+      </Modal>
+
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
@@ -226,6 +278,16 @@ export default function Page() {
             style={{ minHeight: "100px" }}
             required
           />
+          <p className="color-black mt-2">
+            This message will recieve by {AccurateUsersList?.accurate} (accurate
+            users) + {AccurateUsersList?.anonymous} (anonymous users){" "}
+            <span
+              className="ml-2 font-weight-bold VarColor cursor-pointer"
+              onClick={() => setShowList(true)}
+            >
+              Get List <FontAwesomeIcon icon={faChevronRight} width={7} />
+            </span>
+          </p>
           <button
             className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4 mb-2"
             onClick={() => handleSendNotification()}

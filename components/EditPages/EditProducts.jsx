@@ -1801,7 +1801,10 @@ export default function EditProducts({
                               </div>
                               <div className="text-left mt-3">
                                 {items?.gallery?.length ? (
-                                  <span class="VarColor font-weight-bold text-decoration-underline">
+                                  <span
+                                    class="VarColor font-weight-bold text-decoration-underline cursor-pointer"
+                                    onClick={() => ShowModalID(items.id)}
+                                  >
                                     More Images
                                   </span>
                                 ) : (

@@ -20,9 +20,23 @@ export default function Forgot() {
 
   const handlecontinue = async (e) => {
     e.preventDefault();
-    if (Email === "") {
+    if (Email == "") {
+      setShowLoader(false);
       toast.error("Email field is required", {
-        position: "bottom-right",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      setShowLoader(false);
+      toast.error("Invalid Email", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -33,9 +47,9 @@ export default function Forgot() {
       });
       return;
     }
-    setShowLoader(true);
     setbuttonLoader(true);
     try {
+      setShowLoader(true);
       let payload = {
         email: Email,
       };
@@ -47,7 +61,7 @@ export default function Forgot() {
       }
     } catch (error) {
       toast.error(error.response.data.message, {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -66,7 +80,7 @@ export default function Forgot() {
     e.preventDefault();
     if (Otp === "") {
       toast.error("Otp is required", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -79,7 +93,7 @@ export default function Forgot() {
     }
     if (Password === "") {
       toast.error("Password is required", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -92,7 +106,7 @@ export default function Forgot() {
     }
     if (Confirm_Password === "") {
       toast.error("Confirm Password is required", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -105,7 +119,7 @@ export default function Forgot() {
     }
     if (Password !== Confirm_Password) {
       toast.error("Password should be match with confirm password", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -129,7 +143,7 @@ export default function Forgot() {
         window.location.href = "/login";
       } else {
         toast.error(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,

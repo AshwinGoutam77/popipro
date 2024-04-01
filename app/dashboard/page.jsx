@@ -10,6 +10,7 @@ import {
   faCircleCheck,
   faCode,
   faEnvelope,
+  faEye,
   faGear,
   faHomeAlt,
   faImage,
@@ -287,7 +288,7 @@ export default function Dashboard() {
         pauseOnHover
         theme="light"
       />
-      <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white">
+      <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white dashboard-section">
         <div
           className="login-header p-2 text-center d-flex align-items-center justify-content-between px-4 w-100"
           style={{ background: "black" }}
@@ -368,6 +369,32 @@ export default function Dashboard() {
           </div>
         </div>
 
+        <div className="fixed-b-icons">
+          {Data?.is_onboarding == 2 ? (
+            <Link href={"/" + localStorage.getItem("url")}>
+              <p
+                className="float"
+                style={{
+                  background: "var(--color)",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="ml-1"
+                  style={{
+                    position: "relative",
+                    right: "1px",
+                    fontSize: "20px",
+                    color: "white",
+                  }}
+                />
+              </p>
+            </Link>
+          ) : (
+            ""
+          )}
+        </div>
+
         <div className="p-4 dashboard-section w-100">
           <div className="row mb-4 card flex-row mt-12 user-theme-bg p-5 dashboard-web-margin">
             <div className="col-lg-6 col-sm-12 order-2 order-lg-1 mt-2 text-white text-left">
@@ -432,7 +459,7 @@ export default function Dashboard() {
                 className="h-40 sm:mt-0 dashboard-web-margin-image w-100"
                 src="https://prafullgupta.com/connectwork/assets/chat/chats/290324063550finalillustration.png"
                 alt="image"
-                style={{objectFit:'contain'}}
+                style={{ objectFit: "contain" }}
               />
             </div>
           </div>

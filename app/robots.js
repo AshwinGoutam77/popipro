@@ -12,7 +12,7 @@ export default function robots() {
     robots_obj = {
       rules: {
         userAgent: "*",
-        allow: "/",
+        disallow: "/",
         disallow: [
           "/login/",
           "/dashboard/",

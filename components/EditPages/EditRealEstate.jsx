@@ -918,9 +918,13 @@ export default function EditRealEstate({
                       }}
                     ></p>
 
+                    {items?.amenities?.length > 3 && (
+                      <h6 className="color-black mt-3">Other Amenities:</h6>
+                    )}
+
                     {items?.amenities?.length > 3 ? (
                       <div
-                        className="d-flex flex-column mt-3 amenities-main-section w-100"
+                        className="d-flex flex-column amenities-main-section w-100"
                         style={{ gap: "10px", lineHeight: "0" }}
                       >
                         {items?.amenities &&

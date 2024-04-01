@@ -1523,6 +1523,13 @@ table tbody tr:last-child {
   width: 20px;
   fill: var(--color);
 }
+
+.amenities-div svg .cls-1,
+.cls-2,
+.cls-3 {
+  fill: var(--color) !important;
+}
+
 .web-real-estate-price {
   font-size: 15px !important;
 }
@@ -1712,22 +1719,27 @@ table tbody tr:last-child {
   height: 71px;
 }
 
-#p_wrap h2, .content_description h2 {
+#p_wrap h2,
+.content_description h2 {
   font-size: 25px !important;
   color: #000;
 }
-#p_wrap h3, #p_wrap h4, .content_description h3,
+#p_wrap h3,
+#p_wrap h4,
+.content_description h3,
 .content_description h4 {
   font-size: 23px !important;
   color: #000;
 }
 
-#p_wrap ul, .content_description ul,
-#p_wrap ol, .content_description ol {
+#p_wrap ul,
+.content_description ul,
+#p_wrap ol,
+.content_description ol {
   padding-left: 15px;
 }
 
-.dropdown-toggle-split::after{
+.dropdown-toggle-split::after {
   content: none !important;
 }
 
@@ -1747,6 +1759,69 @@ table tbody tr:last-child {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.subscription-section {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  width: 500px;
+}
+
+.subscription-section p {
+  font-size: 13px !important;
+  color: #000 !important;
+}
+
+.subscription-section .divider {
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 10px;
+}
+
+.video-loader video::-webkit-media-controls {
+  display: none !important;
+}
+
+.video-loader video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+.video-loader video::-webkit-media-controls-panel {
+  display: none !important;
+}
+
+.video-loader video::-webkit-media-controls-play-button {
+  display: none !important;
+}
+
+.video-loader video::-webkit-media-controls-volume-slider-container {
+  display: none !important;
+}
+
+.save-contact-drawer {
+  position: relative;
+}
+
+.save-contact-drawer .close-svg {
+  position: absolute;
+  right: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  top: -14px;
+}
+
+.css-9emuhu-MuiPaper-root-MuiDrawer-paper {
+  padding: 30px 10px;
+}
+
+.css-9emuhu-MuiPaper-root-MuiDrawer-paper {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.mobile-contact-btn {
+  display: none !important;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {
@@ -1782,6 +1857,16 @@ table tbody tr:last-child {
   }
 }
 @media (max-width: 768px) {
+  .mobile-contact-btn {
+    display: block  !important;
+  }
+  .web-contact-btn {
+    display: none !important;
+  }
+  .subscription-section {
+    width: 100%;
+    margin-right: 10px;
+  }
   .services-swiper-slider {
     padding: 0 !important;
   }

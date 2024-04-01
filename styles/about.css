@@ -87,6 +87,11 @@
   z-index: 100;
 }
 
+.dashboard-section .fixed-b-icons {
+  bottom: 20px;
+  right: 35px;
+}
+
 .float {
   display: flex;
   /* position: fixed; */
@@ -499,6 +504,12 @@ div:where(.swal2-icon).swal2-info {
   .dashboard-footer {
     position: relative !important;
   }
+
+  .dashboard-section .fixed-b-icons .float,
+  .dashboard-section .fixed-b-icons svg {
+    background-color: white !important;
+    color: var(--color) !important;
+  }
 }
 
 .form-control:focus,
@@ -662,7 +673,7 @@ select:focus,
 }
 
 .MuiBackdrop-root {
-  background-color: white !important;
+  /* background-color: white !important; */
 }
 
 .custom-select,

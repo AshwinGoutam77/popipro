@@ -127,3 +127,11 @@ export const ToogleRealEstateBtn = {
   path: "toggle-realestate-button",
   method: "GET",
 };
+export const AccurateUsers = {
+  path: "get-accurate-card-visitors",
+  method: "GET",
+};
+export const Subscription = {
+  path: "get-subscription-history",
+  method: "GET",
+};
