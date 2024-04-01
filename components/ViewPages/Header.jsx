@@ -714,7 +714,25 @@ const Header = ({
               >
                 Add Contact
               </button>
-              <AddContact shareContact={shareContact} />
+              <AddContact
+                shareContact={shareContact}
+                data={card}
+                src={
+                  process.env.NEXT_PUBLIC_MODE == "development"
+                    ? card?.profile_picture?.path
+                      ? "https://dev.popipro.com/" +
+                        card?.profile_picture?.path +
+                        "?ver=" +
+                        time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : card?.profile_picture?.path
+                    ? "https://admin.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                }
+              />
               <button
                 className="contact-btn"
                 data-toggle="modal"

@@ -1821,6 +1821,35 @@ table tbody tr:last-child {
   display: none !important;
 }
 
+.share-profile-drawer .image-section img {
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.floating-paper-plane {
+  position: absolute;
+  width: 36px;
+  background: #ffffff;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  filter: drop-shadow(0px 2.76923px 8.30769px rgba(22, 29, 37, 0.1));
+  align-items: center;
+  justify-content: center;
+  left: 54px;
+  top: 48px;
+}
+.floating-paper-plane svg {
+  color: var(--color);
+  font-size: 0.75em;
+  width: 15px;
+  height: 15px;
+  transform: rotate(12deg);
+}
+
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {
     padding: 5px;
