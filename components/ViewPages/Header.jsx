@@ -257,7 +257,7 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      setModalShow("ExchangeContact");
+      // setModalShow("ExchangeContact");
     }
   };
 
@@ -714,7 +714,7 @@ const Header = ({
               >
                 Add Contact
               </button>
-                <AddContact />
+              <AddContact shareContact={shareContact} />
               <button
                 className="contact-btn"
                 data-toggle="modal"

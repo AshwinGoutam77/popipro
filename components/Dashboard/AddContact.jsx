@@ -19,7 +19,7 @@ import {
   faCross,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function AddContact() {
+export default function AddContact({ shareContact }) {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -48,8 +48,11 @@ export default function AddContact() {
       />
 
       <h5 className="color-black">How to create new contact</h5>
-      <img src="https://prafullgupta.com/connectwork/assets/chat/groups/0104240454234c81acc0-daee-4cb5-b1f7-63f168223ce2.png" />
-      <button className="contact-btn w-auto mt-4">
+      <img src="https://prafullgupta.com/connectwork/assets/chat/groups/0104240558263f844ca2-4c8b-4027-aec9-29cb5d48f661.png" />
+      <button
+        className="contact-btn w-auto mt-4"
+        onClick={() => shareContact()}
+      >
         <FontAwesomeIcon icon={faContactBook} className="mr-2" /> Save to
         contacts
       </button>
