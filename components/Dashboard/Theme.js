@@ -43,6 +43,7 @@ export default function Theme({
     });
 
     if (response.data.status) {
+      window.location.href = "/" + card_url;
       setColor(Data?.color_code);
       setBackgroundColor(Data?.background_color);
       setTextColor(Data?.text_color);
@@ -202,15 +203,14 @@ export default function Theme({
                 className="d-flex align-items-center justify-content-center mt-3"
                 style={{ gap: "10px" }}
               >
-                <Link href={"/" + card_url}>
-                  {" "}
-                  <button
-                    onClick={(e) => handleColor(e)}
-                    className="contact-btn mt-2 w-auto"
-                  >
-                    Save Changes
-                  </button>
-                </Link>
+                {/* <Link href={"/" + card_url}> */}{" "}
+                <button
+                  onClick={(e) => handleColor(e)}
+                  className="contact-btn mt-2 w-auto"
+                >
+                  Save Changes
+                </button>
+                {/* </Link> */}
                 <button
                   onClick={(e) => handleResetColor(e)}
                   className="contact-btn mt-2 w-auto"

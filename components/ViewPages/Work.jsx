@@ -260,7 +260,7 @@ const Work = ({
                         const videoId = getId(video);
                         return (
                           <div
-                            className="swiper-slide review-items mt-3 col-sm-12 col-md-6 col-lg-6"
+                            className="swiper-slide review-items col-sm-12 col-md-6 col-lg-6"
                             key={i}
                           >
                             <div className="w-100">
