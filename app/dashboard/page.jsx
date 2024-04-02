@@ -99,10 +99,7 @@ export default function Dashboard() {
           setHeaderColor(response.data.data?.card?.banner_color);
           setTextColor(response.data.data?.card?.text_color);
           setMainData(response.data.data);
-          document.documentElement.style.setProperty(
-            "--color",
-            response.data.data.card.color_code
-          );
+          document.documentElement.style.setProperty("--color", "#24b1e6");
           document.documentElement.style.setProperty(
             "--header-color",
             response.data.data.card.banner_color
@@ -1528,6 +1525,7 @@ export default function Dashboard() {
         setTextColor={setTextColor}
         active={modalShow == "theme" ? true : false}
         handleClose={setModalShow}
+        card_url={localStorage.getItem("url")}
       />
       <Suggestions
         active={modalShow == "suggestion" ? true : false}

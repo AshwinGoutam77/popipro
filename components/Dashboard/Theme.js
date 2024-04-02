@@ -2,6 +2,8 @@ import { toast } from "react-toastify";
 import { CardData } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Theme({
   APIDATA,
@@ -17,6 +19,7 @@ export default function Theme({
   handleClose,
   TextColor,
   setTextColor,
+  card_url,
 }) {
   const handleColor = async () => {
     if (Color === undefined) {
@@ -127,57 +130,6 @@ export default function Theme({
           </Modal.Header>
           <Modal.Body>
             <div className="position-relative">
-              {/* <div className="mb-3 pl-2 pr-3">
-                <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for theme color
-                </p>
-                <input
-                  type="text"
-                  placeholder="#ffc021"
-                  className="form-control border"
-                  value={Color || ""}
-                  onChange={(e) => setColor(e.target.value)}
-                />
-              </div>
-              <div className="mb-3 pl-2 pr-3">
-                <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for background color
-                </p>
-                <input
-                  type="text"
-                  placeholder="#ffc021"
-                  className="form-control border"
-                  value={BackgroundColor || ""}
-                  onChange={(e) => setBackgroundColor(e.target.value)}
-                />
-              </div>
-              <div className="mb-3 pl-2 pr-3">
-                <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for header color
-                </p>
-                <input
-                  type="text"
-                  placeholder="#ffc021"
-                  className="form-control border"
-                  value={HeaderColor || ""}
-                  onChange={(e) => setHeaderColor(e.target.value)}
-                />
-              </div>
-              <div className="mb-3 pl-2 pr-3">
-                <p className="pl-2 mb-0 font-weight-bold">
-                  Enter HexCode for button text color
-                </p>
-                <input
-                  type="text"
-                  placeholder="#ffc021"
-                  className="form-control border"
-                  value={TextColor || ""}
-                  onChange={(e) => setTextColor(e.target.value)}
-                />
-              </div>
-              <p className="text-center mb-3 underline-or">
-                <span>OR</span>
-              </p> */}
               <div
                 className="d-flex align-items-center justify-content-center w-100"
                 style={{ gap: "10px" }}
@@ -250,12 +202,15 @@ export default function Theme({
                 className="d-flex align-items-center justify-content-center mt-3"
                 style={{ gap: "10px" }}
               >
-                <button
-                  onClick={(e) => handleColor(e)}
-                  className="contact-btn mt-2 w-auto"
-                >
-                  Save Changes
-                </button>
+                <Link href={"/" + card_url}>
+                  {" "}
+                  <button
+                    onClick={(e) => handleColor(e)}
+                    className="contact-btn mt-2 w-auto"
+                  >
+                    Save Changes
+                  </button>
+                </Link>
                 <button
                   onClick={(e) => handleResetColor(e)}
                   className="contact-btn mt-2 w-auto"

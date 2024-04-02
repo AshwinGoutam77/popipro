@@ -52,17 +52,10 @@ const Order = () => {
       if (response.data.status) {
         ".....", response.data.data.headers;
         setItems(response.data.data.sequence);
-        document.documentElement.style.setProperty(
-          "--color",
-          response.data.data.card.color_code
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          response.data.data.card.background_color
-        );
-        const color = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--color");
+        document.documentElement.style.setProperty("--color", "#24b1e6");
+        document.documentElement.style.setProperty("--header-color", "#24b1e6");
+        document.documentElement.style.setProperty("--themecolor", "#dfeef8");
+        document.documentElement.style.setProperty("--text-color", "#ffffff");
       }
     } catch (error) {
       if (error.request.status == "401") {

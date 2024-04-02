@@ -1,25 +1,16 @@
 "use client";
-import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faClose,
   faContactBook,
-  faCross,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
+import LoadingText from "@components/ViewPages/LoadingText";
 
-export default function AddContact({ shareContact, src, data }) {
+export default function AddContact({ shareContact, src, data, ShowLoader }) {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -45,6 +36,11 @@ export default function AddContact({ shareContact, src, data }) {
     setSaveContact(true);
   };
 
+  const handleClose = () => {
+    toggleDrawer("bottom", false)();
+    setSaveContact(false);
+  };
+
   const list = () => (
     <div className="save-contact-drawer text-center">
       <FontAwesomeIcon
@@ -55,24 +51,26 @@ export default function AddContact({ shareContact, src, data }) {
 
       <h5 className="color-black">How to create new contact</h5>
       <img src="https://prafullgupta.com/connectwork/assets/chat/groups/0104240558263f844ca2-4c8b-4027-aec9-29cb5d48f661.png" />
-      <button
-        className="contact-btn w-auto mt-4"
-        onClick={() => handleSaveContact()}
-      >
-        <FontAwesomeIcon icon={faContactBook} className="mr-2" /> Save to
-        contacts
-      </button>
+      {!ShowLoader ? (
+        <button
+          className="contact-btn w-auto mt-4"
+          onClick={() => handleSaveContact()}
+        >
+          <FontAwesomeIcon icon={faContactBook} className="mr-2" /> Save to
+          contacts
+        </button>
+      ) : (
+        <button class="contact-btn mt-4 w-auto" disabled>
+          <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+          <LoadingText />
+        </button>
+      )}
       <p>
         Receive card via email{" "}
         <FontAwesomeIcon icon={faArrowRight} className="mt-3 ml-1" />
       </p>
     </div>
   );
-
-  const handleClose = () => {
-    toggleDrawer("bottom", false)();
-    setSaveContact(false);
-  };
 
   const ShareModal = () => (
     <div className="save-contact-drawer share-profile-drawer">
@@ -158,7 +156,21 @@ export default function AddContact({ shareContact, src, data }) {
             // value={Message}
             // onChange={(e) => setMessage(e.target.value)}
           ></textarea>
-          <button className="contact-btn w-auto mt-4">Share Contact</button>
+          {data?.whatsapp_number ? (
+            <div className="mt-2 d-flex align-items-center mb-2">
+              <input
+                type="checkbox"
+                // onChange={() => handleSendWhatsaapMessage()}
+                id="whatsapp"
+              />
+              <label className="ml-2" htmlFor="whatsapp">
+                Do you want to send message on WhatsApp also?
+              </label>
+            </div>
+          ) : (
+            ""
+          )}
+          <button className="contact-btn w-auto mt-2">Share Contact</button>
         </div>
       </div>
     </div>

@@ -66,6 +66,7 @@ const Header = ({
   const [ShowProfileQr, setShowProfileQr] = useState(false);
   const [ShowDownloadQr, setShowDownloadQr] = useState(true);
   const [Loader, setLoader] = useState(false);
+  const [Downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     setTime(new Date().getTime() / 1000);
@@ -149,6 +150,7 @@ const Header = ({
 
   let links = [];
   const shareContact = async () => {
+    setDownloading(true);
     let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
     let payload = {
       card: card?.id,
@@ -166,6 +168,7 @@ const Header = ({
       response?.data?.message == "Can not count this hit."
     ) {
       setProfileImage(response.data.data.base_image);
+      setDownloading(false);
 
       var contact = {
         website: card?.card_website,
@@ -717,6 +720,7 @@ const Header = ({
               <AddContact
                 shareContact={shareContact}
                 data={card}
+                ShowLoader={Downloading}
                 src={
                   process.env.NEXT_PUBLIC_MODE == "development"
                     ? card?.profile_picture?.path

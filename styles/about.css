@@ -673,7 +673,7 @@ select:focus,
 }
 
 .MuiBackdrop-root {
-  /* background-color: white !important; */
+  background-color: white !important;
 }
 
 .custom-select,
@@ -824,6 +824,9 @@ textarea:invalid {
 }
 
 @media (max-width: 768px) {
+  .MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
   .main_content {
     padding: 30px;
   }

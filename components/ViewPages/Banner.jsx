@@ -51,7 +51,7 @@ const Banner = ({
   };
 
   useEffect(() => {
-    if (card) {
+    if (card || profile) {
       setLoader(true);
       document.documentElement.style.setProperty("--color", card?.color_code);
       document.documentElement.style.setProperty(

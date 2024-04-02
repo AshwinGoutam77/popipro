@@ -21,19 +21,10 @@ const EditBanner = ({
   PlanData,
 }) => {
   useEffect(() => {
-    document.documentElement.style.setProperty("--color", card?.color_code);
-    document.documentElement.style.setProperty(
-      "--header-color",
-      card?.banner_color
-    );
-    document.documentElement.style.setProperty(
-      "--themecolor",
-      card?.background_color
-    );
-    document.documentElement.style.setProperty(
-      "--text-color",
-      card?.text_color
-    );
+    document.documentElement.style.setProperty("--color", "#24b1e6");
+    document.documentElement.style.setProperty("--header-color", "#24b1e6");
+    document.documentElement.style.setProperty("--themecolor", "#dfeef8");
+    document.documentElement.style.setProperty("--text-color", "#ffffff");
   }, []);
 
   let isVisible = false;
@@ -159,13 +150,7 @@ const EditBanner = ({
           </div>
           <div>
             <Link href="/dashboard">
-              <div
-                className={
-                  Data?.banner_color == "#ffffff"
-                    ? "m-0 Varcolor d-flex align-items-center getCard-a cursor-pointer"
-                    : "m-0 text-white d-flex align-items-center getCard-a cursor-pointer"
-                }
-              >
+              <div className="m-0 text-white d-flex align-items-center getCard-a cursor-pointer">
                 <FontAwesomeIcon
                   icon={faChevronLeft}
                   className="ml-2 mr-1 font-weight-bold"
@@ -332,13 +317,7 @@ const EditBanner = ({
             </div>
           </div>
           <Link href="/dashboard" scroll={false}>
-            <div
-              className={
-                Data?.banner_color == "#ffffff"
-                  ? "m-0 Varcolor d-flex align-items-center getCard-a cursor-pointer"
-                  : "m-0 text-white d-flex align-items-center getCard-a cursor-pointer"
-              }
-            >
+            <div className="m-0 text-white d-flex align-items-center getCard-a cursor-pointer">
               <FontAwesomeIcon
                 icon={faChevronLeft}
                 className="ml-2 mr-1 font-weight-bold"
