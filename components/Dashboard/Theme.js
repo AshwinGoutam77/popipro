@@ -41,7 +41,7 @@ export default function Theme({
       banner_color: HeaderColor,
       text_color: TextColor,
     });
-
+    
     if (response.data.status) {
       window.location.href = "/" + card_url;
       setColor(Data?.color_code);

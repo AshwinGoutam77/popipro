@@ -76,17 +76,7 @@ const Order = () => {
     }
   };
 
-  const handleSequence = async () => {
-    let abc = items?.map((item, index) => ({
-      control_name: item?.name,
-      sequence: index + 1,
-    }));
-    setOrderItems(abc);
-    const response = await Api(CardSequence, { control: abc });
-    if (response.data.status) {
-      response;
-    }
-  };
+  const handleSequence = async () => {};
 
   useEffect(() => {
     APIDATA();
@@ -94,10 +84,10 @@ const Order = () => {
   }, []);
 
   useEffect(() => {
-    handleSequence();
+    // handleSequence();
   }, [items]);
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     handleSq();
     if (!result.destination) return; // Dragged outside the droppable area
 
@@ -110,6 +100,16 @@ const Order = () => {
       sequence: index,
     }));
     setItems(reorderedItems);
+
+    let abc = reorderedItems?.map((item, index) => ({
+      control_name: item?.name,
+      sequence: index + 1,
+    }));
+    setOrderItems(abc);
+    const response = await Api(CardSequence, { control: abc });
+    if (response.data.status) {
+      response;
+    }
   };
 
   return (

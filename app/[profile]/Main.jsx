@@ -21,6 +21,7 @@ import { redirect } from "next/navigation";
 import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
+import Video from "@components/ViewPages/Video";
 
 export default async function Main({ profile, data, id, referer }) {
   let card = data?.data?.card || {};
@@ -139,6 +140,16 @@ export default async function Main({ profile, data, id, referer }) {
                       />
 
                       <Work
+                        Card_videos={card?.card_videos}
+                        Card_photos={card?.card_photos}
+                        Titles={titles}
+                        Data={card}
+                        card={card}
+                        PaginationData={pagination_data}
+                        PlanData={plan}
+                        card_url={profile}
+                      />
+                      <Video
                         Card_videos={card?.card_videos}
                         Card_photos={card?.card_photos}
                         Titles={titles}
@@ -295,6 +306,17 @@ export default async function Main({ profile, data, id, referer }) {
                                 />
                               ) : items?.status == "card_photos" ? (
                                 <Work
+                                  Card_videos={card?.card_videos}
+                                  Card_photos={card?.card_photos}
+                                  Titles={titles}
+                                  Data={card}
+                                  card={card}
+                                  PaginationData={pagination_data}
+                                  PlanData={plan}
+                                  card_url={profile}
+                                />
+                              ) : items?.status == "card_videos" ? (
+                                <Video
                                   Card_videos={card?.card_videos}
                                   Card_photos={card?.card_photos}
                                   Titles={titles}
