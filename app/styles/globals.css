@@ -1506,10 +1506,10 @@ td {
   padding: 11px;
 }
 
-table tbody tr {
+.responsiveTable tbody tr {
   border-bottom: 1px solid #e7e7e7;
 }
-table tbody tr:last-child {
+.responsiveTable tbody tr:last-child {
   border: 0px !important;
 }
 .dashboard-location-select {

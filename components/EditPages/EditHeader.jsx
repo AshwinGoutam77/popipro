@@ -823,7 +823,7 @@ function EditHeader({
                     <img
                       src="../static/img/location-dark.svg"
                       alt="image"
-                      width={10}
+                      width={15}
                       className="mr-2"
                     />
                     {Data && Data?.card_address}

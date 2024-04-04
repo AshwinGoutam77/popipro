@@ -595,7 +595,7 @@ const Header = ({
                           }&chs=160x160&chld=L|0`
                     }
                     className="qr-img w-250"
-                    alt="we"
+                    alt="qr"
                   />
                 ) : (
                   <div className="d-flex align-items-center justify-content-center w-250">
@@ -736,6 +736,7 @@ const Header = ({
                       time
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
+                profile={profile}
               />
               <button
                 className="contact-btn"

@@ -9,8 +9,12 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import LoadingText from "@components/ViewPages/LoadingText";
+import { toast } from "react-toastify";
+import Api from "@services/Api";
+import { contactUs } from "@services/Routes";
+import localforage from "localforage";
 
-export default function AddContact({ shareContact, src, data, ShowLoader }) {
+export default function AddContact({ shareContact, src, data, profile }) {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -18,6 +22,152 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
     right: false,
   });
   const [SaveContact, setSaveContact] = useState(false);
+
+  const [FirstName, setFirstName] = useState("");
+  const [Number, setNumber] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Message, setMessage] = useState("");
+  const [SendWhatsaap, setSendWhatsaap] = useState(false);
+  const [ShowLoader, setShowLoader] = useState(false);
+  const [Loader, setLoader] = useState(false);
+
+  const handleSendWhatsaapMessage = () => {
+    setSendWhatsaap(true);
+    if (SendWhatsaap) {
+      setSendWhatsaap(false);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (value.length <= 15) {
+      setNumber(value);
+    }
+  };
+
+  const handleSaveData = async () => {
+    if (FirstName === "") {
+      toast.error("Name is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else if (Number === "") {
+      toast.error("Mobile/Phone is required", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else if (Email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email) == false) {
+      toast.error("Invalid email format", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    let payloadData = {
+      full_name: FirstName,
+      contact_number: Number,
+      email: Email,
+      message: Message,
+      card_url: profile,
+      latitude: localStorage.getItem("latitude"),
+      longitude: localStorage.getItem("longitude"),
+      fb_token: await localforage.getItem("fcm_token"),
+    };
+    try {
+      setLoader(true);
+      const response = await Api(contactUs, payloadData);
+      handleClose();
+      if (response.data.status) {
+        setShowLoader(false);
+        setLoader(false);
+        setSaveContact(false);
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        window.location.href = SendWhatsaap
+          ? data?.whatsapp_country_code
+            ? "https://api.whatsapp.com/send?phone=" +
+              data?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+              data.whatsapp_number +
+              "&" +
+              `text=Popipro Enquiry %0a Name =${FirstName} ${
+                Email ? `%0a Email = ${Email}` : ""
+              } %0a Number =${Number} ${
+                Message ? ` %0a Message = ${Message}` : ""
+              }`
+            : "https://api.whatsapp.com/send?phone=" +
+              data.whatsapp_number +
+              "&" +
+              `text=Popipro Enquiry %0a Name =${FirstName} ${
+                Email ? `%0a Email = ${Email}` : ""
+              } %0a Number =${Number} ${
+                Message ? ` %0a Message = ${Message}` : ""
+              }`
+          : "#";
+        handleEmptyFields();
+      } else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      setShowLoader(false);
+      setLoader(false);
+      toast.error(error.response?.data.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  const handleEmptyFields = () => {
+    handleClose();
+    setFirstName("");
+    setNumber("");
+    setMessage("");
+    setEmail("");
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -118,8 +268,8 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
             placeholder="Name*"
             required="required"
             autoComplete="on"
-            // value={FirstName}
-            // onChange={(e) => setFirstName(e.target.value)}
+            value={FirstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <div className="help-block with-errors"></div>
         </div>
@@ -130,8 +280,8 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
             placeholder="Mobile/Phone*"
             required="required"
             autoComplete="on"
-            // value={Number}
-            // onChange={handleChange}
+            value={Number}
+            onChange={handleChange}
           />
           <div className="help-block with-errors"></div>
         </div>
@@ -142,8 +292,8 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
             placeholder="Email address"
             required="required"
             autoComplete="on"
-            // value={Email}
-            // onChange={(e) => setEmail(e.target.value)}
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <div className="help-block with-errors"></div>
         </div>
@@ -153,14 +303,14 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
             placeholder="Your message"
             rows="4"
             required="required"
-            // value={Message}
-            // onChange={(e) => setMessage(e.target.value)}
+            value={Message}
+            onChange={(e) => setMessage(e.target.value)}
           ></textarea>
           {data?.whatsapp_number ? (
-            <div className="mt-2 d-flex align-items-center mb-2">
+            <div className="d-flex align-items-center mb-2">
               <input
                 type="checkbox"
-                // onChange={() => handleSendWhatsaapMessage()}
+                onChange={() => handleSendWhatsaapMessage()}
                 id="whatsapp"
               />
               <label className="ml-2" htmlFor="whatsapp">
@@ -170,7 +320,20 @@ export default function AddContact({ shareContact, src, data, ShowLoader }) {
           ) : (
             ""
           )}
-          <button className="contact-btn w-auto mt-2">Share Contact</button>
+          {!Loader ? (
+            <button
+              type="submit"
+              className="contact-btn mt-0 w-auto"
+              onClick={handleSaveData}
+            >
+              Share Contact
+            </button>
+          ) : (
+            <button class="contact-btn mt-0 w-auto" disabled>
+              <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+              <LoadingText />
+            </button>
+          )}
         </div>
       </div>
     </div>
