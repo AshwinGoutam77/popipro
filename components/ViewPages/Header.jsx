@@ -32,7 +32,6 @@ import ExchangeContact from "./ExchangeContact";
 import LoadingText from "./LoadingText";
 import AddContact from "@components/Dashboard/AddContact";
 import QRCode from "qrcode.react";
-import Story from "@components/Dashboard/Story";
 
 const Header = ({
   profile,
