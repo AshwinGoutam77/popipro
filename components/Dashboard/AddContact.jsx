@@ -14,7 +14,7 @@ import Api from "@services/Api";
 import { contactUs } from "@services/Routes";
 import localforage from "localforage";
 
-export default function AddContact({ shareContact, src, data, profile }) {
+export default function AddContact({ shareContact, src, data, profile, text }) {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -307,7 +307,7 @@ export default function AddContact({ shareContact, src, data, profile }) {
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
           {data?.whatsapp_number ? (
-            <div className="d-flex align-items-center mb-2">
+            <div className="d-flex align-items-center mb-3 mt-3">
               <input
                 type="checkbox"
                 onChange={() => handleSendWhatsaapMessage()}
@@ -345,9 +345,9 @@ export default function AddContact({ shareContact, src, data, profile }) {
         onClick={toggleDrawer("bottom", true)}
         className="contact-btn w-100 mobile-contact-btn"
       >
-        Add Contact
+        {text}
       </button>
-      {!SaveContact ? (
+      {!SaveContact && text !== "Share Contact" ? (
         <SwipeableDrawer
           anchor={"bottom"}
           open={state["bottom"]}

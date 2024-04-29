@@ -23,6 +23,7 @@ import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import { CSVLink } from "react-csv";
 
 const Leads = () => {
   const { token, APIDATA } = useAuthContext();
@@ -223,6 +224,14 @@ const Leads = () => {
     },
   };
 
+  const headers = [
+    { label: "Name", key: "full_name" },
+    { label: "Contact Number", key: "contact_number" },
+    { label: "Email", key: "email" },
+    { label: "Created Date", key: "created_at" },
+    { label: "Message     ", key: "message" },
+  ];
+
   return token ? (
     <>
       {Data ? (
@@ -416,6 +425,18 @@ const Leads = () => {
               </div>
 
               <div className="box-shadow-leads">
+                <div className="text-right">
+                  <CSVLink
+                    data={Data?.leads}
+                    filename={"leads.csv"}
+                    headers={headers}
+                  >
+                    <p className="color-black font-weight-bold mr-2 mb-1">
+                      Download CSV
+                    </p>
+                  </CSVLink>
+                </div>
+
                 <Table>
                   <Thead>
                     <Tr>

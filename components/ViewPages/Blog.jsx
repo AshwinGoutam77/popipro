@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { HitClickApi } from "@services/Routes";
@@ -187,33 +187,36 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                           <div className="col-sm-12 col-lg-6 pr-0">
                             <div>
                               {item?.image?.path ? (
-                                <picture>
-                                  <source
-                                    type="image/png"
-                                    srcSet={
-                                      process.env.NEXT_PUBLIC_MODE ==
-                                      "development"
-                                        ? "https://dev.popipro.com/" +
-                                          item.image.path
-                                        : "https://admin.popipro.com/" +
-                                          item.image.path
-                                    }
-                                  />
-                                  <img
-                                    className="coverr lazyload"
-                                    src={
-                                      process.env.NEXT_PUBLIC_MODE ==
-                                      "development"
-                                        ? "https://dev.popipro.com/" +
-                                          item.image.path
-                                        : "https://admin.popipro.com/" +
-                                          item.image.path
-                                    }
-                                    alt="blog"
-                                    width={0}
-                                    height={0}
-                                  />
-                                </picture>
+                                <>
+                                  <picture>
+                                    <source
+                                      type="image/png"
+                                      srcSet={
+                                        process.env.NEXT_PUBLIC_MODE ==
+                                        "development"
+                                          ? "https://dev.popipro.com/" +
+                                            item.image.path
+                                          : "https://admin.popipro.com/" +
+                                            item.image.path
+                                      }
+                                    />
+                                    <img
+                                      className="coverr lazyload"
+                                      src={
+                                        process.env.NEXT_PUBLIC_MODE ==
+                                        "development"
+                                          ? "https://dev.popipro.com/" +
+                                            item.image.path
+                                          : "https://admin.popipro.com/" +
+                                            item.image.path
+                                      }
+                                      alt="blog"
+                                      width={0}
+                                      height={0}
+                                    />
+                                  </picture>
+                                  <FontAwesomeIcon icon={faHeart} />
+                                </>
                               ) : (
                                 <picture>
                                   <source
@@ -278,17 +281,20 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                         <div className="flex-blog gap-15">
                           <div>
                             {item?.image?.path ? (
-                              <picture>
-                                <source
-                                  type="image/png"
-                                  srcSet={Data?.base_url + item?.image?.path}
-                                />
-                                <img
-                                  className="coverr lazyload"
-                                  src={Data?.base_url + item?.image?.path}
-                                  alt="photos"
-                                />
-                              </picture>
+                              <div className="position-relative">
+                                <picture>
+                                  <source
+                                    type="image/png"
+                                    srcSet={Data?.base_url + item?.image?.path}
+                                  />
+                                  <img
+                                    className="coverr lazyload"
+                                    src={Data?.base_url + item?.image?.path}
+                                    alt="photos"
+                                  />
+                                </picture>
+                                <FontAwesomeIcon icon={faHeart}  className="heart-icon"/>
+                              </div>
                             ) : (
                               <picture>
                                 <source
@@ -314,8 +320,6 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                             ></p>
                             <div className="d-flex align-items-center justify-content-end">
                               <span
-                                data-toggle="modal"
-                                data-target="#BlogModal"
                                 onClick={() => ShowModalID(item.id, item?.name)}
                                 className="fs-13 cursor-pointer"
                               >

@@ -773,7 +773,7 @@ textarea:invalid {
 
 [data-rbd-droppable-context-id="0"],
 #droppable {
-  background: var(--themecolor) !important;
+  /* background: var(--themecolor) !important; */
   padding: 8px;
   width: 100% !important;
 }

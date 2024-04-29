@@ -16,7 +16,6 @@ import { EditData, GetVirtualBackground, HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import html2canvas from "html2canvas";
-import QR from "qrcode-base64";
 
 export default function page() {
   const canvasRef = useRef(null);
