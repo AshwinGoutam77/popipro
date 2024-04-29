@@ -24,13 +24,15 @@ import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
-import QRCode from "qrcode.react";
+// import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
 import { saveAs } from "file-saver";
 import localforage from "localforage";
 import ExchangeContact from "./ExchangeContact";
 import LoadingText from "./LoadingText";
 import AddContact from "@components/Dashboard/AddContact";
+import QRCode from "qrcode.react";
+import Story from "@components/Dashboard/Story";
 
 const Header = ({
   profile,
@@ -373,6 +375,12 @@ const Header = ({
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSlider = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <SimpleBackdrop visible={ShowLoader} />
@@ -407,6 +415,9 @@ const Header = ({
         pauseOnHover
         theme="light"
       />
+
+      {/* <Story isOpen={isOpen} /> */}
+
       {/* Review Modal */}
       <Modal show={showReview} onHide={handleCloseReview} centered>
         <Modal.Header>
@@ -582,20 +593,31 @@ const Header = ({
           </div>
           {ShowDownloadQr ? (
             <div>
-              <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex flex-column justify-content-center align-items-center profile-qr-code">
                 {profile ? (
-                  <img
-                    src={
-                      process.env.NEXT_PUBLIC_MODE === "development"
-                        ? `https://chart.googleapis.com/chart?cht=qr&chl=${
-                            "front.popipro.com/" + profile
-                          }&chs=160x160&chld=L|0`
-                        : `https://chart.googleapis.com/chart?cht=qr&chl=${
-                            "app.popipro.com/" + profile
-                          }&chs=160x160&chld=L|0`
-                    }
-                    className="qr-img w-250"
-                    alt="qr"
+                  // <img
+                  //   src={
+                  //     process.env.NEXT_PUBLIC_MODE === "development"
+                  //       ? `https://chart.googleapis.com/chart?cht=qr&chl=${
+                  //           "front.popipro.com/" + profile
+                  //         }&chs=160x160&chld=L|0`
+                  //       : `https://chart.googleapis.com/chart?cht=qr&chl=${
+                  //           "app.popipro.com/" + profile
+                  //         }&chs=160x160&chld=L|0`
+                  //   }
+                  //   className="qr-img w-250"
+                  //   alt="qr"
+                  // />
+                  <QRCode
+                    value={"front.popipro.com/" + profile}
+                    fgColor="#000"
+                    imageSettings={{
+                      src: "../../static/img/brand.png",
+                      excavate: true,
+                      height: "30",
+                      width: "30",
+                      borderRadius: "10",
+                    }}
                   />
                 ) : (
                   <div className="d-flex align-items-center justify-content-center w-250">
@@ -655,7 +677,6 @@ const Header = ({
             icon={faShareSquare}
             className="user-select-auto mr-2 VarColor cursor-pointer fs-18"
           />
-          {/* <img src="../static/img/share.svg" alt="image" width={20} /> */}
         </button>
         <button
           className="edit-header mr-5"
@@ -674,7 +695,7 @@ const Header = ({
           /> */}
         </button>
         <div className="header__left position-relative">
-          <div className="header__photo">
+          <div className="header__photo story-border">
             <Image
               className="header__photo-img"
               value={"image"}
@@ -696,6 +717,7 @@ const Header = ({
               alt="images"
               width={0}
               height={0}
+              onClick={() => toggleSlider()}
             />
           </div>
           <div className="header__base-info">
@@ -737,15 +759,38 @@ const Header = ({
                     : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 profile={profile}
+                text="Add Contact"
               />
               <button
-                className="contact-btn"
+                className="contact-btn web-contact-btn"
                 data-toggle="modal"
                 data-target="#exampleModalLong"
                 onClick={() => setModalShow("ExchangeContact")}
               >
                 Share Contact
               </button>
+              <AddContact
+                shareContact={shareContact}
+                data={card}
+                ShowLoader={Downloading}
+                src={
+                  process.env.NEXT_PUBLIC_MODE == "development"
+                    ? card?.profile_picture?.path
+                      ? "https://dev.popipro.com/" +
+                        card?.profile_picture?.path +
+                        "?ver=" +
+                        time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : card?.profile_picture?.path
+                    ? "https://admin.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                }
+                profile={profile}
+                text="Share Contact"
+              />
             </div>
             <div className="d-flex sm-class header-btn-gap">
               {company_setting?.show_testimonial_button == 0 ||
