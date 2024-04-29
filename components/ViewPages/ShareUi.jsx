@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 import { Modal } from "react-bootstrap";
-import QRCode from "react-qr-code";
 
 export default function ShareUi({
   profile,
@@ -55,14 +54,14 @@ export default function ShareUi({
             borderRadius: "10px",
           }}
         >
-          <QRCode
+          {/* <QRCode
             value={"app.popipro.com/" + profile}
             renderAs="svg"
             style={{
               width: "30vmin",
               height: "30vmin",
             }}
-          />
+          /> */}
         </div>
         <span
           className="mt-4 font-weight-bold"
