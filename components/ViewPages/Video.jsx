@@ -158,7 +158,7 @@ const Video = ({
                             key={i}
                           >
                             <div className="w-100">
-                              <div className="w-100 vedio-height">
+                              <div className="w-100 vedio-height mb-2">
                                 <div
                                   className="video-player-container"
                                   onClick={() => HitClick("i", "video")}
