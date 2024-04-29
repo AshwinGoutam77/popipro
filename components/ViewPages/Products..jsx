@@ -972,8 +972,8 @@ export default function Product({
                       <div
                         className={
                           index + 1 === length
-                            ? "swiper-slide review-item review-item-products"
-                            : "swiper-slide review-item review-item-products review-item-products-border"
+                            ? "swiper-slide review-item review-item-products fadeIn"
+                            : "swiper-slide review-item review-item-products review-item-products-border fadeIn"
                         }
                       >
                         <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
@@ -1256,7 +1256,7 @@ export default function Product({
                                 </p>
                               )}
                             </div>
-                            {items?.price && (
+                            {/* {items?.price && (
                               <div>
                                 {!TotalId.includes(items?.id) ? (
                                   <p
@@ -1295,7 +1295,7 @@ export default function Product({
                                   </p>
                                 )}
                               </div>
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </div>

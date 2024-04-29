@@ -261,7 +261,7 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      // setModalShow("ExchangeContact");
+      setModalShow("ExchangeContact");
     }
   };
 
@@ -736,13 +736,10 @@ const Header = ({
               </p>
             </div>
             <div className="d-flex sm-class header-btn-gap">
-              <button
-                className="contact-btn web-contact-btn"
-                onClick={shareContact}
-              >
+              <button className="contact-btn " onClick={shareContact}>
                 Add Contact
               </button>
-              <AddContact
+              {/* <AddContact
                 shareContact={shareContact}
                 data={card}
                 ShowLoader={Downloading}
@@ -763,16 +760,16 @@ const Header = ({
                 }
                 profile={profile}
                 text="Add Contact"
-              />
+              /> web-contact-btn*/}
               <button
-                className="contact-btn web-contact-btn"
+                className="contact-btn "
                 data-toggle="modal"
                 data-target="#exampleModalLong"
                 onClick={() => setModalShow("ExchangeContact")}
               >
                 Share Contact
               </button>
-              <AddContact
+              {/* <AddContact
                 shareContact={shareContact}
                 data={card}
                 ShowLoader={Downloading}
@@ -793,7 +790,7 @@ const Header = ({
                 }
                 profile={profile}
                 text="Share Contact"
-              />
+              /> */}
             </div>
             <div className="d-flex sm-class header-btn-gap">
               {company_setting?.show_testimonial_button == 0 ||

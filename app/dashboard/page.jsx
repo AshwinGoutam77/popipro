@@ -2,6 +2,7 @@
 "use client";
 import {
   faAddressBook,
+  faAddressCard,
   faBagShopping,
   faBuildingUser,
   faCalendarCheck,
@@ -55,6 +56,9 @@ import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
 import SettingModal from "@components/Dashboard/Setting-modal";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
+import DigitalCard from "@components/Dashboard/DigitalCard";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -78,6 +82,7 @@ export default function Dashboard() {
   const [AnalyticsTab, setAnalyticsTab] = useState(false);
   const [InsightsTab, setInsightsTab] = useState(false);
   const [ThemeTab, setThemeTab] = useState(false);
+  const [ActiveConfit, setActiveConfit] = useState(false);
 
   const APIDATA = async () => {
     if (localStorage.getItem("url")) {
@@ -238,6 +243,10 @@ export default function Dashboard() {
               progress: undefined,
               theme: "light",
             });
+            setActiveConfit(true);
+            setTimeout(() => {
+              setActiveConfit(false);
+            }, 7000);
           } else {
             toast.error(response.data.message, {
               position: "top-right",
@@ -271,8 +280,11 @@ export default function Dashboard() {
     }
   };
 
+  const { width, height } = useWindowSize();
+
   return Data ? (
     <>
+      {ActiveConfit && <Confetti width={width} height={height} />}
       <ToastContainer
         position="bottom-right"
         autoClose={1000}
@@ -539,6 +551,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Edit theme */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -569,6 +582,7 @@ export default function Dashboard() {
                         PlanData={PlanData}
                         APIDATA={APIDATA}
                         MainData={MainData}
+                        handleFreeTrail={handleFreeTrail}
                       />
                     ) : (
                       ""
@@ -585,48 +599,7 @@ export default function Dashboard() {
                     </>
                   </div>
                 </div>
-                {/* Meta Title */}
-                {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
-                  <div
-                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    data-toggle={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "modal"
-                        : ""
-                    }
-                    data-target="#BackgroundColorDiv"
-                    onClick={() =>
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? handleShowMetaTags()
-                        : ""
-                    }
-                  >
-                    {Data ? (
-                      <DashboardPlan
-                        Data={Data}
-                        PlanData={PlanData}
-                        APIDATA={APIDATA}
-                        MainData={MainData}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <FontAwesomeIcon
-                      icon={faCode}
-                      className="text-white mb-2"
-                      style={{ fontSize: "20px" }}
-                    />
-                    <h6 className="text-white text-center mb-0">Meta Tags</h6>
-                  </div>
-                </div> */}
+
                 {/* Multiple Mode */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
@@ -657,6 +630,7 @@ export default function Dashboard() {
                         PlanData={PlanData}
                         APIDATA={APIDATA}
                         MainData={MainData}
+                        handleFreeTrail={handleFreeTrail}
                       />
                     ) : (
                       ""
@@ -673,6 +647,7 @@ export default function Dashboard() {
                     </>
                   </div>
                 </div>
+
                 {/* Notification */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -694,6 +669,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -715,6 +691,7 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div>
+
                 {/* Approve review */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -736,6 +713,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -758,6 +736,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Signature */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -780,6 +759,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -803,6 +783,7 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
+
                 {/* Background */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -825,6 +806,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -848,6 +830,7 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
+
                 {/* Address Book */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -870,6 +853,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -910,6 +894,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -948,6 +933,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -999,6 +985,25 @@ export default function Dashboard() {
                     <h6 className="text-white text-center mb-0">Suggestions</h6>
                   </div>
                 </div>
+
+                {/* Digital Cards */}
+                {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
+                  <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={() => {
+                      setModalShow("digitalCard");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faAddressCard}
+                      className="text-white mb-2"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">
+                      Download Digital Card
+                    </h6>
+                  </div>
+                </div> */}
               </>
             ) : (
               ""
@@ -1030,6 +1035,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1053,6 +1059,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Traffic Analysis */}
                 {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1089,6 +1096,7 @@ export default function Dashboard() {
                     </div>
                   </Link>
                 </div> */}
+
                 {/* Product analytics */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1110,6 +1118,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1126,7 +1135,8 @@ export default function Dashboard() {
                       </>
                     </span>
                   </Link>
-                </div>{" "}
+                </div>
+
                 {/* Blogs analytics */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1148,6 +1158,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1166,6 +1177,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Real Estate */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -1188,6 +1200,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -1234,6 +1247,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1252,6 +1266,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Product enquiry */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1273,6 +1288,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1291,6 +1307,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* real estate enquiry */}
                 {process.env.NEXT_PUBLIC_MODE === "development" ? (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
@@ -1313,6 +1330,7 @@ export default function Dashboard() {
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
                         ) : (
                           ""
@@ -1334,6 +1352,7 @@ export default function Dashboard() {
                 ) : (
                   ""
                 )}
+
                 {/* My appointment */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1355,6 +1374,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1372,6 +1392,7 @@ export default function Dashboard() {
                     </span>
                   </Link>
                 </div>
+
                 {/* Custom form */}
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
@@ -1393,6 +1414,7 @@ export default function Dashboard() {
                           PlanData={PlanData}
                           APIDATA={APIDATA}
                           MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
                         />
                       ) : (
                         ""
@@ -1510,6 +1532,12 @@ export default function Dashboard() {
       <ChangePassword
         active={modalShow == "password" ? true : false}
         handleClose={setModalShow}
+      />
+      <DigitalCard
+        active={modalShow == "digitalCard" ? true : false}
+        handleClose={setModalShow}
+        card_url={localStorage.getItem("url")}
+        Data={Data}
       />
       <Theme
         APIDATA={APIDATA}

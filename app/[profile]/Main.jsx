@@ -22,6 +22,7 @@ import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
 import Video from "@components/ViewPages/Video";
+import Events from "@components/ViewPages/Events";
 
 export default async function Main({ profile, data, id, referer }) {
   let card = data?.data?.card || {};
@@ -272,7 +273,14 @@ export default async function Main({ profile, data, id, referer }) {
                                   Titles={titles}
                                 />
                               ) : items?.status == "card_description" ? (
-                                <AboutMe Titles={titles} card={card} />
+                                <>
+                                  {/* <Events
+                                    subscription={plan}
+                                    card={card}
+                                    Titles={titles}
+                                  /> */}
+                                  <AboutMe Titles={titles} card={card} />
+                                </>
                               ) : items?.status == "card_services" ? (
                                 <Services
                                   subscription={plan}
