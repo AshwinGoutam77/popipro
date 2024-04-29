@@ -592,7 +592,7 @@ const Header = ({
           </div>
           {ShowDownloadQr ? (
             <div>
-              <div className="d-flex flex-column justify-content-center align-items-center profile-qr-code">
+              <div className="d-flex flex-column justify-content-center align-items-center profile-qr-code mb-4">
                 {profile ? (
                   // <img
                   //   src={
@@ -627,7 +627,7 @@ const Header = ({
                     <h6 className="color-black">Loading...</h6>
                   </div>
                 )}
-                <button
+                {/* <button
                   onClick={DownloadProfile}
                   className="contact-btn w-auto mt-4 scanner-a"
                 >
@@ -636,7 +636,7 @@ const Header = ({
                     className="user-select-auto mr-2 fs-16 text-white cursor-pointer"
                   />
                   Download QR
-                </button>
+                </button> */}
               </div>
             </div>
           ) : (
