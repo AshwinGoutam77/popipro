@@ -1620,7 +1620,7 @@ td {
 }
 
 [data-rbd-droppable-id="droppable"] {
-  background: transparent !important;
+  background: var(--themecolor) !important;
 }
 
 .dragable-cards {
@@ -1849,6 +1849,114 @@ td {
   width: 15px;
   height: 15px;
   transform: rotate(12deg);
+}
+
+.drag-drop-inner-section {
+  background: var(--themecolor);
+  padding: 5px !important;
+  border-radius: 10px;
+}
+
+.share-modal-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color);
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  height: 100%;
+  z-index: 9999999999 !important;
+}
+
+.share-modal-navbar.open {
+  transform: translateY(0%);
+}
+
+.share-modal-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.share-modal-navbar ul li {
+  display: inline-block;
+  margin-right: 20px;
+  color: white;
+}
+
+.form-section .bg-white {
+  background: white !important;
+}
+
+.profile-qr-code canvas {
+  width: 250px !important;
+  height: 250px !important;
+}
+
+.digital-cards-section {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.digital-cards-section h5,
+.digital-cards-section p {
+  color: #000 !important;
+}
+
+.flex-blog .heart-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.story-border {
+  border: 5px solid var(--color) !important;
+  cursor: pointer;
+}
+
+.slider-container {
+  position: relative;
+}
+
+.slider-container .icon {
+  background-color: #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.slider-container .slider {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.5s ease; /* Fade animation */
+}
+
+.slider-container .slider.open {
+  display: block;
+  opacity: 1;
+}
+
+.slider-container .slide {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.events-section img {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {
