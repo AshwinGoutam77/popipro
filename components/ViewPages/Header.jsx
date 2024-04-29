@@ -608,15 +608,19 @@ const Header = ({
                   //   alt="qr"
                   // />
                   <QRCode
-                    value={"front.popipro.com/" + profile}
+                    value={
+                      process.env.NEXT_PUBLIC_MODE === "development"
+                        ? "front.popipro.com/" + profile
+                        : "app.popipro.com/" + profile
+                    }
                     fgColor="#000"
-                    imageSettings={{
-                      src: "../../static/img/brand.png",
-                      excavate: true,
-                      height: "30",
-                      width: "30",
-                      borderRadius: "10",
-                    }}
+                    // imageSettings={{
+                    //   src: "../../static/img/brand.png",
+                    //   excavate: true,
+                    //   height: "30",
+                    //   width: "30",
+                    //   borderRadius: "10",
+                    // }}
                   />
                 ) : (
                   <div className="d-flex align-items-center justify-content-center w-250">
@@ -694,7 +698,7 @@ const Header = ({
           /> */}
         </button>
         <div className="header__left position-relative">
-          <div className="header__photo story-border">
+          <div className="header__photo">
             <Image
               className="header__photo-img"
               value={"image"}
