@@ -56,9 +56,6 @@ import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
 import SettingModal from "@components/Dashboard/Setting-modal";
-// import { useWindowSize } from "react-use";
-// import Confetti from "react-confetti";
-// import DigitalCard from "@components/Dashboard/DigitalCard";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -284,7 +281,6 @@ export default function Dashboard() {
 
   return Data ? (
     <>
-      {/* {ActiveConfit && <Confetti width={width} height={height} />} */}
       <ToastContainer
         position="bottom-right"
         autoClose={1000}
