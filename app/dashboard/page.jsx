@@ -1529,12 +1529,12 @@ export default function Dashboard() {
         active={modalShow == "password" ? true : false}
         handleClose={setModalShow}
       />
-      <DigitalCard
+      {/* <DigitalCard
         active={modalShow == "digitalCard" ? true : false}
         handleClose={setModalShow}
         card_url={localStorage.getItem("url")}
         Data={Data}
-      />
+      /> */}
       <Theme
         APIDATA={APIDATA}
         Data={Data}
