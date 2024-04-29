@@ -277,7 +277,7 @@ export default function Dashboard() {
     }
   };
 
-  const { width, height } = useWindowSize();
+  // const { width, height } = useWindowSize();
 
   return Data ? (
     <>
