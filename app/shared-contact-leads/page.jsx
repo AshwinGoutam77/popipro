@@ -425,17 +425,19 @@ const Leads = () => {
               </div>
 
               <div className="box-shadow-leads">
-                <div className="text-right">
-                  <CSVLink
-                    data={Data?.leads}
-                    filename={"leads.csv"}
-                    headers={headers}
-                  >
-                    <p className="color-black font-weight-bold mr-2 mb-1">
-                      Download CSV
-                    </p>
-                  </CSVLink>
-                </div>
+                {Data?.leads?.length !== 0 && (
+                  <div className="text-right">
+                    <CSVLink
+                      data={Data?.leads}
+                      filename={"leads.csv"}
+                      headers={headers}
+                    >
+                      <p className="color-black font-weight-bold mr-2 mb-1">
+                        Download CSV
+                      </p>
+                    </CSVLink>
+                  </div>
+                )}
 
                 <Table>
                   <Thead>

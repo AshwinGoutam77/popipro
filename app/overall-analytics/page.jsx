@@ -540,26 +540,7 @@ const Page = () => {
           className="d-flex align-items-center justify-content-center text-center video-loader"
           style={{ height: "100vh" }}
         >
-          {/* Loading... */}
-          <video
-            width="100%"
-            height="100"
-            controls
-            autoplay="true"
-            muted
-            playsinline
-            loop
-            style={{ height: "100vh" }}
-          >
-            <source
-              src="https://prafullgupta.com/connectwork/assets/chat/chats/010424024305loadingvedio.mp4"
-              type="video/mp4"
-            />
-            <source
-              src="https://prafullgupta.com/connectwork/assets/chat/chats/010424024305loadingvedio.mp4"
-              type="video/ogg"
-            />
-          </video>
+          Loading...
         </h5>
       ) : (
         <>

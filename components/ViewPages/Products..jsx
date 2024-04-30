@@ -1256,7 +1256,7 @@ export default function Product({
                                 </p>
                               )}
                             </div>
-                            {/* {items?.price && (
+                            {items?.price && (
                               <div>
                                 {!TotalId.includes(items?.id) ? (
                                   <p
@@ -1295,7 +1295,7 @@ export default function Product({
                                   </p>
                                 )}
                               </div>
-                            )} */}
+                            )}
                           </div>
                         </div>
                       </div>

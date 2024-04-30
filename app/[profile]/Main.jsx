@@ -50,7 +50,7 @@ export default async function Main({ profile, data, id, referer }) {
       status: item?.name,
     }));
 
-  let sortedData = Sdata.slice().sort((a, b) => a.id - b.id);
+  let sortedData = Sdata?.slice().sort((a, b) => a.id - b.id);
 
   return (
     data && (
@@ -89,6 +89,7 @@ export default async function Main({ profile, data, id, referer }) {
                   </aside>
                   {process.env.NEXT_PUBLIC_MODE !== "development" ? (
                     <div className="col-12 col-md-12 col-lg-10">
+                      <AboutMe Titles={titles} card={card} />
                       <Alternateno
                         Data={card}
                         Titles={titles}
@@ -99,8 +100,6 @@ export default async function Main({ profile, data, id, referer }) {
                         Titles={titles}
                         CardLinks={card?.card_social_links}
                       />
-
-                      <AboutMe Titles={titles} card={card} />
 
                       <QuickLinks
                         subscription={plan}

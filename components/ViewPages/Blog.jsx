@@ -293,7 +293,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                     alt="photos"
                                   />
                                 </picture>
-                                <FontAwesomeIcon icon={faHeart}  className="heart-icon"/>
+                                {/* <FontAwesomeIcon icon={faHeart}  className="heart-icon"/> */}
                               </div>
                             ) : (
                               <picture>

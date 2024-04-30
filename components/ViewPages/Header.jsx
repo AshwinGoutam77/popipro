@@ -261,7 +261,7 @@ const Header = ({
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      setModalShow("ExchangeContact");
+      // setModalShow("ExchangeContact");
     }
   };
 
@@ -285,7 +285,7 @@ const Header = ({
           card?.first_name
         }%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3B${
           card?.card_address ? card?.card_address : ""
-        }%0ATEL%3BWORK%3BVOICE%3A ${
+        }%0ATEL%3BWORK%3BVOICE%3A${
           (card.contact_country_code ? card.contact_country_code : "") +
           (card?.card_contact ? card?.card_contact : "") +
           (card?.contact_extension ? card?.contact_extension : "")
@@ -297,7 +297,8 @@ const Header = ({
             : ""
         }%0AEND%3AVCARD`
       );
-      imageSrc;
+      // imageSrc;
+      console.log(imageSrc);
     }
   };
 
@@ -348,13 +349,16 @@ const Header = ({
   };
 
   const DownloadProfile = () => {
-    handleHitClick("qr-download");
-    saveAs(
-      `https://chart.googleapis.com/chart?cht=qr&chl=${
-        "app.popipro.com/" + profile
-      }&chs=160x160&chld=L|0`,
-      "image.jpg"
-    );
+    const canvas = document.getElementById("qr-code");
+    const qrCodeURL = canvas?.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.download = "qr-code.png";
+    link.href = qrCodeURL;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleShowContactQr = () => {
@@ -592,7 +596,7 @@ const Header = ({
           </div>
           {ShowDownloadQr ? (
             <div>
-              <div className="d-flex flex-column justify-content-center align-items-center profile-qr-code mb-4">
+              <div className="d-flex flex-column justify-content-center align-items-center profile-qr-code">
                 {profile ? (
                   // <img
                   //   src={
@@ -608,6 +612,7 @@ const Header = ({
                   //   alt="qr"
                   // />
                   <QRCode
+                    id="qr-code"
                     value={
                       process.env.NEXT_PUBLIC_MODE === "development"
                         ? "front.popipro.com/" + profile
@@ -627,7 +632,7 @@ const Header = ({
                     <h6 className="color-black">Loading...</h6>
                   </div>
                 )}
-                {/* <button
+                <button
                   onClick={DownloadProfile}
                   className="contact-btn w-auto mt-4 scanner-a"
                 >
@@ -636,7 +641,7 @@ const Header = ({
                     className="user-select-auto mr-2 fs-16 text-white cursor-pointer"
                   />
                   Download QR
-                </button> */}
+                </button>
               </div>
             </div>
           ) : (
@@ -736,10 +741,13 @@ const Header = ({
               </p>
             </div>
             <div className="d-flex sm-class header-btn-gap">
-              <button className="contact-btn " onClick={shareContact}>
+              <button
+                className="contact-btn web-contact-btn"
+                onClick={shareContact}
+              >
                 Add Contact
               </button>
-              {/* <AddContact
+              <AddContact
                 shareContact={shareContact}
                 data={card}
                 ShowLoader={Downloading}
@@ -760,16 +768,14 @@ const Header = ({
                 }
                 profile={profile}
                 text="Add Contact"
-              /> web-contact-btn*/}
+              />
               <button
-                className="contact-btn "
-                data-toggle="modal"
-                data-target="#exampleModalLong"
+                className="contact-btn web-contact-btn"
                 onClick={() => setModalShow("ExchangeContact")}
               >
                 Share Contact
               </button>
-              {/* <AddContact
+              <AddContact
                 shareContact={shareContact}
                 data={card}
                 ShowLoader={Downloading}
@@ -790,7 +796,7 @@ const Header = ({
                 }
                 profile={profile}
                 text="Share Contact"
-              /> */}
+              />
             </div>
             <div className="d-flex sm-class header-btn-gap">
               {company_setting?.show_testimonial_button == 0 ||
