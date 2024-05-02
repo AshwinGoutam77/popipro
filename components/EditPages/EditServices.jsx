@@ -789,8 +789,7 @@ export default function EditDoing({
                 )}
                 <div>
                   {TitleData?.card_services?.source == "2" &&
-                  PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
+                  TitleData?.card_services?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -948,8 +947,7 @@ export default function EditDoing({
                                   ></div>
                                 </div>
                                 {TitleData?.card_services?.source == "2" &&
-                                PlanData?.is_expired == false &&
-                                PlanData?.subscription?.plan_id !== 1 ? (
+                                TitleData?.card_services?.in_subscription ? (
                                   <div
                                     className="d-flex align-items-center justify-content-start mt-3"
                                     style={{ gap: "10px" }}

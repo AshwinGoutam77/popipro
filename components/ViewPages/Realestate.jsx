@@ -692,9 +692,7 @@ export default function Realestate({
 
       {Titles &&
       Titles?.card_realestates?.is_active &&
-      PlanData?.is_expired == false &&
-      PlanData?.PlanData?.plan_id !== 1 &&
-      PlanData?.PlanData !== null ? (
+      Titles?.card_realestates?.in_subscription ? (
         Data?.card_realestates?.length !== 0 &&
         Titles?.card_realestates?.is_active !== 0 ? (
           <div className="box-content boxxx" id="card_realestates">

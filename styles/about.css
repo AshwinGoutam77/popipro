@@ -781,10 +781,10 @@ textarea:invalid {
   user-select: none;
   padding: 16px;
   margin: 0px 0px 8px;
-  background: var(--color) !important;
-  color: white;
+  background: white !important;
+  color: black;
   font-weight: bold;
-  border: none;
+  border: 1px solid var(--color) !important;
 }
 .main_content div {
   width: 100% !important;

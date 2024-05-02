@@ -283,6 +283,7 @@ export default function EditCustomLink({
     setLinkName(link);
     setTags(tag);
   };
+
   const handleUpgradePlan = () => {
     Swal.fire({
       title:
@@ -488,8 +489,7 @@ export default function EditCustomLink({
 
               <div>
                 {TitleData?.card_custom_url?.source == "2" &&
-                PlanData?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 ? (
+                TitleData?.card_custom_url?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -599,8 +599,7 @@ export default function EditCustomLink({
                 return (
                   <div className="alternate-number-div" key={index}>
                     {TitleData?.card_custom_url?.source == "2" &&
-                    PlanData?.is_expired == false &&
-                    PlanData?.subscription?.plan_id !== 1 ? (
+                    TitleData?.card_custom_url?.in_subscription ? (
                       <FontAwesomeIcon
                         icon={faXmarkCircle}
                         className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"

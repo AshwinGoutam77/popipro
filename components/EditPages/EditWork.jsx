@@ -635,8 +635,7 @@ export default function EditWorks({
               </div>
               <div>
                 {TitleData?.card_photos?.source == "2" &&
-                PlanData?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 ? (
+                TitleData?.card_photos?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -839,8 +838,7 @@ export default function EditWorks({
                                 />
                               </div>
                               {TitleData?.card_photos?.source == "2" &&
-                              PlanData?.is_expired == false &&
-                              PlanData?.subscription?.plan_id !== 1 ? (
+                              TitleData?.card_photos?.in_subscription ? (
                                 <FontAwesomeIcon
                                   icon={faCircleXmark}
                                   className="delete-icon2"
@@ -953,8 +951,7 @@ export default function EditWorks({
               </div>
               <div>
                 {TitleData?.card_videos?.source == "2" &&
-                PlanData?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 ? (
+                TitleData?.card_videos?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -1132,8 +1129,7 @@ export default function EditWorks({
                             key={videoId}
                           >
                             {TitleData?.card_videos?.source == "2" &&
-                            PlanData?.is_expired == false &&
-                            PlanData?.subscription?.plan_id !== 1 ? (
+                            TitleData?.card_videos?.in_subscription ? (
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 style={{

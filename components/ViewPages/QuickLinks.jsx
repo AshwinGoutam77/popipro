@@ -23,9 +23,7 @@ const QuickLinks = ({ card, subscription, Titles }) => {
       {Titles?.card_custom_url?.source !== 0 &&
       card?.card_custom_url?.length !== 0 &&
       Titles?.card_custom_url?.is_active !== 0 &&
-      subscription?.is_expired == false &&
-      subscription?.subscription?.plan_id !== 1 &&
-      subscription?.subscription !== null ? (
+      Titles?.card_custom_url?.in_subscription ? (
         <div className="box-content boxxx" id="about_us">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">

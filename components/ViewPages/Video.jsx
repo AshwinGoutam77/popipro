@@ -97,7 +97,7 @@ const Video = ({
       {Card_videos?.length !== 0 &&
       Titles?.card_videos?.source !== 0 &&
       Titles?.card_videos?.is_active !== 0 &&
-      PlanData?.is_expired == false ? (
+      Titles?.card_videos?.in_subscription ? (
         <div className="box-content boxxx">
           {Titles && Titles?.card_videos?.is_active ? (
             <>

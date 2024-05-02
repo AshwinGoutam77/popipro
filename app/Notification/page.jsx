@@ -7,6 +7,7 @@ import {
   faCircleCheck,
   faEye,
   faMessage,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,6 +25,7 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import Link from "next/link";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import Notification from "@components/Dashboard/Notification";
 
 export default function Page() {
   const { APIDATA } = useAuthContext();
@@ -35,6 +37,7 @@ export default function Page() {
   const [ModalID, setModalID] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
   const [AccurateUsersList, setAccurateUsersList] = useState("");
+  const [modalShow, setModalShow] = useState("");
 
   const handleSendNotification = async () => {
     if (Message === "") {
@@ -142,7 +145,7 @@ export default function Page() {
         pauseOnHover
         theme="light"
       />
-      <SimpleBackdrop visible={ShowLoader} />
+      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={Show} onHide={() => setShow(false)} centered>
         <Modal.Header>
           <Modal.Title>
@@ -239,6 +242,17 @@ export default function Page() {
         </Modal.Body>
       </Modal>
 
+      <Notification
+        active={modalShow == "notification" ? true : false}
+        handleClose={setModalShow}
+        Message={Message}
+        setMessage={setMessage}
+        AccurateUsersList={AccurateUsersList}
+        setShowList={setShowList}
+        handleSendNotification={handleSendNotification}
+        ShowLoader={ShowLoader}
+      />
+
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
@@ -263,40 +277,17 @@ export default function Page() {
           </h6>
         </Link>
       </div>
-      <div className="notification-form-div bg-white">
-        <div className="notification-message-div">
-          <label className="ml-1">
-            Write Message *(Maximum limit 100 word)
-          </label>
-          <textarea
-            type="password"
-            name="number"
-            placeholder="Enter Message*"
-            className="mt-2 form-control"
-            value={Message}
-            onChange={(e) => setMessage(e.target.value)}
-            style={{ minHeight: "100px" }}
-            required
-          />
-          <p className="color-black mt-2">
-            This message will recieve by {AccurateUsersList?.accurate} (accurate
-            users) + {AccurateUsersList?.anonymous} (anonymous users){" "}
-            <span
-              className="ml-2 font-weight-bold VarColor cursor-pointer"
-              onClick={() => setShowList(true)}
-            >
-              Get List <FontAwesomeIcon icon={faChevronRight} width={7} />
-            </span>
-          </p>
-          <button
-            className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-4 mb-2"
-            onClick={() => handleSendNotification()}
-          >
-            Send Notification
-          </button>
-        </div>
-      </div>
-      <div className="box-shadow-leads mb-4">
+
+      <h4 className="color-black px-4 mt-4">Notification History</h4>
+      <div className="box-shadow-leads mb-4 mt-3">
+        <button
+          className="contact-btn notification-btn"
+          onClick={() => {
+            setModalShow("notification");
+          }}
+        >
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
         <Table>
           <Thead>
             <Tr>

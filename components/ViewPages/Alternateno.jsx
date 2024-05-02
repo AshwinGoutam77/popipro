@@ -25,9 +25,7 @@ export default function Alternateno({ Titles, Data, PlanData, AlterNumber }) {
       {Titles?.card_alternate_phone?.source !== 0 &&
       Data?.card_alternate_phone?.length !== 0 &&
       Titles?.card_alternate_phone?.is_active !== 0 &&
-      PlanData?.is_expired == false &&
-      PlanData?.subscription?.plan_id !== 1 &&
-      PlanData?.subscription !== null ? (
+      Titles?.card_alternate_phone?.in_subscription ? (
         <div className="box-content boxxx" id="about_us">
           <div className="flex-header">
             <h2 className="title title--h1 first-title title__separate">

@@ -220,9 +220,7 @@ const Testimonials = ({
       {Titles?.card_testimonials.source !== 0 &&
       card?.card_testimonials?.length !== 0 &&
       Titles?.card_testimonials.is_active !== 0 &&
-      subscription?.is_expired == false &&
-      subscription?.subscription?.plan_id !== 1 &&
-      subscription?.subscription !== null ? (
+      Titles?.card_testimonials?.in_subscription ? (
         <div className="box-content boxxx" id="card_testimonials">
           {/* <!-- Testimonials --> */}
           {Titles &&

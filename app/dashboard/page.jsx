@@ -423,11 +423,11 @@ export default function Dashboard() {
               )}
               {Data?.is_onboarding !== "1" ? (
                 Data &&
-                PlanData?.is_expired !== false &&
+                PlanData?.current_plan?.is_expired !== false &&
                 PlanData?.is_trial_taken !== 0 ? (
                   <a
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
                         : ""
@@ -552,22 +552,9 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    data-toggle={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "modal"
-                        : ""
-                    }
-                    data-target="#BackgroundColorDiv"
                     onClick={() =>
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired == false &&
                       PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
                         ? setModalShow("theme")
                         : ""
                     }
@@ -600,22 +587,9 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    data-toggle={
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "modal"
-                        : ""
-                    }
-                    data-target="#MultimodesModal"
                     onClick={() => {
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired == false &&
                       PlanData?.is_trial_taken !== 0
-                        ? ""
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
                         ? setModalShow("MultimodesModal")
                         : "";
                     }}
@@ -648,13 +622,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/Notification"
-                        : ""
+                        : "/Notification"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -692,13 +663,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/approve-review"
-                        : ""
+                        : "/approve-review"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -738,13 +706,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/signature"
-                          : ""
+                          : "/signature"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -785,13 +750,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/virtual-background"
-                          : ""
+                          : "/virtual-background"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -832,13 +794,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/address-book"
-                          : ""
+                          : "/address-book"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -873,13 +832,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/subscription"
-                        : ""
+                        : "/subscription"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -912,13 +868,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/order"
-                          : ""
+                          : "/order"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -1014,13 +967,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/overall-analytics"
-                        : ""
+                        : "/overall-analytics"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1097,13 +1047,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/product"
-                        : ""
+                        : "/product"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1137,13 +1084,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/blog"
-                        : ""
+                        : "/blog"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1179,13 +1123,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/real-estate"
-                          : ""
+                          : "/real-estate"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -1226,13 +1167,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/shared-contact-leads"
-                        : ""
+                        : "/shared-contact-leads"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1267,13 +1205,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/product-enquiry"
-                        : ""
+                        : "/product-enquiry"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1309,13 +1244,10 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
-                        PlanData?.is_expired !== false &&
+                        PlanData?.current_plan?.is_expired !== false &&
                         PlanData?.is_trial_taken !== 0
                           ? "https://www.popipro.com/order"
-                          : PlanData?.subscription?.plan_id !== 1 &&
-                            PlanData?.subscription !== null
-                          ? "/real-estate-enquiry"
-                          : ""
+                          : "/real-estate-enquiry"
                       }
                       className="w-100  text-decoration-none"
                     >
@@ -1353,13 +1285,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/appointment"
-                        : ""
+                        : "/appointment"
                     }
                     className="w-100  text-decoration-none"
                   >
@@ -1393,13 +1322,10 @@ export default function Dashboard() {
                 <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                   <Link
                     href={
-                      PlanData?.is_expired !== false &&
+                      PlanData?.current_plan?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
-                        : PlanData?.subscription?.plan_id !== 1 &&
-                          PlanData?.subscription !== null
-                        ? "/custom-form"
-                        : ""
+                        : "/custom-form"
                     }
                     className="w-100  text-decoration-none"
                   >

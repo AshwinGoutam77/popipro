@@ -530,8 +530,7 @@ export default function EditAlternateNo({
 
               <div>
                 {TitleData?.card_alternate_phone?.source == "2" &&
-                PlanData?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 ? (
+                TitleData?.card_alternate_phone?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -642,8 +641,7 @@ export default function EditAlternateNo({
               return (
                 <div className="alternate-number-div" key={index}>
                   {TitleData?.card_alternate_phone?.source == "2" &&
-                  PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
+                  TitleData?.card_alternate_phone?.in_subscription ? (
                     <FontAwesomeIcon
                       icon={faXmarkCircle}
                       className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"

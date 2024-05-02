@@ -96,6 +96,7 @@ export default function page() {
     });
     HitClick();
   }
+
   const HitClick = async () => {
     let payload = {
       card: MainData?.id,
@@ -135,7 +136,10 @@ export default function page() {
         </Link>
       </div>
 
-      <div className="row m-0">
+      <div
+        className="row m-0"
+        style={{ height: "calc(100vh - 58px)", overflow: "hidden" }}
+      >
         <div className="col-sm-12 col-lg-6" id="captureDiv">
           <div className="p-4 position-relative">
             <img
@@ -149,56 +153,56 @@ export default function page() {
               alt="image"
               className="virtal-bg-main-image"
               id="setImage"
-            />
+            />{" "}
+            <button
+              onClick={() => capture()}
+              className="contact-btn w-auto text-white mt-4"
+            >
+              Download Background
+            </button>
+            <p className="mt-2">
+              Your custom background will save as a 1920x1080 image.
+            </p>
+            <a href="https://www.popipro.com/">
+              How do I use my popipro background in Zoom
+            </a>
           </div>
         </div>
 
-        <div className="col-sm-12 col-lg-6 text-center d-flex align-items-center justify-content-center flex-column">
-          <button
-            onClick={() => capture()}
-            className="contact-btn w-auto text-white"
-          >
-            Download Background
-          </button>
-          <p className="mt-4">
-            Your custom background will save as a 1920x1080 image.
-          </p>
-          <a href="https://www.popipro.com/">
-            How do I use my popipro background in Zoom
-          </a>
+        <div className="col-sm-12 col-lg-6 feature-bg-section">
+          <div className="p-4 featured-images">
+            <h4 className="first-title title__separate text-black">
+              Featured Backgrounds
+            </h4>
+            {Data &&
+              Data?.virtual_background?.map((item, index) => {
+                return (
+                  <div className="pt-1" key={index}>
+                    <h5 className="color-black">{item?.name}</h5>
+                    <div
+                      className="pt-1 pb-3 d-flex align-items-center flex-wrap vb-div"
+                      style={{ gap: "10px" }}
+                    >
+                      {item?.background?.map((i, o) => {
+                        return (
+                          <img
+                            src={"data:image/png;base64," + i?.path}
+                            alt="image"
+                            className="virtual-images"
+                            onClick={() => handleVirtualBg(i?.id, i?.path)}
+                            key={o}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
-      <hr />
-      <div className="px-4 pt-4">
-        <h4 className="first-title title__separate text-black">
-          Featured Backgrounds
-        </h4>
-      </div>
-      {Data &&
-        Data?.virtual_background?.map((item, index) => {
-          return (
-            <div className="px-4 pt-4 pb-4" key={index}>
-              <h5>{item?.name}</h5>
-
-              <div
-                className="pt-4 d-flex align-items-center flex-wrap vb-div"
-                style={{ gap: "10px" }}
-              >
-                {item?.background?.map((i, o) => {
-                  return (
-                    <img
-                      src={"data:image/png;base64," + i?.path}
-                      alt="image"
-                      className="virtual-images"
-                      onClick={() => handleVirtualBg(i?.id, i?.path)}
-                      key={o}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+      {/* <hr />
+      <div className="px-4 pt-4"></div> */}
     </>
   ) : (
     <SimpleBackdrop visible={ShowLoader} />

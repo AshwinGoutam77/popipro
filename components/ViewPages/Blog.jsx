@@ -166,9 +166,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
       Titles.card_blogs?.is_active &&
       AddMoreBlogs?.length !== 0 &&
       Titles.card_blogs?.is_active !== 0 &&
-      PlanData?.is_expired == false &&
-      PlanData?.subscription?.plan_id !== 1 &&
-      PlanData?.subscription !== null ? (
+      Titles?.card_blogs?.in_subscription ? (
         <div className="box-content boxxx" id="card_blogs">
           <div className="pb-2">
             <h3 className="title title--h1 first-title title__separate">
@@ -338,7 +336,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
               </div>
             )}
 
-            {PaginationData?.total_blogs !== AddMoreBlogs?.length ? (
+            {PaginationData?.total_card_blogs !== AddMoreBlogs?.length ? (
               <div className="mx-auto text-center">
                 <a
                   className="text-center cursor-pointer mx-auto video-load-more"

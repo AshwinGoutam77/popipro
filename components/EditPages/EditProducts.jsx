@@ -1586,8 +1586,7 @@ export default function EditProducts({
                 </div>
                 <div>
                   {TitleData?.card_products?.source == "2" &&
-                  PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
+                  TitleData?.card_products?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -1725,7 +1724,7 @@ export default function EditProducts({
                           key={index}
                         >
                           <div className="row d-flex justify-content-between pb-3 pt-3">
-                            <div className="col-6 col-sm-6 col-lg-4">
+                            <div className="col-sm-12 col-lg-4">
                               <div className="position-relative">
                                 {items?.image?.path ? (
                                   <img
@@ -1815,8 +1814,8 @@ export default function EditProducts({
                             <div
                               className={
                                 items?.description?.length <= "0"
-                                  ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column"
-                                  : "col-6 col-sm-6 col-lg-8"
+                                  ? "col-sm-12 col-lg-8 d-flex align-items-start justify-content-center flex-column"
+                                  : "col-sm-12 col-lg-8"
                               }
                               style={{ textAlign: "initial" }}
                             >
@@ -1824,8 +1823,8 @@ export default function EditProducts({
                                 style={{ fontSize: "26px" }}
                                 className={
                                   items?.description?.length <= "0"
-                                    ? "title title--h5 font-weight-bolder product-heading2 m-0"
-                                    : "title title--h5 font-weight-bolder product-heading m-0"
+                                    ? "title title--h5 font-weight-bolder product-heading2 m-0 mt-3"
+                                    : "title title--h5 font-weight-bolder product-heading m-0 mt-3"
                                 }
                               >
                                 {items.name}
@@ -1939,8 +1938,7 @@ export default function EditProducts({
                             </div>
                           </div>
                           {TitleData?.card_products?.source == "2" &&
-                          PlanData?.is_expired == false &&
-                          PlanData?.subscription?.plan_id !== 1 ? (
+                          TitleData?.card_products?.in_subscription ? (
                             <div
                               className="d-flex align-items-center justify-content-start"
                               style={{
@@ -2045,7 +2043,7 @@ export default function EditProducts({
                   </div>
                 </div>
               )}
-              {PaginationData?.total_product !== AddMoreProduct?.length ? (
+              {PaginationData?.total_card_products !== AddMoreProduct?.length ? (
                 <div className="mx-auto text-center pt-2">
                   <a
                     className="text-center cursor-pointer mx-auto"

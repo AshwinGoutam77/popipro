@@ -730,9 +730,7 @@ export default function Product({
 
       {Titles &&
       Titles?.card_products?.is_active &&
-      PlanData?.is_expired == false &&
-      PlanData?.PlanData?.plan_id !== 1 &&
-      PlanData?.PlanData !== null ? (
+      Titles?.card_products?.in_subscription ? (
         Data?.card_products?.length !== 0 &&
         Titles?.card_products?.is_active !== 0 ? (
           <div className="box-content boxxx" id="card_products">
@@ -977,7 +975,7 @@ export default function Product({
                         }
                       >
                         <div className="row d-flex justify-content-between pt-3 product-bottom-padding w-100">
-                          <div className="col-6 col-sm-6 col-lg-4 pr-0">
+                          <div className="col-sm-12 col-lg-4 pr-0">
                             <div className="position-relative">
                               {items?.image?.path ? (
                                 <picture>
@@ -1124,23 +1122,53 @@ export default function Product({
                           <div
                             className={
                               items?.description?.length <= "0"
-                                ? "col-6 col-sm-6 col-lg-8 d-flex align-items-start justify-content-center flex-column text-left"
-                                : "col-6 col-sm-6 col-lg-8 text-left"
+                                ? "pr-0 col-sm-12 col-lg-8 d-flex align-items-start justify-content-center flex-column text-left"
+                                : "pr-0 col-sm-12 col-lg-8 text-left"
                             }
                           >
                             <p
                               className={
                                 items?.description?.length <= "0"
-                                  ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black"
-                                  : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black"
+                                  ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
+                                  : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
                               }
                               onClick={() => ShowModalID(items.id, items?.name)}
                             >
-                              {items.name}
+                              <span> {items.name}</span>{" "}
+                              {items?.price &&
+                                (!TotalId.includes(items?.id) ? (
+                                  <span className="VarColor"
+                                    onClick={() =>
+                                      handleAddToCart({
+                                        image:
+                                          process.env.NEXT_PUBLIC_MODE ==
+                                          "development"
+                                            ? "https://dev.popipro.com/" +
+                                              items.image.path
+                                            : "https://admin.popipro.com/" +
+                                              items.image.path,
+                                        name: items?.name,
+                                        price: items?.price,
+                                        currency: items.pcurrency?.currency,
+                                        id: items?.id,
+                                        card_id: MainData?.card?.id,
+                                        quantity: 1,
+                                      })
+                                    }
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faBagShopping}
+                                      className="mr-1"
+                                    />{" "}
+                                    Add to cart
+                                  </span>
+                                ) : (
+                                  ""
+                                ))}
                             </p>
                             <p
                               id="p_wrap"
-                              className="review-item__caption text-left products-review m-0 mt-1 cursor-pointer"
+                              className="review-item__caption text-left products-review m-0 mt-3 cursor-pointer"
                               dangerouslySetInnerHTML={{
                                 __html: items.description,
                               }}
@@ -1247,7 +1275,7 @@ export default function Product({
                                   onClick={() =>
                                     ShowModalID(items.id, items?.name)
                                   }
-                                  className="m-0 mr-2 fs-15 cursor-pointer margin-r-10"
+                                  className="m-0 fs-15 cursor-pointer margin-r-10"
                                 >
                                   <FontAwesomeIcon
                                     icon={faArrowRight}
@@ -1256,7 +1284,7 @@ export default function Product({
                                 </p>
                               )}
                             </div>
-                            {items?.price && (
+                            {/* {items?.price && (
                               <div>
                                 {!TotalId.includes(items?.id) ? (
                                   <p
@@ -1295,7 +1323,7 @@ export default function Product({
                                   </p>
                                 )}
                               </div>
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </div>
@@ -1307,7 +1335,7 @@ export default function Product({
                 <p className="mx-2 color-black">No Data Found</p>
               )}
 
-              {PaginationData?.total_product !== Products?.length &&
+              {PaginationData?.total_card_products !== Products?.length &&
               LoadMore !== null ? (
                 <div className="mx-auto text-center">
                   <span

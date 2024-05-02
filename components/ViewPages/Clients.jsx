@@ -13,9 +13,7 @@ const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
       {Titles?.card_clients.source !== 0 &&
       card?.card_clients?.length !== 0 &&
       Titles?.card_clients.is_active !== 0 &&
-      PlanData?.is_expired == false &&
-      PlanData?.subscription?.plan_id !== 1 &&
-      PlanData?.subscription !== null ? (
+      Titles?.card_clients?.in_subscription ? (
         <section className="box-content boxxx">
           {/* <!-- Clients --> */}
           {Titles &&

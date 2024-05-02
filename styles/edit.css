@@ -1073,7 +1073,7 @@ iframe {
   .case-item__icon-products {
     margin-bottom: 0 !important;
     border-radius: 8px;
-    height: 130px;
+    height: 180px;
     width: 100%;
     /* border: 1px solid #ccc; */
     object-fit: contain;

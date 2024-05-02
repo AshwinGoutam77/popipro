@@ -1727,8 +1727,7 @@ export default function EditRealEstate({
                 </>
               )}
               {TitleData?.card_realestates?.source == "2" &&
-              PlanData?.is_expired == false &&
-              PlanData?.subscription?.plan_id !== 1 ? (
+              TitleData?.card_realestates?.in_subscription ? (
                 <>
                   <div className="web-edit-icons">
                     <div className="d-flex align-items-center">

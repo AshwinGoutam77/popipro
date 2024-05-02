@@ -81,7 +81,7 @@ export default function EditPlan({ PlanData, Data, APIDATA, MainData }) {
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <div>
         {Data &&
-        PlanData?.is_expired !== false &&
+        PlanData?.plan_name == "Premium" &&
         PlanData?.is_trial_taken !== 0 ? (
           <a
             href="https://www.popipro.com/order"

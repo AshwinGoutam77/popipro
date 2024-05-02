@@ -191,15 +191,6 @@ code {
 .insights-order-2 {
   order: 2;
 }
-.notification-message-div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.notification-form-div textarea {
-  width: 50%;
-}
 .product-price-toltip {
   background: var(--color);
   width: 20px;
@@ -211,6 +202,17 @@ code {
 }
 .product-price-toltip svg {
   font-size: 11px !important;
+}
+
+.feature-bg-section {
+  overflow-y: scroll;
+  height: 100%;
+  background-color: var(--themecolor);
+}
+
+.feature-bg-section::-webkit-scrollbar {
+  width: 0; 
+  background: transparent; 
 }
 
 @media (max-width: 720px) {
@@ -945,9 +947,6 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 
 @media (max-width: 768px) {
-  .vb-div {
-    justify-content: center;
-  }
   .virtual-images {
     width: 130px;
     height: 130px;
@@ -1295,12 +1294,12 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
   background-color: var(--color) !important;
   font-size: 14px;
 }
-.notification-form-div {
+/* .notification-form-div {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
-}
+} */
 .notification-form-div input {
   border-radius: 0px !important;
 }
@@ -1624,10 +1623,10 @@ td {
 }
 
 .dragable-cards {
-  background-color: var(--color) !important;
-  color: white !important;
+  background-color: white !important;
+  color: black !important;
   font-weight: bold;
-  border: none !important;
+  border: 1px solid var(--color) !important;
   border-radius: 0.25rem !important;
 }
 
@@ -1957,6 +1956,16 @@ td {
   width: 100%;
   object-fit: cover;
   border-radius: 16px;
+}
+
+.notification-btn {
+  border-radius: 100% !important;
+  height: 50px;
+  width: 50px !important;
+  position: fixed;
+  bottom: 37px;
+  z-index: 9;
+  right: 25px;
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {

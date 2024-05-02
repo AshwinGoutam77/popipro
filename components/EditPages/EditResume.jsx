@@ -766,8 +766,7 @@ export default function EditResume({
                   </div>
                   <div>
                     {TitleData?.card_experience?.source == 2 &&
-                    PlanData?.is_expired == false &&
-                    PlanData?.subscription?.plan_id !== 1 ? (
+                    TitleData?.card_experience?.in_subscription ? (
                       <>
                         <div className="web-edit-icons">
                           <div className="d-flex align-items-center">
@@ -901,8 +900,7 @@ export default function EditResume({
                               {item.years}
                             </span>
                             {TitleData?.card_experience?.source == "2" &&
-                            PlanData?.is_expired == false &&
-                            PlanData?.subscription?.plan_id !== 1 ? (
+                            TitleData?.card_experience?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center mb-4 mt-3"
                                 style={{ gap: "10px" }}

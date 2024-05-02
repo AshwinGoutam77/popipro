@@ -12,7 +12,7 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
   return SocailLinks?.length !== 0 &&
     Titles?.card_social_links?.source !== 0 &&
     Titles?.card_social_links?.is_active !== 0 &&
-    PlanData?.is_expired == false ? (
+    Titles?.card_social_links?.in_subscription ? (
     <>
       <div className="mt-3 box-content boxxx">
         <div>

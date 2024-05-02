@@ -907,8 +907,7 @@ export default function EditBlogs({
               </div>
               <div>
                 {TitleData?.card_blogs?.source == "2" &&
-                PlanData?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 ? (
+                TitleData?.card_blogs?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -1081,8 +1080,7 @@ export default function EditBlogs({
                               </div>
                             </div>
                             {TitleData?.card_blogs?.source == "2" &&
-                            PlanData?.is_expired == false &&
-                            PlanData?.subscription?.plan_id !== 1 ? (
+                            TitleData?.card_blogs?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
                                 style={{ gap: "10px" }}
@@ -1216,7 +1214,7 @@ export default function EditBlogs({
                       })}
                   </div>
                 )}
-                {PaginationData?.total_blogs !== AddMoreBlogs?.length ? (
+                {PaginationData?.total_card_blogs !== AddMoreBlogs?.length ? (
                   <div className="mx-auto text-center pt-2">
                     <a
                       className="text-center cursor-pointer mx-auto"

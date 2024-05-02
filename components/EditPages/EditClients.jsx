@@ -320,8 +320,7 @@ export default function EditClients({
                 )}
               </div>
               {TitleData?.card_clients?.source == "2" &&
-              PlanData?.is_expired == false &&
-              PlanData?.subscription?.plan_id !== 1 ? (
+              TitleData?.card_clients?.in_subscription ? (
                 <div>
                   <div className="web-edit-icons">
                     <div className="d-flex align-items-center">
@@ -527,8 +526,7 @@ export default function EditClients({
                         <SwiperSlide key={index}>
                           <div className="w-100" key={index}>
                             {TitleData?.card_clients?.source == "2" &&
-                            PlanData?.is_expired == false &&
-                            PlanData?.subscription?.plan_id !== 1 ? (
+                            TitleData?.card_clients?.in_subscription ? (
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 onClick={() =>

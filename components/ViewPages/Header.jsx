@@ -799,21 +799,19 @@ const Header = ({
               />
             </div>
             <div className="d-flex sm-class header-btn-gap">
-              {company_setting?.show_testimonial_button == 0 ||
-              PlanData?.is_expired !== false ? (
+              {company_setting?.show_testimonial_button !== 0 &&
+              PlanData?.current_plan?.is_expired !== false ? (
                 ""
               ) : (
                 <button
                   className="delete-button w-100 mt-2"
-                  data-toggle="modal"
-                  data-target="#AddTestimonialsModal"
                   onClick={handleShowReview}
                 >
                   Add Reviews
                 </button>
               )}
-              {Titles?.card_booking?.is_active == 0 ||
-              PlanData?.is_expired !== false ? (
+              {Titles?.card_booking?.is_active == 0 &&
+              PlanData?.current_plan?.is_expired !== false ? (
                 ""
               ) : (
                 <button

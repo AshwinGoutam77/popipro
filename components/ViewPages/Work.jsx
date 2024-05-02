@@ -95,7 +95,7 @@ const Work = ({
       <SimpleBackdrop visible={false} />
       {Card_photos?.length !== 0 &&
       Titles?.card_photos?.is_active !== 0 &&
-      PlanData?.is_expired == false ? (
+      Titles?.card_photos?.in_subscription ? (
         <div className="box-content boxxx" id="card_photos">
           {Titles && Titles?.card_photos?.is_active ? (
             <div>

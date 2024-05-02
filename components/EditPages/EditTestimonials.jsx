@@ -867,8 +867,7 @@ export default function EditTestimonials({
                 )}
                 <div>
                   {TitleData?.card_testimonials?.source == "2" &&
-                  PlanData?.is_expired == false &&
-                  PlanData?.subscription?.plan_id !== 1 ? (
+                  TitleData?.card_testimonials?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -1028,8 +1027,8 @@ export default function EditTestimonials({
                                   ></p>
                                   {TitleData?.card_testimonials?.source ==
                                     "2" &&
-                                  PlanData?.is_expired == false &&
-                                  PlanData?.subscription?.plan_id !== 1 ? (
+                                  TitleData?.card_testimonials
+                                    ?.in_subscription ? (
                                     <div
                                       className="d-flex align-items-initial mt-3"
                                       style={{ gap: "10px" }}

@@ -172,8 +172,10 @@ const Order = () => {
                                 provided.draggableProps.style
                               )}
                             >
-                              <div className="d-flex align-items-center justify-content-between">
-                                {item.visible_name}
+                              <div className="d-flex align-items-center justify-content-between color-black">
+                                <spam>
+                                  {index + 1}. {item.visible_name}
+                                </spam>
                                 <FontAwesomeIcon icon={faSort} />
                               </div>
                             </div>

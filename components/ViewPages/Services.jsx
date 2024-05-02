@@ -10,9 +10,7 @@ const Services = ({ Titles, card, subscription }) => {
       {Titles?.card_services.source !== 0 &&
       card?.card_services?.length !== 0 &&
       Titles?.card_services.is_active !== 0 &&
-      subscription?.is_expired == false &&
-      subscription?.subscription?.plan_id !== 1 &&
-      subscription?.subscription !== null ? (
+      Titles?.card_services?.in_subscription ? (
         <div className="box-content boxxx" id="card_services">
           {/* <!-- What --> */}
           {Titles &&
