@@ -303,6 +303,7 @@ export default function EditAlternateNo({
 
   return (
     <>
+      <ToastContainer />
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
@@ -563,7 +564,7 @@ export default function EditAlternateNo({
                           )}
                         </div>
                         <>
-                          {MainData?.company_setting?.maximum_alternate_phone <=
+                          {TitleData?.card_alternate_phone?.row_limit <=
                           Data?.card_alternate_phone?.length ? (
                             <button
                               className="addmore"
@@ -677,14 +678,6 @@ export default function EditAlternateNo({
                           {item.title} :
                         </p>
                         <a
-                          // href={
-                          //   "tel:" +
-                          //   item.country_code +
-                          //   "-" +
-                          //   item?.number +
-                          //   "-" +
-                          //   item?.extension
-                          // }
                           href={`tel: ${
                             item.country_code
                               ? item.country_code + "-"
@@ -704,8 +697,7 @@ export default function EditAlternateNo({
                       </div>
                     </a>
                     {TitleData?.card_services?.source == "2" &&
-                    PlanData?.is_expired == false &&
-                    PlanData?.current_plan?.plan_name !== "basic" ? (
+                    TitleData?.card_alternate_phone?.in_subscription ? (
                       <FontAwesomeIcon
                         data-toggle="modal"
                         data-target="#AlternateNumberModalEdit"

@@ -73,7 +73,6 @@ export default function EditResume({
     let data = [];
     let error = false;
     let mess = "";
-    // ExpFeild.map(async (o, i) => {
     if (ExpDesignation == "" || ExpDescription == "") {
       error = true;
       mess =
@@ -98,7 +97,6 @@ export default function EditResume({
             },
           ]);
     }
-    // });
 
     if (error) {
       toast.error(mess, {
@@ -124,7 +122,6 @@ export default function EditResume({
         HandleEmptyFeilds();
         handleClose();
         handleEditClose();
-        // setData(response?.data?.data);
         toast.success(response?.data?.message, {
           position: "top-right",
           autoClose: 2000,
@@ -151,8 +148,6 @@ export default function EditResume({
     setShowLoader(false);
     handleCanclebtn();
     HandleEmptyFeilds();
-    var elem = document.getElementById("card_experience");
-    elem.scrollIntoView();
   };
   const handleDelteSkills = async (id, type, DataId) => {
     let data = {
@@ -802,7 +797,7 @@ export default function EditResume({
                                 />
                               )}
                             </div>
-                            {MainData?.company_setting?.maximum_experience <=
+                            {TitleData?.card_experience?.row_limit <=
                             AddMoreExp?.length ? (
                               <button
                                 className="addmore"

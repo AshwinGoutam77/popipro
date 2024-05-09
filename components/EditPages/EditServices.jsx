@@ -823,20 +823,20 @@ export default function EditDoing({
                                 />
                               )}
                             </div>
-                            {MainData?.company_setting?.maximum_services !==
+                            {TitleData?.card_services?.row_limit <=
                             CardServices?.length ? (
                               <button
                                 className="addmore"
-                                data-toggle="modal"
-                                data-target="#AddMoreServicesModal"
-                                onClick={handleShow}
+                                onClick={handleUpgradePlan}
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
                             ) : (
                               <button
                                 className="addmore"
-                                onClick={handleUpgradePlan}
+                                data-toggle="modal"
+                                data-target="#AddMoreServicesModal"
+                                onClick={handleShow}
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>

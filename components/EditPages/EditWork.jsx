@@ -671,7 +671,7 @@ export default function EditWorks({
                             />
                           )}
                         </div>
-                        {MainData?.company_setting?.maximum_photos <=
+                        {TitleData?.card_photos?.row_limit <=
                         Card_photos?.length ? (
                           <button
                             className="addmore"
@@ -983,7 +983,7 @@ export default function EditWorks({
                             />
                           )}
                         </div>
-                        {MainData?.company_setting?.maximum_videos <=
+                        {TitleData?.card_videos?.row_limit <=
                         Card_videos?.length ? (
                           <button
                             className="addmore"

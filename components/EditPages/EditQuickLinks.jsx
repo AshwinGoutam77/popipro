@@ -522,20 +522,20 @@ export default function EditCustomLink({
                               />
                             )}
                           </div>
-                          {MainData?.company_setting?.maximum_custom_link >=
+                          {TitleData?.card_custom_url?.row_limit <=
                           Data?.card_custom_url?.length ? (
                             <button
                               className="addmore"
-                              data-toggle="modal"
-                              data-target="#CustomLinkModal"
-                              onClick={handleShow}
+                              onClick={handleUpgradePlan}
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
                           ) : (
                             <button
                               className="addmore"
-                              onClick={handleUpgradePlan}
+                              data-toggle="modal"
+                              data-target="#CustomLinkModal"
+                              onClick={handleShow}
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>

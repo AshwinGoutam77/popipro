@@ -900,7 +900,7 @@ export default function EditTestimonials({
                                 />
                               )}
                             </div>
-                            {MainData?.company_setting?.maximum_testimonials <=
+                            {TitleData?.card_testimonials?.row_limit <=
                             AddMoreTesti?.length ? (
                               <button
                                 className="addmore"

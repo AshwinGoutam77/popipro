@@ -339,7 +339,7 @@ export default function EditClients({
                       </div>
                       <>
                         <div>
-                          {MainData?.company_setting?.maximum_clients <=
+                          {TitleData?.card_clients?.row_limit <=
                             ClientPhotos?.length || Data?.is_expired ? (
                             <div className="d-flex align-items-center">
                               <div className="edit-pencile-div">

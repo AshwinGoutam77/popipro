@@ -1630,12 +1630,10 @@ export default function EditProducts({
                           ) : (
                             ""
                           )}
-                          {MainData?.company_setting?.maximum_products <=
-                          PaginationData?.total_product ? (
+                          {TitleData?.card_products?.row_limit <=
+                          PaginationData?.total_card_products ? (
                             <button
                               className="addmore"
-                              data-toggle="modal"
-                              data-target="#AddProductModal"
                               onClick={handleUpgradePlan}
                             >
                               <FontAwesomeIcon icon={faPlus} />
@@ -2043,7 +2041,8 @@ export default function EditProducts({
                   </div>
                 </div>
               )}
-              {PaginationData?.total_card_products !== AddMoreProduct?.length ? (
+              {PaginationData?.total_card_products !==
+              AddMoreProduct?.length ? (
                 <div className="mx-auto text-center pt-2">
                   <a
                     className="text-center cursor-pointer mx-auto"
