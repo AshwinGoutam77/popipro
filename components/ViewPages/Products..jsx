@@ -783,7 +783,7 @@ export default function Product({
                         <img
                           src="../static/img/cart.png"
                           alt="image"
-                          width={25}
+                          width={26}
                           className="cursor-pointer"
                           onClick={() => setCartModal("CartModal")}
                         />
@@ -1132,28 +1132,32 @@ export default function Product({
                                   ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
                                   : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
                               }
-                              onClick={() => ShowModalID(items.id, items?.name)}
+                              // onClick={() => ShowModalID(items.id, items?.name)}
                             >
                               <span> {items.name}</span>{" "}
                               {items?.price &&
                                 (!TotalId.includes(items?.id) ? (
-                                  <span className="VarColor"
+                                  <span
+                                    className="VarColor"
                                     onClick={() =>
-                                      handleAddToCart({
-                                        image:
-                                          process.env.NEXT_PUBLIC_MODE ==
-                                          "development"
-                                            ? "https://dev.popipro.com/" +
-                                              items.image.path
-                                            : "https://admin.popipro.com/" +
-                                              items.image.path,
-                                        name: items?.name,
-                                        price: items?.price,
-                                        currency: items.pcurrency?.currency,
-                                        id: items?.id,
-                                        card_id: MainData?.card?.id,
-                                        quantity: 1,
-                                      })
+                                      handleAddToCart(
+                                        {
+                                          image:
+                                            process.env.NEXT_PUBLIC_MODE ==
+                                            "development"
+                                              ? "https://dev.popipro.com/" +
+                                                items.image.path
+                                              : "https://admin.popipro.com/" +
+                                                items.image.path,
+                                          name: items?.name,
+                                          price: items?.price,
+                                          currency: items.pcurrency?.currency,
+                                          id: items?.id,
+                                          card_id: MainData?.card?.id,
+                                          quantity: 1,
+                                        },
+                                        setCartModal("CartModal")
+                                      )
                                     }
                                   >
                                     <FontAwesomeIcon
@@ -1163,7 +1167,16 @@ export default function Product({
                                     Add to cart
                                   </span>
                                 ) : (
-                                  ""
+                                  <div
+                                    onClick={() => setCartModal("CartModal")}
+                                    className="VarColor"
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faBagShopping}
+                                      className="mr-1"
+                                    />{" "}
+                                    View Cart
+                                  </div>
                                 ))}
                             </p>
                             <p

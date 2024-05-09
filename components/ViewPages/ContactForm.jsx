@@ -172,7 +172,7 @@ export default function ContactForm({
         PlanData?.subscription?.plan_id !== 1 &&
         PlanData?.subscription !== null) ? ( */}
       {Titles.card_booking?.is_active === 1 &&
-      Titles?.card_blogs?.in_subscription ? (
+      Titles?.card_booking?.in_subscription ? (
         <div className="box-content boxxx" id="card_booking">
           <div className="pb-2">
             <h3 className="title title--h1 first-title title__separate">
