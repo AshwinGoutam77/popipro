@@ -50,7 +50,7 @@ export default function Notification({
               (accurate users) + {AccurateUsersList?.anonymous} (anonymous
               users){" "}
               <span
-                className="ml-2 font-weight-bold VarColor cursor-pointer"
+                className="font-weight-bold VarColor cursor-pointer"
                 onClick={() => setShowList(true)}
               >
                 Get List <FontAwesomeIcon icon={faChevronRight} width={7} />

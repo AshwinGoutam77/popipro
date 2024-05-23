@@ -2,22 +2,15 @@
 "use client";
 import {
   faAddressBook,
-  faAddressCard,
   faBagShopping,
   faBuildingUser,
   faCalendarCheck,
   faCartShopping,
-  faChartSimple,
   faCircleCheck,
-  faCode,
-  faEnvelope,
   faEye,
   faGear,
   faHomeAlt,
-  faImage,
   faLightbulb,
-  faMagnifyingGlassChart,
-  faMessage,
   faMoneyBill1Wave,
   faNewspaper,
   faPalette,
@@ -25,9 +18,7 @@ import {
   faSignal,
   faSliders,
   faStar,
-  faTag,
   faUpDownLeftRight,
-  faUser,
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -54,7 +45,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SendMessage from "@components/Dashboard/SendMessage";
 import MetaTags from "@components/Dashboard/MetaTags";
-import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import SettingModal from "@components/Dashboard/Setting-modal";
 
 export default function Dashboard() {
@@ -167,13 +158,6 @@ export default function Dashboard() {
     }
     setShowLoader(false);
   };
-  const handleShowMetaTags = () => {
-    setModalShow("metatags");
-    setDescription(Data?.card_description);
-    setTitle(Data?.first_name + " - " + Data?.card_profession);
-    setMetaDescription(Data?.meta_description);
-    setMetaTitle(Data?.meta_title);
-  };
   const handleProfileTab = () => {
     localStorage.setItem("tabs", "profile");
     setProfileTab(localStorage.getItem("tabs") == "profile" ? true : false);
@@ -276,8 +260,6 @@ export default function Dashboard() {
       });
     }
   };
-
-  // const { width, height } = useWindowSize();
 
   return Data ? (
     <>
@@ -535,12 +517,6 @@ export default function Dashboard() {
                         className="text-white mb-2"
                         style={{ fontSize: "20px" }}
                       />
-                      {/* <img
-                        src="../static/img/edit-profile.svg"
-                        alt="image"
-                        width={20}
-                        className="text-white mb-2"
-                      /> */}
                       <h6 className="text-white text-center mb-0">
                         Edit Profile
                       </h6>

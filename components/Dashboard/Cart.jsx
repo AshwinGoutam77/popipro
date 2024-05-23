@@ -53,6 +53,7 @@ export default function Cart({
   const handleform = (e) => {
     e.preventDefault();
     setSuccessBtn(true);
+    clearCart();
   };
 
   const handleHide = () => {
@@ -69,7 +70,6 @@ export default function Cart({
   const userCartItems = cartItems.filter((item) => item.card_id === cartId);
 
   const calculateTotalPrice = () => {
-    console.log("==", cartId);
     const total = userCartItems?.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
@@ -92,7 +92,7 @@ export default function Cart({
               alt="image"
               width={18}
               className="cursor-pointer mr-2"
-              style={{marginTop:'-5px'}}
+              style={{ marginTop: "-5px" }}
             />
             Shopping Cart
           </h5>
@@ -120,10 +120,10 @@ export default function Cart({
                         />
                       </div>
                       <div className="col-8">
-                        <div className="d-flex align-items-center justify-content-between">
+                        <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between">
                           <h6 className="mb-0 color-black">{item?.name}</h6>
                           <p className="font-weight-bold color-black">
-                            {item?.currency} {item?.price}
+                            {item?.currency} {item?.price * item?.quantity}
                           </p>
                         </div>
                         <div className="d-flex align-items-center justify-content-between mt-2">
@@ -141,9 +141,9 @@ export default function Cart({
                               width={20}
                               style={{ fontSize: "25px" }}
                               onClick={() => handleDecrement(item?.id)}
-                            />{" "}
+                            />
                             <p className="mx-2 font-weight-bold color-black">
-                              {/* {incrementCount} */}
+                              {item?.quantity}
                             </p>
                             <FontAwesomeIcon
                               icon={faPlusCircle}

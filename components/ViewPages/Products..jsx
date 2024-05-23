@@ -7,21 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faArrowDownAZ,
-  faArrowDownShortWide,
   faArrowRight,
   faArrowUp,
   faArrowUpRightDots,
-  faArrowUpWideShort,
-  faArrowUpZA,
   faBagShopping,
-  faChevronLeft,
-  faChevronRight,
-  faCircleXmark,
   faEnvelope,
   faLink,
   faRightFromBracket,
   faSearch,
-  faSort,
   faSpinner,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -29,12 +22,11 @@ import Modal from "react-bootstrap/Modal";
 import { useContext, useEffect, useState } from "react";
 import { HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
-import { ToastContainer, toast } from "react-toastify";
-import Image from "next/image";
+import { toast } from "react-toastify";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Swiper as SwiperComponent } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -48,9 +40,7 @@ import Cart from "@components/Dashboard/Cart";
 export default function Product({
   Titles,
   Data,
-  card,
   PaginationData,
-  PlanData,
   MainData,
   card_url,
 }) {
@@ -68,8 +58,6 @@ export default function Product({
   const [Message, setMessage] = useState("");
   const [MessageId, setMessageId] = useState("");
   const [Search, setSearch] = useState(false);
-  const [Latitude, setLatitude] = useState("");
-  const [Longitude, setLongitude] = useState("");
   const [ShowLoader, setShowLoader] = useState("");
   const [ProductModalTitle, setProductModalTitle] = useState("");
   const [Category, setCategory] = useState("");
@@ -79,7 +67,6 @@ export default function Product({
   const [ProductCategory, setProductCategory] = useState("");
   const [ProductSearching, setProductSearching] = useState("");
   const [Loader, setLoader] = useState(false);
-  const [cart, setCart] = useState([]);
   const [CartModal, setCartModal] = useState(false);
 
   useEffect(() => {
@@ -279,48 +266,6 @@ export default function Product({
     HitClick(id);
     handleShowProduct();
   };
-  if (typeof window !== "undefined") {
-    const slider = document.querySelector("[data-slider]");
-    const track = slider?.querySelector("[data-slider-track]");
-    const prev = slider?.querySelector("[data-slider-prev]");
-    const next = slider?.querySelector("[data-slider-next]");
-
-    if (track) {
-      prev.addEventListener("click", () => {
-        next.removeAttribute("disabled");
-
-        track.scrollTo({
-          left: track.scrollLeft - track.firstElementChild.offsetWidth,
-          behavior: "smooth",
-        });
-      });
-
-      next.addEventListener("click", () => {
-        prev.removeAttribute("disabled");
-
-        track.scrollTo({
-          left: track.scrollLeft + track.firstElementChild.offsetWidth,
-          behavior: "smooth",
-        });
-      });
-
-      track.addEventListener("scroll", () => {
-        const trackScrollWidth = track.scrollWidth;
-        const trackOuterWidth = track.clientWidth;
-
-        prev.removeAttribute("disabled");
-        next.removeAttribute("disabled");
-
-        if (track.scrollLeft <= 0) {
-          prev.setAttribute("disabled", "");
-        }
-
-        if (track.scrollLeft === trackScrollWidth - trackOuterWidth) {
-          next.setAttribute("disabled", "");
-        }
-      });
-    }
-  }
   const handleSearch = async (e) => {
     setTimeout(async () => {
       const response = await fetch(
@@ -383,10 +328,6 @@ export default function Product({
       setContact(value);
     }
   };
-
-  // Data?.card_products.map((item) => {
-  //   console.log(item.some((product) => product.price === ""));
-  // });
 
   const { cartItems, addItemToCart } = useContext(AuthContext);
 
@@ -775,11 +716,7 @@ export default function Product({
                     />
                     {cartItems?.length !== 0 && cartValue ? (
                       <div className="position-relative">
-                        {/* <FontAwesomeIcon
-                          icon={faBagShopping}
-                          className="color-black cursor-pointer fs-18 mt-1"
-                          onClick={() => setCartModal("CartModal")}
-                        /> */}
+                        <p className="cart-items-count">{cartItems.length}</p>
                         <img
                           src="../static/img/cart.png"
                           alt="image"
@@ -1066,8 +1003,6 @@ export default function Product({
                                   {MainData?.company_setting
                                     ?.show_product_enquiry_button !== 0 ? (
                                     <span
-                                      data-toggle="modal"
-                                      data-target="#ProductEnquireModal"
                                       className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                       onClick={() =>
                                         handleShowModal(items?.id, items?.name)
@@ -1132,7 +1067,6 @@ export default function Product({
                                   ? "title title--h5 font-weight-bolder product-heading2 m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
                                   : "title title--h5 font-weight-bolder product-heading m-0 cursor-pointer fs-14 color-black d-flex align-items-center justify-content-between mt-3"
                               }
-                              // onClick={() => ShowModalID(items.id, items?.name)}
                             >
                               <span> {items.name}</span>{" "}
                               {items?.price &&
@@ -1228,7 +1162,6 @@ export default function Product({
                                       className="whatsap-enquiry-view d-flex align-items-center justify-content-center"
                                       onClick={() => HitClick(items?.id)}
                                     >
-                                      {/* <i className="fa-brands  fa-whatsapp Whatsaapsvg"></i> */}
                                       <picture>
                                         <source
                                           type="image/png"
@@ -1247,8 +1180,6 @@ export default function Product({
                                   {MainData?.company_setting
                                     ?.show_product_enquiry_button !== 0 ? (
                                     <span
-                                      data-toggle="modal"
-                                      data-target="#ProductEnquireModal"
                                       className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
                                       onClick={() =>
                                         handleShowModal(items?.id, items?.name)
@@ -1262,7 +1193,7 @@ export default function Product({
                                   ) : (
                                     ""
                                   )}
-                                  {items.url !== "" ? (
+                                  {items.url !== "" && (
                                     <a
                                       href={
                                         items?.url?.includes("https://") ||
@@ -1279,8 +1210,6 @@ export default function Product({
                                         className="user-select-auto"
                                       />
                                     </a>
-                                  ) : (
-                                    ""
                                   )}
                                 </div>
                               ) : (
@@ -1297,46 +1226,6 @@ export default function Product({
                                 </p>
                               )}
                             </div>
-                            {/* {items?.price && (
-                              <div>
-                                {!TotalId.includes(items?.id) ? (
-                                  <p
-                                    className="VarColor mt-2 font-weight-bold cursor-pointer"
-                                    onClick={() =>
-                                      handleAddToCart({
-                                        image:
-                                          process.env.NEXT_PUBLIC_MODE ==
-                                          "development"
-                                            ? "https://dev.popipro.com/" +
-                                              items.image.path
-                                            : "https://admin.popipro.com/" +
-                                              items.image.path,
-                                        name: items?.name,
-                                        price: items?.price,
-                                        currency: items.pcurrency?.currency,
-                                        id: items?.id,
-                                        card_id: MainData?.card?.id,
-                                        quantity: 1,
-                                      })
-                                    }
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faBagShopping}
-                                      className="mr-1"
-                                    />{" "}
-                                    Add to cart
-                                  </p>
-                                ) : (
-                                  <p className="VarColor mt-2 font-weight-bold cursor-pointer">
-                                    <FontAwesomeIcon
-                                      icon={faBagShopping}
-                                      className="mr-1"
-                                    />{" "}
-                                    Product added to cart
-                                  </p>
-                                )}
-                              </div>
-                            )} */}
                           </div>
                         </div>
                       </div>
@@ -1349,18 +1238,16 @@ export default function Product({
               )}
 
               {PaginationData?.total_card_products !== Products?.length &&
-              LoadMore !== null ? (
-                <div className="mx-auto text-center">
-                  <span
-                    className="text-center cursor-pointer mx-auto video-load-more fs-16"
-                    onClick={() => incrementCount()}
-                  >
-                    Load More
-                  </span>
-                </div>
-              ) : (
-                ""
-              )}
+                LoadMore !== null && (
+                  <div className="mx-auto text-center">
+                    <span
+                      className="text-center cursor-pointer mx-auto video-load-more fs-16"
+                      onClick={() => incrementCount()}
+                    >
+                      Load More
+                    </span>
+                  </div>
+                )}
             </div>
           </div>
         ) : (

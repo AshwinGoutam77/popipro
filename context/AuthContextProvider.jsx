@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import localforage from "localforage";
 import Api from "@services/Api";
@@ -10,22 +10,24 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState([]);
   const [UserData, setUserData] = useState("");
   const [PlanData, setPlanData] = useState("");
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
   const [totalPrice, setTotalPrice] = useState(0);
-  const [increaseCount, setIncreaseCount] = useState(0);
-  const [incrementCount, setIncrementCount] = useState(1);
+  const [incrementCount, setIncrementCount] = useState(() => {
+    const savedIncrementCount = localStorage.getItem("incrementCount");
+    return savedIncrementCount ? JSON.parse(savedIncrementCount) : 0;
+  });
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
-    if (storedCartItems) {
-      setCartItems(JSON.parse(storedCartItems));
-    }
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    calculateTotalPrice(cartItems);
+  }, [cartItems]);
 
-    const storedIncrementCount = localStorage.getItem("incrementCount");
-    if (storedIncrementCount) {
-      setIncrementCount(parseInt(storedIncrementCount));
-    }
-  }, []);
+  useEffect(() => {
+    localStorage.setItem("incrementCount", incrementCount);
+  }, [incrementCount]);
 
   const addItemToCart = (item) => {
     setCartItems([...cartItems, item]);
@@ -35,10 +37,6 @@ const AuthContextProvider = ({ children }) => {
     const newCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(newCart);
   };
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
 
   const userLogin = (info) => {
     setToken(info.token);
@@ -63,7 +61,7 @@ const AuthContextProvider = ({ children }) => {
         document.documentElement.style.setProperty("--text-color", "#ffffff");
       }
     } catch (error) {
-      if (error.request.status == "401") {
+      if (error.request.status === "401") {
         localStorage.removeItem("token");
         localStorage.removeItem("url");
         window.location.href = "/login";
@@ -71,29 +69,55 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const calculateTotalPrice = (cartItems) => {
+    const total = cartItems.reduce((sum, item) => sum + item.total, 0);
+    setTotalPrice(total);
+  };
+
   const incrementQuantity = (productId) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId) {
-        return { ...item, quantity: item.quantity + 1 };
+        const newQuantity = item.quantity + 1;
+        const newTotal = item.price * newQuantity;
+        localStorage.setItem(
+          `product_${productId}`,
+          JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
+        ); // Save updated item in localStorage
+        return {
+          ...item,
+          quantity: newQuantity,
+          total: newTotal,
+        };
       }
       return item;
     });
 
     setCartItems(updatedCart);
-    // calculateTotalPrice(updatedCart);
+    setIncrementCount(incrementCount + 1);
   };
 
   const decrementQuantity = (productId) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId && item.quantity > 1) {
-        setIncrementCount(incrementCount - 1);
-        localStorage.setItem("incrementCount", incrementCount - 1);
-        return { ...item, quantity: item.quantity - 1 };
+        const newQuantity = item.quantity - 1;
+        const newTotal = item.price * newQuantity;
+        localStorage.setItem(
+          `product_${productId}`,
+          JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
+        ); // Save updated item in localStorage
+        return {
+          ...item,
+          quantity: newQuantity,
+          total: newTotal,
+        };
       }
       return item;
     });
+
     setCartItems(updatedCart);
-    // calculateTotalPrice(updatedCart);
+    if (incrementCount > 0) {
+      setIncrementCount(incrementCount - 1);
+    }
   };
 
   const clearCart = () => {
@@ -115,7 +139,6 @@ const AuthContextProvider = ({ children }) => {
         incrementQuantity,
         decrementQuantity,
         totalPrice,
-        increaseCount,
         clearCart,
         incrementCount,
       }}

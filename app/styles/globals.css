@@ -92,6 +92,14 @@ code {
   color: white;
 }
 
+label {
+  color: black !important;
+  font-weight: 100 !important;
+  margin-bottom: 5px !important;
+  margin-left: 0 !important;
+  padding: 0 !important;
+}
+
 .reactEasyCrop_CropArea {
   height: 230px !important;
   width: 230px !important;
@@ -211,8 +219,8 @@ code {
 }
 
 .feature-bg-section::-webkit-scrollbar {
-  width: 0; 
-  background: transparent; 
+  width: 0;
+  background: transparent;
 }
 
 @media (max-width: 720px) {
@@ -1968,6 +1976,26 @@ td {
   right: 25px;
 }
 
+.cart-items-count {
+  background: var(--color);
+  color: white;
+  border-radius: 100%;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px !important;
+  font-weight: 600;
+  position: absolute;
+  right: -7px;
+  top: -8px;
+}
+
+.cart-section img {
+  height: 122px;
+}
+
 @media (max-width: 1045px) and (min-width: 772px) {
   .responsiveTable td.pivoted {
     padding: 5px;
@@ -2001,6 +2029,9 @@ td {
   }
 }
 @media (max-width: 768px) {
+  .cart-section img {
+    height: auto;
+  }
   .mobile-contact-btn {
     display: block !important;
   }
