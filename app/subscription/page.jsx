@@ -29,9 +29,7 @@ const PlanManagment = () => {
 
   const api = async () => {
     const response = await Api(Subscription, {});
-    // if (response.data.status) {
     setData(response.data);
-    // }
   };
 
   return Data ? (
@@ -57,82 +55,64 @@ const PlanManagment = () => {
       </div>
       <div
         className="w-100 bg-custom pt-4"
-        style={{ height: "calc(100vh - 58px)", padding: "20px" }}
+        style={{ height: "calc(100vh - 58px)" }}
       >
-        {/* <div className="box-shadow-leads">
-          <table className="insight-table">
-            <thead>
-              <tr>
-                <th>Plan</th>
-                <th>Price</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Data?.blog_states?.length === 0 ? (
-                <tr>
-                  <td className="p-3">No data available</td>
-                </tr>
-              ) : (
-                //   Data?.Plan?.map((item, index) => {
-                //     return (
-                <tr className="cursor-pointer">
-                  <td data-column="Name">
-                    {Data?.plan?.subscription?.plan?.plan_name}
-                  </td>
-                  <td data-column="Name">
-                    {Data?.plan?.subscription?.plan_currency?.currency +
-                      Data?.plan?.subscription?.plan_price}
-                  </td>
-                  <td data-column="Name">
-                    {Data?.plan?.subscription?.start_date}
-                  </td>
-                  <td data-column="Email">
-                    {Data?.plan?.subscription?.end_date}
-                  </td>
-                </tr>
-                //     );
-                //   })
-              )}
-            </tbody>
-          </table>
-        </div> */}
-        <h5 className="pl-2 color-black">Subscription History</h5>
+        <div className="px-4">
+          <h5 className="color-black">Active Subscription</h5>
 
-        {/* {Data &&
+          {/* {Data &&
           Data?.map((item, index) => {
             return ( */}
-        <div className="subscription-section mt-3">
-          <div className="d-flex align-items-center justify-content-between divider">
-            <div>
-              <h6 className="color-black m-0">
-                {UserData?.plan?.current_plan?.plan_name} Plan
-              </h6>
-              <p>{Data?.message}</p>
+          <div className="subscription-section mt-3">
+            <div className="d-flex align-items-center justify-content-between divider">
+              <div>
+                <h6 className="color-black m-0">
+                  {UserData?.plan?.current_plan?.plan_name} Plan
+                </h6>
+                <p>{Data?.message}</p>
+              </div>
+              <button className="contact-btn w-auto mt-0">Active</button>
             </div>
-            <button className="contact-btn w-auto mt-0">Active</button>
-          </div>
 
-          <div className="d-flex align-items-center justify-content-between mt-3">
-            <p>Price</p>
-            <p>
-              {UserData?.plan?.subscription?.plan_currency?.currency}
-              {UserData?.plan?.subscription?.plan_price}
-            </p>
+            <div className="d-flex align-items-center justify-content-between mt-3">
+              <p>Price</p>
+              <p>
+                {UserData?.plan?.subscription?.plan_currency?.currency}
+                {UserData?.plan?.subscription?.plan_price}
+              </p>
+            </div>
+            <div className="d-flex align-items-center justify-content-between mt-1">
+              <p>Start Date</p>
+              <p>{UserData?.plan?.subscription?.start_date}</p>
+            </div>
+            <div className="d-flex align-items-center justify-content-between mt-1">
+              <p>End Date</p>
+              <p>{UserData?.plan?.subscription?.end_date}</p>
+            </div>
           </div>
-          <div className="d-flex align-items-center justify-content-between mt-1">
-            <p>Start Date</p>
-            <p>{UserData?.plan?.subscription?.start_date}</p>
-          </div>
-          <div className="d-flex align-items-center justify-content-between mt-1">
-            <p>End Date</p>
-            <p>{UserData?.plan?.subscription?.end_date}</p>
-          </div>
-        </div>
-        {/* );
+          {/* );
           })} */}
 
+          <h5 className="color-black mt-4">Subscription History</h5>
+
+          <div className="box-shadow-leads my-4 mx-0 w-100">
+            <table className="insight-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Price</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <p className="p-2 color-black">No History Found</p>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div
           className="w-100 text-center text-white p-2 position-absolute mt-3"
           style={{ bottom: "0", background: "black" }}

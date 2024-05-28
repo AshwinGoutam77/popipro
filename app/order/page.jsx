@@ -228,7 +228,9 @@ const Order = () => {
                                 )}
                               >
                                 <div className="d-flex align-items-center justify-content-between">
-                                  {item.name}
+                                  <spam>
+                                    {index + 1}. {item.name}
+                                  </spam>
                                   <FontAwesomeIcon icon={faSort} />
                                 </div>
                               </div>
@@ -277,7 +279,9 @@ const Order = () => {
                                 )}
                               >
                                 <div className="d-flex align-items-center justify-content-between">
-                                  {item.name}
+                                  <spam>
+                                    {index + 1}. {item.name}
+                                  </spam>
                                   <FontAwesomeIcon icon={faSort} />
                                 </div>
                               </div>
@@ -326,7 +330,9 @@ const Order = () => {
                                 )}
                               >
                                 <div className="d-flex align-items-center justify-content-between">
-                                  {item.name}
+                                  <spam>
+                                    {index + 1}. {item.name}
+                                  </spam>
                                   <FontAwesomeIcon icon={faSort} />
                                 </div>
                               </div>

@@ -1627,7 +1627,8 @@ td {
 }
 
 [data-rbd-droppable-id="droppable"] {
-  background: var(--themecolor) !important;
+  /* background: var(--themecolor) !important; */
+  background: #dfeef8 !important;
 }
 
 .dragable-cards {
@@ -1859,7 +1860,8 @@ td {
 }
 
 .drag-drop-inner-section {
-  background: var(--themecolor);
+  /* background: var(--themecolor); */
+  background: #dfeef8;
   padding: 5px !important;
   border-radius: 10px;
 }
@@ -1989,7 +1991,7 @@ td {
   font-weight: 600;
   position: absolute;
   right: -7px;
-  top: -8px;
+  top: -4px;
 }
 
 .cart-section img {

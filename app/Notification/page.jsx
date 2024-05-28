@@ -26,6 +26,8 @@ import Link from "next/link";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Notification from "@components/Dashboard/Notification";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Page() {
   const { APIDATA } = useAuthContext();
@@ -279,6 +281,44 @@ export default function Page() {
       </div>
 
       <h4 className="color-black px-4 mt-4">Notification History</h4>
+
+      <div className="mx-3 pt-4">
+        <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+          <div className="col-6 col-lg-2 p-0 px-2">
+            <label className="ml-1">From</label>
+            <DatePicker
+              dateFormat="MM/dd/yyyy"
+              // selected={StartDate}
+              maxDate={new Date()}
+              // onChange={(date) => setStartDate(date)}
+              placeholderText={"End Date"}
+              className="form-control insight-filter w-100"
+            />
+          </div>
+          <div className="col-6 col-lg-2 p-0 px-2">
+            <label className="ml-1">To</label>
+            <DatePicker
+              dateFormat="MM/dd/yyyy"
+              // selected={EndDate}
+              // defaultValue={EndDate}
+              // onChange={(Date) => setEndDate(Date)}
+              maxDate={new Date()}
+              // minDate={StartDate}
+              placeholderText={"End Date"}
+              className="form-control insight-filter w-100"
+            />
+          </div>
+          <div className="col-6 col-lg-2 p-0 px-2">
+            <button
+              className="contact-btn w-auto mt-3"
+              // onClick={() => handleSearchData()}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="box-shadow-leads mb-4 mt-3">
         <button
           className="contact-btn notification-btn"

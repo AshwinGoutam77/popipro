@@ -1176,9 +1176,7 @@ export default function EditRealEstate({
                     </select>
                   </div>
                   <div className="w-100">
-                    <label className="modalFormLable">
-                      Upload Youtube Video URL
-                    </label>
+                    <label className="modalFormLable">Upload Video URL</label>
                     <input
                       type="url"
                       name="name"
@@ -1679,7 +1677,7 @@ export default function EditRealEstate({
                     className="send-btnn"
                     onClick={() => handleSaveDetails()}
                   >
-                    Save and close
+                    Save and Published
                   </button>
                 ) : (
                   <button class="send-btnn" disabled>

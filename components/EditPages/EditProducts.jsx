@@ -989,7 +989,7 @@ export default function EditProducts({
               style={{ gap: "10px" }}
             >
               <div className="w-100">
-                <label className="modalFormLable">Label for URL / link</label>
+                <label className="modalFormLable">Label of URL / link</label>
                 <input
                   name="url"
                   rows="4"
@@ -1013,7 +1013,7 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
-            <label className="modalFormLable">Upload Youtube Video URL</label>
+            <label className="modalFormLable">Enter Video URL</label>
             <input
               name="name"
               rows="4"
@@ -1327,7 +1327,7 @@ export default function EditProducts({
                   >
                     <div className="w-100">
                       <label className="modalFormLable">
-                        Label for url / link
+                        Label of URL / Link
                       </label>
                       <input
                         name="url"
@@ -1344,7 +1344,7 @@ export default function EditProducts({
                       ></input>
                     </div>
                     <div className="w-100">
-                      <label className="modalFormLable">URL / link</label>
+                      <label className="modalFormLable">URL / Link</label>
                       <input
                         name="url"
                         rows="4"
@@ -1360,7 +1360,7 @@ export default function EditProducts({
                       ></input>
                     </div>
                   </div>
-                  <label className="modalFormLable">Upload Video</label>
+                  <label className="modalFormLable">Enter Video URL</label>
                   <input
                     name="name"
                     rows="4"

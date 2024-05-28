@@ -1164,7 +1164,7 @@ export default function EditWorks({
                       })}
                   </div>
                 )}
-                {PaginationData?.total_videos !== AddMoreVedios?.length &&
+                {PaginationData?.total_card_videos !== AddMoreVedios?.length &&
                 AddMoreVedios?.length !== 0 ? (
                   <div className="mx-auto text-center mt-3">
                     <a

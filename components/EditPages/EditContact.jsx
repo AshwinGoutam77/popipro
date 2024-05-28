@@ -30,6 +30,7 @@ export default function EditContact({
   const [Show, setShow] = useState(false);
   const [AppForm, setAppForm] = useState(true);
   const [CalendlyUrl, setCalendlyUrl] = useState("");
+  const [InputLoader, setInputLoader] = useState(false);
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -153,8 +154,10 @@ export default function EditContact({
     });
   };
   const handleShowAppointment = async () => {
+    setInputLoader(true);
     const response = await Api(Appointmentbtns);
     if (response.data.status) {
+      setInputLoader(false);
       APIDATA();
       toast.success(response.data.message, {
         position: "top-right",
@@ -506,6 +509,7 @@ export default function EditContact({
                         ? true
                         : false
                     }
+                    disabled={InputLoader ? true : false}
                   />
                   <label for="contact" className="Varcolor">
                     Do you want to show date and time field?

@@ -97,38 +97,41 @@
   outline: 0;
 }
 
-.delete-button {
-  align-items: center;
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
-  letter-spacing: 0.025em;
-  padding: 0.35rem 1.15rem;
+.delete-button,
+.swal2-styled.swal2-cancel {
+  align-items: center !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  letter-spacing: 0.025em !important;
+  padding: 0.35rem 1.15rem !important;
   border-radius: 9999px !important;
-  background-color: var(--color);
-  color: var(--color);
-  text-align: center;
-  border: 1px solid var(--color);
-  font-weight: 500;
-  transition-duration: 0.2s !important;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: capitalize;
-  background: linear-gradient(to right, var(--color) 50%, white 50%);
+  background-color: var(--color) !important;
+  color: var(--color) !important;
+  text-align: center !important;
+  border: 1px solid var(--color) !important;
+  font-weight: 500 !important;
+  transition-duration: 0.2s;
+  transition-property: all !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-transform: capitalize !important;
+  background: linear-gradient(to right, var(--color) 50%, white 50%) !important;
   background-size: 200% 100% !important;
-  background-position: right bottom;
+  background-position: right bottom !important;
   transition: all 0.5s ease-out;
 }
 
-.delete-button:hover {
+.delete-button:hover,
+.swal2-styled.swal2-cancel:hover {
   /* background-color: var(--color) !important;
   color: white; */
   color: #ffffff !important;
-  background-position: left bottom;
+  background-position: left bottom !important;
 }
 
-.delete-button:focus {
-  outline: 0;
+.delete-button:focus,
+.swal2-styled.swal2-cancel:focus {
+  outline: 0 !important;
 }
 
 .remove-btnn {
@@ -418,11 +421,19 @@ label {
 }
 div:where(.swal2-container)
   div:where(.swal2-actions):not(.swal2-loading)
-  .swal2-styled:hover {
+  .swal2-styled:hover,
+.swal2-confirm:hover {
+  background: black;
+  color: white;
+  border-radius: 30px;
+}
+
+.swal2-styled.swal2-confirm:hover {
   background: black !important;
   color: white;
-  border-radius: 30px !important;
+  border-radius: 30px;
 }
+
 .swal2-icon.swal2-warning {
   border-color: var(--color) !important;
   color: var(--color) !important;
@@ -867,7 +878,7 @@ iframe {
   overflow: hidden;
   margin: 0;
   /* text-align: inherit !important; */
-  max-height: 6.2em !important;
+  max-height: 7.1em !important;
 }
 
 .product-price {
@@ -1236,7 +1247,7 @@ div:where(.swal2-container)
   border-bottom: 1px solid rgb(236, 225, 223);
 }
 
-.swal2-styled.swal2-cancel {
+/* .swal2-styled.swal2-cancel {
   background: white !important;
   color: var(--color);
   font-weight: 600;
@@ -1251,7 +1262,7 @@ div:where(.swal2-container)
 .swal2-styled.swal2-cancel:hover {
   background-color: black !important;
   color: white !important;
-}
+} */
 
 .link-minus-icon {
   cursor: pointer;

@@ -361,7 +361,7 @@ export default function EditAlternateNo({
                 cols="50"
                 className="form-control mb-4 mt-1"
                 value={MobileNumber}
-                placeholder="xxxxxxxxxx"
+                placeholder="Phone number"
                 onChange={(e) => setMobileNumber(e.target.value)}
               ></input>
               <input
@@ -371,7 +371,7 @@ export default function EditAlternateNo({
                 cols="50"
                 className="form-control mb-4 mt-1 w-50"
                 value={Extension}
-                placeholder="xxxx"
+                placeholder="Extension"
                 onChange={(e) => setExtension(e.target.value)}
               ></input>
             </div>

@@ -160,11 +160,12 @@ export default function page() {
             >
               Download Background
             </button>
-            <p className="mt-2">
+            <p className="mt-2 color-black">
               Your custom background will save as a 1920x1080 image.
             </p>
-            <a href="https://www.popipro.com/">
-              How do I use my popipro background in Zoom
+            <a href="https://www.popipro.com/" className="text-decoration-none color-black ">
+              How do I use my popipro background in Zoom, Google Meet, Microsoft
+              Teams, Livestorm, Zoho Meeting, Vowel, GoToMeeting, Skype, Eyeson etc
             </a>
           </div>
         </div>

@@ -715,14 +715,16 @@ export default function Product({
                       onClick={() => handleShowSearchFilter()}
                     />
                     {cartItems?.length !== 0 && cartValue ? (
-                      <div className="position-relative">
+                      <div
+                        className="position-relative"
+                        onClick={() => setCartModal("CartModal")}
+                      >
                         <p className="cart-items-count">{cartItems.length}</p>
                         <img
                           src="../static/img/cart.png"
                           alt="image"
                           width={26}
                           className="cursor-pointer"
-                          onClick={() => setCartModal("CartModal")}
                         />
                       </div>
                     ) : (
