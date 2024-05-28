@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
 import { AuthContext } from "@context/AuthContext";
 import {
   faChevronLeft,
@@ -12,15 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
-export default function Cart({
-  active,
-  handleClose,
-  MainData,
-  product,
-  card_url,
-  cartId,
-  TotalCard_id,
-}) {
+export default function Cart({ active, handleClose, MainData, cartId }) {
   const {
     cartItems,
     removeFromCart,

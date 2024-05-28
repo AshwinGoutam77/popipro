@@ -72,7 +72,9 @@ export default function Product({
   useEffect(() => {
     setProducts(Data?.card_products);
     setCategory(Data?.product_categories);
-    localStorage?.setItem("cardId", MainData?.card?.id);
+    if (typeof window !== "undefined") {
+      localStorage?.setItem("cardId", MainData?.card?.id);
+    }
   }, []);
 
   const handleCloseProduct = () => {
