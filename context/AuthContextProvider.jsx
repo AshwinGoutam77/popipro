@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import localforage from "localforage";
@@ -11,13 +10,17 @@ const AuthContextProvider = ({ children }) => {
   const [UserData, setUserData] = useState("");
   const [PlanData, setPlanData] = useState("");
   const [cartItems, setCartItems] = useState(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
-    return storedCartItems ? JSON.parse(storedCartItems) : [];
+    if (typeof window !== "undefined") {
+      const storedCartItems = localStorage.getItem("cartItems");
+      return storedCartItems ? JSON.parse(storedCartItems) : [];
+    }
   });
   const [totalPrice, setTotalPrice] = useState(0);
   const [incrementCount, setIncrementCount] = useState(() => {
-    const savedIncrementCount = localStorage.getItem("incrementCount");
-    return savedIncrementCount ? JSON.parse(savedIncrementCount) : 0;
+    if (typeof window !== "undefined") {
+      const savedIncrementCount = localStorage.getItem("incrementCount");
+      return savedIncrementCount ? JSON.parse(savedIncrementCount) : 0;
+    }
   });
 
   useEffect(() => {
@@ -82,7 +85,7 @@ const AuthContextProvider = ({ children }) => {
         localStorage.setItem(
           `product_${productId}`,
           JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
-        ); // Save updated item in localStorage
+        );
         return {
           ...item,
           quantity: newQuantity,
@@ -104,7 +107,7 @@ const AuthContextProvider = ({ children }) => {
         localStorage.setItem(
           `product_${productId}`,
           JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
-        ); // Save updated item in localStorage
+        );
         return {
           ...item,
           quantity: newQuantity,
