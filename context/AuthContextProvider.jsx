@@ -13,7 +13,6 @@ const AuthContextProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [incrementCount, setIncrementCount] = useState(0);
 
-  // Initialize state that relies on localStorage inside useEffect
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCartItems = localStorage.getItem("cartItems");
