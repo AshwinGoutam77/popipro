@@ -9,27 +9,33 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState([]);
   const [UserData, setUserData] = useState("");
   const [PlanData, setPlanData] = useState("");
-  const [cartItems, setCartItems] = useState(() => {
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [incrementCount, setIncrementCount] = useState(0);
+
+  // Initialize state that relies on localStorage inside useEffect
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCartItems = localStorage.getItem("cartItems");
-      return storedCartItems ? JSON.parse(storedCartItems) : [];
-    }
-  });
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [incrementCount, setIncrementCount] = useState(() => {
-    if (typeof window !== "undefined") {
       const savedIncrementCount = localStorage.getItem("incrementCount");
-      return savedIncrementCount ? JSON.parse(savedIncrementCount) : 0;
+      setCartItems(storedCartItems ? JSON.parse(storedCartItems) : []);
+      setIncrementCount(
+        savedIncrementCount ? JSON.parse(savedIncrementCount) : 0
+      );
     }
-  });
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    calculateTotalPrice(cartItems);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      calculateTotalPrice(cartItems);
+    }
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem("incrementCount", incrementCount);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("incrementCount", incrementCount);
+    }
   }, [incrementCount]);
 
   const addItemToCart = (item) => {
@@ -43,9 +49,11 @@ const AuthContextProvider = ({ children }) => {
 
   const userLogin = (info) => {
     setToken(info.token);
-    localStorage.setItem("url", info.current_url);
-    localStorage.setItem("token", info.token);
-    localforage.setItem("url", info.current_url);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("url", info.current_url);
+      localStorage.setItem("token", info.token);
+      localforage.setItem("url", info.current_url);
+    }
   };
 
   const APIDATA = async () => {
@@ -53,7 +61,8 @@ const AuthContextProvider = ({ children }) => {
       const response = await Api(
         EditData,
         {},
-        "?card_url=" + localStorage.getItem("url")
+        "?card_url=" +
+          (typeof window !== "undefined" ? localStorage.getItem("url") : "")
       );
       if (response.data.status) {
         setUserData(response?.data?.data);
@@ -64,7 +73,7 @@ const AuthContextProvider = ({ children }) => {
         document.documentElement.style.setProperty("--text-color", "#ffffff");
       }
     } catch (error) {
-      if (error.request.status === "401") {
+      if (error.request.status === 401 && typeof window !== "undefined") {
         localStorage.removeItem("token");
         localStorage.removeItem("url");
         window.location.href = "/login";
@@ -82,10 +91,12 @@ const AuthContextProvider = ({ children }) => {
       if (item.id === productId) {
         const newQuantity = item.quantity + 1;
         const newTotal = item.price * newQuantity;
-        localStorage.setItem(
-          `product_${productId}`,
-          JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
-        );
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            `product_${productId}`,
+            JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
+          );
+        }
         return {
           ...item,
           quantity: newQuantity,
@@ -104,10 +115,12 @@ const AuthContextProvider = ({ children }) => {
       if (item.id === productId && item.quantity > 1) {
         const newQuantity = item.quantity - 1;
         const newTotal = item.price * newQuantity;
-        localStorage.setItem(
-          `product_${productId}`,
-          JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
-        );
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            `product_${productId}`,
+            JSON.stringify({ ...item, quantity: newQuantity, total: newTotal })
+          );
+        }
         return {
           ...item,
           quantity: newQuantity,
@@ -125,7 +138,9 @@ const AuthContextProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([]);
-    localStorage.removeItem("cartItems");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cartItems");
+    }
   };
 
   return (

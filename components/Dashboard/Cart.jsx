@@ -25,12 +25,7 @@ export default function Cart({
     removeFromCart,
     decrementQuantity,
     incrementQuantity,
-    increaseCount,
     clearCart,
-    incrementPrice,
-    decrementPrice,
-    incrementCount,
-    decrementCount,
   } = useContext(AuthContext);
 
   const [Checkout, setCheckout] = useState(false);
