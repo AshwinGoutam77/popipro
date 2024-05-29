@@ -298,7 +298,7 @@ export default function DashboardProducts({ TitleData }) {
                                       : i?.city +
                                         `${i?.city ? ", " : ""}` +
                                         i?.country
-                                    : "---" } 
+                                    : "---"}
                                 </td>
                                 <td>{i?.created_at}</td>
                                 <td>{i?.name}</td>
@@ -330,7 +330,8 @@ export default function DashboardProducts({ TitleData }) {
                     className="text-white mr-2"
                     width="20"
                   />{" "}
-                  {UserData?.titles?.card_products?.visible_name}
+                  {/* {UserData?.titles?.card_products?.visible_name} */}
+                  Products
                 </h5>
                 <Link href="/dashboard">
                   <h6 className="text-white m-0">
@@ -384,7 +385,7 @@ export default function DashboardProducts({ TitleData }) {
                         }}
                       >
                         <option value="0" datatype="card">
-                          Select {UserData?.titles?.card_products?.visible_name}
+                          Select Product
                         </option>
                         {Data &&
                           Data?.products?.map((items, index) => {

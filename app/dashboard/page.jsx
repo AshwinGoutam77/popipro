@@ -1049,7 +1049,8 @@ export default function Dashboard() {
                           style={{ fontSize: "20px" }}
                         />
                         <h6 className="text-white text-center mb-0">
-                          {TitleData?.card_products?.visible_name}
+                          {/* {TitleData?.card_products?.visible_name} */}
+                          Products
                         </h6>
                       </>
                     </span>
@@ -1087,7 +1088,8 @@ export default function Dashboard() {
                         />
                         <h6 className="text-white text-center mb-0">
                           {" "}
-                          {TitleData?.card_blogs?.visible_name}
+                          {/* {TitleData?.card_blogs?.visible_name} */}
+                          Blogs
                         </h6>
                       </>
                     </span>
@@ -1208,7 +1210,7 @@ export default function Dashboard() {
                         />
                         <h6 className="text-white text-center mb-0">
                           {" "}
-                          {TitleData?.card_products?.visible_name} Enquiry
+                          Product Enquiry
                         </h6>
                       </>
                     </span>
@@ -1216,7 +1218,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* real estate enquiry */}
-                {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                {process.env.NEXT_PUBLIC_MODE === "development" && (
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center p-0 px-2">
                     <Link
                       href={
@@ -1253,8 +1255,6 @@ export default function Dashboard() {
                       </span>
                     </Link>
                   </div>
-                ) : (
-                  ""
                 )}
 
                 {/* My appointment */}

@@ -718,6 +718,7 @@ const Page = () => {
                   </div>
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
                 <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                   <p className="text-xs font-weight-bold text-white">
@@ -764,6 +765,7 @@ const Page = () => {
                   <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
                 </div>
               </div>
+
               {/* Top 5 Leads table */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Top 5 Leads
@@ -805,8 +807,7 @@ const Page = () => {
                         }
                         onClick={handleInquiryTab}
                       >
-                        {UserData?.titles?.card_products?.visible_name} Inquiry
-                        Leads
+                        Product Inquiry Leads
                       </button>
                     </div>
                   </SwiperSlide>
@@ -984,8 +985,9 @@ const Page = () => {
                   ""
                 )}
               </div>
+
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Organic Insights
+                Insights
               </h5>
               <div className="row m-0 mb-4 row-gap-3">
                 <div className="col-sm-12 col-lg-6">
@@ -1023,6 +1025,7 @@ const Page = () => {
                   </div>
                 </div>
               </div>
+
               {/* Profile Intreacts */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Profile Interacts
@@ -1225,8 +1228,8 @@ const Page = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_products?.visible_name}{" "}
-                          Inquiry
+                          {/* {UserData?.titles?.card_products?.visible_name}{" "} */}
+                          Product Inquiry
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
@@ -1250,6 +1253,7 @@ const Page = () => {
                   </div>
                 </div>
               </div>
+
               {/* Resources Hits */}
               <h5 className="first-title title__separate mx-4 mt-4 text-black">
                 Resources Hits
@@ -1282,7 +1286,8 @@ const Page = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_blogs?.visible_name}
+                          {/* {UserData?.titles?.card_blogs?.visible_name} */}
+                          Blogs
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">
@@ -1293,7 +1298,8 @@ const Page = () => {
                       </div>
                       <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
                         <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_products?.visible_name}
+                          {/* {UserData?.titles?.card_products?.visible_name} */}
+                          Products
                         </p>
                         <div className="flex items-end justify-between space-x-2">
                           <p className="mt-4 text-2xl font-medium text-white">

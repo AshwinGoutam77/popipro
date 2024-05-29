@@ -475,7 +475,10 @@ const Banner = ({
               )}
             </div>
           </div>
-          <div>
+          <div className="d-flex align-items-center gap-2">
+            {/* {LocalStorageUrl == profile && (
+              <p className="text-white">Edit Theme</p>
+            )} */}
             <Link
               href={
                 LocalStorageUrl == profile

@@ -322,7 +322,8 @@ export default function DashboardBlogs() {
                   className="text-white mr-2"
                   width="20"
                 />{" "}
-                {UserData?.titles?.card_blogs?.visible_name}
+                {/* {UserData?.titles?.card_blogs?.visible_name} */}
+                Blogs
               </h5>
               <Link href="/dashboard">
                 <h6 className="text-white m-0">
@@ -376,7 +377,7 @@ export default function DashboardBlogs() {
                       }}
                     >
                       <option>
-                        Select {UserData?.titles?.card_blogs?.visible_name}
+                        Select Blog
                       </option>
                       {Data &&
                         Data?.blog_list?.map((items, index) => {
