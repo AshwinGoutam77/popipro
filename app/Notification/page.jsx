@@ -291,7 +291,7 @@ export default function Page() {
               // selected={StartDate}
               maxDate={new Date()}
               // onChange={(date) => setStartDate(date)}
-              placeholderText={"End Date"}
+              placeholderText={"Start Date"}
               className="form-control insight-filter w-100"
             />
           </div>
