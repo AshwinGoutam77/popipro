@@ -280,9 +280,8 @@ export default function DashboardProducts({ TitleData }) {
                   </thead>
                   <tbody>
                     {Data?.product_stats?.map((item, index) => {
-                      return item.name == ModalId ? (
-                        <div key={index}>
-                          {item?.data?.map((i, o) => {
+                      return item.name == ModalId
+                        ? item?.data?.map((i, o) => {
                             return (
                               <tr key={o} className="cursor-pointer">
                                 <td>
@@ -304,11 +303,8 @@ export default function DashboardProducts({ TitleData }) {
                                 <td>{i?.name}</td>
                               </tr>
                             );
-                          })}
-                        </div>
-                      ) : (
-                        ""
-                      );
+                          })
+                        : "";
                     })}
                   </tbody>
                 </table>
