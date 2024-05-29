@@ -101,7 +101,7 @@
 .swal2-styled.swal2-cancel {
   align-items: center !important;
   cursor: pointer !important;
-  display: inline-flex !important;
+  display: inline-flex;
   justify-content: center !important;
   letter-spacing: 0.025em !important;
   padding: 0.35rem 1.15rem !important;

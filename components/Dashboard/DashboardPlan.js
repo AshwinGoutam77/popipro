@@ -7,13 +7,7 @@ import { useState } from "react";
 import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 
-export default function DashboardPlan({
-  Data,
-  PlanData,
-  APIDATA,
-  MainData,
-  handleFreeTrail,
-}) {
+export default function DashboardPlan({ Data, PlanData, handleFreeTrail }) {
   const [ShowLoader, setShowLoader] = useState(false);
 
   return (

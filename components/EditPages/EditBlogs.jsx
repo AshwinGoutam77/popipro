@@ -865,15 +865,13 @@ export default function EditBlogs({
 
       {TitleData?.card_blogs?.source !== 0 ? (
         <div className="position-relative">
-          {Data ? (
+          {Data && (
             <EditPlan
               Data={Data}
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
             />
-          ) : (
-            ""
           )}
           <div className="box-content boxxx" id="card_blogs">
             <div className="pb-2 flex-header">
@@ -1177,8 +1175,7 @@ export default function EditBlogs({
                               </div>
                             </div>
                             {TitleData?.card_blogs?.source == "2" &&
-                            PlanData?.is_expired == false &&
-                            PlanData?.subscription?.plan_id !== 1 ? (
+                            TitleData?.card_blogs?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
                                 style={{ gap: "10px" }}

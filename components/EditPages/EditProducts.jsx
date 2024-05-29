@@ -234,7 +234,7 @@ export default function EditProducts({
     elem.scrollIntoView();
   };
 
-  const handleDelteBlogs = async (id, type, DataId) => {
+  const handleDeleteProducts = async (id, type, DataId) => {
     let data = {
       type: type,
       base: id,
@@ -1970,7 +1970,7 @@ export default function EditProducts({
                               <button
                                 className="delete-button m-0"
                                 onClick={() =>
-                                  handleDelteBlogs(items.id, 2, Data?.id)
+                                  handleDeleteProducts(items.id, 2, Data?.id)
                                 }
                               >
                                 Delete

@@ -1911,54 +1911,6 @@ export default function EditRealEstate({
                                 ""
                               );
                             })}
-                          {/* <div className="d-flex align-items-baseline amenities-div">
-                            <span style={{ fontSize: "16px" }}>
-                              <svg
-                                id="a"
-                                data-name="Layer 1"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="8mm"
-                                height="8.005mm"
-                                viewBox="0 0 22.677 22.691"
-                              >
-                                <rect
-                                  x="2.24"
-                                  y="2.094"
-                                  width="18.197"
-                                  height="18.504"
-                                  fill="none"
-                                  stroke="#1f1d1e"
-                                  stroke-miterlimit="10"
-                                  stroke-width=".6"
-                                ></rect>
-                                <g>
-                                  <line
-                                    x1="5.59"
-                                    y1="5.444"
-                                    x2="17.151"
-                                    y2="17.005"
-                                    fill="none"
-                                    stroke="#1f1d1e"
-                                    stroke-miterlimit="10"
-                                    stroke-width=".6"
-                                  ></line>
-                                  <polygon
-                                    points="5.26 8.585 5.86 8.564 5.752 5.607 8.709 5.715 8.73 5.115 5.129 4.984 5.26 8.585"
-                                    fill="#1f1d1e"
-                                    stroke-width="0"
-                                  ></polygon>
-                                  <polygon
-                                    points="14.01 17.335 14.031 16.734 16.987 16.843 16.879 13.886 17.48 13.865 17.61 17.466 14.01 17.335"
-                                    fill="#1f1d1e"
-                                    stroke-width="0"
-                                  ></polygon>
-                                </g>
-                              </svg>
-                            </span>
-                            <p className="pl-2 color-black">
-                              {items?.area}
-                            </p>
-                          </div> */}
                         </div>
                         <div
                           className="mt-3 d-flex flex-wrap align-items-center justify-content-between"
@@ -2027,26 +1979,29 @@ export default function EditRealEstate({
                       </div>
                     </div>
 
-                    <div
-                      className={
-                        index + 1 === length
-                          ? "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4"
-                          : "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4 real-estate-border"
-                      }
-                    >
-                      <button
-                        className="send-btnn m-0"
-                        onClick={() => handleShowModal(items)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="delete-button m-0"
-                        onClick={() => handleDelete(items)}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    {TitleData?.card_realestates?.source == "2" &&
+                      TitleData?.card_realestates?.in_subscription && (
+                        <div
+                          className={
+                            index + 1 === length
+                              ? "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4"
+                              : "d-flex align-items-center justify-content-start gap-2 mt-1 pb-4 mb-4 real-estate-border"
+                          }
+                        >
+                          <button
+                            className="send-btnn m-0"
+                            onClick={() => handleShowModal(items)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="delete-button m-0"
+                            onClick={() => handleDelete(items)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
                   </div>
                 );
               })
