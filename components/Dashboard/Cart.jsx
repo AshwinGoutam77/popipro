@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export default function Cart({ active, handleClose, MainData, cartId }) {
   const {
@@ -26,7 +27,19 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
   const [totalPrice, setTotalPrice] = useState("");
 
   const handleRemoveCartItem = (id) => {
-    removeFromCart(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        removeFromCart(id);
+      }
+    });
   };
 
   const handleIncrement = (id) => {
@@ -67,6 +80,9 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
 
   useEffect(() => {
     calculateTotalPrice();
+    if (userCartItems.length == 0) {
+      handleHide();
+    }
   }, [cartItems]);
 
   return (
@@ -124,7 +140,11 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                           <div className="d-flex align-items-center">
                             <FontAwesomeIcon
                               icon={faMinusCircle}
-                              className="VarColor cursor-pointer"
+                              className={
+                                item?.quantity !== 1
+                                  ? "VarColor cursor-pointer"
+                                  : ""
+                              }
                               width={20}
                               style={{ fontSize: "25px" }}
                               onClick={() => handleDecrement(item?.id)}
