@@ -263,6 +263,7 @@ export default function EditContact({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_booking?.in_subscription}
             />
           ) : (
             ""

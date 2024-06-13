@@ -811,6 +811,7 @@ export default function EditTestimonials({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_testimonials?.in_subscription}
             />
           ) : (
             ""

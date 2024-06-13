@@ -738,6 +738,7 @@ export default function EditDoing({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_services?.in_subscription}
             />
           ) : (
             ""

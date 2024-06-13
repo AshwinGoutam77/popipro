@@ -462,6 +462,7 @@ export default function EditCustomLink({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_custom_url?.in_subscription}
             />
           ) : (
             ""

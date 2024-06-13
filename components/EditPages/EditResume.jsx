@@ -724,6 +724,7 @@ export default function EditResume({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_experience?.in_subscription}
             />
           ) : (
             ""

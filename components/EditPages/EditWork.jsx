@@ -601,6 +601,7 @@ export default function EditWorks({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_photos?.in_subscription}
             />
           ) : (
             ""
@@ -917,6 +918,7 @@ export default function EditWorks({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_videos?.in_subscription}
             />
           ) : (
             ""

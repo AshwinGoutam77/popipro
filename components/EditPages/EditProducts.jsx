@@ -1553,6 +1553,7 @@ export default function EditProducts({
                 PlanData={PlanData}
                 APIDATA={APIDATA}
                 MainData={MainData}
+                in_subscription={TitleData?.card_products?.in_subscription}
               />
             ) : (
               ""

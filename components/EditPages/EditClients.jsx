@@ -286,6 +286,7 @@ export default function EditClients({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_clients?.in_subscription}
             />
           ) : (
             ""

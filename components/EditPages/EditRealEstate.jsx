@@ -1700,6 +1700,7 @@ export default function EditRealEstate({
             PlanData={PlanData}
             APIDATA={APIDATA}
             MainData={MainData}
+            in_subscription={TitleData?.card_realestates?.in_subscription}
           />
         ) : (
           ""

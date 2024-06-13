@@ -504,6 +504,7 @@ export default function EditAlternateNo({
               PlanData={PlanData}
               APIDATA={APIDATA}
               MainData={MainData}
+              in_subscription={TitleData?.card_alternate_phone?.in_subscription}
             />
           ) : (
             ""
