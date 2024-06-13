@@ -347,163 +347,179 @@ export default function Page() {
         </Link>
       </div>
       <div className="d-flex align-items-center flex-column justify-content-between w-100 mb-4">
-        <div className="w-100">
-          <div className="mx-3 mt-4">
-            <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1 mb-1">From</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={StartDate}
-                  maxDate={new Date()}
-                  onChange={(date) => setStartDate(date)}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <label className="ml-1">To</label>
-                <DatePicker
-                  dateFormat="MM/dd/yyyy"
-                  selected={EndDate}
-                  defaultValue={EndDate}
-                  onChange={(Date) => setEndDate(Date)}
-                  maxDate={new Date()}
-                  minDate={StartDate}
-                  placeholderText={"End Date"}
-                  className="form-control insight-filter w-100"
-                />
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <select
-                  onChange={(e) => setSelectId(e.target.value)}
-                  className="form-control"
-                  style={{
-                    appearance: "auto",
-                    height: "36px",
-                    padding: "10px",
-                  }}
-                >
-                  <option>Select Form</option>
-                  {FormsData &&
-                    FormsData?.map((items, index) => {
-                      return (
-                        <option value={items?.id} key={index}>
-                          {items?.form_heading}
-                        </option>
-                      );
-                    })}
-                </select>
-              </div>
-              <div className="col-6 col-lg-2 p-0 px-2">
-                <button
-                  className="contact-btn w-auto mt-3"
-                  onClick={handleSearchData}
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="row m-0 mb-4 row-gap-3">
-            <div className="col-sm-12 col-lg-6">
-              <div className="barchart-div">
-                <Charts
-                  options={chartData5?.options}
-                  series={chartData5?.series}
-                  type="area"
-                  height={300}
-                />
-              </div>
-            </div>
-            <div className="col-sm-12 col-lg-6">
-              <div className="barchart-div">
-                <div className="d-flex align-items-center justify-content-between dashboard-location-select">
-                  {/* <p className="ml-4 color-black font-weight-bold">
-                    As per location
-                  </p> */}
+        <div className="container-fluid">
+          <div className="w-100">
+            <div className="mt-4">
+              <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1 mb-1">From</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={StartDate}
+                    maxDate={new Date()}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <label className="ml-1">To</label>
+                  <DatePicker
+                    dateFormat="MM/dd/yyyy"
+                    selected={EndDate}
+                    defaultValue={EndDate}
+                    onChange={(Date) => setEndDate(Date)}
+                    maxDate={new Date()}
+                    minDate={StartDate}
+                    placeholderText={"End Date"}
+                    className="form-control insight-filter w-100"
+                  />
+                </div>
+                <div className="col-6 col-lg-2 p-0 px-2">
                   <select
-                    className="w-auto location-filter"
-                    onChange={(e) => handleSearchData(e.target.value)}
+                    onChange={(e) => setSelectId(e.target.value)}
+                    className="form-control"
+                    style={{
+                      appearance: "auto",
+                      height: "36px",
+                      padding: "10px",
+                    }}
                   >
-                    <option value="country">Country</option>
-                    <option value="state">State</option>
-                    <option value="city">City</option>
+                    <option>Select Form</option>
+                    {FormsData &&
+                      FormsData?.map((items, index) => {
+                        return (
+                          <option value={items?.id} key={index}>
+                            {items?.form_heading}
+                          </option>
+                        );
+                      })}
                   </select>
                 </div>
-                <Charts
-                  options={chartData6?.options}
-                  series={chartData6?.series}
-                  type="bar"
-                  height={300}
-                />
+                <div className="col-6 col-lg-2 p-0 px-2">
+                  <button
+                    className="contact-btn w-auto mt-3"
+                    onClick={handleSearchData}
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="box-shadow-leads">
-            <Table className="insight-table">
-              <Thead>
-                <Tr>
-                  <Th>Submitted Date</Th>
-                  <Th>Form</Th>
-                  <Th>Location</Th>
-                  <Th>Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {CustomFormData?.length === 0 || form_permissions == 0 ? (
-                  <Tr>
-                    <Td className="p-3" colspan="5">
-                      {form_permissions !== 0
-                        ? "No data available"
-                        : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                    </Td>
-                  </Tr>
-                ) : (
-                  CustomFormData &&
-                  CustomFormData?.map((items, index) => {
-                    return (
-                      <Tr
-                        data-column="Message"
-                        key={index}
-                        onClick={() =>
-                          handleGetCustomFormData(
-                            items?.id,
-                            items?.form_heading
-                          )
-                        }
-                        className="cursor-pointer"
-                      >
-                        <Td className="leads-short-para">{items.created_at}</Td>
-                        <Td data-column="Name">{items?.form}</Td>
-                        {items.detail ? (
-                          <Td data-column="created date">
-                            {items.detail?.state
-                              ? items.detail?.city +
-                                ", " +
-                                items.detail?.state +
-                                ", " +
-                                items.detail?.country
-                              : items.detail?.city +
-                                ", " +
-                                items.detail?.country}
-                          </Td>
-                        ) : (
-                          <Td>---</Td>
-                        )}
-                        <Td
-                          onClick={() =>
-                            handleGetCustomFormData(items?.id, items?.form)
-                          }
-                        >
-                          <FontAwesomeIcon icon={faEye} className="text-dark" />
-                        </Td>
+
+            <div className="row mb-4 row-gap-3">
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <Charts
+                    options={chartData5?.options}
+                    series={chartData5?.series}
+                    type="area"
+                    height={300}
+                  />
+                </div>
+              </div>
+              <div className="col-sm-12 col-lg-6">
+                <div className="barchart-div">
+                  <div className="d-flex align-items-center justify-content-between dashboard-location-select">
+                    {/* <p className="ml-4 color-black font-weight-bold">
+                    As per location
+                  </p> */}
+                    <select
+                      className="w-auto location-filter"
+                      onChange={(e) => handleSearchData(e.target.value)}
+                    >
+                      <option value="country">Country</option>
+                      <option value="state">State</option>
+                      <option value="city">City</option>
+                    </select>
+                  </div>
+                  <Charts
+                    options={chartData6?.options}
+                    series={chartData6?.series}
+                    type="bar"
+                    height={300}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12">
+                <div className="box-shadow-leads">
+                  <Table className="insight-table">
+                    <Thead>
+                      <Tr>
+                        <Th>Submitted Date</Th>
+                        <Th>Form</Th>
+                        <Th>Location</Th>
+                        <Th>Action</Th>
                       </Tr>
-                    );
-                  })
-                )}
-              </Tbody>
-            </Table>
+                    </Thead>
+                    <Tbody>
+                      {CustomFormData?.length === 0 || form_permissions == 0 ? (
+                        <Tr>
+                          <Td className="p-3" colspan="5">
+                            {form_permissions !== 0
+                              ? "No data available"
+                              : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
+                          </Td>
+                        </Tr>
+                      ) : (
+                        CustomFormData &&
+                        CustomFormData?.map((items, index) => {
+                          return (
+                            <Tr
+                              data-column="Message"
+                              key={index}
+                              onClick={() =>
+                                handleGetCustomFormData(
+                                  items?.id,
+                                  items?.form_heading
+                                )
+                              }
+                              className="cursor-pointer"
+                            >
+                              <Td className="leads-short-para">
+                                {items.created_at}
+                              </Td>
+                              <Td data-column="Name">{items?.form}</Td>
+                              {items.detail ? (
+                                <Td data-column="created date">
+                                  {items.detail?.state
+                                    ? items.detail?.city +
+                                      ", " +
+                                      items.detail?.state +
+                                      ", " +
+                                      items.detail?.country
+                                    : items.detail?.city +
+                                      ", " +
+                                      items.detail?.country}
+                                </Td>
+                              ) : (
+                                <Td>---</Td>
+                              )}
+                              <Td
+                                onClick={() =>
+                                  handleGetCustomFormData(
+                                    items?.id,
+                                    items?.form
+                                  )
+                                }
+                              >
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-dark"
+                                />
+                              </Td>
+                            </Tr>
+                          );
+                        })
+                      )}
+                    </Tbody>
+                  </Table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

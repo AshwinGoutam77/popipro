@@ -316,10 +316,7 @@ export default function DashboardProducts({ TitleData }) {
               </div>
             </Modal.Body>
           </Modal>
-          <div
-            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100"
-            style={{ minHeight: "calc(100vh - 58px)" }}
-          >
+          <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100">
             <div className="w-100">
               <div
                 className="login-header p-3 text-center d-flex align-items-center justify-content-between"
@@ -345,158 +342,165 @@ export default function DashboardProducts({ TitleData }) {
                   </h6>
                 </Link>
               </div>
-              <div
-                className="w-100 bg-custom"
-                style={{ minHeight: "calc(100vh - 58px)" }}
-              >
-                <div className="mx-3 pt-4">
-                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">From</label>
-                      <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        selected={StartDate}
-                        maxDate={new Date()}
-                        onChange={(date) => setStartDate(date)}
-                        placeholderText={"End Date"}
-                        className="form-control insight-filter w-100"
-                      />
-                    </div>
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">To</label>
-                      <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        selected={EndDate}
-                        defaultValue={EndDate}
-                        onChange={(Date) => setEndDate(Date)}
-                        maxDate={new Date()}
-                        minDate={StartDate}
-                        placeholderText={"End Date"}
-                        className="form-control insight-filter w-100"
-                      />
-                    </div>
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <select
-                        onChange={(e) => setFilterRealEstate(e)}
-                        className="form-control"
-                        style={{
-                          appearance: "auto",
-                          padding: "10px",
-                        }}
-                      >
-                        <option value="0" datatype="card">
-                          Select{" "}
-                          {UserData?.titles?.card_realestates?.visible_name}
-                        </option>
-                        {Data &&
-                          Data?.realestate_stats?.map((items, index) => {
-                            return (
-                              <option
-                                value={items?.id}
-                                key={index}
-                                datatype={items?.type}
-                              >
-                                {items?.name}
-                              </option>
-                            );
-                          })}
-                      </select>
-                    </div>
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <button
-                        className="contact-btn w-auto mt-3"
-                        onClick={() => handleSearchData()}
-                      >
-                        Search
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row m-0 mb-4 row-gap-3">
-                  <div className="col-sm-12 col-lg-6">
-                    <div className="barchart-div">
-                      <Charts
-                        options={chartData5?.options}
-                        series={chartData5?.series}
-                        type="area"
-                        height={300}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-lg-6">
-                    <div className="barchart-div">
-                      <div className="d-flex align-items-center justify-content-between dashboard-location-select">
-                        {/* <p className="ml-4 color-black font-weight-bold">
-                          As per location
-                        </p> */}
+              <div className="container-fluid">
+                <div className="w-100 bg-custom">
+                  <div className="pt-4">
+                    <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                      <div className="col-6 col-lg-2 p-0 px-2">
+                        <label className="ml-1">From</label>
+                        <DatePicker
+                          dateFormat="MM/dd/yyyy"
+                          selected={StartDate}
+                          maxDate={new Date()}
+                          onChange={(date) => setStartDate(date)}
+                          placeholderText={"End Date"}
+                          className="form-control insight-filter w-100"
+                        />
+                      </div>
+                      <div className="col-6 col-lg-2 p-0 px-2">
+                        <label className="ml-1">To</label>
+                        <DatePicker
+                          dateFormat="MM/dd/yyyy"
+                          selected={EndDate}
+                          defaultValue={EndDate}
+                          onChange={(Date) => setEndDate(Date)}
+                          maxDate={new Date()}
+                          minDate={StartDate}
+                          placeholderText={"End Date"}
+                          className="form-control insight-filter w-100"
+                        />
+                      </div>
+                      <div className="col-6 col-lg-2 p-0 px-2">
                         <select
-                          className="w-auto location-filter"
-                          onChange={(e) => handleSearchData(e.target.value)}
+                          onChange={(e) => setFilterRealEstate(e)}
+                          className="form-control"
+                          style={{
+                            appearance: "auto",
+                            padding: "10px",
+                          }}
                         >
-                          <option value="country">Country</option>
-                          <option value="state">State</option>
-                          <option value="city">City</option>
+                          <option value="0" datatype="card">
+                            Select{" "}
+                            {UserData?.titles?.card_realestates?.visible_name}
+                          </option>
+                          {Data &&
+                            Data?.realestate_stats?.map((items, index) => {
+                              return (
+                                <option
+                                  value={items?.id}
+                                  key={index}
+                                  datatype={items?.type}
+                                >
+                                  {items?.name}
+                                </option>
+                              );
+                            })}
                         </select>
                       </div>
-                      <Charts
-                        options={chartData6?.options}
-                        series={chartData6?.series}
-                        type="bar"
-                        height={300}
-                      />
+                      <div className="col-6 col-lg-2 p-0 px-2">
+                        <button
+                          className="contact-btn w-auto mt-3"
+                          onClick={() => handleSearchData()}
+                        >
+                          Search
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="box-shadow-leads">
-                  <Table>
-                    <Thead>
-                      <Tr>
-                        <Th>Name</Th>
-                        <Th>Views</Th>
-                        <Th>Action</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {Data?.realestate_stats?.length === 0 ? (
-                        <Tr>
-                          <td className="p-3">No data available</td>
-                        </Tr>
-                      ) : (
-                        Data?.realestate_stats?.map((item, index) => {
-                          return (
-                            <Tr
-                              data-column="Message"
-                              key={index}
-                              className="cursor-pointer"
-                              onClick={() => {
-                                handleShowModal(item?.name);
-                              }}
-                            >
-                              <Td data-column="created date">{item.name}</Td>
+                  <div className="row mb-4 row-gap-3">
+                    <div className="col-sm-12 col-lg-6">
+                      <div className="barchart-div">
+                        <Charts
+                          options={chartData5?.options}
+                          series={chartData5?.series}
+                          type="area"
+                          height={300}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-lg-6">
+                      <div className="barchart-div">
+                        <div className="d-flex align-items-center justify-content-between dashboard-location-select">
+                          {/* <p className="ml-4 color-black font-weight-bold">
+                          As per location
+                        </p> */}
+                          <select
+                            className="w-auto location-filter"
+                            onChange={(e) => handleSearchData(e.target.value)}
+                          >
+                            <option value="country">Country</option>
+                            <option value="state">State</option>
+                            <option value="city">City</option>
+                          </select>
+                        </div>
+                        <Charts
+                          options={chartData6?.options}
+                          series={chartData6?.series}
+                          type="bar"
+                          height={300}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                              <Td data-column="created date">{item?.count}</Td>
-
-                              <Td data-column="status">
-                                <FontAwesomeIcon
-                                  icon={faEye}
-                                  className="text-dark"
-                                />
-                              </Td>
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="box-shadow-leads">
+                        <Table>
+                          <Thead>
+                            <Tr>
+                              <Th>Name</Th>
+                              <Th>Views</Th>
+                              <Th>Action</Th>
                             </Tr>
-                          );
-                        })
-                      )}
-                    </Tbody>
-                  </Table>
+                          </Thead>
+                          <Tbody>
+                            {Data?.realestate_stats?.length === 0 ? (
+                              <Tr>
+                                <td className="p-3">No data available</td>
+                              </Tr>
+                            ) : (
+                              Data?.realestate_stats?.map((item, index) => {
+                                return (
+                                  <Tr
+                                    data-column="Message"
+                                    key={index}
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      handleShowModal(item?.name);
+                                    }}
+                                  >
+                                    <Td data-column="created date">
+                                      {item.name}
+                                    </Td>
+
+                                    <Td data-column="created date">
+                                      {item?.count}
+                                    </Td>
+
+                                    <Td data-column="status">
+                                      <FontAwesomeIcon
+                                        icon={faEye}
+                                        className="text-dark"
+                                      />
+                                    </Td>
+                                  </Tr>
+                                );
+                              })
+                            )}
+                          </Tbody>
+                        </Table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div
             className="w-100 text-center text-white p-2 mt-3"
-            style={{background: "black" }}
+            style={{ background: "black" }}
           >
             <p> © 2023 - 24. All Rights Reserved By Popipro.</p>
           </div>

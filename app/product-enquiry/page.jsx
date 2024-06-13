@@ -276,7 +276,7 @@ export default function ProductEnquiry() {
                 })}
             </Modal.Body>
           </Modal>
-          <div>
+          <div className="bg-lightGrey">
             <div
               className="login-header p-3 text-center d-flex align-items-center justify-content-between"
               style={{ background: "black" }}
@@ -299,148 +299,152 @@ export default function ProductEnquiry() {
                 </h6>
               </Link>
             </div>
-            <div
-              className="w-100 bg-custom"
-              style={{ minHeight: "calc(100vh - 58px)" }}
-            >
-              <div className="mx-3 pt-4">
-                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={StartDate}
-                      maxDate={new Date()}
-                      onChange={(date) => setStartDate(date)}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
-                      maxDate={new Date()}
-                      minDate={StartDate}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <button
-                      className="contact-btn w-auto mt-3"
-                      onClick={handleSearchData}
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="row m-0 mb-4 row-gap-3">
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData5?.options}
-                      series={chartData5?.series}
-                      type="area"
-                      height={300}
-                    />
+            <div className="container-fluid">
+              <div className="w-100 bg-custom">
+                <div className="pt-4">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">From</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={StartDate}
+                        maxDate={new Date()}
+                        onChange={(date) => setStartDate(date)}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">To</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
+                        maxDate={new Date()}
+                        minDate={StartDate}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <button
+                        className="contact-btn w-auto mt-3"
+                        onClick={handleSearchData}
+                      >
+                        Search
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <div className="d-flex align-items-center justify-content-between dashboard-location-select">
-                      {/* <p className="ml-4 color-black font-weight-bold">
+                <div className="row mb-4 row-gap-3">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <Charts
+                        options={chartData5?.options}
+                        series={chartData5?.series}
+                        type="area"
+                        height={300}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <div className="d-flex align-items-center justify-content-between dashboard-location-select">
+                        {/* <p className="ml-4 color-black font-weight-bold">
                         As per location
                       </p> */}
-                      <select
-                        className="w-auto location-filter"
-                        onChange={(e) => handleSearchData(e.target.value)}
-                      >
-                        <option value="country">Country</option>
-                        <option value="state">State</option>
-                        <option value="city">City</option>
-                      </select>
+                        <select
+                          className="w-auto location-filter"
+                          onChange={(e) => handleSearchData(e.target.value)}
+                        >
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                          <option value="city">City</option>
+                        </select>
+                      </div>
+                      <Charts
+                        options={chartData6?.options}
+                        series={chartData6?.series}
+                        type="bar"
+                        height={300}
+                      />
                     </div>
-                    <Charts
-                      options={chartData6?.options}
-                      series={chartData6?.series}
-                      type="bar"
-                      height={300}
-                    />
                   </div>
                 </div>
-              </div>
-              <div className="box-shadow-leads">
-                <Table className="insight-table">
-                  <Thead>
-                    <Tr>
-                      <th>Date</th>
-                      <th>Name</th>
-                      <th>Contact</th>
-                      <th>Location</th>
-                      <th>Action</th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {Data?.product_enquiries?.length === 0 ||
-                    Data?.leads_permissions?.product_enquiry == 0 ? (
-                      <Tr>
-                        <Td className="p-3 color-black" colspan="5">
-                          {Data?.leads_permissions?.product_enquiry !== 0
-                            ? "No data available"
-                            : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                        </Td>
-                      </Tr>
-                    ) : (
-                      Data?.product_enquiries?.map((item, index) => {
-                        return (
-                          <Tr
-                            data-column="Message"
-                            key={index}
-                            onClick={() => handleMessageTr(item.id)}
-                            className="cursor-pointer"
-                          >
-                            <Td data-column="created date">
-                              {item.created_at}
-                            </Td>
-                            <Td data-column="name">
-                              {item?.productable?.name}
-                            </Td>
-                            <Td data-column="name">
-                              {item.contact ? item.contact : "-"}
-                            </Td>
 
-                            {item.detail ? (
-                              <Td data-column="created date">
-                                {item.detail?.state
-                                  ? item.detail?.city +
-                                    ", " +
-                                    item.detail?.state +
-                                    ", " +
-                                    item.detail?.country
-                                  : item.detail?.city +
-                                    ", " +
-                                    item.detail?.country}
-                              </Td>
-                            ) : (
-                              <Td>---</Td>
-                            )}
-                            <Td className="">
-                              <FontAwesomeIcon
-                                icon={faEye}
-                                className="text-dark"
-                              />
-                            </Td>
+                <div className="row">
+                  <div className="col-12">
+                    <div className="box-shadow-leads">
+                      <Table className="insight-table">
+                        <Thead>
+                          <Tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Location</th>
+                            <th>Action</th>
                           </Tr>
-                        );
-                      })
-                    )}
-                  </Tbody>
-                </Table>
+                        </Thead>
+                        <Tbody>
+                          {Data?.product_enquiries?.length === 0 ||
+                          Data?.leads_permissions?.product_enquiry == 0 ? (
+                            <Tr>
+                              <Td className="p-3 color-black" colspan="5">
+                                {Data?.leads_permissions?.product_enquiry !== 0
+                                  ? "No data available"
+                                  : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
+                              </Td>
+                            </Tr>
+                          ) : (
+                            Data?.product_enquiries?.map((item, index) => {
+                              return (
+                                <Tr
+                                  data-column="Message"
+                                  key={index}
+                                  onClick={() => handleMessageTr(item.id)}
+                                  className="cursor-pointer"
+                                >
+                                  <Td data-column="created date">
+                                    {item.created_at}
+                                  </Td>
+                                  <Td data-column="name">
+                                    {item?.productable?.name}
+                                  </Td>
+                                  <Td data-column="name">
+                                    {item.contact ? item.contact : "-"}
+                                  </Td>
+
+                                  {item.detail ? (
+                                    <Td data-column="created date">
+                                      {item.detail?.state
+                                        ? item.detail?.city +
+                                          ", " +
+                                          item.detail?.state +
+                                          ", " +
+                                          item.detail?.country
+                                        : item.detail?.city +
+                                          ", " +
+                                          item.detail?.country}
+                                    </Td>
+                                  ) : (
+                                    <Td>---</Td>
+                                  )}
+                                  <Td className="">
+                                    <FontAwesomeIcon
+                                      icon={faEye}
+                                      className="text-dark"
+                                    />
+                                  </Td>
+                                </Tr>
+                              );
+                            })
+                          )}
+                        </Tbody>
+                      </Table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div

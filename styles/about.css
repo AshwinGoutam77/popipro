@@ -430,8 +430,8 @@ div:where(.swal2-icon).swal2-info {
 
 .box-shadow-leads {
   border-radius: 10px;
-  width: 97%;
-  margin: 0 20px;
+  /* width: 97%; */
+  /* margin: 0 20px; */
 }
 .box-shadow-leads table {
   /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
@@ -444,8 +444,8 @@ div:where(.swal2-icon).swal2-info {
 @media (max-width: 767px) {
   .box-shadow-leads {
     border-radius: 10px;
-    width: 91%;
-    margin: 0 20px;
+    /* width: 91%; */
+    /* margin: 0 20px; */
   }
 
   .dashboard-padding {

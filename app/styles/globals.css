@@ -931,6 +931,11 @@ input.date-time-input::-webkit-date-and-time-value {
 }
 .bg-custom {
   background-color: #f8fafc !important;
+  min-height: calc(100vh - 113px);
+}
+
+.bg-lightGrey {
+  background-color: #f8fafc !important;
 }
 
 .sc-dmlpXa::-webkit-scrollbar-track {
@@ -1996,6 +2001,28 @@ td {
 
 .cart-section img {
   height: 122px;
+}
+
+.dashboard-banner h1 span {
+  margin-left: -360px;
+  animation: slideIn 7s infinite;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    margin-left: 0;
+  }
+  80% {
+    opacity: 1;
+    margin-left: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 1045px) and (min-width: 772px) {

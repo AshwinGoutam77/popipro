@@ -270,7 +270,7 @@ export default function TestimonialsLeads() {
               })}
           </Modal.Body>
         </Modal>
-        <div>
+        <div className="bg-lightGrey">
           <div
             className="login-header p-3 text-center d-flex align-items-center justify-content-between"
             style={{ background: "black" }}
@@ -290,156 +290,163 @@ export default function TestimonialsLeads() {
               </h6>
             </Link>
           </div>
-          <div
-            className="w-100 bg-custom"
-            style={{ minHeight: "calc(100vh - 58px)" }}
-          >
-            <div className="mx-3 pt-4">
-              <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">From</label>
-                  <DatePicker
-                    dateFormat="MM/dd/yyyy"
-                    selected={StartDate}
-                    maxDate={new Date()}
-                    onChange={(date) => setStartDate(date)}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <label className="ml-1">To</label>
-                  <DatePicker
-                    dateFormat="MM/dd/yyyy"
-                    selected={EndDate}
-                    defaultValue={EndDate}
-                    onChange={(Date) => setEndDate(Date)}
-                    maxDate={new Date()}
-                    minDate={StartDate}
-                    placeholderText={"End Date"}
-                    className="form-control insight-filter w-100"
-                  />
-                </div>
-                <div className="col-6 col-lg-2 p-0 px-2">
-                  <button
-                    className="contact-btn w-auto mt-3"
-                    onClick={handleSearchData}
-                  >
-                    Search
-                  </button>
+
+          <div className="container-fluid">
+            <div className="w-100 bg-custom">
+              <div className="pt-4">
+                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">From</label>
+                    <DatePicker
+                      dateFormat="MM/dd/yyyy"
+                      selected={StartDate}
+                      maxDate={new Date()}
+                      onChange={(date) => setStartDate(date)}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <label className="ml-1">To</label>
+                    <DatePicker
+                      dateFormat="MM/dd/yyyy"
+                      selected={EndDate}
+                      defaultValue={EndDate}
+                      onChange={(Date) => setEndDate(Date)}
+                      maxDate={new Date()}
+                      minDate={StartDate}
+                      placeholderText={"End Date"}
+                      className="form-control insight-filter w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-lg-2 p-0 px-2">
+                    <button
+                      className="contact-btn w-auto mt-3"
+                      onClick={handleSearchData}
+                    >
+                      Search
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="box-shadow-leads">
-              <Table>
-                <Thead>
-                  <Tr>
-                    <Th>Date</Th>
-                    <Th>Name</Th>
-                    <Th>Contact</Th>
-                    <Th>Location</Th>
-                    <Th>Approve Review</Th>
-                    <Th>Actions</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {Data?.length === 0 ? (
-                    <Tr>
-                      <td className="p-3">No data available</td>
-                    </Tr>
-                  ) : (
-                    Data?.map((item, index) => {
-                      return (
-                        <Tr
-                          data-column="Message"
-                          key={index}
-                          className="cursor-pointer"
-                        >
-                          <Td
-                            data-column="created date"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.created_at}
-                          </Td>
-                          <Td
-                            data-column="created date"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.name}
-                          </Td>
-                          <Td
-                            data-column="name"
-                            onClick={() => {
-                              setModalId(item.id), setShowModal(true);
-                            }}
-                          >
-                            {item.user_contact_number
-                              ? item.user_contact_number
-                              : "---"}
-                          </Td>
-                          {item.detail ? (
-                            <Td data-column="created date">
-                              {item.detail?.state
-                                ? item.detail?.city +
-                                  ", " +
-                                  item.detail?.state +
-                                  ", " +
-                                  item.detail?.country
-                                : item.detail?.city +
-                                  ", " +
-                                  item.detail?.country}
-                            </Td>
-                          ) : (
-                            <Td>---</Td>
-                          )}
 
-                          {item?.status == "confirmed" ? (
-                            <Td data-column="status">
-                              <p href="#" class="badge badge-success">
-                                Approved
-                              </p>
-                            </Td>
-                          ) : (
-                            <Td
-                              data-column="status"
-                              onClick={() => handleActiveTestimonials(item.id)}
-                            >
-                              <p
-                                href="#"
-                                class="badge badge-danger bg-varcolor"
-                              >
-                                Mark as Approve?
-                              </p>
-                            </Td>
-                          )}
-                          <Td>
-                            <p className="d-flex align-items-center justify-content-left">
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className="text-dark ml-1"
-                                onClick={() =>
-                                  handleDeleteTestimonials(item.id)
-                                }
-                              />
-                              <FontAwesomeIcon
-                                icon={faEye}
-                                className="text-dark ml-4"
-                                onClick={() => {
-                                  setModalId(item.id), setShowModal(true);
-                                }}
-                              />
-                            </p>
-                          </Td>
+              <div className="row">
+                <div className="col-12">
+                  <div className="box-shadow-leads">
+                    <Table>
+                      <Thead>
+                        <Tr>
+                          <Th>Date</Th>
+                          <Th>Name</Th>
+                          <Th>Contact</Th>
+                          <Th>Location</Th>
+                          <Th>Approve Review</Th>
+                          <Th>Actions</Th>
                         </Tr>
-                      );
-                    })
-                  )}
-                </Tbody>
-              </Table>
+                      </Thead>
+                      <Tbody>
+                        {Data?.length === 0 ? (
+                          <Tr>
+                            <td className="p-3">No data available</td>
+                          </Tr>
+                        ) : (
+                          Data?.map((item, index) => {
+                            return (
+                              <Tr
+                                data-column="Message"
+                                key={index}
+                                className="cursor-pointer"
+                              >
+                                <Td
+                                  data-column="created date"
+                                  onClick={() => {
+                                    setModalId(item.id), setShowModal(true);
+                                  }}
+                                >
+                                  {item.created_at}
+                                </Td>
+                                <Td
+                                  data-column="created date"
+                                  onClick={() => {
+                                    setModalId(item.id), setShowModal(true);
+                                  }}
+                                >
+                                  {item.name}
+                                </Td>
+                                <Td
+                                  data-column="name"
+                                  onClick={() => {
+                                    setModalId(item.id), setShowModal(true);
+                                  }}
+                                >
+                                  {item.user_contact_number
+                                    ? item.user_contact_number
+                                    : "---"}
+                                </Td>
+                                {item.detail ? (
+                                  <Td data-column="created date">
+                                    {item.detail?.state
+                                      ? item.detail?.city +
+                                        ", " +
+                                        item.detail?.state +
+                                        ", " +
+                                        item.detail?.country
+                                      : item.detail?.city +
+                                        ", " +
+                                        item.detail?.country}
+                                  </Td>
+                                ) : (
+                                  <Td>---</Td>
+                                )}
+
+                                {item?.status == "confirmed" ? (
+                                  <Td data-column="status">
+                                    <p href="#" class="badge badge-success">
+                                      Approved
+                                    </p>
+                                  </Td>
+                                ) : (
+                                  <Td
+                                    data-column="status"
+                                    onClick={() =>
+                                      handleActiveTestimonials(item.id)
+                                    }
+                                  >
+                                    <p
+                                      href="#"
+                                      class="badge badge-danger bg-varcolor"
+                                    >
+                                      Mark as Approve?
+                                    </p>
+                                  </Td>
+                                )}
+                                <Td>
+                                  <p className="d-flex align-items-center justify-content-left">
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                      className="text-dark ml-1"
+                                      onClick={() =>
+                                        handleDeleteTestimonials(item.id)
+                                      }
+                                    />
+                                    <FontAwesomeIcon
+                                      icon={faEye}
+                                      className="text-dark ml-4"
+                                      onClick={() => {
+                                        setModalId(item.id), setShowModal(true);
+                                      }}
+                                    />
+                                  </p>
+                                </Td>
+                              </Tr>
+                            );
+                          })
+                        )}
+                      </Tbody>
+                    </Table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div

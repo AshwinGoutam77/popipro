@@ -8,7 +8,13 @@ import SimpleBackdrop from "../ViewPages/Backdrop";
 import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 
-export default function EditPlan({ PlanData, Data, APIDATA, MainData }) {
+export default function EditPlan({
+  PlanData,
+  Data,
+  APIDATA,
+  MainData,
+  in_subscription,
+}) {
   const [ShowLoader, setShowLoader] = useState();
   const handleFreeTrail = async () => {
     try {
@@ -124,7 +130,31 @@ export default function EditPlan({ PlanData, Data, APIDATA, MainData }) {
             </div>
           </>
         ) : (
-          ""
+          in_subscription == false && (
+            <a
+              href="https://www.popipro.com/order"
+              target="_blank"
+              rel="noreferrer"
+              className="w-100 text-center"
+            >
+              <div className="overlay-div d-flex align-items-start justify-content-end flex-column">
+                <div className="d-flex align-items-center">
+                  <FontAwesomeIcon
+                    icon={faLock}
+                    className="text-white mb-2"
+                    style={{ fontSize: "20px" }}
+                  />
+                  <p className="text-white ml-2 text-left">
+                    This section is under the{" "}
+                    <span className="VarColor font-weight-bold">
+                      GOLDEN PLAN
+                    </span>
+                    , Click here to renew plan.
+                  </p>
+                </div>
+              </div>
+            </a>
+          )
         )}
       </div>
     </>

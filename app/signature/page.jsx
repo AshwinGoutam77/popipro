@@ -101,7 +101,7 @@ export default function Signature() {
         </h6>
       </div>
 
-      <div
+      {/* <div
         className="row w-100 pt-4 responsive-row-signature"
         style={{ paddingLeft: "30px" }}
       >
@@ -172,7 +172,6 @@ export default function Signature() {
                       {UserData?.card?.first_name}
                     </span>
                     <br />
-                    {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
                     <span style={{ marginBottom: "16px" }}>
                       {UserData?.card?.card_profession}
                     </span>
@@ -183,7 +182,6 @@ export default function Signature() {
                       <br />
                       Rajasthan, India.
                     </span>
-                    {/* <td style={{ fontSize: "12px", fontWeight: "bold" }}> */}
                     <br />
                     <br />
                     <a
@@ -219,7 +217,6 @@ export default function Signature() {
                     <a
                       href="#"
                       data-external="true"
-                      // style="text-decoration:none;color: #FF8000;"
                       style={{ textDecoration: "none", color: "#FF8000" }}
                     >
                       <img
@@ -556,9 +553,9 @@ export default function Signature() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div
+      {/* <div
         className="row w-100 pt-4 responsive-row-signature pb-4"
         style={{ paddingLeft: "30px" }}
       >
@@ -856,7 +853,6 @@ export default function Signature() {
               cellSpacing="0"
               cellPadding="0"
               border="0"
-              // style="padding: 32px 0; font-size:13px;font-weight: 500; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
               style={{
                 padding: "32px 0",
                 fontSize: "13px",
@@ -867,7 +863,6 @@ export default function Signature() {
             >
               <tbody>
                 <tr>
-                  {/* <td width="120" style="vertical-align:top;padding:0 16px;"> */}
                   <td
                     width="120"
                     style={{ verticalAlign: "top", padding: "0 16px" }}
@@ -909,7 +904,6 @@ export default function Signature() {
                       {UserData?.card?.first_name}
                     </span>
                     <br />
-                    {/* <span style="margin-bottom:16px;color:#4C4C4C;"> */}
                     <span style={{ marginBottom: "16px", color: "#4C4C4C;" }}>
                       {UserData?.card?.card_profession}
                     </span>
@@ -920,7 +914,6 @@ export default function Signature() {
                       <br />
                       Rajasthan, India.
                     </span>
-                    {/* <td style={{ fontSize: "12px", fontWeight: "bold" }}> */}
                     <br />
                     <br />
                     <a
@@ -956,7 +949,6 @@ export default function Signature() {
                     <a
                       href="#"
                       data-external="true"
-                      // style="text-decoration:none;color: #FF8000;"
                       style={{ textDecoration: "none", color: "#FF8000" }}
                     >
                       <img
@@ -983,13 +975,334 @@ export default function Signature() {
             </button>
           </div>
         </div>
+      </div> */}
+
+      <div className="row row-gap-4 my-4 mx-0">
+        <div className="col-6">
+          <div
+            style={{
+              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+              padding: "20px",
+              borderRadius: "8px",
+            }}
+          >
+            <table
+              ref={signatureRef1}
+              className="signature"
+              width="100%"
+              cellSpacing="0"
+              cellPadding="0"
+              border="0"
+              style={{
+                padding: "32px 0",
+                fontSize: "13px",
+                fontWeight: "500",
+              }}
+            >
+              <tbody style={{ display: "flex", alignItems: "center" }}>
+                <tr style={{ paddingRight: "30px" }}>
+                  <td>
+                    <img
+                      src={
+                        process.env.NEXT_PUBLIC_MODE == "development"
+                          ? "https://dev.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                          : "https://admin.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                      }
+                      alt="photograph"
+                      style={{
+                        border: "1px solid white",
+                        height: "auto",
+                        width: "200px",
+                        borderRadius: "100%",
+                        boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr
+                  style={{
+                    lineHeight: "0",
+                    display: "flex",
+                    flexDirection: "column",
+                    borderLeft: "1px solid #ccc",
+                    paddingLeft: "30px",
+                  }}
+                >
+                  <td
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      color: "black",
+                    }}
+                  >
+                    {UserData?.card?.first_name}
+                  </td>
+                  <td>{UserData?.card?.card_profession}</td>
+                  <td style={{ marginTop: "10px" }}>
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        color: "black",
+                        marginRight: "5px",
+                      }}
+                    >
+                      Phone:
+                    </span>
+                    {UserData?.card?.card_contact}
+                  </td>
+                  <td>
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        color: "black",
+                        marginRight: "5px",
+                      }}
+                    >
+                      Email:
+                    </span>
+                    {UserData?.card?.card_email}
+                  </td>
+                  <td>
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        color: "black",
+                        marginRight: "5px",
+                        lineHeight: "18px",
+                      }}
+                    >
+                      Address:
+                    </span>
+                    {UserData?.card?.card_address}
+                  </td>
+                  <td>
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        color: "black",
+                        marginRight: "5px",
+                      }}
+                    >
+                      Website:
+                    </span>
+                    {UserData?.card?.card_website}
+                  </td>
+
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/facebook.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/instagram.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/linkedin.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/twitter.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="col-6">
+          <div
+            style={{
+              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+              borderRadius: "8px",
+            }}
+          >
+            <table
+              ref={signatureRef1}
+              className="signature"
+              width="100%"
+              cellSpacing="0"
+              cellPadding="0"
+              border="0"
+              style={{
+                padding: "32px 0",
+                fontSize: "13px",
+                fontWeight: "500",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <tbody
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "20px",
+                }}
+              >
+                <tr style={{ paddingRight: "30px" }}>
+                  <td>
+                    <img
+                      src={
+                        process.env.NEXT_PUBLIC_MODE == "development"
+                          ? "https://dev.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                          : "https://admin.popipro.com/" +
+                            UserData?.card?.profile_picture?.path
+                      }
+                      alt="photograph"
+                      style={{
+                        border: "1px solid white",
+                        height: "auto",
+                        width: "200px",
+                        borderTopRightRadius: "30px",
+                        borderBottomLeftRadius: "30px",
+                        boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr
+                  style={{
+                    lineHeight: "0",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <td
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      color: "black",
+                    }}
+                  >
+                    {UserData?.card?.first_name}
+                  </td>
+                  <td>{UserData?.card?.card_profession}</td>
+
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "8px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/mail-dark.svg"
+                      alt="image"
+                      width="14"
+                      class="mr-1"
+                    />
+
+                    {UserData?.card?.card_email}
+                  </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "8px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/phone-dark.svg"
+                      alt="image"
+                      width="14"
+                      class="mr-1"
+                    />
+
+                    {UserData?.card?.card_contact}
+                  </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "8px",
+                      lineHeight: "18px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/location-dark.svg"
+                      alt="image"
+                      width="14"
+                      class="mr-1"
+                    />
+
+                    {UserData?.card?.card_address}
+                  </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "8px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/website.svg"
+                      alt="image"
+                      width="14"
+                      class="mr-1"
+                    />
+
+                    {UserData?.card?.card_website}
+                  </td>
+
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <img
+                      src="./static/img/facebook.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/instagram.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/linkedin.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                    <img
+                      src="./static/img/twitter.png"
+                      alt="facebook"
+                      style={{ width: "30px" }}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
       <div
         className="w-100 text-center text-white p-2 mt-0"
         style={{ bottom: "0", background: "black" }}
       >
-        <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
+        <p>© 2023 - 2024. All Rights Reserved By Popipro.</p>
       </div>
     </>
   );

@@ -349,189 +349,195 @@ const Leads = () => {
             </Modal.Body>
           </Modal>
 
-          <div
-            className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-custom"
-            style={{ height: "calc(100vh - 58px)" }}
-          >
-            <div className="w-100">
-              <div className="mx-3 pt-4">
-                <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">From</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={StartDate}
-                      maxDate={new Date()}
-                      onChange={(date) => setStartDate(date)}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <label className="ml-1">To</label>
-                    <DatePicker
-                      dateFormat="MM/dd/yyyy"
-                      selected={EndDate}
-                      defaultValue={EndDate}
-                      onChange={(Date) => setEndDate(Date)}
-                      maxDate={new Date()}
-                      minDate={StartDate}
-                      placeholderText={"End Date"}
-                      className="form-control insight-filter w-100"
-                    />
-                  </div>
-                  <div className="col-6 col-lg-2 p-0 px-2">
-                    <button
-                      className="contact-btn w-auto mt-3"
-                      onClick={handleSearchData}
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row m-0 mb-4 row-gap-3">
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData5?.options}
-                      series={chartData5?.series}
-                      type="area"
-                      height={300}
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <div className="d-flex align-items-center justify-content-between dashboard-location-select">
-                      <select
-                        className="w-auto location-filter"
-                        onChange={(e) => handleSearchData(e.target.value)}
-                      >
-                        <option value="country">Country</option>
-                        <option value="state">State</option>
-                        <option value="city">City</option>
-                      </select>
+          <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-custom">
+            <div className="container-fluid">
+              <div className="w-100">
+                <div className="pt-4">
+                  <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">From</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={StartDate}
+                        maxDate={new Date()}
+                        onChange={(date) => setStartDate(date)}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
                     </div>
-                    <Charts
-                      options={chartData6?.options}
-                      series={chartData6?.series}
-                      type="bar"
-                      height={300}
-                    />
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <label className="ml-1">To</label>
+                      <DatePicker
+                        dateFormat="MM/dd/yyyy"
+                        selected={EndDate}
+                        defaultValue={EndDate}
+                        onChange={(Date) => setEndDate(Date)}
+                        maxDate={new Date()}
+                        minDate={StartDate}
+                        placeholderText={"End Date"}
+                        className="form-control insight-filter w-100"
+                      />
+                    </div>
+                    <div className="col-6 col-lg-2 p-0 px-2">
+                      <button
+                        className="contact-btn w-auto mt-3"
+                        onClick={handleSearchData}
+                      >
+                        Search
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="box-shadow-leads">
-                {Data?.leads?.length !== 0 && (
-                  <div className="text-right">
-                    <CSVLink
-                      data={Data?.leads}
-                      filename={"leads.csv"}
-                      headers={headers}
-                    >
-                      <p className="color-black font-weight-bold mr-2 mb-1">
-                        Download CSV
-                      </p>
-                    </CSVLink>
+                <div className="row mb-4 row-gap-3">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <Charts
+                        options={chartData5?.options}
+                        series={chartData5?.series}
+                        type="area"
+                        height={300}
+                      />
+                    </div>
                   </div>
-                )}
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="barchart-div">
+                      <div className="d-flex align-items-center justify-content-between dashboard-location-select">
+                        <select
+                          className="w-auto location-filter"
+                          onChange={(e) => handleSearchData(e.target.value)}
+                        >
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                          <option value="city">City</option>
+                        </select>
+                      </div>
+                      <Charts
+                        options={chartData6?.options}
+                        series={chartData6?.series}
+                        type="bar"
+                        height={300}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                <Table>
-                  <Thead>
-                    <Tr>
-                      <Th>Name</Th>
-                      <Th>Contact</Th>
-                      <Th>Date</Th>
-                      <Th>Location</Th>
-                      <Th>Actions</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {Data?.leads?.length === 0 ||
-                    Data?.leads_permissions?.sharecontact == 0 ? (
-                      <Tr>
-                        <Td className="p-3 color-black" colspan="5">
-                          {Data?.leads_permissions?.sharecontact !== 1
-                            ? "No data available"
-                            : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
-                        </Td>
-                      </Tr>
-                    ) : (
-                      Data?.leads?.map((item, index) => {
-                        return (
-                          <Tr
-                            data-column="Message"
-                            key={index}
-                            onClick={() => setModalId(item.id)}
-                            className="cursor-pointer"
+                <div className="row">
+                  <div className="col-12">
+                    <div className="box-shadow-leads">
+                      {Data?.leads?.length !== 0 && (
+                        <div className="text-right">
+                          <CSVLink
+                            data={Data?.leads}
+                            filename={"leads.csv"}
+                            headers={headers}
                           >
-                            <Td
-                              data-column="Name"
-                              onClick={() => setShowModal(true)}
-                            >
-                              {item.full_name}
-                            </Td>
-                            <Td
-                              data-column="Name"
-                              onClick={() => setShowModal(true)}
-                            >
-                              {item?.contact_number}
-                            </Td>
-                            <Td className="" onClick={() => setShowModal(true)}>
-                              {item.created_at}
-                            </Td>
-                            {item.detail ? (
-                              <Td data-column="created date">
-                                {item.detail?.state
-                                  ? item.detail?.city +
-                                    ", " +
-                                    item.detail?.state +
-                                    ", " +
-                                    item.detail?.country
-                                  : item.detail?.city +
-                                    ", " +
-                                    item.detail?.country}
-                              </Td>
-                            ) : (
-                              <Td>---</Td>
-                            )}
-                            <Td>
-                              <div
-                                className="d-flex align-items-center justify-content-left"
-                                style={{ gap: "10px" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faDownload}
-                                  className="text-dark"
-                                  onClick={() =>
-                                    shareContact(
-                                      item.full_name,
-                                      item.contact_number,
-                                      item.email
-                                    )
-                                  }
-                                />
-                                <FontAwesomeIcon
-                                  onClick={() => setShowModal(true)}
-                                  icon={faEye}
-                                  className="text-dark"
-                                />
-                              </div>
-                            </Td>
+                            <p className="color-black font-weight-bold mr-2 mb-1">
+                              Download CSV
+                            </p>
+                          </CSVLink>
+                        </div>
+                      )}
+
+                      <Table>
+                        <Thead>
+                          <Tr>
+                            <Th>Name</Th>
+                            <Th>Contact</Th>
+                            <Th>Date</Th>
+                            <Th>Location</Th>
+                            <Th>Actions</Th>
                           </Tr>
-                        );
-                      })
-                    )}
-                  </Tbody>
-                </Table>
+                        </Thead>
+                        <Tbody>
+                          {Data?.leads?.length === 0 ||
+                          Data?.leads_permissions?.sharecontact == 0 ? (
+                            <Tr>
+                              <Td className="p-3 color-black" colspan="5">
+                                {Data?.leads_permissions?.sharecontact !== 1
+                                  ? "No data available"
+                                  : "Access to this data is restricted; kindly reach out to your company for futher assistance."}
+                              </Td>
+                            </Tr>
+                          ) : (
+                            Data?.leads?.map((item, index) => {
+                              return (
+                                <Tr
+                                  data-column="Message"
+                                  key={index}
+                                  onClick={() => setModalId(item.id)}
+                                  className="cursor-pointer"
+                                >
+                                  <Td
+                                    data-column="Name"
+                                    onClick={() => setShowModal(true)}
+                                  >
+                                    {item.full_name}
+                                  </Td>
+                                  <Td
+                                    data-column="Name"
+                                    onClick={() => setShowModal(true)}
+                                  >
+                                    {item?.contact_number}
+                                  </Td>
+                                  <Td
+                                    className=""
+                                    onClick={() => setShowModal(true)}
+                                  >
+                                    {item.created_at}
+                                  </Td>
+                                  {item.detail ? (
+                                    <Td data-column="created date">
+                                      {item.detail?.state
+                                        ? item.detail?.city +
+                                          ", " +
+                                          item.detail?.state +
+                                          ", " +
+                                          item.detail?.country
+                                        : item.detail?.city +
+                                          ", " +
+                                          item.detail?.country}
+                                    </Td>
+                                  ) : (
+                                    <Td>---</Td>
+                                  )}
+                                  <Td>
+                                    <div
+                                      className="d-flex align-items-center justify-content-left"
+                                      style={{ gap: "10px" }}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faDownload}
+                                        className="text-dark"
+                                        onClick={() =>
+                                          shareContact(
+                                            item.full_name,
+                                            item.contact_number,
+                                            item.email
+                                          )
+                                        }
+                                      />
+                                      <FontAwesomeIcon
+                                        onClick={() => setShowModal(true)}
+                                        icon={faEye}
+                                        className="text-dark"
+                                      />
+                                    </div>
+                                  </Td>
+                                </Tr>
+                              );
+                            })
+                          )}
+                        </Tbody>
+                      </Table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
               className="w-100 text-center text-white p-2 mt-3"
-              style={{ bottom: "0", background: "black" }}
+              style={{ background: "black" }}
             >
               <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
             </div>

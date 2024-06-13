@@ -645,680 +645,702 @@ const Page = () => {
           </Modal>
 
           {/* Header */}
-
-          <div
-            className="login-header p-3 text-center d-flex align-items-center justify-content-between"
-            style={{ background: "black" }}
-          >
-            <h5 className="text-white m-0">
-              <FontAwesomeIcon
-                icon={faChartSimple}
-                className="text-white mr-2"
-                width="20"
-              />{" "}
-              Overall Analytics
-            </h5>
-            <Link href="/dashboard">
-              <h6 className="text-white m-0">
-                {" "}
+          <div className="bg-white">
+            <div
+              className="login-header p-3 text-center d-flex align-items-center justify-content-between"
+              style={{ background: "black" }}
+            >
+              <h5 className="text-white m-0">
                 <FontAwesomeIcon
-                  icon={faAngleLeft}
+                  icon={faChartSimple}
                   className="text-white mr-2"
                   width="20"
-                />
-                Back
-              </h6>
-            </Link>
-          </div>
+                />{" "}
+                Overall Analytics
+              </h5>
+              <Link href="/dashboard">
+                <h6 className="text-white m-0">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faAngleLeft}
+                    className="text-white mr-2"
+                    width="20"
+                  />
+                  Back
+                </h6>
+              </Link>
+            </div>
 
-          <div className="pt-2 bg-white insights-main-div">
-            <div className="px-1">
-              {/* Quick Analytics */}
-              <div className="row d-flex align-items-center justify-content-between row-gap-3">
-                <div className="col-lg-3 col-sm-12">
-                  <h5 className="first-title title__separate mx-4  text-black">
-                    Quick Analytics
+            <div className="container-fluid">
+              <div className="pt-2 bg-white insights-main-div">
+                <div className="px-1">
+                  {/* Quick Analytics */}
+                  <div className="row d-flex align-items-center justify-content-between row-gap-3">
+                    <div className="col-lg-3 col-sm-12">
+                      <h5 className="first-title title__separate text-black">
+                        Quick Analytics
+                      </h5>
+                    </div>
+                    {/* <p className="mr-4 color-black">Year(2024)</p> */}
+                    <div className="col-lg-9 col-sm-12">
+                      <div className="row w-100 m-0 p-0 px-4 mb-4 align-items-end bg-white justify-content-end">
+                        <div className="col-6 col-lg-2 p-0 px-2">
+                          <label className="ml-1">From</label>
+                          <DatePicker
+                            dateFormat="MM/dd/yyyy"
+                            selected={StartDate}
+                            maxDate={new Date()}
+                            onChange={(date) => setStartDate(date)}
+                            placeholderText={"End Date"}
+                            className="form-control insight-filter w-100"
+                          />
+                        </div>
+                        <div className="col-6 col-lg-2 p-0 px-2">
+                          <label className="ml-1">To</label>
+                          <DatePicker
+                            dateFormat="MM/dd/yyyy"
+                            selected={EndDate}
+                            defaultValue={EndDate}
+                            onChange={(Date) => setEndDate(Date)}
+                            maxDate={new Date()}
+                            minDate={StartDate}
+                            placeholderText={"End Date"}
+                            className="form-control insight-filter w-100"
+                          />
+                        </div>
+                        <div className="col-6 col-lg-1 p-0 px-2 text-right">
+                          <button
+                            className="contact-btn w-auto"
+                            onClick={handleSearchData}
+                          >
+                            Search
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                      <p className="text-xs font-weight-bold text-white">
+                        Total Profile Views
+                      </p>
+                      <div className="flex items-end justify-between space-x-2">
+                        <p className="mt-4 text-2xl font-medium text-white">
+                          {Data?.quick_analytics?.profile_visits}
+                        </p>
+                      </div>
+                      <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                    </div>
+                    <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                      <p className="text-xs font-weight-bold text-white">
+                        Total Social Hits
+                      </p>
+                      <div className="flex items-end justify-between space-x-2">
+                        <p className="mt-4 text-2xl font-medium text-white">
+                          {Data?.quick_analytics?.social_visits}
+                        </p>
+                      </div>
+                      <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                    </div>
+                    <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                      <p className="text-xs font-weight-bold text-white">
+                        Total Leads
+                      </p>
+                      <div className="flex items-end justify-between space-x-2">
+                        <p className="mt-4 text-2xl font-medium text-white">
+                          {Data?.quick_analytics?.leads}
+                        </p>
+                      </div>
+                      <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                    </div>
+                    <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                      <p className="text-xs font-weight-bold text-amber-50">
+                        Total Resources Hits
+                      </p>
+                      <div className="flex items-end justify-between space-x-2">
+                        <p className="mt-4 text-2xl font-medium text-white">
+                          {Data?.quick_analytics?.resource_hits}
+                        </p>
+                      </div>
+                      <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                    </div>
+                  </div>
+
+                  {/* Top 5 Leads table */}
+                  <h5 className="first-title title__separate mt-4 text-black">
+                    Top 5 Leads
                   </h5>
-                </div>
-                {/* <p className="mr-4 color-black">Year(2024)</p> */}
-                <div className="col-lg-9 col-sm-12">
-                  <div className="row w-100 m-0 p-0 px-4 mb-4 align-items-end bg-white justify-content-end">
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">From</label>
-                      <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        selected={StartDate}
-                        maxDate={new Date()}
-                        onChange={(date) => setStartDate(date)}
-                        placeholderText={"End Date"}
-                        className="form-control insight-filter w-100"
-                      />
-                    </div>
-                    <div className="col-6 col-lg-2 p-0 px-2">
-                      <label className="ml-1">To</label>
-                      <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        selected={EndDate}
-                        defaultValue={EndDate}
-                        onChange={(Date) => setEndDate(Date)}
-                        maxDate={new Date()}
-                        minDate={StartDate}
-                        placeholderText={"End Date"}
-                        className="form-control insight-filter w-100"
-                      />
-                    </div>
-                    <div className="col-6 col-lg-1 p-0 px-2 text-right">
-                      <button
-                        className="contact-btn w-auto"
-                        onClick={handleSearchData}
-                      >
-                        Search
-                      </button>
-                    </div>
+                  <div className="mt-4">
+                    <SwiperComponent
+                      breakpoints={{
+                        1110: {
+                          slidesPerView: 10,
+                        },
+                        300: {
+                          slidesPerView: 2,
+                        },
+                      }}
+                      spaceBetween={10}
+                      style={{ cursor: "pointer" }}
+                      className="mySwiper mb-0"
+                      modules={[Pagination]}
+                    >
+                      <SwiperSlide className="w-auto">
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              AppointmentTab
+                                ? "filter-btns-active"
+                                : "filter-btns"
+                            }
+                            onClick={handleAppointmentTab}
+                          >
+                            Appointment Leads
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className="w-auto">
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              ProductInquiryTab
+                                ? "filter-btns-active"
+                                : "filter-btns"
+                            }
+                            onClick={handleInquiryTab}
+                          >
+                            Product Inquiry Leads
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className="w-auto">
+                        <div className="swiper-slide review-items position-relative">
+                          <button
+                            className={
+                              ShareContactTab
+                                ? "filter-btns-active"
+                                : "filter-btns"
+                            }
+                            onClick={handleShareTab}
+                          >
+                            Shared Contact Leads
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className="w-auto"></SwiperSlide>
+                    </SwiperComponent>
                   </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 sm:px-5">
-                <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-white">
-                    Total Profile Views
-                  </p>
-                  <div className="flex items-end justify-between space-x-2">
-                    <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.quick_analytics?.profile_visits}
-                    </p>
-                  </div>
-                  <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-white">
-                    Total Social Hits
-                  </p>
-                  <div className="flex items-end justify-between space-x-2">
-                    <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.quick_analytics?.social_visits}
-                    </p>
-                  </div>
-                  <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-white">
-                    Total Leads
-                  </p>
-                  <div className="flex items-end justify-between space-x-2">
-                    <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.quick_analytics?.leads}
-                    </p>
-                  </div>
-                  <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                </div>
-                <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                  <p className="text-xs font-weight-bold text-amber-50">
-                    Total Resources Hits
-                  </p>
-                  <div className="flex items-end justify-between space-x-2">
-                    <p className="mt-4 text-2xl font-medium text-white">
-                      {Data?.quick_analytics?.resource_hits}
-                    </p>
-                  </div>
-                  <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                </div>
-              </div>
-
-              {/* Top 5 Leads table */}
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Top 5 Leads
-              </h5>
-              <div className="mt-4 px-4">
-                <SwiperComponent
-                  breakpoints={{
-                    1110: {
-                      slidesPerView: 10,
-                    },
-                    300: {
-                      slidesPerView: 2,
-                    },
-                  }}
-                  spaceBetween={10}
-                  style={{ cursor: "pointer" }}
-                  className="mySwiper mb-0"
-                  modules={[Pagination]}
-                >
-                  <SwiperSlide className="w-auto">
-                    <div className="swiper-slide review-items position-relative">
-                      <button
-                        className={
-                          AppointmentTab ? "filter-btns-active" : "filter-btns"
-                        }
-                        onClick={handleAppointmentTab}
-                      >
-                        Appointment Leads
-                      </button>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="w-auto">
-                    <div className="swiper-slide review-items position-relative">
-                      <button
-                        className={
-                          ProductInquiryTab
-                            ? "filter-btns-active"
-                            : "filter-btns"
-                        }
-                        onClick={handleInquiryTab}
-                      >
-                        Product Inquiry Leads
-                      </button>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="w-auto">
-                    <div className="swiper-slide review-items position-relative">
-                      <button
-                        className={
-                          ShareContactTab ? "filter-btns-active" : "filter-btns"
-                        }
-                        onClick={handleShareTab}
-                      >
-                        Shared Contact Leads
-                      </button>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="w-auto"></SwiperSlide>
-                </SwiperComponent>
-              </div>
-              <div className="box-shadow-leads">
-                {AppointmentTab ? (
-                  <Table className="insight-table">
-                    <Thead>
-                      <Tr>
-                        <Th>Name</Th>
-                        <Th>Email</Th>
-                        <Th>Phone</Th>
-                        <Th>Appointment Date</Th>
-                        <Th>Action</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {Data?.latest_leads?.appointment?.length === 0 ? (
-                        <Tr>
-                          <Td className="p-3">No data available</Td>
-                        </Tr>
-                      ) : (
-                        Data?.latest_leads?.appointment?.map((item, index) => {
-                          return (
-                            <Tr
-                              data-column="Message"
-                              key={index}
-                              onClick={() =>
-                                handleShowModal(
-                                  item.id,
-                                  Data?.latest_leads?.appointment
-                                )
-                              }
-                              className="cursor-pointer"
-                            >
-                              <Td data-column="name">{item.name}</Td>
-                              <Td data-column="name">
-                                {item.email ? item.email : "---"}
-                              </Td>
-                              <Td data-column="name">{item.contact}</Td>
-                              <Td data-column="name">{item.appointment}</Td>
-                              <Td className="">
-                                <FontAwesomeIcon
-                                  icon={faEye}
-                                  className="text-dark"
-                                />
-                              </Td>
+                  <div className="box-shadow-leads">
+                    {AppointmentTab ? (
+                      <Table className="insight-table">
+                        <Thead>
+                          <Tr>
+                            <Th>Name</Th>
+                            <Th>Email</Th>
+                            <Th>Phone</Th>
+                            <Th>Appointment Date</Th>
+                            <Th>Action</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {Data?.latest_leads?.appointment?.length === 0 ? (
+                            <Tr>
+                              <Td className="p-3">No data available</Td>
                             </Tr>
-                          );
-                        })
-                      )}
-                    </Tbody>
-                  </Table>
-                ) : (
-                  ""
-                )}
-                {ProductInquiryTab ? (
-                  <Table className="insight-table">
-                    <Thead>
-                      <Tr>
-                        <Th>Date</Th>
-                        <Th>Name</Th>
-                        <Th>Email</Th>
-                        <Th>Phone</Th>
-                        <Th>Action</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {Data?.latest_leads?.product_enquiry?.length === 0 ? (
-                        <Tr>
-                          <Td className="p-3">No data available</Td>
-                        </Tr>
-                      ) : (
-                        Data?.latest_leads?.product_enquiry?.map(
-                          (item, index) => {
-                            return (
-                              <Tr
-                                data-column="Message"
-                                key={index}
-                                onClick={() =>
-                                  handleShowModal(
-                                    item.id,
-                                    Data?.latest_leads?.product_enquiry
-                                  )
-                                }
-                                className="cursor-pointer"
-                              >
-                                <Td data-column="name">{item.created_at}</Td>
-                                <Td data-column="name">{item.name}</Td>
-                                <Td data-column="name">
-                                  {item.email ? item.email : "---"}
-                                </Td>
-                                <Td data-column="name">{item.contact}</Td>
-                                <Td className="">
-                                  <FontAwesomeIcon
-                                    icon={faEye}
-                                    className="text-dark"
-                                  />
-                                </Td>
-                              </Tr>
-                            );
-                          }
-                        )
-                      )}
-                    </Tbody>
-                  </Table>
-                ) : (
-                  ""
-                )}
-                {ShareContactTab ? (
-                  <Table className="insight-table">
-                    <Thead>
-                      <Tr>
-                        <Th>Date</Th>
-                        <Th>Name</Th>
-                        <Th>Email</Th>
-                        <Th>Phone</Th>
-                        <Th>Action</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {Data?.latest_leads?.shared_contact?.length === 0 ? (
-                        <Tr>
-                          <Td className="p-3">No data available</Td>
-                        </Tr>
-                      ) : (
-                        Data?.latest_leads?.shared_contact?.map(
-                          (item, index) => {
-                            return (
-                              <Tr
-                                data-column="Message"
-                                key={index}
-                                onClick={() =>
-                                  handleShowModal(
-                                    item.id,
-                                    Data?.latest_leads?.shared_contact
-                                  )
-                                }
-                                className="cursor-pointer"
-                              >
-                                <Td data-column="name">{item.created_at}</Td>
-                                <Td data-column="name">{item.name}</Td>
-                                <Td data-column="name">
-                                  {item.email ? item.email : "---"}
-                                </Td>
-                                <Td data-column="name">{item.contact}</Td>
-                                <Td className="">
-                                  <FontAwesomeIcon
-                                    icon={faEye}
-                                    className="text-dark"
-                                  />
-                                </Td>
-                              </Tr>
-                            );
-                          }
-                        )
-                      )}
-                    </Tbody>
-                  </Table>
-                ) : (
-                  ""
-                )}
-              </div>
+                          ) : (
+                            Data?.latest_leads?.appointment?.map(
+                              (item, index) => {
+                                return (
+                                  <Tr
+                                    data-column="Message"
+                                    key={index}
+                                    onClick={() =>
+                                      handleShowModal(
+                                        item.id,
+                                        Data?.latest_leads?.appointment
+                                      )
+                                    }
+                                    className="cursor-pointer"
+                                  >
+                                    <Td data-column="name">{item.name}</Td>
+                                    <Td data-column="name">
+                                      {item.email ? item.email : "---"}
+                                    </Td>
+                                    <Td data-column="name">{item.contact}</Td>
+                                    <Td data-column="name">
+                                      {item.appointment}
+                                    </Td>
+                                    <Td className="">
+                                      <FontAwesomeIcon
+                                        icon={faEye}
+                                        className="text-dark"
+                                      />
+                                    </Td>
+                                  </Tr>
+                                );
+                              }
+                            )
+                          )}
+                        </Tbody>
+                      </Table>
+                    ) : (
+                      ""
+                    )}
+                    {ProductInquiryTab ? (
+                      <Table className="insight-table">
+                        <Thead>
+                          <Tr>
+                            <Th>Date</Th>
+                            <Th>Name</Th>
+                            <Th>Email</Th>
+                            <Th>Phone</Th>
+                            <Th>Action</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {Data?.latest_leads?.product_enquiry?.length === 0 ? (
+                            <Tr>
+                              <Td className="p-3">No data available</Td>
+                            </Tr>
+                          ) : (
+                            Data?.latest_leads?.product_enquiry?.map(
+                              (item, index) => {
+                                return (
+                                  <Tr
+                                    data-column="Message"
+                                    key={index}
+                                    onClick={() =>
+                                      handleShowModal(
+                                        item.id,
+                                        Data?.latest_leads?.product_enquiry
+                                      )
+                                    }
+                                    className="cursor-pointer"
+                                  >
+                                    <Td data-column="name">
+                                      {item.created_at}
+                                    </Td>
+                                    <Td data-column="name">{item.name}</Td>
+                                    <Td data-column="name">
+                                      {item.email ? item.email : "---"}
+                                    </Td>
+                                    <Td data-column="name">{item.contact}</Td>
+                                    <Td className="">
+                                      <FontAwesomeIcon
+                                        icon={faEye}
+                                        className="text-dark"
+                                      />
+                                    </Td>
+                                  </Tr>
+                                );
+                              }
+                            )
+                          )}
+                        </Tbody>
+                      </Table>
+                    ) : (
+                      ""
+                    )}
+                    {ShareContactTab ? (
+                      <Table className="insight-table">
+                        <Thead>
+                          <Tr>
+                            <Th>Date</Th>
+                            <Th>Name</Th>
+                            <Th>Email</Th>
+                            <Th>Phone</Th>
+                            <Th>Action</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {Data?.latest_leads?.shared_contact?.length === 0 ? (
+                            <Tr>
+                              <Td className="p-3">No data available</Td>
+                            </Tr>
+                          ) : (
+                            Data?.latest_leads?.shared_contact?.map(
+                              (item, index) => {
+                                return (
+                                  <Tr
+                                    data-column="Message"
+                                    key={index}
+                                    onClick={() =>
+                                      handleShowModal(
+                                        item.id,
+                                        Data?.latest_leads?.shared_contact
+                                      )
+                                    }
+                                    className="cursor-pointer"
+                                  >
+                                    <Td data-column="name">
+                                      {item.created_at}
+                                    </Td>
+                                    <Td data-column="name">{item.name}</Td>
+                                    <Td data-column="name">
+                                      {item.email ? item.email : "---"}
+                                    </Td>
+                                    <Td data-column="name">{item.contact}</Td>
+                                    <Td className="">
+                                      <FontAwesomeIcon
+                                        icon={faEye}
+                                        className="text-dark"
+                                      />
+                                    </Td>
+                                  </Tr>
+                                );
+                              }
+                            )
+                          )}
+                        </Tbody>
+                      </Table>
+                    ) : (
+                      ""
+                    )}
+                  </div>
 
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Insights
-              </h5>
-              <div className="row m-0 mb-4 row-gap-3">
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    {/* <p className="ml-4 mb-2 color-black font-weight-bold">
+                  <h5 className="first-title title__separate mt-4 text-black">
+                    Insights
+                  </h5>
+                  <div className="row mb-4 row-gap-3">
+                    <div className="col-sm-12 col-lg-6">
+                      <div className="barchart-div">
+                        {/* <p className="ml-4 mb-2 color-black font-weight-bold">
                       As per referer
                     </p> */}
-                    <Charts
-                      options={chartData5?.options}
-                      series={chartData5?.series}
-                      type="area"
-                      height={300}
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-6">
-                  <div className="barchart-div">
-                    <div className="d-flex align-items-center justify-content-end">
-                      <select
-                        className="w-auto location-filter dashboard-location-select"
-                        onChange={(e) => handleSearchLocation(e.target.value)}
-                        defaultValue={SelectValue}
-                      >
-                        <option value="country">Country</option>
-                        <option value="state">State</option>
-                        <option value="city">City</option>
-                      </select>
+                        <Charts
+                          options={chartData5?.options}
+                          series={chartData5?.series}
+                          type="area"
+                          height={300}
+                        />
+                      </div>
                     </div>
-                    <Charts
-                      options={chartData6?.options}
-                      series={chartData6?.series}
-                      type="bar"
-                      height={300}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Profile Intreacts */}
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Profile Interacts
-              </h5>
-              <div className="row m-0 mt-4 row-gap-3">
-                <div className="col-sm-12 col-lg-8 insights-order-1">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData3?.options}
-                      series={chartData3?.series}
-                      type="bar"
-                      height={440}
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-4 insights-order-2">
-                  <div className="dashboard-leads-col-4-div py-4">
-                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          Add Contacts
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.save_contact}
-                          </p>
+                    <div className="col-sm-12 col-lg-6">
+                      <div className="barchart-div">
+                        <div className="d-flex align-items-center justify-content-end">
+                          <select
+                            className="w-auto location-filter dashboard-location-select"
+                            onChange={(e) =>
+                              handleSearchLocation(e.target.value)
+                            }
+                            defaultValue={SelectValue}
+                          >
+                            <option value="country">Country</option>
+                            <option value="state">State</option>
+                            <option value="city">City</option>
+                          </select>
                         </div>
-                        <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          Shared Contacts
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.shared_contact}
-                          </p>
-                        </div>
-                        <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          Email
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.email}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Phone
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.phone}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Website URL
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.url}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Location
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.location}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_alternate_phone?.visible_name}
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.location}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_custom_url?.visible_name}
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.profile_interact?.stats?.location}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                        <Charts
+                          options={chartData6?.options}
+                          series={chartData6?.series}
+                          type="bar"
+                          height={300}
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              {/* Socail Links */}
-              {Data?.social_interact?.stats?.length !== 0 && (
-                <>
-                  <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                    Social Hits
+                  {/* Profile Intreacts */}
+                  <h5 className="first-title title__separate mt-4 text-black">
+                    Profile Interacts
                   </h5>
-                  <div className="row m-0 mt-4 row-gap-3">
+                  <div className="row mt-4 row-gap-3">
+                    <div className="col-sm-12 col-lg-8 insights-order-1">
+                      <div className="barchart-div">
+                        <Charts
+                          options={chartData3?.options}
+                          series={chartData3?.series}
+                          type="bar"
+                          height={440}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-lg-4 insights-order-2">
+                      <div className="dashboard-leads-col-4-div py-4">
+                        <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-white">
+                              Add Contacts
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.save_contact}
+                              </p>
+                            </div>
+                            <div className="mask is-hexagon-2 absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-white">
+                              Shared Contacts
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.shared_contact}
+                              </p>
+                            </div>
+                            <div className="mask is-reuleaux-triangle absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-white">
+                              Email
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.email}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              Phone
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.phone}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              Website URL
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.url}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              Location
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.location}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {
+                                UserData?.titles?.card_alternate_phone
+                                  ?.visible_name
+                              }
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.location}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {UserData?.titles?.card_custom_url?.visible_name}
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.profile_interact?.stats?.location}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Socail Links */}
+                  {Data?.social_interact?.stats?.length !== 0 && (
+                    <>
+                      <h5 className="first-title title__separate mt-4 text-black">
+                        Social Hits
+                      </h5>
+                      <div className="row mt-4 row-gap-3">
+                        <div className="col-sm-12 col-lg-4">
+                          <div className="dashboard-leads-col-4-div py-4">
+                            <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
+                              {Data?.social_interact?.stats?.map(
+                                (items, index) => {
+                                  return (
+                                    <div
+                                      className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5"
+                                      key={index}
+                                    >
+                                      <p className="text-xs font-weight-bold text-white">
+                                        {items?.name}
+                                      </p>
+                                      <div className="flex items-end justify-between space-x-2">
+                                        <p className="mt-4 text-2xl font-medium text-white">
+                                          {items?.value}
+                                        </p>
+                                      </div>
+                                      <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-sm-12 col-lg-8">
+                          <div className="barchart-div">
+                            <Charts
+                              options={chartData2?.options}
+                              series={chartData2?.series}
+                              type="bar"
+                              height={
+                                Data?.social_interact?.stats?.length >= 5
+                                  ? 322
+                                  : 210
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Leads */}
+                  <h5 className="first-title title__separate mt-4 text-black">
+                    Leads
+                  </h5>
+                  <div className="row mt-4 row-gap-3">
+                    <div className="col-sm-12 col-lg-8 insights-order-1">
+                      <div className="barchart-div">
+                        <Charts
+                          options={chartData4?.options}
+                          series={chartData4?.series}
+                          type="bar"
+                          height={210}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-lg-4 insights-order-2">
+                      <div className="dashboard-leads-col-4-div py-4">
+                        <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-white">
+                              Shared Contact
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                                {Data?.leads_interact?.stats?.shared_contact}{" "}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              Appointment
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                                {Data?.leads_interact?.stats?.appointment}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {/* {UserData?.titles?.card_products?.visible_name}{" "} */}
+                              Product Inquiry
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                                {Data?.leads_interact?.stats?.product_enquiry}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              Custom Form
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
+                                {Data?.leads_interact?.stats?.customform}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Resources Hits */}
+                  <h5 className="first-title title__separate mt-4 text-black">
+                    Resources Hits
+                  </h5>
+                  <div className="row mt-4">
                     <div className="col-sm-12 col-lg-4">
                       <div className="dashboard-leads-col-4-div py-4">
                         <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                          {Data?.social_interact?.stats?.map((items, index) => {
-                            return (
-                              <div
-                                className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5"
-                                key={index}
-                              >
-                                <p className="text-xs font-weight-bold text-white">
-                                  {items?.name}
-                                </p>
-                                <div className="flex items-end justify-between space-x-2">
-                                  <p className="mt-4 text-2xl font-medium text-white">
-                                    {items?.value}
-                                  </p>
-                                </div>
-                                <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                              </div>
-                            );
-                          })}
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-white">
+                              {UserData?.titles?.card_photos?.visible_name}
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.resource_interact?.stats?.photos}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {UserData?.titles?.card_videos?.visible_name}
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.resource_interact?.stats?.video}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {/* {UserData?.titles?.card_blogs?.visible_name} */}
+                              Blogs
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.resource_interact?.stats?.blogs}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
+                          <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
+                            <p className="text-xs font-weight-bold text-amber-50">
+                              {/* {UserData?.titles?.card_products?.visible_name} */}
+                              Products
+                            </p>
+                            <div className="flex items-end justify-between space-x-2">
+                              <p className="mt-4 text-2xl font-medium text-white">
+                                {Data?.resource_interact?.stats?.products}
+                              </p>
+                            </div>
+                            <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div className="col-sm-12 col-lg-8">
                       <div className="barchart-div">
                         <Charts
-                          options={chartData2?.options}
-                          series={chartData2?.series}
+                          options={chartData7?.options}
+                          series={chartData7?.series}
                           type="bar"
-                          height={
-                            Data?.social_interact?.stats?.length >= 5
-                              ? 322
-                              : 210
-                          }
+                          height={210}
                         />
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
-
-              {/* Leads */}
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Leads
-              </h5>
-              <div className="row m-0 mt-4 row-gap-3">
-                <div className="col-sm-12 col-lg-8 insights-order-1">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData4?.options}
-                      series={chartData4?.series}
-                      type="bar"
-                      height={210}
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-4 insights-order-2">
-                  <div className="dashboard-leads-col-4-div py-4">
-                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          Shared Contact
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
-                            {Data?.leads_interact?.stats?.shared_contact}{" "}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Appointment
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
-                            {Data?.leads_interact?.stats?.appointment}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {/* {UserData?.titles?.card_products?.visible_name}{" "} */}
-                          Product Inquiry
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
-                            {Data?.leads_interact?.stats?.product_enquiry}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          Custom Form
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white d-flex justify-content-between align-items-center w-100">
-                            {Data?.leads_interact?.stats?.customform}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Resources Hits */}
-              <h5 className="first-title title__separate mx-4 mt-4 text-black">
-                Resources Hits
-              </h5>
-              <div className="row m-0 mt-4">
-                <div className="col-sm-12 col-lg-4">
-                  <div className="dashboard-leads-col-4-div py-4">
-                    <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-2 sm:px-5">
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-white">
-                          {UserData?.titles?.card_photos?.visible_name}
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.resource_interact?.stats?.photos}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {UserData?.titles?.card_videos?.visible_name}
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.resource_interact?.stats?.video}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {/* {UserData?.titles?.card_blogs?.visible_name} */}
-                          Blogs
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.resource_interact?.stats?.blogs}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                      <div className="relative flex flex-col overflow-hidden rounded-lg theme-custom p-3.5">
-                        <p className="text-xs font-weight-bold text-amber-50">
-                          {/* {UserData?.titles?.card_products?.visible_name} */}
-                          Products
-                        </p>
-                        <div className="flex items-end justify-between space-x-2">
-                          <p className="mt-4 text-2xl font-medium text-white">
-                            {Data?.resource_interact?.stats?.products}
-                          </p>
-                        </div>
-                        <div className="mask is-diamond absolute top-0 right-0 -m-3 h-16 w-16 bg-white/20"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-12 col-lg-8">
-                  <div className="barchart-div">
-                    <Charts
-                      options={chartData7?.options}
-                      series={chartData7?.series}
-                      type="bar"
-                      height={210}
-                    />
                   </div>
                 </div>
               </div>

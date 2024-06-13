@@ -280,94 +280,96 @@ export default function Page() {
         </Link>
       </div>
 
-      <h4 className="color-black px-4 mt-4">Notification History</h4>
+      <div className="container-fluid">
+        <h4 className="color-black px-4 mt-4">Notification History</h4>
 
-      <div className="mx-3 pt-4">
-        <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
-          <div className="col-6 col-lg-2 p-0 px-2">
-            <label className="ml-1">From</label>
-            <DatePicker
-              dateFormat="MM/dd/yyyy"
-              // selected={StartDate}
-              maxDate={new Date()}
-              // onChange={(date) => setStartDate(date)}
-              placeholderText={"Start Date"}
-              className="form-control insight-filter w-100"
-            />
-          </div>
-          <div className="col-6 col-lg-2 p-0 px-2">
-            <label className="ml-1">To</label>
-            <DatePicker
-              dateFormat="MM/dd/yyyy"
-              // selected={EndDate}
-              // defaultValue={EndDate}
-              // onChange={(Date) => setEndDate(Date)}
-              maxDate={new Date()}
-              // minDate={StartDate}
-              placeholderText={"End Date"}
-              className="form-control insight-filter w-100"
-            />
-          </div>
-          <div className="col-6 col-lg-2 p-0 px-2">
-            <button
-              className="contact-btn w-auto mt-3"
-              // onClick={() => handleSearchData()}
-            >
-              Search
-            </button>
+        <div className="pt-4">
+          <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+            <div className="col-6 col-lg-2 p-0 px-2">
+              <label className="ml-1">From</label>
+              <DatePicker
+                dateFormat="MM/dd/yyyy"
+                // selected={StartDate}
+                maxDate={new Date()}
+                // onChange={(date) => setStartDate(date)}
+                placeholderText={"Start Date"}
+                className="form-control insight-filter w-100"
+              />
+            </div>
+            <div className="col-6 col-lg-2 p-0 px-2">
+              <label className="ml-1">To</label>
+              <DatePicker
+                dateFormat="MM/dd/yyyy"
+                // selected={EndDate}
+                // defaultValue={EndDate}
+                // onChange={(Date) => setEndDate(Date)}
+                maxDate={new Date()}
+                // minDate={StartDate}
+                placeholderText={"End Date"}
+                className="form-control insight-filter w-100"
+              />
+            </div>
+            <div className="col-6 col-lg-2 p-0 px-2">
+              <button
+                className="contact-btn w-auto mt-3"
+                // onClick={() => handleSearchData()}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="box-shadow-leads mb-4 mt-3">
-        <button
-          className="contact-btn notification-btn"
-          onClick={() => {
-            setModalShow("notification");
-          }}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Total Users</Th>
-              <Th>Message</Th>
-              <Th>Action</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {Data?.length === 0 ? (
+        <div className="box-shadow-leads mb-4 mt-3">
+          <button
+            className="contact-btn notification-btn"
+            onClick={() => {
+              setModalShow("notification");
+            }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+          <Table>
+            <Thead>
               <Tr>
-                <td className="p-3">No data available</td>
+                <Th>Date</Th>
+                <Th>Total Users</Th>
+                <Th>Message</Th>
+                <Th>Action</Th>
               </Tr>
-            ) : (
-              Data?.map((item, index) => {
-                return (
-                  <Tr
-                    data-column="Message"
-                    key={index}
-                    className="cursor-pointer"
-                    onClick={() => handleModalId(item?.id)}
-                  >
-                    <Td data-column="created date">{item.created_date}</Td>
+            </Thead>
+            <Tbody>
+              {Data?.length === 0 ? (
+                <Tr>
+                  <td className="p-3">No data available</td>
+                </Tr>
+              ) : (
+                Data?.map((item, index) => {
+                  return (
+                    <Tr
+                      data-column="Message"
+                      key={index}
+                      className="cursor-pointer"
+                      onClick={() => handleModalId(item?.id)}
+                    >
+                      <Td data-column="created date">{item.created_date}</Td>
 
-                    <Td data-column="created date">{item?.total_user}</Td>
+                      <Td data-column="created date">{item?.total_user}</Td>
 
-                    <Td data-column="status">
-                      {item.message?.body ? item.message?.body : "---"}
-                    </Td>
+                      <Td data-column="status">
+                        {item.message?.body ? item.message?.body : "---"}
+                      </Td>
 
-                    <Td data-column="status">
-                      <FontAwesomeIcon icon={faEye} className="text-dark" />
-                    </Td>
-                  </Tr>
-                );
-              })
-            )}
-          </Tbody>
-        </Table>
+                      <Td data-column="status">
+                        <FontAwesomeIcon icon={faEye} className="text-dark" />
+                      </Td>
+                    </Tr>
+                  );
+                })
+              )}
+            </Tbody>
+          </Table>
+        </div>
       </div>
     </>
   );

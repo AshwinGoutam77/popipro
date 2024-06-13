@@ -532,7 +532,7 @@ export default function Dashboard() {
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() =>
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                      PlanData?.is_trial_taken !== 0
                         ? setModalShow("theme")
                         : ""
                     }
@@ -567,7 +567,7 @@ export default function Dashboard() {
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                      PlanData?.is_trial_taken !== 0
                         ? setModalShow("MultimodesModal")
                         : "";
                     }}

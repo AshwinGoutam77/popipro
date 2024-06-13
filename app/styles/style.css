@@ -1250,6 +1250,10 @@ button:focus {
   width: 100%;
 }
 
+.nav__item:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
 .case-item,
 .nav__item span {
   display: flex;
