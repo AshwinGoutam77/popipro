@@ -21,6 +21,7 @@ export const ChangePasswordApi = { path: "change-password", method: "POST" };
 export const GetInshights = { path: "get-front-reports", method: "GET" };
 export const AddTestimonials = { path: "add-testimonials", method: "POST" };
 export const CardSequence = { path: "update-card-sequence", method: "POST" };
+export const InnerSectionOrder = { path: "reorder-section-rows", method: "POST" };
 export const GetCardSequence = { path: "get-card-sequence", method: "GET" };
 export const GetTestimonials = {
   path: "get-testimonial-requests",
@@ -56,6 +57,7 @@ export const CustomForm = { path: "submit-custom-form", method: "POST" };
 export const ProductCat = { path: "manage-product-category", method: "POST" };
 export const GetAllForm = { path: "get-all-forms", method: "GET" };
 export const GetCustomFormData = { path: "get-custom-forms", method: "GET" };
+export const OrderProduct = { path: "place-product-order", method: "POST" };
 export const GetCustomFormRecords = {
   path: "get-custom-forms-records",
   method: "GET",

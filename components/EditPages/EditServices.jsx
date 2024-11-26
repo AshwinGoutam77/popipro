@@ -96,20 +96,20 @@ export default function EditDoing({
     } else {
       id !== null
         ? (data = [
-            {
-              services_image: Image,
-              services_name: ServicesName,
-              services_description: ServicesDescription,
-              saved_services: id,
-            },
-          ])
+          {
+            services_image: Image,
+            services_name: ServicesName,
+            services_description: ServicesDescription,
+            saved_services: id,
+          },
+        ])
         : (data = [
-            {
-              services_image: Image,
-              services_name: ServicesName,
-              services_description: ServicesDescription,
-            },
-          ]);
+          {
+            services_image: Image,
+            services_name: ServicesName,
+            services_description: ServicesDescription,
+          },
+        ]);
     }
     if (error) {
       toast.error(mess, {
@@ -312,7 +312,7 @@ export default function EditDoing({
   const [text, setText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
-  const apiKey = "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";
+  const apiKey = "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";
   const handleButtonClick = async () => {
     setIsTyping(true);
     try {
@@ -490,13 +490,13 @@ export default function EditDoing({
                 },
               }}
               data={ServicesDescription || ""}
-              onReady={(editor) => {}}
+              onReady={(editor) => { }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setServicesDescription(data);
               }}
-              onBlur={(event, editor) => {}}
-              onFocus={(event, editor) => {}}
+              onBlur={(event, editor) => { }}
+              onFocus={(event, editor) => { }}
             />
           </div>
           <div
@@ -580,7 +580,7 @@ export default function EditDoing({
                       ></input>
                       <div className="d-flex align-items-center justify-content-between">
                         <label className="modalFormLable">Description*</label>
-                        {/* <p
+                        <p
                           onClick={handleChatModal}
                           data-toggle={ServicesDescription ? "modal" : ""}
                           data-target="#chatapimodal"
@@ -592,7 +592,7 @@ export default function EditDoing({
                             alt="stick"
                             style={{ width: "20%" }}
                           />
-                        </p> */}
+                        </p>
                       </div>
                       <div className="ck-body-wrapper">
                         <CKEditor
@@ -626,13 +626,13 @@ export default function EditDoing({
                             autoFocus: true,
                           }}
                           data={ServicesDescription || ""}
-                          onReady={(editor) => {}}
+                          onReady={(editor) => { }}
                           onChange={(event, editor) => {
                             const data = editor.getData();
                             setServicesDescription(data);
                           }}
-                          onBlur={(event, editor) => {}}
-                          onFocus={(event, editor) => {}}
+                          onBlur={(event, editor) => { }}
+                          onFocus={(event, editor) => { }}
                         />
                       </div>
                       <div
@@ -754,7 +754,7 @@ export default function EditDoing({
                     onChange={(e) => setDoing(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData.card_services?.visible_name == "card_services"
+                        TitleData.card_services?.visible_name == "card_services"
                         ? "Services"
                         : TitleData?.card_services?.visible_name
                     }
@@ -771,7 +771,7 @@ export default function EditDoing({
                         onChange={(e) => setDoing(e.target.value)}
                         defaultValue={
                           TitleData &&
-                          TitleData.card_services?.visible_name ==
+                            TitleData.card_services?.visible_name ==
                             "card_services"
                             ? "Services"
                             : TitleData?.card_services?.visible_name
@@ -790,7 +790,7 @@ export default function EditDoing({
                 )}
                 <div>
                   {TitleData?.card_services?.source == "2" &&
-                  TitleData?.card_services?.in_subscription ? (
+                    TitleData?.card_services?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -825,7 +825,7 @@ export default function EditDoing({
                               )}
                             </div>
                             {TitleData?.card_services?.row_limit <=
-                            CardServices?.length ? (
+                              CardServices?.length ? (
                               <button
                                 className="addmore"
                                 onClick={handleUpgradePlan}
@@ -948,7 +948,7 @@ export default function EditDoing({
                                   ></div>
                                 </div>
                                 {TitleData?.card_services?.source == "2" &&
-                                TitleData?.card_services?.in_subscription ? (
+                                  TitleData?.card_services?.in_subscription ? (
                                   <div
                                     className="d-flex align-items-center justify-content-start mt-3"
                                     style={{ gap: "10px" }}

@@ -4,27 +4,21 @@ import {
   faArrowRight,
   faBuilding,
   faDownload,
-  faEnvelope,
-  faLink,
-  faMapMarkerAlt,
-  faPhoneAlt,
   faQrcode,
   faShareSquare,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-// import Share from "./Share";
 import "../../styles/header.css";
 import Link from "next/link";
-import { AddTestimonials, HitClickApi, contactUs } from "@services/Routes";
+import { AddTestimonials, HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Share from "./Share";
 import Image from "next/image";
 import SimpleBackdrop from "./SimpleBackDrop";
-// import QRCode from "qrcode.react";
 import ShareUi from "./ShareUi";
 import { saveAs } from "file-saver";
 import localforage from "localforage";
@@ -44,8 +38,6 @@ const Header = ({
 }) => {
   const [ProfileImage, setProfileImage] = useState("");
   const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const [showReview, setShowReview] = useState(false);
   const handleShowReview = () => setShowReview(true);
   const handleCloseReview = () => setShowReview(false);
@@ -59,8 +51,6 @@ const Header = ({
   const [ReviewNumber, setReviewNumber] = useState("");
   const [ReviewDescription, setReviewDescription] = useState("");
   const [imageSrc, setImageSrc] = useState();
-  const [Latitude, setLatitude] = useState("");
-  const [Longitude, setLongitude] = useState("");
   const [showQr, setShowQr] = useState(false);
   const handleCloseQr = () => setShowQr(false);
   const [time, setTime] = useState(new Date().getTime() / 1000);
@@ -217,10 +207,10 @@ const Header = ({
       let alt_str = card?.card_alternate_phone?.map((item) => {
         return item.country_code
           ? `\nTEL;TYPE=${item.title},voice:` +
-              item.country_code +
-              " " +
-              item.number +
-              ""
+          item.country_code +
+          " " +
+          item.number +
+          ""
           : `\nTEL;TYPE=${item.title},voice:` + item.number + "";
       });
       vcard += alt_str.join("");
@@ -281,20 +271,15 @@ const Header = ({
       response?.data?.message == "Can not count this hit."
     ) {
       setImageSrc(
-        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AN%3A${
-          card?.first_name
-        }%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3B${
-          card?.card_address ? card?.card_address : ""
-        }%0ATEL%3BWORK%3BVOICE%3A${
-          (card.contact_country_code ? card.contact_country_code : "") +
-          (card?.card_contact ? card?.card_contact : "") +
-          (card?.contact_extension ? card?.contact_extension : "")
-        }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${
-          "app.popipro.com/" + profile
-        }${
-          card?.card_website !== null
-            ? "%0AURL%3A" + "app.popipro.com/" + profile + "%2F"
-            : ""
+        `https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A3.%0AN%3A${card?.first_name
+        }%20%0AORG%3A${card?.card_profession}%0ATITLE%3A%0AADR%3A%3B%3B${card?.card_address ? card?.card_address : ""
+        }%0ATEL%3BWORK%3BVOICE%3A${(card.contact_country_code ? card.contact_country_code : "") +
+        (card?.card_contact ? card?.card_contact : "") +
+        (card?.contact_extension ? card?.contact_extension : "")
+        }%0AEMAIL%3BWORK%3BINTERNET%3A${card?.card_email}%0AWEBSITE%3A${"app.popipro.com/" + profile
+        }${card?.card_website !== null
+          ? "%0AURL%3A" + "app.popipro.com/" + profile + "%2F"
+          : ""
         }%0AEND%3AVCARD`
       );
       // imageSrc;
@@ -563,8 +548,8 @@ const Header = ({
             {ShowProfileQr ? (
               <div className="d-flex flex-column justify-content-center align-items-center">
                 {"https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
-                imageSrc +
-                "END%3AVCARD%0A" ? (
+                  imageSrc +
+                  "END%3AVCARD%0A" ? (
                   <img
                     src={
                       "https://api.qrserver.com/v1/create-qr-code/?data=BEGIN%3AVCARD%0AVERSION%3A2.1%0A" +
@@ -619,13 +604,13 @@ const Header = ({
                         : "app.popipro.com/" + profile
                     }
                     fgColor="#000"
-                    // imageSettings={{
-                    //   src: "../../static/img/brand.png",
-                    //   excavate: true,
-                    //   height: "30",
-                    //   width: "30",
-                    //   borderRadius: "10",
-                    // }}
+                  // imageSettings={{
+                  //   src: "../../static/img/brand.png",
+                  //   excavate: true,
+                  //   height: "30",
+                  //   width: "30",
+                  //   borderRadius: "10",
+                  // }}
                   />
                 ) : (
                   <div className="d-flex align-items-center justify-content-center w-250">
@@ -650,6 +635,7 @@ const Header = ({
         </Modal.Body>
       </Modal>
 
+      {/* Book appointment modal */}
       <Modal show={Show} onHide={() => setShowModal(false)} centered>
         <Modal.Header>
           <Modal.Title>
@@ -696,11 +682,6 @@ const Header = ({
             icon={faQrcode}
             className="user-select-auto mr-2 VarColor fs-20 cursor-pointer"
           />
-          {/* <img
-            src="../static/img/qr.svg"
-            alt="image"
-            width={20}
-          /> */}
         </button>
         <div className="header__left position-relative">
           <div className="header__photo">
@@ -711,16 +692,16 @@ const Header = ({
                 process.env.NEXT_PUBLIC_MODE == "development"
                   ? card?.profile_picture?.path
                     ? "https://dev.popipro.com/" +
-                      card?.profile_picture?.path +
-                      "?ver=" +
-                      time
-                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
-                  : card?.profile_picture?.path
-                  ? "https://admin.popipro.com/" +
                     card?.profile_picture?.path +
                     "?ver=" +
                     time
-                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                  : card?.profile_picture?.path
+                    ? "https://admin.popipro.com/" +
+                    card?.profile_picture?.path +
+                    "?ver=" +
+                    time
+                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
               }
               alt="images"
               width={0}
@@ -755,16 +736,16 @@ const Header = ({
                   process.env.NEXT_PUBLIC_MODE == "development"
                     ? card?.profile_picture?.path
                       ? "https://dev.popipro.com/" +
-                        card?.profile_picture?.path +
-                        "?ver=" +
-                        time
-                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
-                    : card?.profile_picture?.path
-                    ? "https://admin.popipro.com/" +
                       card?.profile_picture?.path +
                       "?ver=" +
                       time
-                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : card?.profile_picture?.path
+                      ? "https://admin.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 profile={profile}
                 text="Add Contact"
@@ -783,16 +764,16 @@ const Header = ({
                   process.env.NEXT_PUBLIC_MODE == "development"
                     ? card?.profile_picture?.path
                       ? "https://dev.popipro.com/" +
-                        card?.profile_picture?.path +
-                        "?ver=" +
-                        time
-                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
-                    : card?.profile_picture?.path
-                    ? "https://admin.popipro.com/" +
                       card?.profile_picture?.path +
                       "?ver=" +
                       time
-                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
+                    : card?.profile_picture?.path
+                      ? "https://admin.popipro.com/" +
+                      card?.profile_picture?.path +
+                      "?ver=" +
+                      time
+                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
                 }
                 profile={profile}
                 text="Share Contact"
@@ -800,7 +781,7 @@ const Header = ({
             </div>
             <div className="d-flex sm-class header-btn-gap">
               {company_setting?.show_testimonial_button !== 0 &&
-              PlanData?.current_plan?.is_expired !== false ? (
+                PlanData?.current_plan?.is_expired !== false ? (
                 ""
               ) : (
                 <button
@@ -811,14 +792,14 @@ const Header = ({
                 </button>
               )}
               {Titles?.card_booking?.is_active == 0 &&
-              PlanData?.current_plan?.is_expired !== false ? (
+                PlanData?.current_plan?.is_expired !== false ? (
                 ""
               ) : (
                 <button
                   className="delete-button w-100 mt-2"
                   onClick={
                     MainData?.company_setting?.appointment_enquiry_method ==
-                    "form"
+                      "form"
                       ? handleAppointment
                       : handleShowCalendly
                   }
@@ -868,15 +849,13 @@ const Header = ({
               <>
                 <li className="col-sm-6 col-12">
                   <a
-                    href={`tel: ${
-                      card.contact_country_code
+                    href={`tel: ${card.contact_country_code
                         ? card?.contact_country_code + "-"
                         : ""
-                    } ${card?.card_contact} ${
-                      card?.contact_extension
+                      } ${card?.card_contact} ${card?.contact_extension
                         ? "- " + card?.contact_extension
                         : ""
-                    }`}
+                      }`}
                     className="d-flex align-items-center justify-content-between getCard-a"
                     onClick={() => handleHitClick("call")}
                   >
@@ -893,18 +872,18 @@ const Header = ({
                       />
                       <span className="overhead_a text-dark text-decoration-none margin-l-5">
                         {card &&
-                        card.contact_country_code &&
-                        card.contact_extension !== null
+                          card.contact_country_code &&
+                          card.contact_extension !== null
                           ? card?.contact_country_code +
-                            "-" +
-                            card?.card_contact +
-                            "-" +
-                            card?.contact_extension
+                          "-" +
+                          card?.card_contact +
+                          "-" +
+                          card?.contact_extension
                           : card?.contact_country_code
-                          ? card?.contact_country_code +
+                            ? card?.contact_country_code +
                             "-" +
                             card?.card_contact
-                          : card?.card_contact}
+                            : card?.card_contact}
                       </span>
                     </div>
                     <FontAwesomeIcon
@@ -922,11 +901,11 @@ const Header = ({
                 <a
                   href={
                     card.card_address &&
-                    (card.card_address?.includes("http://") ||
-                      card.card_address?.includes("https://"))
+                      (card.card_address?.includes("http://") ||
+                        card.card_address?.includes("https://"))
                       ? card.card_address.replace(/<[^>]*>?/gm, "")
                       : "http://maps.google.com/?q=" +
-                        card.card_address.replace(/<[^>]*>?/gm, "")
+                      card.card_address.replace(/<[^>]*>?/gm, "")
                   }
                   target="_blank"
                   className="d-flex align-items-center justify-content-between getCard-a"
@@ -978,8 +957,8 @@ const Header = ({
                 <a
                   href={
                     card.card_website &&
-                    (card.card_website?.includes("http://") ||
-                      card.card_website?.includes("https://"))
+                      (card.card_website?.includes("http://") ||
+                        card.card_website?.includes("https://"))
                       ? card.card_website
                       : "https://" + card.card_website
                   }
@@ -1000,8 +979,8 @@ const Header = ({
                     />
                     <span className="overhead_a text-dark text-decoration-none getCard-a margin-l-4">
                       {card.card_website &&
-                      (card.card_website?.includes("http://") ||
-                        card.card_website?.includes("https://"))
+                        (card.card_website?.includes("http://") ||
+                          card.card_website?.includes("https://"))
                         ? card.card_website
                         : card.card_website}
                     </span>

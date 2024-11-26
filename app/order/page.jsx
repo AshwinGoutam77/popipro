@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "../../styles/about.css";
-import { CardSequence, EditData, GetCardSequence } from "@services/Routes";
+import { CardSequence, EditData, GetCardSequence, InnerSectionOrder } from "@services/Routes";
 import Api from "@services/Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -38,6 +38,8 @@ const Order = () => {
   const [Testimonial, setTestimonial] = useState([]);
   const [Services, setServices] = useState([]);
   const [Products, setProducts] = useState([]);
+  const [Blogs, setBlogs] = useState([]);
+  const [Experience, setExperience] = useState([])
   const [UserData, setUserData] = useState("");
 
   const [OrderItems, setOrderItems] = useState("");
@@ -54,6 +56,8 @@ const Order = () => {
         setTestimonial(response?.data?.data?.card?.card_testimonials);
         setServices(response?.data?.data?.card?.card_services);
         setProducts(response?.data?.data?.card?.card_products);
+        setExperience(response?.data?.data?.card?.card_experience);
+        setBlogs(response?.data?.data?.card?.card_blogs);
         setUserData(response?.data?.data);
         document.documentElement.style.setProperty("--color", "#24b1e6");
         document.documentElement.style.setProperty("--header-color", "#24b1e6");
@@ -105,6 +109,33 @@ const Order = () => {
     setOrderItems(abc);
 
     const response = await Api(CardSequence, { control: abc });
+    if (response.data.status) {
+      response;
+    }
+  };
+
+  const onDragEndTestimonial = async (result, section) => {
+    handleSq();
+    if (!result.destination) return;
+
+    const reorderedItems = Array.from(section == "card_testimonials" ? Testimonial : section == 'card_products' ? Products : section == 'card_services' ? Services : section == 'card_blogs' ? Blogs : section == 'card_experience' ? Experience : "");
+    const [removed] = reorderedItems.splice(result.source.index, 1);
+    reorderedItems.splice(result.destination.index, 0, removed);
+
+    reorderedItems?.map((item, index) => ({
+      id: item?.id,
+      order: index + 1,
+    }));
+    // setTestimonial(reorderedItems);
+    section == "card_testimonials" ? setTestimonial(reorderedItems) : section == 'card_products' ? setProducts(reorderedItems) : section == 'card_services' ? setServices(reorderedItems) : section == 'card_blogs' ? setBlogs(reorderedItems) : section == 'card_experience' ? setExperience(reorderedItems) : ""
+
+    let abc = reorderedItems?.map((item, index) => ({
+      id: item?.id,
+      order: index + 1,
+    }));
+    setOrderItems(abc);
+
+    const response = await Api(InnerSectionOrder, { section_name: section, sections: abc });
     if (response.data.status) {
       response;
     }
@@ -200,7 +231,8 @@ const Order = () => {
                   {UserData?.titles?.card_testimonials?.visible_name} Section
                 </h6>
                 <DragDropContext
-                  onDragEnd={onDragEnd}
+                  // onDragEnd={onDragEndTestimonial}
+                  onDragEnd={(e) => onDragEndTestimonial(e, 'card_testimonials')}
                   className="droppable-div"
                 >
                   <Droppable droppableId="droppable">
@@ -248,10 +280,63 @@ const Order = () => {
             <div className="w-100 flex-column mt-4">
               <div className="drag-drop-inner-section">
                 <h6 className="mt-1 ml-2 mb-0 color-black">
+                  {UserData?.titles?.card_experience?.visible_name} Section
+                </h6>
+                <DragDropContext
+                  // onDragEnd={onDragEnd}
+                  onDragEnd={(e) => onDragEndTestimonial(e, 'card_experience')}
+                  className="droppable-div"
+                >
+                  <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                      >
+                        {Experience?.map((item, index) => (
+                          <Draggable
+                            key={item.designation}
+                            draggableId={item.designation}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                className="card dragable-cards"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                              >
+                                <div className="d-flex align-items-center justify-content-between">
+                                  <spam>
+                                    {index + 1}. {item.designation}
+                                  </spam>
+                                  <FontAwesomeIcon icon={faSort} />
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              </div>
+            </div>
+
+            <div className="w-100 flex-column mt-4">
+              <div className="drag-drop-inner-section">
+                <h6 className="mt-1 ml-2 mb-0 color-black">
                   {UserData?.titles?.card_services?.visible_name} Section
                 </h6>
                 <DragDropContext
-                  onDragEnd={onDragEnd}
+                  // onDragEnd={onDragEnd}
+                  onDragEnd={(e) => onDragEndTestimonial(e, 'card_services')}
                   className="droppable-div"
                 >
                   <Droppable droppableId="droppable">
@@ -302,7 +387,8 @@ const Order = () => {
                   {UserData?.titles?.card_products?.visible_name} Section
                 </h6>
                 <DragDropContext
-                  onDragEnd={onDragEnd}
+                  // onDragEnd={onDragEnd}
+                  onDragEnd={(e) => onDragEndTestimonial(e, 'card_products')}
                   className="droppable-div"
                 >
                   <Droppable droppableId="droppable">
@@ -313,6 +399,58 @@ const Order = () => {
                         style={getListStyle(snapshot.isDraggingOver)}
                       >
                         {Products?.map((item, index) => (
+                          <Draggable
+                            key={item.name}
+                            draggableId={item.name}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                className="card dragable-cards"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                              >
+                                <div className="d-flex align-items-center justify-content-between">
+                                  <spam>
+                                    {index + 1}. {item.name}
+                                  </spam>
+                                  <FontAwesomeIcon icon={faSort} />
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              </div>
+            </div>
+
+            <div className="w-100 flex-column mt-4">
+              <div className="drag-drop-inner-section">
+                <h6 className="mt-1 ml-2 mb-0 color-black">
+                  {UserData?.titles?.card_blogs?.visible_name} Section
+                </h6>
+                <DragDropContext
+                  // onDragEnd={onDragEnd}
+                  onDragEnd={(e) => onDragEndTestimonial(e, 'card_blogs')}
+                  className="droppable-div"
+                >
+                  <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                      >
+                        {Blogs?.map((item, index) => (
                           <Draggable
                             key={item.name}
                             draggableId={item.name}

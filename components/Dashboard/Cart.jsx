@@ -8,11 +8,14 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Api from "@services/Api";
+import { OrderProduct } from "@services/Routes";
 import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
-export default function Cart({ active, handleClose, MainData, cartId }) {
+export default function Cart({ active, handleClose, MainData, cartId, card_url }) {
   const {
     cartItems,
     removeFromCart,
@@ -25,6 +28,13 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
   const [SuccessBtn, setSuccessBtn] = useState(false);
   const [Scanner, setScanner] = useState(false);
   const [totalPrice, setTotalPrice] = useState("");
+
+  const [formData, setFormData] = useState({
+    user_name: "",
+    phone_number: "",
+    email_address: "",
+    payment_method: "",
+  });
 
   const handleRemoveCartItem = (id) => {
     Swal.fire({
@@ -50,21 +60,67 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
     decrementQuantity(id);
   };
 
-  const handleform = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleform = async (e) => {
     e.preventDefault();
-    setSuccessBtn(true);
-    clearCart();
+
+    const products_detail = cartItems.map((item) => ({
+      product_id: item.id,
+      quantity: item.quantity,
+    }));
+
+    const dataToSend = {
+      ...formData,
+      card_url: card_url,
+      products_detail: products_detail
+    };
+
+    try {
+      const response = await Api(OrderProduct, dataToSend);
+      if (response.data.status) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setSuccessBtn(true);
+        setFormData({
+          user_name: "",
+          phone_number: "",
+          email_address: "",
+        })
+        clearCart();
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const handleHide = () => {
     handleClose();
     setSuccessBtn(false);
     setCheckout(false);
-  };
-
-  const handleClearCart = () => {
-    clearCart();
-    handleClose();
   };
 
   const userCartItems = cartItems.filter((item) => item.card_id === cartId);
@@ -217,7 +273,6 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
           <div>
             {!SuccessBtn ? (
               <>
-                {" "}
                 <div className="d-flex align-items-center justify-content-between">
                   <p
                     onClick={() => setCheckout(false)}
@@ -230,6 +285,8 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                     {totalPrice}
                   </p>
                 </div>
+
+                {/* card form */}
                 <div className="mt-4">
                   <form onSubmit={(e) => handleform(e)}>
                     <div
@@ -240,12 +297,18 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                         type="text"
                         className="form-control"
                         placeholder="Name"
+                        name="user_name"
+                        value={formData.user_name}
+                        onChange={handleChange}
                         required
                       />
                       <input
                         type="number"
                         className="form-control"
                         placeholder="Phone Number"
+                        name="phone_number"
+                        defaultValue={formData.phone_number}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -253,6 +316,9 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                       type="email"
                       className="form-control mt-3"
                       placeholder="Email"
+                      name="email_address"
+                      defaultValue={formData.email_address}
+                      onChange={handleChange}
                       required
                     />
                     <textarea
@@ -264,7 +330,9 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                       <input
                         type="radio"
                         className="mr-2"
-                        name="options"
+                        name="payment_method"
+                        defaultValue='cod'
+                        onChange={handleChange}
                         id="cod"
                         defaultChecked
                         onClick={() => setScanner(false)}
@@ -275,7 +343,9 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                       <input
                         type="radio"
                         className="mr-2"
-                        name="options"
+                        name="payment_method"
+                        defaultValue='via scanner'
+                        onChange={handleChange}
                         id="scanner"
                         onClick={() => setScanner(true)}
                       />
@@ -285,7 +355,9 @@ export default function Cart({ active, handleClose, MainData, cartId }) {
                       <input
                         type="radio"
                         className="mr-2"
-                        name="options"
+                        name="payment_method"
+                        defaultValue='others'
+                        onChange={handleChange}
                         id="mode"
                         onClick={() => setScanner(false)}
                       />

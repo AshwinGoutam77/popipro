@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
-import { HitClickApi } from "@services/Routes";
+import { HitClickApi, LoadMoreApi } from "@services/Routes";
 import Api from "@services/Api";
 import Image from "next/image";
 import localforage from "localforage";
@@ -42,6 +42,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
     if (response.data.status) {
     }
   };
+
   const handleAllowNotif = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -61,18 +62,15 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
     // HitClick();
   };
   const LoadMoreFunction = async () => {
-    const response = await fetch(
-      `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_blogs&current_page=${Page} `,
-      {
-        method: "GET",
-        cache: "no-cache",
-      }
+    const response = await Api(
+      LoadMoreApi,
+      {},
+      "?card_url=" + card_url + "&type=card_blogs" + "&current_page=" + Page
     );
-    const data = await response.json();
-    if (response.ok) {
+    if (response.data.status) {
       setAddMoreBlogs((prevData) => [
         ...prevData,
-        ...data?.data?.next_page_data?.data,
+        ...response?.data?.data?.next_page_data?.data,
       ]);
       setPage((prevPage) => prevPage + 1);
     }
@@ -139,7 +137,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                         <a
                           href={
                             item?.url?.includes("http://") ||
-                            item?.url?.includes("https://")
+                              item?.url?.includes("https://")
                               ? item?.url
                               : "https://" + item?.url
                           }
@@ -163,10 +161,10 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
         </Modal.Body>
       </Modal>
       {Titles &&
-      Titles.card_blogs?.is_active &&
-      AddMoreBlogs?.length !== 0 &&
-      Titles.card_blogs?.is_active !== 0 &&
-      Titles?.card_blogs?.in_subscription ? (
+        Titles.card_blogs?.is_active &&
+        AddMoreBlogs?.length !== 0 &&
+        Titles.card_blogs?.is_active !== 0 &&
+        Titles?.card_blogs?.in_subscription ? (
         <div className="box-content boxxx" id="card_blogs">
           <div className="pb-2">
             <h3 className="title title--h1 first-title title__separate">
@@ -191,22 +189,22 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                       type="image/png"
                                       srcSet={
                                         process.env.NEXT_PUBLIC_MODE ==
-                                        "development"
+                                          "development"
                                           ? "https://dev.popipro.com/" +
-                                            item.image.path
+                                          item.image.path
                                           : "https://admin.popipro.com/" +
-                                            item.image.path
+                                          item.image.path
                                       }
                                     />
                                     <img
                                       className="coverr lazyload"
                                       src={
                                         process.env.NEXT_PUBLIC_MODE ==
-                                        "development"
+                                          "development"
                                           ? "https://dev.popipro.com/" +
-                                            item.image.path
+                                          item.image.path
                                           : "https://admin.popipro.com/" +
-                                            item.image.path
+                                          item.image.path
                                       }
                                       alt="blog"
                                       width={0}

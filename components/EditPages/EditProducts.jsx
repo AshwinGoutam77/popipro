@@ -2034,7 +2034,7 @@ export default function EditProducts({
                       />
                       <label
                         for="product-enq"
-                        className="ml-2 Varcolor font-weight-bold"
+                        className="ml-2 Varcolor font-weight-bold mb-0"
                       >
                         Via enquiry form?
                       </label>

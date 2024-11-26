@@ -2057,7 +2057,7 @@ export default function EditRealEstate({
                 />
                 <label
                   for="real-estate-enq"
-                  className="ml-2 Varcolor font-weight-bold"
+                  className="ml-2 Varcolor font-weight-bold mb-0"
                 >
                   Via enquiry form?
                 </label>

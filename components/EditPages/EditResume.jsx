@@ -876,7 +876,7 @@ export default function EditResume({
                     </p>
                   </div>
                 ) : (
-                  <div className="timeline">
+                  <div className="timeline d-flex flex-column gap-4">
                     {/* <!-- Item --> */}
                     {AddMoreExp &&
                       AddMoreExp.map((item, index) => {
@@ -898,7 +898,7 @@ export default function EditResume({
                             {TitleData?.card_experience?.source == "2" &&
                             TitleData?.card_experience?.in_subscription ? (
                               <div
-                                className="d-flex align-items-center mb-4 mt-3"
+                                className="d-flex align-items-center mt-3"
                                 style={{ gap: "10px" }}
                               >
                                 <button
