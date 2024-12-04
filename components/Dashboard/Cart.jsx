@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Api from "@services/Api";
 import { OrderProduct } from "@services/Routes";
+import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -22,6 +23,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     decrementQuantity,
     incrementQuantity,
     clearCart,
+    setCartItems
   } = useContext(AuthContext);
 
   const [Checkout, setCheckout] = useState(false);
@@ -101,7 +103,8 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
           phone_number: "",
           email_address: "",
         })
-        clearCart();
+        // clearCart();
+        setCartItems([]);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message, {
@@ -136,9 +139,9 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
 
   useEffect(() => {
     calculateTotalPrice();
-    if (userCartItems.length == 0) {
-      handleHide();
-    }
+    // if (userCartItems.length == 0) {
+    //   handleHide();
+    // }
   }, [cartItems]);
 
   return (
@@ -339,7 +342,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                       />
                       <label htmlFor="cod">Cash on delivery</label>
                     </div>
-                    <div className="d-flex align-items-center">
+                    {/* <div className="d-flex align-items-center">
                       <input
                         type="radio"
                         className="mr-2"
@@ -350,13 +353,13 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                         onClick={() => setScanner(true)}
                       />
                       <label htmlFor="scanner">Via Scanner</label>
-                    </div>
+                    </div> */}
                     <div className="d-flex align-items-center">
                       <input
                         type="radio"
                         className="mr-2"
                         name="payment_method"
-                        defaultValue='others'
+                        defaultValue='cod'
                         onChange={handleChange}
                         id="mode"
                         onClick={() => setScanner(false)}
@@ -380,13 +383,23 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
             ) : (
               <div className="text-center">
                 <img
-                  src="https://prafullgupta.com/connectwork/assets/chat/groups/2603240337156-2-success-png-image-thumb.png"
+                  src="../../../static/img/sucess-icon.png"
                   alt="image"
+                  width='90px'
                 />
                 <h6 className="mt-3">
-                  Thank you for your order. The owner will receive your order
-                  and will be in touch with you shortly.
-                </h6>
+                  Thank you for placing your order. Your order is currently pending.
+                  To complete the process, please make the payment using the "Pay Now" button or by scanning
+                  the provided QR code. Once the payment is made, kindly share the screenshot via WhatsApp or
+                  send it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </h6>
+                <div className="">
+                  <button className="contact-btn w-auto">
+                    {/* <Link to={MainData?.company_setting?.payment_link}>Pay Now</Link> */}
+                    Pay Now
+                  </button>
+
+                  {MainData?.company_setting?.payment_link && <div><p className="my-2">or</p><img width='150px' src={MainData?.company_setting?.payment_link} alt="" /></div>}
+                </div>
               </div>
             )}
           </div>

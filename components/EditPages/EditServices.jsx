@@ -313,6 +313,7 @@ export default function EditDoing({
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
   const apiKey = "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";
+  
   const handleButtonClick = async () => {
     setIsTyping(true);
     try {
@@ -329,7 +330,7 @@ export default function EditDoing({
               role: "user",
               content:
                 ServicesDescription +
-                "rewrite this sentence and give five suggestions.",
+                "rewrite this sentence and give five suggestions only.",
             },
           ],
         },
@@ -445,7 +446,7 @@ export default function EditDoing({
             ></input>
             <div className="d-flex align-items-center justify-content-between">
               <label className="modalFormLable">Description*</label>
-              {/* <p
+              <p
                 onClick={handleChatModal}
                 data-toggle={ServicesDescription ? "modal" : ""}
                 data-target="#chatapimodal"
@@ -457,7 +458,7 @@ export default function EditDoing({
                   alt="stick"
                   style={{ width: "20%" }}
                 />
-              </p> */}
+              </p>
             </div>
             <CKEditor
               editor={ClassicEditor}

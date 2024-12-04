@@ -2085,7 +2085,7 @@ button:focus {
 
 .review-item__textbox {
   margin-top: 0.625rem;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 
 .progress:last-child,

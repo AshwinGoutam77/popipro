@@ -137,3 +137,8 @@ export const Subscription = {
   path: "get-subscription-history",
   method: "GET",
 };
+
+export const GlobalPaymentLink = {
+  path: "add-global-payment-link",
+  method: "POST",
+};

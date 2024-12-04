@@ -329,7 +329,7 @@ export default function Dashboard() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ margin: "2.125rem 0 0" }}>
-                {/* {MainData?.is_individual !== 1 ? (
+                {MainData?.is_individual !== 1 ? (
                   <Dropdown.Item
                     href=""
                     className="mb-1"
@@ -344,7 +344,7 @@ export default function Dashboard() {
                   </Dropdown.Item>
                 ) : (
                   ""
-                )} */}
+                )}
                 <Dropdown.Item href="" onClick={handleLogout}>
                   <FontAwesomeIcon
                     icon={faRightFromBracket}

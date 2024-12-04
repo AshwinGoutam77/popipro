@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Api from "@services/Api";
 import {
   DeleteProductCategory,
+  GlobalPaymentLink,
   HitSuggestion,
   ManageCategory,
 } from "@services/Routes";
@@ -13,11 +14,12 @@ import { faPencil, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 
-export default function TagsModal({ active, handleClose, Data, APIDATA }) {
+export default function TagsModal({ active, handleClose, Data, APIDATA, TitleData }) {
   const [EditCategory, setEditCategory] = useState(false);
   const [CategoryId, setCategoryId] = useState("");
   const [UpdateCategory, setUpdateCategory] = useState("");
   const [CategoryData, setCategoryData] = useState("");
+  const [GlobalPayment, setGlobalPayment] = useState("")
 
   useEffect(() => {
     setCategoryData(Data?.categories);
@@ -85,6 +87,53 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
       }
     });
   };
+
+  const handleSavePayment = async () => {
+    const isValidUrl = (url) => {
+      try {
+        new URL(url);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    };
+
+    if (!isValidUrl(GlobalPayment)) {
+      toast.error("Invalid payment link URL. Please provide a valid URL.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    let payload = {
+      payment_link: GlobalPayment,
+    };
+
+    const response = await Api(GlobalPaymentLink, payload);
+    if (response?.data?.status) {
+      APIDATA();
+      handleClose();
+      toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+
   return (
     <>
       <ToastContainer
@@ -104,9 +153,8 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
           <Modal.Title>
             <h5
               className="title title--h1 first-title title__separate mb-0"
-              id="BlogModalTitle"
             >
-              Manage Category
+              {TitleData.card_products?.visible_name} Settings
             </h5>
           </Modal.Title>
 
@@ -121,51 +169,60 @@ export default function TagsModal({ active, handleClose, Data, APIDATA }) {
         </Modal.Header>
         <Modal.Body>
           <div>
+            <h6 className="text-dark">Manage Category</h6>
             <ul className="m-0 p-0 multimodes-ul px-1">
               {CategoryData
                 ? CategoryData &&
-                  CategoryData?.map((items, index) => {
-                    return (
-                      <li
-                        className="d-flex align-items-center justify-content-between mb-1"
-                        key={index}
-                      >
+                CategoryData?.map((items, index) => {
+                  return (
+                    <li
+                      className="d-flex align-items-center justify-content-between mb-1"
+                      key={index}
+                    >
+                      {EditCategory && CategoryId === items?.id ? (
+                        <input
+                          name="product"
+                          className="category-title-input"
+                          onChange={(e) => setUpdateCategory(e.target.value)}
+                          defaultValue={items?.name}
+                          placeholder={items?.name}
+                        ></input>
+                      ) : (
+                        <h6 className="mb-0 color-black">{items?.name}</h6>
+                      )}
+                      <div>
                         {EditCategory && CategoryId === items?.id ? (
-                          <input
-                            name="product"
-                            className="category-title-input"
-                            onChange={(e) => setUpdateCategory(e.target.value)}
-                            defaultValue={items?.name}
-                            placeholder={items?.name}
-                          ></input>
-                        ) : (
-                          <h6 className="mb-0 color-black">{items?.name}</h6>
-                        )}
-                        <div>
-                          {EditCategory && CategoryId === items?.id ? (
-                            <FontAwesomeIcon
-                              icon={faSave}
-                              className="mr-4 cursor-pointer color-black"
-                              onClick={() => handleUpdateCategory(items?.id)}
-                            />
-                          ) : (
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="mr-4 cursor-pointer color-black"
-                              onClick={() => handleSaveCategory(items?.id)}
-                            />
-                          )}
                           <FontAwesomeIcon
-                            icon={faTrash}
-                            className="cursor-pointer color-black"
-                            onClick={() => handleDelteCategry(items?.id)}
+                            icon={faSave}
+                            className="mr-4 cursor-pointer color-black"
+                            onClick={() => handleUpdateCategory(items?.id)}
                           />
-                        </div>
-                      </li>
-                    );
-                  })
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            className="mr-4 cursor-pointer color-black"
+                            onClick={() => handleSaveCategory(items?.id)}
+                          />
+                        )}
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="cursor-pointer color-black"
+                          onClick={() => handleDelteCategry(items?.id)}
+                        />
+                      </div>
+                    </li>
+                  );
+                })
                 : "No Category Found"}
             </ul>
+
+            <h6 className="text-dark mt-4">Payment</h6>
+
+            <div className="mt-2">
+              <label>Global Payment Link</label>
+              <input type="url" placeholder="Payment Link" className="form-control" onChange={(e) => setGlobalPayment(e.target.value)} />
+              <button className="contact-btn w-auto" onClick={() => handleSavePayment()}>Save</button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

@@ -61,7 +61,7 @@ const AuthContextProvider = ({ children }) => {
         EditData,
         {},
         "?card_url=" +
-          (typeof window !== "undefined" ? localStorage.getItem("url") : "")
+        (typeof window !== "undefined" ? localStorage.getItem("url") : "")
       );
       if (response.data.status) {
         setUserData(response?.data?.data);
@@ -158,6 +158,7 @@ const AuthContextProvider = ({ children }) => {
         totalPrice,
         clearCart,
         incrementCount,
+        setCartItems
       }}
     >
       {children}

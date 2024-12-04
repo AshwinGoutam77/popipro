@@ -61,6 +61,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
     handleShow();
     // HitClick();
   };
+
   const LoadMoreFunction = async () => {
     const response = await Api(
       LoadMoreApi,
@@ -214,19 +215,22 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                   <FontAwesomeIcon icon={faHeart} />
                                 </>
                               ) : (
-                                <picture>
-                                  <source
-                                    type="image/png"
-                                    srcSet="./static/img/picture-1.jpg"
-                                  />
-                                  <img
-                                    className="coverr lazyload"
-                                    src="./static/img/picture-1.jpg"
-                                    alt="products"
-                                    width={0}
-                                    height={0}
-                                  />
-                                </picture>
+                                <>
+                                  <picture>
+                                    <source
+                                      type="image/png"
+                                      srcSet="./static/img/picture-1.jpg"
+                                    />
+                                    <img
+                                      className="coverr lazyload"
+                                      src="./static/img/picture-1.jpg"
+                                      alt="products"
+                                      width={0}
+                                      height={0}
+                                    />
+                                  </picture>
+                                  <FontAwesomeIcon icon={faHeart} />
+                                </>
                               )}
                             </div>
                           </div>
@@ -289,7 +293,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                     alt="photos"
                                   />
                                 </picture>
-                                {/* <FontAwesomeIcon icon={faHeart}  className="heart-icon"/> */}
+                                <FontAwesomeIcon icon={faHeart} className="heart-icon" />
                               </div>
                             ) : (
                               <picture>

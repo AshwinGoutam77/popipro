@@ -105,6 +105,7 @@ export default function EditProducts({
   const [CategoryId, setCategoryId] = React.useState(null);
   const [Category, setCategory] = useState("");
   const [modalShow, setModalShow] = useState("");
+  const [PaymentLink, setPaymentLink] = useState("")
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -132,43 +133,45 @@ export default function EditProducts({
         ProductHeading === ""
           ? "heading field is required"
           : GalleryImages?.length >= 3
-          ? "Gallery images can't be more than 3"
-          : "";
+            ? "Gallery images can't be more than 3"
+            : "";
     } else {
       id !== null
         ? (data = [
-            {
-              products_image: Image,
-              gallery: GalleryImages ? [...GalleryImages] : "",
-              products_name: ProductHeading,
-              products_description: ServicesDescription,
-              products_url: ProductUrl,
-              products_price: ProductPrice,
-              products_currency: MainData?.company_setting?.currency?.id,
-              button_placeholder: AddLabel,
-              is_label: EditRadioBtn ? 1 : 0,
-              label: ProductLabel,
-              categories: [CategoryId?.value],
-              youtube_link: ProductVideo,
-              saved_products: id,
-            },
-          ])
+          {
+            products_image: Image,
+            gallery: GalleryImages ? [...GalleryImages] : "",
+            products_name: ProductHeading,
+            products_description: ServicesDescription,
+            products_url: ProductUrl,
+            products_price: ProductPrice,
+            products_currency: MainData?.company_setting?.currency?.id,
+            button_placeholder: AddLabel,
+            is_label: EditRadioBtn ? 1 : 0,
+            label: ProductLabel,
+            categories: [CategoryId?.value],
+            youtube_link: ProductVideo,
+            payment_link: PaymentLink,
+            saved_products: id,
+          },
+        ])
         : (data = [
-            {
-              products_image: Image,
-              gallery: GalleryImages ? [...GalleryImages] : "",
-              products_name: ProductHeading,
-              products_description: ServicesDescription,
-              products_url: ProductUrl,
-              products_price: ProductPrice,
-              products_currency: MainData?.company_setting?.currency?.id,
-              button_placeholder: AddLabel,
-              is_label: PriceRadio ? 0 : 1,
-              label: ProductLabel,
-              youtube_link: ProductVideo,
-              categories: [CategoryId?.value],
-            },
-          ]);
+          {
+            products_image: Image,
+            gallery: GalleryImages ? [...GalleryImages] : "",
+            products_name: ProductHeading,
+            products_description: ServicesDescription,
+            products_url: ProductUrl,
+            products_price: ProductPrice,
+            products_currency: MainData?.company_setting?.currency?.id,
+            button_placeholder: AddLabel,
+            is_label: PriceRadio ? 0 : 1,
+            label: ProductLabel,
+            youtube_link: ProductVideo,
+            payment_link: PaymentLink,
+            categories: [CategoryId?.value],
+          },
+        ]);
     }
     if (error) {
       setShowLoader(false);
@@ -766,7 +769,7 @@ export default function EditProducts({
                       <a
                         href={
                           item?.url?.includes("http://") ||
-                          item?.url?.includes("https://")
+                            item?.url?.includes("https://")
                             ? item?.url
                             : "https://" + item?.url
                         }
@@ -780,14 +783,14 @@ export default function EditProducts({
                         {Data?.id == "TrxF"
                           ? "Watch Video"
                           : item.button_placeholder
-                          ? item.button_placeholder
-                          : "Visit Site"}
+                            ? item.button_placeholder
+                            : "Visit Site"}
                       </a>
                     ) : (
                       ""
                     )}
                     {MainData?.company_setting?.show_product_enquiry_button !==
-                    0 ? (
+                      0 ? (
                       <a
                         className="mt-1 send-btnn w-auto text-white d-block mb-0"
                         data-toggle="modal"
@@ -1013,6 +1016,16 @@ export default function EditProducts({
                 ></input>
               </div>
             </div>
+            <div>
+              <label className="modalFormLable">Enter Payment Link</label>
+              <input
+                name="url"
+                className="form-control mb-4 mt-1"
+                value={PaymentLink}
+                placeholder="payment link"
+                onChange={(e) => setPaymentLink(e.target.value)}
+              ></input>
+            </div>
             <label className="modalFormLable">Enter Video URL</label>
             <input
               name="name"
@@ -1096,13 +1109,13 @@ export default function EditProducts({
                 },
               }}
               data={ServicesDescription || ""}
-              onReady={(editor) => {}}
+              onReady={(editor) => { }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setServicesDescription(data);
               }}
-              onBlur={(event, editor) => {}}
-              onFocus={(event, editor) => {}}
+              onBlur={(event, editor) => { }}
+              onFocus={(event, editor) => { }}
             />
           </div>
           <div
@@ -1370,6 +1383,18 @@ export default function EditProducts({
                     placeholder="Video Url"
                     onChange={(e) => setProductVideo(e.target.value)}
                   ></input>
+                  <div>
+                    <label className="modalFormLable">Enter Payment Link</label>
+                    <input
+                      name="name"
+                      rows="4"
+                      cols="50"
+                      className="form-control mb-4 mt-1"
+                      value={PaymentLink}
+                      placeholder="Video Url"
+                      onChange={(e) => setPaymentLink(e.target.value)}
+                    ></input>
+                  </div>
                   <div className="">
                     <div className="d-flex align-items-center">
                       <label className="modalFormLable ml-0 pl-1">
@@ -1443,13 +1468,13 @@ export default function EditProducts({
                       },
                     }}
                     data={ServicesDescription || ""}
-                    onReady={(editor) => {}}
+                    onReady={(editor) => { }}
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setServicesDescription(data);
                     }}
-                    onBlur={(event, editor) => {}}
-                    onFocus={(event, editor) => {}}
+                    onBlur={(event, editor) => { }}
+                    onFocus={(event, editor) => { }}
                   />
                   <div
                     className="d-flex align-items-center mt-3"
@@ -1570,7 +1595,7 @@ export default function EditProducts({
                       onChange={(e) => setProductTitle(e.target.value)}
                       defaultValue={
                         TitleData &&
-                        TitleData.card_products?.visible_name == "card_products"
+                          TitleData.card_products?.visible_name == "card_products"
                           ? "card_products"
                           : TitleData?.card_products?.visible_name
                       }
@@ -1587,7 +1612,7 @@ export default function EditProducts({
                 </div>
                 <div>
                   {TitleData?.card_products?.source == "2" &&
-                  TitleData?.card_products?.in_subscription ? (
+                    TitleData?.card_products?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -1632,7 +1657,7 @@ export default function EditProducts({
                             ""
                           )}
                           {TitleData?.card_products?.row_limit <=
-                          PaginationData?.total_card_products ? (
+                            PaginationData?.total_card_products ? (
                             <button
                               className="addmore"
                               onClick={handleUpgradePlan}
@@ -1652,6 +1677,7 @@ export default function EditProducts({
                                 handleClose={setModalShow}
                                 Data={Data}
                                 APIDATA={APIDATA}
+                                TitleData={TitleData}
                               />
                             </>
                           )}
@@ -1743,8 +1769,8 @@ export default function EditProducts({
                                 ) : (
                                   <div className="product-icons-div">
                                     {Data?.whatsapp_number !== null &&
-                                    MainData?.company_setting
-                                      ?.show_product_wp_button !== 0 ? (
+                                      MainData?.company_setting
+                                        ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1779,7 +1805,7 @@ export default function EditProducts({
                                       <a
                                         href={
                                           items?.url?.includes("https://") ||
-                                          items?.url?.includes("http://")
+                                            items?.url?.includes("http://")
                                             ? items?.url
                                             : "https://" + items?.url
                                         }
@@ -1846,8 +1872,8 @@ export default function EditProducts({
                                 ) : (
                                   <div>
                                     {items.price !== 0 &&
-                                    items.price !== "" &&
-                                    items.currency !== null ? (
+                                      items.price !== "" &&
+                                      items.currency !== null ? (
                                       <span className="product-price">
                                         {items.pcurrency?.currency}{" "}
                                         {items.price}
@@ -1863,8 +1889,8 @@ export default function EditProducts({
                                     style={{ gap: "10px" }}
                                   >
                                     {Data?.whatsapp_number !== null &&
-                                    MainData?.company_setting
-                                      ?.show_product_wp_button !== 0 ? (
+                                      MainData?.company_setting
+                                        ?.show_product_wp_button !== 0 ? (
                                       <a
                                         href={
                                           "https://api.whatsapp.com/send?phone=" +
@@ -1899,7 +1925,7 @@ export default function EditProducts({
                                       <a
                                         href={
                                           items?.url?.includes("https://") ||
-                                          items?.url?.includes("http://")
+                                            items?.url?.includes("http://")
                                             ? items?.url
                                             : "https://" + items?.url
                                         }
@@ -1937,7 +1963,7 @@ export default function EditProducts({
                             </div>
                           </div>
                           {TitleData?.card_products?.source == "2" &&
-                          TitleData?.card_products?.in_subscription ? (
+                            TitleData?.card_products?.in_subscription ? (
                             <div
                               className="d-flex align-items-center justify-content-start"
                               style={{
@@ -1994,14 +2020,14 @@ export default function EditProducts({
                         className="mt-1"
                         value={
                           MainData?.company_setting?.show_product_wp_button !==
-                          0
+                            0
                             ? true
                             : false
                         }
                         onChange={() => handleProductsbtn("wp")}
                         checked={
                           MainData?.company_setting?.show_product_wp_button !==
-                          0
+                            0
                             ? true
                             : false
                         }
@@ -2043,7 +2069,7 @@ export default function EditProducts({
                 </div>
               )}
               {PaginationData?.total_card_products !==
-              AddMoreProduct?.length ? (
+                AddMoreProduct?.length ? (
                 <div className="mx-auto text-center pt-2">
                   <a
                     className="text-center cursor-pointer mx-auto"
