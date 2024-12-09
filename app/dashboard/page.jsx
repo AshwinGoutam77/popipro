@@ -318,9 +318,9 @@ export default function Dashboard() {
                   src={
                     Data?.profile_picture?.path
                       ? Data?.base_url +
-                        Data?.profile_picture?.path +
-                        "?ver=" +
-                        time
+                      Data?.profile_picture?.path +
+                      "?ver=" +
+                      time
                       : "https://avatars.githubusercontent.com/u/8152403?v=4"
                   }
                   alt="imagee"
@@ -385,7 +385,7 @@ export default function Dashboard() {
         </div>
 
         <div className="p-4 dashboard-section w-100">
-          <div className="row mb-4 card flex-row mt-12 user-theme-bg p-5 dashboard-web-margin">
+          {/* <div className="row mb-4 card flex-row mt-12 user-theme-bg align-items-center dashboard-web-margin">
             <div className="col-lg-6 col-sm-12 order-2 order-lg-1 mt-2 text-white text-left">
               <h3 className="text-xl text-white">
                 Welcome Back,{" "}
@@ -407,12 +407,12 @@ export default function Dashboard() {
               )}
               {Data?.is_onboarding !== "1" ? (
                 Data &&
-                PlanData?.current_plan?.is_expired !== false &&
-                PlanData?.is_trial_taken !== 0 ? (
+                  PlanData?.current_plan?.is_expired !== false &&
+                  PlanData?.is_trial_taken !== 0 ? (
                   <a
                     href={
                       PlanData?.current_plan?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0
+                        PlanData?.is_trial_taken !== 0
                         ? "https://www.popipro.com/order"
                         : ""
                     }
@@ -433,8 +433,8 @@ export default function Dashboard() {
                   >
                     {MainData?.plan?.subscription_left_days !== 0
                       ? "Your subscription is valid till " +
-                        MainData?.plan?.subscription_left_days +
-                        " days."
+                      MainData?.plan?.subscription_left_days +
+                      " days."
                       : "Upgrade to premium"}
                   </button>
                 )
@@ -446,10 +446,74 @@ export default function Dashboard() {
             <div className="col-lg-6 col-sm-12 order-1 order-lg-2">
               <img
                 className="h-40 sm:mt-0 dashboard-web-margin-image w-100"
-                src="https://prafullgupta.com/connectwork/assets/chat/chats/290324063550finalillustration.png"
+                src='../../../static/img/dashboard-main-img.png'
                 alt="image"
-                style={{ objectFit: "contain" }}
+                style={{ objectFit: "contain", height: '250px' }}
               />
+            </div>
+          </div> */}
+
+          <div className="container dashboard-banner-container">
+            <div className="row justify-content-center">
+              <div className="w-100">
+                <div className="dashboard-banner-div">
+                  <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" />
+                  <h3 className="text-xl text-white">
+                    Welcome Back,{" "}
+                    <span className="font-semibold">{Data?.first_name}</span>
+                  </h3>
+                  <p className="mt-2 leading-relaxed">
+                    You can manage all your data and analytics from this dashboard.
+                  </p>
+                  {Data?.is_onboarding == "1" ? (
+                    <p
+                      className="mt-2 leading-relaxed font-weight-bold"
+                      onClick={SaveStatusApi}
+                    >
+                      Your profile is in DRAFT MODE, Please click here to make it
+                      public
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {Data?.is_onboarding !== "1" ? (
+                    Data &&
+                      PlanData?.current_plan?.is_expired !== false &&
+                      PlanData?.is_trial_taken !== 0 ? (
+                      <a
+                        href={
+                          PlanData?.current_plan?.is_expired !== false &&
+                            PlanData?.is_trial_taken !== 0
+                            ? "https://www.popipro.com/order"
+                            : ""
+                        }
+                        target="_blank"
+                      >
+                        <button className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                          Your subscription is expired, Click to renew it.
+                        </button>
+                      </a>
+                    ) : (
+                      <button
+                        className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                        onClick={() =>
+                          MainData?.plan?.subscription_left_days == 0
+                            ? handleFreeTrail()
+                            : ""
+                        }
+                      >
+                        {MainData?.plan?.subscription_left_days !== 0
+                          ? "Your subscription is valid till " +
+                          MainData?.plan?.subscription_left_days +
+                          " days."
+                          : "Upgrade to premium"}
+                      </button>
+                    )
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -532,7 +596,7 @@ export default function Dashboard() {
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() =>
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken !== 0
+                        PlanData?.is_trial_taken !== 0
                         ? setModalShow("theme")
                         : ""
                     }
@@ -567,7 +631,7 @@ export default function Dashboard() {
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     onClick={() => {
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken !== 0
+                        PlanData?.is_trial_taken !== 0
                         ? setModalShow("MultimodesModal")
                         : "";
                     }}
@@ -601,7 +665,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/Notification"
                     }
@@ -642,7 +706,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/approve-review"
                     }
@@ -685,7 +749,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/signature"
                       }
@@ -729,7 +793,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/virtual-background"
                       }
@@ -773,7 +837,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/address-book"
                       }
@@ -811,7 +875,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/subscription"
                     }
@@ -847,7 +911,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/order"
                       }
@@ -944,7 +1008,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/overall-analytics"
                     }
@@ -1024,7 +1088,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/product"
                     }
@@ -1062,7 +1126,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/blog"
                     }
@@ -1102,7 +1166,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/real-estate"
                       }
@@ -1144,7 +1208,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/shared-contact-leads"
                     }
@@ -1182,7 +1246,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/product-enquiry"
                     }
@@ -1221,7 +1285,7 @@ export default function Dashboard() {
                     <Link
                       href={
                         PlanData?.plan_name !== "Premium" &&
-                        PlanData?.is_trial_taken == 0
+                          PlanData?.is_trial_taken == 0
                           ? "https://www.popipro.com/order"
                           : "/real-estate-enquiry"
                       }
@@ -1260,7 +1324,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/appointment"
                     }
@@ -1297,7 +1361,7 @@ export default function Dashboard() {
                   <Link
                     href={
                       PlanData?.plan_name !== "Premium" &&
-                      PlanData?.is_trial_taken == 0
+                        PlanData?.is_trial_taken == 0
                         ? "https://www.popipro.com/order"
                         : "/custom-form"
                     }

@@ -389,16 +389,18 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                 />
                 <h6 className="mt-3">
                   Thank you for placing your order. Your order is currently pending.
-                  To complete the process, please make the payment using the "Pay Now" button or by scanning
-                  the provided QR code. Once the payment is made, kindly share the screenshot via WhatsApp or
+                  To complete the process, please make the payment using the <span className="primary-color">Pay Now</span> button. Once the payment is made, kindly share the screenshot via WhatsApp or
                   send it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </h6>
                 <div className="">
                   <button className="contact-btn w-auto">
-                    {/* <Link to={MainData?.company_setting?.payment_link}>Pay Now</Link> */}
-                    Pay Now
+                    <Link href={MainData?.company_setting?.payment_link} target="_blank">Pay Now</Link>
                   </button>
 
-                  {MainData?.company_setting?.payment_link && <div><p className="my-2">or</p><img width='150px' src={MainData?.company_setting?.payment_link} alt="" /></div>}
+                  {/* {MainData?.company_setting?.payment_link &&
+                    <div>
+                      <p className="my-2">or</p>
+                      <button className="contact-btn w-auto"><a href={MainData?.company_setting?.payment_link}>Link</a></button>
+                    </div>} */}
                 </div>
               </div>
             )}
