@@ -322,7 +322,8 @@ export default function EditProducts({
     item_label,
     button_placeholder,
     item_youtube_link,
-    item_category
+    item_category,
+    items_payment_link
   ) => {
     setModalId(id);
     handleEditShow();
@@ -336,6 +337,7 @@ export default function EditProducts({
     setAddLabel(button_placeholder);
     setEditRadioBtn(item_label);
     setProductVideo(item_youtube_link);
+    setPaymentLink(items_payment_link)
     item_category.map((option) => {
       let obj = ProjectOptions.find((o) => o.value === option.id);
       setCategoryId(obj);
@@ -953,7 +955,7 @@ export default function EditProducts({
                     rows="4"
                     cols="50"
                     className="form-control mb-4 mt-1"
-                    value={MainData?.company_setting?.currency?.currency}
+                    value={MainData?.company_setting?.currency?.ecomcurrency}
                     placeholder="Price"
                     readOnly
                     maxLength="10"
@@ -1295,7 +1297,7 @@ export default function EditProducts({
                           rows="4"
                           cols="50"
                           className="form-control mb-4 mt-1"
-                          value={MainData?.company_setting?.currency?.currency}
+                          value={MainData?.company_setting?.currency?.ecomcurrency}
                           placeholder="Price"
                           readOnly
                           maxLength="10"
@@ -1988,7 +1990,8 @@ export default function EditProducts({
                                     items.is_label,
                                     items.button_placeholder,
                                     items?.youtube_link,
-                                    items?.categories
+                                    items?.categories,
+                                    items?.payment_link
                                   )
                                 }
                               >

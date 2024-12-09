@@ -1376,7 +1376,7 @@ input.date-time-input::-webkit-date-and-time-value {
 .dashboard-banner-container {
   position: relative;
   text-align: center;
-  padding: 0 130px;
+  padding: 0 130px !important;
 }
 
 .dashboard-banner-container img {

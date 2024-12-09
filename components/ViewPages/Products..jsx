@@ -106,20 +106,14 @@ export default function Product({
   const LoadMoreFunction = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
-            Page && Page
-          }${
-            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
-          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
-            ProductSearching ? "&product_search=" + ProductSearching : ""
-          }`
-        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${
-            Page && Page
-          }${
-            ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
-          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
-            ProductSearching ? "&product_search=" + ProductSearching : ""
-          }`,
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page && Page
+        }${ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
+        }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${ProductSearching ? "&product_search=" + ProductSearching : ""
+        }`
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_products&current_page=${Page && Page
+        }${ProductCategory ? "&product_categories[0]=" + ProductCategory : ""
+        }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${ProductSearching ? "&product_search=" + ProductSearching : ""
+        }`,
       {
         method: "GET",
         cache: "no-cache",
@@ -136,9 +130,9 @@ export default function Product({
         ? ProductCategory
           ? setProducts(() => data?.data?.next_page_data?.data)
           : setProducts((prevData) => [
-              ...prevData,
-              ...data?.data?.next_page_data?.data,
-            ])
+            ...prevData,
+            ...data?.data?.next_page_data?.data,
+          ])
         : setProducts(() => data?.data?.next_page_data?.data);
     }
   };
@@ -496,7 +490,7 @@ export default function Product({
                           <a
                             href={
                               item?.url?.includes("http://") ||
-                              item?.url?.includes("https://")
+                                item?.url?.includes("https://")
                                 ? item?.url
                                 : "https://" + item?.url
                             }
@@ -511,8 +505,8 @@ export default function Product({
                             {Data?.id == "TrxF"
                               ? "Watch Video"
                               : item.button_placeholder
-                              ? item.button_placeholder
-                              : "Visit Site"}
+                                ? item.button_placeholder
+                                : "Visit Site"}
                           </a>
                         ) : (
                           ""
@@ -536,8 +530,8 @@ export default function Product({
                         ) : (
                           ""
                         )}
-                        {MainData?.company_setting?.show_product_wp_button !==
-                        0 ? (
+                        {MainData?.company_setting?.show_product_wp_button ==
+                          0 ? (
                           <a
                             href={
                               "https://api.whatsapp.com/send?phone=" +
@@ -559,6 +553,24 @@ export default function Product({
                               className="w-23px margin-b-1"
                             />
                             Quick Connect
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                        {item?.payment_link !==
+                          null ? (
+                          <a
+                            href={item?.payment_link}
+                            target="_blank"
+                            className="contact-btn w-auto d-block mt-0"
+                            onClick={() => HitClick(item?.id)}
+                          >
+                            <img
+                              src="./static/img/pay-icon.png"
+                              alt="whatsaap"
+                              className="w-23px margin-b-1 mr-2"
+                            />
+                            Pay Now
                           </a>
                         ) : (
                           ""
@@ -672,10 +684,10 @@ export default function Product({
       />
 
       {Titles &&
-      Titles?.card_products?.is_active &&
-      Titles?.card_products?.in_subscription ? (
+        Titles?.card_products?.is_active &&
+        Titles?.card_products?.in_subscription ? (
         Data?.card_products?.length !== 0 &&
-        Titles?.card_products?.is_active !== 0 ? (
+          Titles?.card_products?.is_active !== 0 ? (
           <div className="box-content boxxx" id="card_products">
             <div className="mt-0 product-section-div">
               {Search ? (
@@ -706,7 +718,7 @@ export default function Product({
                 <div className="d-flex align-items-start justify-content-between">
                   <h3 className="title title--h1 first-title title__separate">
                     {Titles &&
-                    Titles.card_products?.visible_name === "card_products"
+                      Titles.card_products?.visible_name === "card_products"
                       ? "card_products"
                       : Titles?.card_products?.visible_name}
                   </h3>
@@ -924,22 +936,22 @@ export default function Product({
                                     type="image/png"
                                     srcSet={
                                       process.env.NEXT_PUBLIC_MODE ==
-                                      "development"
+                                        "development"
                                         ? "https://dev.popipro.com/" +
-                                          items.image.path
+                                        items.image.path
                                         : "https://admin.popipro.com/" +
-                                          items.image.path
+                                        items.image.path
                                     }
                                   />
                                   <img
                                     className="case-item__icon-products cursor-pointer"
                                     src={
                                       process.env.NEXT_PUBLIC_MODE ==
-                                      "development"
+                                        "development"
                                         ? "https://dev.popipro.com/" +
-                                          items.image.path
+                                        items.image.path
                                         : "https://admin.popipro.com/" +
-                                          items.image.path
+                                        items.image.path
                                     }
                                     alt="products"
                                     width={0}
@@ -972,8 +984,8 @@ export default function Product({
                               ) : (
                                 <div className="product-icons-div">
                                   {Data?.whatsapp_number !== null &&
-                                  MainData?.company_setting
-                                    ?.show_product_wp_button !== 0 ? (
+                                    MainData?.company_setting
+                                      ?.show_product_wp_button !== 0 ? (
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
@@ -1024,7 +1036,7 @@ export default function Product({
                                     <a
                                       href={
                                         items?.url?.includes("https://") ||
-                                        items?.url?.includes("http://")
+                                          items?.url?.includes("http://")
                                           ? items?.url
                                           : "https://" + items?.url
                                       }
@@ -1082,11 +1094,11 @@ export default function Product({
                                         {
                                           image:
                                             process.env.NEXT_PUBLIC_MODE ==
-                                            "development"
+                                              "development"
                                               ? "https://dev.popipro.com/" +
-                                                items.image.path
+                                              items.image.path
                                               : "https://admin.popipro.com/" +
-                                                items.image.path,
+                                              items.image.path,
                                           name: items?.name,
                                           price: items?.price,
                                           currency: items.pcurrency?.currency,
@@ -1136,8 +1148,8 @@ export default function Product({
                               ) : (
                                 <div>
                                   {items.price !== 0 &&
-                                  items.price !== "" &&
-                                  items.currency !== null ? (
+                                    items.price !== "" &&
+                                    items.currency !== null ? (
                                     <span className="product-price">
                                       {items.pcurrency?.currency} {items.price}
                                     </span>
@@ -1149,8 +1161,8 @@ export default function Product({
                               {items?.description?.length <= "0" ? (
                                 <div className="d-flex align-items-center justify-content-left weight-small-100 gap-10">
                                   {Data?.whatsapp_number !== null &&
-                                  MainData?.company_setting
-                                    ?.show_product_wp_button !== 0 ? (
+                                    MainData?.company_setting
+                                      ?.show_product_wp_button !== 0 ? (
                                     <a
                                       href={
                                         "https://api.whatsapp.com/send?phone=" +
@@ -1201,7 +1213,7 @@ export default function Product({
                                     <a
                                       href={
                                         items?.url?.includes("https://") ||
-                                        items?.url?.includes("http://")
+                                          items?.url?.includes("http://")
                                           ? items?.url
                                           : "https://" + items?.url
                                       }
