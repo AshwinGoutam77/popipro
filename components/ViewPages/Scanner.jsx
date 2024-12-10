@@ -61,7 +61,7 @@ export default function Scanner() {
                 </h2>
             </div>
             <div>
-                <input type="file" accept="image/*" capture="environment" className="form-control" onChange={handleFileChange} />
+                <input type="file" accept="image/*" className="form-control" onChange={handleFileChange} />
                 {image && <img src={image} alt="Uploaded Card" className="my-4" style={{ maxWidth: "100%" }} />}
                 <button onClick={processImage} disabled={loading} className="contact-btn w-auto mt-4">
                     {loading ? "Processing..." : "Scan Business Card"}
