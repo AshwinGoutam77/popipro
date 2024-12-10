@@ -35,7 +35,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     user_name: "",
     phone_number: "",
     email_address: "",
-    payment_method: "",
+    payment_method: "cod",
   });
 
   const handleRemoveCartItem = (id) => {
@@ -135,6 +135,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     );
 
     setTotalPrice(total);
+    localStorage.setItem('total-price', total)
   };
 
   useEffect(() => {
@@ -169,62 +170,64 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
       <Modal.Body className="cart-modal">
         {!Checkout ? (
           <div>
-            {cartItems &&
-              cartItems?.map((item, index) => {
-                return (
-                  item?.card_id === MainData?.card?.id && (
-                    <div className="row cart-section" key={index}>
-                      <div className="col-4">
-                        <img
-                          src={item?.image}
-                          alt="cart"
-                          style={{ borderRadius: "10px" }}
-                        />
-                      </div>
-                      <div className="col-8">
-                        <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between">
-                          <h6 className="mb-0 color-black">{item?.name}</h6>
-                          <p className="font-weight-bold color-black">
-                            {item?.currency} {item?.price * item?.quantity}
-                          </p>
+            <div className="cart-product-div">
+              {cartItems &&
+                cartItems?.map((item, index) => {
+                  return (
+                    item?.card_id === MainData?.card?.id && (
+                      <div className="row cart-section" key={index}>
+                        <div className="col-4">
+                          <img
+                            src={item?.image}
+                            alt="cart"
+                            style={{ borderRadius: "10px" }}
+                          />
                         </div>
-                        <div className="d-flex align-items-center justify-content-between mt-2">
-                          <p
-                            className="cursor-pointer"
-                            onClick={() => handleRemoveCartItem(item?.id)}
-                          >
-                            <FontAwesomeIcon icon={faTrash} className="" />{" "}
-                            Remove
-                          </p>
-                          <div className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                              icon={faMinusCircle}
-                              className={
-                                item?.quantity !== 1
-                                  ? "VarColor cursor-pointer"
-                                  : ""
-                              }
-                              width={20}
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleDecrement(item?.id)}
-                            />
-                            <p className="mx-2 font-weight-bold color-black">
-                              {item?.quantity}
+                        <div className="col-8">
+                          <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between">
+                            <h6 className="mb-0 color-black">{item?.name}</h6>
+                            <p className="font-weight-bold color-black">
+                              {item?.currency} {item?.price * item?.quantity}
                             </p>
-                            <FontAwesomeIcon
-                              icon={faPlusCircle}
-                              className="VarColor cursor-pointer"
-                              width={20}
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleIncrement(item?.id)}
-                            />{" "}
+                          </div>
+                          <div className="d-flex align-items-center justify-content-between mt-2">
+                            <p
+                              className="cursor-pointer"
+                              onClick={() => handleRemoveCartItem(item?.id)}
+                            >
+                              <FontAwesomeIcon icon={faTrash} className="" />{" "}
+                              Remove
+                            </p>
+                            <div className="d-flex align-items-center">
+                              <FontAwesomeIcon
+                                icon={faMinusCircle}
+                                className={
+                                  item?.quantity !== 1
+                                    ? "VarColor cursor-pointer"
+                                    : ""
+                                }
+                                width={20}
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleDecrement(item?.id)}
+                              />
+                              <p className="mx-2 font-weight-bold color-black">
+                                {item?.quantity}
+                              </p>
+                              <FontAwesomeIcon
+                                icon={faPlusCircle}
+                                className="VarColor cursor-pointer"
+                                width={20}
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleIncrement(item?.id)}
+                              />{" "}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )
-                );
-              })}
+                    )
+                  );
+                })}
+            </div>
 
             <div className="align-items-baseline justify-content-between mt-3">
               <div className="font-weight-bold color-black d-flex justify-content-between w-100">
@@ -264,12 +267,6 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
               >
                 Checkout
               </button>
-              {/* <button
-                className="contact-btn w-auto mt-2 ml-2"
-                onClick={() => handleClearCart()}
-              >
-                Clear Cart
-              </button> */}
             </div>
           </div>
         ) : (
@@ -329,51 +326,6 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                       placeholder="Enter Message"
                     ></textarea>
 
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        name="payment_method"
-                        defaultValue='cod'
-                        onChange={handleChange}
-                        id="cod"
-                        defaultChecked
-                        onClick={() => setScanner(false)}
-                      />
-                      <label htmlFor="cod">Cash on delivery</label>
-                    </div>
-                    {/* <div className="d-flex align-items-center">
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        name="payment_method"
-                        defaultValue='via scanner'
-                        onChange={handleChange}
-                        id="scanner"
-                        onClick={() => setScanner(true)}
-                      />
-                      <label htmlFor="scanner">Via Scanner</label>
-                    </div> */}
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        name="payment_method"
-                        defaultValue='cod'
-                        onChange={handleChange}
-                        id="mode"
-                        onClick={() => setScanner(false)}
-                      />
-                      <label htmlFor="mode">Other payment mode?</label>
-                    </div>
-
-                    {Scanner && (
-                      <p className="mt-3 font-weight-bold">
-                        *Note: You need to send a screenshot of the order to the
-                        owner via WhatsApp for confirmation.
-                      </p>
-                    )}
-
                     <button className="contact-btn w-auto mt-3" type="submit">
                       Place your Order
                     </button>
@@ -395,12 +347,6 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                   <button className="contact-btn w-auto">
                     <Link href={MainData?.company_setting?.payment_link} target="_blank">Pay Now</Link>
                   </button>
-
-                  {/* {MainData?.company_setting?.payment_link &&
-                    <div>
-                      <p className="my-2">or</p>
-                      <button className="contact-btn w-auto"><a href={MainData?.company_setting?.payment_link}>Link</a></button>
-                    </div>} */}
                 </div>
               </div>
             )}

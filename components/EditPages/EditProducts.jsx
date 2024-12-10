@@ -86,6 +86,10 @@ export default function EditProducts({
   const [LoadMoreData, setLoadMoreData] = useState("");
   const [PriceRadio, setPriceRadio] = useState(true);
   const [LabelRadio, setLabelRadio] = useState(false);
+
+  const [PaymentLinkBtn, setPaymentLinkBtn] = useState(false);
+  const [GeneralLinkBtn, setGeneralLinkBtn] = useState(true);
+
   const [AddLabel, setAddLabel] = useState("");
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [ProductTitle, setProductTitle] = useState("");
@@ -494,6 +498,23 @@ export default function EditProducts({
     }
   };
 
+
+  const handleGeneralLink = (e) => {
+    setPaymentLinkBtn(false)
+    if (GeneralLinkBtn == false) {
+      setGeneralLinkBtn(true)
+    }
+  };
+
+  const handlePaymentLink = () => {
+    setGeneralLinkBtn(false)
+    if (PaymentLinkBtn == false) {
+      setPaymentLinkBtn(true)
+    }
+  }
+
+
+
   // chatapi code
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
@@ -553,6 +574,7 @@ export default function EditProducts({
     handleShowshowChatModal();
     handleButtonClick();
   };
+
   const handleCopyMessage = () => {
     toast.success("Message copied succesfully", {
       position: "top-right",
@@ -567,6 +589,7 @@ export default function EditProducts({
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
+
   const [isLoading, setIsLoading] = useState(false);
   const ProjectOptions = [];
   Category &&
@@ -989,6 +1012,39 @@ export default function EditProducts({
                 ></input>
               </div>
             )}
+
+
+            <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+              <div className="d-flex align-items-center">
+                <input
+                  type="radio"
+                  id="general"
+                  name="link"
+                  value={0}
+                  checked={GeneralLinkBtn}
+                  onChange={(e) => handleGeneralLink(e.target.value)}
+                />{" "}
+                <label htmlFor="general" className="ml-2 mb-0">
+                  General Link
+                </label>
+              </div>
+              <div className="d-flex align-items-center ml-3">
+                <input
+                  type="radio"
+                  id="payment"
+                  name="link"
+                  value={1}
+                  onChange={(e) => handlePaymentLink(e.target.value)}
+                />{" "}
+                <label htmlFor="payment" className="ml-2 mb-0">
+                  Payment Link
+                </label>
+              </div>
+            </div>
+
+
+
+
             <div
               className="d-flex align-items-center w-100"
               style={{ gap: "10px" }}
@@ -1005,8 +1061,8 @@ export default function EditProducts({
                   onChange={(e) => setAddLabel(e.target.value)}
                 ></input>
               </div>
-              <div className="w-100">
-                <label className="modalFormLable">URL / Links</label>
+              {GeneralLinkBtn ? <div className="w-100">
+                <label className="modalFormLable">General Link</label>
                 <input
                   name="url"
                   rows="4"
@@ -1016,9 +1072,20 @@ export default function EditProducts({
                   placeholder="Url"
                   onChange={(e) => setProductUrl(e.target.value)}
                 ></input>
-              </div>
+              </div> :
+                <div className="w-100">
+                  <label className="modalFormLable">Payment Link</label>
+                  <input
+                    name="url"
+                    className="form-control mb-4 mt-1"
+                    value={PaymentLink}
+                    placeholder="payment link"
+                    onChange={(e) => setPaymentLink(e.target.value)}
+                  ></input>
+                </div>}
             </div>
-            <div>
+
+            {/* <div>
               <label className="modalFormLable">Enter Payment Link</label>
               <input
                 name="url"
@@ -1027,7 +1094,8 @@ export default function EditProducts({
                 placeholder="payment link"
                 onChange={(e) => setPaymentLink(e.target.value)}
               ></input>
-            </div>
+            </div> */}
+
             <label className="modalFormLable">Enter Video URL</label>
             <input
               name="name"
@@ -1181,6 +1249,7 @@ export default function EditProducts({
                   <label className="modalFormLable">
                     Update Featured Image (*Recommended Size 150*150)
                   </label>
+
                   <input
                     type="file"
                     name="image"

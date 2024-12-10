@@ -22,6 +22,7 @@ import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
 import Video from "@components/ViewPages/Video";
+import Scanner from "@components/ViewPages/Scanner";
 
 export default async function Main({ profile, data, id, referer }) {
   let card = data?.data?.card || {};
@@ -192,8 +193,8 @@ export default async function Main({ profile, data, id, referer }) {
                         ""
                       )}
                       {MainData?.company_setting?.show_insta_feed == "1" &&
-                      MainData?.company_setting?.insta_feed_url &&
-                      MainData?.plan?.subscription?.plan?.plan_name ==
+                        MainData?.company_setting?.insta_feed_url &&
+                        MainData?.plan?.subscription?.plan?.plan_name ==
                         "Premium" ? (
                         <EmbedPost
                           Card_videos={card?.card_videos}
@@ -211,7 +212,7 @@ export default async function Main({ profile, data, id, referer }) {
                       )}
 
                       {MainData?.company_setting?.appointment_enquiry_method ==
-                      "form" ? (
+                        "form" ? (
                         <ContactForm
                           card_url={profile}
                           Titles={titles}
@@ -225,7 +226,7 @@ export default async function Main({ profile, data, id, referer }) {
                       )}
 
                       {MainData?.custom_forms !== null &&
-                      plan?.is_expired == false ? (
+                        plan?.is_expired == false ? (
                         <div
                           className="mb-3 box-content boxxx mt-0"
                           id="custom_form"
@@ -278,6 +279,8 @@ export default async function Main({ profile, data, id, referer }) {
                                     Titles={titles}
                                   /> */}
                                   <AboutMe Titles={titles} card={card} />
+
+                                  <Scanner />
                                 </>
                               ) : items?.status == "card_services" ? (
                                 <Services
@@ -355,7 +358,7 @@ export default async function Main({ profile, data, id, referer }) {
                                 />
                               ) : items?.status == "card_realestates" ? (
                                 process.env.NEXT_PUBLIC_MODE ===
-                                "development" ? (
+                                  "development" ? (
                                   <Realestate
                                     PlanData={plan}
                                     Titles={titles}
@@ -371,7 +374,7 @@ export default async function Main({ profile, data, id, referer }) {
                                 )
                               ) : items?.status == "EmbedPost" ? (
                                 MainData?.company_setting?.show_insta_feed ==
-                                1 ? (
+                                  1 ? (
                                   <EmbedPost
                                     Card_videos={card?.card_videos}
                                     Card_photos={card?.card_photos}
@@ -408,7 +411,7 @@ export default async function Main({ profile, data, id, referer }) {
                         })}
 
                       {MainData?.custom_forms !== null &&
-                      plan?.is_expired == false ? (
+                        plan?.is_expired == false ? (
                         <div
                           className="mb-3 box-content boxxx mt-0"
                           id="custom_form"

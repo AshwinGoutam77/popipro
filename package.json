@@ -47,6 +47,7 @@
     "react-data-table-component": "^7.5.4",
     "react-datepicker": "^4.21.0",
     "react-dom": "^18",
+    "react-dropzone": "^14.3.5",
     "react-easy-crop": "^5.0.2",
     "react-hot-toast": "^2.4.1",
     "react-modal": "^3.16.1",
@@ -65,7 +66,8 @@
     "styled-components": "^6.1.1",
     "sweetalert2": "^11.7.32",
     "swiper": "^10.3.1",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "tesseract.js": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^8",
