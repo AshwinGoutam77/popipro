@@ -1,12 +1,11 @@
-'use client'
+'use client';
 import React, { useState } from "react";
-import { useDropzone } from "react-dropzone";
 import Tesseract from "tesseract.js";
 
 export default function Scanner() {
     const [image, setImage] = useState(null);
     const [text, setText] = useState(""); // For debugging OCR output
-    const [fields, setFields] = useState({ name: "", contact: "", email: "" });
+    const [fields, setFields] = useState({ name: "", contact: "", email: "", occupation: "", address: "" });
     const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
@@ -37,21 +36,22 @@ export default function Scanner() {
     };
 
     const parseFields = (text) => {
-        // Debug by logging the text input
-        console.log("Parsing Text:", text);
+        console.log("Parsing Text:", text); // Debugging
 
-        // Updated regular expressions
-        const nameRegex = /^(?:Name|Mr\.|Ms\.|Dr\.)?\s*([A-Z][a-zA-Z\s]+)$/m;
+        const nameRegex = /(?:Name|Mr\.|Ms\.|Dr\.|Mrs\.)?\s*([A-Z][a-zA-Z\s]+)$/m;
         const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
         const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/;
+        const occupationRegex = /\b(CEO|Manager|Engineer|Developer|Designer|Director|Consultant|Specialist|Founder|Analyst)\b/i;
+        const addressRegex = /(\d+\s[A-Za-z]+\s(?:Street|St|Avenue|Ave|Road|Rd|Lane|Ln|Boulevard|Blvd|Drive|Dr)\b.*)/i;
 
         return {
             name: (text.match(nameRegex) || [])[1] || "Not found",
             email: (text.match(emailRegex) || [])[0] || "Not found",
             contact: (text.match(phoneRegex) || [])[0] || "Not found",
+            occupation: (text.match(occupationRegex) || [])[0] || "Not found",
+            address: (text.match(addressRegex) || [])[0] || "Not found",
         };
     };
-
 
     return (
         <div className="box-content boxxx">
@@ -67,23 +67,25 @@ export default function Scanner() {
                     {loading ? "Processing..." : "Scan Business Card"}
                 </button>
 
-                {/* Debug: Show Raw Extracted Text */}
-                {text && (
+                
+                {/* {text && (
                     <div>
-                        <h4>Extracted Data</h4>
+                        <h4 className="mt-4">Extracted Data</h4>
                         <p style={{ whiteSpace: "pre-wrap" }}>{text}</p>
                     </div>
-                )}
+                )} */}
 
-                {/* {fields && (
-                    <div>
+                {fields && (
+                    <div className="mt-4">
                         <h2>Extracted Fields</h2>
                         <p><strong>Name:</strong> {fields.name}</p>
                         <p><strong>Contact:</strong> {fields.contact}</p>
                         <p><strong>Email:</strong> {fields.email}</p>
+                        <p><strong>Occupation:</strong> {fields.occupation}</p>
+                        <p><strong>Address:</strong> {fields.address}</p>
                     </div>
-                )} */}
+                )}
             </div>
         </div>
-    )
+    );
 }
