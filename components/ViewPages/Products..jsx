@@ -697,7 +697,8 @@ export default function Product({
         TotalCard_id={TotalCard_id}
       />
 
-      {Titles?.card_products?.is_locked !== 0 &&
+      {Titles?.card_products?.is_active == 0 &&
+        Titles?.card_products?.in_subscription && Titles?.card_products?.is_locked !== 0 &&
         <LockedSection name="card_products" Title={Titles.card_products?.visible_name}
           profile={card_url} />
       }

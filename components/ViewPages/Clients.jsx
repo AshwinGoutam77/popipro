@@ -11,7 +11,10 @@ import LockedSection from "./LockedSection";
 const Clients = ({ card, Titles, PlanData, ClientPhotos, profile }) => {
   return (
     <>
-      {Titles?.card_clients?.is_locked !== 0 &&
+      {Titles?.card_clients.source !== 0 &&
+        card?.card_clients?.length !== 0 &&
+        Titles?.card_clients.is_active !== 0 &&
+        Titles?.card_clients?.in_subscription && Titles?.card_clients?.is_locked !== 0 &&
         <LockedSection name="card_clients" Title={Titles.card_clients?.visible_name}
           profile={profile} />
       }

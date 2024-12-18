@@ -162,7 +162,8 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
             })}
         </Modal.Body>
       </Modal>
-      {Titles?.card_blogs?.is_locked !== 0 &&
+      {Titles.card_blogs?.is_active !== 0 &&
+        Titles?.card_blogs?.in_subscription && Titles?.card_blogs?.is_locked !== 0 &&
         <LockedSection name="card_blogs" Title={Titles.card_blogs?.visible_name}
           profile={card_url} />
       }

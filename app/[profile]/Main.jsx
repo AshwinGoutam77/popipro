@@ -285,7 +285,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   <AboutMe Titles={titles} card={card} profile={profile} />
 
                                   <Documents
-                                    profile={profile} />
+                                    Titles={titles} card={card} profile={profile} />
                                 </>
                               ) : items?.status == "card_services" ? (
                                 <Services

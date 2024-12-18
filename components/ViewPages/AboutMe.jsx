@@ -17,7 +17,8 @@ const AboutMe = ({ card, Titles, profile }) => {
 
   return (
     <>
-      {Titles?.card_description?.is_locked !== 0 &&
+      {card?.card_description !== null &&
+        Titles?.card_description?.is_active !== 0 && Titles?.card_description?.is_locked !== 0 &&
         <LockedSection name="card_description" Title={Titles.card_description?.visible_name} profile={profile} />
       }
       {Titles?.card_description?.source !== 0 &&

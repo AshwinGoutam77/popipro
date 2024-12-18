@@ -218,7 +218,9 @@ const Testimonials = ({
         </Modal.Body>
       </Modal>
 
-      {Titles?.card_testimonials?.is_locked !== 0 &&
+      {Titles?.card_testimonials.source !== 0 &&
+        card?.card_testimonials?.length !== 0 &&
+        Titles?.card_testimonials.is_active !== 0 && Titles?.card_testimonials?.is_locked !== 0 &&
         <LockedSection name="card_testimonials" Title={Titles.card_testimonials?.visible_name}
           profile={profile} />
       }

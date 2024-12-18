@@ -94,9 +94,11 @@ const Work = ({
   return (
     <>
       <SimpleBackdrop visible={false} />
-      {Titles?.card_photos?.is_locked !== 0 &&
-        <LockedSection name="card_photos" Title={Titles.card_photos?.visible_name} 
-        profile={card_url}/>
+      {Card_photos?.length !== 0 &&
+        Titles?.card_photos?.is_active !== 0 &&
+        Titles?.card_photos?.in_subscription && Titles?.card_photos?.is_locked !== 0 &&
+        <LockedSection name="card_photos" Title={Titles.card_photos?.visible_name}
+          profile={card_url} />
       }
       {Card_photos?.length !== 0 &&
         Titles?.card_photos?.is_active !== 0 &&

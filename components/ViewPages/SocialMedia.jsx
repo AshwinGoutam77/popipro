@@ -25,7 +25,8 @@ const SocialMedia = ({ card, Titles, CardLinks, profile }) => {
   };
   return (
     <>
-      {Titles?.card_social_links?.is_locked !== 0 &&
+      {Titles?.card_social_links?.source !== 0 &&
+        card.card_social_links?.length !== 0 && Titles?.card_social_links?.is_locked !== 0 &&
         <LockedSection name="card_social_links" Title={Titles?.card_social_links.visible_name}
           profile={profile} />
       }

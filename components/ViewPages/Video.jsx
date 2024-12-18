@@ -95,7 +95,10 @@ const Video = ({
     <>
       <SimpleBackdrop visible={false} />
 
-      {Titles?.card_videos?.is_locked !== 0 &&
+      {Card_videos?.length !== 0 &&
+        Titles?.card_videos?.source !== 0 &&
+        Titles?.card_videos?.is_active !== 0 &&
+        Titles?.card_videos?.in_subscription &&  Titles?.card_videos?.is_locked !== 0 &&
         <LockedSection name="card_videos" Title={Titles.card_videos?.visible_name}
           profile={card_url} />
       }
