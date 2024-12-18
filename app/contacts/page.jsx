@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './page.css';
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faAddressBook, faAngleLeft, faDownload, faEnvelope, faExpand, faFileExport, faPhone, faPlug, faPlus } from '@node_modules/@fortawesome/free-solid-svg-icons';
@@ -9,10 +9,11 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import "../../styles/about.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Modal, ToastContainer } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 import Scanner from '@components/ViewPages/Scanner';
 import Api from '@services/Api';
-import { SavePhoneBook } from '@services/Routes';
+import { GetPhoneBook, SavePhoneBook } from '@services/Routes';
 import { showToast } from '@components/Dashboard/Toast';
 
 export default function Contact() {
@@ -25,8 +26,9 @@ export default function Contact() {
     const [FormData, setFormData] = useState({
         full_name: "",
         contact_number: "",
-        type: UploadScanner ? "scanner" : "direct"
+        type: "direct"
     })
+    const [PhoneData, setPhoneData] = useState("")
 
     function pad(n, width, z) {
         z = z || "0";
@@ -91,21 +93,34 @@ export default function Contact() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        showToast("response?.data?.message", 'success')
-        return
+        e.preventDefault();
 
         const response = await Api(SavePhoneBook, FormData);
         console.log(response);
 
         if (response?.data?.status) {
             showToast(response?.data?.message, 'success')
+            setShow(false)
             setFormData({
                 full_name: "",
                 contact_number: "",
             })
         }
     }
+
+    const GetContactData = async () => {
+        const response = await Api(GetPhoneBook, {});
+        if (response?.data?.status) {
+            setPhoneData(response?.data?.data?.data)
+            console.log(response?.data?.data);
+
+        }
+    }
+
+    useEffect(() => {
+        GetContactData()
+    }, [])
+
 
     const data = Array(8).fill({
         name: "Ashwin Goutam",
@@ -296,26 +311,24 @@ export default function Contact() {
                                     <Th>Name</Th>
                                     <Th>Contact</Th>
                                     <Th>Email</Th>
-                                    <Th>Date</Th>
                                     <Th>Tags</Th>
                                     <Th>Actions</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {data.map((item, index) => (
+                                {PhoneData && PhoneData?.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.name}</td>
-                                        <td>{item.phone}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.date}</td>
-                                        <td>{item.role}</td>
+                                        <td>{item.full_name}</td>
+                                        <td>{item.contact_number}</td>
+                                        <td>{item.email_address ? item.email_address : "---"}</td>
+                                        <td>{item.type}</td>
                                         <td>
                                             <div
                                                 className="d-flex align-items-center justify-content-left"
                                                 style={{ gap: "20px" }}
                                             >
-                                                <FontAwesomeIcon icon={faPhone} className="text-dark cursor-pointer" />
-                                                <FontAwesomeIcon icon={faEnvelope} className="text-dark cursor-pointer" />
+                                                <a href={'tel:' + item.contact_number}> <FontAwesomeIcon icon={faPhone} className="text-dark cursor-pointer" /></a>
+                                                {item.email_address && <a href={'mailto:' + item.email_address}> <FontAwesomeIcon icon={faEnvelope} className="text-dark cursor-pointer" /></a>}
                                             </div>
                                         </td>
                                     </tr>
@@ -324,12 +337,6 @@ export default function Contact() {
                         </Table>
                     </div>
                 </div>
-            </div>
-            <div
-                className="w-100 text-center text-white p-2 mt-3"
-                style={{ bottom: "0", background: "black" }}
-            >
-                <p> © 2024 - 2025. All Rights Reserved By Popipro.</p>
             </div>
         </>
     )

@@ -277,11 +277,6 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                 />
                               ) : items?.status == "card_description" ? (
                                 <>
-                                  {/* <Events
-                                    subscription={plan}
-                                    card={card}
-                                    Titles={titles}
-                                  /> */}
                                   <AboutMe Titles={titles} card={card} profile={profile} />
 
                                   <Documents

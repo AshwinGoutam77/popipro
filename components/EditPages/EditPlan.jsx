@@ -109,7 +109,7 @@ export default function EditPlan({
             </div>
           </a>
         ) : PlanData?.subscription?.plan_id == null ||
-          PlanData?.subscription?.plan_id == 1 ? (
+          PlanData?.subscription?.plan_id == 0 ? (
           <>
             <div
               className="overlay-div d-flex align-items-start justify-content-end flex-column"
