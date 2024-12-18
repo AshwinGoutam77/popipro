@@ -72,7 +72,7 @@ export const GetVirtualBackground = {
   method: "GET",
 };
 export const SaveToken = { path: "save-firebase-token", method: "POST" };
-export const AddUserCurrency = { path: "update-user-currency", method: "POST" };
+export const GeneralSetting = { path: "general-setting", method: "POST" };
 export const SendPushNotification = { path: "send-push-token", method: "POST" };
 export const GetOverallInsights = {
   path: "get-overall-insights",
@@ -142,3 +142,15 @@ export const GlobalPaymentLink = {
   path: "add-global-payment-link",
   method: "POST",
 };
+
+export const GetProductsOrder = {
+  path: "get-product-order", method: "GET"
+}
+
+export const SavePhoneBook = {
+  path: "save-phone-book", method: "POST"
+}
+
+export const GetPhoneBook = {
+  path: "get-phone-book", method: "GET"
+}

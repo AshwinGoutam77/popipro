@@ -6,19 +6,24 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
+import LockedSection from "./LockedSection";
 
-const Clients = ({ card, Titles, PlanData, ClientPhotos }) => {
+const Clients = ({ card, Titles, PlanData, ClientPhotos, profile }) => {
   return (
     <>
+      {Titles?.card_clients?.is_locked !== 0 &&
+        <LockedSection name="card_clients" Title={Titles.card_clients?.visible_name}
+          profile={profile} />
+      }
       {Titles?.card_clients.source !== 0 &&
-      card?.card_clients?.length !== 0 &&
-      Titles?.card_clients.is_active !== 0 &&
-      Titles?.card_clients?.in_subscription ? (
+        card?.card_clients?.length !== 0 &&
+        Titles?.card_clients.is_active !== 0 &&
+        Titles?.card_clients?.in_subscription && Titles?.card_clients?.is_locked == 0 ? (
         <section className="box-content boxxx">
           {/* <!-- Clients --> */}
           {Titles &&
-          Titles?.card_clients.is_active &&
-          ClientPhotos?.length !== 0 ? (
+            Titles?.card_clients.is_active &&
+            ClientPhotos?.length !== 0 ? (
             <div className="mt-0">
               <h2 className="title title--h1 title title--h1 first-title title__separate">
                 {Titles && Titles?.card_clients.visible_name === "card_clients"

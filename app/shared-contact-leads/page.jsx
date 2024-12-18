@@ -74,11 +74,11 @@ const Leads = () => {
         ShareContactLeads,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -323,10 +323,10 @@ const Leads = () => {
                         <p className="w-100">
                           {item.detail?.state
                             ? item.detail?.city +
-                              ", " +
-                              item.detail?.state +
-                              ", " +
-                              item.detail?.country
+                            ", " +
+                            item.detail?.state +
+                            ", " +
+                            item.detail?.country
                             : item.detail?.city + ", " + item.detail?.country}
                         </p>
                       ) : (
@@ -451,7 +451,7 @@ const Leads = () => {
                         </Thead>
                         <Tbody>
                           {Data?.leads?.length === 0 ||
-                          Data?.leads_permissions?.sharecontact == 0 ? (
+                            Data?.leads_permissions?.sharecontact == 0 ? (
                             <Tr>
                               <Td className="p-3 color-black" colspan="5">
                                 {Data?.leads_permissions?.sharecontact !== 1
@@ -490,13 +490,13 @@ const Leads = () => {
                                     <Td data-column="created date">
                                       {item.detail?.state
                                         ? item.detail?.city +
-                                          ", " +
-                                          item.detail?.state +
-                                          ", " +
-                                          item.detail?.country
+                                        ", " +
+                                        item.detail?.state +
+                                        ", " +
+                                        item.detail?.country
                                         : item.detail?.city +
-                                          ", " +
-                                          item.detail?.country}
+                                        ", " +
+                                        item.detail?.country}
                                     </Td>
                                   ) : (
                                     <Td>---</Td>

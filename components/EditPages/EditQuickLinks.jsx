@@ -22,6 +22,7 @@ import Api from "@services/Api";
 import Modal from "react-bootstrap/Modal";
 import EditPlan from "./EditPlan";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditCustomLink({
   APIDATA,
@@ -44,9 +45,11 @@ export default function EditCustomLink({
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
   const [CustomLinkTitle, setCustomLinkTitle] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setCustomLinkTitle(TitleData?.card_custom_url?.visible_name);
+    setIsLocked(TitleData?.card_custom_url?.is_locked == "1" ? true : false);
   }, []);
 
   useEffect(() => {
@@ -73,20 +76,20 @@ export default function EditCustomLink({
     } else {
       id !== null
         ? (custom_urls = [
-            {
-              title: LinkLabel,
-              link: LinkName,
-              tag: Tags,
-              saved_custom_url: id,
-            },
-          ])
+          {
+            title: LinkLabel,
+            link: LinkName,
+            tag: Tags,
+            saved_custom_url: id,
+          },
+        ])
         : (custom_urls = [
-            {
-              title: LinkLabel,
-              link: LinkName,
-              tag: Tags,
-            },
-          ]);
+          {
+            title: LinkLabel,
+            link: LinkName,
+            tag: Tags,
+          },
+        ]);
     }
     // });
     if (error) {
@@ -296,6 +299,22 @@ export default function EditCustomLink({
     });
   };
 
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_custom_url",
+        visible_name: TitleData?.card_custom_url?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleCanclebtn} centered>
@@ -490,7 +509,7 @@ export default function EditCustomLink({
 
               <div>
                 {TitleData?.card_custom_url?.source == "2" &&
-                TitleData?.card_custom_url?.in_subscription ? (
+                  TitleData?.card_custom_url?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -524,7 +543,7 @@ export default function EditCustomLink({
                             )}
                           </div>
                           {TitleData?.card_custom_url?.row_limit <=
-                          Data?.card_custom_url?.length ? (
+                            Data?.card_custom_url?.length ? (
                             <button
                               className="addmore"
                               onClick={handleUpgradePlan}
@@ -600,7 +619,7 @@ export default function EditCustomLink({
                 return (
                   <div className="alternate-number-div" key={index}>
                     {TitleData?.card_custom_url?.source == "2" &&
-                    TitleData?.card_custom_url?.in_subscription ? (
+                      TitleData?.card_custom_url?.in_subscription ? (
                       <FontAwesomeIcon
                         icon={faXmarkCircle}
                         className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
@@ -625,9 +644,9 @@ export default function EditCustomLink({
                       <a
                         href={
                           item &&
-                          item.link &&
-                          (item.link?.includes("http://") ||
-                            item.link?.includes("https://"))
+                            item.link &&
+                            (item.link?.includes("http://") ||
+                              item.link?.includes("https://"))
                             ? item.link
                             : "https://" + item.link
                         }
@@ -642,9 +661,9 @@ export default function EditCustomLink({
                           <a
                             href={
                               item &&
-                              item.link &&
-                              (item.link?.includes("http://") ||
-                                item.link?.includes("https://"))
+                                item.link &&
+                                (item.link?.includes("http://") ||
+                                  item.link?.includes("https://"))
                                 ? item.link
                                 : "https://" + item.link
                             }
@@ -663,8 +682,8 @@ export default function EditCustomLink({
                         </div>
                       </a>
                       {TitleData?.card_services?.source == "2" &&
-                      PlanData?.is_expired == false &&
-                      PlanData?.subscription?.plan_id !== 1 ? (
+                        PlanData?.is_expired == false &&
+                        PlanData?.subscription?.plan_id !== 1 ? (
                         <FontAwesomeIcon
                           data-toggle="modal"
                           data-target="#CustomLinkModalEdit"
@@ -691,6 +710,17 @@ export default function EditCustomLink({
                   </div>
                 );
               })}
+            </div>
+            <div className="mt-4">
+              <label htmlFor="url-password">
+                <input
+                  type="checkbox"
+                  id="url-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
             </div>
           </div>
         </div>

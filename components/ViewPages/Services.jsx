@@ -2,24 +2,27 @@
 import { Swiper as SwiperComponent } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
-import Image from "next/image";
+import LockedSection from "./LockedSection";
 
-const Services = ({ Titles, card, subscription }) => {
+const Services = ({ Titles, card, subscription, profile }) => {
   return (
     <>
+      {Titles?.card_services?.is_locked !== 0 &&
+        <LockedSection name="card_services" Title={Titles?.card_services.visible_name}
+          profile={profile} />
+      }
       {Titles?.card_services.source !== 0 &&
-      card?.card_services?.length !== 0 &&
-      Titles?.card_services.is_active !== 0 &&
-      Titles?.card_services?.in_subscription ? (
+        card?.card_services?.length !== 0 &&
+        Titles?.card_services.is_active !== 0 &&
+        Titles?.card_services?.in_subscription && Titles?.card_services?.is_locked == 0 ? (
         <div className="box-content boxxx" id="card_services">
-          {/* <!-- What --> */}
           {Titles &&
-          Titles?.card_services.is_active &&
-          card?.card_services?.length !== 0 ? (
+            Titles?.card_services.is_active &&
+            card?.card_services?.length !== 0 ? (
             <div className="mt-0">
               <h2 className="title title--h1 first-title title__separate">
                 {Titles &&
-                Titles?.card_services.visible_name === "card_services"
+                  Titles?.card_services.visible_name === "card_services"
                   ? "Card Services"
                   : Titles?.card_services.visible_name}
               </h2>
@@ -53,22 +56,22 @@ const Services = ({ Titles, card, subscription }) => {
                                   type="image/png"
                                   srcSet={
                                     process.env.NEXT_PUBLIC_MODE ==
-                                    "development"
+                                      "development"
                                       ? "https://dev.popipro.com/" +
-                                        item?.image?.path
+                                      item?.image?.path
                                       : "https://admin.popipro.com/" +
-                                        item?.image?.path
+                                      item?.image?.path
                                   }
                                 />
                                 <img
                                   className="case-item__icon"
                                   src={
                                     process.env.NEXT_PUBLIC_MODE ==
-                                    "development"
+                                      "development"
                                       ? "https://dev.popipro.com/" +
-                                        item?.image?.path
+                                      item?.image?.path
                                       : "https://admin.popipro.com/" +
-                                        item?.image?.path
+                                      item?.image?.path
                                   }
                                   alt="photos"
                                   width={0}

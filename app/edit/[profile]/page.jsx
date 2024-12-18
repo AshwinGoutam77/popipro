@@ -33,6 +33,7 @@ import SocailVisits from "@components/EditPages/SocailVisits";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import EditDocument from "@components/EditPages/EditDocument";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -136,7 +137,7 @@ const Page = () => {
                 card={profile}
                 APIDATA={getProfileData}
                 MainData={cardData}
-                updateImage={() => {}}
+                updateImage={() => { }}
               />
               <div className="row sticky-parent">
                 <aside
@@ -168,6 +169,13 @@ const Page = () => {
                     PlanData={cardData?.plan}
                     CardLinks={cardData?.card?.card_social_links}
                   />
+
+                  <EditDocument Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    PlanData={cardData?.plan}
+                    APIDATA={getProfileData} />
+
                   <EditAlternateNo
                     Data={cardData?.card}
                     MainData={cardData}

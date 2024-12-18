@@ -27,6 +27,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditClients({
   APIDATA,
@@ -45,9 +46,11 @@ export default function EditClients({
   const [EditFields, setEditFields] = useState(false);
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [ClientName, setClientName] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setClientName(TitleData?.card_clients?.visible_name);
+    setIsLocked(TitleData?.card_clients?.is_locked == "1" ? true : false);
   }, []);
 
   useEffect(() => {
@@ -276,6 +279,22 @@ export default function EditClients({
     }
   };
 
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_clients",
+        visible_name: TitleData?.card_clients?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       {TitleData?.card_clients?.source !== 0 ? (
@@ -303,7 +322,7 @@ export default function EditClients({
                     onChange={(e) => setClientName(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData?.card_clients?.visible_name == "card_clients"
+                        TitleData?.card_clients?.visible_name == "card_clients"
                         ? "Clients Sections"
                         : TitleData?.card_clients?.visible_name
                     }
@@ -313,7 +332,7 @@ export default function EditClients({
                   <>
                     <h2 className="title title--h1 first-title title__separate">
                       {TitleData &&
-                      TitleData?.card_clients?.visible_name == "card_clients"
+                        TitleData?.card_clients?.visible_name == "card_clients"
                         ? "Card Clients"
                         : TitleData?.card_clients?.visible_name}
                     </h2>
@@ -321,7 +340,7 @@ export default function EditClients({
                 )}
               </div>
               {TitleData?.card_clients?.source == "2" &&
-              TitleData?.card_clients?.in_subscription ? (
+                TitleData?.card_clients?.in_subscription ? (
                 <div>
                   <div className="web-edit-icons">
                     <div className="d-flex align-items-center">
@@ -527,7 +546,7 @@ export default function EditClients({
                         <SwiperSlide key={index}>
                           <div className="w-100" key={index}>
                             {TitleData?.card_clients?.source == "2" &&
-                            TitleData?.card_clients?.in_subscription ? (
+                              TitleData?.card_clients?.in_subscription ? (
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 onClick={() =>
@@ -556,6 +575,17 @@ export default function EditClients({
                 </div>
               </SwiperComponent>
             )}
+            <div className="mt-4">
+              <label htmlFor="client-password">
+                <input
+                  type="checkbox"
+                  id="client-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </div>
         </div>
       ) : (

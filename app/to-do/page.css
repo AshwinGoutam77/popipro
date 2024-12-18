@@ -1,0 +1,52 @@
+.address-contact-btn-section {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.contact-btns {
+    background-color: white;
+    min-width: 254px;
+    max-width: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+    border: 1px solid #cccccc9c;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.contact-btns:hover {
+    background-color: var(--color);
+
+    & svg {
+        background-color: white;
+        color: black !important;
+    }
+
+    & p {
+        color: white;
+    }
+}
+
+
+.contact-btns svg {
+    background-color: var(--color);
+    padding: 8px;
+    height: 16px;
+    width: 16px;
+    border-radius: 100px;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.contact-btns p {
+    margin: 0;
+    font-size: 16px !important;
+    font-weight: 600;
+    color: black;
+}

@@ -3,8 +3,10 @@ import ShareContact from "@components/Modals/Share-contact";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import LockedSection from "./LockedSection";
 
-const AboutMe = ({ card, Titles }) => {
+const AboutMe = ({ card, Titles, profile }) => {
+
   const [Readmore, setReadmore] = useState(false);
   const HandleReadmore = () => {
     setReadmore(true);
@@ -15,13 +17,16 @@ const AboutMe = ({ card, Titles }) => {
 
   return (
     <>
+      {Titles?.card_description?.is_locked !== 0 &&
+        <LockedSection name="card_description" Title={Titles.card_description?.visible_name} profile={profile} />
+      }
       {Titles?.card_description?.source !== 0 &&
-      card?.card_description !== null &&
-      Titles?.card_description?.is_active !== 0 ? (
+        card?.card_description !== null &&
+        Titles?.card_description?.is_active !== 0 && Titles?.card_description?.is_locked == 0 ? (
         <div className="box-content boxxx mt-1" id="card_description">
           {/* <!-- About --> */}
           {Titles?.card_description?.is_active &&
-          card?.card_description !== null ? (
+            card?.card_description !== null ? (
             <div className="pb-0 pb-sm-2">
               <div className="flex-header">
                 <h2 className="title title--h1 first-title title__separate">
@@ -38,7 +43,7 @@ const AboutMe = ({ card, Titles }) => {
                 }}
               ></div>
               {card?.card_description?.length > "480" ||
-              card?.card_description == null ? (
+                card?.card_description == null ? (
                 <p
                   className="read-more text-align-end"
                   onClick={HandleReadmore}

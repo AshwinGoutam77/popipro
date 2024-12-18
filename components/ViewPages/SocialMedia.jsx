@@ -3,8 +3,9 @@ import Api from "@services/Api";
 import { HitClickApi } from "@services/Routes";
 import Link from "next/link";
 import React from "react";
+import LockedSection from "./LockedSection";
 
-const SocialMedia = ({ card, Titles, CardLinks }) => {
+const SocialMedia = ({ card, Titles, CardLinks, profile }) => {
   let links = [];
   const HitClick = async (type, social, id) => {
     try {
@@ -24,8 +25,12 @@ const SocialMedia = ({ card, Titles, CardLinks }) => {
   };
   return (
     <>
+      {Titles?.card_social_links?.is_locked !== 0 &&
+        <LockedSection name="card_social_links" Title={Titles?.card_social_links.visible_name}
+          profile={profile} />
+      }
       {Titles?.card_social_links?.source !== 0 &&
-      card.card_social_links?.length !== 0 ? (
+        card.card_social_links?.length !== 0 && Titles?.card_social_links?.is_locked == 0 ? (
         <div className="box-content boxxx">
           <h2 className="title title--h1 first-title title__separate">
             {Titles?.card_social_links?.visible_name}

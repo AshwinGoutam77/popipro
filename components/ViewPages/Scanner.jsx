@@ -54,37 +54,28 @@ export default function Scanner() {
     };
 
     return (
-        <div className="box-content boxxx">
-            <div className="flex-header">
-                <h2 className="title title--h1 first-title title__separate">
-                    AI-Powered Business Card Scanner
-                </h2>
-            </div>
+        <div className="px-2">
+            <p>Upload Business Card</p>
             <div>
-                <input type="file" accept="image/*" className="form-control" onChange={handleFileChange} />
+                <input type="file" accept="image/*" className="form-control mb-2" onChange={handleFileChange} />
                 {image && <img src={image} alt="Uploaded Card" className="my-4" style={{ maxWidth: "100%" }} />}
-                <button onClick={processImage} disabled={loading} className="contact-btn w-auto mt-4">
+                { image && !text && <button onClick={processImage} disabled={loading} className="contact-btn w-auto mt-2">
                     {loading ? "Processing..." : "Scan Business Card"}
-                </button>
+                </button>}
 
-                
-                {/* {text && (
-                    <div>
-                        <h4 className="mt-4">Extracted Data</h4>
-                        <p style={{ whiteSpace: "pre-wrap" }}>{text}</p>
-                    </div>
-                )} */}
-
-                {fields && (
+                {fields && text && (
                     <div className="mt-4">
-                        <h2>Extracted Fields</h2>
-                        <p><strong>Name:</strong> {fields.name}</p>
-                        <p><strong>Contact:</strong> {fields.contact}</p>
-                        <p><strong>Email:</strong> {fields.email}</p>
-                        <p><strong>Occupation:</strong> {fields.occupation}</p>
-                        <p><strong>Address:</strong> {fields.address}</p>
+                        <h5 className="text-dark">Extracted Fields</h5>
+                        <p className="text-dark"><strong>Name:</strong> {fields.name}</p>
+                        <p className="text-dark"><strong>Contact:</strong> {fields.contact}</p>
+                        <p className="text-dark"><strong>Email:</strong> {fields.email}</p>
+                        <p className="text-dark"><strong>Occupation:</strong> {fields.occupation}</p>
+                        <p className="text-dark"><strong>Address:</strong> {fields.address}</p>
                     </div>
                 )}
+
+                {fields && text && <button className="contact-btn w-auto my-4">Create Contact</button>}
+
             </div>
         </div>
     );

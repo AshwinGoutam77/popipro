@@ -15,6 +15,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { showToast } from "./Toast";
 
 export default function Cart({ active, handleClose, MainData, cartId, card_url }) {
   const {
@@ -30,6 +31,8 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
   const [SuccessBtn, setSuccessBtn] = useState(false);
   const [Scanner, setScanner] = useState(false);
   const [totalPrice, setTotalPrice] = useState("");
+  const [OrderData, setOrderData] = useState("");
+  const [LoadingOrder, setLoadingOrder] = useState(false)
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -72,6 +75,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
 
   const handleform = async (e) => {
     e.preventDefault();
+    setLoadingOrder(true)
 
     const products_detail = cartItems.map((item) => ({
       product_id: item.id,
@@ -87,17 +91,10 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     try {
       const response = await Api(OrderProduct, dataToSend);
       if (response.data.status) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(response.data.message, "success");
         setSuccessBtn(true);
+        setLoadingOrder(false)
+        setOrderData(response?.data?.data)
         setFormData({
           user_name: "",
           phone_number: "",
@@ -107,16 +104,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
         setCartItems([]);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(error?.response?.data?.message, "success");
     }
   };
 
@@ -144,6 +132,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     //   handleHide();
     // }
   }, [cartItems]);
+
 
   return (
     <Modal show={active} onHide={() => handleHide()} centered>
@@ -326,9 +315,11 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                       placeholder="Enter Message"
                     ></textarea>
 
-                    <button className="contact-btn w-auto mt-3" type="submit">
+                    {LoadingOrder ? <button disabled className="contact-btn w-auto mt-3">
+                      Loading...
+                    </button> : <button className="contact-btn w-auto mt-3" type="submit">
                       Place your Order
-                    </button>
+                    </button>}
                   </form>
                 </div>
               </>
@@ -339,15 +330,24 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                   alt="image"
                   width='90px'
                 />
-                <h6 className="mt-3">
-                  Thank you for placing your order. Your order is currently pending.
-                  To complete the process, please make the payment using the <span className="primary-color">Pay Now</span> button. Once the payment is made, kindly share the screenshot via WhatsApp or
-                  send it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </h6>
+                <p className="my-3 font-weight-bold">
+                  Thank you for your order! To complete it, please make the payment using the Pay Now button.
+                  Share the payment screenshot via WhatsApp or email it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </p>
+
+                <p className="font-weight-bold">Your Order ID :{OrderData?.order_id} </p>
+                <p className="font-weight-bold">Your Customer ID :{OrderData?.customer_id} </p>
+                <h6 className="mt-3">Total Amount: {MainData?.company_setting?.currency?.currency}{OrderData?.total_price}</h6>
                 <div className="">
                   <button className="contact-btn w-auto">
                     <Link href={MainData?.company_setting?.payment_link} target="_blank">Pay Now</Link>
                   </button>
                 </div>
+
+                {MainData?.company_setting?.payment_qr && <div className="mt-2">
+                  <p className="mb-2">Or</p>
+                  <img src={"https://dev.popipro.com/" + MainData?.company_setting?.payment_qr.path}
+                    alt="qr-image" width={'160px'} />
+                </div>}
               </div>
             )}
           </div>

@@ -1,43 +1,51 @@
-import React, { Suspense } from "react";
-import { headers } from "next/headers";
+"use client";
+import React, { Suspense, useEffect, useState } from "react";
+// import { headers } from "next/headers";
 import "../../styles/about.css";
 import "../../styles/edit.css";
 import Main from "./Main";
+import { useAuthContext } from "@context/AuthContext";
 
-export async function generateMetadata({ params, searchParams }) {
+// export async function generateMetadata({ params, searchParams }) {
+//   const { profile } = params;
+//   const data = (await getProfileData(profile)) || {};
+//   let regex = /(<([^>]+)>)/gi;
+//   let card = data?.data?.card || {};
+//   let title = card?.meta_title
+//     ? card?.meta_title
+//     : card.first_name
+//       ? card?.first_name + " - " + card?.card_profession
+//       : "Popipro";
+//   let description = card?.meta_description
+//     ? card?.meta_description?.replace(regex, "")
+//     : card?.card_description?.replace(regex, "");
+//   description = description?.replace(/<(.|\n)*?>/g, "").substring(0, 159);
+
+//   return {
+//     title,
+//     description,
+//     robots: "noindex",
+//     openGraph: {
+//       title,
+//       description,
+//       type: "website",
+//       images:
+//         data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path,
+//     },
+//   };
+// }
+
+const ProfilePage = ({ params }) => {
+  const { fetchData, data } = useAuthContext();
+  // const headersList = headers();
+  const referer = null;//headersList.get("referer");
   const { profile } = params;
-  const data = (await getProfileData(profile)) || {};
-  let regex = /(<([^>]+)>)/gi;
-  let card = data?.data?.card || {};
-  let title = card?.meta_title
-    ? card?.meta_title
-    : card.first_name
-    ? card?.first_name + " - " + card?.card_profession
-    : "Popipro";
-  let description = card?.meta_description
-    ? card?.meta_description?.replace(regex, "")
-    : card?.card_description?.replace(regex, "");
-  description = description?.replace(/<(.|\n)*?>/g, "").substring(0, 159);
+  // const data = (await getProfileData(profile)) || {};
 
-  return {
-    title,
-    description,
-    robots: "noindex",
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      images:
-        data?.data?.card?.base_url + data?.data?.card?.profile_picture?.path,
-    },
-  };
-}
+  useEffect(() => {
+    fetchData(profile);
+  }, []);
 
-const ProfilePage = async ({ params}) => {
-  const headersList = headers();
-  const referer = headersList.get("referer");
-  const { profile } = params;
-  const data = (await getProfileData(profile)) || {};
 
   let DataDecription = data?.data?.card?.card_description?.substring(0, 160);
   const jsonLd = `{
@@ -83,6 +91,7 @@ const ProfilePage = async ({ params}) => {
           data={data}
           id={data?.data?.card?.id}
           referer={referer}
+          fetchData={fetchData}
         />
       </Suspense>
     </>
@@ -91,17 +100,17 @@ const ProfilePage = async ({ params}) => {
 
 export default ProfilePage;
 
-const getProfileData = async (profile) => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_MODE == "development"
-      ? `https://dev.popipro.com/api/get-card-data/?card_url=${profile}`
-      : `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
-    { cache: "no-store" },
-    { next: { revalidate: 0 } }
-  );
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-  }
-};
+// const getProfileData = async (profile) => {
+//   const response = await fetch(
+//     process.env.NEXT_PUBLIC_MODE == "development"
+//       ? `https://dev.popipro.com/api/get-card-data/?card_url=${profile}`
+//       : `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
+//     { cache: "no-store" },
+//     { next: { revalidate: 0 } }
+//   );
+//   if (response.ok) {
+//     const data = await response.json();
+//     return data;
+//   } else {
+//   }
+// };

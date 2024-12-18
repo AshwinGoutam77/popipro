@@ -52,6 +52,7 @@ import TagsModal from "@components/Dashboard/TagsModal";
 import { Tooltip } from "@mui/material";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditProducts({
   APIDATA,
@@ -106,10 +107,12 @@ export default function EditProducts({
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [EditRadioBtn, setEditRadioBtn] = useState("");
+  const [EditPaymentBtn, setEditPaymentBtn] = useState("")
   const [CategoryId, setCategoryId] = React.useState(null);
   const [Category, setCategory] = useState("");
   const [modalShow, setModalShow] = useState("");
   const [PaymentLink, setPaymentLink] = useState("")
+  const [isLocked, setIsLocked] = useState(false);
 
   const ShowModalID = (id) => {
     handleProductShow();
@@ -123,6 +126,7 @@ export default function EditProducts({
 
   useEffect(() => {
     setActive(TitleData?.card_products?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_products?.is_locked == "1" ? true : false);
   }, [TitleData]);
   const aRef = useRef(null);
 
@@ -140,55 +144,29 @@ export default function EditProducts({
             ? "Gallery images can't be more than 3"
             : "";
     } else {
-      id !== null
-        ? (data = [
-          {
-            products_image: Image,
-            gallery: GalleryImages ? [...GalleryImages] : "",
-            products_name: ProductHeading,
-            products_description: ServicesDescription,
-            products_url: ProductUrl,
-            products_price: ProductPrice,
-            products_currency: MainData?.company_setting?.currency?.id,
-            button_placeholder: AddLabel,
-            is_label: EditRadioBtn ? 1 : 0,
-            label: ProductLabel,
-            categories: [CategoryId?.value],
-            youtube_link: ProductVideo,
-            payment_link: PaymentLink,
-            saved_products: id,
-          },
-        ])
-        : (data = [
-          {
-            products_image: Image,
-            gallery: GalleryImages ? [...GalleryImages] : "",
-            products_name: ProductHeading,
-            products_description: ServicesDescription,
-            products_url: ProductUrl,
-            products_price: ProductPrice,
-            products_currency: MainData?.company_setting?.currency?.id,
-            button_placeholder: AddLabel,
-            is_label: PriceRadio ? 0 : 1,
-            label: ProductLabel,
-            youtube_link: ProductVideo,
-            payment_link: PaymentLink,
-            categories: [CategoryId?.value],
-          },
-        ]);
+      data = [
+        {
+          products_image: Image,
+          gallery: GalleryImages ? [...GalleryImages] : "",
+          products_name: ProductHeading,
+          products_description: ServicesDescription,
+          products_url: ProductUrl,
+          products_price: ProductPrice,
+          products_currency: MainData?.company_setting?.currency?.id,
+          button_placeholder: AddLabel,
+          is_label: EditRadioBtn ? 1 : 0,
+          label: ProductLabel,
+          categories: [CategoryId?.value],
+          youtube_link: ProductVideo,
+          payment_link: PaymentLink,
+          show_payment_link: GeneralLinkBtn ? 0 : 1,
+          saved_products: id !== null ? id : "",
+        },
+      ]
     }
     if (error) {
       setShowLoader(false);
-      toast.error(mess, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(mess, "error");
       return;
     }
 
@@ -201,16 +179,7 @@ export default function EditProducts({
         handleEditClose();
         setPriceRadio(true);
         setPage(2);
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(response.data.message, "success");
         setServicesDescription("");
         setProductHeading("");
         setProductUrl("");
@@ -327,7 +296,7 @@ export default function EditProducts({
     button_placeholder,
     item_youtube_link,
     item_category,
-    items_payment_link
+    items_payment_link, item_show_payment_link
   ) => {
     setModalId(id);
     handleEditShow();
@@ -340,6 +309,7 @@ export default function EditProducts({
     setProductPriceValue(currency);
     setAddLabel(button_placeholder);
     setEditRadioBtn(item_label);
+    setEditPaymentBtn(item_show_payment_link)
     setProductVideo(item_youtube_link);
     setPaymentLink(items_payment_link)
     item_category.map((option) => {
@@ -468,6 +438,7 @@ export default function EditProducts({
       setLabelRadio(true);
     }
   };
+
   const handleProductsbtn = async (type) => {
     try {
       const response = await Api(ProductEnquiryBtns, {}, "?type=" + type);
@@ -498,15 +469,16 @@ export default function EditProducts({
     }
   };
 
-
   const handleGeneralLink = (e) => {
+    setEditPaymentBtn(0)
     setPaymentLinkBtn(false)
     if (GeneralLinkBtn == false) {
       setGeneralLinkBtn(true)
     }
   };
 
-  const handlePaymentLink = () => {
+  const handlePaymentLink = (e) => {
+    setEditPaymentBtn(1)
     setGeneralLinkBtn(false)
     if (PaymentLinkBtn == false) {
       setPaymentLinkBtn(true)
@@ -646,6 +618,22 @@ export default function EditProducts({
         }
       }
     });
+  };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_products",
+        visible_name: TitleData?.card_products?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
   };
 
   return (
@@ -790,13 +778,13 @@ export default function EditProducts({
                     className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
                     style={{ gap: "10px" }}
                   >
-                    {item.url !== "" ? (
+                    {item.url !== "" || item.payment_link !== null ? (
                       <a
                         href={
                           item?.url?.includes("http://") ||
                             item?.url?.includes("https://")
-                            ? item?.url
-                            : "https://" + item?.url
+                            ? (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
+                            : "https://" + (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
                         }
                         target="_blank"
                         className="mt-1 send-btnn w-auto mb-0"
@@ -1405,45 +1393,76 @@ export default function EditProducts({
                       </div>
                     </>
                   )}
+
+                  <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        id="general"
+                        name="payment_link"
+                        value={0}
+                        checked={EditPaymentBtn == 0 ? true : false}
+                        onChange={(e) => handleGeneralLink(e.target.value)}
+                      />{" "}
+                      <label htmlFor="general" className="ml-2 mb-0">
+                        General Link
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center ml-3">
+                      <input
+                        type="radio"
+                        id="payment"
+                        name="payment_link"
+                        value={1}
+                        checked={EditPaymentBtn == 1 ? true : false}
+                        onChange={(e) => handlePaymentLink(e.target.value)}
+                      />{" "}
+                      <label htmlFor="payment" className="ml-2 mb-0">
+                        Payment Link
+                      </label>
+                    </div>
+                  </div>
+
                   <div
                     className="d-flex align-items-center w-100"
                     style={{ gap: "10px" }}
                   >
                     <div className="w-100">
-                      <label className="modalFormLable">
-                        Label of URL / Link
-                      </label>
+                      <label className="modalFormLable">Label of URL / link</label>
                       <input
                         name="url"
                         rows="4"
                         cols="50"
                         className="form-control mb-4 mt-1"
                         value={AddLabel}
-                        placeholder="Label"
-                        style={{
-                          height: "40px",
-                          border: "1px solid #ccc",
-                        }}
+                        placeholder="URL / link"
                         onChange={(e) => setAddLabel(e.target.value)}
                       ></input>
                     </div>
-                    <div className="w-100">
-                      <label className="modalFormLable">URL / Link</label>
+                    {EditPaymentBtn == 0 ? <div className="w-100">
+                      <label className="modalFormLable">General Link</label>
                       <input
                         name="url"
                         rows="4"
                         cols="50"
                         className="form-control mb-4 mt-1 w-100"
                         value={ProductUrl}
-                        placeholder="URL / link"
-                        style={{
-                          height: "40px",
-                          border: "1px solid #ccc",
-                        }}
+                        placeholder="Url"
                         onChange={(e) => setProductUrl(e.target.value)}
                       ></input>
-                    </div>
+                    </div> :
+                      <div className="w-100">
+                        <label className="modalFormLable">Payment Link</label>
+                        <input
+                          name="url"
+                          className="form-control mb-4 mt-1"
+                          value={PaymentLink}
+                          placeholder="payment link"
+                          onChange={(e) => setPaymentLink(e.target.value)}
+                        ></input>
+                      </div>}
                   </div>
+
                   <label className="modalFormLable">Enter Video URL</label>
                   <input
                     name="name"
@@ -1454,18 +1473,6 @@ export default function EditProducts({
                     placeholder="Video Url"
                     onChange={(e) => setProductVideo(e.target.value)}
                   ></input>
-                  <div>
-                    <label className="modalFormLable">Enter Payment Link</label>
-                    <input
-                      name="name"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1"
-                      value={PaymentLink}
-                      placeholder="Video Url"
-                      onChange={(e) => setPaymentLink(e.target.value)}
-                    ></input>
-                  </div>
                   <div className="">
                     <div className="d-flex align-items-center">
                       <label className="modalFormLable ml-0 pl-1">
@@ -2060,7 +2067,8 @@ export default function EditProducts({
                                     items.button_placeholder,
                                     items?.youtube_link,
                                     items?.categories,
-                                    items?.payment_link
+                                    items?.payment_link,
+                                    items?.show_payment_link
                                   )
                                 }
                               >
@@ -2158,6 +2166,18 @@ export default function EditProducts({
               ) : (
                 ""
               )}
+
+              <div className="mt-4">
+                <label htmlFor="product-password">
+                  <input
+                    type="checkbox"
+                    id="product-password"
+                    checked={isLocked}
+                    onChange={handleShowSection}
+                  />{" "}
+                  Private the section
+                </label>
+              </div>
             </div>
           </div>
         </>

@@ -2324,6 +2324,32 @@ td {
   width: 6px;
 }
 
+.cart-order-summarymodal table tr td {
+  color: #000;
+  font-weight: 500;
+}
+
+.cart-order-summarymodal table tr {
+  border-bottom: 1px solid #cccccca2;
+}
+
+.cart-order-summarymodal table tr:last-child {
+  border: none;
+}
+
+.cart-order-summarymodal .box-shadow-leads {
+  margin: 0 !important;
+  margin-left: 0 !important;
+}
+
+.cart-order-summarymodal table tr td.pending {
+  color: red;
+}
+
+.cart-order-summarymodal table tr td.success {
+  color: green;
+}
+
 
 .cart-product-div::-webkit-scrollbar-track {
   background: #f1f1f1;
@@ -2341,6 +2367,94 @@ td {
 
 .cart-product-div::-webkit-scrollbar-corner {
   background: #f1f1f1;
+}
+
+.document-section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.document-div {
+  background: aliceblue;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.document-div img {
+  background: white;
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.document-div a {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.document-div a:hover {
+  color: #000;
+}
+
+.setting-modal .nav.nav-tabs {
+  border: none;
+  gap: 9px;
+  justify-content: center !important;
+  background-color: #cccccc54;
+  padding: 6px;
+  /* border-radius: 16px; */
+}
+
+.tab-content>.tab-pane.active {
+  background-color: transparent !important;
+}
+
+.setting-modal .nav-tabs .nav-link {
+  background-color: white;
+  border: 1px solid #24b1e6;
+  color: #24b1e6;
+  border-radius: 6px !important;
+}
+
+.setting-modal .nav-tabs .nav-link.active {
+  border: 1px solid transparent;
+  background: #24b1e6;
+  color: white;
+}
+
+.password-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  gap: 11px;
+  height: 100%;
+}
+
+.password-input-section {
+  background-color: #f7f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 10px 0 0;
+}
+
+.password-input-section svg {
+  color: #2d2d2d;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.list-style-none{
+  list-style: none;
 }
 
 
@@ -2388,6 +2502,18 @@ td {
 @media (max-width: 768px) {
   .cart-section img {
     height: auto;
+  }
+
+  .dashboard-banner-container {
+    padding: 0 15px !important;
+  }
+
+  .document-div {
+    padding: 16px;
+  }
+
+  .document-div a {
+    font-size: 12px;
   }
 
   .mobile-contact-btn {

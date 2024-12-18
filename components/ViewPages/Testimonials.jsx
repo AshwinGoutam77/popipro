@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SimpleBackdrop from "./SimpleBackDrop";
 import localforage from "localforage";
 import LoadingText from "./LoadingText";
+import LockedSection from "./LockedSection";
 
 const Testimonials = ({
   InquiryModal,
@@ -217,20 +218,25 @@ const Testimonials = ({
         </Modal.Body>
       </Modal>
 
+      {Titles?.card_testimonials?.is_locked !== 0 &&
+        <LockedSection name="card_testimonials" Title={Titles.card_testimonials?.visible_name}
+          profile={profile} />
+      }
+
       {Titles?.card_testimonials.source !== 0 &&
-      card?.card_testimonials?.length !== 0 &&
-      Titles?.card_testimonials.is_active !== 0 &&
-      Titles?.card_testimonials?.in_subscription ? (
+        card?.card_testimonials?.length !== 0 &&
+        Titles?.card_testimonials.is_active !== 0 &&
+        Titles?.card_testimonials?.in_subscription && Titles?.card_testimonials?.is_locked == 0 ? (
         <div className="box-content boxxx" id="card_testimonials">
           {/* <!-- Testimonials --> */}
           {Titles &&
-          Titles.card_testimonials.is_active &&
-          card_testimonials?.length !== 0 ? (
+            Titles.card_testimonials.is_active &&
+            card_testimonials?.length !== 0 ? (
             <div className="mt-0">
               <div className="d-flex align-items-start justify-content-between">
                 <h2 className="title title--h1 first-title title__separate">
                   {Titles &&
-                  Titles.card_testimonials.visible_name === "card_testimonials"
+                    Titles.card_testimonials.visible_name === "card_testimonials"
                     ? "Card Testimonials"
                     : Titles.card_testimonials.visible_name}
                 </h2>
@@ -254,9 +260,9 @@ const Testimonials = ({
                               src={
                                 process.env.NEXT_PUBLIC_MODE == "development"
                                   ? "https://dev.popipro.com/" +
-                                    items.image.path
+                                  items.image.path
                                   : "https://admin.popipro.com/" +
-                                    items.image.path
+                                  items.image.path
                               }
                               alt="testimonials"
                             />

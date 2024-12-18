@@ -2,10 +2,13 @@ import { createContext, useContext } from "react";
 
 export const AuthContext = createContext({
   token: null,
-  userLogin: () => {},
-  APIDATA: () => {},
+  userLogin: () => { },
+  APIDATA: () => { },
+  fetchData: () => { },
   UserData: null,
   PlanData: null,
+  data: null,
+  Loader: null,
 });
 
 export const useAuthContext = () => useContext(AuthContext);

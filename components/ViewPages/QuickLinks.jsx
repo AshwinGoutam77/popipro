@@ -5,7 +5,7 @@ import Api from "@services/Api";
 import { HitClickApi } from "@services/Routes";
 import React from "react";
 
-const QuickLinks = ({ card, subscription, Titles }) => {
+const QuickLinks = ({ card, subscription, Titles, profile }) => {
   const HitClick = async (id) => {
     let payload = {
       card: card?.id,

@@ -29,6 +29,7 @@ import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditBlogs({
   APIDATA,
@@ -70,6 +71,7 @@ export default function EditBlogs({
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setBlogName(TitleData?.card_blogs?.visible_name);
@@ -82,6 +84,7 @@ export default function EditBlogs({
 
   useEffect(() => {
     setActive(TitleData?.card_blogs?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_blogs?.is_locked == "1" ? true : false);
   }, [TitleData]);
 
   const aRef = useRef(null);
@@ -100,22 +103,22 @@ export default function EditBlogs({
     } else {
       id !== null
         ? (data = [
-            {
-              blog_image: Image,
-              blog_name: ServicesName,
-              blog_description: ServicesDescription,
-              blog_url: BlogUrl,
-              saved_blog: id,
-            },
-          ])
+          {
+            blog_image: Image,
+            blog_name: ServicesName,
+            blog_description: ServicesDescription,
+            blog_url: BlogUrl,
+            saved_blog: id,
+          },
+        ])
         : (data = [
-            {
-              blog_image: Image,
-              blog_name: ServicesName,
-              blog_description: ServicesDescription,
-              blog_url: BlogUrl,
-            },
-          ]);
+          {
+            blog_image: Image,
+            blog_name: ServicesName,
+            blog_description: ServicesDescription,
+            blog_url: BlogUrl,
+          },
+        ]);
     }
     if (error) {
       setShowLoader(false);
@@ -430,6 +433,22 @@ export default function EditBlogs({
     setShowshowChatModal(false);
   };
 
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_blogs",
+        visible_name: TitleData?.card_blogs?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
@@ -534,13 +553,13 @@ export default function EditBlogs({
                 },
               }}
               data={ServicesDescription || ""}
-              onReady={(editor) => {}}
+              onReady={(editor) => { }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setServicesDescription(data);
               }}
-              onBlur={(event, editor) => {}}
-              onFocus={(event, editor) => {}}
+              onBlur={(event, editor) => { }}
+              onFocus={(event, editor) => { }}
             />
           </div>
 
@@ -680,13 +699,13 @@ export default function EditBlogs({
                       },
                     }}
                     data={ServicesDescription || ""}
-                    onReady={(editor) => {}}
+                    onReady={(editor) => { }}
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setServicesDescription(data);
                     }}
-                    onBlur={(event, editor) => {}}
-                    onFocus={(event, editor) => {}}
+                    onBlur={(event, editor) => { }}
+                    onFocus={(event, editor) => { }}
                   />
                   <div
                     className="d-flex align-items-center mt-3"
@@ -774,7 +793,7 @@ export default function EditBlogs({
                       <a
                         href={
                           item?.url?.includes("http://") ||
-                          item?.url?.includes("https://")
+                            item?.url?.includes("https://")
                             ? item?.url
                             : "https://" + item?.url
                         }
@@ -886,7 +905,7 @@ export default function EditBlogs({
                     onChange={(e) => setBlogName(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData?.card_blogs?.visible_name == "card_blogs"
+                        TitleData?.card_blogs?.visible_name == "card_blogs"
                         ? "card_blogs"
                         : TitleData?.card_blogs?.visible_name
                     }
@@ -906,7 +925,7 @@ export default function EditBlogs({
               </div>
               <div>
                 {TitleData?.card_blogs?.source == "2" &&
-                TitleData?.card_blogs?.in_subscription ? (
+                  TitleData?.card_blogs?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -940,7 +959,7 @@ export default function EditBlogs({
                         </div>
 
                         {MainData?.company_setting?.maximum_blogs !==
-                        PaginationData?.total_blogs ? (
+                          PaginationData?.total_blogs ? (
                           <button
                             className="addmore"
                             data-toggle="modal"
@@ -1071,7 +1090,7 @@ export default function EditBlogs({
                                           fontSize: "22px",
                                           color: "var(--color)",
                                         }}
-                                        // onClick={() => handleHitClick(item?.id)}
+                                      // onClick={() => handleHitClick(item?.id)}
                                       />
                                     </span>
                                   </div>
@@ -1079,7 +1098,7 @@ export default function EditBlogs({
                               </div>
                             </div>
                             {TitleData?.card_blogs?.source == "2" &&
-                            TitleData?.card_blogs?.in_subscription ? (
+                              TitleData?.card_blogs?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
                                 style={{ gap: "10px" }}
@@ -1176,7 +1195,7 @@ export default function EditBlogs({
                               </div>
                             </div>
                             {TitleData?.card_blogs?.source == "2" &&
-                            TitleData?.card_blogs?.in_subscription ? (
+                              TitleData?.card_blogs?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center justify-content-start w-100 mb-4 mt-0"
                                 style={{ gap: "10px" }}
@@ -1231,6 +1250,18 @@ export default function EditBlogs({
                 )}
               </div>
             )}
+
+            <div>
+              <label htmlFor="blog-password">
+                <input
+                  type="checkbox"
+                  id="blog-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </div>
         </div>
       ) : (

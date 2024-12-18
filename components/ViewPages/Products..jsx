@@ -36,6 +36,9 @@ import ReactPlayer from "react-player";
 import LoadingText from "./LoadingText";
 import { AuthContext } from "@context/AuthContext";
 import Cart from "@components/Dashboard/Cart";
+import OrderSummary from "@components/Dashboard/OrderSummary";
+import OrderSummaryModal from "@components/Dashboard/OrderSummary";
+import LockedSection from "./LockedSection";
 
 export default function Product({
   Titles,
@@ -68,6 +71,7 @@ export default function Product({
   const [ProductSearching, setProductSearching] = useState("");
   const [Loader, setLoader] = useState(false);
   const [CartModal, setCartModal] = useState(false);
+  const [OrderSummary, setOrderSummary] = useState(false);
 
   useEffect(() => {
     setProducts(Data?.card_products);
@@ -486,13 +490,13 @@ export default function Product({
                         className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
                         style={{ gap: "5px" }}
                       >
-                        {item.url !== "" ? (
+                        {item.url !== "" || item.payment_link !== null ? (
                           <a
                             href={
                               item?.url?.includes("http://") ||
                                 item?.url?.includes("https://")
-                                ? item?.url
-                                : "https://" + item?.url
+                                ? (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
+                                : "https://" + (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
                             }
                             target="_blank"
                             className="contact-btn w-auto mt-0 bgVarColor"
@@ -683,11 +687,26 @@ export default function Product({
         TotalCard_id={TotalCard_id}
       />
 
+      <OrderSummaryModal
+        active={OrderSummary == "OrderSummary" ? true : false}
+        handleClose={setOrderSummary}
+        MainData={MainData}
+        product={Products}
+        card_url={card_url}
+        cartId={MainData?.card?.id}
+        TotalCard_id={TotalCard_id}
+      />
+
+      {Titles?.card_products?.is_locked !== 0 &&
+        <LockedSection name="card_products" Title={Titles.card_products?.visible_name}
+          profile={card_url} />
+      }
+
       {Titles &&
         Titles?.card_products?.is_active &&
         Titles?.card_products?.in_subscription ? (
         Data?.card_products?.length !== 0 &&
-          Titles?.card_products?.is_active !== 0 ? (
+          Titles?.card_products?.is_active !== 0 && Titles?.card_products?.is_locked == 0 ? (
           <div className="box-content boxxx" id="card_products">
             <div className="mt-0 product-section-div">
               {Search ? (
@@ -744,6 +763,19 @@ export default function Product({
                     ) : (
                       ""
                     )}
+
+                    <div
+                      className="position-relative"
+                      onClick={() => setOrderSummary("OrderSummary")}
+                    >
+                      <img
+                        src="../static/img/order-summary.png"
+                        alt="image"
+                        width={26}
+                        className="cursor-pointer"
+                      />
+                    </div>
+
                     {Search ? (
                       <div className="d-flex align-items-baseline position-relative">
                         <input

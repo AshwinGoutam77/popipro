@@ -22,9 +22,9 @@ import BuilderForm from "@components/ViewPages/Builder";
 import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
 import Video from "@components/ViewPages/Video";
-import Scanner from "@components/ViewPages/Scanner";
+import Documents from "@components/ViewPages/Documents";
 
-export default async function Main({ profile, data, id, referer }) {
+export default async function Main({ profile, data, id, referer, fetchData }) {
   let card = data?.data?.card || {};
   let MainData = data?.data;
   let permission = data?.data?.permission;
@@ -38,6 +38,7 @@ export default async function Main({ profile, data, id, referer }) {
   let RealEstateData = data?.data?.card?.card_realestates;
   let is_onboarding = data?.data?.card?.is_onboarding;
   let Sqdata = data?.data?.sequence;
+
 
   if (profile == "happy-helathy-homes") {
     redirect("happy-healthy-homes");
@@ -90,7 +91,7 @@ export default async function Main({ profile, data, id, referer }) {
                   </aside>
                   {process.env.NEXT_PUBLIC_MODE !== "development" ? (
                     <div className="col-12 col-md-12 col-lg-10">
-                      <AboutMe Titles={titles} card={card} />
+                      <AboutMe Titles={titles} card={card} fetchData={fetchData} />
                       <Alternateno
                         Data={card}
                         Titles={titles}
@@ -258,18 +259,21 @@ export default async function Main({ profile, data, id, referer }) {
                                   Data={card}
                                   Titles={titles}
                                   PlanData={plan}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_social_links" ? (
                                 <SocialMedia
                                   card={card}
                                   Titles={titles}
                                   CardLinks={card?.card_social_links}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_custom_url" ? (
                                 <QuickLinks
                                   subscription={plan}
                                   card={card}
                                   Titles={titles}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_description" ? (
                                 <>
@@ -278,15 +282,17 @@ export default async function Main({ profile, data, id, referer }) {
                                     card={card}
                                     Titles={titles}
                                   /> */}
-                                  <AboutMe Titles={titles} card={card} />
+                                  <AboutMe Titles={titles} card={card} profile={profile} />
 
-                                  <Scanner />
+                                  <Documents
+                                    profile={profile} />
                                 </>
                               ) : items?.status == "card_services" ? (
                                 <Services
                                   subscription={plan}
                                   card={card}
                                   Titles={titles}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_testimonials" ? (
                                 <Testimonials
@@ -306,12 +312,14 @@ export default async function Main({ profile, data, id, referer }) {
                                   ClientPhotos={card?.card_clients}
                                   PlanData={plan}
                                   Titles={titles}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_experience" ? (
                                 <Resume
                                   Titles={titles}
                                   subscription={plan}
                                   card_experience={card?.card_experience}
+                                  profile={profile}
                                 />
                               ) : items?.status == "card_photos" ? (
                                 <Work

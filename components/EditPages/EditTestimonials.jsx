@@ -33,6 +33,7 @@ import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditTestimonials({
   TitleData,
@@ -64,6 +65,7 @@ export default function EditTestimonials({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [isLocked, setIsLocked] = useState(false);
 
   // useEffect(() => {
   //   handelOpenTesti();
@@ -74,6 +76,7 @@ export default function EditTestimonials({
 
   useEffect(() => {
     setActive(TitleData?.card_testimonials?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_testimonials?.is_locked == "1" ? true : false);
   }, [TitleData]);
   const aRef = useRef(null);
 
@@ -96,22 +99,22 @@ export default function EditTestimonials({
     } else {
       id !== null
         ? (data = [
-            {
-              testimonial_image: Image,
-              testimonial_name: ServicesName,
-              testimonial_description: ServicesDescription,
-              testimonial_company_name: CompanyName,
-              saved_testimonial: id,
-            },
-          ])
+          {
+            testimonial_image: Image,
+            testimonial_name: ServicesName,
+            testimonial_description: ServicesDescription,
+            testimonial_company_name: CompanyName,
+            saved_testimonial: id,
+          },
+        ])
         : (data = [
-            {
-              testimonial_image: Image,
-              testimonial_name: ServicesName,
-              testimonial_description: ServicesDescription,
-              testimonial_company_name: CompanyName,
-            },
-          ]);
+          {
+            testimonial_image: Image,
+            testimonial_name: ServicesName,
+            testimonial_description: ServicesDescription,
+            testimonial_company_name: CompanyName,
+          },
+        ]);
     }
     if (error) {
       setShowLoader(false);
@@ -451,6 +454,23 @@ export default function EditTestimonials({
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
   };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_testimonials",
+        visible_name: TitleData?.card_testimonials?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
@@ -557,13 +577,13 @@ export default function EditTestimonials({
                 },
               }}
               data={ServicesDescription || ""}
-              onReady={(editor) => {}}
+              onReady={(editor) => { }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setServicesDescription(data);
               }}
-              onBlur={(event, editor) => {}}
-              onFocus={(event, editor) => {}}
+              onBlur={(event, editor) => { }}
+              onFocus={(event, editor) => { }}
             />
           </div>
           <div
@@ -700,13 +720,13 @@ export default function EditTestimonials({
                           },
                         }}
                         data={ServicesDescription || ""}
-                        onReady={(editor) => {}}
+                        onReady={(editor) => { }}
                         onChange={(event, editor) => {
                           const data = editor.getData();
                           setServicesDescription(data);
                         }}
-                        onBlur={(event, editor) => {}}
-                        onFocus={(event, editor) => {}}
+                        onBlur={(event, editor) => { }}
+                        onFocus={(event, editor) => { }}
                       />
                       <div
                         className="d-flex align-items-center mt-3"
@@ -827,7 +847,7 @@ export default function EditTestimonials({
                     onChange={(e) => setTestiName(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData?.card_testimonials?.visible_name ==
+                        TitleData?.card_testimonials?.visible_name ==
                         "card_testimonials"
                         ? "Card Testimonials"
                         : TitleData?.card_testimonials?.visible_name
@@ -845,7 +865,7 @@ export default function EditTestimonials({
                         onChange={(e) => setTestiName(e.target.value)}
                         defaultValue={
                           TitleData &&
-                          TitleData?.card_testimonials?.visible_name ==
+                            TitleData?.card_testimonials?.visible_name ==
                             "card_testimonials"
                             ? "Testimonials"
                             : TitleData?.card_testimonials?.visible_name
@@ -857,7 +877,7 @@ export default function EditTestimonials({
                       <>
                         <h1 className="title title--h1 first-title title__separate">
                           {TitleData &&
-                          TitleData?.card_testimonials?.visible_name ===
+                            TitleData?.card_testimonials?.visible_name ===
                             "card_testimonials"
                             ? "Testimonials"
                             : TitleData?.card_testimonials?.visible_name}
@@ -868,7 +888,7 @@ export default function EditTestimonials({
                 )}
                 <div>
                   {TitleData?.card_testimonials?.source == "2" &&
-                  TitleData?.card_testimonials?.in_subscription ? (
+                    TitleData?.card_testimonials?.in_subscription ? (
                     <>
                       <div className="web-edit-icons">
                         <div className="d-flex align-items-center">
@@ -902,7 +922,7 @@ export default function EditTestimonials({
                               )}
                             </div>
                             {TitleData?.card_testimonials?.row_limit <=
-                            AddMoreTesti?.length ? (
+                              AddMoreTesti?.length ? (
                               <button
                                 className="addmore"
                                 onClick={() => handleUpgradePlan()}
@@ -1028,8 +1048,8 @@ export default function EditTestimonials({
                                   ></p>
                                   {TitleData?.card_testimonials?.source ==
                                     "2" &&
-                                  TitleData?.card_testimonials
-                                    ?.in_subscription ? (
+                                    TitleData?.card_testimonials
+                                      ?.in_subscription ? (
                                     <div
                                       className="d-flex align-items-initial mt-3"
                                       style={{ gap: "10px" }}
@@ -1107,6 +1127,18 @@ export default function EditTestimonials({
                     </label>
                   </div>
                 )}
+            </div>
+
+            <div>
+              <label htmlFor="testimonial-password">
+                <input
+                  type="checkbox"
+                  id="testimonial-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
             </div>
           </div>
         </div>

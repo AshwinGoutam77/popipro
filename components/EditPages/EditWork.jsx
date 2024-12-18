@@ -34,6 +34,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditWorks({
   APIDATA,
@@ -63,6 +64,7 @@ export default function EditWorks({
   ]);
   const [ShowLoader, setShowLoader] = useState("");
   const [ModalVideos, setModalVideos] = useState("");
+  const [CustomVideo, setCustomVideo] = useState("")
   const [Page, setPage] = useState(2);
   const [LoadMoreData, setLoadMoreData] = useState("");
   const [EditFields, setEditFields] = useState(false);
@@ -74,6 +76,18 @@ export default function EditWorks({
   const [show, setShow] = useState(false);
   const [PhotoTitle, setPhotoTitle] = useState("");
   const [VideoTitle, setVideoTitle] = useState("");
+  const [selectedOption, setSelectedOption] = useState("ViaLink");
+  const [isLocked, setIsLocked] = useState(false);
+  const [isLockedVideo, setIsLockedVideo] = useState(false);
+
+  const VideoOption = {
+    ViaLink: "ViaLink",
+    ViaGallery: "ViaGallery",
+  };
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   useEffect(() => {
     handelOpenTesti();
@@ -85,6 +99,8 @@ export default function EditWorks({
   useEffect(() => {
     setActive(TitleData?.card_photos?.is_active == "1" ? true : false);
     setActiveVideo(TitleData?.card_videos?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_photos?.is_locked == "1" ? true : false);
+    setIsLockedVideo(TitleData?.card_videos?.is_locked == "1" ? true : false);
   }, [TitleData]);
 
   const handleShowSlider = () => {
@@ -167,14 +183,12 @@ export default function EditWorks({
     let videos = [];
     let error = false;
     let mess = "";
-    // TestiFeild.map((o, i) => {
-    if (ModalVideos === "") {
+    if (ModalVideos === "" && CustomVideo === "") {
       error = true;
       mess = ModalVideos === "" ? "URL field is required" : "";
     } else {
       videos.push(ModalVideos);
     }
-    // });
     if (error) {
       setShowLoader(false);
       toast.error(mess, {
@@ -191,7 +205,7 @@ export default function EditWorks({
     }
 
     try {
-      const response = await Api(CardData, { videos: videos });
+      const response = await Api(CardData, { videos: selectedOption === VideoOption.ViaLink ? videos : CustomVideo });
       if (response.data.status) {
         APIDATA();
         setPage(2);
@@ -540,6 +554,39 @@ export default function EditWorks({
       setSelectedImageIndex(selectedImageIndex + 1);
     }
   };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_photos",
+        visible_name: TitleData?.card_photos?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
+  const handleShowSectionVideo = async () => {
+    const newValue = !isLockedVideo;
+    setIsLockedVideo(newValue);
+    let titles = [
+      {
+        name: "card_videos",
+        visible_name: TitleData?.card_videos?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
@@ -562,14 +609,39 @@ export default function EditWorks({
         </Modal.Header>
         <Modal.Body>
           <div>
+
+            <div className="d-flex gap-4 mb-2">
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value={VideoOption.ViaLink}
+                    checked={selectedOption === VideoOption.ViaLink}
+                    onChange={handleOptionChange}
+                  />
+                  {" "}Via Link
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value={VideoOption.ViaGallery}
+                    checked={selectedOption === VideoOption.ViaGallery}
+                    onChange={handleOptionChange}
+                  />
+                  {" "}Via Gallery
+                </label>
+              </div>
+            </div>
+
             <label className="modalFormLable">
-              Add your video URL.
-              <br />
-              <span className="">*Please upload youtube urls only.</span>
+              <span className="">{selectedOption === VideoOption.ViaLink ? "Upload youtube urls only." : "Upload from system"}</span>
             </label>
-            <input
+            {selectedOption === VideoOption.ViaLink ? <input
               type="text"
               name="url"
+              placeholder="https://youtu.be"
               className="form-control mt-1 mb-2"
               value={ModalVideos}
               autoFocus
@@ -577,7 +649,18 @@ export default function EditWorks({
               multiple
               onChange={(evnt) => setModalVideos(evnt.target.value)}
               style={{ border: "1px solid #ccc", height: "40px" }}
-            />
+            /> : <input
+              type="file"
+              name="url"
+              placeholder="https://youtu.be"
+              className="form-control mt-1 mb-2"
+              // value={CustomVideo}
+              autoFocus
+              id="file"
+              multiple
+              onChange={(evnt) => setCustomVideo(evnt.target.files[0])}
+              style={{ border: "1px solid #ccc", height: "40px" }}
+            />}
           </div>
           <div
             className="d-flex align-items-center mt-3"
@@ -592,6 +675,8 @@ export default function EditWorks({
           </div>
         </Modal.Body>
       </Modal>
+
+
 
       {TitleData?.card_photos?.source !== 0 ? (
         <div className="position-relative">
@@ -619,7 +704,7 @@ export default function EditWorks({
                     accept="image/*"
                     defaultValue={
                       TitleData &&
-                      TitleData.card_photos?.visible_name == "card_photos"
+                        TitleData.card_photos?.visible_name == "card_photos"
                         ? "card_photos"
                         : TitleData?.card_photos?.visible_name
                     }
@@ -636,7 +721,7 @@ export default function EditWorks({
               </div>
               <div>
                 {TitleData?.card_photos?.source == "2" &&
-                TitleData?.card_photos?.in_subscription ? (
+                  TitleData?.card_photos?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -673,7 +758,7 @@ export default function EditWorks({
                           )}
                         </div>
                         {TitleData?.card_photos?.row_limit <=
-                        Card_photos?.length ? (
+                          Card_photos?.length ? (
                           <button
                             className="addmore"
                             onClick={handleUpgradePlan}
@@ -839,7 +924,7 @@ export default function EditWorks({
                                 />
                               </div>
                               {TitleData?.card_photos?.source == "2" &&
-                              TitleData?.card_photos?.in_subscription ? (
+                                TitleData?.card_photos?.in_subscription ? (
                                 <FontAwesomeIcon
                                   icon={faCircleXmark}
                                   className="delete-icon2"
@@ -861,7 +946,7 @@ export default function EditWorks({
                                 src={Data?.base_url + photo.path}
                                 data-zoom
                                 alt="images"
-                                // onClick={() => openImagePopup(i)}
+                              // onClick={() => openImagePopup(i)}
                               />
                             </div>
                           </SwiperSlide>
@@ -904,6 +989,17 @@ export default function EditWorks({
             )}
 
             {/* <div className="image-box">{renderVedio(SelectedVedio)}</div> */}
+            <div className="mt-4">
+              <label htmlFor="photo-password">
+                <input
+                  type="checkbox"
+                  id="photo-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </div>
         </div>
       ) : (
@@ -936,7 +1032,7 @@ export default function EditWorks({
                     onChange={(e) => setVideoTitle(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData.card_videos?.visible_name === "card_videos"
+                        TitleData.card_videos?.visible_name === "card_videos"
                         ? "card_videos"
                         : TitleData?.card_videos?.visible_name
                     }
@@ -953,7 +1049,7 @@ export default function EditWorks({
               </div>
               <div>
                 {TitleData?.card_videos?.source == "2" &&
-                TitleData?.card_videos?.in_subscription ? (
+                  TitleData?.card_videos?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -986,7 +1082,7 @@ export default function EditWorks({
                           )}
                         </div>
                         {TitleData?.card_videos?.row_limit <=
-                        Card_videos?.length ? (
+                          Card_videos?.length ? (
                           <button
                             className="addmore"
                             onClick={handleUpgradePlan}
@@ -1131,7 +1227,7 @@ export default function EditWorks({
                             key={videoId}
                           >
                             {TitleData?.card_videos?.source == "2" &&
-                            TitleData?.card_videos?.in_subscription ? (
+                              TitleData?.card_videos?.in_subscription ? (
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 style={{
@@ -1167,7 +1263,7 @@ export default function EditWorks({
                   </div>
                 )}
                 {PaginationData?.total_card_videos !== AddMoreVedios?.length &&
-                AddMoreVedios?.length !== 0 ? (
+                  AddMoreVedios?.length !== 0 ? (
                   <div className="mx-auto text-center mt-3">
                     <a
                       className="text-center cursor-pointer mx-auto"
@@ -1186,6 +1282,18 @@ export default function EditWorks({
                 )}
               </div>
             )}
+
+            <div className="mt-4">
+              <label htmlFor="video-password">
+                <input
+                  type="checkbox"
+                  id="video-password"
+                  checked={isLockedVideo}
+                  onChange={handleShowSectionVideo}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </div>
         </div>
       ) : (

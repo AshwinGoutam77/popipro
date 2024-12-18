@@ -17,6 +17,7 @@ import { CardData, deleteSection } from "@services/Routes";
 import { Modal } from "react-bootstrap";
 import EditPlan from "./EditPlan";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditAlternateNo({
   APIDATA,
@@ -41,9 +42,11 @@ export default function EditAlternateNo({
   const handleEditClose = () => setShowEdit(false);
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setActive(TitleData?.card_alternate_phone?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_alternate_phone?.is_locked == "1" ? true : false);
   }, [TitleData]);
 
   useEffect(() => {
@@ -120,29 +123,29 @@ export default function EditAlternateNo({
         NumberLabel == ""
           ? "Label is required"
           : NumberLabel == ""
-          ? "Number is required"
-          : CountryCode == ""
-          ? "Country code is required"
-          : "";
+            ? "Number is required"
+            : CountryCode == ""
+              ? "Country code is required"
+              : "";
     } else {
       id !== null
         ? (alternate_phones = [
-            {
-              title: NumberLabel,
-              number: MobileNumber,
-              extension: Extension,
-              country_code: CountryCode,
-              saved_alternate_phone: id,
-            },
-          ])
+          {
+            title: NumberLabel,
+            number: MobileNumber,
+            extension: Extension,
+            country_code: CountryCode,
+            saved_alternate_phone: id,
+          },
+        ])
         : (alternate_phones = [
-            {
-              title: NumberLabel,
-              number: MobileNumber,
-              extension: Extension,
-              country_code: CountryCode,
-            },
-          ]);
+          {
+            title: NumberLabel,
+            number: MobileNumber,
+            extension: Extension,
+            country_code: CountryCode,
+          },
+        ]);
     }
     if (error) {
       setShowLoader(false);
@@ -299,6 +302,22 @@ export default function EditAlternateNo({
       confirmButtonText:
         '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
     });
+  };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_alternate_phone",
+        visible_name: TitleData?.card_alternate_phone?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
   };
 
   return (
@@ -532,7 +551,7 @@ export default function EditAlternateNo({
 
               <div>
                 {TitleData?.card_alternate_phone?.source == "2" &&
-                TitleData?.card_alternate_phone?.in_subscription ? (
+                  TitleData?.card_alternate_phone?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -566,7 +585,7 @@ export default function EditAlternateNo({
                         </div>
                         <>
                           {TitleData?.card_alternate_phone?.row_limit <=
-                          Data?.card_alternate_phone?.length ? (
+                            Data?.card_alternate_phone?.length ? (
                             <button
                               className="addmore"
                               data-toggle="modal"
@@ -643,7 +662,7 @@ export default function EditAlternateNo({
               return (
                 <div className="alternate-number-div" key={index}>
                   {TitleData?.card_alternate_phone?.source == "2" &&
-                  TitleData?.card_alternate_phone?.in_subscription ? (
+                    TitleData?.card_alternate_phone?.in_subscription ? (
                     <FontAwesomeIcon
                       icon={faXmarkCircle}
                       className="user-select-auto position-absolute top-0 end-0 zindex-1 edit-user-minus"
@@ -679,13 +698,11 @@ export default function EditAlternateNo({
                           {item.title} :
                         </p>
                         <a
-                          href={`tel: ${
-                            item.country_code
-                              ? item.country_code + "-"
-                              : item.country_code
-                          } ${item?.number} ${
-                            item?.extension ? "- " + item?.extension : ""
-                          }`}
+                          href={`tel: ${item.country_code
+                            ? item.country_code + "-"
+                            : item.country_code
+                            } ${item?.number} ${item?.extension ? "- " + item?.extension : ""
+                            }`}
                           className="ml-1"
                           style={{ color: "black" }}
                         >
@@ -698,7 +715,7 @@ export default function EditAlternateNo({
                       </div>
                     </a>
                     {TitleData?.card_services?.source == "2" &&
-                    TitleData?.card_alternate_phone?.in_subscription ? (
+                      TitleData?.card_alternate_phone?.in_subscription ? (
                       <FontAwesomeIcon
                         data-toggle="modal"
                         data-target="#AlternateNumberModalEdit"
@@ -726,6 +743,18 @@ export default function EditAlternateNo({
                 </div>
               );
             })}
+
+            <div className="mt-4">
+              <label htmlFor="number-password">
+                <input
+                  type="checkbox"
+                  id="number-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </div>
         </div>
       ) : (

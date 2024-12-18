@@ -33,6 +33,7 @@ import axios from "axios";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditDoing({
   TitleData,
@@ -66,6 +67,7 @@ export default function EditDoing({
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setDoing(TitleData?.card_services?.visible_name);
@@ -73,6 +75,7 @@ export default function EditDoing({
 
   useEffect(() => {
     setActive(TitleData?.card_services?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_services?.is_locked == "1" ? true : false);
   }, [TitleData]);
   const aRef = useRef(null);
 
@@ -313,7 +316,7 @@ export default function EditDoing({
   const [suggestions, setSuggestions] = useState([]);
   const [IsTyping, setIsTyping] = useState(false);
   const apiKey = "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";
-  
+
   const handleButtonClick = async () => {
     setIsTyping(true);
     try {
@@ -391,6 +394,22 @@ export default function EditDoing({
     });
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
+  };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_services",
+        visible_name: TitleData?.card_services?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
   };
 
   return (
@@ -993,6 +1012,18 @@ export default function EditDoing({
                   </div>
                 </SwiperComponent>
               )}
+            </div>
+
+            <div>
+              <label htmlFor="service-password">
+                <input
+                  type="checkbox"
+                  id="service-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
             </div>
           </div>
         </div>

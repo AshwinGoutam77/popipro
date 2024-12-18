@@ -24,6 +24,7 @@ import {
 } from "@services/Routes";
 import Modal from "react-bootstrap/Modal";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 function EditLinks({
   Data,
@@ -49,9 +50,11 @@ function EditLinks({
   const handleEditClose = () => setShowEdit(false);
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setLinksTitle(TitleData?.card_social_links?.visible_name);
+    setIsLocked(TitleData?.card_social_links?.is_locked == "1" ? true : false);
   }, []);
 
   useEffect(() => {
@@ -92,18 +95,18 @@ function EditLinks({
     } else {
       id !== null
         ? (links = [
-            {
-              url: SocialType,
-              type: SelectOption,
-              saved_link: id,
-            },
-          ])
+          {
+            url: SocialType,
+            type: SelectOption,
+            saved_link: id,
+          },
+        ])
         : (links = [
-            {
-              url: SocialType,
-              type: SelectOption,
-            },
-          ]);
+          {
+            url: SocialType,
+            type: SelectOption,
+          },
+        ]);
     }
     if (error) {
       toast.error(mess, {
@@ -264,6 +267,22 @@ function EditLinks({
     const res = await Api(ToogleInstaFeed, {});
     if (res.status) {
       APIDATA();
+    }
+  };
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_social_links",
+        visible_name: TitleData?.card_social_links?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
     }
   };
 
@@ -437,7 +456,7 @@ function EditLinks({
                     onChange={(e) => setLinksTitle(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData.card_social_links?.visible_name ==
+                        TitleData.card_social_links?.visible_name ==
                         "card_social_links"
                         ? "card_social_links"
                         : TitleData?.card_social_links?.visible_name
@@ -675,7 +694,7 @@ function EditLinks({
 
             {(MainData?.plan?.subscription !== null &&
               MainData?.plan?.subscription?.plan_id !== null) ||
-            MainData?.plan?.subscription?.plan_id == 2 ? (
+              MainData?.plan?.subscription?.plan_id == 2 ? (
               <>
                 <div className="mt-3 d-flex align-items-center">
                   <input
@@ -708,6 +727,17 @@ function EditLinks({
             ) : (
               ""
             )}
+            <div className="mt-4">
+              <label htmlFor="social-password">
+                <input
+                  type="checkbox"
+                  id="social-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
+            </div>
           </>
         </div>
       ) : (

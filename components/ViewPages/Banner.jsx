@@ -15,6 +15,7 @@ import "firebase/messaging";
 import { firebaseCloudMessaging } from "../../app/firebase";
 import localforage from "localforage";
 import ExchangeContact from "./ExchangeContact";
+import { useAuthContext } from "@context/AuthContext";
 
 const Banner = ({
   profile,
@@ -26,11 +27,12 @@ const Banner = ({
   MainData,
   referer,
 }) => {
+  const { Loader } = useAuthContext()
   const divRef = useRef(null);
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
-  const [Loader, setLoader] = useState(false);
+  // const [Loader, setLoader] = useState(false);
   const [FunctionState, setFunctionState] = useState(false);
   const [GoogleReviewState, setGoogleReviewState] = useState(false);
   const [Latitude, setLatitude] = useState("");
@@ -52,7 +54,7 @@ const Banner = ({
 
   useEffect(() => {
     if (card || profile) {
-      setLoader(true);
+      // setLoader(true);
       document.documentElement.style.setProperty("--color", card?.color_code);
       document.documentElement.style.setProperty(
         "--header-color",
@@ -67,7 +69,7 @@ const Banner = ({
         card?.text_color
       );
     } else {
-      setLoader(false);
+      // setLoader(false);
     }
     // handleSq();
   }, []);
@@ -157,10 +159,10 @@ const Banner = ({
       let alt_str = card?.card_alternate_phone?.map((item) => {
         return item.country_code
           ? `\nTEL;TYPE=${item.title},voice:` +
-              item.country_code +
-              " " +
-              item.number +
-              ""
+          item.country_code +
+          " " +
+          item.number +
+          ""
           : `\nTEL;TYPE=${item.title},voice:` + item.number + "";
       });
       vcard += alt_str.join("");
@@ -254,7 +256,7 @@ const Banner = ({
     typeof window === "object" &&
       (window.location.href =
         card?.card_google_review?.url?.includes("https://") ||
-        card?.card_google_review?.url?.includes("http://")
+          card?.card_google_review?.url?.includes("http://")
           ? card?.card_google_review
           : "https://" + card?.card_google_review);
     setGoogleReviewState(true);
@@ -273,7 +275,7 @@ const Banner = ({
     typeof window === "object" &&
       (window.location.href =
         card?.card_trustpilot?.includes("https://") ||
-        card?.card_trustpilot?.includes("http://")
+          card?.card_trustpilot?.includes("http://")
           ? card?.card_trustpilot
           : "https://" + card?.card_trustpilot);
     setGoogleReviewState(true);
@@ -336,7 +338,7 @@ const Banner = ({
     setLocalStorageUrl(LocalUrl);
   };
 
-  return Loader == false ? (
+  return Loader == true ? (
     <>
       <h5 className="d-flex align-items-center justify-content-center text-center main-loader">
         Loading...
@@ -350,11 +352,11 @@ const Banner = ({
         handleClose={setModalShow}
       />
       {card.card_cover === "name" ||
-      (card.card_cover === "label" && card?.card_company_logo !== null) ||
-      (card?.card_cover === "logo" &&
-        card?.card_company_logo?.length !== 0 &&
-        card?.card_company_logo?.length !== 0 &&
-        card?.card_cover !== "banner-logo") ? (
+        (card.card_cover === "label" && card?.card_company_logo !== null) ||
+        (card?.card_cover === "logo" &&
+          card?.card_company_logo?.length !== 0 &&
+          card?.card_company_logo?.length !== 0 &&
+          card?.card_cover !== "banner-logo") ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
           <div className="fixed-b-icons">
             {!IsVisible && (
@@ -377,10 +379,10 @@ const Banner = ({
                 href={
                   card?.whatsapp_country_code
                     ? "https://api.whatsapp.com/send?phone=" +
-                      card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-                      card.whatsapp_number
+                    card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+                    card.whatsapp_number
                     : "https://api.whatsapp.com/send?phone=" +
-                      card.whatsapp_number
+                    card.whatsapp_number
                 }
                 className="float"
                 target="_blank"
@@ -395,13 +397,13 @@ const Banner = ({
               ""
             )}
             {card.card_google_review !== null &&
-            subscription?.subscription?.plan_id !== 1 &&
-            subscription?.subscription !== null &&
-            subscription?.is_expired == false ? (
+              subscription?.subscription?.plan_id !== 1 &&
+              subscription?.subscription !== null &&
+              subscription?.is_expired == false ? (
               <a
                 href={
                   card?.card_google_review?.url?.includes("https://") ||
-                  card?.card_google_review?.url?.includes("http://")
+                    card?.card_google_review?.url?.includes("http://")
                     ? "https://" + card?.card_google_review
                     : card?.card_google_review
                 }
@@ -421,9 +423,9 @@ const Banner = ({
               ""
             )}
             {card.card_trustpilot !== null &&
-            subscription?.subscription?.plan_id !== 1 &&
-            subscription?.subscription !== null &&
-            subscription?.is_expired == false ? (
+              subscription?.subscription?.plan_id !== 1 &&
+              subscription?.subscription !== null &&
+              subscription?.is_expired == false ? (
               <a
                 href={card?.card_trustpilot}
                 className="float"
@@ -515,12 +517,11 @@ const Banner = ({
         <div
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
-            backgroundImage: `url('${
-              card?.card_cover == "banner-logo" ||
-              card?.card_cover == "banner-label"
+            backgroundImage: `url('${card?.card_cover == "banner-logo" ||
+                card?.card_cover == "banner-label"
                 ? card?.base_url + card?.card_header?.banner?.path
                 : card?.base_url + card?.card_company_logo?.path
-            }')`,
+              }')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "cover",
@@ -547,10 +548,10 @@ const Banner = ({
                 href={
                   card?.whatsapp_country_code
                     ? "https://api.whatsapp.com/send?phone=" +
-                      card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-                      card.whatsapp_number
+                    card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
+                    card.whatsapp_number
                     : "https://api.whatsapp.com/send?phone=" +
-                      card.whatsapp_number
+                    card.whatsapp_number
                 }
                 className="float"
                 target="_blank"
@@ -565,13 +566,13 @@ const Banner = ({
               ""
             )}
             {card.card_google_review !== null &&
-            subscription?.subscription?.plan_id !== 1 &&
-            subscription?.subscription !== null &&
-            subscription?.is_expired == false ? (
+              subscription?.subscription?.plan_id !== 1 &&
+              subscription?.subscription !== null &&
+              subscription?.is_expired == false ? (
               <a
                 href={
                   card?.card_google_review?.url?.includes("https://") ||
-                  card?.card_google_review?.url?.includes("http://")
+                    card?.card_google_review?.url?.includes("http://")
                     ? "https://" + card?.card_google_review
                     : card?.card_google_review
                 }
@@ -591,9 +592,9 @@ const Banner = ({
               ""
             )}
             {card.card_trustpilot !== null &&
-            subscription?.subscription?.plan_id !== 1 &&
-            subscription?.subscription !== null &&
-            subscription?.is_expired == false ? (
+              subscription?.subscription?.plan_id !== 1 &&
+              subscription?.subscription !== null &&
+              subscription?.is_expired == false ? (
               <a
                 href={card.card_trustpilot}
                 className="float bg-white fs-24"
@@ -646,7 +647,7 @@ const Banner = ({
                 ""
               )}
               {card.card_cover === "name" &&
-              Data?.card_company_logo !== null ? (
+                Data?.card_company_logo !== null ? (
                 <h5
                   className=""
                   style={{
@@ -657,8 +658,8 @@ const Banner = ({
                   {card?.card_company_logo}
                 </h5>
               ) : (card?.card_cover !== "banner" &&
-                  card?.card_cover !== "banner-logo" &&
-                  card?.card_cover !== "banner-label") ||
+                card?.card_cover !== "banner-logo" &&
+                card?.card_cover !== "banner-label") ||
                 card?.card_company_logo?.length == 0 ? (
                 <h5
                   className=""

@@ -1,13 +1,19 @@
+'use client'
 import React from "react";
+import LockedSection from "./LockedSection";
 
-const Resume = ({ Titles, subscription, card_experience }) => {
+const Resume = ({ Titles, subscription, card_experience, profile }) => {
   return (
     <>
+      {Titles?.card_experience?.is_locked !== 0 &&
+        <LockedSection name="card_experience" Title={Titles.card_experience?.visible_name}
+          profile={profile} />
+      }
       {Titles &&
-      Titles?.card_experience?.is_active &&
-      Titles?.card_experience?.in_subscription ? (
+        Titles?.card_experience?.is_active &&
+        Titles?.card_experience?.in_subscription ? (
         card_experience?.length !== 0 &&
-        Titles?.card_experience?.is_active !== 0 ? (
+          Titles?.card_experience?.is_active !== 0 && Titles?.card_experience?.is_locked == 0 ? (
           <div>
             <div className="box-content boxxx" id="card_experience">
               <div className="pb-2">

@@ -12,6 +12,7 @@ const AuthContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [incrementCount, setIncrementCount] = useState(0);
+  const [Loader, setLoader] = useState(false)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -77,6 +78,29 @@ const AuthContextProvider = ({ children }) => {
         localStorage.removeItem("url");
         window.location.href = "/login";
       }
+    }
+  };
+
+  const [data, setData] = useState(null);
+  const fetchData = async (profile) => {
+    setLoader(true)
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_MODE === "development"
+          ? `https://dev.popipro.com/api/get-card-data/?card_url=${profile}`
+          : `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
+        { cache: "no-store" }
+      );
+
+      if (response.status) {
+        const resp = await response.json();
+        setData(resp);
+        setLoader(false)
+      } else {
+        console.error("Failed to fetch data", response.status);
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching data:", error);
     }
   };
 
@@ -158,7 +182,10 @@ const AuthContextProvider = ({ children }) => {
         totalPrice,
         clearCart,
         incrementCount,
-        setCartItems
+        setCartItems,
+        fetchData,
+        data,
+        Loader
       }}
     >
       {children}

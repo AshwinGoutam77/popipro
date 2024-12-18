@@ -24,6 +24,7 @@ import EditPlan from "./EditPlan";
 import axios from "axios";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditResume({
   APIDATA,
@@ -55,12 +56,14 @@ export default function EditResume({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setExpTitle(TitleData?.card_experience?.visible_name);
   }, []);
   useEffect(() => {
     setActive(TitleData?.card_experience?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_experience?.is_locked == "1" ? true : false);
   }, [TitleData]);
 
   const handleSaveExp = async (id) => {
@@ -82,20 +85,20 @@ export default function EditResume({
     } else {
       id !== null
         ? (data = [
-            {
-              designation: ExpDesignation,
-              years: ExpYears,
-              description: ExpDescription,
-              saved_exp: id,
-            },
-          ])
+          {
+            designation: ExpDesignation,
+            years: ExpYears,
+            description: ExpDescription,
+            saved_exp: id,
+          },
+        ])
         : (data = [
-            {
-              designation: ExpDesignation,
-              years: ExpYears,
-              description: ExpDescription,
-            },
-          ]);
+          {
+            designation: ExpDesignation,
+            years: ExpYears,
+            description: ExpDescription,
+          },
+        ]);
     }
 
     if (error) {
@@ -390,6 +393,22 @@ export default function EditResume({
     setShowshowChatModal(false);
   };
 
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_experience",
+        visible_name: TitleData?.card_experience?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
+  };
+
   return (
     <>
       {/* Add More MODAL */}
@@ -484,13 +503,13 @@ export default function EditResume({
                   },
                 }}
                 data={ExpDescription || ""}
-                onReady={(editor) => {}}
+                onReady={(editor) => { }}
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setExpDescription(data);
                 }}
-                onBlur={(event, editor) => {}}
-                onFocus={(event, editor) => {}}
+                onBlur={(event, editor) => { }}
+                onFocus={(event, editor) => { }}
               />
             </div>
             <div
@@ -615,13 +634,13 @@ export default function EditResume({
                       },
                     }}
                     data={ExpDescription || ""}
-                    onReady={(editor) => {}}
+                    onReady={(editor) => { }}
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setExpDescription(data);
                     }}
-                    onBlur={(event, editor) => {}}
-                    onFocus={(event, editor) => {}}
+                    onBlur={(event, editor) => { }}
+                    onFocus={(event, editor) => { }}
                   />
                   <div
                     className="d-flex align-items-center mt-3"
@@ -744,7 +763,7 @@ export default function EditResume({
                         onChange={(e) => setExpTitle(e.target.value)}
                         defaultValue={
                           TitleData &&
-                          TitleData.card_experience?.visible_name ==
+                            TitleData.card_experience?.visible_name ==
                             "card_experience"
                             ? "card_experience"
                             : TitleData?.card_experience?.visible_name
@@ -762,7 +781,7 @@ export default function EditResume({
                   </div>
                   <div>
                     {TitleData?.card_experience?.source == 2 &&
-                    TitleData?.card_experience?.in_subscription ? (
+                      TitleData?.card_experience?.in_subscription ? (
                       <>
                         <div className="web-edit-icons">
                           <div className="d-flex align-items-center">
@@ -799,11 +818,11 @@ export default function EditResume({
                               )}
                             </div>
                             {TitleData?.card_experience?.row_limit <=
-                            AddMoreExp?.length ? (
+                              AddMoreExp?.length ? (
                               <button
                                 className="addmore"
                                 onClick={handleUpgradePlan}
-                                // onClick={() => handleShow()}
+                              // onClick={() => handleShow()}
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -896,7 +915,7 @@ export default function EditResume({
                               {item.years}
                             </span>
                             {TitleData?.card_experience?.source == "2" &&
-                            TitleData?.card_experience?.in_subscription ? (
+                              TitleData?.card_experience?.in_subscription ? (
                               <div
                                 className="d-flex align-items-center mt-3"
                                 style={{ gap: "10px" }}
@@ -934,6 +953,17 @@ export default function EditResume({
                   </div>
                 )}
               </div>
+            </div>
+            <div className="mt-4">
+              <label htmlFor="exp-password">
+                <input
+                  type="checkbox"
+                  id="exp-password"
+                  checked={isLocked}
+                  onChange={handleShowSection}
+                />{" "}
+                Private the section
+              </label>
             </div>
           </div>
         </div>

@@ -16,6 +16,7 @@ import ReactPlayer from "react-player";
 import Image from "next/image";
 import { HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
+import LockedSection from "./LockedSection";
 
 const Work = ({
   card,
@@ -93,9 +94,13 @@ const Work = ({
   return (
     <>
       <SimpleBackdrop visible={false} />
+      {Titles?.card_photos?.is_locked !== 0 &&
+        <LockedSection name="card_photos" Title={Titles.card_photos?.visible_name} 
+        profile={card_url}/>
+      }
       {Card_photos?.length !== 0 &&
-      Titles?.card_photos?.is_active !== 0 &&
-      Titles?.card_photos?.in_subscription ? (
+        Titles?.card_photos?.is_active !== 0 &&
+        Titles?.card_photos?.in_subscription && Titles?.card_photos?.is_locked == 0 ? (
         <div className="box-content boxxx" id="card_photos">
           {Titles && Titles?.card_photos?.is_active ? (
             <div>

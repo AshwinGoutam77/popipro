@@ -9,6 +9,7 @@ import { HitClickApi, LoadMoreApi } from "@services/Routes";
 import Api from "@services/Api";
 import Image from "next/image";
 import localforage from "localforage";
+import LockedSection from "./LockedSection";
 
 function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const [ModalId, setModalId] = useState("");
@@ -161,11 +162,15 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
             })}
         </Modal.Body>
       </Modal>
+      {Titles?.card_blogs?.is_locked !== 0 &&
+        <LockedSection name="card_blogs" Title={Titles.card_blogs?.visible_name}
+          profile={card_url} />
+      }
       {Titles &&
         Titles.card_blogs?.is_active &&
         AddMoreBlogs?.length !== 0 &&
         Titles.card_blogs?.is_active !== 0 &&
-        Titles?.card_blogs?.in_subscription ? (
+        Titles?.card_blogs?.in_subscription && Titles?.card_blogs?.is_locked == 0 ? (
         <div className="box-content boxxx" id="card_blogs">
           <div className="pb-2">
             <h3 className="title title--h1 first-title title__separate">

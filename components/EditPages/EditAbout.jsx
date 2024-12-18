@@ -21,6 +21,7 @@ import Api from "@services/Api";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [TextArea, setTextArea] = useState(false);
@@ -34,6 +35,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const handleCloseshowChatModal = () => setShowshowChatModal(false);
   const handleShowshowChatModal = () => setShowshowChatModal(true);
   const [InputState, setInputState] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setAboutMe(TitleData?.card_description?.visible_name);
@@ -51,6 +53,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
 
   useEffect(() => {
     setActive(TitleData?.card_description?.is_active == "1" ? true : false);
+    setIsLocked(TitleData?.card_description?.is_locked == "1" ? true : false);
   }, [TitleData]);
 
   const handleCancle = () => {
@@ -141,7 +144,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
     }
   };
   const handleActive = async () => {
-    // setShowLoader(true);
     let titles = [
       {
         name: "card_description",
@@ -265,6 +267,23 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
     });
     navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
     setShowshowChatModal(false);
+  };
+
+
+  const handleShowSection = async () => {
+    const newValue = !isLocked;
+    setIsLocked(newValue);
+    let titles = [
+      {
+        name: "card_description",
+        visible_name: TitleData?.card_description?.visible_name,
+        is_locked: newValue ? 1 : 0,
+      },
+    ];
+    const response = await Api(CardData, { titles });
+    if (response?.data?.status) {
+      showToast(response.data?.message, 'success');
+    }
   };
 
   return (
@@ -468,13 +487,13 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                   },
                 }}
                 data={Description || ""}
-                onReady={(editor) => {}}
+                onReady={(editor) => { }}
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setDescription(data);
                 }}
-                onBlur={(event, editor) => {}}
-                onFocus={(event, editor) => {}}
+                onBlur={(event, editor) => { }}
+                onFocus={(event, editor) => { }}
               />
               <div
                 className="d-flex align-items-center mt-3"
@@ -507,7 +526,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                 ></div>
               )}
               {Data?.card_description?.length > "480" &&
-              Data?.card_description !== null ? (
+                Data?.card_description !== null ? (
                 <p
                   className="read-more text-align-end"
                   onClick={HandleReadmore}
@@ -526,6 +545,17 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               )}
             </>
           )}
+          <div>
+            <label htmlFor="password">
+              <input
+                type="checkbox"
+                id="password"
+                checked={isLocked}
+                onChange={handleShowSection}
+              />{" "}
+              Private the section
+            </label>
+          </div>
         </div>
       ) : (
         ""
