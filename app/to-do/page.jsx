@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import TaskItem from './taskItem';
+
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faAngleLeft, faPlus, faSquareCheck } from '@node_modules/@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-scroll';
