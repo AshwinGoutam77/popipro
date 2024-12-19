@@ -32,7 +32,6 @@
     }
 }
 
-
 .contact-btns svg {
     background-color: var(--color);
     padding: 8px;
@@ -48,4 +47,8 @@
     font-size: 16px !important;
     font-weight: 600;
     color: black;
+}
+
+.address-contact-btn-section a {
+    text-decoration: none;
 }

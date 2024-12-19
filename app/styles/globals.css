@@ -649,6 +649,10 @@ input:focus-visible {
   color: var(--color);
 }
 
+.background-primaryColor {
+  background-color: var(--color);
+}
+
 .date-time-input {
   width: 100% !important;
   height: 53px;
@@ -728,6 +732,31 @@ input.date-time-input::-webkit-date-and-time-value {
 .form-control[readonly] {
   background-color: #e9ecef !important;
   opacity: 1;
+}
+
+.card-uploader{
+  width: 100%;
+  border: 1px dashed #a19a9a;
+  margin: 5px 0;
+  border-radius: 10px;
+  position: relative;
+}
+
+.card-uploader svg{
+  position: absolute;
+  top: 40%;
+  bottom: 50%;
+  left: 50%;
+  color: #878787;
+}
+
+input.form-control:focus{
+  border: 2px solid transparent !important;
+}
+
+.card-uploader input{
+  opacity: 0;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -2453,7 +2482,7 @@ td {
   cursor: pointer;
 }
 
-.list-style-none{
+.list-style-none {
   list-style: none;
 }
 

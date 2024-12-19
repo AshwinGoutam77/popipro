@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import './page.css';
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faAddressBook, faAngleLeft, faDownload, faEnvelope, faExpand, faFileExport, faPhone, faPlug, faPlus } from '@node_modules/@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-scroll';
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import "../../styles/about.css";
@@ -15,6 +14,8 @@ import Scanner from '@components/ViewPages/Scanner';
 import Api from '@services/Api';
 import { GetPhoneBook, SavePhoneBook } from '@services/Routes';
 import { showToast } from '@components/Dashboard/Toast';
+import Link from "next/link";
+import { CSVLink } from "react-csv";
 
 export default function Contact() {
     let d = new Date();
@@ -26,9 +27,11 @@ export default function Contact() {
     const [FormData, setFormData] = useState({
         full_name: "",
         contact_number: "",
+        email_address: "",
         type: "direct"
     })
-    const [PhoneData, setPhoneData] = useState("")
+    const [PhoneData, setPhoneData] = useState("");
+    const [SelectId, setSelectId] = useState("");
 
     function pad(n, width, z) {
         z = z || "0";
@@ -52,17 +55,16 @@ export default function Contact() {
                 "-" +
                 pad(EndDate.getDate(), 2);
             const response = await Api(
-                ShareContactLeads,
+                GetPhoneBook,
                 {},
-                "?start_date=" +
-                startDt +
+                "?type[0]=" + SelectId + "&start_date=" + startDt +
                 "&end_date=" +
                 endDt +
-                "&location_filter=" +
-                e
+                "&search=" +
+                ""
             );
             if (response.data.status) {
-                setData(response.data.data);
+                setPhoneData(response?.data?.data?.data);
                 setShowLoader(false);
             }
         } catch (error) {
@@ -71,16 +73,7 @@ export default function Contact() {
                 window.location.href = "/login";
             }
             setShowLoader(false);
-            toast(error.response.data.message, {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            showToast(error.response.data.message, 'error')
         }
     };
 
@@ -100,6 +93,7 @@ export default function Contact() {
 
         if (response?.data?.status) {
             showToast(response?.data?.message, 'success')
+            GetContactData()
             setShow(false)
             setFormData({
                 full_name: "",
@@ -112,23 +106,20 @@ export default function Contact() {
         const response = await Api(GetPhoneBook, {});
         if (response?.data?.status) {
             setPhoneData(response?.data?.data?.data)
-            console.log(response?.data?.data);
-
         }
     }
 
     useEffect(() => {
         GetContactData()
-    }, [])
+    }, []);
 
+    const headers = [
+        { label: "Name", key: "full_name" },
+        { label: "Contact Number", key: "contact_number" },
+        { label: "Email", key: "email_address" },
+        { label: "tag", key: "type" },
+    ];
 
-    const data = Array(8).fill({
-        name: "Ashwin Goutam",
-        phone: "6378732850",
-        email: "ashwin@gmail.com",
-        date: "16/12/2024",
-        role: "Developer",
-    });
     return (
         <>
             <ToastContainer
@@ -196,6 +187,22 @@ export default function Contact() {
                             />
                         </div>
 
+                        <div className="mb-2">
+                            <label htmlFor="contact_number" className="form-label">
+                                Email Address
+                            </label>
+                            <input
+                                type="email"
+                                id="email_address"
+                                name="email_address"
+                                value={FormData?.email_address}
+                                onChange={handleChange}
+                                placeholder="Email"
+                                className="form-control"
+                            />
+                        </div>
+
+
                         {/* <div className="mb-2">
                             <label htmlFor="tag" className="form-label">
                                 Tag
@@ -211,7 +218,7 @@ export default function Contact() {
                         <button type="submit" className="contact-btn w-auto mb-2">
                             Create Contact
                         </button>
-                    </form> : <Scanner />}
+                    </form> : <Scanner GetContactData={GetContactData} setShow={setShow} />}
                 </Modal.Body>
             </Modal>
 
@@ -256,10 +263,17 @@ export default function Contact() {
                         <FontAwesomeIcon icon={faExpand} className="text-dark cursor-pointer" />
                         <p>Scan Business Card</p>
                     </div>
-                    <div className="contact-btns">
-                        <FontAwesomeIcon icon={faFileExport} className="text-dark cursor-pointer" />
-                        <p>Export Contacts</p>
-                    </div>
+                    <CSVLink
+                        data={PhoneData}
+                        filename={"contacts.csv"}
+                        headers={headers}
+                    >
+                        <div className="contact-btns">
+                            <FontAwesomeIcon icon={faFileExport} className="text-dark cursor-pointer" />
+                            <p>Export Contacts</p>
+                        </div>
+                    </CSVLink>
+
                 </div>
 
                 <div className="pt-4">
@@ -290,7 +304,16 @@ export default function Contact() {
                         </div>
                         <div className="col-6 col-lg-2 p-0 px-2">
                             <label className="ml-1">Tag</label>
-                            <input type="text" className="form-control insight-filter w-100" placeholder='tag' />
+                            <select className="form-control"
+                                onChange={(e) => setSelectId(e.target.value)}
+                                style={{
+                                    appearance: "auto",
+                                    height: "40px",
+                                    padding: "0 10px",
+                                }}>
+                                <option value="orders">Direct</option>
+                                <option value="orders">Scanner</option>
+                            </select>
                         </div>
                         <div className="col-6 col-lg-2 p-0 px-2">
                             <button

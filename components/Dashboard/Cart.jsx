@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { showToast } from "./Toast";
 
-export default function Cart({ active, handleClose, MainData, cartId, card_url }) {
+export default function Cart({ active, handleClose, MainData, cartId, card_url, handleGetOrderProducts }) {
   const {
     cartItems,
     removeFromCart,
@@ -85,7 +85,8 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
     const dataToSend = {
       ...formData,
       card_url: card_url,
-      products_detail: products_detail
+      products_detail: products_detail,
+      customer_id: localStorage?.getItem('customer_id') ? localStorage?.getItem('customer_id') : null
     };
 
     try {
@@ -95,6 +96,8 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
         setSuccessBtn(true);
         setLoadingOrder(false)
         setOrderData(response?.data?.data)
+        localStorage.setItem('customer_id', response?.data?.data?.customer_id)
+        handleGetOrderProducts()
         setFormData({
           user_name: "",
           phone_number: "",
@@ -339,11 +342,11 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url }
                 <h6 className="mt-3">Total Amount: {MainData?.company_setting?.currency?.currency}{OrderData?.total_price}</h6>
                 <div className="">
                   <button className="contact-btn w-auto">
-                    <Link href={MainData?.company_setting?.payment_link} target="_blank">Pay Now</Link>
+                    <Link href={MainData?.company_setting?.payment_link ? MainData?.company_setting?.payment_link : ""} target="_blank">Pay Now</Link>
                   </button>
                 </div>
 
-                {MainData?.company_setting?.payment_qr && <div className="mt-2">
+                {MainData?.company_setting?.payment_qr == null && <div className="mt-2">
                   <p className="mb-2">Or</p>
                   <img src={"https://dev.popipro.com/" + MainData?.company_setting?.payment_qr.path}
                     alt="qr-image" width={'160px'} />

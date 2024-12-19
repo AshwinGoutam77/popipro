@@ -20,7 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import { useContext, useEffect, useState } from "react";
-import { HitClickApi, ProductEnquiry } from "@services/Routes";
+import { GetOpenOrders, HitClickApi, ProductEnquiry } from "@services/Routes";
 import Api from "@services/Api";
 import { toast } from "react-toastify";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -343,6 +343,15 @@ export default function Product({
   });
 
   const cartValue = TotalCard_id?.includes(MainData?.card?.id);
+
+  const [OrderData, setOrderData] = useState("");
+
+  const handleGetOrderProducts = async () => {
+    const res = await Api(GetOpenOrders, {}, "? customer_id=" + localStorage.getItem('customer_id') + '&card_url=' + card_url)
+    if (res?.data?.status) {
+      setOrderData(res.data.data);
+    }
+  }
 
   return (
     <>
@@ -685,6 +694,7 @@ export default function Product({
         card_url={card_url}
         cartId={MainData?.card?.id}
         TotalCard_id={TotalCard_id}
+        handleGetOrderProducts={handleGetOrderProducts}
       />
 
       <OrderSummaryModal
@@ -695,6 +705,9 @@ export default function Product({
         card_url={card_url}
         cartId={MainData?.card?.id}
         TotalCard_id={TotalCard_id}
+        profile={card_url}
+        OrderData={OrderData}
+        handleGetOrderProducts={handleGetOrderProducts}
       />
 
       {Titles?.card_products?.is_active == 0 &&
@@ -765,7 +778,7 @@ export default function Product({
                       ""
                     )}
 
-                    <div
+                    {OrderData?.length !== 0 && <div
                       className="position-relative"
                       onClick={() => setOrderSummary("OrderSummary")}
                     >
@@ -775,7 +788,7 @@ export default function Product({
                         width={26}
                         className="cursor-pointer"
                       />
-                    </div>
+                    </div>}
 
                     {Search ? (
                       <div className="d-flex align-items-baseline position-relative">

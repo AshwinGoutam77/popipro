@@ -154,3 +154,7 @@ export const SavePhoneBook = {
 export const GetPhoneBook = {
   path: "get-phone-book", method: "GET"
 }
+
+export const GetOpenOrders = {
+  path: "get-open-orders", method: "GET"
+}

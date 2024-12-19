@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
-const TaskItem = ({ task, onDelete, onEdit, onToggleTimer }) => {
+const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [editTitle, setEditTitle] = useState(task.title);
+    const [editTitle, setEditTitle] = useState();
 
     const handleEdit = () => {
         onEdit(task.id, editTitle);
@@ -13,20 +13,21 @@ const TaskItem = ({ task, onDelete, onEdit, onToggleTimer }) => {
     };
 
     return (
-        <div className="container fluid">
+        <div>
             <div className="w-100">
                 <div className="box-shadow-leads mb-4 mt-3">
                     <Table>
                         <Thead>
                             <Tr>
                                 <Th>Task</Th>
-                                <Th>Time Spend</Th>
+                                <Th>Time</Th>
+                                <Th>Clocker</Th>
                                 <Th>Edit</Th>
                                 <Th>Delete</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr>
+                            {tasks.map((task) => (<Tr>
                                 <Td>
                                     {isEditing ? (
                                         <input
@@ -40,20 +41,20 @@ const TaskItem = ({ task, onDelete, onEdit, onToggleTimer }) => {
                                 </Td>
                                 <Td>{task.timeSpent}s</Td>
                                 <Td><button
-                                    className='contact-btn'
+                                    className='contact-btn w-auto'
                                     onClick={() => onToggleTimer(task.id)}
                                 >
                                     {task.isTimerRunning ? "Stop Timer" : "Start Timer"}
                                 </button></Td>
                                 <Td>{isEditing ? (
-                                    <button className='contact-btn' onClick={handleEdit}>Save</button>
+                                    <button className='contact-btn w-auto' onClick={handleEdit}>Save</button>
                                 ) : (
-                                    <button className='contact-btn' onClick={() => setIsEditing(true)}>Edit</button>
+                                    <button className='contact-btn w-auto' onClick={() => setIsEditing(true)}>Edit</button>
                                 )}</Td>
-                                <Td> <button style={{ marginLeft: "10px" }} onClick={() => onDelete(task.id)}>
+                                <Td> <button className='contact-btn w-auto' onClick={() => onDelete(task.id)}>
                                     Delete
                                 </button></Td>
-                            </Tr>
+                            </Tr>))}
                         </Tbody>
                     </Table>
                 </div>

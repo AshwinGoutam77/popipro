@@ -4,7 +4,7 @@ import TaskItem from './taskItem';
 
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faAngleLeft, faPlus, faSquareCheck } from '@node_modules/@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-scroll';
+import Link from "next/link";
 import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import './page.css'
@@ -140,15 +140,13 @@ function Todo() {
                     <p>Add Task</p>
                 </div>
 
-                {tasks.map((task) => (
-                    <TaskItem
-                        key={task.id}
-                        task={task}
-                        onDelete={deleteTask}
-                        onEdit={editTask}
-                        onToggleTimer={toggleTimer}
-                    />
-                ))}
+
+                <TaskItem
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onEdit={editTask}
+                    onToggleTimer={toggleTimer}
+                />
             </div>
         </>
     );
