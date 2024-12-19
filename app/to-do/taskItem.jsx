@@ -27,8 +27,8 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {tasks.map((task, index) => (<Tr>
-                                <Td key={index}>
+                            {tasks.map((task, index) => (<Tr key={index}>
+                                <Td >
                                     {isEditing ? (
                                         <input
                                             type="text"
