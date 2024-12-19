@@ -78,6 +78,7 @@ export default function Scanner({ GetContactData, setShow }) {
             address: (text.match(addressRegex) || [])[0] || "Not found",
         };
     };
+    
 
     return (
         <div className="px-2">
