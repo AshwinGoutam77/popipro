@@ -14,7 +14,7 @@ export default function Documents({ Titles, card }) {
                     <div className="document-section">
                         {card?.card_documents && card?.card_documents?.map((item, index) => {
                             return (
-                                <div className='document-div'>
+                                <div className='document-div' key={index}>
                                     <img src="../../static/img/document-icon.png" alt="document" />
                                     <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
                                 </div>
