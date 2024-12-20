@@ -318,7 +318,7 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                 <div className="document-section">
                     {Data?.card_documents && Data?.card_documents?.map((item, index) => {
                         return (
-                            <div className='document-div'>
+                            <div className='document-div' key={index}>
                                 {TitleData?.card_documents?.source == "2" &&
                                     TitleData?.card_documents?.in_subscription ? (
                                     <FontAwesomeIcon
