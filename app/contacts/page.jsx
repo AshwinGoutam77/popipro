@@ -308,7 +308,7 @@ export default function Contact() {
                                 onChange={(e) => setSelectId(e.target.value)}
                                 style={{
                                     appearance: "auto",
-                                    height: "40px",
+                                    height: "35px",
                                     padding: "0 10px",
                                 }}>
                                 <option value="orders">Direct</option>

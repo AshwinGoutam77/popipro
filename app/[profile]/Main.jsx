@@ -439,7 +439,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                 </div>
               </div>
             </main>
-            <Footer profile={profile} MainData={MainData} />
+            <Footer profile={profile} Data={data?.data} MainData={MainData} />
           </>
         ) : (
           redirect("/")

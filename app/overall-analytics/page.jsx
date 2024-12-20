@@ -31,6 +31,8 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 const Page = () => {
   const { token, APIDATA, UserData } = useAuthContext();
+  console.log(UserData);
+  
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));

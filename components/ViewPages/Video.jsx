@@ -98,7 +98,7 @@ const Video = ({
       {Card_videos?.length !== 0 &&
         Titles?.card_videos?.source !== 0 &&
         Titles?.card_videos?.is_active !== 0 &&
-        Titles?.card_videos?.in_subscription &&  Titles?.card_videos?.is_locked !== 0 &&
+        Titles?.card_videos?.in_subscription && Titles?.card_videos?.is_locked !== 0 &&
         <LockedSection name="card_videos" Title={Titles.card_videos?.visible_name}
           profile={card_url} />
       }
@@ -125,10 +125,10 @@ const Video = ({
                         <picture>
                           <source
                             type="image/png"
-                            srcSet="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
+                            srcSet="https://toolapi.devwings.com/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
                           />
                           <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
+                            src="https://toolapi.devwings.com/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM1.jpeg"
                             alt="photos"
                             className="video-width h-100 w-100 vedio-height br-10"
                           />
@@ -136,10 +136,10 @@ const Video = ({
                         <picture>
                           <source
                             type="image/png"
-                            srcSet="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
+                            srcSet="https://toolapi.devwings.com/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
                           />
                           <img
-                            src="https://prafullgupta.com/connectwork/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
+                            src="https://toolapi.devwings.com/assets/chat/groups/210823111005WhatsAppImage2023-08-19at4.38.05PM.jpeg"
                             alt="photos"
                             className="video-width h-100 w-100 vedio-height br-10"
                           />

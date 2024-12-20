@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import EditDropdown from './Dropdown';
-import { CardData } from '@services/Routes';
+import { CardData, deleteFiles } from '@services/Routes';
 import Api from '@services/Api';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faFloppyDisk, faPencil, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircleXmark, faFloppyDisk, faPencil, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { handleActive } from './EditFunctions';
 import { Modal } from 'react-bootstrap';
+import { showToast } from '@components/Dashboard/Toast';
 
-export default function EditDocument({ TitleData, Data }) {
+export default function EditDocument({ TitleData, Data, APIDATA }) {
     const [EditFields, setEditFields] = useState(false);
     const [Active, setActive] = useState("");
     const [DocumentTitle, setDocumentTitle] = useState("");
@@ -18,13 +19,16 @@ export default function EditDocument({ TitleData, Data }) {
     const handleClose = () => setShow(false);
     const handleEditClose = () => setShowEdit(false);
     const handleShow = () => setShow(true);
+    const [ShowLoader, setShowLoader] = useState(false);
+    const [DocTitle, setDocTitle] = useState("")
+    const [File, setFile] = useState("")
 
     useEffect(() => {
-        setActive(TitleData?.card_alternate_phone?.is_active == "1" ? true : false);
+        setActive(TitleData?.card_documents?.is_active == "1" ? true : false);
     }, [TitleData]);
 
     useEffect(() => {
-        setDocumentTitle(TitleData?.card_document?.visible_name);
+        setDocumentTitle(TitleData?.card_documents?.visible_name);
     }, []);
 
     const handleChnageTitle = async () => {
@@ -44,7 +48,7 @@ export default function EditDocument({ TitleData, Data }) {
         setShowLoader(true);
         const titles = [
             {
-                name: "card_document",
+                name: "card_documents",
                 visible_name: DocumentTitle,
             },
         ];
@@ -67,7 +71,7 @@ export default function EditDocument({ TitleData, Data }) {
                 setEditFields(false);
             }
         } catch (error) {
-            if (error.request.status == "401") {
+            if (error.request?.status == "401") {
                 localStorage.removeItem("token");
                 window.location.href = "/login";
             }
@@ -97,7 +101,51 @@ export default function EditDocument({ TitleData, Data }) {
         });
     };
 
-    const handleSaveDetails = () => { handleClose() }
+    const handleSaveDetails = async () => {
+        let data = {
+            title: DocTitle,
+            document: File,
+        };
+
+        try {
+            const response = await Api(CardData, { documents: [data] });
+            if (response?.data?.status) {
+                showToast(response?.data?.message, "success");
+                handleClose();
+            } else {
+                showToast(response?.data?.message || "An error occurred. Please try again.", "error");
+            }
+        } catch (error) {
+            console.error("API Error:", error);
+            showToast("Something went wrong. Please try again later.", "error");
+        }
+
+    }
+
+    const handleDelete = async (path, type, DataId) => {
+        let data = {
+            type: type,
+            file_url: path,
+            obj_base: DataId,
+        };
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "rgb(99 171 187)",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await Api(deleteFiles, data);
+                if (response.data.status) {
+                    Swal.fire("Deleted!", "", "success");
+                    APIDATA();
+                }
+            }
+        });
+    };
 
     return (
         <>
@@ -124,13 +172,15 @@ export default function EditDocument({ TitleData, Data }) {
                             type="text"
                             placeholder='Enter your document title'
                             className="form-control mb-4 mt-1"
-                        // onChange={(e) => setNumberLabel(e.target.value)}
+                            value={DocTitle}
+                            onChange={(e) => setDocTitle(e.target.value)}
                         ></input>
                         <label className="modalFormLable">Upload Document</label>
                         <input
                             type="file"
                             className="form-control mb-4 mt-1"
-                        // onChange={(e) => setNumberLabel(e.target.value)}
+                            accept="application/pdf"
+                            onChange={(e) => setFile(e.target.files[0])}
                         ></input>
                     </div>
 
@@ -223,7 +273,7 @@ export default function EditDocument({ TitleData, Data }) {
                                                         data-active={Active}
                                                         checked={Active}
                                                         type="checkbox"
-                                                        onChange={() => handleActive("card_document", DocumentTitle, Active, setActive)}
+                                                        onChange={() => handleActive({ section_name: "card_documents", Visible_name: DocumentTitle, Active, setActive })}
                                                     />
                                                     <span className="slider round"></span>
                                                 </label>
@@ -249,12 +299,11 @@ export default function EditDocument({ TitleData, Data }) {
                                             setEditFields={setEditFields}
                                             AddTitle={
                                                 "Add " +
-                                                TitleData?.card_alternate_phone?.visible_name
+                                                TitleData?.card_documents?.visible_name
                                             }
                                             handleShowAddModal={handleShow}
                                             setTooltipIsOpen={setTooltipIsOpen}
-                                            message="Please add any relevant phone numbers, including
-                        WhatsApp, Skype, and contact numbers."
+                                            message="Please add your relavent important documents and files here."
                                             tooltipIsOpen={tooltipIsOpen}
                                         />
                                     )}
@@ -267,18 +316,32 @@ export default function EditDocument({ TitleData, Data }) {
                 </div>
 
                 <div className="document-section">
-                    <div className='document-div'>
-                        <img src="../../static/img/document-icon.png" alt="document" />
-                        <a href='#'>Anual Reports</a>
-                    </div>
-                    <div className='document-div'>
-                        <img src="../../static/img/document-icon.png" alt="document" />
-                        <a href='#'>Billing Reports</a>
-                    </div>
-                    <div className='document-div'>
-                        <img src="../../static/img/document-icon.png" alt="document" />
-                        <a href='#'>Project Reports</a>
-                    </div>
+                    {Data?.card_documents && Data?.card_documents?.map((item, index) => {
+                        return (
+                            <div className='document-div'>
+                                {TitleData?.card_documents?.source == "2" &&
+                                    TitleData?.card_documents?.in_subscription ? (
+                                    <FontAwesomeIcon
+                                        icon={faCircleXmark}
+                                        onClick={() =>
+                                            handleDelete(item.details?.path, 11, Data?.id)
+                                        }
+                                        style={{
+                                            top: "-1px",
+                                            right: "0",
+                                            color: "rgb(213, 51, 51)",
+                                            fontSize: "20px",
+                                        }}
+                                        className="delete-icon3"
+                                    />
+                                ) : (
+                                    ""
+                                )}
+                                <img src="../../static/img/document-icon.png" alt="document" />
+                                <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </>

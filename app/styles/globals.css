@@ -2413,6 +2413,8 @@ td {
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  width: 150px;
 }
 
 .document-div img {
@@ -2484,6 +2486,10 @@ td {
 
 .list-style-none {
   list-style: none;
+}
+
+.todo-table-row{
+  background-color: #a7a6a665;
 }
 
 

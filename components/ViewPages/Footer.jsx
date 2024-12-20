@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Footer({ Data, profile, MainData }) {
+
   const [LocalStorageUrl, setLocalStorageUrl] = useState("");
   const handleLOGOUT = () => {
     localStorage.removeItem("token");
@@ -36,11 +37,11 @@ export default function Footer({ Data, profile, MainData }) {
   return (
     <>
       <div className="w-100 footer-div text-center">
-        <img
+        {Data?.company_setting?.agent_details?.profile && <img
           src="https://www.popipro.com/assets/images/whiteLogo.png"
           style={{ width: "110px" }}
           alt="photos"
-        />
+        />}
         <p className="mb-4 mt-2 footer-para">
           One card to connect, collect, showcase and track{" "}
           <span className="ml-1">

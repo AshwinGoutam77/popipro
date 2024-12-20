@@ -9,10 +9,10 @@ import React from 'react'
 import { useState } from 'react'
 
 export default function LockedSection({ name, Title, profile }) {
-    const { fetchData } = useAuthContext();
+    const { fetchData, data } = useAuthContext();
     const [Password, setPassword] = useState("")
     const handleSubmit = async () => {
-        if (Password == localStorage.getItem('PassCode')) {
+        if (Password == data?.data?.company_setting?.card_section_passcode) {
             let titles = [
                 {
                     name: name,

@@ -26,7 +26,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CSVLink } from "react-csv";
 
 const Leads = () => {
-  const { token, APIDATA } = useAuthContext();
+  const { token, APIDATA, data } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -38,6 +38,7 @@ const Leads = () => {
   useEffect(() => {
     api();
     APIDATA();
+    console.log('data', data);
   }, []);
 
   const api = async () => {

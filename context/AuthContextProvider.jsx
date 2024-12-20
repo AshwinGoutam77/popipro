@@ -96,6 +96,19 @@ const AuthContextProvider = ({ children }) => {
         const resp = await response.json();
         setData(resp);
         setLoader(false)
+        document.documentElement.style.setProperty("--color", resp?.data?.card?.color_code);
+        document.documentElement.style.setProperty(
+          "--header-color",
+          resp?.data?.card?.banner_color
+        );
+        document.documentElement.style.setProperty(
+          "--themecolor",
+          resp?.data?.card?.background_color
+        );
+        document.documentElement.style.setProperty(
+          "--text-color",
+          resp?.data?.card?.text_color
+        );
       } else {
         console.error("Failed to fetch data", response.status);
       }

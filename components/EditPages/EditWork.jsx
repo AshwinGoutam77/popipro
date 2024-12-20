@@ -180,67 +180,58 @@ export default function EditWorks({
 
   const handleSaveVideos = async (id) => {
     setShowLoader(true);
-    let videos = [];
+    let videos = "";
     let error = false;
     let mess = "";
+
     if (ModalVideos === "" && CustomVideo === "") {
       error = true;
       mess = ModalVideos === "" ? "URL field is required" : "";
     } else {
-      videos.push(ModalVideos);
+      videos = ModalVideos;
     }
+
+    if (selectedOption !== VideoOption.ViaLink && CustomVideo) {
+      const fileSizeLimit = 10 * 1024 * 1024;
+      if (CustomVideo.size > fileSizeLimit) {
+        error = true;
+        mess = "Video size cannot exceed 10 MB.";
+      }
+    }
+
     if (error) {
       setShowLoader(false);
-      toast.error(mess, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(mess, "error");
       return;
     }
 
     try {
-      const response = await Api(CardData, { videos: selectedOption === VideoOption.ViaLink ? videos : CustomVideo });
+      const response = await Api(CardData, {
+        videos: selectedOption === VideoOption.ViaLink ? videos : CustomVideo,
+      });
       if (response.data.status) {
         APIDATA();
         setPage(2);
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(response.data.message, "success");
       }
     } catch (error) {
-      if (error.request.status == "401") {
+      if (error.request.status === 401) {
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(error.response?.data?.message || "An error occurred.", "error");
     }
+
     setShowLoader(false);
     handleCanclebtn();
-    var elem = document.getElementById("card_photos");
-    elem.scrollIntoView();
+
+    // Scroll to the card_photos element
+    const elem = document.getElementById("card_photos");
+    if (elem) {
+      elem.scrollIntoView();
+    }
   };
+
 
   const handleDelteImages = async (path, type, DataId) => {
     let data = {
@@ -648,18 +639,16 @@ export default function EditWorks({
               id="file"
               multiple
               onChange={(evnt) => setModalVideos(evnt.target.value)}
-              style={{ border: "1px solid #ccc", height: "40px" }}
             /> : <input
               type="file"
               name="url"
               placeholder="https://youtu.be"
               className="form-control mt-1 mb-2"
-              // value={CustomVideo}
+              accept="video/*"
               autoFocus
               id="file"
               multiple
               onChange={(evnt) => setCustomVideo(evnt.target.files[0])}
-              style={{ border: "1px solid #ccc", height: "40px" }}
             />}
           </div>
           <div
@@ -1237,7 +1226,7 @@ export default function EditWorks({
                                   fontSize: "20px",
                                 }}
                                 onClick={() =>
-                                  handleDelteImages(video, 4, Data?.id)
+                                  handleDelteImages(video?.path ? video?.path : video, 4, Data?.id)
                                 }
                                 className="delete-icon2"
                               />
@@ -1248,14 +1237,13 @@ export default function EditWorks({
                               <div className="vedio-height">
                                 <div className="video-player-container">
                                   <ReactPlayer
-                                    url={video}
+                                    url={video?.path ? "https://dev.popipro.com/" + video?.path : video}
                                     controls
                                     width="560"
                                     height="315"
                                   />
                                 </div>
                               </div>
-                              <div></div>
                             </div>
                           </div>
                         );

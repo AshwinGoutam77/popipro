@@ -1,29 +1,43 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TaskItem from './taskItem';
-
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faAngleLeft, faPlus, faSquareCheck } from '@node_modules/@fortawesome/free-solid-svg-icons';
 import Link from "next/link";
 import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import './page.css'
+import Api from '@services/Api';
+import { CreateTodo } from '@services/Routes';
+import { useAuthContext } from "@context/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 function Todo() {
+    const { token, APIDATA, UserData } = useAuthContext();
+    useEffect(() => {
+        APIDATA();
+    }, []);
+
+
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
     const [Show, setShow] = useState(false);
 
     // Add a task
-    const addTask = () => {
+    const addTask = async () => {
         if (newTask.trim()) {
             const newTaskObj = {
-                id: Date.now(),
-                title: newTask,
-                timeSpent: 0,
-                isTimerRunning: false
+                initiation_date: new Date().toISOString().split('T')[0],
+                detail: newTask,
+                // timeSpent: 0,
+                type: "daily",
+                // isTimerRunning: false
             };
             setTasks([...tasks, newTaskObj]);
+            const response = await Api(CreateTodo, newTaskObj)
+            // if (response?.data?.status) {
+            //     APIDATA()
+            // }
             setNewTask("");
             setShow(false)
         }
@@ -76,6 +90,18 @@ function Todo() {
 
     return (
         <>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <Modal show={Show} onHide={() => setShow(false)} centered>
                 <Modal.Header>
                     <Modal.Title>
@@ -143,9 +169,11 @@ function Todo() {
 
                 <TaskItem
                     tasks={tasks}
+                    userData={UserData?.card?.card_todo}
                     onDelete={deleteTask}
                     onEdit={editTask}
                     onToggleTimer={toggleTimer}
+                    APIDATA={APIDATA}
                 />
             </div>
         </>

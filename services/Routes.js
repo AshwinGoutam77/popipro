@@ -158,3 +158,11 @@ export const GetPhoneBook = {
 export const GetOpenOrders = {
   path: "get-open-orders", method: "GET"
 }
+
+export const CreateTodo = {
+  path: "create-todo", method: "POST"
+}
+
+export const UpdateTodoStatus = {
+  path: "update-todo-status", method: "POST"
+}

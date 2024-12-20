@@ -241,44 +241,35 @@ const Banner = ({
     }
   };
 
-  if (
-    typeof window === "object" &&
-    FunctionState == false &&
-    card?.landing_mode === "save-contact"
-  ) {
-    shareContact();
-    setFunctionState(true);
-  } else if (
-    typeof window === "object" &&
-    GoogleReviewState == false &&
-    card?.landing_mode === "open-google-review"
-  ) {
-    typeof window === "object" &&
-      (window.location.href =
-        card?.card_google_review?.url?.includes("https://") ||
-          card?.card_google_review?.url?.includes("http://")
-          ? card?.card_google_review
-          : "https://" + card?.card_google_review);
-    setGoogleReviewState(true);
-  } else if (typeof window === "object" && card?.landing_mode === "whatsapp") {
-    window.location =
-      "https://api.whatsapp.com/send?phone=" +
-      (card?.whatsapp_country_code
-        ? card?.whatsapp_country_code?.replace(/\+/g, "%2B")
-        : "") +
-      card.whatsapp_number;
-  } else if (
-    typeof window === "object" &&
-    GoogleReviewState == false &&
-    card?.landing_mode === "open-trustpilot-review"
-  ) {
-    typeof window === "object" &&
-      (window.location.href =
-        card?.card_trustpilot?.includes("https://") ||
-          card?.card_trustpilot?.includes("http://")
-          ? card?.card_trustpilot
-          : "https://" + card?.card_trustpilot);
-    setGoogleReviewState(true);
+  if (typeof window === "object") {
+    switch (card?.landing_mode) {
+      case "save-contact":
+        if (!FunctionState) {
+          shareContact();
+          setFunctionState(true);
+        }
+        break;
+      case "open-google-review":
+        if (!GoogleReviewState) {
+          window.location.href = card?.card_google_review?.startsWith("http")
+            ? card.card_google_review
+            : "https://" + card?.card_google_review;
+          setGoogleReviewState(true);
+        }
+        break;
+      case "whatsapp":
+        window.location = `https://api.whatsapp.com/send?phone=${card?.whatsapp_country_code?.replace(/\+/g, "%2B") || ""
+          }${card.whatsapp_number}`;
+        break;
+      case "open-trustpilot-review":
+        if (!GoogleReviewState) {
+          window.location.href = card?.card_trustpilot?.startsWith("http")
+            ? card.card_trustpilot
+            : "https://" + card?.card_trustpilot;
+          setGoogleReviewState(true);
+        }
+        break;
+    }
   }
 
   const handleSaveToken = async () => {
@@ -518,9 +509,9 @@ const Banner = ({
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
             backgroundImage: `url('${card?.card_cover == "banner-logo" ||
-                card?.card_cover == "banner-label"
-                ? card?.base_url + card?.card_header?.banner?.path
-                : card?.base_url + card?.card_company_logo?.path
+              card?.card_cover == "banner-label"
+              ? card?.base_url + card?.card_header?.banner?.path
+              : card?.base_url + card?.card_company_logo?.path
               }')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",

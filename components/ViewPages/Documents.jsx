@@ -4,7 +4,7 @@ export default function Documents({ Titles, card }) {
     return (
         <>
             {card?.card_description !== null &&
-                Titles?.card_description?.is_active !== 0 && <div className="box-content boxxx">
+                Titles?.card_description?.is_active !== 0 && card?.card_documents?.length !== 0 && <div className="box-content boxxx">
                     <div className="flex-header">
                         <h2 className="title title--h1 first-title title__separate">
                             Important Documents
@@ -12,18 +12,14 @@ export default function Documents({ Titles, card }) {
                     </div>
 
                     <div className="document-section">
-                        <div className='document-div'>
-                            <img src="../../static/img/document-icon.png" alt="document" />
-                            <a href='#'>Anual Reports</a>
-                        </div>
-                        <div className='document-div'>
-                            <img src="../../static/img/document-icon.png" alt="document" />
-                            <a href='#'>Billing Reports</a>
-                        </div>
-                        <div className='document-div'>
-                            <img src="../../static/img/document-icon.png" alt="document" />
-                            <a href='#'>Project Reports</a>
-                        </div>
+                        {card?.card_documents && card?.card_documents?.map((item, index) => {
+                            return (
+                                <div className='document-div'>
+                                    <img src="../../static/img/document-icon.png" alt="document" />
+                                    <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
+                                </div>
+                            )
+                        })}
                     </div>
 
                 </div>}
