@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import EditDropdown from './Dropdown';
-import { CardData, deleteFiles } from '@services/Routes';
+import { CardData, deleteFiles, deleteSection } from '@services/Routes';
 import Api from '@services/Api';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -122,11 +122,11 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
 
     }
 
-    const handleDelete = async (path, type, DataId) => {
+    const handleDelete = async (id, type, DataId) => {
         let data = {
             type: type,
-            file_url: path,
-            obj_base: DataId,
+            base: id,
+            id: DataId,
         };
         Swal.fire({
             title: "Are you sure?",
@@ -138,7 +138,7 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
             confirmButtonText: "Yes, delete it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = await Api(deleteFiles, data);
+                const response = await Api(deleteSection, data);
                 if (response.data.status) {
                     Swal.fire("Deleted!", "", "success");
                     APIDATA();

@@ -667,7 +667,7 @@ input.date-time-input::-webkit-date-and-time-value {
   padding-left: 5px;
 }
 
-.chat-modal-btn {
+/* .chat-modal-btn {
   border: none;
   background: none;
   color: red;
@@ -675,6 +675,13 @@ input.date-time-input::-webkit-date-and-time-value {
   position: absolute;
   top: 10px;
   right: 8px;
+} */
+
+.chat-modal-btn {
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #5d5d5d;
 }
 
 #loader {
@@ -734,7 +741,7 @@ input.date-time-input::-webkit-date-and-time-value {
   opacity: 1;
 }
 
-.card-uploader{
+.card-uploader {
   width: 100%;
   border: 1px dashed #a19a9a;
   margin: 5px 0;
@@ -742,7 +749,7 @@ input.date-time-input::-webkit-date-and-time-value {
   position: relative;
 }
 
-.card-uploader svg{
+.card-uploader svg {
   position: absolute;
   top: 40%;
   bottom: 50%;
@@ -750,11 +757,11 @@ input.date-time-input::-webkit-date-and-time-value {
   color: #878787;
 }
 
-input.form-control:focus{
+input.form-control:focus {
   border: 2px solid transparent !important;
 }
 
-.card-uploader input{
+.card-uploader input {
   opacity: 0;
   cursor: pointer;
 }
@@ -2488,7 +2495,7 @@ td {
   list-style: none;
 }
 
-.todo-table-row{
+.todo-table-row {
   background-color: #a7a6a665;
 }
 

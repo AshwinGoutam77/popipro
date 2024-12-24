@@ -37,7 +37,11 @@ export default function Footer({ Data, profile, MainData }) {
   return (
     <>
       <div className="w-100 footer-div text-center">
-        {Data?.company_setting?.agent_details?.profile && <img
+        {Data?.company_setting?.agent_details?.profile ? <img
+          src={Data?.card?.base_url + Data?.company_setting?.agent_details?.profile?.path}
+          style={{ width: "110px" }}
+          alt="photos"
+        /> : <img
           src="https://www.popipro.com/assets/images/whiteLogo.png"
           style={{ width: "110px" }}
           alt="photos"

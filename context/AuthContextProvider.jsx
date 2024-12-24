@@ -12,7 +12,8 @@ const AuthContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [incrementCount, setIncrementCount] = useState(0);
-  const [Loader, setLoader] = useState(false)
+  const [Loader, setLoader] = useState(false);
+  const [TodoData, setTodoData] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -66,6 +67,7 @@ const AuthContextProvider = ({ children }) => {
       );
       if (response.data.status) {
         setUserData(response?.data?.data);
+        setTodoData(response?.data?.data?.card?.card_todo);
         setPlanData(response?.data?.data?.plan);
         document.documentElement.style.setProperty("--color", "#24b1e6");
         document.documentElement.style.setProperty("--header-color", "#24b1e6");
@@ -198,7 +200,9 @@ const AuthContextProvider = ({ children }) => {
         setCartItems,
         fetchData,
         data,
-        Loader
+        Loader,
+        setTodoData,
+        TodoData
       }}
     >
       {children}

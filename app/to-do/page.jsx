@@ -8,20 +8,29 @@ import "../../styles/about.css";
 import { Modal } from "react-bootstrap";
 import './page.css'
 import Api from '@services/Api';
-import { CreateTodo } from '@services/Routes';
+import { CreateTodo, LoadMoreApi } from '@services/Routes';
 import { useAuthContext } from "@context/AuthContext";
 import { ToastContainer } from "react-toastify";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { showToast } from '@components/Dashboard/Toast';
 
 function Todo() {
-    const { token, APIDATA, UserData } = useAuthContext();
+    const { token, APIDATA, UserData, TodoData, setTodoData } = useAuthContext();
+    const [tasks, setTasks] = useState([]);
+
+    console.log(TodoData);
+    
+
     useEffect(() => {
         APIDATA();
     }, []);
 
-
-    const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
     const [Show, setShow] = useState(false);
+    let d = new Date();
+    const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
+    const [EndDate, setEndDate] = useState(new Date());
 
     // Add a task
     const addTask = async () => {
@@ -33,60 +42,56 @@ function Todo() {
                 type: "daily",
                 // isTimerRunning: false
             };
-            setTasks([...tasks, newTaskObj]);
+            // setTasks([...tasks, newTaskObj]);
             const response = await Api(CreateTodo, newTaskObj)
-            // if (response?.data?.status) {
-            //     APIDATA()
-            // }
+            if (response?.data?.status) {
+                APIDATA()
+            }
             setNewTask("");
             setShow(false)
         }
     };
 
-    // Delete a task
-    const deleteTask = (id) => {
-        setTasks(tasks.filter((task) => task.id !== id));
-    };
+    function pad(n, width, z) {
+        z = z || "0";
+        n = n + "";
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
 
-    // Edit a task
-    const editTask = (id, updatedTitle) => {
-        const updatedTasks = tasks.map((task) =>
-            task.id === id ? { ...task, title: updatedTitle } : task
-        );
-        setTasks(updatedTasks);
+    const handleSearchData = async (e) => {
+        try {
+            let startDateNew = new Date(StartDate);
+            let startDt =
+                startDateNew?.getFullYear() +
+                "-" +
+                pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+                "-" +
+                pad(startDateNew.getDate(), 2);
+            let endDt =
+                EndDate?.getFullYear() +
+                "-" +
+                pad(parseInt(EndDate.getMonth()) + 1, 2) +
+                "-" +
+                pad(EndDate.getDate(), 2);
+            const response = await Api(
+                LoadMoreApi,
+                {}, "?card_url=" + localStorage.getItem("url") + "&type=card_todo" + "&start_date=" + startDt + "&end_date=" + endDt
+            );
+            if (response.data.status) {
+                setTodoData(response?.data?.data?.next_page_data?.data);
+                console.log(response?.data?.data?.next_page_data?.data);
+                
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.request.status == "401") {
+                localStorage.removeItem("token");
+                localStorage.removeItem("url");
+                window.location.href = "/login";
+            }
+            showToast(error.response.data.message, 'error')
+        }
     };
-
-    // Toggle timer (start/stop)
-    const toggleTimer = (id) => {
-        setTasks((prevTasks) =>
-            prevTasks.map((task) => {
-                if (task.id === id) {
-                    return {
-                        ...task,
-                        isTimerRunning: !task.isTimerRunning,
-                    };
-                }
-                return task;
-            })
-        );
-    };
-
-    // Increment time for running timers
-    const incrementTime = () => {
-        setTasks((prevTasks) =>
-            prevTasks.map((task) =>
-                task.isTimerRunning
-                    ? { ...task, timeSpent: task.timeSpent + 1 }
-                    : task
-            )
-        );
-    };
-
-    // Timer Effect
-    React.useEffect(() => {
-        const timer = setInterval(() => incrementTime(), 1000);
-        return () => clearInterval(timer);
-    }, []);
 
     return (
         <>
@@ -166,13 +171,48 @@ function Todo() {
                     <p>Add Task</p>
                 </div>
 
+                <div className="pt-4">
+                    <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">
+                        <div className="col-6 col-lg-2 p-0 px-2">
+                            <label className="ml-1">From</label>
+                            <DatePicker
+                                dateFormat="MM/dd/yyyy"
+                                selected={StartDate}
+                                maxDate={new Date()}
+                                onChange={(date) => setStartDate(date)}
+                                placeholderText={"End Date"}
+                                className="form-control insight-filter w-100"
+                            />
+                        </div>
+                        <div className="col-6 col-lg-2 p-0 px-2">
+                            <label className="ml-1">To</label>
+                            <DatePicker
+                                dateFormat="MM/dd/yyyy"
+                                selected={EndDate}
+                                defaultValue={EndDate}
+                                onChange={(Date) => setEndDate(Date)}
+                                maxDate={new Date()}
+                                minDate={StartDate}
+                                placeholderText={"End Date"}
+                                className="form-control insight-filter w-100"
+                            />
+                        </div>
+                        <div className="col-6 col-lg-2 p-0 px-2">
+                            <button
+                                className="contact-btn w-auto mt-3"
+                                onClick={() => handleSearchData()}
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
 
                 <TaskItem
                     tasks={tasks}
-                    userData={UserData?.card?.card_todo}
-                    onDelete={deleteTask}
-                    onEdit={editTask}
-                    onToggleTimer={toggleTimer}
+                    userData={TodoData}
+                    data={UserData?.card}
                     APIDATA={APIDATA}
                 />
             </div>

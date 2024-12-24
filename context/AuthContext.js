@@ -9,6 +9,8 @@ export const AuthContext = createContext({
   PlanData: null,
   data: null,
   Loader: null,
+  setTodoData: null,
+  TodoData: null
 });
 
 export const useAuthContext = () => useContext(AuthContext);

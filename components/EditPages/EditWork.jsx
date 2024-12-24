@@ -627,7 +627,7 @@ export default function EditWorks({
             </div>
 
             <label className="modalFormLable">
-              <span className="">{selectedOption === VideoOption.ViaLink ? "Upload youtube urls only." : "Upload from system"}</span>
+              <span className="">{selectedOption === VideoOption.ViaLink ? "Upload youtube urls only." : "Upload from system (max upload 10mb)"}</span>
             </label>
             {selectedOption === VideoOption.ViaLink ? <input
               type="text"

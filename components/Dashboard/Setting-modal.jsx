@@ -14,7 +14,6 @@ export default function SettingModal({
   MainData,
   APIDATA,
 }) {
-  const [ProductCurrency, setProductCurrency] = useState("");
   const [AllowNotification, setAllowNotification] = useState(
     MainData?.company_setting?.allow_notification
   );
@@ -28,6 +27,8 @@ export default function SettingModal({
   })
 
   const [PassCode, setPassCode] = useState("");
+  const [UploadLogo, setUploadLogo] = useState("");
+  const [BannerImage, setBannerImage] = useState("")
 
   useEffect(() => {
     setPassCode(MainData?.company_setting?.card_section_passcode)
@@ -39,7 +40,9 @@ export default function SettingModal({
       const payload = {
         allow_notification: AllowNotification,
         allow_location: AllowLocation,
-        section_passcode: PassCode ? PassCode : ""
+        section_passcode: PassCode ? PassCode : "",
+        banner: BannerImage,
+        logo: UploadLogo,
       };
 
       const res = await Api(GeneralSetting, payload);
@@ -178,6 +181,28 @@ export default function SettingModal({
                     />
                   </div>
                 </li>
+
+                {MainData?.permission[0]?.visible_to == '2' && <li className="mt-4 list-style-none mb-2">
+                  <div>
+                    <label className="mb-0 color-black">Upload Logo</label>
+                    <input
+                      type="file"
+                      className="form-control mt-2 w-100"
+                      onChange={(e) => setUploadLogo(e.target.files[0])}
+                    />
+                  </div>
+                </li>}
+
+                {MainData?.permission[0]?.visible_to == '2' && <li className="mt-4 list-style-none mb-2">
+                  <div>
+                    <label className="mb-0 color-black">Upload banner Image</label>
+                    <input
+                      type="file"
+                      className="form-control mt-2 w-100"
+                      onChange={(e) => setBannerImage(e.target.files[0])}
+                    />
+                  </div>
+                </li>}
 
                 <button
                   className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-3"
