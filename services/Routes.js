@@ -166,3 +166,11 @@ export const CreateTodo = {
 export const UpdateTodoStatus = {
   path: "update-todo-status", method: "POST"
 }
+
+export const GetAiSuggestions = {
+  path: "get-ai-suggestion", method: "POST"
+}
+
+export const RephraseFromAi = {
+  path: "get-ai-content-parsing", method: "POST"
+}

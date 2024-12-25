@@ -22,6 +22,7 @@ import { Modal } from "react-bootstrap";
 import axios from "axios";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
+import ChatbotApp from "./Chat";
 
 export default function EditAbout({ token, APIDATA, Data, TitleData }) {
   const [TextArea, setTextArea] = useState(false);
@@ -194,81 +195,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
     });
   };
 
-  // chatapi code
-
-  const [text, setText] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [IsTyping, setIsTyping] = useState(false);
-  const apiKey = "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";
-  const handleButtonClick = async () => {
-    setIsTyping(true);
-    try {
-      const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content: "You are a helpful assistant.",
-            },
-            {
-              role: "user",
-              content:
-                Description +
-                "rewrite this sentence and give five suggestions.",
-            },
-          ],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-      const suggestedText = response.data.choices[0].message.content;
-      const suggestionList = suggestedText.split("\n");
-      // setSuggestions(response.data.choices[0].message.content);
-      setSuggestions(suggestionList);
-      setIsTyping(false);
-    } catch (error) {
-      console.error("Error fetching suggestions:", error);
-    }
-  };
-
-  const handleChatModal = () => {
-    if (Description == "") {
-      toast.error("please fill the detail to generate the data from ai", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    handleShowshowChatModal();
-    handleButtonClick();
-  };
-
-  const handleCopyMessage = () => {
-    toast.success("Message copied succesfully", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
-    setShowshowChatModal(false);
-  };
-
 
   const handleShowSection = async () => {
     const newValue = !isLocked;
@@ -288,63 +214,6 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
 
   return (
     <>
-      <Modal
-        show={showChatModal}
-        onHide={() => handleCloseshowChatModal()}
-        centered
-        style={{ background: "rgba(0,0,0,0.7)" }}
-      >
-        <Modal.Body style={{ minHeight: "100px" }}>
-          <div className="text-right">
-            <button
-              type="button"
-              className="chat-modal-btn"
-              onClick={() => {
-                handleCloseshowChatModal();
-              }}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="suggestions">
-            {IsTyping ? (
-              <p>Loading...</p>
-            ) : (
-              suggestions.map((suggestion, index) =>
-                suggestion ? (
-                  <div key={index}>
-                    <label>
-                      <input
-                        type="radio"
-                        name="suggestion"
-                        className={
-                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
-                        }
-                        value={suggestion}
-                        onChange={(e) => setInputState(e.target.value)}
-                      />
-                      {suggestion.replace(/[0-9]./g, "")}
-                    </label>
-                  </div>
-                ) : (
-                  ""
-                )
-              )
-            )}
-            {IsTyping ? (
-              ""
-            ) : (
-              <button
-                className="send-btnn mt-3"
-                onClick={() => handleCopyMessage()}
-              >
-                Copy text
-              </button>
-            )}
-          </div>
-        </Modal.Body>
-      </Modal>
-
       {TitleData?.card_description?.source !== 0 ? (
         <div className="box-content boxxx" id="card_description">
           <div className="flex-header">
@@ -369,8 +238,8 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             </div>
             {TextArea ? (
               <div className="">
-                {/* <p
-                  onClick={handleChatModal}
+                <p
+                  onClick={() => setShowshowChatModal(true)}
                   className="cursor-pointer text-right"
                 >
                   Use AI{" "}
@@ -379,7 +248,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
                     alt="stick"
                     style={{ width: "20%" }}
                   />
-                </p> */}
+                </p>
               </div>
             ) : (
               <div>
@@ -457,56 +326,58 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
             )}
           </div>
           {TextArea ? (
-            <div>
-              <CKEditor
-                editor={ClassicEditor}
-                config={{
-                  removePlugins: [
-                    "EasyImage",
-                    "ImageUpload",
-                    "MediaEmbed",
-                    "Table",
-                    "TableToolbar",
-                    "Indent",
-                    "BlockQuote",
-                    "Emoji",
-                  ],
-                  placeholder:
-                    "Insert a text and take advantage of AI to enrich the content you've written.",
-                  link: {
-                    decorators: {
-                      addTargetToExternalLinks: {
-                        mode: "automatic",
-                        callback: (url) => /^(https?:)?\/\//.test(url),
-                        attributes: {
-                          target: "_blank",
-                          rel: "noopener noreferrer",
+            !showChatModal ?
+              <div>
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    removePlugins: [
+                      "EasyImage",
+                      "ImageUpload",
+                      "MediaEmbed",
+                      "Table",
+                      "TableToolbar",
+                      "Indent",
+                      "BlockQuote",
+                      "Emoji",
+                    ],
+                    placeholder:
+                      "Insert a text and take advantage of AI to enrich the content you've written.",
+                    link: {
+                      decorators: {
+                        addTargetToExternalLinks: {
+                          mode: "automatic",
+                          callback: (url) => /^(https?:)?\/\//.test(url),
+                          attributes: {
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          },
                         },
                       },
                     },
-                  },
-                }}
-                data={Description || ""}
-                onReady={(editor) => { }}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setDescription(data);
-                }}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />
-              <div
-                className="d-flex align-items-center mt-3"
-                style={{ gap: "10px" }}
-              >
-                <button className="send-btnn" onClick={handleEditAbout}>
-                  Save
-                </button>
-                <button className="delete-button m-0" onClick={handleCancle}>
-                  Cancel
-                </button>
-              </div>
-            </div>
+                  }}
+                  data={Description || ""}
+                  onReady={(editor) => { }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setDescription(data);
+                  }}
+                  onBlur={(event, editor) => { }}
+                  onFocus={(event, editor) => { }}
+                />
+                <div
+                  className="d-flex align-items-center mt-3"
+                  style={{ gap: "10px" }}
+                >
+                  <button className="send-btnn" onClick={handleEditAbout}>
+                    Save
+                  </button>
+                  <button className="delete-button m-0" onClick={handleCancle}>
+                    Cancel
+                  </button>
+                </div>
+              </div> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setDescription}
+                description={Description} setShowshowChatModal={setShowshowChatModal} />
           ) : (
             <>
               {Data?.card_description == null ? (
@@ -545,7 +416,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               )}
             </>
           )}
-          <div>
+          <div className="mt-4">
             <label htmlFor="password">
               <input
                 type="checkbox"

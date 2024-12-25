@@ -33,16 +33,7 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
 
     const handleChnageTitle = async () => {
         if (DocumentTitle == "") {
-            toast.error("Section title is required", {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            showToast("Section title is required", 'error')
             return;
         }
         setShowLoader(true);
@@ -111,7 +102,9 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
             const response = await Api(CardData, { documents: [data] });
             if (response?.data?.status) {
                 showToast(response?.data?.message, "success");
+                setDocTitle("")
                 handleClose();
+                APIDATA()
             } else {
                 showToast(response?.data?.message || "An error occurred. Please try again.", "error");
             }
@@ -216,8 +209,8 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                         )}
                     </div>
                     <div>
-                        {TitleData?.card_alternate_phone?.source == "2" &&
-                            TitleData?.card_alternate_phone?.in_subscription ? (
+                        {TitleData?.card_documents?.source == "2" &&
+                            TitleData?.card_documents?.in_subscription ? (
                             <>
                                 <div className="web-edit-icons">
                                     <div className="d-flex align-items-center">
@@ -316,15 +309,15 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                 </div>
 
                 <div className="document-section">
-                    {Data?.card_documents && Data?.card_documents?.map((item, index) => {
+                    {Data?.card_documents?.length !== 0 ? Data?.card_documents && Data?.card_documents?.map((item, index) => {
                         return (
-                            <div className='document-div'>
+                            <div className='document-div' key={index}>
                                 {TitleData?.card_documents?.source == "2" &&
                                     TitleData?.card_documents?.in_subscription ? (
                                     <FontAwesomeIcon
                                         icon={faCircleXmark}
                                         onClick={() =>
-                                            handleDelete(item.details?.path, 11, Data?.id)
+                                            handleDelete(item.id, 11, Data?.id)
                                         }
                                         style={{
                                             top: "-1px",
@@ -341,7 +334,7 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                                 <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
                             </div>
                         )
-                    })}
+                    }) : <p>{DocumentTitle} are empty, to add {DocumentTitle} click on the add icon.</p>}
                 </div>
             </div>
         </>

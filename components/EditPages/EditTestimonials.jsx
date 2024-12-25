@@ -34,6 +34,7 @@ import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
+import ChatbotApp from "./Chat";
 
 export default function EditTestimonials({
   TitleData,
@@ -380,81 +381,6 @@ export default function EditTestimonials({
     }
   };
 
-  // chatapi code
-
-  const [text, setText] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [IsTyping, setIsTyping] = useState(false);
-  const apiKey = "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";
-  const [InputState, setInputState] = useState("");
-  const handleButtonClick = async () => {
-    setIsTyping(true);
-    try {
-      const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content: "You are a helpful assistant.",
-            },
-            {
-              role: "user",
-              content:
-                ServicesDescription +
-                "rewrite this sentence and give five suggestions.",
-            },
-          ],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-      const suggestedText = response.data.choices[0].message.content;
-      const suggestionList = suggestedText.split("\n");
-      // setSuggestions(response.data.choices[0].message.content);
-      setSuggestions(suggestionList);
-      setIsTyping(false);
-    } catch (error) {
-      console.error("Error fetching suggestions:", error);
-    }
-  };
-
-  const handleChatModal = () => {
-    if (ServicesDescription == "") {
-      toast.error("please fill the detail to generate the data from ai", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    handleShowshowChatModal();
-    handleButtonClick();
-  };
-  const handleCopyMessage = () => {
-    toast.success("Message copied succesfully", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    navigator.clipboard.writeText(InputState.replace(/[0-9]./g, ""));
-    setShowshowChatModal(false);
-  };
-
   const handleShowSection = async () => {
     const newValue = !isLocked;
     setIsLocked(newValue);
@@ -473,7 +399,6 @@ export default function EditTestimonials({
 
   return (
     <>
-      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -498,112 +423,116 @@ export default function EditTestimonials({
           </button>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label className="modalFormLable">
-              Upload Image (*Preferred size in ratio of 100x100)
-            </label>
-            <input
-              type="file"
-              name="image"
-              className="form-control mb-4 p-1 mt-1"
-              accept="image/png, image/gif, image/jpeg"
-              style={{ border: "1px solid #ccc" }}
-              ref={aRef}
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-            <label className="modalFormLable">Heading*</label>
-            <input
-              name="name"
-              rows="4"
-              cols="50"
-              className="form-control mb-4 mt-1"
-              value={ServicesName || ""}
-              placeholder="Heading"
-              onChange={(e) => setServicesName(e.target.value)}
-              maxLength="200"
-            ></input>
-            <label className="modalFormLable">Company Name</label>
-            <input
-              name="name"
-              rows="4"
-              cols="50"
-              className="form-control mb-4 mt-1"
-              value={CompanyName || ""}
-              placeholder="Company Name"
-              onChange={(e) => setCompanyName(e.target.value)}
-            ></input>
-            <div className="d-flex align-items-center justify-content-between">
-              <label className="modalFormLable">Description*</label>
-              {/* <p
-                onClick={handleChatModal}
-                data-toggle={ServicesDescription ? "modal" : ""}
-                data-target="#chatapimodal"
-                className="cursor-pointer text-right"
-              >
-                Use AI{" "}
-                <img
-                  src="../static/img/ai-stick.png"
-                  alt="stick"
-                  style={{ width: "20%" }}
+          {
+            !showChatModal ? <>
+              <div>
+                <label className="modalFormLable">
+                  Upload Image (*Preferred size in ratio of 100x100)
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  className="form-control mb-4 p-1 mt-1"
+                  accept="image/png, image/gif, image/jpeg"
+                  style={{ border: "1px solid #ccc" }}
+                  ref={aRef}
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
-              </p> */}
-            </div>
-            <CKEditor
-              editor={ClassicEditor}
-              config={{
-                removePlugins: [
-                  "EasyImage",
-                  "ImageUpload",
-                  "MediaEmbed",
-                  "Table",
-                  "TableToolbar",
-                  "Indent",
-                  "BlockQuote",
-                  "Emoji",
-                ],
-                placeholder:
-                  "Insert a text and take advantage of AI to enrich the content you've written.",
-                link: {
-                  decorators: {
-                    addTargetToExternalLinks: {
-                      mode: "automatic",
-                      callback: (url) => /^(https?:)?\/\//.test(url),
-                      attributes: {
-                        target: "_blank",
-                        rel: "noopener noreferrer",
+                <label className="modalFormLable">Heading*</label>
+                <input
+                  name="name"
+                  rows="4"
+                  cols="50"
+                  className="form-control mb-4 mt-1"
+                  value={ServicesName || ""}
+                  placeholder="Heading"
+                  onChange={(e) => setServicesName(e.target.value)}
+                  maxLength="200"
+                ></input>
+                <label className="modalFormLable">Company Name</label>
+                <input
+                  name="name"
+                  rows="4"
+                  cols="50"
+                  className="form-control mb-4 mt-1"
+                  value={CompanyName || ""}
+                  placeholder="Company Name"
+                  onChange={(e) => setCompanyName(e.target.value)}
+                ></input>
+                <div className="d-flex align-items-center justify-content-between">
+                  <label className="modalFormLable">Description*</label>
+                  <p
+                    onClick={() => setShowshowChatModal(true)}
+                    data-toggle={ServicesDescription ? "modal" : ""}
+                    data-target="#chatapimodal"
+                    className="cursor-pointer text-right"
+                  >
+                    Use AI{" "}
+                    <img
+                      src="../static/img/ai-stick.png"
+                      alt="stick"
+                      style={{ width: "20%" }}
+                    />
+                  </p>
+                </div>
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    removePlugins: [
+                      "EasyImage",
+                      "ImageUpload",
+                      "MediaEmbed",
+                      "Table",
+                      "TableToolbar",
+                      "Indent",
+                      "BlockQuote",
+                      "Emoji",
+                    ],
+                    placeholder:
+                      "Insert a text and take advantage of AI to enrich the content you've written.",
+                    link: {
+                      decorators: {
+                        addTargetToExternalLinks: {
+                          mode: "automatic",
+                          callback: (url) => /^(https?:)?\/\//.test(url),
+                          attributes: {
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          },
+                        },
                       },
                     },
-                  },
-                },
-              }}
-              data={ServicesDescription || ""}
-              onReady={(editor) => { }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setServicesDescription(data);
-              }}
-              onBlur={(event, editor) => { }}
-              onFocus={(event, editor) => { }}
-            />
-          </div>
-          <div
-            className="d-flex align-items-center mt-3"
-            style={{ gap: "10px" }}
-          >
-            {!ShowLoader ? (
-              <button className="send-btnn" onClick={() => handleSaveTesti()}>
-                Save
-              </button>
-            ) : (
-              <button class="send-btnn" disabled>
-                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
-                <LoadingText />
-              </button>
-            )}
-            <button className="delete-button m-0" onClick={handleCanclebtn}>
-              Cancel
-            </button>
-          </div>
+                  }}
+                  data={ServicesDescription || ""}
+                  onReady={(editor) => { }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setServicesDescription(data);
+                  }}
+                  onBlur={(event, editor) => { }}
+                  onFocus={(event, editor) => { }}
+                />
+              </div>
+              <div
+                className="d-flex align-items-center mt-3"
+                style={{ gap: "10px" }}
+              >
+                {!ShowLoader ? (
+                  <button className="send-btnn" onClick={() => handleSaveTesti()}>
+                    Save
+                  </button>
+                ) : (
+                  <button class="send-btnn" disabled>
+                    <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                    <LoadingText />
+                  </button>
+                )}
+                <button className="delete-button m-0" onClick={handleCanclebtn}>
+                  Cancel
+                </button>
+              </div>
+            </> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setServicesDescription}
+              description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />}
         </Modal.Body>
       </Modal>
 
@@ -636,190 +565,134 @@ export default function EditTestimonials({
               return (
                 <>
                   {ModalId === items.id ? (
-                    <div>
-                      <input
-                        type="hidden"
-                        defaultValue={items.id}
-                        name="hiddenId"
-                        key={i}
-                      />
-                      <label className="modalFormLable">
-                        Upload Image (*Preferred size in ratio of 100x100)
-                      </label>
-                      <input
-                        type="file"
-                        name="image"
-                        className="form-control mb-4 p-1"
-                        accept="image/png, image/gif, image/jpeg"
-                        style={{ border: "1px solid #ccc" }}
-                        onChange={(e) => setImage(e.target.files[0])}
-                      />
-                      <label className="modalFormLable">Heading*</label>
-                      <input
-                        name="name"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4"
-                        defaultValue={items.name || ""}
-                        placeholder="Heading"
-                        onChange={(e) => setServicesName(e.target.value)}
-                        maxLength="200"
-                      ></input>
-                      <label className="modalFormLable">Company Name</label>
-                      <input
-                        name="name"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4"
-                        defaultValue={items.company_name || ""}
-                        placeholder="Company Name"
-                        onChange={(e) => setCompanyName(e.target.value)}
-                      ></input>
-                      <div className="d-flex align-items-center justify-content-between">
-                        <label className="modalFormLable">Description*</label>
-                        {/* <p
-                          onClick={handleChatModal}
-                          data-toggle={ServicesDescription ? "modal" : ""}
-                          data-target="#chatapimodal"
-                          className="cursor-pointer text-right"
-                        >
-                          Use AI{" "}
-                          <img
-                            src="../static/img/ai-stick.png"
-                            alt="stick"
-                            style={{ width: "20%" }}
-                          />
-                        </p> */}
-                      </div>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          removePlugins: [
-                            "EasyImage",
-                            "ImageUpload",
-                            "MediaEmbed",
-                            "Table",
-                            "TableToolbar",
-                            "Indent",
-                            "BlockQuote",
-                            "Emoji",
-                          ],
-                          placeholder:
-                            "Insert a text and take advantage of AI to enrich the content you've written.",
-                          link: {
-                            decorators: {
-                              addTargetToExternalLinks: {
-                                mode: "automatic",
-                                callback: (url) => /^(https?:)?\/\//.test(url),
-                                attributes: {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
+                    !showChatModal ?
+                      <div>
+                        <input
+                          type="hidden"
+                          defaultValue={items.id}
+                          name="hiddenId"
+                          key={i}
+                        />
+                        <label className="modalFormLable">
+                          Upload Image (*Preferred size in ratio of 100x100)
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          className="form-control mb-4 p-1"
+                          accept="image/png, image/gif, image/jpeg"
+                          style={{ border: "1px solid #ccc" }}
+                          onChange={(e) => setImage(e.target.files[0])}
+                        />
+                        <label className="modalFormLable">Heading*</label>
+                        <input
+                          name="name"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4"
+                          defaultValue={items.name || ""}
+                          placeholder="Heading"
+                          onChange={(e) => setServicesName(e.target.value)}
+                          maxLength="200"
+                        ></input>
+                        <label className="modalFormLable">Company Name</label>
+                        <input
+                          name="name"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4"
+                          defaultValue={items.company_name || ""}
+                          placeholder="Company Name"
+                          onChange={(e) => setCompanyName(e.target.value)}
+                        ></input>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <label className="modalFormLable">Description*</label>
+                          <p
+                            onClick={() => setShowshowChatModal(true)}
+                            data-toggle={ServicesDescription ? "modal" : ""}
+                            data-target="#chatapimodal"
+                            className="cursor-pointer text-right"
+                          >
+                            Use AI{" "}
+                            <img
+                              src="../static/img/ai-stick.png"
+                              alt="stick"
+                              style={{ width: "20%" }}
+                            />
+                          </p>
+                        </div>
+                        <CKEditor
+                          editor={ClassicEditor}
+                          config={{
+                            removePlugins: [
+                              "EasyImage",
+                              "ImageUpload",
+                              "MediaEmbed",
+                              "Table",
+                              "TableToolbar",
+                              "Indent",
+                              "BlockQuote",
+                              "Emoji",
+                            ],
+                            placeholder:
+                              "Insert a text and take advantage of AI to enrich the content you've written.",
+                            link: {
+                              decorators: {
+                                addTargetToExternalLinks: {
+                                  mode: "automatic",
+                                  callback: (url) => /^(https?:)?\/\//.test(url),
+                                  attributes: {
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                  },
                                 },
                               },
                             },
-                          },
-                        }}
-                        data={ServicesDescription || ""}
-                        onReady={(editor) => { }}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setServicesDescription(data);
-                        }}
-                        onBlur={(event, editor) => { }}
-                        onFocus={(event, editor) => { }}
-                      />
-                      <div
-                        className="d-flex align-items-center mt-3"
-                        style={{ gap: "10px" }}
-                      >
-                        {!ShowLoader ? (
-                          <button
-                            className="send-btnn"
-                            onClick={() => handleSaveTesti(items.id)}
-                          >
-                            Update
-                          </button>
-                        ) : (
-                          <button class="send-btnn" disabled>
-                            <FontAwesomeIcon
-                              icon={faSpinner}
-                              className="spinner-fa"
-                            />
-                            <LoadingText />
-                          </button>
-                        )}
-                        <button
-                          className="delete-button m-0"
-                          onClick={handleCanclebtn}
+                          }}
+                          data={ServicesDescription || ""}
+                          onReady={(editor) => { }}
+                          onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setServicesDescription(data);
+                          }}
+                          onBlur={(event, editor) => { }}
+                          onFocus={(event, editor) => { }}
+                        />
+                        <div
+                          className="d-flex align-items-center mt-3"
+                          style={{ gap: "10px" }}
                         >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
+                          {!ShowLoader ? (
+                            <button
+                              className="send-btnn"
+                              onClick={() => handleSaveTesti(items.id)}
+                            >
+                              Update
+                            </button>
+                          ) : (
+                            <button class="send-btnn" disabled>
+                              <FontAwesomeIcon
+                                icon={faSpinner}
+                                className="spinner-fa"
+                              />
+                              <LoadingText />
+                            </button>
+                          )}
+                          <button
+                            className="delete-button m-0"
+                            onClick={handleCanclebtn}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setServicesDescription}
+                        description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />
                   ) : (
                     ""
                   )}
                 </>
               );
             })}
-        </Modal.Body>
-      </Modal>
-
-      {/* ChatAPi Modal */}
-      <Modal
-        show={showChatModal}
-        onHide={() => handleCloseshowChatModal()}
-        centered
-        style={{ background: "rgba(0,0,0,0.7)" }}
-      >
-        <Modal.Body style={{ minHeight: "100px" }}>
-          <div className="text-right">
-            <button
-              type="button"
-              className="chat-modal-btn"
-              onClick={() => {
-                handleCloseshowChatModal();
-              }}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="suggestions">
-            {IsTyping ? (
-              <p>Loading...</p>
-            ) : (
-              suggestions.map((suggestion, index) =>
-                suggestion ? (
-                  <div key={index}>
-                    <label>
-                      <input
-                        type="radio"
-                        name="suggestion"
-                        className={
-                          index !== 0 && index !== 1 ? "mr-2" : "d-none"
-                        }
-                        value={suggestion}
-                        onChange={(e) => setInputState(e.target.value)}
-                      />
-                      {suggestion.replace(/[0-9]./g, "")}
-                    </label>
-                  </div>
-                ) : (
-                  ""
-                )
-              )
-            )}
-            {IsTyping ? (
-              ""
-            ) : (
-              <button
-                className="send-btnn mt-3"
-                onClick={() => handleCopyMessage()}
-              >
-                Copy text
-              </button>
-            )}
-          </div>
         </Modal.Body>
       </Modal>
 

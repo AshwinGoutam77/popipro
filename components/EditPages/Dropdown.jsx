@@ -6,6 +6,7 @@ import {
   faPlus,
   faToggleOff,
   faToggleOn,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -21,6 +22,8 @@ export default function EditDropdown({
   setTooltipIsOpen,
   tooltipIsOpen,
   message,
+  aiData,
+  handleGetAiSuggestion
 }) {
   return (
     <div className="edit-dropdown d-flex align-items-center">
@@ -68,6 +71,15 @@ export default function EditDropdown({
               onClick={() => handleShowAddModal()}
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> {AddTitle}
+            </Dropdown.Item>
+          )}
+
+          {aiData && (
+            <Dropdown.Item
+              className="mb-1 font-weight-bold"
+              onClick={() => handleGetAiSuggestion()}
+            >
+              <FontAwesomeIcon icon={faWandMagicSparkles} className="mr-2" /> {aiData}
             </Dropdown.Item>
           )}
 

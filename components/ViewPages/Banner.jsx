@@ -277,6 +277,7 @@ const Banner = ({
       card_url: profile,
       token: await localforage.getItem("fcm_token"),
       token_type: "web",
+      // is_admin: true
     };
 
     const response = await Api(SaveToken, payload);
@@ -329,6 +330,98 @@ const Banner = ({
     setLocalStorageUrl(LocalUrl);
   };
 
+  const isNameOrLabelCover = card.card_cover === "name" || (card.card_cover === "label" && card.card_company_logo !== null);
+  const isLogoCover = card.card_cover === "logo" && card.card_company_logo?.length !== 0 && card.card_cover !== "banner-logo";
+
+  const renderIcons = () => (
+    <div className="fixed-b-icons">
+      {!IsVisible && (
+        <div id="hide">
+          <div className="float float-styles" target="_blank" onClick={shareContact}>
+            <FontAwesomeIcon icon={faFloppyDisk} className="ml-1 position-relative right-1px" />
+          </div>
+        </div>
+      )}
+
+      {card.whatsapp_number && (
+        <a
+          href={`https://api.whatsapp.com/send?phone=${card.whatsapp_country_code?.replace(/\+/g, "%2B") || ""}${card.whatsapp_number}`}
+          className="float"
+          target="_blank"
+          onClick={() => HitClick("direct")}
+        >
+          <picture>
+            <source type="image/png" srcSet="./static/img/whatsapp.png" />
+            <img src="./static/img/whatsapp.png" alt="whatsapp" />
+          </picture>
+        </a>
+      )}
+
+      {card.card_google_review && subscription?.subscription?.plan_id !== 1 && !subscription?.is_expired && (
+        <a
+          href={card.card_google_review?.includes("http") ? card.card_google_review : `https://${card.card_google_review}`}
+          className="float float-styles-2"
+          target="_blank"
+        >
+          <picture>
+            <source type="image/png" srcSet="./static/img/google.png" />
+            <img src="./static/img/google.png" style={{ width: "30px" }} alt="google" />
+          </picture>
+        </a>
+      )}
+
+      {card.card_trustpilot && subscription?.subscription?.plan_id !== 1 && !subscription?.is_expired && (
+        <a href={card.card_trustpilot} className="float" target="_blank" style={{ background: "white" }}>
+          <img
+            src="../static/img/trustpilot.png"
+            style={{ width: "30px", height: "30px", borderRadius: "100px", background: "white" }}
+            alt="trustpilot"
+          />
+        </a>
+      )}
+    </div>
+  );
+
+  const renderContent = () => (
+    <div className="pt-0 w-45">
+      {card.card_cover !== "name" && card.card_cover !== "label" ? (
+        <picture>
+          <source type="image/png" srcSet={`${card.base_url}${card.card_company_logo?.path}`} />
+          <img src={`${card.base_url}${card.card_company_logo?.path}`} className="Logo-icon" alt="logo" />
+        </picture>
+      ) : (
+        <h1 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
+          {card?.card_company_logo}
+        </h1>
+      )}
+    </div>
+  );
+
+  const renderLink = () => (
+    <Link
+      href={LocalStorageUrl === profile ? "/dashboard" : MainData?.company_setting?.request_popicard_url}
+      target={LocalStorageUrl === profile ? "" : "_blank"}
+      onClick={() => HitClick("order", "card", card.id)}
+      className={
+        card.banner_color === "#ffffff"
+          ? "m-0 Varcolor d-flex align-items-center getCard-a"
+          : "m-0 text-white d-flex align-items-center getCard-a"
+      }
+    >
+      {LocalStorageUrl === profile ? (
+        <>
+          <FontAwesomeIcon icon={faChevronLeft} className="ml-2 mr-1 font-weight-bold" />
+          Dashboard
+        </>
+      ) : (
+        <>
+          Order PopiCard now
+          <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
+        </>
+      )}
+    </Link>
+  );
+
   return Loader == true ? (
     <>
       <h5 className="d-flex align-items-center justify-content-center text-center main-loader">
@@ -342,364 +435,45 @@ const Banner = ({
         active={modalShow == "ExchangeContact" ? true : false}
         handleClose={setModalShow}
       />
-      {card.card_cover === "name" ||
-        (card.card_cover === "label" && card?.card_company_logo !== null) ||
-        (card?.card_cover === "logo" &&
-          card?.card_company_logo?.length !== 0 &&
-          card?.card_company_logo?.length !== 0 &&
-          card?.card_cover !== "banner-logo") ? (
+      {isNameOrLabelCover || isLogoCover ? (
         <div className="bgsvg-img d-flex align-items-start justify-content-between">
-          <div className="fixed-b-icons">
-            {!IsVisible && (
-              <div id="hide">
-                {" "}
-                <div
-                  className="float float-styles"
-                  target="_blank"
-                  onClick={shareContact}
-                >
-                  <FontAwesomeIcon
-                    icon={faFloppyDisk}
-                    className="ml-1 position-relative right-1px"
-                  />
-                </div>
-              </div>
-            )}
-            {card.whatsapp_number !== null ? (
-              <a
-                href={
-                  card?.whatsapp_country_code
-                    ? "https://api.whatsapp.com/send?phone=" +
-                    card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-                    card.whatsapp_number
-                    : "https://api.whatsapp.com/send?phone=" +
-                    card.whatsapp_number
-                }
-                className="float"
-                target="_blank"
-                onClick={() => HitClick("direct")}
-              >
-                <picture>
-                  <source type="image/png" srcSet="./static/img/whatsapp.png" />
-                  <img src="./static/img/whatsapp.png" alt="whatsaap" />
-                </picture>
-              </a>
-            ) : (
-              ""
-            )}
-            {card.card_google_review !== null &&
-              subscription?.subscription?.plan_id !== 1 &&
-              subscription?.subscription !== null &&
-              subscription?.is_expired == false ? (
-              <a
-                href={
-                  card?.card_google_review?.url?.includes("https://") ||
-                    card?.card_google_review?.url?.includes("http://")
-                    ? "https://" + card?.card_google_review
-                    : card?.card_google_review
-                }
-                className="float float-styles-2"
-                target="_blank"
-              >
-                <picture>
-                  <source type="image/png" srcSet="./static/img/google.png" />
-                  <img
-                    src="./static/img/google.png"
-                    style={{ width: "30px" }}
-                    alt="photos"
-                  />
-                </picture>
-              </a>
-            ) : (
-              ""
-            )}
-            {card.card_trustpilot !== null &&
-              subscription?.subscription?.plan_id !== 1 &&
-              subscription?.subscription !== null &&
-              subscription?.is_expired == false ? (
-              <a
-                href={card?.card_trustpilot}
-                className="float"
-                target="_blank"
-                style={{
-                  background: "white",
-                }}
-              >
-                <img
-                  src="../static/img/trustpilot.png"
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "100px",
-                    background: "white",
-                  }}
-                  alt="photos"
-                />
-              </a>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div className="pt-0 w-45">
-            <div>
-              {card.card_cover !== "name" && card.card_cover !== "label" ? (
-                <picture>
-                  <source
-                    type="image/png"
-                    srcSet={card.base_url + card.card_company_logo?.path}
-                  />
-                  <img
-                    src={card.base_url + card.card_company_logo?.path}
-                    className="Logo-icon"
-                    alt="logo"
-                  />
-                </picture>
-              ) : (
-                <h1
-                  className="mt-1"
-                  style={{
-                    fontSize: "16px",
-                    color: card?.card_header?.label_color,
-                  }}
-                >
-                  {card?.card_company_logo}
-                </h1>
-              )}
-            </div>
-          </div>
-          <div className="d-flex align-items-center gap-2">
-            {/* {LocalStorageUrl == profile && (
-              <p className="text-white">Edit Theme</p>
-            )} */}
-            <Link
-              href={
-                LocalStorageUrl == profile
-                  ? "/dashboard"
-                  : MainData?.company_setting?.request_popicard_url
-              }
-              target={LocalStorageUrl == profile ? "" : "_blank"}
-              onClick={() => HitClick("order", "card", id)}
-              className={
-                card.banner_color == "#ffffff"
-                  ? "m-0 Varcolor d-flex align-items-center getCard-a"
-                  : "m-0 text-white d-flex align-items-center getCard-a"
-              }
-            >
-              {LocalStorageUrl == profile ? (
-                <>
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faChevronLeft}
-                    className="ml-2 mr-1 font-weight-bold"
-                  />
-                  Dashboard
-                </>
-              ) : (
-                <>
-                  Order PopiCard now
-                  <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
-                </>
-              )}
-            </Link>
-          </div>
+          {renderIcons()}
+          {renderContent()}
+          {renderLink()}
         </div>
       ) : (
         <div
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
-            backgroundImage: `url('${card?.card_cover == "banner-logo" ||
-              card?.card_cover == "banner-label"
-              ? card?.base_url + card?.card_header?.banner?.path
-              : card?.base_url + card?.card_company_logo?.path
+            backgroundImage: `url('${card.card_cover === "banner-logo" || card.card_cover === "banner-label"
+              ? `${card.base_url}${card.card_header?.banner?.path}`
+              : `${card.base_url}${card.card_company_logo?.path}`
               }')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
         >
-          <div className="fixed-b-icons">
-            {!IsVisible && (
-              <div id="hide">
-                {" "}
-                <div
-                  className="float float-styles"
-                  target="_blank"
-                  onClick={shareContact}
-                >
-                  <FontAwesomeIcon
-                    icon={faFloppyDisk}
-                    className="ml-1 position-relative right-1px"
-                  />
-                </div>
-              </div>
-            )}
-            {card.whatsapp_number !== null ? (
-              <a
-                href={
-                  card?.whatsapp_country_code
-                    ? "https://api.whatsapp.com/send?phone=" +
-                    card?.whatsapp_country_code?.replace(/\+/g, "%2B") +
-                    card.whatsapp_number
-                    : "https://api.whatsapp.com/send?phone=" +
-                    card.whatsapp_number
-                }
-                className="float"
-                target="_blank"
-                onClick={() => HitClick("direct")}
-              >
-                <picture>
-                  <source type="image/png" srcSet="./static/img/whatsapp.png" />
-                  <img src="./static/img/whatsapp.png" alt="whatsaap" />
-                </picture>
-              </a>
-            ) : (
-              ""
-            )}
-            {card.card_google_review !== null &&
-              subscription?.subscription?.plan_id !== 1 &&
-              subscription?.subscription !== null &&
-              subscription?.is_expired == false ? (
-              <a
-                href={
-                  card?.card_google_review?.url?.includes("https://") ||
-                    card?.card_google_review?.url?.includes("http://")
-                    ? "https://" + card?.card_google_review
-                    : card?.card_google_review
-                }
-                className="float float-styles-2"
-                target="_blank"
-              >
-                <picture>
-                  <source type="image/png" srcSet="./static/img/google.png" />
-                  <img
-                    src="./static/img/google.png"
-                    alt="photos"
-                    className="w-30"
-                  />
-                </picture>
-              </a>
-            ) : (
-              ""
-            )}
-            {card.card_trustpilot !== null &&
-              subscription?.subscription?.plan_id !== 1 &&
-              subscription?.subscription !== null &&
-              subscription?.is_expired == false ? (
-              <a
-                href={card.card_trustpilot}
-                className="float bg-white fs-24"
-                target="_blank"
-              >
-                <picture>
-                  <source
-                    type="image/png"
-                    srcSet="./static/img/trustpilot.png"
-                  />
-                  <img
-                    src="./static/img/trustpilot.png"
-                    alt="photos"
-                    className="trustpilot-images bg-white"
-                  />
-                </picture>
-              </a>
-            ) : (
-              ""
-            )}
-          </div>
-
+          {renderIcons()}
           <div className="mt-1">
-            <div>
-              {card?.card_cover == "banner-logo" ? (
-                <picture>
-                  <source
-                    type="image/png"
-                    srcSet={card.base_url + card.card_company_logo?.path}
-                  />
-                  <img
-                    src={card.base_url + card.card_company_logo?.path}
-                    className="Logo-icon"
-                    alt="logo"
-                  />
-                </picture>
-              ) : card?.card_cover == "banner-label" ? (
-                <h5
-                  className="mt-1"
-                  style={{
-                    fontSize: "16px",
-                    color: card?.card_header?.label_color,
-                  }}
-                >
-                  {card?.card_header?.label
-                    ? card?.card_header?.label
-                    : "Popipro"}
-                </h5>
-              ) : (
-                ""
-              )}
-              {card.card_cover === "name" &&
-                Data?.card_company_logo !== null ? (
-                <h5
-                  className=""
-                  style={{
-                    fontSize: "16px",
-                    color: card?.card_header?.label_color,
-                  }}
-                >
-                  {card?.card_company_logo}
-                </h5>
-              ) : (card?.card_cover !== "banner" &&
-                card?.card_cover !== "banner-logo" &&
-                card?.card_cover !== "banner-label") ||
-                card?.card_company_logo?.length == 0 ? (
-                <h5
-                  className=""
-                  style={{
-                    fontSize: "16px",
-                    color: card?.card_header?.label_color,
-                  }}
-                >
-                  Popipro
-                </h5>
-              ) : (
-                ""
-              )}
-            </div>
+            {card.card_cover === "banner-logo" ? (
+              <picture>
+                <source type="image/png" srcSet={`${card.base_url}${card.card_company_logo?.path}`} />
+                <img src={`${card.base_url}${card.card_company_logo?.path}`} className="Logo-icon" alt="logo" />
+              </picture>
+            ) : card.card_cover === "banner-label" ? (
+              <h5 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
+                {card.card_header?.label || "Popipro"}
+              </h5>
+            ) : (
+              <h5 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
+                Popipro
+              </h5>
+            )}
           </div>
-          <div>
-            <Link
-              href={
-                LocalStorageUrl == profile
-                  ? "/dashboard"
-                  : MainData?.company_setting?.request_popicard_url
-              }
-              target={LocalStorageUrl == profile ? "" : "_blank"}
-              onClick={() => HitClick("order", id, id)}
-              className={
-                card.banner_color == "#ffffff"
-                  ? "m-0 Varcolor d-flex align-items-center getCard-a"
-                  : "m-0 text-white d-flex align-items-center getCard-a"
-              }
-            >
-              {LocalStorageUrl == profile ? (
-                <>
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faChevronLeft}
-                    className="ml-2 mr-1 font-weight-bold"
-                  />
-                  Dashboard
-                </>
-              ) : (
-                <>
-                  Order PopiCard now
-                  <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
-                </>
-              )}
-            </Link>
-          </div>
-        </div>
-      )}
+          {renderLink()}
+        </div>)
+      }
       {/* LINKS SECTION */}
       <div className="box-content boxxx mb-3 mt-0 d-none">
         <h1 className="title title--h1 first-title title__separate">
@@ -745,18 +519,6 @@ const Banner = ({
                       >
                         <div className="media-icon-div">
                           <span className="social-media-icons">
-                            {/* <img
-                              src={
-                                "./static/img/" +
-                                item.parent.platform_name.toLowerCase() +
-                                ".png"
-                              }
-                              alt={item.parent.platform_name}
-                              style={{
-                                width: "50px",
-                                borderRadius: "100%",
-                              }}
-                            /> */}
                             <picture>
                               <source
                                 type="image/png"

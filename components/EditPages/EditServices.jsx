@@ -23,7 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Modal from "react-bootstrap/Modal";
-import { CardData, deleteSection } from "@services/Routes";
+import { CardData, deleteSection, GetAiSuggestions } from "@services/Routes";
 import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import "swiper/css";
@@ -339,9 +339,22 @@ export default function EditDoing({
     }
   };
 
+  const handleGetAiSuggestion = async () => {
+    handleShow();
+    const response = await Api(GetAiSuggestions, { type: "service" })
+    if (response?.data?.status) {
+      const rawTitle = response?.data?.data?.title || "";
+      const rawDescription = response?.data?.data?.description || "";
+      const cleanTitle = rawTitle.replace(/{|}|\*\*/g, "");
+      const cleanDescription = rawDescription.replace(/{|}|\*\*/g, "");
+
+      setServicesName(cleanTitle);
+      setServicesDescription(cleanDescription);
+    }
+  }
+
   return (
     <>
-      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       {/* Add More MODAL */}
       <Modal
         show={show}
@@ -366,104 +379,109 @@ export default function EditDoing({
           </button>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label className="modalFormlabel">
-              Upload Image (*Preferred size in ratio of 100x100)
-            </label>
-            <input
-              type="file"
-              name="image"
-              className="form-control mb-4 p-1 mt-1"
-              accept="image/png, image/gif, image/jpeg"
-              style={{ border: "1px solid #ccc" }}
-              ref={aRef}
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-            <label className="modalFormLable">Heading*</label>
-            <input
-              name="name"
-              rows="4"
-              cols="50"
-              className="form-control mb-4 mt-1"
-              value={ServicesName}
-              placeholder="Heading"
-              onChange={(e) => setServicesName(e.target.value)}
-              maxLength="200"
-            ></input>
-            <div className="d-flex align-items-center justify-content-between">
-              <label className="modalFormLable">Description*</label>
-              <p
-                onClick={() => setShowshowChatModal(!true)}
-                data-toggle={ServicesDescription ? "modal" : ""}
-                data-target="#chatapimodal"
-                className="cursor-pointer text-right"
-              >
-                Use AI{" "}
-                <img
-                  src="../static/img/ai-stick.png"
-                  alt="stick"
-                  style={{ width: "20%" }}
+          {!showChatModal ?
+            <>
+              <div>
+                <label className="modalFormlabel">
+                  Upload Image (*Preferred size in ratio of 100x100)
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  className="form-control mb-4 p-1 mt-1"
+                  accept="image/png, image/gif, image/jpeg"
+                  style={{ border: "1px solid #ccc" }}
+                  ref={aRef}
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
-              </p>
-            </div>
-            <CKEditor
-              editor={ClassicEditor}
-              config={{
-                removePlugins: [
-                  "EasyImage",
-                  "ImageUpload",
-                  "MediaEmbed",
-                  "Table",
-                  "TableToolbar",
-                  "Indent",
-                  "BlockQuote",
-                  "Emoji",
-                ],
-                placeholder:
-                  "Insert a text and take advantage of AI to enrich the content you've written.",
-                placeholder:
-                  "Insert a text and take advantage of AI to enrich the content you've written.",
-                link: {
-                  decorators: {
-                    addTargetToExternalLinks: {
-                      mode: "automatic",
-                      callback: (url) => /^(https?:)?\/\//.test(url),
-                      attributes: {
-                        target: "_blank",
-                        rel: "noopener noreferrer",
+                <label className="modalFormLable">Heading*</label>
+                <input
+                  name="name"
+                  rows="4"
+                  cols="50"
+                  className="form-control mb-4 mt-1"
+                  value={ServicesName}
+                  placeholder="Heading"
+                  onChange={(e) => setServicesName(e.target.value)}
+                  maxLength="200"
+                ></input>
+                <div className="d-flex align-items-center justify-content-between">
+                  <label className="modalFormLable">Description*</label>
+                  <p
+                    onClick={() => setShowshowChatModal(true)}
+                    data-toggle={ServicesDescription ? "modal" : ""}
+                    data-target="#chatapimodal"
+                    className="cursor-pointer text-right"
+                  >
+                    Use AI{" "}
+                    <img
+                      src="../static/img/ai-stick.png"
+                      alt="stick"
+                      style={{ width: "20%" }}
+                    />
+                  </p>
+                </div>
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    removePlugins: [
+                      "EasyImage",
+                      "ImageUpload",
+                      "MediaEmbed",
+                      "Table",
+                      "TableToolbar",
+                      "Indent",
+                      "BlockQuote",
+                      "Emoji",
+                    ],
+                    placeholder:
+                      "Insert a text and take advantage of AI to enrich the content you've written.",
+                    placeholder:
+                      "Insert a text and take advantage of AI to enrich the content you've written.",
+                    link: {
+                      decorators: {
+                        addTargetToExternalLinks: {
+                          mode: "automatic",
+                          callback: (url) => /^(https?:)?\/\//.test(url),
+                          attributes: {
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          },
+                        },
                       },
                     },
-                  },
-                },
-              }}
-              data={ServicesDescription || ""}
-              onReady={(editor) => { }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setServicesDescription(data);
-              }}
-              onBlur={(event, editor) => { }}
-              onFocus={(event, editor) => { }}
-            />
-          </div>
-          <div
-            className="d-flex align-items-center mt-3"
-            style={{ gap: "10px" }}
-          >
-            {!ShowLoader ? (
-              <button className="send-btnn" onClick={() => handleEditWhat()}>
-                Save
-              </button>
-            ) : (
-              <button class="send-btnn" disabled>
-                <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
-                <LoadingText />
-              </button>
-            )}
-            <button className="delete-button m-0" onClick={handleCanclebtn}>
-              Cancel
-            </button>
-          </div>
+                  }}
+                  data={ServicesDescription || ""}
+                  onReady={(editor) => { }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setServicesDescription(data);
+                  }}
+                  onBlur={(event, editor) => { }}
+                  onFocus={(event, editor) => { }}
+                />
+              </div>
+              <div
+                className="d-flex align-items-center mt-3"
+                style={{ gap: "10px" }}
+              >
+                {!ShowLoader ? (
+                  <button className="send-btnn" onClick={() => handleEditWhat()}>
+                    Save
+                  </button>
+                ) : (
+                  <button class="send-btnn" disabled>
+                    <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                    <LoadingText />
+                  </button>
+                )}
+                <button className="delete-button m-0" onClick={handleCanclebtn}>
+                  Cancel
+                </button>
+              </div>
+            </> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setServicesDescription}
+              description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />
+          }
         </Modal.Body>
       </Modal>
 
@@ -611,7 +629,7 @@ export default function EditDoing({
                           </button>
                         </div>
                       </div> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)}
-                        description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />
+                        description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} ChangeDescription={setServicesDescription} />
                   ) : (
                     ""
                   )}
@@ -724,14 +742,25 @@ export default function EditDoing({
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
                             ) : (
-                              <button
-                                className="addmore"
-                                data-toggle="modal"
-                                data-target="#AddMoreServicesModal"
-                                onClick={handleShow}
-                              >
-                                <FontAwesomeIcon icon={faPlus} />
-                              </button>
+                              <>
+                                <button
+                                  className="addmore mr-1"
+                                  onClick={handleShow}
+                                >
+                                  <FontAwesomeIcon icon={faPlus} />
+                                </button>
+                                <div class="wrapper">
+                                  <div class="tooltip w-auto" style={{ left: '-62px' }}>
+                                    Generate from ai
+                                  </div>
+                                  <button
+                                    className="addmore ml-0"
+                                    onClick={handleGetAiSuggestion}
+                                  >
+                                    <FontAwesomeIcon icon={faWandMagicSparkles} />
+                                  </button>
+                                </div>
+                              </>
                             )}
                             <label className="switch">
                               <input
@@ -764,6 +793,10 @@ export default function EditDoing({
                             AddTitle={
                               "Add " + TitleData?.card_services?.visible_name
                             }
+                            aiData={
+                              "Generate from ai"
+                            }
+                            handleGetAiSuggestion={handleGetAiSuggestion}
                             handleShowAddModal={handleShow}
                             setTooltipIsOpen={setTooltipIsOpen}
                             message="Add services you offer, including details such as

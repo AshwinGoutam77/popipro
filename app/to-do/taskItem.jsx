@@ -153,6 +153,8 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                             {userData && userData?.map((task, index) => {
                                 const uniqueKey = `${index}`;
                                 const isExpanded = expandedRow === uniqueKey;
+                                const hours = Math.floor(task?.spent_minutes / 60);
+                                const minutes = task?.spent_minutes % 60;
                                 return (
                                     <>
                                         <Tr key={index} className={task?.is_done && "todo-table-row"}>
@@ -180,7 +182,7 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                                 const minutes = i?.spent_minutes % 60;
                                                 return (i.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M' : o
                                             })}</Td> : <Td>---</Td>} */}
-                                            <Td>{task?.initiation_date}</Td>
+                                            <Td>{(task.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M':""}</Td>
                                             <Td>
                                                 <p
                                                     className="font-weight-bold cursor-pointer"

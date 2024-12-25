@@ -1,418 +1,181 @@
-/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import Api from "@services/Api";
-import { toast } from "react-toastify";
 import { UpgradeLandingMode } from "@services/Routes";
 import { Modal } from "react-bootstrap";
+import { showToast } from "./Toast";
 
 export default function Multimodes({
   APIDATA,
   Data,
-  MainData,
-  TitleData,
-  Appointment,
   active,
   handleClose,
 }) {
-  const [ShowLoader, setShowLoader] = useState(false);
-  const [ActiveProfile, setActiveProfile] = useState(false);
-  const [ActiveContact, setActiveContact] = useState(false);
-  const [ActiveGoogleReview, setActiveGoogleReview] = useState(false);
-  const [ActiveTrustPilot, setActiveTrustPilot] = useState(false);
-  const [ActiveForm, setActiveForm] = useState(false);
-  const [ActiveWhatsapp, setActiveWhatsapp] = useState(false);
-  const [ActiveShareContact, setActiveShareContact] = useState(false);
-  const [ShowAppointment, setShowAppointment] = useState(false);
-  const [Active, setActive] = useState(false);
+  const [state, setState] = useState({
+    ShowLoader: false,
+    ActiveProfile: false,
+    ActiveContact: false,
+    ActiveGoogleReview: false,
+    ActiveTrustPilot: false,
+    ActiveForm: false,
+    ActiveWhatsapp: false,
+    ActiveShareContact: false,
+    ShowAppointment: false,
+    Active: false,
+  });
 
-  if (!ActiveProfile && Data?.landing_mode === "profile-preview") {
-    setActiveProfile(true);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveWhatsapp(false);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (!ActiveContact && Data?.landing_mode === "save-contact") {
-    setActiveProfile(false);
-    setActiveContact(true);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveWhatsapp(false);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (!ActiveForm && Data?.landing_mode === "custom-forms") {
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(true);
-    setActiveWhatsapp(false);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (
-    !ActiveGoogleReview &&
-    Data?.landing_mode === "open-google-review"
-  ) {
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(true);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveWhatsapp(false);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (
-    !ActiveTrustPilot &&
-    Data?.landing_mode === "open-trustpilot-review"
-  ) {
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(true);
-    setActiveForm(false);
-    setActiveWhatsapp(false);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (!ActiveWhatsapp && Data?.landing_mode === "whatsapp") {
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveWhatsapp(true);
-    setActiveShareContact(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (!ActiveShareContact && Data?.landing_mode === "share-contact") {
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveShareContact(true);
-    setActiveWhatsapp(false);
-    setActive(false);
-    setShowAppointment(false);
-  } else if (!ShowAppointment && Data?.landing_mode === "appointment") {
-    setShowAppointment(true);
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveShareContact(false);
-    setActiveWhatsapp(false);
-    setActive(false);
-  } else if (!Active && Data?.landing_mode === "enquiry") {
-    setActive(true);
-    setActiveProfile(false);
-    setActiveContact(false);
-    setActiveGoogleReview(false);
-    setActiveTrustPilot(false);
-    setActiveForm(false);
-    setActiveShareContact(false);
-    setActiveWhatsapp(false);
-    setShowAppointment(false);
-  }
-
-  const handleLandingMode = async (type) => {
-    if (type == "profile-preview") {
-      setActiveProfile(true);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveWhatsapp(false);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "save-contact") {
-      setActiveProfile(false);
-      setActiveContact(true);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveWhatsapp(false);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "custom-forms") {
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(true);
-      setActiveWhatsapp(false);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "open-google-review") {
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(true);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveWhatsapp(false);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "open-trustpilot-review") {
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(true);
-      setActiveForm(false);
-      setActiveWhatsapp(false);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "whatsapp") {
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveWhatsapp(true);
-      setActiveShareContact(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "share-contact") {
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveShareContact(true);
-      setActiveWhatsapp(false);
-      setActive(false);
-      setShowAppointment(false);
-    } else if (type == "appointment") {
-      setShowAppointment(true);
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveShareContact(false);
-      setActiveWhatsapp(false);
-      setActive(false);
-    } else if (type == "enquiry") {
-      setActive(true);
-      setActiveProfile(false);
-      setActiveContact(false);
-      setActiveGoogleReview(false);
-      setActiveTrustPilot(false);
-      setActiveForm(false);
-      setActiveShareContact(false);
-      setActiveWhatsapp(false);
-      setShowAppointment(false);
-    }
-    setShowLoader(true);
-    try {
-      let payload = {
-        landing_mode: type,
-      };
-      const response = await Api(UpgradeLandingMode, payload);
-      if (response.data.status) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        APIDATA();
-      } else {
-        toast.error(response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    setShowLoader(false);
+  const getStateKey = (type) => {
+    const mapping = {
+      "profile-preview": "ActiveProfile",
+      "save-contact": "ActiveContact",
+      "custom-forms": "ActiveForm",
+      "open-google-review": "ActiveGoogleReview",
+      "open-trustpilot-review": "ActiveTrustPilot",
+      "whatsapp": "ActiveWhatsapp",
+      "share-contact": "ActiveShareContact",
+      "appointment": "ShowAppointment",
+      "enquiry": "Active",
+    };
+    return mapping[type] || null;
   };
 
-  return (
-    <>
-      <Modal show={active} onHide={() => handleClose("")} centered>
-        <Modal.Header>
-          <Modal.Title>
-            <h5
-              className="title title--h1 first-title title__separate mb-0"
-              id="MultimodesModal"
-            >
-              Card Mode Settings
-            </h5>
-          </Modal.Title>
+  useEffect(() => {
+    if (Data?.landing_mode) {
+      const key = getStateKey(Data.landing_mode);
+      if (key) {
+        setState((prevState) => ({
+          ...prevState,
+          [key]: true,
+        }));
+      }
+    }
+  }, [Data]);
 
-          <button
-            type="button"
-            className="close"
-            onClick={() => handleClose("")}
+  const handleLandingMode = async (type) => {
+    const initialState = {
+      ActiveProfile: false,
+      ActiveContact: false,
+      ActiveGoogleReview: false,
+      ActiveTrustPilot: false,
+      ActiveForm: false,
+      ActiveWhatsapp: false,
+      ActiveShareContact: false,
+      ShowAppointment: false,
+      Active: false,
+    };
+
+    setState((prevState) => ({
+      ...prevState,
+      ...initialState,
+      [getStateKey(type)]: true,
+      ShowLoader: true,
+    }));
+
+    try {
+      const payload = { landing_mode: type };
+      const response = await Api(UpgradeLandingMode, payload);
+      if (response.data.status) {
+        showToast(response.data.message, "success");
+        APIDATA();
+      } else {
+        showToast(response.data.message, "success");
+      }
+    } catch (error) {
+      showToast(error.response?.data?.message || "An error occurred", "error");
+    }
+    setState((prevState) => ({ ...prevState, ShowLoader: false }));
+  };
+
+  const landingModes = [
+    {
+      label: "Open Profile",
+      key: "ActiveProfile",
+      mode: "profile-preview",
+      condition: true,
+    },
+    {
+      label: "Save Contact",
+      key: "ActiveContact",
+      mode: "save-contact",
+      condition: true,
+    },
+    {
+      label: "Open Google Review Page",
+      key: "ActiveGoogleReview",
+      mode: "open-google-review",
+      condition: Data?.card_google_review !== null,
+    },
+    {
+      label: "Open Whatsapp",
+      key: "ActiveWhatsapp",
+      mode: "whatsapp",
+      condition: Data?.whatsapp_number !== null,
+    },
+    {
+      label: "Open Trustpilot URL",
+      key: "ActiveTrustPilot",
+      mode: "open-trustpilot-review",
+      condition: Data?.card_trustpilot !== null,
+    },
+    {
+      label: "Open Share Contact Form",
+      key: "ActiveShareContact",
+      mode: "share-contact",
+      condition: true,
+    },
+  ];
+
+  return (
+    <Modal show={active} onHide={() => handleClose("")} centered>
+      <Modal.Header>
+        <Modal.Title>
+          <h5
+            className="title title--h1 first-title title__separate mb-0"
+            id="MultimodesModal"
           >
-            <span aria-hidden="true">×</span>
-            <span className="sr-only">Close alert</span>
-          </button>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <h6 className="text-center mb-2 Varcolor font-weight-normal">
-              Change your default card tap behaviour, <br />
-              When user visits your profile.
-            </h6>
-            <ul className="m-0 p-0 multimodes-ul">
-              <li className="d-flex align-items-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Profile</h6>
-                <label className="switch">
-                  <input
-                    data-status={ActiveProfile}
-                    data-active={ActiveProfile}
-                    checked={ActiveProfile}
-                    type="checkbox"
-                    name="hello"
-                    onChange={() => handleLandingMode("profile-preview")}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </li>
-              <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Save Contact</h6>
-                <label className="switch">
-                  <input
-                    data-status={ActiveContact}
-                    data-active={ActiveContact}
-                    checked={ActiveContact}
-                    type="checkbox"
-                    name="hello"
-                    onChange={() => handleLandingMode("save-contact")}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </li>
-              {Data?.card_google_review !== null ? (
-                <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Google Review Page</h6>
-                  <label className="switch">
-                    <input
-                      data-status={ActiveGoogleReview}
-                      data-active={ActiveGoogleReview}
-                      checked={ActiveGoogleReview}
-                      type="checkbox"
-                      onChange={() => handleLandingMode("open-google-review")}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
-              ) : (
-                ""
-              )}
-              {Data?.whatsapp_number !== null ? (
-                <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Whatsapp</h6>
-                  <label className="switch">
-                    <input
-                      data-status={ActiveWhatsapp}
-                      data-active={ActiveWhatsapp}
-                      checked={ActiveWhatsapp}
-                      type="checkbox"
-                      onChange={() => handleLandingMode("whatsapp")}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
-              ) : (
-                ""
-              )}
-              {Data?.card_trustpilot !== null ? (
-                <li className="d-flex align-item-center justify-content-between mb-2">
-                  <h6 className="mb-0">Open Trustpilot URL</h6>
-                  <label className="switch">
-                    <input
-                      data-status={ActiveTrustPilot}
-                      data-active={ActiveTrustPilot}
-                      checked={ActiveTrustPilot}
-                      type="checkbox"
-                      onChange={() =>
-                        handleLandingMode("open-trustpilot-review")
-                      }
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </li>
-              ) : (
-                ""
-              )}
-              <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Share Contact Form</h6>
-                <label className="switch">
-                  <input
-                    data-status={ActiveShareContact}
-                    data-active={ActiveShareContact}
-                    checked={ActiveShareContact}
-                    type="checkbox"
-                    onChange={() => handleLandingMode("share-contact")}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </li>
-              {/* <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Appointment Form</h6>
-                <label className="switch">
-                  <input
-                    data-status={ShowAppointment}
-                    data-active={ShowAppointment}
-                    checked={ShowAppointment}
-                    type="checkbox"
-                    onChange={() => handleLandingMode("appointment")}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </li> */}
-              {/* <li className="d-flex align-item-center justify-content-between mb-2">
-                <h6 className="mb-0">Open Review</h6>
-                <label className="switch">
-                  <input
-                    data-status={Active}
-                    data-active={Active}
-                    checked={Active}
-                    type="checkbox"
-                    onChange={() => handleLandingMode("enquiry")}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </li> */}
-            </ul>
-          </div>
-        </Modal.Body>
-      </Modal>
-    </>
+            Card Mode Settings
+          </h5>
+        </Modal.Title>
+
+        <button
+          type="button"
+          className="close"
+          onClick={() => handleClose("")}
+        >
+          <span aria-hidden="true">×</span>
+          <span className="sr-only">Close alert</span>
+        </button>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          <h6 className="text-center mb-2 Varcolor font-weight-normal">
+            Change your default card tap behaviour, <br />
+            When user visits your profile.
+          </h6>
+          <ul className="m-0 p-0 multimodes-ul">
+            {landingModes.map(
+              ({ label, key, mode, condition }) =>
+                condition && (
+                  <li
+                    key={mode}
+                    className="d-flex align-items-center justify-content-between mb-2"
+                  >
+                    <h6 className="mb-0">{label}</h6>
+                    <label className="switch">
+                      <input
+                        data-status={state[key]}
+                        data-active={state[key]}
+                        checked={state[key]}
+                        type="checkbox"
+                        onChange={() => handleLandingMode(mode)}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+      </Modal.Body>
+    </Modal>
   );
 }
