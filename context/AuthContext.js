@@ -8,6 +8,7 @@ export const AuthContext = createContext({
   UserData: null,
   PlanData: null,
   data: null,
+  setData: null,
   Loader: null,
   setTodoData: null,
   TodoData: null

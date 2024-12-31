@@ -3,6 +3,8 @@ import Api from "@services/Api";
 import { UpgradeLandingMode } from "@services/Routes";
 import { Modal } from "react-bootstrap";
 import { showToast } from "./Toast";
+import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome";
+import { faPlus, faRightFromBracket } from "@node_modules/@fortawesome/free-solid-svg-icons";
 
 export default function Multimodes({
   APIDATA,
@@ -20,8 +22,12 @@ export default function Multimodes({
     ActiveWhatsapp: false,
     ActiveShareContact: false,
     ShowAppointment: false,
+    ActiveOther: false,
     Active: false,
   });
+
+  const [ShowLinkField, setShowLinkField] = useState(false)
+  const [Anonymous_link, setAnonymous_link] = useState(Data?.anonymous_landing_link)
 
   const getStateKey = (type) => {
     const mapping = {
@@ -33,6 +39,7 @@ export default function Multimodes({
       "whatsapp": "ActiveWhatsapp",
       "share-contact": "ActiveShareContact",
       "appointment": "ShowAppointment",
+      "other": "ActiveOther",
       "enquiry": "Active",
     };
     return mapping[type] || null;
@@ -60,8 +67,14 @@ export default function Multimodes({
       ActiveWhatsapp: false,
       ActiveShareContact: false,
       ShowAppointment: false,
+      ActiveOther: false,
       Active: false,
     };
+
+    if (type === "other" && (!Anonymous_link || !/^https?:\/\/\S+$/.test(Anonymous_link))) {
+      showToast("Please enter a valid link.", "error");
+      return;
+    }
 
     setState((prevState) => ({
       ...prevState,
@@ -71,19 +84,20 @@ export default function Multimodes({
     }));
 
     try {
-      const payload = { landing_mode: type };
+      const payload = { landing_mode: type, anonymous_landing_link: Anonymous_link };
       const response = await Api(UpgradeLandingMode, payload);
       if (response.data.status) {
         showToast(response.data.message, "success");
         APIDATA();
       } else {
-        showToast(response.data.message, "success");
+        showToast(response.data.message, "error");
       }
     } catch (error) {
       showToast(error.response?.data?.message || "An error occurred", "error");
     }
     setState((prevState) => ({ ...prevState, ShowLoader: false }));
   };
+
 
   const landingModes = [
     {
@@ -122,6 +136,12 @@ export default function Multimodes({
       mode: "share-contact",
       condition: true,
     },
+    {
+      label: "Other",
+      key: "ActiveOther",
+      mode: "other",
+      condition: true,
+    },
   ];
 
   return (
@@ -155,22 +175,46 @@ export default function Multimodes({
             {landingModes.map(
               ({ label, key, mode, condition }) =>
                 condition && (
-                  <li
-                    key={mode}
-                    className="d-flex align-items-center justify-content-between mb-2"
-                  >
-                    <h6 className="mb-0">{label}</h6>
-                    <label className="switch">
-                      <input
-                        data-status={state[key]}
-                        data-active={state[key]}
-                        checked={state[key]}
-                        type="checkbox"
-                        onChange={() => handleLandingMode(mode)}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </li>
+                  <>
+                    <li
+                      key={mode}
+                      className="d-flex align-items-center justify-content-between mb-2"
+                    >
+                      <div className="d-flex align-items-center gap-2 cursor-pointer" onClick={() => mode == 'other' && setShowLinkField(true)}>
+                        <h6 className="mb-0 w-auto">{label}</h6>
+                        {mode == 'other' && <FontAwesomeIcon icon={faPlus} />}
+                      </div>
+                      <label className="switch">
+                        <input
+                          data-status={state[key]}
+                          data-active={state[key]}
+                          checked={state[key]}
+                          type="checkbox"
+                          onChange={() => handleLandingMode(mode)}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                    </li>
+                    {mode === "other" && ShowLinkField && (
+                      <li className="input-li">
+                        <input
+                          type="url"
+                          placeholder="Enter link"
+                          className="form-control"
+                          value={Anonymous_link}
+                          onChange={(e) => setAnonymous_link(e.target.value)}
+                        />
+                        <FontAwesomeIcon
+                          icon={faRightFromBracket}
+                          onClick={() => {
+                            handleLandingMode("other");
+                            setShowLinkField(false);
+                          }}
+                        />
+                      </li>
+                    )}
+
+                  </>
                 )
             )}
           </ul>

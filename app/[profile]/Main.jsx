@@ -276,109 +276,45 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   profile={profile}
                                 />
                               ) : items?.status == "card_description" ? (
-                                <>
-                                  <AboutMe Titles={titles} card={card} profile={profile} />
-
-                                  <Documents
-                                    Titles={titles} card={card} profile={profile} />
-                                </>
-                              ) : items?.status == "card_services" ? (
-                                <Services
-                                  subscription={plan}
-                                  card={card}
-                                  Titles={titles}
-                                  profile={profile}
-                                />
-                              ) : items?.status == "card_testimonials" ? (
-                                <Testimonials
-                                  card={card}
-                                  subscription={plan}
-                                  card_testimonials={card?.card_testimonials}
-                                  Titles={titles}
-                                  company_setting={company_setting}
-                                  InquiryModal={false}
-                                  InquiryPopup={false}
-                                  setInquiryModal={false}
-                                  profile={profile}
-                                />
-                              ) : items?.status == "card_clients" ? (
-                                <Clients
-                                  card={card}
-                                  ClientPhotos={card?.card_clients}
-                                  PlanData={plan}
-                                  Titles={titles}
-                                  profile={profile}
-                                />
-                              ) : items?.status == "card_experience" ? (
-                                <Resume
-                                  Titles={titles}
-                                  subscription={plan}
-                                  card_experience={card?.card_experience}
-                                  profile={profile}
-                                />
-                              ) : items?.status == "card_photos" ? (
-                                <Work
-                                  Card_videos={card?.card_videos}
-                                  Card_photos={card?.card_photos}
-                                  Titles={titles}
-                                  Data={card}
-                                  card={card}
-                                  PaginationData={pagination_data}
-                                  PlanData={plan}
-                                  card_url={profile}
-                                />
-                              ) : items?.status == "card_videos" ? (
-                                <Video
-                                  Card_videos={card?.card_videos}
-                                  Card_photos={card?.card_photos}
-                                  Titles={titles}
-                                  Data={card}
-                                  card={card}
-                                  PaginationData={pagination_data}
-                                  PlanData={plan}
-                                  card_url={profile}
-                                />
-                              ) : items?.status == "card_products" ? (
-                                <Product
-                                  PlanData={plan}
-                                  Titles={titles}
-                                  Data={card}
-                                  card={card}
-                                  PaginationData={pagination_data}
-                                  MainData={MainData}
-                                  Products={Products}
-                                  card_url={profile}
-                                />
-                              ) : items?.status == "card_blogs" ? (
-                                <Blog
-                                  PlanData={plan}
-                                  Titles={titles}
-                                  Data={card}
-                                  card={card}
-                                  PaginationData={pagination_data}
-                                  AddMoreBlogs={AddMoreBlogs}
-                                  card_url={profile}
-                                />
-                              ) : items?.status == "card_realestates" ? (
-                                process.env.NEXT_PUBLIC_MODE ===
-                                  "development" ? (
-                                  <Realestate
+                                <AboutMe Titles={titles} card={card} profile={profile} />
+                              ) : items?.status == "card_documents" ?
+                                <Documents Titles={titles} card={card} profile={profile} />
+                                : items?.status == "card_services" ? (
+                                  <Services
+                                    subscription={plan}
+                                    card={card}
+                                    Titles={titles}
+                                    profile={profile}
+                                  />
+                                ) : items?.status == "card_testimonials" ? (
+                                  <Testimonials
+                                    card={card}
+                                    subscription={plan}
+                                    card_testimonials={card?.card_testimonials}
+                                    Titles={titles}
+                                    company_setting={company_setting}
+                                    InquiryModal={false}
+                                    InquiryPopup={false}
+                                    setInquiryModal={false}
+                                    profile={profile}
+                                  />
+                                ) : items?.status == "card_clients" ? (
+                                  <Clients
+                                    card={card}
+                                    ClientPhotos={card?.card_clients}
                                     PlanData={plan}
                                     Titles={titles}
-                                    Data={card}
-                                    card={card}
-                                    PaginationData={pagination_data}
-                                    RealEstateData={RealEstateData}
-                                    card_url={profile}
-                                    MainData={MainData}
+                                    profile={profile}
                                   />
-                                ) : (
-                                  ""
-                                )
-                              ) : items?.status == "EmbedPost" ? (
-                                MainData?.company_setting?.show_insta_feed ==
-                                  1 ? (
-                                  <EmbedPost
+                                ) : items?.status == "card_experience" ? (
+                                  <Resume
+                                    Titles={titles}
+                                    subscription={plan}
+                                    card_experience={card?.card_experience}
+                                    profile={profile}
+                                  />
+                                ) : items?.status == "card_photos" ? (
+                                  <Work
                                     Card_videos={card?.card_videos}
                                     Card_photos={card?.card_photos}
                                     Titles={titles}
@@ -387,28 +323,89 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                     PaginationData={pagination_data}
                                     PlanData={plan}
                                     card_url={profile}
-                                    MainData={MainData}
                                   />
-                                ) : (
-                                  ""
-                                )
-                              ) : items?.status == "card_booking" ? (
-                                MainData?.company_setting
-                                  ?.appointment_enquiry_method == "form" ? (
-                                  <ContactForm
-                                    card_url={profile}
+                                ) : items?.status == "card_videos" ? (
+                                  <Video
+                                    Card_videos={card?.card_videos}
+                                    Card_photos={card?.card_photos}
                                     Titles={titles}
                                     Data={card}
                                     card={card}
-                                    MainData={MainData}
+                                    PaginationData={pagination_data}
                                     PlanData={plan}
+                                    card_url={profile}
                                   />
+                                ) : items?.status == "card_products" ? (
+                                  <Product
+                                    PlanData={plan}
+                                    Titles={titles}
+                                    Data={card}
+                                    card={card}
+                                    PaginationData={pagination_data}
+                                    MainData={MainData}
+                                    Products={Products}
+                                    card_url={profile}
+                                  />
+                                ) : items?.status == "card_blogs" ? (
+                                  <Blog
+                                    PlanData={plan}
+                                    Titles={titles}
+                                    Data={card}
+                                    card={card}
+                                    PaginationData={pagination_data}
+                                    AddMoreBlogs={AddMoreBlogs}
+                                    card_url={profile}
+                                  />
+                                ) : items?.status == "card_realestates" ? (
+                                  process.env.NEXT_PUBLIC_MODE ===
+                                    "development" ? (
+                                    <Realestate
+                                      PlanData={plan}
+                                      Titles={titles}
+                                      Data={card}
+                                      card={card}
+                                      PaginationData={pagination_data}
+                                      RealEstateData={RealEstateData}
+                                      card_url={profile}
+                                      MainData={MainData}
+                                    />
+                                  ) : (
+                                    ""
+                                  )
+                                ) : items?.status == "EmbedPost" ? (
+                                  MainData?.company_setting?.show_insta_feed ==
+                                    1 ? (
+                                    <EmbedPost
+                                      Card_videos={card?.card_videos}
+                                      Card_photos={card?.card_photos}
+                                      Titles={titles}
+                                      Data={card}
+                                      card={card}
+                                      PaginationData={pagination_data}
+                                      PlanData={plan}
+                                      card_url={profile}
+                                      MainData={MainData}
+                                    />
+                                  ) : (
+                                    ""
+                                  )
+                                ) : items?.status == "card_booking" ? (
+                                  MainData?.company_setting
+                                    ?.appointment_enquiry_method == "form" ? (
+                                    <ContactForm
+                                      card_url={profile}
+                                      Titles={titles}
+                                      Data={card}
+                                      card={card}
+                                      MainData={MainData}
+                                      PlanData={plan}
+                                    />
+                                  ) : (
+                                    ""
+                                  )
                                 ) : (
                                   ""
-                                )
-                              ) : (
-                                ""
-                              )}
+                                )}
                             </div>
                           );
                         })}

@@ -229,7 +229,6 @@ function EditHeader({
 
   return (
     <>
-      {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header>
           <Modal.Title>
@@ -568,8 +567,8 @@ function EditHeader({
           </div>
           <div className="mt-3">
             {TitleData?.card_google_review?.source !== 1 &&
-            PlanData?.subscription?.plan_id !== 1 &&
-            PlanData?.is_expired == false ? (
+              PlanData?.subscription?.plan_id !== 1 &&
+              PlanData?.is_expired == false ? (
               <>
                 <span className="overhead">Google review url</span>
                 <input
@@ -597,8 +596,8 @@ function EditHeader({
           </div>
           <div className="mt-3 mb-3">
             {TitleData?.card_trustpilot?.source !== 1 &&
-            PlanData?.subscription?.plan_id !== 1 &&
-            PlanData?.is_expired == false ? (
+              PlanData?.subscription?.plan_id !== 1 &&
+              PlanData?.is_expired == false ? (
               <>
                 <span className="overhead">Trust Pilot</span>
                 <input
@@ -667,258 +666,75 @@ function EditHeader({
         </button>
         <div className="header__left">
           <div className="header__photo">
-            <div style={{ position: "relative", height: "100%" }}>
-              <Image
-                className="header__photo-img"
-                value={Data && Data.profile_picture.path}
-                src={
-                  process.env.NEXT_PUBLIC_MODE == "development"
-                    ? Data?.profile_picture?.path
-                      ? "https://dev.popipro.com/" +
-                        Data?.profile_picture?.path +
-                        "?ver=" +
-                        time
-                      : "https://avatars.githubusercontent.com/u/8152403?v=4"
-                    : Data?.profile_picture?.path
-                    ? "https://admin.popipro.com/" +
-                      Data?.profile_picture?.path +
-                      "?ver=" +
-                      time
-                    : "https://avatars.githubusercontent.com/u/8152403?v=4"
-                }
-                alt="images"
-                width={0}
-                height={0}
-              />
-            </div>
+            <Image
+              className="header__photo-img"
+              src={
+                Data?.profile_picture?.path
+                  ? `${process.env.NEXT_PUBLIC_MODE === "development"
+                    ? "https://dev.popipro.com/"
+                    : "https://admin.popipro.com/"}${Data.profile_picture.path}?ver=${time}`
+                  : "https://avatars.githubusercontent.com/u/8152403?v=4"
+              }
+              alt="Profile Picture"
+              width={0}
+              height={0}
+            />
           </div>
           <div className="header__base-info">
-            {Data && Data.first_name == null ? (
-              "Name"
-            ) : (
-              <h4 className="title titl--h4">{Data?.first_name}</h4>
-            )}
-            <div className="status w-100">
-              {Data && Data.card_profession == null
-                ? "Profession"
-                : Data?.card_profession}
-            </div>
+            <h4 className="title">{Data?.first_name || "Name"}</h4>
+            <div className="status">{Data?.card_profession || "Profession"}</div>
           </div>
         </div>
         <div className="header__right">
           <ul className="header__contact row">
-            {Data?.card_email !== null ? (
+            {Data?.card_email && (
               <li className="col-sm-6 col-12">
                 <a
-                  href={"mailto:" + Data?.card_email}
-                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                  href={`mailto:${Data.card_email}`}
+                  className="text-dark text-decoration-none d-flex align-items-center"
                 >
-                  <div className="align-div">
-                    {/* <FontAwesomeIcon
-                      icon={faEnvelope}
-                      className="user-select-auto mr-3"
-                      style={{
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
-                    /> */}
-                    <img
-                      src="../static/img/mail-dark.svg"
-                      alt="image"
-                      width={14}
-                      className="mr-2"
-                    />
-                    {Data && Data.card_email}
-                  </div>
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  />
+                  <img src="../static/img/mail-dark.svg" alt="Email" width={14} className="mr-2" />
+                  {Data.card_email}
                 </a>
               </li>
-            ) : (
-              ""
             )}
-            {Data?.card_contact !== null ? (
+            {Data?.card_contact && (
               <li className="col-sm-6 col-12">
                 <a
-                  href={`tel: ${
-                    Data.contact_country_code
-                      ? Data?.contact_country_code + "-"
-                      : Data?.contact_country_code
-                  } ${Data?.card_contact} ${
-                    Data?.contact_extension
-                      ? "- " + Data?.contact_extension
-                      : ""
-                  }`}
-                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
-                  // style={{ marginLeft: "5px" }}
+                  href={`tel:${Data.contact_country_code || ""}-${Data.card_contact}-${Data.contact_extension || ""}`}
+                  className="text-dark text-decoration-none d-flex align-items-center"
                 >
-                  <div className="align-div">
-                    {/* <FontAwesomeIcon
-                      icon={faPhoneAlt}
-                      className="user-select-auto mr-3"
-                      style={{
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
-                    /> */}
-                    <img
-                      src="../static/img/phone-dark.svg"
-                      alt="image"
-                      width={14}
-                      className="mr-2"
-                    />
-                    {Data &&
-                    Data.contact_country_code &&
-                    Data.contact_extension !== null
-                      ? Data?.contact_country_code +
-                        "-" +
-                        Data?.card_contact +
-                        "-" +
-                        Data?.contact_extension
-                      : Data?.contact_country_code
-                      ? Data?.contact_country_code + "-" + Data?.card_contact
-                      : Data?.card_contact}
-                  </div>
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  />
+                  <img src="../static/img/phone-dark.svg" alt="Phone" width={14} className="mr-2" />
+                  {`${Data.contact_country_code || ""}-${Data.card_contact}-${Data.contact_extension || ""}`}
                 </a>
               </li>
-            ) : (
-              ""
             )}
-            {Data?.card_address !== null ? (
+            {Data?.card_address && (
               <li className="col-sm-6 col-12">
                 <a
-                  href={
-                    Data &&
-                    Data?.card_address &&
-                    (Data?.card_address?.includes("http://") ||
-                      Data?.card_address?.includes("https://"))
-                      ? Data?.card_address
-                      : "https://www.google.com/maps/place/" +
-                        Data?.card_address.replace(/<[^>]*>?/gm, "")
-                  }
-                  className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
+                  href={`https://www.google.com/maps/place/${Data.card_address.replace(/<[^>]*>?/gm, "")}`}
+                  className="text-dark text-decoration-none d-flex align-items-center"
                 >
-                  <div className="align-div">
-                    {/* <FontAwesomeIcon
-                      icon={faMapMarkerAlt}
-                      className="user-select-auto"
-                      style={{
-                        marginRight: "20px",
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
-                    /> */}
-                    <img
-                      src="../static/img/location-dark.svg"
-                      alt="image"
-                      width={15}
-                      className="mr-2"
-                    />
-                    {Data && Data?.card_address}
-                  </div>
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  />
+                  <img src="../static/img/location-dark.svg" alt="Address" width={15} className="mr-2" />
+                  {Data.card_address}
                 </a>
               </li>
-            ) : (
-              ""
             )}
-            {Data?.card_name !== null ? (
-              <li className="web-li col-sm-6 col-12">
-                <div>
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faBuilding}
-                      className="user-select-auto mr-2"
-                      style={{
-                        fontSize: "15px",
-                        transform: "rotateY(180deg)",
-                      }}
-                    />
-                    <p className="text-dark m-0">{Data?.card_name}</p>
-                  </div>
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="user-select-auto mr-2"
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  />
-                </div>
-              </li>
-            ) : (
-              ""
-            )}
-            {Data?.card_website ? (
+            {Data?.card_website && (
               <li className="col-sm-6 col-12">
-                <div>
-                  <a
-                    href={
-                      Data &&
-                      Data?.card_website &&
-                      (Data?.card_website?.includes("http://") ||
-                        Data?.card_website?.includes("https://"))
-                        ? Data.card_website
-                        : Data.card_website
-                    }
-                    className="d-flex align-items-center justify-content-between overhead_a text-dark text-decoration-none"
-                  >
-                    <div className="align-div">
-                      {/* <FontAwesomeIcon
-                        icon={faLink}
-                        className="user-select-auto mr-3"
-                        style={{
-                          fontSize: "15px",
-                          transform: "rotateY(180deg)",
-                        }}
-                      /> */}
-                      <img
-                        src="../static/img/website.svg"
-                        alt="image"
-                        width={14}
-                        className="mr-2"
-                      />
-                      {Data &&
-                      Data?.card_website &&
-                      (Data?.card_website?.includes("http://") ||
-                        Data?.card_website?.includes("https://"))
-                        ? Data.card_website
-                        : Data.card_website}
-                      {/* </a> */}
-                    </div>
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="user-select-auto mr-2"
-                      style={{
-                        fontSize: "15px",
-                      }}
-                    />
-                  </a>
-                </div>
+                <a
+                  href={Data.card_website}
+                  className="text-dark text-decoration-none d-flex align-items-center"
+                >
+                  <img src="../static/img/website.svg" alt="Website" width={14} className="mr-2" />
+                  {Data.card_website}
+                </a>
               </li>
-            ) : (
-              ""
             )}
           </ul>
         </div>
       </header>
+
     </>
   );
 }

@@ -8,27 +8,20 @@ import { CardData } from '@services/Routes'
 import React from 'react'
 import { useState } from 'react'
 
-export default function LockedSection({ name, Title, profile }) {
+export default function LockedSection({ name, Title, profile, setIsLocked }) {
     const { fetchData, data } = useAuthContext();
     const [Password, setPassword] = useState("")
+
     const handleSubmit = async () => {
-        if (Password == data?.data?.company_setting?.card_section_passcode) {
-            let titles = [
-                {
-                    name: name,
-                    visible_name: Title,
-                    is_locked: 0,
-                },
-            ];
-            const response = await Api(CardData, { titles });
-            if (response?.data?.status) {
-                showToast(response.data?.message, 'success');
-                fetchData(profile);
-            }
+        if (Password === data?.data?.company_setting?.card_section_passcode) {
+            // Save the password and unlock the section
+            localStorage.setItem("section_password", data?.data?.company_setting?.card_section_passcode);
+            localStorage.setItem("set_password", Password);
+            setIsLocked(false); // Unlock the section
         } else {
-            showToast('Incorrect OTP', 'error');
+            showToast("Incorrect OTP", "error");
         }
-    }
+    };
     return (
         <div className="box-content boxxx" id="card_services" style={{ minHeight: '170px' }}>
             <h2 className="title title--h1 first-title title__separate">

@@ -19,7 +19,7 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [BlogModalTitle, setBlogModalTitle] = useState("");
-
+  const [isLocked, setIsLocked] = useState(Titles?.card_blogs?.is_locked !== 0);
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
 
@@ -163,65 +163,145 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
         </Modal.Body>
       </Modal>
       {Titles.card_blogs?.is_active !== 0 &&
-        Titles?.card_blogs?.in_subscription && Titles?.card_blogs?.is_locked !== 0 &&
-        <LockedSection name="card_blogs" Title={Titles.card_blogs?.visible_name}
-          profile={card_url} />
-      }
-      {Titles &&
-        Titles.card_blogs?.is_active &&
-        AddMoreBlogs?.length !== 0 &&
-        Titles.card_blogs?.is_active !== 0 &&
-        Titles?.card_blogs?.in_subscription && Titles?.card_blogs?.is_locked == 0 ? (
-        <div className="box-content boxxx" id="card_blogs">
-          <div className="pb-2">
-            <h3 className="title title--h1 first-title title__separate">
-              {Titles && Titles.card_blogs?.visible_name}
-            </h3>
-          </div>
+        Titles?.card_blogs?.in_subscription &&
+        (isLocked ? (
+          <LockedSection name="card_blogs" Title={Titles.card_blogs?.visible_name}
+            profile={card_url} setIsLocked={setIsLocked} />)
+          : Titles &&
+          Titles.card_blogs?.is_active &&
+          AddMoreBlogs?.length !== 0 &&
+          Titles.card_blogs?.is_active !== 0 &&
+          Titles?.card_blogs?.in_subscription && (
+            <div className="box-content boxxx" id="card_blogs">
+              <div className="pb-2">
+                <h3 className="title title--h1 first-title title__separate">
+                  {Titles && Titles.card_blogs?.visible_name}
+                </h3>
+              </div>
 
-          <div className="row">
-            {AddMoreBlogs.length == 1 ? (
-              <div className="pr-0 news-grid w-100">
-                {AddMoreBlogs &&
-                  AddMoreBlogs.map((item, index) => {
-                    return (
-                      <div key={index} className="blog-position col-lg-12 pr-0">
-                        <div className="flex-blog row w-100 gap-0">
-                          <div className="col-sm-12 col-lg-6 pr-0">
-                            <div>
-                              {item?.image?.path ? (
-                                <>
-                                  <picture>
-                                    <source
-                                      type="image/png"
-                                      srcSet={
-                                        process.env.NEXT_PUBLIC_MODE ==
-                                          "development"
-                                          ? "https://dev.popipro.com/" +
-                                          item.image.path
-                                          : "https://admin.popipro.com/" +
-                                          item.image.path
+              <div className="row">
+                {AddMoreBlogs.length == 1 ? (
+                  <div className="pr-0 news-grid w-100">
+                    {AddMoreBlogs &&
+                      AddMoreBlogs.map((item, index) => {
+                        return (
+                          <div key={index} className="blog-position col-lg-12 pr-0">
+                            <div className="flex-blog row w-100 gap-0">
+                              <div className="col-sm-12 col-lg-6 pr-0">
+                                <div>
+                                  {item?.image?.path ? (
+                                    <>
+                                      <picture>
+                                        <source
+                                          type="image/png"
+                                          srcSet={
+                                            process.env.NEXT_PUBLIC_MODE ==
+                                              "development"
+                                              ? "https://dev.popipro.com/" +
+                                              item.image.path
+                                              : "https://admin.popipro.com/" +
+                                              item.image.path
+                                          }
+                                        />
+                                        <img
+                                          className="coverr lazyload"
+                                          src={
+                                            process.env.NEXT_PUBLIC_MODE ==
+                                              "development"
+                                              ? "https://dev.popipro.com/" +
+                                              item.image.path
+                                              : "https://admin.popipro.com/" +
+                                              item.image.path
+                                          }
+                                          alt="blog"
+                                          width={0}
+                                          height={0}
+                                        />
+                                      </picture>
+                                      <FontAwesomeIcon icon={faHeart} />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <picture>
+                                        <source
+                                          type="image/png"
+                                          srcSet="./static/img/picture-1.jpg"
+                                        />
+                                        <img
+                                          className="coverr lazyload"
+                                          src="./static/img/picture-1.jpg"
+                                          alt="products"
+                                          width={0}
+                                          height={0}
+                                        />
+                                      </picture>
+                                      <FontAwesomeIcon icon={faHeart} />
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="col-sm-12 col-lg-6 pr-0">
+                                <div className="content-div p-0 mt-3">
+                                  <h2 className="title title--h4">{item.name}</h2>
+                                  <p
+                                    id="p_wrap"
+                                    className="blogTextHeight text-dark mt-2"
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.description,
+                                    }}
+                                  ></p>
+                                  <div className="d-flex align-items-center justify-content-end">
+                                    <span
+                                      onClick={() =>
+                                        ShowModalID(item.id, item?.name)
                                       }
-                                    />
-                                    <img
-                                      className="coverr lazyload"
-                                      src={
-                                        process.env.NEXT_PUBLIC_MODE ==
-                                          "development"
-                                          ? "https://dev.popipro.com/" +
-                                          item.image.path
-                                          : "https://admin.popipro.com/" +
-                                          item.image.path
-                                      }
-                                      alt="blog"
-                                      width={0}
-                                      height={0}
-                                    />
-                                  </picture>
-                                  <FontAwesomeIcon icon={faHeart} />
-                                </>
-                              ) : (
-                                <>
+                                      className="fs-13 cursor-pointer"
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faArrowRight}
+                                        className="user-select-auto mr-2 mt-1 fs-22 VarColor"
+                                        onClick={() => handleHitClick(item?.id)}
+                                      />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                ) : (
+                  <div className="news-grid w-100">
+                    {AddMoreBlogs &&
+                      AddMoreBlogs.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={
+                              AddMoreBlogs.length == 1
+                                ? "blog-position col-lg-12"
+                                : "blog-position col-lg-6"
+                            }
+                          >
+                            <div className="flex-blog gap-15">
+                              <div>
+                                {item?.image?.path ? (
+                                  <div className="position-relative">
+                                    <picture>
+                                      <source
+                                        type="image/png"
+                                        srcSet={Data?.base_url + item?.image?.path}
+                                      />
+                                      <img
+                                        className="coverr lazyload"
+                                        src={Data?.base_url + item?.image?.path}
+                                        alt="photos"
+                                      />
+                                    </picture>
+                                    <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+                                  </div>
+                                ) : (
                                   <picture>
                                     <source
                                       type="image/png"
@@ -230,137 +310,56 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                     <img
                                       className="coverr lazyload"
                                       src="./static/img/picture-1.jpg"
-                                      alt="products"
-                                      width={0}
-                                      height={0}
+                                      alt="photos"
                                     />
                                   </picture>
-                                  <FontAwesomeIcon icon={faHeart} />
-                                </>
-                              )}
-                            </div>
-                          </div>
-                          <div className="col-sm-12 col-lg-6 pr-0">
-                            <div className="content-div p-0 mt-3">
-                              <h2 className="title title--h4">{item.name}</h2>
-                              <p
-                                id="p_wrap"
-                                className="blogTextHeight text-dark mt-2"
-                                dangerouslySetInnerHTML={{
-                                  __html: item.description,
-                                }}
-                              ></p>
-                              <div className="d-flex align-items-center justify-content-end">
-                                <span
-                                  onClick={() =>
-                                    ShowModalID(item.id, item?.name)
-                                  }
-                                  className="fs-13 cursor-pointer"
-                                >
-                                  <FontAwesomeIcon
-                                    icon={faArrowRight}
-                                    className="user-select-auto mr-2 mt-1 fs-22 VarColor"
-                                    onClick={() => handleHitClick(item?.id)}
-                                  />
-                                </span>
+                                )}
+                              </div>
+                              <div className="content-div p-0 mt-3">
+                                <h2 className="title title--h4">{item.name}</h2>
+                                <p
+                                  id="p_wrap"
+                                  className="blogTextHeight text-dark mt-2"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                  }}
+                                ></p>
+                                <div className="d-flex align-items-center justify-content-end">
+                                  <span
+                                    onClick={() => ShowModalID(item.id, item?.name)}
+                                    className="fs-13 cursor-pointer"
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faArrowRight}
+                                      className="user-select-auto mr-2 mt-1 fs-19 VarColor"
+                                      onClick={() => handleHitClick(item?.id)}
+                                    />
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            ) : (
-              <div className="news-grid w-100">
-                {AddMoreBlogs &&
-                  AddMoreBlogs.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={
-                          AddMoreBlogs.length == 1
-                            ? "blog-position col-lg-12"
-                            : "blog-position col-lg-6"
-                        }
-                      >
-                        <div className="flex-blog gap-15">
-                          <div>
-                            {item?.image?.path ? (
-                              <div className="position-relative">
-                                <picture>
-                                  <source
-                                    type="image/png"
-                                    srcSet={Data?.base_url + item?.image?.path}
-                                  />
-                                  <img
-                                    className="coverr lazyload"
-                                    src={Data?.base_url + item?.image?.path}
-                                    alt="photos"
-                                  />
-                                </picture>
-                                <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-                              </div>
-                            ) : (
-                              <picture>
-                                <source
-                                  type="image/png"
-                                  srcSet="./static/img/picture-1.jpg"
-                                />
-                                <img
-                                  className="coverr lazyload"
-                                  src="./static/img/picture-1.jpg"
-                                  alt="photos"
-                                />
-                              </picture>
-                            )}
-                          </div>
-                          <div className="content-div p-0 mt-3">
-                            <h2 className="title title--h4">{item.name}</h2>
-                            <p
-                              id="p_wrap"
-                              className="blogTextHeight text-dark mt-2"
-                              dangerouslySetInnerHTML={{
-                                __html: item.description,
-                              }}
-                            ></p>
-                            <div className="d-flex align-items-center justify-content-end">
-                              <span
-                                onClick={() => ShowModalID(item.id, item?.name)}
-                                className="fs-13 cursor-pointer"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faArrowRight}
-                                  className="user-select-auto mr-2 mt-1 fs-19 VarColor"
-                                  onClick={() => handleHitClick(item?.id)}
-                                />
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            )}
+                        );
+                      })}
+                  </div>
+                )}
 
-            {PaginationData?.total_card_blogs !== AddMoreBlogs?.length ? (
-              <div className="mx-auto text-center">
-                <a
-                  className="text-center cursor-pointer mx-auto video-load-more"
-                  onClick={LoadMoreFunction}
-                >
-                  Load More
-                </a>
+                {PaginationData?.total_card_blogs !== AddMoreBlogs?.length ? (
+                  <div className="mx-auto text-center">
+                    <a
+                      className="text-center cursor-pointer mx-auto video-load-more"
+                      onClick={LoadMoreFunction}
+                    >
+                      Load More
+                    </a>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+            </div>
+          )
+        )}
     </>
   );
 }

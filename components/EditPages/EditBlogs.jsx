@@ -336,7 +336,7 @@ export default function EditBlogs({
     const response = await Api(
       LoadMoreApi,
       {},
-      "?card_url=" + card + "&type=card_blogs" + "&current_page=" + Page
+      "?card_url=" + card + "&type=card_blogs" + "&current_page=" + Page + "&is_edit=true"
     );
     if (response.data.status) {
       setLoadMoreData(response?.data?.data?.next_page_data?.next_page_url);

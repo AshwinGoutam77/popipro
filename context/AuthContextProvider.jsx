@@ -202,7 +202,8 @@ const AuthContextProvider = ({ children }) => {
         data,
         Loader,
         setTodoData,
-        TodoData
+        TodoData,
+        setData
       }}
     >
       {children}

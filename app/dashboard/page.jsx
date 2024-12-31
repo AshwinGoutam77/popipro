@@ -33,7 +33,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Tooltip } from "@mui/material";
 import Api from "@services/Api";
-import { CardData, EditData, UpgradePlan } from "@services/Routes";
+import { CardData, EditData, SaveToken, UpgradePlan } from "@services/Routes";
 import DashboardPlan from "@components/Dashboard/DashboardPlan";
 import Multimodes from "@components/Dashboard/Multimodes";
 import ChangePassword from "@components/Dashboard/ChangePassword";
@@ -49,6 +49,10 @@ import MetaTags from "@components/Dashboard/MetaTags";
 import { Dropdown } from "react-bootstrap";
 import SettingModal from "@components/Dashboard/Setting-modal";
 import DigitalCard from "@components/Dashboard/DigitalCard";
+import localforage from "localforage";
+import firebase from "firebase/app";
+import "firebase/messaging";
+import { firebaseCloudMessaging } from "../../app/firebase";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -73,6 +77,8 @@ export default function Dashboard() {
   const [InsightsTab, setInsightsTab] = useState(false);
   const [ThemeTab, setThemeTab] = useState(false);
   const [ActiveConfit, setActiveConfit] = useState(false);
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const APIDATA = async () => {
     if (localStorage.getItem("url")) {
@@ -262,6 +268,56 @@ export default function Dashboard() {
       });
     }
   };
+
+  const handleSaveToken = async () => {
+    let payload = {
+      card_url: localStorage.getItem("url"),
+      token: await localforage.getItem("fcm_token"),
+      token_type: "web",
+      is_admin: true
+    };
+
+    const response = await Api(SaveToken, payload);
+    if (response.data.status) {
+    }
+  };
+
+  async function requestPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      try {
+        const token = await firebaseCloudMessaging.init();
+        localStorage.setItem("fcm_token", token);
+        const messaging = firebase.messaging();
+        messaging.onMessage((payload) => {
+          // console.log(payload);
+        });
+        handleSaveToken();
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (permission === "denied") {
+      // console.log("we have denied permission!, Please alow the permission.");
+    }
+  }
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+  function showPosition(position) {
+    localforage.setItem("latitude", position.coords.latitude);
+    localforage.setItem("longitude", position.coords.longitude);
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+  useEffect(() => {
+    requestPermission();
+    getLocation();
+  }, []);
 
   return Data ? (
     <>

@@ -54,7 +54,8 @@ const Page = () => {
   const getProfileData = async () => {
     try {
       setShowLoader(true);
-      const response = await Api(EditData, {}, "?card_url=" + card_url);
+      const response = await Api(EditData, {}, "?card_url=" + card_url + "&is_edit=true");
+
       if (response?.data?.status) {
         setShowLoader(false);
         setCardData(response?.data?.data);
@@ -106,18 +107,6 @@ const Page = () => {
   }
   return token ? (
     <>
-      {/* <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
       {cardData ? (
         <>
           <EditBanner

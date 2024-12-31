@@ -37,6 +37,7 @@ const Testimonials = ({
   const [Description, setDescription] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
   const [Loader, setLoader] = useState(false);
+  const [isLocked, setIsLocked] = useState(Titles?.card_testimonials?.is_locked !== 0);
 
   const handleSubmit = async () => {
     if (Name == "") {
@@ -220,110 +221,107 @@ const Testimonials = ({
 
       {Titles?.card_testimonials.source !== 0 &&
         card?.card_testimonials?.length !== 0 &&
-        Titles?.card_testimonials.is_active !== 0 && Titles?.card_testimonials?.is_locked !== 0 &&
-        <LockedSection name="card_testimonials" Title={Titles.card_testimonials?.visible_name}
-          profile={profile} />
-      }
-
-      {Titles?.card_testimonials.source !== 0 &&
-        card?.card_testimonials?.length !== 0 &&
         Titles?.card_testimonials.is_active !== 0 &&
-        Titles?.card_testimonials?.in_subscription && Titles?.card_testimonials?.is_locked == 0 ? (
-        <div className="box-content boxxx" id="card_testimonials">
-          {/* <!-- Testimonials --> */}
-          {Titles &&
-            Titles.card_testimonials.is_active &&
-            card_testimonials?.length !== 0 ? (
-            <div className="mt-0">
-              <div className="d-flex align-items-start justify-content-between">
-                <h2 className="title title--h1 first-title title__separate">
-                  {Titles &&
-                    Titles.card_testimonials.visible_name === "card_testimonials"
-                    ? "Card Testimonials"
-                    : Titles.card_testimonials.visible_name}
-                </h2>
-              </div>
-              <SwiperComponent
-                className="mySwiper cursor-pointer"
-                pagination={{
-                  clickable: true,
-                }}
-                spaceBetween={10}
-                modules={[Pagination, Navigation]}
-              >
-                {card_testimonials.map((items, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <div className="swiper-slide review-item position-relative review-item-testimonials d-block">
-                        <div className="d-flex align-items-center">
-                          {items?.image?.path ? (
-                            <img
-                              className="case-item__icon"
-                              src={
-                                process.env.NEXT_PUBLIC_MODE == "development"
-                                  ? "https://dev.popipro.com/" +
-                                  items.image.path
-                                  : "https://admin.popipro.com/" +
-                                  items.image.path
-                              }
-                              alt="testimonials"
-                            />
-                          ) : (
-                            <div className="no-image-testimonia-div">
-                              <FontAwesomeIcon
-                                icon={faUser}
-                                className="text-white"
-                              />
-                            </div>
-                          )}
-                          <div className="pt-0">
-                            <h4
-                              className="title title--h5 text-align-start ml-3 mb-0"
-                              style={{ textAlign: "start" }}
-                            >
-                              {items.name}
-                            </h4>
-                            <p className="text-left ml-3 font-weight-bold m-0">
-                              {items.company_name}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="review-item__textbox">
-                          <div
-                            id="p_wrap"
-                            className="review-item__caption text-left mt-3"
-                            dangerouslySetInnerHTML={{
-                              __html: items.description,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </SwiperComponent>
-              {company_setting.show_testimonial_button == 0 ? (
-                ""
-              ) : (
-                <div className="d-flex justify-content-center">
-                  <button
-                    className="contact-btn w-auto m-0 d-flex align-items-center mt-3"
-                    data-toggle="modal"
-                    data-target="#AddTestimonialsModal"
-                    onClick={handleShow}
+        (isLocked ?
+          (<LockedSection name="card_testimonials" Title={Titles.card_testimonials?.visible_name}
+            profile={profile} setIsLocked={setIsLocked} />)
+          : Titles?.card_testimonials.source !== 0 &&
+          card?.card_testimonials?.length !== 0 &&
+          Titles?.card_testimonials.is_active !== 0 &&
+          Titles?.card_testimonials?.in_subscription && (
+            <div className="box-content boxxx" id="card_testimonials">
+              {/* <!-- Testimonials --> */}
+              {Titles &&
+                Titles.card_testimonials.is_active &&
+                card_testimonials?.length !== 0 ? (
+                <div className="mt-0">
+                  <div className="d-flex align-items-start justify-content-between">
+                    <h2 className="title title--h1 first-title title__separate">
+                      {Titles &&
+                        Titles.card_testimonials.visible_name === "card_testimonials"
+                        ? "Card Testimonials"
+                        : Titles.card_testimonials.visible_name}
+                    </h2>
+                  </div>
+                  <SwiperComponent
+                    className="mySwiper cursor-pointer"
+                    pagination={{
+                      clickable: true,
+                    }}
+                    spaceBetween={10}
+                    modules={[Pagination, Navigation]}
                   >
-                    Leave A Review
-                  </button>
+                    {card_testimonials.map((items, index) => {
+                      return (
+                        <SwiperSlide key={index}>
+                          <div className="swiper-slide review-item position-relative review-item-testimonials d-block">
+                            <div className="d-flex align-items-center">
+                              {items?.image?.path ? (
+                                <img
+                                  className="case-item__icon"
+                                  src={
+                                    process.env.NEXT_PUBLIC_MODE == "development"
+                                      ? "https://dev.popipro.com/" +
+                                      items.image.path
+                                      : "https://admin.popipro.com/" +
+                                      items.image.path
+                                  }
+                                  alt="testimonials"
+                                />
+                              ) : (
+                                <div className="no-image-testimonia-div">
+                                  <FontAwesomeIcon
+                                    icon={faUser}
+                                    className="text-white"
+                                  />
+                                </div>
+                              )}
+                              <div className="pt-0">
+                                <h4
+                                  className="title title--h5 text-align-start ml-3 mb-0"
+                                  style={{ textAlign: "start" }}
+                                >
+                                  {items.name}
+                                </h4>
+                                <p className="text-left ml-3 font-weight-bold m-0">
+                                  {items.company_name}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="review-item__textbox">
+                              <div
+                                id="p_wrap"
+                                className="review-item__caption text-left mt-3"
+                                dangerouslySetInnerHTML={{
+                                  __html: items.description,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </SwiperComponent>
+                  {company_setting.show_testimonial_button == 0 ? (
+                    ""
+                  ) : (
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className="contact-btn w-auto m-0 d-flex align-items-center mt-3"
+                        data-toggle="modal"
+                        data-target="#AddTestimonialsModal"
+                        onClick={handleShow}
+                      >
+                        Leave A Review
+                      </button>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                ""
               )}
             </div>
-          ) : (
-            ""
-          )}
-        </div>
-      ) : (
-        ""
-      )}
+          ))}
     </>
   );
 };

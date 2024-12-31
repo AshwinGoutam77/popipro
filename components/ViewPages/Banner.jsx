@@ -32,25 +32,13 @@ const Banner = ({
   const [ProfileImage, setProfileImage] = useState("");
   const [IsVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
-  // const [Loader, setLoader] = useState(false);
   const [FunctionState, setFunctionState] = useState(false);
+  const [OtherLink, setOtherLink] = useState(false)
   const [GoogleReviewState, setGoogleReviewState] = useState(false);
   const [Latitude, setLatitude] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [modalShow, setModalShow] = useState("");
   const [LocalStorageUrl, setLocalStorageUrl] = useState("");
-
-  const handleSq = async () => {
-    const response = await Api(
-      GetCardSequence,
-      {},
-      "?card_url=" + localStorage.getItem("url")
-    );
-    if (response.data.status) {
-      localforage.setItem("arrangeItems", response?.data?.data);
-      localStorage.setItem("arrangeItems", response?.data?.data);
-    }
-  };
 
   useEffect(() => {
     if (card || profile) {
@@ -269,6 +257,14 @@ const Banner = ({
           setGoogleReviewState(true);
         }
         break;
+      case "other":
+        if (!OtherLink) {
+          window.location.href = card?.anonymous_landing_link?.startsWith("http")
+            ? card.anonymous_landing_link
+            : "https://" + card?.anonymous_landing_link;
+          setOtherLink(true);
+        }
+        break;
     }
   }
 
@@ -277,7 +273,6 @@ const Banner = ({
       card_url: profile,
       token: await localforage.getItem("fcm_token"),
       token_type: "web",
-      // is_admin: true
     };
 
     const response = await Api(SaveToken, payload);
@@ -386,8 +381,8 @@ const Banner = ({
     <div className="pt-0 w-45">
       {card.card_cover !== "name" && card.card_cover !== "label" ? (
         <picture>
-          <source type="image/png" srcSet={`${card.base_url}${card.card_company_logo?.path}`} />
-          <img src={`${card.base_url}${card.card_company_logo?.path}`} className="Logo-icon" alt="logo" />
+          <source type="image/png" srcSet={`${card.base_url}${card.card_header?.logo?.path}`} />
+          <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
         </picture>
       ) : (
         <h1 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
@@ -398,28 +393,9 @@ const Banner = ({
   );
 
   const renderLink = () => (
-    <Link
-      href={LocalStorageUrl === profile ? "/dashboard" : MainData?.company_setting?.request_popicard_url}
-      target={LocalStorageUrl === profile ? "" : "_blank"}
-      onClick={() => HitClick("order", "card", card.id)}
-      className={
-        card.banner_color === "#ffffff"
-          ? "m-0 Varcolor d-flex align-items-center getCard-a"
-          : "m-0 text-white d-flex align-items-center getCard-a"
-      }
-    >
-      {LocalStorageUrl === profile ? (
-        <>
-          <FontAwesomeIcon icon={faChevronLeft} className="ml-2 mr-1 font-weight-bold" />
-          Dashboard
-        </>
-      ) : (
-        <>
-          Order PopiCard now
-          <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" />
-        </>
-      )}
-    </Link>
+    LocalStorageUrl === profile ?
+      <Link href="/dashboard" className={`m-0 ${card.banner_color === "#ffffff" ? "Varcolor" : "text-white"} d-flex align-items-center getCard-a`}><FontAwesomeIcon icon={faChevronLeft} className="ml-2 mr-1 font-weight-bold" /> Dashboard</Link> :
+      <Link href={MainData?.company_setting?.agent_details?.website || ""} target="_blank" className={`m-0 ${card.banner_color === "#ffffff" ? "Varcolor" : "text-white"} d-flex align-items-center getCard-a`}>Order PopiCard now <FontAwesomeIcon icon={faArrowRight} className="ml-1 w-15" /></Link>
   );
 
   return Loader == true ? (
@@ -445,7 +421,7 @@ const Banner = ({
         <div
           className="bgsvg-img d-flex align-items-start justify-content-between"
           style={{
-            backgroundImage: `url('${card.card_cover === "banner-logo" || card.card_cover === "banner-label"
+            backgroundImage: `url('${card.card_cover === "banner-logo" || card.card_cover === "banner-label" || card.card_cover === "banner"
               ? `${card.base_url}${card.card_header?.banner?.path}`
               : `${card.base_url}${card.card_company_logo?.path}`
               }')`,
@@ -456,20 +432,16 @@ const Banner = ({
         >
           {renderIcons()}
           <div className="mt-1">
-            {card.card_cover === "banner-logo" ? (
+            {card.card_cover === "banner-logo" || card.card_cover == "logo" ? (
               <picture>
-                <source type="image/png" srcSet={`${card.base_url}${card.card_company_logo?.path}`} />
-                <img src={`${card.base_url}${card.card_company_logo?.path}`} className="Logo-icon" alt="logo" />
+                <source type="image/png" srcSet={`${card.base_url}${card.card_header?.logo?.path}`} />
+                <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
               </picture>
-            ) : card.card_cover === "banner-label" ? (
+            ) : (card.card_cover === "banner-label" || card.card_cover === "label") && (
               <h5 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
                 {card.card_header?.label || "Popipro"}
-              </h5>
-            ) : (
-              <h5 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
-                Popipro
-              </h5>
-            )}
+              </h5>)
+            }
           </div>
           {renderLink()}
         </div>)
