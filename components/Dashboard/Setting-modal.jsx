@@ -216,8 +216,10 @@ export default function SettingModal({
                         <input
                           type="file"
                           className="form-control mt-2 w-100"
+                          accept=".jpg, .jpeg, .png"
                           onChange={(e) => setBannerImage(e.target.files[0])}
                         />
+                        {MainData?.card.card_header?.banner?.path && <img src={`${MainData?.card.base_url}${MainData?.card.card_header?.banner?.path}`} alt="logo" width="200px" className="mt-3" />}
                       </div>
                     </li>}
 
@@ -227,8 +229,10 @@ export default function SettingModal({
                         <input
                           type="file"
                           className="form-control mt-2 w-100"
+                          accept=".jpg, .jpeg, .png"
                           onChange={(e) => setUploadLogo(e.target.files[0])}
                         />
+                        {MainData?.card.card_header?.logo?.path && <img src={`${MainData?.card.base_url}${MainData?.card.card_header?.logo?.path}`} alt="logo" width="200px" className="mt-3" />}
                       </div>
                     </li>}
 

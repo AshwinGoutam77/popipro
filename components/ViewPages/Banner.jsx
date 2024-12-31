@@ -381,7 +381,7 @@ const Banner = ({
     <div className="pt-0 w-45">
       {card.card_cover !== "name" && card.card_cover !== "label" ? (
         <picture>
-          <source type="image/png" srcSet={`${card.base_url}${card.card_header?.logo?.path}`} />
+          <source type="image/png" srcSet={card.card_header?.logo?.path == 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
           <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
         </picture>
       ) : (
@@ -434,7 +434,7 @@ const Banner = ({
           <div className="mt-1">
             {card.card_cover === "banner-logo" || card.card_cover == "logo" ? (
               <picture>
-                <source type="image/png" srcSet={`${card.base_url}${card.card_header?.logo?.path}`} />
+                <source type="image/png" srcSet={card.card_header?.logo?.path == 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
                 <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
               </picture>
             ) : (card.card_cover === "banner-label" || card.card_cover === "label") && (
