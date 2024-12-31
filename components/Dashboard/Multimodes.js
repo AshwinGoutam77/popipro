@@ -137,7 +137,7 @@ export default function Multimodes({
       condition: true,
     },
     {
-      label: "Other",
+      label: "Other URL",
       key: "ActiveOther",
       mode: "other",
       condition: true,

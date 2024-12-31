@@ -1365,7 +1365,7 @@ export default function Dashboard() {
                           style={{ fontSize: "20px" }}
                         />
                         <h6 className="text-white text-center mb-0">
-                          Order Products Lead
+                          Order Leads
                         </h6>
                       </>
                     </span>
