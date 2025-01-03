@@ -8,25 +8,11 @@ import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 
 export default function DashboardPlan({ Data, PlanData, handleFreeTrail }) {
-  const [ShowLoader, setShowLoader] = useState(false);
-
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {Data &&
-      PlanData?.plan_name == "Premium" &&
-      PlanData?.is_trial_taken !== 0 ? (
+        PlanData?.plan_name == "Premium" &&
+        PlanData?.is_trial_taken !== 0 ? (
         <a
           href="https://www.popipro.com/order"
           className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
@@ -41,7 +27,7 @@ export default function DashboardPlan({ Data, PlanData, handleFreeTrail }) {
           </p>
         </a>
       ) : PlanData?.subscription?.plan_id == 1 ||
-        PlanData?.subscription?.plan_id == null ? (
+      PlanData?.subscription?.plan_id == null && (
         <>
           <p
             className="text-center dashboard-overlay-div d-flex align-items-left justify-content-end flex-column"
@@ -57,8 +43,6 @@ export default function DashboardPlan({ Data, PlanData, handleFreeTrail }) {
             </p>
           </p>
         </>
-      ) : (
-        ""
       )}
     </>
   );

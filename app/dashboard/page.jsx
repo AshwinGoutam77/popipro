@@ -219,7 +219,7 @@ export default function Dashboard() {
 
   const handleFreeTrail = async () => {
     try {
-      Swal.fire({
+      in_Subscription && Swal.fire({
         title: MainData?.is_individual == 0 ? "" : "Are you sure?",
         text:
           MainData?.is_individual == 0
@@ -337,6 +337,10 @@ export default function Dashboard() {
     requestPermission();
     getLocation();
   }, []);
+
+  let in_Subscription = (PlanData?.current_plan?.plan_name === "Premium" ||
+    PlanData?.current_plan?.plan_name === "Platinum") &&
+    (PlanData?.is_trial_taken !== 0)
 
 
   return Data ? (
@@ -1274,10 +1278,17 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                      onClick={() => {
-                        setModalShow("digitalCard");
-                      }}
+                      onClick={() => in_Subscription && setModalShow("digitalCard")}
                     >
+                      {Data && (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
+                        />
+                      )}
                       <FontAwesomeIcon
                         icon={faAddressCard}
                         className="text-white mb-2"
@@ -1294,8 +1305,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        !in_Subscription
                           ? "https://www.popipro.com/order"
                           : "/signature"
                       }
@@ -1335,8 +1345,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        !in_Subscription
                           ? "https://www.popipro.com/order"
                           : "/virtual-background"
                       }
@@ -1375,8 +1384,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        !in_Subscription
                           ? "https://www.popipro.com/order"
                           : "/contacts"
                       }
@@ -1410,10 +1418,17 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                      onClick={() => {
-                        setModalShow("selfBranding");
-                      }}
+                      onClick={() => in_Subscription && setModalShow("selfBranding")}
                     >
+                      {Data && (
+                        <DashboardPlan
+                          Data={Data}
+                          PlanData={PlanData}
+                          APIDATA={APIDATA}
+                          MainData={MainData}
+                          handleFreeTrail={handleFreeTrail}
+                        />
+                      )}
                       <FontAwesomeIcon
                         icon={faAward}
                         className="text-white mb-2"
@@ -1511,7 +1526,7 @@ export default function Dashboard() {
         >
           <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
         </div>
-      </div>
+      </div >
       <Multimodes
         Data={Data}
         APIDATA={APIDATA}
