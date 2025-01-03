@@ -3,25 +3,29 @@ import { showToast } from '@components/Dashboard/Toast'
 import { useAuthContext } from '@context/AuthContext'
 import { faLock, faRightToBracket } from '@node_modules/@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome'
-import Api from '@services/Api'
-import { CardData } from '@services/Routes'
 import React from 'react'
 import { useState } from 'react'
 
-export default function LockedSection({ name, Title, profile, setIsLocked }) {
-    const { fetchData, data } = useAuthContext();
+export default function LockedSection({ Title, setIsLocked }) {
+    const { data } = useAuthContext();
     const [Password, setPassword] = useState("")
 
     const handleSubmit = async () => {
         if (Password === data?.data?.company_setting?.card_section_passcode) {
-            // Save the password and unlock the section
             localStorage.setItem("section_password", data?.data?.company_setting?.card_section_passcode);
             localStorage.setItem("set_password", Password);
-            setIsLocked(false); // Unlock the section
+            setIsLocked(false);
         } else {
             showToast("Incorrect OTP", "error");
         }
     };
+
+    const handleKeySubmit = (event) => {
+        if (event.key === "Enter") {
+            handleSubmit()
+        }
+    }
+
     return (
         <div className="box-content boxxx" id="card_services" style={{ minHeight: '170px' }}>
             <h2 className="title title--h1 first-title title__separate">
@@ -38,6 +42,7 @@ export default function LockedSection({ name, Title, profile, setIsLocked }) {
                             placeholder='Enter password'
                             className='form-control w-auto'
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={handleKeySubmit}
                         />
                         <FontAwesomeIcon icon={faRightToBracket} onClick={handleSubmit} />
                     </div>

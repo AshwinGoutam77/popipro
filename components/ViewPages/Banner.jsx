@@ -381,7 +381,7 @@ const Banner = ({
     <div className="pt-0 w-45">
       {card.card_cover !== "name" && card.card_cover !== "label" ? (
         <picture>
-          <source type="image/png" srcSet={card.card_header?.logo?.path == 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
+          <source type="image/png" srcSet={card.card_header?.logo?.path !== 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
           <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
         </picture>
       ) : (

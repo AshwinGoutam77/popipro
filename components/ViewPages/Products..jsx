@@ -1169,7 +1169,7 @@ export default function Product({
                                           icon={faBagShopping}
                                           className="mr-1"
                                         />{" "}
-                                        View Cart
+                                        Already added
                                       </div>
                                     ))}
                                 </p>

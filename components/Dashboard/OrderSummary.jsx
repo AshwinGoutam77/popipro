@@ -5,6 +5,7 @@ import Api from '@services/Api';
 import { GetOpenOrders, GetProductsOrder } from '@services/Routes';
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import Link from "next/link";
 import { Modal } from "react-bootstrap";
 
 export default function OrderSummaryModal({ active, handleClose, MainData, handleGetOrderProducts, OrderData }) {
@@ -55,6 +56,7 @@ export default function OrderSummaryModal({ active, handleClose, MainData, handl
                                 <th>Order ID</th>
                                 <th>Amount</th>
                                 <th>Date</th>
+                                <th>Action</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -76,6 +78,7 @@ export default function OrderSummaryModal({ active, handleClose, MainData, handl
                                                             : "-----"}
                                                     </td>
                                                     <td>{i?.created_at}</td>
+                                                    <td><Link href={i?.link ? i?.link : ""}>Pay Now</Link></td>
                                                     <td
                                                         className={
                                                             items?.order_status === "pending" ? "pending" : "success"
@@ -113,6 +116,8 @@ export default function OrderSummaryModal({ active, handleClose, MainData, handl
                                                                     <strong>Message:</strong>{" "}
                                                                     {items?.user_message}
                                                                 </li>}
+
+                                                                <li><button className="contact-btn w-auto">Pay Invoice Now</button></li>
                                                             </ul>
                                                         </td>
                                                     </tr>

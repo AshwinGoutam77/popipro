@@ -28,6 +28,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Notification from "@components/Dashboard/Notification";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function Page() {
   const { APIDATA } = useAuthContext();
@@ -40,6 +41,9 @@ export default function Page() {
   const [ShowLoader, setShowLoader] = useState(false);
   const [AccurateUsersList, setAccurateUsersList] = useState("");
   const [modalShow, setModalShow] = useState("");
+  let d = new Date();
+  const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
+  const [EndDate, setEndDate] = useState(new Date());
 
   const handleSendNotification = async () => {
     if (Message === "") {
@@ -131,6 +135,51 @@ export default function Page() {
   const handleModalId = (id) => {
     setShow(true);
     setModalID(id);
+  };
+
+  function pad(n, width, z) {
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+  const handleSearchData = async (e) => {
+    try {
+      setShowLoader(true);
+      let startDateNew = new Date(StartDate);
+      let startDt =
+        startDateNew?.getFullYear() +
+        "-" +
+        pad(parseInt(startDateNew.getMonth()) + 1, 2) +
+        "-" +
+        pad(startDateNew.getDate(), 2);
+      let endDt =
+        EndDate?.getFullYear() +
+        "-" +
+        pad(parseInt(EndDate.getMonth()) + 1, 2) +
+        "-" +
+        pad(EndDate.getDate(), 2);
+      const response = await Api(
+        GetNotitficationHistory,
+        {}, "?start_date=" +
+        startDt +
+        "&end_date=" +
+      endDt
+      );
+      if (response.data.status) {
+        setData(response?.data?.data?.firebase_notification_log);
+        setShowLoader(false);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.request.status == "401") {
+        localStorage.removeItem("token");
+        localStorage.removeItem("url");
+        window.location.href = "/login";
+      }
+      setShowLoader(false);
+      showToast(error.response.data.message)
+    }
   };
 
   return (
@@ -228,7 +277,7 @@ export default function Page() {
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px 5px" }}>
-          {AccurateUsersList?.details &&
+          {AccurateUsersList?.length ? AccurateUsersList?.details &&
             AccurateUsersList?.details?.map((item, index) => {
               return (
                 <div className="leads-custom-table mb-0" key={index}>
@@ -240,7 +289,7 @@ export default function Page() {
                   </div>
                 </div>
               );
-            })}
+            }) : <p className="p-4">No data found</p>}
         </Modal.Body>
       </Modal>
 
@@ -289,9 +338,9 @@ export default function Page() {
               <label className="ml-1">From</label>
               <DatePicker
                 dateFormat="MM/dd/yyyy"
-                // selected={StartDate}
+                selected={StartDate}
                 maxDate={new Date()}
-                // onChange={(date) => setStartDate(date)}
+                onChange={(date) => setStartDate(date)}
                 placeholderText={"Start Date"}
                 className="form-control insight-filter w-100"
               />
@@ -300,11 +349,11 @@ export default function Page() {
               <label className="ml-1">To</label>
               <DatePicker
                 dateFormat="MM/dd/yyyy"
-                // selected={EndDate}
-                // defaultValue={EndDate}
-                // onChange={(Date) => setEndDate(Date)}
+                selected={EndDate}
+                defaultValue={EndDate}
+                onChange={(Date) => setEndDate(Date)}
                 maxDate={new Date()}
-                // minDate={StartDate}
+                minDate={StartDate}
                 placeholderText={"End Date"}
                 className="form-control insight-filter w-100"
               />
@@ -312,7 +361,7 @@ export default function Page() {
             <div className="col-6 col-lg-2 p-0 px-2">
               <button
                 className="contact-btn w-auto mt-3"
-              // onClick={() => handleSearchData()}
+                onClick={() => handleSearchData()}
               >
                 Search
               </button>

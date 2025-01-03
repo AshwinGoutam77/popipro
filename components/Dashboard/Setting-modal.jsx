@@ -189,69 +189,6 @@ export default function SettingModal({
                 </li>
 
 
-                {MainData?.permission[0]?.visible_to == '2' &&
-                  <>
-
-                    <label className="mt-4">Select profile image </label>
-                    <li className="mt-2 list-style-none d-flex flex-wrap row-gap-4 justify-content-between">
-                      {[
-                        { id: "label", label: "Label", name: "label" },
-                        { id: "banner", label: "Banner", name: "label" },
-                        { id: "logo", label: "Logo", name: "label" },
-                        { id: "banner-logo", label: "Banner-Logo", name: "label" },
-                        { id: "banner-label", label: "Banner-Label", name: "label" },
-                      ].map(({ id, name, label }) => (
-                        <div key={id} className="d-flex gap-2 align-items-center">
-                          <input type="radio" id={id} name={name} value={id} checked={CardCover === id} onChange={(e) => setCardCover(e.target.value)} />
-                          <label htmlFor={id} className="mb-0">
-                            {label}
-                          </label>
-                        </div>
-                      ))}
-                    </li>
-
-                    {(CardCover == "banner" || CardCover == "banner-logo" || CardCover == "banner-label") && <li className="mt-4 list-style-none mb-2">
-                      <div>
-                        <label className="mb-0 color-black">Upload banner Image</label>
-                        <input
-                          type="file"
-                          className="form-control mt-2 w-100"
-                          accept=".jpg, .jpeg, .png"
-                          onChange={(e) => setBannerImage(e.target.files[0])}
-                        />
-                        {MainData?.card.card_header?.banner?.path && <img src={`${MainData?.card.base_url}${MainData?.card.card_header?.banner?.path}`} alt="logo" width="200px" className="mt-3" />}
-                      </div>
-                    </li>}
-
-                    {(CardCover == "logo" || CardCover == "banner-logo") && < li className="mt-4 list-style-none mb-2">
-                      <div>
-                        <label className="mb-0 color-black">Upload Logo</label>
-                        <input
-                          type="file"
-                          className="form-control mt-2 w-100"
-                          accept=".jpg, .jpeg, .png"
-                          onChange={(e) => setUploadLogo(e.target.files[0])}
-                        />
-                        {MainData?.card.card_header?.logo?.path && <img src={`${MainData?.card.base_url}${MainData?.card.card_header?.logo?.path}`} alt="logo" width="200px" className="mt-3" />}
-                      </div>
-                    </li>}
-
-                    {(CardCover == "label" || CardCover == "banner-label") && <li className="mt-4 list-style-none mb-2">
-                      <div>
-                        <label className="mb-0 color-black">label</label>
-                        <input
-                          type="text"
-                          placeholder="Enter label"
-                          className="form-control mt-2 w-100"
-                          value={CoverLabel}
-                          onChange={(e) => setCoverLabel(e.target.value)}
-                        />
-                      </div>
-                    </li>}
-                  </>
-                }
-
-
                 <button
                   className="contact-btn w-auto bg-btn7 lnk wow fadeInUp mt-3"
                   style={{ padding: "7px 19px" }}

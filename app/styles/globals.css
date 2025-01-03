@@ -26,6 +26,24 @@ code {
 /* .modal {
   z-index: 9999999999 !important;
 } */
+
+
+input {
+  outline: none !important;
+}
+
+input:focus {
+  outline: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+input:focus-visible {
+  outline: 0 !important;
+}
+
+
+
 .modal-body {
   padding: 30px 25px;
 }
@@ -757,9 +775,9 @@ input.date-time-input::-webkit-date-and-time-value {
   color: #878787;
 }
 
-input.form-control:focus {
+/* input.form-control:focus {
   border: 2px solid transparent !important;
-}
+} */
 
 .card-uploader input {
   opacity: 0;
@@ -1412,7 +1430,7 @@ input.form-control:focus {
 .dashboard-banner-container {
   position: relative;
   text-align: center;
-  padding: 0 130px !important;
+  /* padding: 0 130px !important; */
 }
 
 .dashboard-banner-container img {
@@ -2510,9 +2528,9 @@ td {
     padding: 2rem !important;
   }
 
-  .dashboard-padding {
+  /* .dashboard-padding {
     padding: 0px 10px !important;
-  }
+  } */
 
   .dashboard-web-margin-image {
     object-fit: scale-down;

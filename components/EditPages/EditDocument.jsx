@@ -98,21 +98,27 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
             document: File,
         };
 
-        try {
-            const response = await Api(CardData, { documents: [data] });
-            if (response?.data?.status) {
-                showToast(response?.data?.message, "success");
-                setDocTitle("")
-                handleClose();
-                APIDATA()
+        if (File) {
+            const fileSizeLimit = 10 * 1024 * 1024;
+            if (File.size > fileSizeLimit) {
+                showToast("File size cannot exceed 10 MB.", "error");
             } else {
-                showToast(response?.data?.message || "An error occurred. Please try again.", "error");
+                try {
+                    const response = await Api(CardData, { documents: [data] });
+                    if (response?.data?.status) {
+                        showToast(response?.data?.message, "success");
+                        setDocTitle("")
+                        handleClose();
+                        APIDATA()
+                    } else {
+                        showToast(response?.data?.message || "An error occurred. Please try again.", "error");
+                    }
+                } catch (error) {
+                    console.error("API Error:", error);
+                    showToast("Something went wrong. Please try again later.", "error");
+                }
             }
-        } catch (error) {
-            console.error("API Error:", error);
-            showToast("Something went wrong. Please try again later.", "error");
         }
-
     }
 
     const handleDelete = async (id, type, DataId) => {
@@ -158,7 +164,6 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                     </button>
                 </Modal.Header>
                 <Modal.Body>
-
                     <div>
                         <label className="modalFormLable">Document Title</label>
                         <input
@@ -171,12 +176,11 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                         <label className="modalFormLable">Upload Document</label>
                         <input
                             type="file"
-                            className="form-control mb-4 mt-1"
-                            accept="application/pdf"
+                            className="form-control mb-2 mt-1"
+                            accept=".csv, .pdf, .xls, .xlsx"
                             onChange={(e) => setFile(e.target.files[0])}
                         ></input>
                     </div>
-
 
                     <div className="d-flex align-items-center" style={{ gap: "10px" }}>
                         <button className="send-btnn" onClick={() => handleSaveDetails()}>

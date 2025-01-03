@@ -257,7 +257,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                 className="contact-btn w-auto mt-2"
                 onClick={() => setCheckout(true)}
               >
-                Checkout
+                Proceed to Checkout
               </button>
             </div>
           </div>
@@ -288,7 +288,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Name"
+                        placeholder="Name*"
                         name="user_name"
                         value={formData.user_name}
                         onChange={handleChange}
@@ -297,7 +297,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                       <input
                         type="number"
                         className="form-control"
-                        placeholder="Phone Number"
+                        placeholder="Phone Number*"
                         name="phone_number"
                         defaultValue={formData.phone_number}
                         onChange={handleChange}
@@ -307,7 +307,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                     <input
                       type="email"
                       className="form-control mt-3"
-                      placeholder="Email"
+                      placeholder="Email*"
                       name="email_address"
                       defaultValue={formData.email_address}
                       onChange={handleChange}

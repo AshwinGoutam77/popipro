@@ -459,9 +459,9 @@ div:where(.swal2-icon).swal2-info {
   /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 }
 
-.dashboard-padding {
+/* .dashboard-padding {
   padding: 0 245px;
-}
+} */
 
 @media (max-width: 767px) {
   .box-shadow-leads {
@@ -470,9 +470,9 @@ div:where(.swal2-icon).swal2-info {
     /* margin: 0 20px; */
   }
 
-  .dashboard-padding {
+  /* .dashboard-padding {
     padding: 0 10px;
-  }
+  } */
 }
 
 .leads-custom-table {

@@ -322,7 +322,6 @@ export default function EditAlternateNo({
 
   return (
     <>
-      <ToastContainer />
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={show} onHide={handleCanclebtn} centered>
         <Modal.Header>
