@@ -533,7 +533,7 @@ export default function Dashboard() {
             <SwiperComponent
               breakpoints={{
                 1110: {
-                  slidesPerView: 10,
+                  slidesPerView: 2,
                 },
                 300: {
                   slidesPerView: 2,

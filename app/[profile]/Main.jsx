@@ -40,6 +40,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
   let Sqdata = data?.data?.sequence;
 
 
+
   if (profile == "happy-helathy-homes") {
     redirect("happy-healthy-homes");
   }
@@ -249,7 +250,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                       )}
                     </div>
                   ) : (
-                    <div className="col-12 col-md-12 col-lg-10">
+                    <div className={`col-12 col-md-12 col-lg-${!headers?.length ? "12" : "10"}`}>
                       {sortedData &&
                         sortedData?.map((items, index) => {
                           return (
@@ -312,6 +313,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                     subscription={plan}
                                     card_experience={card?.card_experience}
                                     profile={profile}
+                                    card={card}
                                   />
                                 ) : items?.status == "card_photos" ? (
                                   <Work

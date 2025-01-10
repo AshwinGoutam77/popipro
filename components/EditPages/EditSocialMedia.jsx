@@ -25,6 +25,7 @@ import {
 import Modal from "react-bootstrap/Modal";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
+import { handleActive } from "./EditFunctions";
 
 function EditLinks({
   Data,
@@ -51,6 +52,11 @@ function EditLinks({
   const handleShow = () => setShow(true);
   const handleEditShow = () => setShowEdit(true);
   const [isLocked, setIsLocked] = useState(false);
+  const [Active, setActive] = useState("");
+
+  useEffect(() => {
+    setActive(TitleData?.card_social_links?.is_active == "1" ? true : false);
+  }, [TitleData]);
 
   useEffect(() => {
     setLinksTitle(TitleData?.card_social_links?.visible_name);
@@ -505,16 +511,30 @@ function EditLinks({
                             onClick={() => setEditFields(true)}
                           />
                         )}
-                        {TitleData?.card_social_links.source !== 1 ? (
-                          <button
-                            className="addmore mr-0"
-                            onClick={() => handleShow()}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </button>
-                        ) : (
-                          ""
-                        )}
+                      </div>
+
+                      {TitleData?.card_social_links.source !== 1 && (
+                        <button
+                          className="addmore"
+                          onClick={() => handleShow()}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      )}
+
+                      <div>
+                        <label className="switch">
+                          <input
+                            data-status={
+                              TitleData.card_alternate_phone?.is_active
+                            }
+                            data-active={Active}
+                            checked={Active}
+                            type="checkbox"
+                            onChange={() => handleActive({ section_name: "card_social_links", Visible_name: LinksTitle, Active, setActive })}
+                          />
+                          <span className="slider round"></span>
+                        </label>
                       </div>
                     </div>
                   </div>

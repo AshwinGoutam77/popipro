@@ -78,7 +78,6 @@ const Video = ({
         (isLocked ? (
           <LockedSection name="card_videos" Title={Titles.card_videos?.visible_name}
             profile={card_url} setIsLocked={setIsLocked} />)
-
           : Card_videos?.length !== 0 &&
           Titles?.card_videos?.source !== 0 &&
           Titles?.card_videos?.is_active !== 0 &&
@@ -149,7 +148,7 @@ const Video = ({
                                       onClick={() => HitClick("i", "video")}
                                     >
                                       <ReactPlayer
-                                        url={video}
+                                        url={video?.path ? card?.base_url + video?.path : video}
                                         controls
                                         width="560"
                                         height="315"
@@ -164,8 +163,8 @@ const Video = ({
                       </div>
                     )}
                   </div>
-                  {PaginationData.total_videos !== Card_videos?.length ? (
-                    card.id !== "S7ZG" ? (
+                  {PaginationData.total_videos == Card_videos?.length && (
+                    card.id !== "S7ZG" && (
                       <div className="mx-auto text-center mt-3">
                         <a
                           className="text-center cursor-pointer mx-auto video-load-more fs-16"
@@ -174,12 +173,7 @@ const Video = ({
                           Load More
                         </a>
                       </div>
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
-                  )}
+                    ))}
                 </>
               ) : (
                 ""

@@ -59,19 +59,16 @@ const PlanManagment = () => {
       >
         <div className="px-4">
           <h5 className="color-black">Active Subscription</h5>
-
-          {/* {Data &&
-          Data?.map((item, index) => {
-            return ( */}
           <div className="subscription-section mt-3">
-            <div className="d-flex align-items-center justify-content-between divider">
+            <div className="d-flex align-items-center justify-content-between divider gap-2">
               <div>
                 <h6 className="color-black m-0">
                   {UserData?.plan?.current_plan?.plan_name} Plan
                 </h6>
                 <p>{Data?.message}</p>
               </div>
-              <button className="contact-btn w-auto mt-0">Active</button>
+              {/* <button className="contact-btn w-auto mt-0">Active</button> */}
+              <span className="badge">Active</span>
             </div>
 
             <div className="d-flex align-items-center justify-content-between mt-3">
@@ -82,16 +79,10 @@ const PlanManagment = () => {
               </p>
             </div>
             <div className="d-flex align-items-center justify-content-between mt-1">
-              <p>Start Date</p>
-              <p>{UserData?.plan?.subscription?.start_date}</p>
-            </div>
-            <div className="d-flex align-items-center justify-content-between mt-1">
-              <p>End Date</p>
-              <p>{UserData?.plan?.subscription?.end_date}</p>
+              <p>Subscription ends in</p>
+              <p>{UserData?.plan?.subscription_left_days} days</p>
             </div>
           </div>
-          {/* );
-          })} */}
 
           <h5 className="color-black mt-4">Subscription History</h5>
 

@@ -1136,13 +1136,7 @@ export default function Product({
                                         onClick={() =>
                                           handleAddToCart(
                                             {
-                                              image:
-                                                process.env.NEXT_PUBLIC_MODE ==
-                                                  "development"
-                                                  ? "https://dev.popipro.com/" +
-                                                  items.image.path
-                                                  : "https://admin.popipro.com/" +
-                                                  items.image.path,
+                                              image: MainData?.card?.base_url + items.image.path,
                                               name: items?.name,
                                               price: items?.price,
                                               currency: items.pcurrency?.currency,

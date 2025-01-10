@@ -780,33 +780,30 @@ const Header = ({
               />
             </div>
             <div className="d-flex sm-class header-btn-gap">
-              {company_setting?.show_testimonial_button !== 0 &&
-                PlanData?.current_plan?.is_expired !== false ? (
-                ""
-              ) : (
-                <button
-                  className="delete-button w-100 mt-2"
-                  onClick={handleShowReview}
-                >
-                  Add Reviews
-                </button>
-              )}
-              {Titles?.card_booking?.is_active == 0 &&
-                PlanData?.current_plan?.is_expired !== false ? (
-                ""
-              ) : (
-                <button
-                  className="delete-button w-100 mt-2"
-                  onClick={
-                    MainData?.company_setting?.appointment_enquiry_method ==
-                      "form"
-                      ? handleAppointment
-                      : handleShowCalendly
-                  }
-                >
-                  Appointment
-                </button>
-              )}
+              {Titles?.card_testimonial?.is_active !== 0 && company_setting?.show_testimonial_button !== 0 &&
+                PlanData?.current_plan?.is_expired == false &&
+                (
+                  <button
+                    className="delete-button w-100 mt-2"
+                    onClick={handleShowReview}
+                  >
+                    Add Reviews
+                  </button>
+                )}
+              {Titles?.card_booking?.is_active !== 0 &&
+                PlanData?.current_plan?.is_expired == false && (
+                  <button
+                    className="delete-button w-100 mt-2"
+                    onClick={
+                      MainData?.company_setting?.appointment_enquiry_method ==
+                        "form"
+                        ? handleAppointment
+                        : handleShowCalendly
+                    }
+                  >
+                    Appointment
+                  </button>
+                )}
             </div>
           </div>
         </div>
@@ -850,8 +847,8 @@ const Header = ({
                 <li className="col-sm-6 col-12">
                   <a
                     href={`tel: ${card.contact_country_code
-                        ? card?.contact_country_code + "-"
-                        : ""
+                      ? card?.contact_country_code + "-"
+                      : ""
                       } ${card?.card_contact} ${card?.contact_extension
                         ? "- " + card?.contact_extension
                         : ""

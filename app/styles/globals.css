@@ -2119,6 +2119,12 @@ td {
   width: 500px;
 }
 
+.subscription-section .badge {
+  background: var(--color);
+  color: white;
+  padding: 6px;
+}
+
 .subscription-section p {
   font-size: 13px !important;
   color: #000 !important;
@@ -2127,6 +2133,7 @@ td {
 .subscription-section .divider {
   border-bottom: 1px solid #ededed;
   padding-bottom: 10px;
+  gap: 20px;
 }
 
 .video-loader video::-webkit-media-controls {

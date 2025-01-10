@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome'
 import React from 'react'
 import { useState } from 'react'
 
-export default function LockedSection({ Title, setIsLocked }) {
+export default function LockedSection({ Title, setIsLocked, name }) {
     const { data } = useAuthContext();
     const [Password, setPassword] = useState("")
 
@@ -27,7 +27,7 @@ export default function LockedSection({ Title, setIsLocked }) {
     }
 
     return (
-        <div className="box-content boxxx" id="card_services" style={{ minHeight: '170px' }}>
+        <div className="box-content boxxx" id={name} style={{ minHeight: '170px' }}>
             <h2 className="title title--h1 first-title title__separate">
                 {Title}
             </h2>

@@ -67,6 +67,7 @@ export default function EditDoing({
   const [showChatModal, setShowshowChatModal] = useState(false);
   const [InputState, setInputState] = useState("");
   const [isLocked, setIsLocked] = useState(false);
+  const [AiLoader, setAiLoader] = useState(false)
 
   useEffect(() => {
     setDoing(TitleData?.card_services?.visible_name);
@@ -245,10 +246,11 @@ export default function EditDoing({
     });
   };
 
-  const handleSetId = (id, name, description) => {
+  const handleSetId = (id, name, description, image) => {
     setModalId(id);
     setServicesName(name);
     setServicesDescription(description);
+    setImage(image)
     handleEditShow();
   };
   const handleChnageTitle = async () => {
@@ -340,6 +342,7 @@ export default function EditDoing({
   };
 
   const handleGetAiSuggestion = async () => {
+    setAiLoader(true)
     handleShow();
     const response = await Api(GetAiSuggestions, { type: "service" })
     if (response?.data?.status) {
@@ -347,6 +350,7 @@ export default function EditDoing({
       const rawDescription = response?.data?.data?.description || "";
       const cleanTitle = rawTitle.replace(/{|}|\*\*/g, "");
       const cleanDescription = rawDescription.replace(/{|}|\*\*/g, "");
+      setAiLoader(false)
 
       setServicesName(cleanTitle);
       setServicesDescription(cleanDescription);
@@ -379,7 +383,7 @@ export default function EditDoing({
           </button>
         </Modal.Header>
         <Modal.Body>
-          {!showChatModal ?
+          {AiLoader ? <h5>Loading...</h5> : !showChatModal ?
             <>
               <div>
                 <label className="modalFormlabel">
@@ -522,17 +526,20 @@ export default function EditDoing({
                           name="hiddenId"
                           key={i}
                         />
-                        <label className="modalFormLable">
-                          Upload Image (*Preferred size in ratio of 100x100)
-                        </label>
-                        <input
-                          type="file"
-                          name="image"
-                          className="form-control mb-4 p-1 mt-1"
-                          accept="image/png, image/gif, image/jpeg"
-                          style={{ border: "1px solid #ccc" }}
-                          onChange={(e) => setImage(e.target.files[0])}
-                        />
+                        <div className="mb-4 p-1 mt-1">
+                          <label className="modalFormLable">
+                            Upload Image (*Preferred size in ratio of 100x100)
+                          </label>
+                          <input
+                            type="file"
+                            name="image"
+                            className="form-control"
+                            accept="image/png, image/gif, image/jpeg"
+                            style={{ border: "1px solid #ccc" }}
+                            onChange={(e) => setImage(e.target.files[0])}
+                          />
+                          <img src={Image} alt="uplaoded-img" className="edit-real-estate-images mt-2" />
+                        </div>
                         <label className="modalFormLable">Heading*</label>
                         <input
                           name="name"
@@ -885,7 +892,8 @@ export default function EditDoing({
                                         handleSetId(
                                           item.id,
                                           item.name,
-                                          item.description
+                                          item.description,
+                                          Data?.base_url + item?.image?.path
                                         )
                                       }
                                     >

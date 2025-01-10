@@ -188,8 +188,8 @@ const Order = () => {
                     >
                       {items.map((item, index) => (
                         <Draggable
-                          key={item.name}
-                          draggableId={item.name}
+                          key={item.id}
+                          draggableId={item.id}
                           index={index}
                         >
                           {(provided, snapshot) => (
@@ -244,8 +244,8 @@ const Order = () => {
                       >
                         {Testimonial?.map((item, index) => (
                           <Draggable
-                            key={item.name}
-                            draggableId={item.name}
+                            key={item.id}
+                            draggableId={item.id}
                             index={index}
                           >
                             {(provided, snapshot) => (
@@ -296,8 +296,8 @@ const Order = () => {
                       >
                         {Experience?.map((item, index) => (
                           <Draggable
-                            key={item.designation}
-                            draggableId={item.designation}
+                            key={item.id}
+                            draggableId={item.id}
                             index={index}
                           >
                             {(provided, snapshot) => (
@@ -348,8 +348,8 @@ const Order = () => {
                       >
                         {Services?.map((item, index) => (
                           <Draggable
-                            key={item.name}
-                            draggableId={item.name}
+                            key={item.id}
+                            draggableId={item.id}
                             index={index}
                           >
                             {(provided, snapshot) => (
@@ -400,8 +400,8 @@ const Order = () => {
                       >
                         {Products?.map((item, index) => (
                           <Draggable
-                            key={item.name}
-                            draggableId={item.name}
+                            key={item.id}
+                            draggableId={item.id}
                             index={index}
                           >
                             {(provided, snapshot) => (
@@ -452,8 +452,8 @@ const Order = () => {
                       >
                         {Blogs?.map((item, index) => (
                           <Draggable
-                            key={item.name}
-                            draggableId={item.name}
+                            key={item.id}
+                            draggableId={item.id}
                             index={index}
                           >
                             {(provided, snapshot) => (

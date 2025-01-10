@@ -34,6 +34,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import EditDocument from "@components/EditPages/EditDocument";
+import EditRealEstatee from "@components/EditPages/RealEstate/EditRealEstate";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -182,19 +183,6 @@ const Page = () => {
                     PlanData={cardData?.plan}
                     APIDATA={getProfileData}
                   />
-                  {/* {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                    <SocailVisits
-                      Data={cardData?.card}
-                      card={cardData?.card}
-                      MainData={cardData}
-                      profile={profile}
-                      TitleData={cardData?.titles}
-                      APIDATA={getProfileData}
-                      PlanData={cardData?.plan}
-                    />
-                  ) : (
-                    ""
-                  )} */}
                   <EditDoing
                     Data={cardData?.card}
                     MainData={cardData}
@@ -265,7 +253,7 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
+                  {/* {process.env.NEXT_PUBLIC_MODE === "development" && (
                     <EditRealEstate
                       Data={cardData?.card}
                       MainData={cardData}
@@ -278,9 +266,21 @@ const Page = () => {
                       card={profile}
                       Currency={cardData?.currency}
                     />
-                  ) : (
-                    ""
-                  )}
+                  )} */}
+
+                  <EditRealEstatee
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    RealEstateData={RealEstateData}
+                    setRealEstateData={setRealEstateData}
+                    PlanData={cardData?.plan}
+                    APIDATA={getProfileData}
+                    PaginationData={cardData?.pagination_data}
+                    card={profile}
+                    Currency={cardData?.currency}
+                  />
+
                   <EditContact
                     Data={cardData?.card}
                     MainData={cardData}

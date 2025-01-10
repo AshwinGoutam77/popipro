@@ -250,6 +250,7 @@ div:where(.swal2-icon).swal2-info {
   cursor: pointer;
   position: relative;
   /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  z-index: 1;
   padding: 0 15px;
 }
 
@@ -257,6 +258,10 @@ div:where(.swal2-icon).swal2-info {
   color: black;
   font-size: 14px !important;
   padding-top: 5px;
+}
+
+.dashboard-boxes img {
+  z-index: -1;
 }
 
 .dashboard-boxes:hover {
@@ -858,6 +863,11 @@ textarea:invalid {
   position: absolute;
   right: 34px;
   top: 34px;
+}
+
+.virtual-bg-div {
+  width: fit-content;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {

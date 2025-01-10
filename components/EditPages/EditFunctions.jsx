@@ -4,8 +4,6 @@ import { CardData } from "@services/Routes";
 import Swal from "sweetalert2";
 
 export const handleActive = async ({ section_name, Visible_name, Active, setActive }) => {
-    console.log(section_name, Visible_name);
-
     const titles = [
         {
             name: section_name,

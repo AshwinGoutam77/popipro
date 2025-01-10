@@ -131,9 +131,9 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
 
   useEffect(() => {
     calculateTotalPrice();
-    // if (userCartItems.length == 0) {
-    //   handleHide();
-    // }
+    if (userCartItems.length == 0 && !SuccessBtn) {
+      handleHide();
+    }
   }, [cartItems]);
 
 

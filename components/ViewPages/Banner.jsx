@@ -340,7 +340,7 @@ const Banner = ({
 
       {card.whatsapp_number && (
         <a
-          href={`https://api.whatsapp.com/send?phone=${card.whatsapp_country_code?.replace(/\+/g, "%2B") || ""}${card.whatsapp_number}`}
+          href={`https://api.whatsapp.com/send?phone=${card.whatsapp_country_code?.replace(/\+/g, "%2B") || ""}${card.whatsapp_number}${card.contact_extension?.replace(/\+/g, "%2B") || ""}`}
           className="float"
           target="_blank"
           onClick={() => HitClick("direct")}

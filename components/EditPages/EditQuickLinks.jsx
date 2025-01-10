@@ -175,7 +175,7 @@ export default function EditCustomLink({
   const handleActive = async () => {
     let titles = [
       {
-        name: "card_alternate_phone",
+        name: "card_custom_url",
         visible_name: CustomLinkTitle,
         is_featured: Active ? "0" : "1",
         is_active: Active ? "0" : "1",

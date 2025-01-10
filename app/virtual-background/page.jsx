@@ -71,11 +71,12 @@ export default function page() {
       setData(response.data.data);
       setImage(
         "data:image/png;base64," +
-          response.data.data?.virtual_background?.[0]?.background?.[0]?.path
+        response.data.data?.virtual_background?.[0]?.background?.[0]?.path
       );
       setVirtualBgId(response.data.data?.[0]?.id);
     }
   };
+
   const handleVirtualBg = (id, path) => {
     setImage("data:image/png;base64," + path);
     setVirtualBgId(id);
@@ -84,12 +85,10 @@ export default function page() {
   function capture() {
     const captureDiv = document.getElementById("captureDiv");
     html2canvas(captureDiv).then((canvas) => {
-      // Create a link to download the captured image
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "captured_image.png";
 
-      // Append the link to the body and trigger a click to start the download
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -140,20 +139,22 @@ export default function page() {
         className="row m-0"
         style={{ height: "calc(100vh - 58px)", overflow: "hidden" }}
       >
-        <div className="col-sm-12 col-lg-6" id="captureDiv">
-          <div className="p-4 position-relative">
-            <img
-              src={Data?.qrcode_generator}
-              className="qr-background-image"
-              alt="qr-code"
-              style={{ width: "100px", height: "100px" }}
-            />
-            <img
-              src={Image}
-              alt="image"
-              className="virtal-bg-main-image"
-              id="setImage"
-            />{" "}
+        <div className="col-sm-12 col-lg-6">
+          <div className="p-4">
+            <div className="position-relative virtual-bg-div" id="captureDiv">
+              <img
+                src={Data?.qrcode_generator}
+                className="qr-background-image"
+                alt="qr-code"
+                style={{ width: "100px", height: "100px" }}
+              />
+              <img
+                src={Image}
+                alt="image"
+                className="virtal-bg-main-image"
+                id="setImage"
+              />{" "}
+            </div>
             <button
               onClick={() => capture()}
               className="contact-btn w-auto text-white mt-4"

@@ -122,30 +122,21 @@ export default function EditAlternateNo({
       mess =
         NumberLabel == ""
           ? "Label is required"
-          : NumberLabel == ""
-            ? "Number is required"
-            : CountryCode == ""
-              ? "Country code is required"
-              : "";
+          : CountryCode == ""
+            ? "Country code is required"
+            : MobileNumber == ""
+              ? "Number is required" : "";
     } else {
-      id !== null
-        ? (alternate_phones = [
-          {
-            title: NumberLabel,
-            number: MobileNumber,
-            extension: Extension,
-            country_code: CountryCode,
-            saved_alternate_phone: id,
-          },
-        ])
-        : (alternate_phones = [
-          {
-            title: NumberLabel,
-            number: MobileNumber,
-            extension: Extension,
-            country_code: CountryCode,
-          },
-        ]);
+      (alternate_phones = [
+        {
+          title: NumberLabel,
+          number: MobileNumber,
+          extension: Extension,
+          country_code: CountryCode,
+          saved_alternate_phone: id !== null ? id : "",
+        },
+      ])
+
     }
     if (error) {
       setShowLoader(false);
@@ -168,6 +159,12 @@ export default function EditAlternateNo({
         APIDATA();
         handleClose();
         handleEditClose();
+        handleCanclebtn();
+        setNumberLabel("");
+        setMobileNumber("");
+        setCountryCode("");
+        setExtension("");
+        setShowLoader(false);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 2000,
@@ -184,8 +181,8 @@ export default function EditAlternateNo({
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
-      toast(error?.response?.data?.message, {
-        position: "bottom-right",
+      toast.error("Something went wrong, Please try again later.", {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -195,12 +192,6 @@ export default function EditAlternateNo({
         theme: "light",
       });
     }
-    handleCanclebtn();
-    setNumberLabel("");
-    setMobileNumber("");
-    setCountryCode("");
-    setExtension("");
-    setShowLoader(false);
   };
 
   const handleDeleteNumber = async (id, type, DataId) => {

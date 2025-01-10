@@ -32,7 +32,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 const Page = () => {
   const { token, APIDATA, UserData } = useAuthContext();
   console.log(UserData);
-  
+
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -88,11 +88,11 @@ const Page = () => {
         GetOverallInsights,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -137,11 +137,11 @@ const Page = () => {
         GetOverallInsights,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -535,6 +535,12 @@ const Page = () => {
     setModalData(MapData);
   };
 
+  const [showFull, setShowFull] = useState(false);
+  const truncateText = (text) => {
+    const words = text.split(" ");
+    return words.length > 50 ? words.slice(0, 50).join(" ") + "..." : text;
+  };
+
   return token ? (
     <>
       {ShowLoader ? (
@@ -620,10 +626,10 @@ const Page = () => {
                           <p className="w-100">
                             {item.detail?.state
                               ? item.detail?.city +
-                                ", " +
-                                item.detail?.state +
-                                ", " +
-                                item.detail?.country
+                              ", " +
+                              item.detail?.state +
+                              ", " +
+                              item.detail?.country
                               : item.detail?.city + ", " + item.detail?.country}
                           </p>
                         ) : (
@@ -633,7 +639,14 @@ const Page = () => {
                       {item.message ? (
                         <div className="d-flex align-items-start">
                           <p className="w-100 font-weight-bold">Message</p>
-                          <p className="w-100">{item.message}</p>
+                          <div className="w-100">
+                            <p>{showFull ? item.message : truncateText(item.message)}</p>
+                            {item.message.split(" ").length > 50 && (
+                              <button className="contact-btn w-auto" onClick={() => setShowFull(!showFull)}>
+                                {showFull ? "Show Less" : "Show More"}
+                              </button>
+                            )}
+                          </div>
                         </div>
                       ) : (
                         ""
@@ -777,7 +790,7 @@ const Page = () => {
                     <SwiperComponent
                       breakpoints={{
                         1110: {
-                          slidesPerView: 10,
+                          slidesPerView: 2,
                         },
                         300: {
                           slidesPerView: 2,
@@ -830,7 +843,6 @@ const Page = () => {
                           </button>
                         </div>
                       </SwiperSlide>
-                      <SwiperSlide className="w-auto"></SwiperSlide>
                     </SwiperComponent>
                   </div>
                   <div className="box-shadow-leads">

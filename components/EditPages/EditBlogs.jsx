@@ -69,10 +69,8 @@ export default function EditBlogs({
   const handleEditShow = () => setShowEdit(true);
   const handleBlogShow = () => setBlogShow(true);
   const [showChatModal, setShowshowChatModal] = useState(false);
-  const handleCloseshowChatModal = () => setShowshowChatModal(false);
-  const handleShowshowChatModal = () => setShowshowChatModal(true);
-  const [InputState, setInputState] = useState("");
   const [isLocked, setIsLocked] = useState(false);
+  const [AiLoader, setAiLoader] = useState(false)
 
   useEffect(() => {
     setBlogName(TitleData?.card_blogs?.visible_name);
@@ -378,6 +376,7 @@ export default function EditBlogs({
 
 
   const handleGetAiSuggestion = async () => {
+    setAiLoader(true)
     handleShow();
     const response = await Api(GetAiSuggestions, { type: "blog" })
     if (response?.data?.status) {
@@ -385,7 +384,7 @@ export default function EditBlogs({
       const rawDescription = response?.data?.data?.description || "";
       const cleanTitle = rawTitle.replace(/{|}|\*\*/g, "");
       const cleanDescription = rawDescription.replace(/{|}|\*\*/g, "");
-
+      setAiLoader(false)
       setServicesName(cleanTitle);
       setServicesDescription(cleanDescription);
     }
@@ -418,7 +417,7 @@ export default function EditBlogs({
           </button>
         </Modal.Header>
         <Modal.Body>
-          {
+          {AiLoader ? <h5>Loading...</h5> :
             !showChatModal ?
               <> <div>
                 <label className="modalFormLable">
@@ -847,8 +846,8 @@ export default function EditBlogs({
                           )}
                         </div>
 
-                        {MainData?.company_setting?.maximum_blogs !==
-                          PaginationData?.total_blogs ? (
+                        {TitleData?.card_blogs?.source == "2" &&
+                          TitleData?.card_blogs?.in_subscription ? (
                           <>
                             <button
                               className="addmore mr-1"
@@ -873,7 +872,7 @@ export default function EditBlogs({
                             className="addmore"
                             onClick={handleUpgradePlan}
                           >
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FontAwesomeIcon icon={faWandMagicSparkles} />
                           </button>
                         )}
                         <>

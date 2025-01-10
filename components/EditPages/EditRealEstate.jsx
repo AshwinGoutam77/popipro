@@ -42,6 +42,7 @@ import ReactPlayer from "react-player";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditRealEstate({
   MainData,
@@ -198,14 +199,14 @@ export default function EditRealEstate({
         Title === ""
           ? "Title field is required"
           : PropertyType === ""
-          ? "Property type is requried"
-          : Description === ""
-          ? "Description is requried"
-          : GalleryImages?.length > 3
-          ? "Gallery images can't be more than 3"
-          : urlPattern.test(YouTubeLink) == false
-          ? "Enter a valid youtube url"
-          : "";
+            ? "Property type is requried"
+            : Description === ""
+              ? "Description is requried"
+              : GalleryImages?.length > 3
+                ? "Gallery images can't be more than 3"
+                : urlPattern.test(YouTubeLink) == false
+                  ? "Enter a valid youtube url"
+                  : "";
     }
     if (error) {
       console.log(mess);
@@ -247,16 +248,16 @@ export default function EditRealEstate({
         Address === ""
           ? "Address field is required"
           : City === ""
-          ? "City field is requried"
-          : Country === ""
-          ? "Country field is requried"
-          : State === ""
-          ? "State field is requried"
-          : ZipCode === ""
-          ? "Zip code is requried"
-          : BuiltUpArea === ""
-          ? "Build up area is requried"
-          : "";
+            ? "City field is requried"
+            : Country === ""
+              ? "Country field is requried"
+              : State === ""
+                ? "State field is requried"
+                : ZipCode === ""
+                  ? "Zip code is requried"
+                  : BuiltUpArea === ""
+                    ? "Build up area is requried"
+                    : "";
     }
     if (error) {
       setShowLoader(false);
@@ -337,71 +338,51 @@ export default function EditRealEstate({
     setShowModal(true);
   };
 
+
+  let AmenitiesOption = [];
+  Data?.amenities &&
+    Data?.amenities.map((item) => {
+      AmenitiesOption.push({
+        amenities_id: item.id,
+        value: item.id,
+        label: item.name,
+      });
+    });
+
   const handleSaveDetails = async () => {
     setShowLoader(true);
     let data = [];
-    ContentId !== null
-      ? (data = [
-          {
-            image: Image,
-            heading: Title,
-            description: Description,
-            is_label: PriceRadio ? 0 : 1,
-            price: Price,
-            label: PriceText,
-            currency: MainData?.company_setting?.currency?.id,
-            property_type: PropertyType,
-            google_address_link: GoogleMapLink,
-            bhk: BhkValue,
-            bathroom: BathroomValue,
-            type: PropertyType,
-            looking_for: 1,
-            furnish_type: FurnishType,
-            area: BuiltUpArea,
-            gallery: GalleryImages ? [...GalleryImages] : "",
-            youtube_link: YouTubeLink,
-            city: City,
-            street_address: Address,
-            zipcode: ZipCode,
-            state: State,
-            country: Country,
-            primary_amenities: inputList,
-            secondary_amenities: inputList2,
-            external_area: ExternalBuildUp,
-            internal_area: InternalBuildUp,
-            saved_realestates: ContentId,
-          },
-        ])
-      : (data = [
-          {
-            image: Image,
-            heading: Title,
-            description: Description,
-            is_label: PriceRadio ? 0 : 1,
-            price: Price,
-            label: PriceText,
-            currency: MainData?.company_setting?.currency?.id,
-            property_type: PropertyType,
-            google_address_link: GoogleMapLink,
-            bhk: BhkValue,
-            bathroom: BathroomValue,
-            type: PropertyType,
-            looking_for: 1,
-            furnish_type: FurnishType,
-            area: BuiltUpArea,
-            gallery: GalleryImages ? [...GalleryImages] : "",
-            youtube_link: YouTubeLink,
-            city: City,
-            street_address: Address,
-            zipcode: ZipCode,
-            country: Country,
-            state: State,
-            primary_amenities: inputList,
-            secondary_amenities: inputList2,
-            external_area: ExternalBuildUp,
-            internal_area: InternalBuildUp,
-          },
-        ]);
+    (data = [
+      {
+        image: Image,
+        heading: Title,
+        description: Description,
+        is_label: PriceRadio ? 0 : 1,
+        price: Price,
+        label: PriceText,
+        currency: MainData?.company_setting?.currency?.id,
+        property_type: PropertyType,
+        google_address_link: GoogleMapLink,
+        bhk: BhkValue,
+        bathroom: BathroomValue,
+        type: PropertyType,
+        looking_for: 1,
+        furnish_type: FurnishType,
+        area: BuiltUpArea,
+        gallery: GalleryImages ? [...GalleryImages] : "",
+        youtube_link: YouTubeLink,
+        city: City,
+        street_address: Address,
+        zipcode: ZipCode,
+        state: State,
+        country: Country,
+        primary_amenities: inputList,
+        secondary_amenities: inputList2,
+        external_area: ExternalBuildUp,
+        internal_area: InternalBuildUp,
+        saved_realestates: ContentId !== null ? ContentId : "",
+      },
+    ])
     try {
       // console.log(".....", data);
       // setShowLoader(false);
@@ -417,16 +398,7 @@ export default function EditRealEstate({
         setCatSetting(false);
         setLocationSetting(false);
         setContentId(null);
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(response.data.message, 'success')
       }
     } catch (error) {
       setShowLoader(false);
@@ -434,16 +406,7 @@ export default function EditRealEstate({
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
-      toast.error(error?.response?.data?.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(error?.response?.data?.message, 'error')
     }
     setShowLoader(false);
   };
@@ -616,12 +579,10 @@ export default function EditRealEstate({
   const LoadMoreFunction = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card}&type=card_realestates&current_page=${
-            Page && Page
-          }`
-        : `https://admin.popipro.com/api/get-more-items/?card_url=${card}&type=card_realestates&current_page=${
-            Page && Page
-          }`,
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card}&type=card_realestates&current_page=${Page && Page
+        }`
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card}&type=card_realestates&current_page=${Page && Page
+        }`,
       {
         method: "GET",
         cache: "no-cache",
@@ -635,22 +596,13 @@ export default function EditRealEstate({
       });
       Page > 1
         ? setRealEstateData((prevData) => [
-            ...prevData,
-            ...data?.data?.next_page_data?.data,
-          ])
+          ...prevData,
+          ...data?.data?.next_page_data?.data,
+        ])
         : setRealEstateData(() => data?.data?.next_page_data?.data);
     }
   };
 
-  const AmenitiesOption = [];
-  Data?.amenities &&
-    Data?.amenities.map((item) => {
-      AmenitiesOption.push({
-        amenities_id: item.id,
-        value: item.id,
-        label: item.name,
-      });
-    });
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -967,7 +919,7 @@ export default function EditRealEstate({
                               items?.google_address_link?.includes(
                                 "https://"
                               ) ||
-                              items?.google_address_link?.includes("http://")
+                                items?.google_address_link?.includes("http://")
                                 ? "https://" + items?.google_address_link
                                 : items?.google_address_link
                             }
@@ -1220,13 +1172,13 @@ export default function EditRealEstate({
                     },
                   }}
                   data={Description || ""}
-                  onReady={(editor) => {}}
+                  onReady={(editor) => { }}
                   onChange={(event, editor) => {
                     const data = editor.getData();
                     setDescription(data);
                   }}
-                  onBlur={(event, editor) => {}}
-                  onFocus={(event, editor) => {}}
+                  onBlur={(event, editor) => { }}
+                  onFocus={(event, editor) => { }}
                 />
               </div>
               <div
@@ -1523,7 +1475,7 @@ export default function EditRealEstate({
                 <ProgressBar now={80} />;
               </div>
               <h6 className="mb-2 color-black pl-1">Main Amenities</h6>
-              {inputList?.map((x, i) => {
+              {inputList && inputList?.map((x, i) => {
                 return (
                   <div
                     className="d-flex align-items-center row position-realtive"
@@ -1726,7 +1678,7 @@ export default function EditRealEstate({
                 </>
               )}
               {TitleData?.card_realestates?.source == "2" &&
-              TitleData?.card_realestates?.in_subscription ? (
+                TitleData?.card_realestates?.in_subscription ? (
                 <>
                   <div className="web-edit-icons">
                     <div className="d-flex align-items-center">
@@ -1922,8 +1874,8 @@ export default function EditRealEstate({
                             style={{ gap: "10px" }}
                           >
                             {Data?.whatsapp_number &&
-                            MainData?.company_setting
-                              ?.show_realestate_wp_button !== 0 ? (
+                              MainData?.company_setting
+                                ?.show_realestate_wp_button !== 0 ? (
                               <a
                                 href={
                                   "https://api.whatsapp.com/send?phone=" +
@@ -1945,17 +1897,17 @@ export default function EditRealEstate({
                             )}
                             {MainData?.company_setting
                               ?.show_realestate_enquiry_button !== 0 && (
-                              <span
-                                data-toggle="modal"
-                                data-target="#ProductEnquireModal"
-                                className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faEnvelope}
-                                  className="user-select-auto"
-                                />
-                              </span>
-                            )}
+                                <span
+                                  data-toggle="modal"
+                                  data-target="#ProductEnquireModal"
+                                  className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faEnvelope}
+                                    className="user-select-auto"
+                                  />
+                                </span>
+                              )}
                             {items?.google_address_link !== null ? (
                               <a
                                 href={items?.google_address_link}
@@ -2066,8 +2018,8 @@ export default function EditRealEstate({
 
             {PaginationData?.total_realestate ==
               Data?.card_realestates?.length &&
-            LoadMoreData !== null &&
-            Data?.card_realestates?.length !== 0 ? (
+              LoadMoreData !== null &&
+              Data?.card_realestates?.length !== 0 ? (
               <div className="mx-auto text-center pt-2">
                 <a
                   className="text-center cursor-pointer mx-auto"

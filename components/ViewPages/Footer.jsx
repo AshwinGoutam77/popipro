@@ -37,7 +37,7 @@ export default function Footer({ Data, profile, MainData }) {
   return (
     <>
       <div className="w-100 footer-div text-center">
-        {Data?.company_setting?.agent_details?.profile ? <img
+        {Data?.company_setting?.agent_details?.profile?.path ? <img
           src={Data?.card?.base_url + Data?.company_setting?.agent_details?.profile?.path}
           style={{ width: "110px" }}
           alt="photos"
