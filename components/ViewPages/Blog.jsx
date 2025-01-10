@@ -218,7 +218,6 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                           height={0}
                                         />
                                       </picture>
-                                      <FontAwesomeIcon icon={faHeart} />
                                     </>
                                   ) : (
                                     <>
@@ -235,7 +234,6 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                           height={0}
                                         />
                                       </picture>
-                                      <FontAwesomeIcon icon={faHeart} />
                                     </>
                                   )}
                                 </div>
@@ -299,7 +297,6 @@ function Blog({ Titles, Data, PaginationData, PlanData, card_url }) {
                                         alt="photos"
                                       />
                                     </picture>
-                                    <FontAwesomeIcon icon={faHeart} className="heart-icon" />
                                   </div>
                                 ) : (
                                   <picture>

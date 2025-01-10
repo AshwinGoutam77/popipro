@@ -25,7 +25,7 @@ const AboutMe = ({ card, Titles, profile }) => {
           Titles?.card_description?.source !== 0 &&
           card?.card_description !== null &&
           Titles?.card_description?.is_active !== 0 && (
-            <div className="box-content boxxx mt-1" id="card_description">
+            <div className="box-content boxxx" id="card_description">
               {/* <!-- About --> */}
               {Titles?.card_description?.is_active &&
                 card?.card_description !== null ? (

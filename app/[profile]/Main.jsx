@@ -90,351 +90,190 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                       card={card}
                     />
                   </aside>
-                  {process.env.NEXT_PUBLIC_MODE !== "development" ? (
-                    <div className="col-12 col-md-12 col-lg-10">
-                      <AboutMe Titles={titles} card={card} fetchData={fetchData} />
-                      <Alternateno
-                        Data={card}
-                        Titles={titles}
-                        PlanData={plan}
-                      />
-                      <SocialMedia
-                        card={card}
-                        Titles={titles}
-                        CardLinks={card?.card_social_links}
-                      />
 
-                      <QuickLinks
-                        subscription={plan}
-                        card={card}
-                        Titles={titles}
-                      />
-
-                      <Services
-                        subscription={plan}
-                        card={card}
-                        Titles={titles}
-                      />
-
-                      <Testimonials
-                        card={card}
-                        subscription={plan}
-                        card_testimonials={card?.card_testimonials}
-                        Titles={titles}
-                        company_setting={company_setting}
-                        InquiryModal={false}
-                        InquiryPopup={false}
-                        setInquiryModal={false}
-                        profile={profile}
-                      />
-
-                      <Clients
-                        card={card}
-                        ClientPhotos={card?.card_clients}
-                        PlanData={plan}
-                        Titles={titles}
-                      />
-
-                      <Resume
-                        Titles={titles}
-                        subscription={plan}
-                        card_experience={card?.card_experience}
-                      />
-
-                      <Work
-                        Card_videos={card?.card_videos}
-                        Card_photos={card?.card_photos}
-                        Titles={titles}
-                        Data={card}
-                        card={card}
-                        PaginationData={pagination_data}
-                        PlanData={plan}
-                        card_url={profile}
-                      />
-                      <Video
-                        Card_videos={card?.card_videos}
-                        Card_photos={card?.card_photos}
-                        Titles={titles}
-                        Data={card}
-                        card={card}
-                        PaginationData={pagination_data}
-                        PlanData={plan}
-                        card_url={profile}
-                      />
-                      <Product
-                        PlanData={plan}
-                        Titles={titles}
-                        Data={card}
-                        card={card}
-                        PaginationData={pagination_data}
-                        MainData={MainData}
-                        Products={Products}
-                        card_url={profile}
-                      />
-                      <Blog
-                        PlanData={plan}
-                        Titles={titles}
-                        Data={card}
-                        card={card}
-                        PaginationData={pagination_data}
-                        AddMoreBlogs={AddMoreBlogs}
-                        card_url={profile}
-                      />
-                      {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                        <Realestate
-                          PlanData={plan}
-                          Titles={titles}
-                          Data={card}
-                          card={card}
-                          PaginationData={pagination_data}
-                          RealEstateData={RealEstateData}
-                          card_url={profile}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      {MainData?.company_setting?.show_insta_feed == "1" &&
-                        MainData?.company_setting?.insta_feed_url &&
-                        MainData?.plan?.subscription?.plan?.plan_name ==
-                        "Premium" ? (
-                        <EmbedPost
-                          Card_videos={card?.card_videos}
-                          Card_photos={card?.card_photos}
-                          Titles={titles}
-                          Data={card}
-                          card={card}
-                          PaginationData={pagination_data}
-                          PlanData={plan}
-                          card_url={profile}
-                          MainData={MainData}
-                        />
-                      ) : (
-                        ""
-                      )}
-
-                      {MainData?.company_setting?.appointment_enquiry_method ==
-                        "form" ? (
-                        <ContactForm
-                          card_url={profile}
-                          Titles={titles}
-                          Data={card}
-                          card={card}
-                          MainData={MainData}
-                          PlanData={plan}
-                        />
-                      ) : (
-                        ""
-                      )}
-
-                      {MainData?.custom_forms !== null &&
-                        plan?.is_expired == false ? (
-                        <div
-                          className="mb-3 box-content boxxx mt-0"
-                          id="custom_form"
-                        >
-                          <div className="flex-header">
-                            <h2 className="title title--h1 first-title title__separate">
-                              {MainData?.forms?.heading
-                                ? MainData?.forms?.heading
-                                : "Custom Form"}
-                            </h2>
-                          </div>
-                          <BuilderForm
-                            card_url={profile}
-                            JsonData={MainData?.forms?.json}
-                          />
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  ) : (
-                    <div className={`col-12 col-md-12 col-lg-${!headers?.length ? "12" : "10"}`}>
-                      {sortedData &&
-                        sortedData?.map((items, index) => {
-                          return (
-                            <div key={index}>
-                              {items.status == "card_alternate_phone" ? (
-                                <Alternateno
-                                  Data={card}
-                                  Titles={titles}
-                                  PlanData={plan}
-                                  profile={profile}
-                                />
-                              ) : items?.status == "card_social_links" ? (
+                  <div className={`col-12 col-md-12 col-lg-${!headers?.length ? "12" : "10"} d-flex flex-column`} style={{ gap: "20px", marginBottom: '20px' }}>
+                    {sortedData &&
+                      sortedData?.map((items, index) => {
+                        return (
+                          <div key={index}>
+                            {items.status == "card_alternate_phone" ? (
+                              <Alternateno
+                                Data={card}
+                                Titles={titles}
+                                PlanData={plan}
+                                profile={profile}
+                              />
+                            ) : items?.status == "card_social_links" ? (
+                              <div className="d-flex flex-column" style={{ gap: '20px' }}>
                                 <SocialMedia
                                   card={card}
                                   Titles={titles}
                                   CardLinks={card?.card_social_links}
                                   profile={profile}
                                 />
-                              ) : items?.status == "card_custom_url" ? (
-                                <QuickLinks
+                                {MainData?.company_setting?.show_insta_feed ==
+                                  1 &&
+                                  <EmbedPost
+                                    Card_videos={card?.card_videos}
+                                    Card_photos={card?.card_photos}
+                                    Titles={titles}
+                                    Data={card}
+                                    card={card}
+                                    PaginationData={pagination_data}
+                                    PlanData={plan}
+                                    card_url={profile}
+                                    MainData={MainData}
+                                  />}
+                              </div>
+                            ) : items?.status == "card_custom_url" ? (
+                              <QuickLinks
+                                subscription={plan}
+                                card={card}
+                                Titles={titles}
+                                profile={profile}
+                              />
+                            ) : items?.status == "card_description" ? (
+                              <AboutMe Titles={titles} card={card} profile={profile} />
+                            ) : items?.status == "card_documents" ?
+                              <Documents Titles={titles} card={card} profile={profile} />
+                              : items?.status == "card_services" ? (
+                                <Services
                                   subscription={plan}
                                   card={card}
                                   Titles={titles}
                                   profile={profile}
                                 />
-                              ) : items?.status == "card_description" ? (
-                                <AboutMe Titles={titles} card={card} profile={profile} />
-                              ) : items?.status == "card_documents" ?
-                                <Documents Titles={titles} card={card} profile={profile} />
-                                : items?.status == "card_services" ? (
-                                  <Services
-                                    subscription={plan}
-                                    card={card}
-                                    Titles={titles}
-                                    profile={profile}
-                                  />
-                                ) : items?.status == "card_testimonials" ? (
-                                  <Testimonials
-                                    card={card}
-                                    subscription={plan}
-                                    card_testimonials={card?.card_testimonials}
-                                    Titles={titles}
-                                    company_setting={company_setting}
-                                    InquiryModal={false}
-                                    InquiryPopup={false}
-                                    setInquiryModal={false}
-                                    profile={profile}
-                                  />
-                                ) : items?.status == "card_clients" ? (
-                                  <Clients
-                                    card={card}
-                                    ClientPhotos={card?.card_clients}
+                              ) : items?.status == "card_testimonials" ? (
+                                <Testimonials
+                                  card={card}
+                                  subscription={plan}
+                                  card_testimonials={card?.card_testimonials}
+                                  Titles={titles}
+                                  company_setting={company_setting}
+                                  InquiryModal={false}
+                                  InquiryPopup={false}
+                                  setInquiryModal={false}
+                                  profile={profile}
+                                />
+                              ) : items?.status == "card_clients" ? (
+                                <Clients
+                                  card={card}
+                                  ClientPhotos={card?.card_clients}
+                                  PlanData={plan}
+                                  Titles={titles}
+                                  profile={profile}
+                                />
+                              ) : items?.status == "card_experience" ? (
+                                <Resume
+                                  Titles={titles}
+                                  subscription={plan}
+                                  card_experience={card?.card_experience}
+                                  profile={profile}
+                                  card={card}
+                                />
+                              ) : items?.status == "card_photos" ? (
+                                <Work
+                                  Card_videos={card?.card_videos}
+                                  Card_photos={card?.card_photos}
+                                  Titles={titles}
+                                  Data={card}
+                                  card={card}
+                                  PaginationData={pagination_data}
+                                  PlanData={plan}
+                                  card_url={profile}
+                                />
+                              ) : items?.status == "card_videos" ? (
+                                <Video
+                                  Card_videos={card?.card_videos}
+                                  Card_photos={card?.card_photos}
+                                  Titles={titles}
+                                  Data={card}
+                                  card={card}
+                                  PaginationData={pagination_data}
+                                  PlanData={plan}
+                                  card_url={profile}
+                                />
+                              ) : items?.status == "card_products" ? (
+                                <Product
+                                  PlanData={plan}
+                                  Titles={titles}
+                                  Data={card}
+                                  card={card}
+                                  PaginationData={pagination_data}
+                                  MainData={MainData}
+                                  Products={Products}
+                                  card_url={profile}
+                                />
+                              ) : items?.status == "card_blogs" ? (
+                                <Blog
+                                  PlanData={plan}
+                                  Titles={titles}
+                                  Data={card}
+                                  card={card}
+                                  PaginationData={pagination_data}
+                                  AddMoreBlogs={AddMoreBlogs}
+                                  card_url={profile}
+                                />
+                              ) : items?.status == "card_realestates" ? (
+                                process.env.NEXT_PUBLIC_MODE ===
+                                  "development" ? (
+                                  <Realestate
                                     PlanData={plan}
-                                    Titles={titles}
-                                    profile={profile}
-                                  />
-                                ) : items?.status == "card_experience" ? (
-                                  <Resume
-                                    Titles={titles}
-                                    subscription={plan}
-                                    card_experience={card?.card_experience}
-                                    profile={profile}
-                                    card={card}
-                                  />
-                                ) : items?.status == "card_photos" ? (
-                                  <Work
-                                    Card_videos={card?.card_videos}
-                                    Card_photos={card?.card_photos}
                                     Titles={titles}
                                     Data={card}
                                     card={card}
                                     PaginationData={pagination_data}
-                                    PlanData={plan}
+                                    RealEstateData={RealEstateData}
                                     card_url={profile}
-                                  />
-                                ) : items?.status == "card_videos" ? (
-                                  <Video
-                                    Card_videos={card?.card_videos}
-                                    Card_photos={card?.card_photos}
-                                    Titles={titles}
-                                    Data={card}
-                                    card={card}
-                                    PaginationData={pagination_data}
-                                    PlanData={plan}
-                                    card_url={profile}
-                                  />
-                                ) : items?.status == "card_products" ? (
-                                  <Product
-                                    PlanData={plan}
-                                    Titles={titles}
-                                    Data={card}
-                                    card={card}
-                                    PaginationData={pagination_data}
                                     MainData={MainData}
-                                    Products={Products}
-                                    card_url={profile}
                                   />
-                                ) : items?.status == "card_blogs" ? (
-                                  <Blog
-                                    PlanData={plan}
-                                    Titles={titles}
-                                    Data={card}
-                                    card={card}
-                                    PaginationData={pagination_data}
-                                    AddMoreBlogs={AddMoreBlogs}
-                                    card_url={profile}
-                                  />
-                                ) : items?.status == "card_realestates" ? (
-                                  process.env.NEXT_PUBLIC_MODE ===
-                                    "development" ? (
-                                    <Realestate
-                                      PlanData={plan}
-                                      Titles={titles}
-                                      Data={card}
-                                      card={card}
-                                      PaginationData={pagination_data}
-                                      RealEstateData={RealEstateData}
-                                      card_url={profile}
-                                      MainData={MainData}
-                                    />
-                                  ) : (
-                                    ""
-                                  )
-                                ) : items?.status == "EmbedPost" ? (
-                                  MainData?.company_setting?.show_insta_feed ==
-                                    1 ? (
-                                    <EmbedPost
-                                      Card_videos={card?.card_videos}
-                                      Card_photos={card?.card_photos}
-                                      Titles={titles}
-                                      Data={card}
-                                      card={card}
-                                      PaginationData={pagination_data}
-                                      PlanData={plan}
-                                      card_url={profile}
-                                      MainData={MainData}
-                                    />
-                                  ) : (
-                                    ""
-                                  )
-                                ) : items?.status == "card_booking" ? (
-                                  MainData?.company_setting
-                                    ?.appointment_enquiry_method == "form" ? (
-                                    <ContactForm
-                                      card_url={profile}
-                                      Titles={titles}
-                                      Data={card}
-                                      card={card}
-                                      MainData={MainData}
-                                      PlanData={plan}
-                                    />
-                                  ) : (
-                                    ""
-                                  )
                                 ) : (
                                   ""
-                                )}
-                            </div>
-                          );
-                        })}
-
-                      {MainData?.custom_forms !== null &&
-                        plan?.is_expired == false ? (
-                        <div
-                          className="mb-3 box-content boxxx mt-0"
-                          id="custom_form"
-                        >
-                          <div className="flex-header">
-                            <h2 className="title title--h1 first-title title__separate">
-                              {MainData?.forms?.heading
-                                ? MainData?.forms?.heading
-                                : "Custom Form"}
-                            </h2>
+                                )
+                              ) : items?.status == "card_booking" ? (
+                                MainData?.company_setting
+                                  ?.appointment_enquiry_method == "form" ? (
+                                  <ContactForm
+                                    card_url={profile}
+                                    Titles={titles}
+                                    Data={card}
+                                    card={card}
+                                    MainData={MainData}
+                                    PlanData={plan}
+                                  />
+                                ) : (
+                                  ""
+                                )
+                              ) : (
+                                ""
+                              )}
                           </div>
-                          <BuilderForm
-                            card_url={profile}
-                            JsonData={MainData?.forms?.json}
-                          />
+                        );
+                      })}
+
+                    {MainData?.custom_forms !== null &&
+                      plan?.is_expired == false ? (
+                      <div
+                        className="mb-3 box-content boxxx mt-0"
+                        id="custom_form"
+                      >
+                        <div className="flex-header">
+                          <h2 className="title title--h1 first-title title__separate">
+                            {MainData?.forms?.heading
+                              ? MainData?.forms?.heading
+                              : "Custom Form"}
+                          </h2>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  )}
+                        <BuilderForm
+                          card_url={profile}
+                          JsonData={MainData?.forms?.json}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+
                 </div>
               </div>
             </main>

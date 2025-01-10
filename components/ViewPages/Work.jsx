@@ -181,7 +181,7 @@ const Work = ({
                       {selectedImageIndex > 0 && (
                         <button
                           className="prev-button"
-                          onClick={() => goToPreviousImage(i)}
+                          onClick={(i) => goToPreviousImage(i)}
                         >
                           <FontAwesomeIcon icon={faChevronLeft} /> Previous
                         </button>
@@ -191,7 +191,7 @@ const Work = ({
                       {selectedImageIndex < Card_photos.length - 1 && (
                         <button
                           className="next-button"
-                          onClick={() => goToNextImage(i)}
+                          onClick={(i) => goToNextImage(i)}
                         >
                           Next <FontAwesomeIcon icon={faChevronRight} />
                         </button>

@@ -187,9 +187,10 @@ const Order = () => {
                       style={getListStyle(snapshot.isDraggingOver)}
                     >
                       {items.map((item, index) => (
+                        console.log(item),
                         <Draggable
-                          key={item.id}
-                          draggableId={item.id}
+                          key={item.name}
+                          draggableId={item.name}
                           index={index}
                         >
                           {(provided, snapshot) => (

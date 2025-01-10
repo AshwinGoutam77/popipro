@@ -103,6 +103,7 @@ export default function EditRealEstatee({
     }, [TitleData]);
 
     const handleShowAddModal = () => {
+        setModalHeading("Add " + TitleData?.card_realestates?.visible_name);
         setShowModal(true)
     }
 
@@ -309,7 +310,7 @@ export default function EditRealEstatee({
     return (
         <>
             <DetailModal Data={Data} MainData={MainData} show={show} setshow={setshow} ContentId={ContentId} />
-            <AddRealEstate ModalHeading={ModalHeading} ShowModal={ShowModal} />
+            <AddRealEstate ModalHeading={ModalHeading} ShowModal={ShowModal} setShowModal={setShowModal} Data={Data}/>
             <div className="box-content boxxx" id="card_realestates">
                 <div className="pb-0 pb-sm-2">
                     <div className="flex-header">

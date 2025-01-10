@@ -108,11 +108,11 @@ export default function EditRealEstate({
   }, [TitleData]);
 
   const [inputList, setInputList] = useState([
-    { amenities_id: "", description: "" },
+    { amenities_id: "", description: "", category: "" },
   ]);
 
   const [inputList2, setInputList2] = useState([
-    { amenities_id: "", description: "" },
+    { amenities_id: "", description: "", category: "" },
   ]);
 
   const handleCanclebtn = () => {
@@ -169,6 +169,17 @@ export default function EditRealEstate({
       items?.amenities.map((item) => ({
         amenities_id: item?.pivot?.amenities_id,
         description: item?.pivot?.description,
+        category: item?.category
+      }))
+    );
+
+    console.clear()
+    console.log('==', inputList);
+    setInputList2(
+      items?.amenities.map((item) => ({
+        amenities_id: item?.pivot?.amenities_id,
+        description: item?.pivot?.description,
+        category: item?.category
       }))
     );
     setInternalBuildUp(items?.internal_area);
@@ -398,6 +409,8 @@ export default function EditRealEstate({
         setCatSetting(false);
         setLocationSetting(false);
         setContentId(null);
+        setInputList([{ amenities_id: "", description: "", category: "" }]);
+        setInputList2([{ amenities_id: "", description: "", category: "" }]);
         showToast(response.data.message, 'success')
       }
     } catch (error) {
@@ -629,11 +642,11 @@ export default function EditRealEstate({
   };
 
   const handleAddClick = () => {
-    setInputList([...inputList, { amenities_id: "", description: "" }]);
+    setInputList([...inputList, { amenities_id: "", description: "", category: "" }]);
   };
 
   const handleAddClick2 = () => {
-    setInputList2([...inputList2, { amenities_id: "", description: "" }]);
+    setInputList2([...inputList2, { amenities_id: "", description: "", category: "" }]);
   };
 
   const handleDeleteAmeities = async (realestate_id, amenitiesId, index) => {
@@ -1477,6 +1490,7 @@ export default function EditRealEstate({
               <h6 className="mb-2 color-black pl-1">Main Amenities</h6>
               {inputList && inputList?.map((x, i) => {
                 return (
+                  (x?.category == 1 || x?.category == '') &&
                   <div
                     className="d-flex align-items-center row position-realtive"
                     key={i}
@@ -1498,7 +1512,7 @@ export default function EditRealEstate({
                         style={{
                           appearance: "auto",
                         }}
-                        defaultValue={x.amenities_id}
+                        value={x.amenities_id}
                       >
                         <option value="">Select Amenities</option>
                         {AmenitiesOption?.map((item, o) => {
@@ -1559,6 +1573,7 @@ export default function EditRealEstate({
               <h6 className="mb-2 color-black pl-1">Other Amenities</h6>
               {inputList2?.map((x, i) => {
                 return (
+                  (x?.category == 2 || x?.category == '') &&
                   <div
                     className="d-flex align-items-center row position-realtive"
                     key={i}

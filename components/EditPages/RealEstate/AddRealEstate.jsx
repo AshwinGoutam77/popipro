@@ -2,14 +2,37 @@
 import React, { useState } from 'react';
 import './realestate.css';
 import { Modal, ProgressBar } from "react-bootstrap";
+import BasicDetail from './RealEstateForm/BasicDetail';
+import PropertyDetail from './RealEstateForm/PropertyDetail';
 
-export default function AddRealEstate({ ShowModal, ModalHeading }) {
+export default function AddRealEstate({ ShowModal, ModalHeading, setShowModal, Data }) {
     const [activeStep, setActiveStep] = useState(1);
+    const [formData, setFormData] = useState({
+        featuredImage: null,
+        galleryImages: [],
+        title: "",
+        propertyType: "",
+        description: "",
+        youTubeLink: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        zipCode: "",
+        builtUpArea: "",
+        landSize: "",
+        propertySize: "",
+        furnishType: "",
+        googleMapLink: "",
+    });
+
+    const updateFormData = (field, value) => {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+    };
 
     const steps = [
-        { id: 1, label: "Basic Details" },
-        { id: 2, label: "Property Details" },
-        { id: 3, label: "Confirmation" },
+        <BasicDetail formData={formData} updateFormData={updateFormData} />,
+        <PropertyDetail formData={formData} updateFormData={updateFormData} Data={Data} />,
     ];
 
     const handleNext = () => {
@@ -21,7 +44,7 @@ export default function AddRealEstate({ ShowModal, ModalHeading }) {
     };
 
     const HandleEmptyFeilds = () => {
-
+        setShowModal(false)
     };
     return (
         <Modal
@@ -52,21 +75,17 @@ export default function AddRealEstate({ ShowModal, ModalHeading }) {
                     />
 
                     {/* Step Content */}
-                    <div className="step-content mt-4">
-                        {activeStep === 1 && <div>Basic Details Form Content</div>}
-                        {activeStep === 2 && <div>Property Details Form Content</div>}
-                        {activeStep === 3 && <div>Confirmation Step Content</div>}
-                    </div>
+                    <div className="step-content">{steps[activeStep - 1]}</div>
 
                     {/* Navigation Buttons */}
-                    <div className="navigation-buttons mt-4 d-flex justify-content-between">
-                        <button
+                    <div className={`navigation-buttons mt-4 d-flex justify-content-${activeStep === 1?'end':'between'}`}>
+                        {activeStep !== 1 && <button
                             className="contact-btn w-auto"
                             onClick={handleBack}
                             disabled={activeStep === 1}
                         >
                             Back
-                        </button>
+                        </button>}
                         <button
                             className="contact-btn w-auto"
                             onClick={handleNext}

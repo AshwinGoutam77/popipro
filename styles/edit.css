@@ -5,10 +5,15 @@
   position: relative !important;
   transition: box-shadow 0.3s ease-in-out !important;
   border-radius: 10px !important;
-  margin: 20px 5px;
+  /* margin: 20px 5px; */
 }
+
 .medium-zoom-image {
   height: 160px !important;
+}
+
+div:empty {
+  display: none;
 }
 
 .swiper-backface-hidden .swiper-slide {
@@ -366,6 +371,7 @@ label {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -419,9 +425,8 @@ label {
   margin: 1rem 0.1rem !important;
   border: 1px solid transparent !important;
 }
-div:where(.swal2-container)
-  div:where(.swal2-actions):not(.swal2-loading)
-  .swal2-styled:hover,
+
+div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover,
 .swal2-confirm:hover {
   background: black;
   color: white;
@@ -672,15 +677,15 @@ input[type="file"] {
   transition: 0.4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--color);
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #3b4b5e;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -1061,6 +1066,7 @@ iframe {
   .sm-mt-0 {
     margin-top: 0px;
   }
+
   .whatsap-product {
     position: absolute;
     left: 16px;
@@ -1205,14 +1211,14 @@ a:hover {
   border-top-right-radius: 0px !important;
 }
 
-.ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
-.ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
 
-.ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
-.ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
   min-height: 200px;
 }
 
@@ -1220,8 +1226,7 @@ a:hover {
   color: black;
 }
 
-div:where(.swal2-container)
-  button:where(.swal2-styled).swal2-default-outline:focus {
+div:where(.swal2-container) button:where(.swal2-styled).swal2-default-outline:focus {
   box-shadow: none !important;
 }
 
@@ -1439,6 +1444,7 @@ input[type="radio" i] {
 .badge {
   padding-bottom: 3px;
 }
+
 .item {
   display: flex;
   align-items: center;
@@ -1482,6 +1488,7 @@ input[type="radio" i] {
 .custom-divider {
   background-color: black !important;
 }
+
 .date-time-input::placeholder {
   color: rgb(126, 126, 126);
 }

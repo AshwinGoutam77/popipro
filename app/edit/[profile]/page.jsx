@@ -118,7 +118,7 @@ const Page = () => {
             card_url={profile}
             PlanData={cardData?.plan}
           />
-          <main className="main">
+          <main className="main main-popipro-class">
             <div className="container gutter-top">
               <EditHeader
                 Data={cardData.card}
@@ -129,18 +129,15 @@ const Page = () => {
                 MainData={cardData}
                 updateImage={() => { }}
               />
-              <div className="row sticky-parent">
-                <aside
-                  className="col-12 col-md-12 col-lg-2"
-                  style={{ marginTop: "19px" }}
-                >
+              <div className="row sticky-parent mt-4">
+                <aside className="col-12 col-md-12 col-lg-2">
                   <Navbar
                     TitleData={cardData?.titles}
                     HeaderData={cardData?.headers}
                     card={cardData?.card}
                   />
                 </aside>
-                <div className="col-12 col-md-12 col-lg-10">
+                <div className="col-12 col-md-12 col-lg-10 d-flex flex-column" style={{ gap: "20px", marginBottom: '20px' }}>
                   <EditAbout
                     Data={cardData?.card}
                     MainData={cardData}
@@ -253,7 +250,7 @@ const Page = () => {
                     card={profile}
                     setAddMoreBlogs={setAddMoreBlogs}
                   />
-                  {/* {process.env.NEXT_PUBLIC_MODE === "development" && (
+                  {process.env.NEXT_PUBLIC_MODE === "development" && (
                     <EditRealEstate
                       Data={cardData?.card}
                       MainData={cardData}
@@ -266,9 +263,9 @@ const Page = () => {
                       card={profile}
                       Currency={cardData?.currency}
                     />
-                  )} */}
+                  )}
 
-                  <EditRealEstatee
+                  {/* <EditRealEstatee
                     Data={cardData?.card}
                     MainData={cardData}
                     TitleData={cardData?.titles}
@@ -279,7 +276,7 @@ const Page = () => {
                     PaginationData={cardData?.pagination_data}
                     card={profile}
                     Currency={cardData?.currency}
-                  />
+                  /> */}
 
                   <EditContact
                     Data={cardData?.card}
