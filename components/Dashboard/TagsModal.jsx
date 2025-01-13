@@ -19,7 +19,6 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
   const [CategoryId, setCategoryId] = useState("");
   const [UpdateCategory, setUpdateCategory] = useState("");
   const [CategoryData, setCategoryData] = useState("");
-  const [GlobalPayment, setGlobalPayment] = useState("")
 
   useEffect(() => {
     setCategoryData(Data?.categories);
@@ -32,6 +31,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
       setEditCategory(false);
     }
   };
+  
   const handleUpdateCategory = async (id) => {
     if (UpdateCategory == "") {
       toast.error("Category is requied", {
@@ -86,51 +86,6 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
         }
       }
     });
-  };
-
-  const handleSavePayment = async () => {
-    const isValidUrl = (url) => {
-      try {
-        new URL(url);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    };
-
-    if (!isValidUrl(GlobalPayment)) {
-      toast.error("Invalid payment link URL. Please provide a valid URL.", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-
-    let payload = {
-      payment_link: GlobalPayment,
-    };
-
-    const response = await Api(GlobalPaymentLink, payload);
-    if (response?.data?.status) {
-      APIDATA();
-      handleClose();
-      toast.success(response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
   };
 
   return (
@@ -214,14 +169,6 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
                 })
                 : "No Category Found"}
             </ul>
-
-            <h6 className="text-dark mt-4">Payment</h6>
-
-            <div className="mt-2">
-              <label>Global Payment Link</label>
-              <input type="url" placeholder="Payment Link" className="form-control" onChange={(e) => setGlobalPayment(e.target.value)} />
-              <button className="contact-btn w-auto" onClick={() => handleSavePayment()}>Save</button>
-            </div>
           </div>
         </Modal.Body>
       </Modal>

@@ -34,7 +34,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import EditDocument from "@components/EditPages/EditDocument";
-import EditRealEstatee from "@components/EditPages/RealEstate/EditRealEstate";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -264,19 +263,6 @@ const Page = () => {
                       Currency={cardData?.currency}
                     />
                   )}
-
-                  {/* <EditRealEstatee
-                    Data={cardData?.card}
-                    MainData={cardData}
-                    TitleData={cardData?.titles}
-                    RealEstateData={RealEstateData}
-                    setRealEstateData={setRealEstateData}
-                    PlanData={cardData?.plan}
-                    APIDATA={getProfileData}
-                    PaginationData={cardData?.pagination_data}
-                    card={profile}
-                    Currency={cardData?.currency}
-                  /> */}
 
                   <EditContact
                     Data={cardData?.card}

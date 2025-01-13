@@ -77,19 +77,19 @@ export default function DashboardBlogs() {
         {},
         BlogFilter !== ""
           ? "?start_date=" +
-              startDt +
-              "&end_date=" +
-              endDt +
-              "&blog_id=" +
-              BlogFilter?.target?.value +
-              "&type=" +
-              BlogFilter?.target[BlogFilter.target.selectedIndex].getAttribute(
-                "datatype"
-              ) +
-              "&location_filter=" +
-              e
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&blog_id=" +
+          BlogFilter?.target?.value +
+          "&type=" +
+          BlogFilter?.target[BlogFilter.target.selectedIndex].getAttribute(
+            "datatype"
+          ) +
+          "&location_filter=" +
+          e
           : BlogFilter?.target?.value
-          ? "?start_date=" +
+            ? "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -99,7 +99,7 @@ export default function DashboardBlogs() {
             "card" +
             "&location_filter=" +
             e
-          : "?start_date=" +
+            : "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -278,32 +278,32 @@ export default function DashboardBlogs() {
                     {Data?.blog_stats?.map((item, index) => {
                       return item.name == ModalId
                         ? item?.data?.map((i, o) => {
-                            return (
-                              <tr key={o} className="cursor-pointer">
-                                <td data-column="Name">
-                                  {i?.state !== "" ||
+                          return (
+                            <tr key={o + index} className="cursor-pointer">
+                              <td data-column="Name">
+                                {i?.state !== "" ||
                                   i?.city !== "" ||
                                   i?.country !== ""
-                                    ? i?.state
-                                      ? i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.state +
-                                        `${i?.state ? ", " : ""}` +
-                                        i?.country
-                                      : i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.country
-                                    : "---"}
-                                </td>
-                                <td data-column="Email">
-                                  {i?.created_at ? i?.created_at : "---"}
-                                </td>
-                                <td className="">
-                                  {i?.name ? i?.name : "---"}
-                                </td>
-                              </tr>
-                            );
-                          })
+                                  ? i?.state
+                                    ? i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.state +
+                                    `${i?.state ? ", " : ""}` +
+                                    i?.country
+                                    : i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.country
+                                  : "---"}
+                              </td>
+                              <td data-column="Email">
+                                {i?.created_at ? i?.created_at : "---"}
+                              </td>
+                              <td className="">
+                                {i?.name ? i?.name : "---"}
+                              </td>
+                            </tr>
+                          );
+                        })
                         : "";
                     })}
                   </tbody>
