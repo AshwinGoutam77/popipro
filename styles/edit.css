@@ -12,9 +12,9 @@
   height: 160px !important;
 }
 
-div:empty {
+/* div:empty {
   display: none;
-}
+} */
 
 .swiper-backface-hidden .swiper-slide {
   /* display: flex;
@@ -1156,6 +1156,7 @@ a:hover {
 .modal-open .modal {
   padding-right: 0 !important;
   /* z-index: 99999999999; */
+  background: #00000080;
 }
 
 .editor-div {

@@ -392,7 +392,7 @@ export default function EditWorks({
       // setShowLoader(false);
       setAddMoreVedios((prevData) => [
         ...prevData,
-        ...response?.data?.data?.next_page_data,
+        ...response?.data?.data?.next_page_data?.data,
       ]);
       setPage((prevPage) => prevPage + 1);
     }

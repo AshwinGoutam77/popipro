@@ -151,7 +151,7 @@ export default function Dashboard() {
   const SaveStatusApi = async () => {
     setShowLoader(true);
     if (Data.first_name == null) {
-      toast("Name field is required", {
+      toast.erro("Name field is required", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

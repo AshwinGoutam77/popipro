@@ -1283,7 +1283,7 @@ button:focus {
 
 .nav__item span:active span {
   height: fit-content !important;
-  background-color: var(--themecolor) !important;
+  /* background-color: var(--themecolor) !important; */
 }
 
 .nav__item span:hover span {

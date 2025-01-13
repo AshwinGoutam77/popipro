@@ -49,7 +49,7 @@ const Video = ({
     if (response.ok) {
       setCard_videos((prevData) => [
         ...prevData,
-        ...data?.data?.next_page_data,
+        ...data?.data?.next_page_data?.data,
       ]);
       setPage((prevPage) => prevPage + 1);
     }
@@ -163,7 +163,7 @@ const Video = ({
                       </div>
                     )}
                   </div>
-                  {PaginationData.total_videos == Card_videos?.length && (
+                  {PaginationData.total_card_videos !== Card_videos?.length && (
                     card.id !== "S7ZG" && (
                       <div className="mx-auto text-center mt-3">
                         <a
