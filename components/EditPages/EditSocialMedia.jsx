@@ -76,6 +76,13 @@ function EditLinks({
     setLinkFeild(pu);
   }, [CardLinks]);
 
+  const RepeatData = CardLinks?.map((item) => {
+    console.log('item',item);
+    return item?.parent?.id;
+  });
+
+  console.log(RepeatData, AddLinks);
+
   const handleEditLinks = async () => {
     const response = await Api(socialMedia, {});
     if (response.status) {
@@ -101,18 +108,18 @@ function EditLinks({
     } else {
       id !== null
         ? (links = [
-          {
-            url: SocialType,
-            type: SelectOption,
-            saved_link: id,
-          },
-        ])
+            {
+              url: SocialType,
+              type: SelectOption,
+              saved_link: id,
+            },
+          ])
         : (links = [
-          {
-            url: SocialType,
-            type: SelectOption,
-          },
-        ]);
+            {
+              url: SocialType,
+              type: SelectOption,
+            },
+          ]);
     }
     if (error) {
       toast.error(mess, {
@@ -288,7 +295,7 @@ function EditLinks({
     ];
     const response = await Api(CardData, { titles });
     if (response?.data?.status) {
-      showToast(response.data?.message, 'success');
+      showToast(response.data?.message, "success");
     }
   };
 
@@ -326,7 +333,9 @@ function EditLinks({
             >
               <option value="">Select a Social Media*</option>
               {AddLinks &&
-                AddLinks.map((obj, i) => (
+                AddLinks.filter(
+                  (obj) => !RepeatData?.some((id) => id === String(obj.id))
+                ).map((obj, i) => (
                   <option value={obj.id} key={i}>
                     {obj.platform_name}
                   </option>
@@ -462,7 +471,7 @@ function EditLinks({
                     onChange={(e) => setLinksTitle(e.target.value)}
                     defaultValue={
                       TitleData &&
-                        TitleData.card_social_links?.visible_name ==
+                      TitleData.card_social_links?.visible_name ==
                         "card_social_links"
                         ? "card_social_links"
                         : TitleData?.card_social_links?.visible_name
@@ -531,7 +540,14 @@ function EditLinks({
                             data-active={Active}
                             checked={Active}
                             type="checkbox"
-                            onChange={() => handleActive({ section_name: "card_social_links", Visible_name: LinksTitle, Active, setActive })}
+                            onChange={() =>
+                              handleActive({
+                                section_name: "card_social_links",
+                                Visible_name: LinksTitle,
+                                Active,
+                                setActive,
+                              })
+                            }
                           />
                           <span className="slider round"></span>
                         </label>
@@ -714,7 +730,7 @@ function EditLinks({
 
             {(MainData?.plan?.subscription !== null &&
               MainData?.plan?.subscription?.plan_id !== null) ||
-              MainData?.plan?.subscription?.plan_id == 2 ? (
+            MainData?.plan?.subscription?.plan_id == 2 ? (
               <>
                 <div className="mt-3 d-flex align-items-center">
                   <input
