@@ -22,7 +22,7 @@ export default function SettingModal({
   );
 
   const [FormData, setFormData] = useState({
-    payment_link: "",
+    payment_link: MainData?.company_setting?.payment_link,
     payment_qr: ""
   })
 
@@ -211,7 +211,6 @@ export default function SettingModal({
                       className="form-control"
                       name='payment_qr'
                       onChange={handleChange}
-                      required
                     />
                   </div>
                   <div className="mt-3 mb-2">
@@ -223,7 +222,6 @@ export default function SettingModal({
                       name="payment_link"
                       value={FormData.payment_link}
                       onChange={handleChange}
-                      required
                     />
                   </div>
                   <button

@@ -333,7 +333,7 @@ export default function Dashboard() {
 
   return Data ? (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-right"
         autoClose={1000}
         hideProgressBar={false}
@@ -344,7 +344,7 @@ export default function Dashboard() {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white dashboard-section">
         <div
           className="login-header p-2 text-center d-flex align-items-center justify-content-between px-4 w-100"

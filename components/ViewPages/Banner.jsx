@@ -377,12 +377,15 @@ const Banner = ({
     </div>
   );
 
+  console.log("[[", card.card_header?.logo?.path);
+
+
   const renderContent = () => (
     <div className="pt-0 w-45">
       {card.card_cover !== "name" && card.card_cover !== "label" ? (
         <picture>
-          <source type="image/png" srcSet={card.card_header?.logo?.path !== 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
-          <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
+          <source type="image/png" srcSet={card.card_header?.logo?.path !== undefined ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
+          <img src={card.card_header?.logo?.path !== undefined ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} className="Logo-icon" alt="logo" />
         </picture>
       ) : (
         <h1 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
@@ -434,7 +437,7 @@ const Banner = ({
           <div className="mt-1">
             {card.card_cover === "banner-logo" || card.card_cover == "logo" ? (
               <picture>
-                <source type="image/png" srcSet={card.card_header?.logo?.path !== 'undefined' ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
+                <source type="image/png" srcSet={card.card_header?.logo?.path !== undefined ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
                 <img src={`${card.base_url}${card.card_header?.logo?.path}`} className="Logo-icon" alt="logo" />
               </picture>
             ) : (card.card_cover === "banner-label" || card.card_cover === "label") && (

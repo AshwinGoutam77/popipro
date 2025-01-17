@@ -705,7 +705,7 @@ function EditHeader({
                   className="text-dark text-decoration-none d-flex align-items-center"
                 >
                   <img src="../static/img/phone-dark.svg" alt="Phone" width={14} className="mr-2" />
-                  {`${Data.contact_country_code || ""}-${Data.card_contact}-${Data.contact_extension || ""}`}
+                  {`${Data.contact_country_code || ""}-${Data.card_contact} ${Data.contact_extension ? "-" + Data.contact_extension : ""}`}
                 </a>
               </li>
             )}

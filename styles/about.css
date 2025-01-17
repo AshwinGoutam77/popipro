@@ -13,6 +13,12 @@
   height: 160px !important;
 }
 
+[dir=ltr] .ck.ck-dropdown .ck-dropdown__arrow {
+  z-index: -1;
+  display: block;
+  position: relative;
+}
+
 .about-textarea {
   width: 100%;
   height: 130px;

@@ -471,6 +471,13 @@ select:focus {
   line-height: inherit;
 }
 
+@media (max-width:990px){
+  .login-screen-div{
+    height: 100% !important;
+    margin-bottom: 40px !important;
+  }
+}
+
 /* input:focus ~ .floating-label,
 input:not(:focus):valid ~ .floating-label {
   top: 8px;

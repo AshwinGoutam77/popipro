@@ -156,11 +156,13 @@ const Page = () => {
                     CardLinks={cardData?.card?.card_social_links}
                   />
 
-                  <EditDocument Data={cardData?.card}
+                  <EditDocument
+                    Data={cardData?.card}
                     MainData={cardData}
                     TitleData={cardData?.titles}
                     PlanData={cardData?.plan}
-                    APIDATA={getProfileData} />
+                    APIDATA={getProfileData}
+                  />
 
                   <EditAlternateNo
                     Data={cardData?.card}

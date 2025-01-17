@@ -9,8 +9,9 @@ import Swal from 'sweetalert2';
 import { handleActive } from './EditFunctions';
 import { Modal } from 'react-bootstrap';
 import { showToast } from '@components/Dashboard/Toast';
+import EditPlan from './EditPlan';
 
-export default function EditDocument({ TitleData, Data, APIDATA }) {
+export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanData }) {
     const [EditFields, setEditFields] = useState(false);
     const [Active, setActive] = useState("");
     const [DocumentTitle, setDocumentTitle] = useState("");
@@ -97,17 +98,19 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
             title: DocTitle,
             document: File,
         };
-
-        if (File) {
-            const fileSizeLimit = 10 * 1024 * 1024;
-            if (File.size > fileSizeLimit) {
-                showToast("File size cannot exceed 10 MB.", "error");
-            } else {
+        const fileSizeLimit = 10 * 1024 * 1024;
+        if (File.size > fileSizeLimit) {
+            showToast("File size cannot exceed 10 MB.", "error");
+        } else if (DocTitle == "") { showToast("title is requried", "error") }
+        else if (File == "") { showToast("Document is requried", "error") }
+        else if (File && DocTitle) {
+            {
                 try {
                     const response = await Api(CardData, { documents: [data] });
                     if (response?.data?.status) {
                         showToast(response?.data?.message, "success");
                         setDocTitle("")
+                        setFile([])
                         handleClose();
                         APIDATA()
                     } else {
@@ -192,153 +195,166 @@ export default function EditDocument({ TitleData, Data, APIDATA }) {
                     </div>
                 </Modal.Body>
             </Modal>
-            <div className="box-content boxxx sm-mt-0" id="about_us">
-                <div className="flex-header">
-                    <div className="d-flex align-items-baseline">
-                        {EditFields ? (
-                            <input
-                                type="text"
-                                name="AboutMe"
-                                className="title-section-input mb-3"
-                                placeholder="Custom Numbers"
-                                onChange={(e) => setDocumentTitle(e.target.value)}
-                                defaultValue={DocumentTitle || ""}
-                            />
-                        ) : (
-                            <>
-                                <h1 className="title title--h1 first-title title__separate">
-                                    {DocumentTitle ? DocumentTitle : "Important Document"}
-                                </h1>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {TitleData?.card_documents?.source == "2" &&
-                            TitleData?.card_documents?.in_subscription ? (
-                            <>
-                                <div className="web-edit-icons">
-                                    <div className="d-flex align-items-center">
-                                        <div class="wrapper">
-                                            <div class="tooltip">
-                                                Please add your important documents and files here.
+            <div className="position-relative">
+                {Data ? (
+                    <EditPlan
+                        Data={Data}
+                        PlanData={PlanData}
+                        APIDATA={APIDATA}
+                        MainData={MainData}
+                        in_subscription={TitleData?.card_documents?.in_subscription}
+                    />
+                ) : (
+                    ""
+                )}
+                <div className="box-content boxxx sm-mt-0" id="about_us">
+                    <div className="flex-header">
+                        <div className="d-flex align-items-baseline">
+                            {EditFields ? (
+                                <input
+                                    type="text"
+                                    name="AboutMe"
+                                    className="title-section-input mb-3"
+                                    placeholder="Custom Numbers"
+                                    onChange={(e) => setDocumentTitle(e.target.value)}
+                                    defaultValue={DocumentTitle || ""}
+                                />
+                            ) : (
+                                <>
+                                    <h1 className="title title--h1 first-title title__separate">
+                                        {DocumentTitle ? DocumentTitle : "Important Document"}
+                                    </h1>
+                                </>
+                            )}
+                        </div>
+                        <div>
+                            {TitleData?.card_documents?.source == "2" &&
+                                TitleData?.card_documents?.in_subscription ? (
+                                <>
+                                    <div className="web-edit-icons">
+                                        <div className="d-flex align-items-center">
+                                            <div class="wrapper">
+                                                <div class="tooltip">
+                                                    Please add your important documents and files here.
+                                                </div>
+                                                <img
+                                                    src="../static/img/info.svg"
+                                                    alt="image"
+                                                    width={18}
+                                                    className="mr-2 cursor-pointer"
+                                                    onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                                                />
                                             </div>
-                                            <img
-                                                src="../static/img/info.svg"
-                                                alt="image"
-                                                width={18}
-                                                className="mr-2 cursor-pointer"
-                                                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                                            />
+                                            <div className="edit-pencile-div">
+                                                {EditFields ? (
+                                                    <FontAwesomeIcon
+                                                        icon={faFloppyDisk}
+                                                        className="ml-3 pe-auto floopySave-icon"
+                                                        onClick={() => handleChnageTitle()}
+                                                    />
+                                                ) : (
+                                                    <FontAwesomeIcon
+                                                        icon={faPencil}
+                                                        className="ml-3 pe-auto Iconcolor-black"
+                                                        onClick={() => setEditFields(true)}
+                                                    />
+                                                )}
+                                            </div>
+                                            <>
+                                                {TitleData?.card_alternate_phone?.row_limit <=
+                                                    Data?.card_alternate_phone?.length ? (
+                                                    <button
+                                                        className="addmore"
+                                                        data-toggle="modal"
+                                                        data-target="#AlternateNumberModal"
+                                                        onClick={handleUpgradePlan}
+                                                    >
+                                                        <FontAwesomeIcon icon={faPlus} />
+                                                    </button>
+                                                ) : (
+                                                    <button className="addmore" onClick={handleShow}>
+                                                        <FontAwesomeIcon icon={faPlus} />
+                                                    </button>
+                                                )}
+                                                <>
+                                                    <label className="switch">
+                                                        <input
+                                                            data-status={
+                                                                TitleData.card_alternate_phone?.is_active
+                                                            }
+                                                            data-active={Active}
+                                                            checked={Active}
+                                                            type="checkbox"
+                                                            onChange={() => handleActive({ section_name: "card_documents", Visible_name: DocumentTitle, Active, setActive })}
+                                                        />
+                                                        <span className="slider round"></span>
+                                                    </label>
+                                                </>
+                                            </>
                                         </div>
-                                        <div className="edit-pencile-div">
-                                            {EditFields ? (
+                                    </div>
+
+                                    <div className="mobile-edit-icons">
+                                        {EditFields ? (
+                                            <div>
                                                 <FontAwesomeIcon
-                                                    icon={faFloppyDisk}
-                                                    className="ml-3 pe-auto floopySave-icon"
+                                                    icon={faCheckCircle}
+                                                    className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
                                                     onClick={() => handleChnageTitle()}
                                                 />
-                                            ) : (
-                                                <FontAwesomeIcon
-                                                    icon={faPencil}
-                                                    className="ml-3 pe-auto Iconcolor-black"
-                                                    onClick={() => setEditFields(true)}
-                                                />
-                                            )}
-                                        </div>
-                                        <>
-                                            {TitleData?.card_alternate_phone?.row_limit <=
-                                                Data?.card_alternate_phone?.length ? (
-                                                <button
-                                                    className="addmore"
-                                                    data-toggle="modal"
-                                                    data-target="#AlternateNumberModal"
-                                                    onClick={handleUpgradePlan}
-                                                >
-                                                    <FontAwesomeIcon icon={faPlus} />
-                                                </button>
-                                            ) : (
-                                                <button className="addmore" onClick={handleShow}>
-                                                    <FontAwesomeIcon icon={faPlus} />
-                                                </button>
-                                            )}
-                                            <>
-                                                <label className="switch">
-                                                    <input
-                                                        data-status={
-                                                            TitleData.card_alternate_phone?.is_active
-                                                        }
-                                                        data-active={Active}
-                                                        checked={Active}
-                                                        type="checkbox"
-                                                        onChange={() => handleActive({ section_name: "card_documents", Visible_name: DocumentTitle, Active, setActive })}
-                                                    />
-                                                    <span className="slider round"></span>
-                                                </label>
-                                            </>
-                                        </>
-                                    </div>
-                                </div>
-
-                                <div className="mobile-edit-icons">
-                                    {EditFields ? (
-                                        <div>
-                                            <FontAwesomeIcon
-                                                icon={faCheckCircle}
-                                                className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
-                                                onClick={() => handleChnageTitle()}
+                                            </div>
+                                        ) : (
+                                            <EditDropdown
+                                                TitleData={TitleData}
+                                                Active={Active}
+                                                handleActive={handleActive}
+                                                setEditFields={setEditFields}
+                                                AddTitle={
+                                                    "Add " +
+                                                    TitleData?.card_documents?.visible_name
+                                                }
+                                                handleShowAddModal={handleShow}
+                                                setTooltipIsOpen={setTooltipIsOpen}
+                                                message="Please add your relavent important documents and files here."
+                                                tooltipIsOpen={tooltipIsOpen}
                                             />
-                                        </div>
-                                    ) : (
-                                        <EditDropdown
-                                            TitleData={TitleData}
-                                            Active={Active}
-                                            handleActive={handleActive}
-                                            setEditFields={setEditFields}
-                                            AddTitle={
-                                                "Add " +
-                                                TitleData?.card_documents?.visible_name
-                                            }
-                                            handleShowAddModal={handleShow}
-                                            setTooltipIsOpen={setTooltipIsOpen}
-                                            message="Please add your relavent important documents and files here."
-                                            tooltipIsOpen={tooltipIsOpen}
-                                        />
-                                    )}
-                                </div>
-                            </>
-                        ) : (
-                            ""
-                        )}
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                     </div>
-                </div>
 
-                <div className="document-section">
-                    {Data?.card_documents?.length !== 0 ? Data?.card_documents && Data?.card_documents?.map((item, index) => {
-                        return (
-                            <div className='document-div' key={index}>
-                                {TitleData?.card_documents?.source == "2" &&
-                                    TitleData?.card_documents?.in_subscription ? (
-                                    <FontAwesomeIcon
-                                        icon={faCircleXmark}
-                                        onClick={() =>
-                                            handleDelete(item.id, 11, Data?.id)
-                                        }
-                                        style={{
-                                            top: "-1px",
-                                            right: "0",
-                                            color: "rgb(213, 51, 51)",
-                                            fontSize: "20px",
-                                        }}
-                                        className="delete-icon3"
-                                    />
-                                ) : (
-                                    ""
-                                )}
-                                <img src="../../static/img/document-icon.png" alt="document" />
-                                <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
-                            </div>
-                        )
-                    }) : <p>{DocumentTitle} are empty, to add {DocumentTitle} click on the add icon.</p>}
+                    <div className="document-section">
+                        {Data?.card_documents?.length !== 0 ? Data?.card_documents && Data?.card_documents?.map((item, index) => {
+                            return (
+                                <div className='document-div' key={index}>
+                                    {TitleData?.card_documents?.source == "2" &&
+                                        TitleData?.card_documents?.in_subscription ? (
+                                        <FontAwesomeIcon
+                                            icon={faCircleXmark}
+                                            onClick={() =>
+                                                handleDelete(item.id, 11, Data?.id)
+                                            }
+                                            style={{
+                                                top: "-1px",
+                                                right: "0",
+                                                color: "rgb(213, 51, 51)",
+                                                fontSize: "20px",
+                                            }}
+                                            className="delete-icon3"
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    <img src="../../static/img/document-icon.png" alt="document" />
+                                    <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
+                                </div>
+                            )
+                        }) : <p>{DocumentTitle} are empty, to add {DocumentTitle} click on the add icon.</p>}
+                    </div>
                 </div>
             </div>
         </>

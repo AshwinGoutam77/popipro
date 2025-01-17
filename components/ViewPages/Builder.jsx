@@ -70,7 +70,7 @@ function Builder({ JsonData, card_url }) {
         document.getElementById("form-builder-popipro").reset();
       }
     } catch (error) {
-      toast.success(error?.response?.data?.message, {
+      toast.error(error?.response?.data?.message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

@@ -31,7 +31,7 @@ const EditBanner = ({ Permission, card, subscription, Data, card_url, PlanData }
 
   const renderFixedIcons = () => (
     <div className="fixed-b-icons">
-      {renderIconLink(
+      {card.whatsapp_number && renderIconLink(
         card?.whatsapp_country_code
           ? `https://api.whatsapp.com/send?phone=${card.whatsapp_country_code.replace(/\+/g, "%2B")}${card.whatsapp_number}`
           : `https://api.whatsapp.com/send?phone=${card.whatsapp_number}`,

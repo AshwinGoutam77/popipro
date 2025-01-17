@@ -186,7 +186,7 @@ export default function EditWorks({
 
     if (ModalVideos === "" && CustomVideo === "") {
       error = true;
-      mess = ModalVideos === "" ? "URL field is required" : "";
+      mess = ModalVideos === "" ? selectedOption === VideoOption.ViaLink ? "URL field is required" : "Video is requried" : "";
     } else {
       videos = ModalVideos;
     }
@@ -212,9 +212,13 @@ export default function EditWorks({
       if (response.data.status) {
         APIDATA();
         setPage(2);
+        setCustomVideo("")
         showToast(response.data.message, "success");
       }
     } catch (error) {
+      console.log()
+      console.log(error);
+
       if (error.request.status === 401) {
         localStorage.removeItem("token");
         window.location.href = "/login";
