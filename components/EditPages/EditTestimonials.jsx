@@ -264,12 +264,13 @@ export default function EditTestimonials({
     });
   };
 
-  const handleSetId = (id, name, description, company) => {
+  const handleSetId = (id, name, description, company, image) => {
     handleEditShow();
     setModalId(id);
     setServicesName(name);
     setServicesDescription(description);
     setCompanyName(company);
+    // setImage(image)
   };
   const HandleEmptyFeilds = () => {
     // aRef.current.value = null;
@@ -576,14 +577,17 @@ export default function EditTestimonials({
                         <label className="modalFormLable">
                           Upload Image (*Preferred size in ratio of 100x100)
                         </label>
-                        <input
-                          type="file"
-                          name="image"
-                          className="form-control mb-4 p-1"
-                          accept="image/png, image/gif, image/jpeg"
-                          style={{ border: "1px solid #ccc" }}
-                          onChange={(e) => setImage(e.target.files[0])}
-                        />
+                        <div className="mb-3">
+                          <input
+                            type="file"
+                            name="image"
+                            className="form-control mb-1 p-1"
+                            accept="image/png, image/gif, image/jpeg"
+                            style={{ border: "1px solid #ccc" }}
+                            onChange={(e) => setImage(e.target.files[0])}
+                          />
+                          {/* <img src={Image} alt="uplaoded-img" className="edit-real-estate-images mt-2" /> */}
+                        </div>
                         <label className="modalFormLable">Heading*</label>
                         <input
                           name="name"
@@ -936,7 +940,8 @@ export default function EditTestimonials({
                                             items.id,
                                             items.name,
                                             items.description,
-                                            items.company_name
+                                            items.company_name,
+                                            Data?.base_url + items?.image?.path
                                           )
                                         }
                                       >
@@ -973,7 +978,7 @@ export default function EditTestimonials({
                 </SwiperComponent>
               )}
               {TitleData?.card_testimonials?.source == "2" &&
-                PlanData?.is_expired == false &&
+                PlanData?.current_plan?.is_expired == false &&
                 PlanData?.subscription?.plan_id !== 1 && (
                   <div className="d-flex align-items-start">
                     <input

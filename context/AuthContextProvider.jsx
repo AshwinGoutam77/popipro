@@ -14,6 +14,7 @@ const AuthContextProvider = ({ children }) => {
   const [incrementCount, setIncrementCount] = useState(0);
   const [Loader, setLoader] = useState(false);
   const [TodoData, setTodoData] = useState("");
+  const [CartLoader, setCartLoader] = useState(false)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -40,7 +41,9 @@ const AuthContextProvider = ({ children }) => {
   }, [incrementCount]);
 
   const addItemToCart = (item) => {
+    setCartLoader(true)
     setCartItems([...cartItems, item]);
+    setCartLoader(false)
   };
 
   const removeFromCart = (productId) => {
@@ -203,7 +206,8 @@ const AuthContextProvider = ({ children }) => {
         Loader,
         setTodoData,
         TodoData,
-        setData
+        setData,
+        CartLoader
       }}
     >
       {children}

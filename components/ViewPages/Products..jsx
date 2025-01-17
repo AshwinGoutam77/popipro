@@ -75,6 +75,7 @@ export default function Product({
   const [isLocked, setIsLocked] = useState(Titles?.card_products?.is_locked !== 0);
 
   useEffect(() => {
+    // console.log(Data?.card_products);
     setProducts(Data?.card_products);
     setCategory(Data?.product_categories);
     if (typeof window !== "undefined") {

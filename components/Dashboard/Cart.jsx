@@ -24,7 +24,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
     decrementQuantity,
     incrementQuantity,
     clearCart,
-    setCartItems
+    setCartItems,
   } = useContext(AuthContext);
 
   const [Checkout, setCheckout] = useState(false);

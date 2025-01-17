@@ -68,7 +68,7 @@ const PlanManagment = () => {
                 <p>{Data?.message}</p>
               </div>
               {/* <button className="contact-btn w-auto mt-0">Active</button> */}
-              <span className="badge">Active</span>
+              <span className="badge">{UserData?.plan?.current_plan?.is_expired == false ? "Active" : "Inactive"}</span>
             </div>
 
             <div className="d-flex align-items-center justify-content-between mt-3">

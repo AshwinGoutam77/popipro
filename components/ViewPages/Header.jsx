@@ -660,7 +660,7 @@ const Header = ({
         </Modal.Body>
       </Modal>
 
-      <header className="header header-box mb-3">
+      <header className="header header-box">
         <button
           className="edit-header"
           data-toggle="modal"

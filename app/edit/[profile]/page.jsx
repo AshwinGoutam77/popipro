@@ -128,7 +128,7 @@ const Page = () => {
                 MainData={cardData}
                 updateImage={() => { }}
               />
-              <div className="row sticky-parent mt-4">
+              <div className="row sticky-parent mt-0">
                 <aside className="col-12 col-md-12 col-lg-2">
                   <Navbar
                     TitleData={cardData?.titles}
@@ -136,7 +136,7 @@ const Page = () => {
                     card={cardData?.card}
                   />
                 </aside>
-                <div className="col-12 col-md-12 col-lg-10 d-flex flex-column" style={{ gap: "20px", marginBottom: '20px' }}>
+                <div className="col-12 col-md-12 col-lg-10">
                   <EditAbout
                     Data={cardData?.card}
                     MainData={cardData}

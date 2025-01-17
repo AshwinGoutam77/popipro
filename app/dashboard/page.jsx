@@ -104,21 +104,9 @@ export default function Dashboard() {
           setTextColor(response.data.data?.card?.text_color);
           setMainData(response.data.data);
           document.documentElement.style.setProperty("--color", "#24b1e6");
-          document.documentElement.style.setProperty(
-            "--header-color",
-            response.data.data.card.banner_color
-          );
-          document.documentElement.style.setProperty(
-            "--themecolor",
-            response.data.data.card.background_color
-          );
-          document.documentElement.style.setProperty(
-            "--text-color",
-            response.data.data.card.text_color
-          );
-          const color = getComputedStyle(
-            document.documentElement
-          ).getPropertyValue("--color");
+          document.documentElement.style.setProperty("--header-color", "#24b1e6");
+          document.documentElement.style.setProperty("--themecolor", "#dfeef8");
+          document.documentElement.style.setProperty("--text-color", "#ffffff");
         } else {
           localStorage.removeItem("token");
           localStorage.removeItem("url");
@@ -148,6 +136,7 @@ export default function Dashboard() {
     localStorage.removeItem("url");
     localStorage.removeItem("tabs");
   };
+
   const SaveStatusApi = async () => {
     setShowLoader(true);
     if (Data.first_name == null) {
@@ -179,6 +168,7 @@ export default function Dashboard() {
     setAnalyticsTab(false);
     setAdvanceFeatures(false)
   };
+
   const handleLeadsTab = () => {
     localStorage.setItem("tabs", "leads");
     setProfileTab(false);
@@ -338,10 +328,8 @@ export default function Dashboard() {
     getLocation();
   }, []);
 
-  let in_Subscription = (PlanData?.current_plan?.plan_name === "Premium" ||
-    PlanData?.current_plan?.plan_name === "Platinum") &&
-    (PlanData?.is_trial_taken !== 0)
-
+  let in_Subscription = (PlanData?.current_plan?.plan_name === "Premium" || PlanData?.current_plan?.plan_name === "Platinum") && (PlanData?.is_trial_taken !== 0)
+  let in_Plan = PlanData?.current_plan?.plan_name !== "Premium" && PlanData?.current_plan?.plan_name !== "Basic" && PlanData?.current_plan?.plan_name !== "Platinum"
 
   return Data ? (
     <>
@@ -618,8 +606,7 @@ export default function Dashboard() {
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                       onClick={() =>
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken !== 0
+                        !in_Plan
                           ? setModalShow("theme")
                           : ""
                       }
@@ -653,8 +640,7 @@ export default function Dashboard() {
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                       onClick={() => {
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken !== 0
+                        !in_Plan
                           ? setModalShow("MultimodesModal")
                           : "";
                       }}
@@ -687,8 +673,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/Notification"
                       }
@@ -728,8 +713,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/approve-review"
                       }
@@ -770,8 +754,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/subscription"
                       }
@@ -806,8 +789,7 @@ export default function Dashboard() {
                     <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                       <Link
                         href={
-                          PlanData?.plan_name !== "Premium" &&
-                            PlanData?.is_trial_taken == 0
+                          in_Plan
                             ? "https://www.popipro.com/order"
                             : "/order"
                         }
@@ -884,8 +866,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/overall-analytics"
                       }
@@ -927,8 +908,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/product"
                       }
@@ -965,8 +945,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/blog"
                       }
@@ -1001,43 +980,40 @@ export default function Dashboard() {
                   </div>
 
                   {/* Real Estate */}
-                  {process.env.NEXT_PUBLIC_MODE === "development" ? (
-                    <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
-                      <Link
-                        href={
-                          PlanData?.plan_name !== "Premium" &&
-                            PlanData?.is_trial_taken == 0
-                            ? "https://www.popipro.com/order"
-                            : "/real-estate"
-                        }
-                        className="w-100  text-decoration-none"
-                      >
-                        <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          {Data ? (
-                            <DashboardPlan
-                              Data={Data}
-                              PlanData={PlanData}
-                              APIDATA={APIDATA}
-                              MainData={MainData}
-                              handleFreeTrail={handleFreeTrail}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          <FontAwesomeIcon
-                            icon={faHomeAlt}
-                            className="text-white mb-2"
-                            style={{ fontSize: "20px" }}
+
+                  <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+                    <Link
+                      href={
+                        in_Plan
+                          ? "https://www.popipro.com/order"
+                          : "/real-estate"
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
                           />
-                          <h6 className="text-white text-center mb-0">
-                            Real Estate
-                          </h6>
-                        </div>
-                      </Link>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                        ) : (
+                          ""
+                        )}
+                        <FontAwesomeIcon
+                          icon={faHomeAlt}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Real Estate
+                        </h6>
+                      </div>
+                    </Link>
+                  </div>
+
                 </>
               )}
 
@@ -1047,8 +1023,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/shared-contact-leads"
                       }
@@ -1085,8 +1060,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/product-enquiry"
                       }
@@ -1123,8 +1097,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/product-records"
                       }
@@ -1157,51 +1130,49 @@ export default function Dashboard() {
                   </div>
 
                   {/* real estate enquiry */}
-                  {process.env.NEXT_PUBLIC_MODE === "development" && (
-                    <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
-                      <Link
-                        href={
-                          PlanData?.plan_name !== "Premium" &&
-                            PlanData?.is_trial_taken == 0
-                            ? "https://www.popipro.com/order"
-                            : "/real-estate-enquiry"
-                        }
-                        className="w-100  text-decoration-none"
-                      >
-                        <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
-                          {Data ? (
-                            <DashboardPlan
-                              Data={Data}
-                              PlanData={PlanData}
-                              APIDATA={APIDATA}
-                              MainData={MainData}
-                              handleFreeTrail={handleFreeTrail}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          <>
-                            <FontAwesomeIcon
-                              icon={faBuildingUser}
-                              className="text-white mb-2"
-                              style={{ fontSize: "20px" }}
-                            />
-                            <h6 className="text-white text-center mb-0">
-                              {" "}
-                              {TitleData?.card_realestates?.visible_name} Enquiry
-                            </h6>
-                          </>
-                        </span>
-                      </Link>
-                    </div>
-                  )}
+
+                  <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+                    <Link
+                      href={
+                        in_Plan
+                          ? "https://www.popipro.com/order"
+                          : "/real-estate-enquiry"
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <>
+                          <FontAwesomeIcon
+                            icon={faBuildingUser}
+                            className="text-white mb-2"
+                            style={{ fontSize: "20px" }}
+                          />
+                          <h6 className="text-white text-center mb-0">
+                            {" "}
+                            {TitleData?.card_realestates?.visible_name} Enquiry
+                          </h6>
+                        </>
+                      </span>
+                    </Link>
+                  </div>
+
 
                   {/* My appointment */}
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/appointment"
                       }
@@ -1237,8 +1208,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        PlanData?.plan_name !== "Premium" &&
-                          PlanData?.is_trial_taken == 0
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/custom-form"
                       }
@@ -1524,7 +1494,7 @@ export default function Dashboard() {
           className="w-100 text-center text-white p-2 mt-0"
           style={{ bottom: "0", background: "black" }}
         >
-          <p> © 2023 - 2024. All Rights Reserved By Popipro.</p>
+          <p> © 2025. All Rights Reserved By Popipro.</p>
         </div>
       </div >
       <Multimodes

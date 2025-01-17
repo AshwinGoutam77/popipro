@@ -91,7 +91,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                     />
                   </aside>
 
-                  <div className={`col-12 col-md-12 col-lg-${!headers?.length ? "12" : "10"} d-flex flex-column`} style={{ gap: "20px", marginBottom: '20px' }}>
+                  <div className={`col-12 col-md-12 col-lg-${!headers?.length ? "12" : "10"} user-content-box`}>
                     {sortedData &&
                       sortedData?.map((items, index) => {
                         return (
@@ -104,7 +104,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                 profile={profile}
                               />
                             ) : items?.status == "card_social_links" ? (
-                              <div className="d-flex flex-column" style={{ gap: '20px' }}>
+                              <div className="" style={{ gap: '20px' }}>
                                 <SocialMedia
                                   card={card}
                                   Titles={titles}
@@ -251,8 +251,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                         );
                       })}
 
-                    {MainData?.custom_forms !== null &&
-                      plan?.is_expired == false ? (
+                    {MainData?.custom_forms !== null ? (
                       <div
                         className="mb-3 box-content boxxx mt-0"
                         id="custom_form"

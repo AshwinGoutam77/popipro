@@ -5,6 +5,7 @@
   position: relative !important;
   transition: box-shadow 0.3s ease-in-out !important;
   border-radius: 13.3333333333px;
+  margin: 20px 0;
   /* margin: 20px 5px; */
 }
 
@@ -264,7 +265,7 @@ div:where(.swal2-icon).swal2-info {
   z-index: -1;
 }
 
-.dashboard-boxes:hover {
+/* .dashboard-boxes:hover {
   background-color: var(--color) !important;
   transition: all 0.3s;
 }
@@ -273,12 +274,12 @@ div:where(.swal2-icon).swal2-info {
   color: white !important;
   font-size: 16px !important;
   transition: all 0.3s;
-}
+} */
 
-.dashboard-boxes:hover svg {
+/* .dashboard-boxes:hover svg {
   font-size: 22px !important;
   transition: all 0.3s;
-}
+} */
 
 .dashboard-boxes2 h6 {
   color: black;
@@ -286,14 +287,14 @@ div:where(.swal2-icon).swal2-info {
   padding-top: 5px;
 }
 
-.dashboard-boxes2:hover {
+/* .dashboard-boxes2:hover {
   background-color: var(--color) !important;
   transition: all 0.3s;
 }
 
 .dashboard-boxes2:hover h6 {
   color: white !important;
-}
+} */
 
 .modal-share {
   display: block !important;
