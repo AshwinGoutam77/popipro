@@ -25,7 +25,7 @@ const EditBanner = ({ Permission, card, subscription, Data, card_url, PlanData }
   const renderIconLink = (url, imgSrc, styles = {}) =>
     url ? (
       <a href={url} className="float" target="_blank" style={styles}>
-        <img src={imgSrc} style={{ width: "25px", ...styles }} alt="icon" />
+        <img src={imgSrc} style={{ ...styles }} alt="icon" />
       </a>
     ) : null;
 

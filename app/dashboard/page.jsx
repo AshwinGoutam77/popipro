@@ -20,6 +20,7 @@ import {
   faSignal,
   faSliders,
   faStar,
+  faTasks,
   faUpDownLeftRight,
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
@@ -1408,6 +1409,40 @@ export default function Dashboard() {
                         Self Branding
                       </h6>
                     </div>
+                  </div>
+
+                  {/* Todo */}
+                  <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+                    <Link
+                      href={
+                        !in_Subscription
+                          ? "https://www.popipro.com/order"
+                          : "/to-do"
+                      }
+                      className="w-100  text-decoration-none"
+                    >
+                      <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
+                        {Data ? (
+                          <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                            handleFreeTrail={handleFreeTrail}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <FontAwesomeIcon
+                          icon={faTasks}
+                          className="text-white mb-2"
+                          style={{ fontSize: "20px" }}
+                        />
+                        <h6 className="text-white text-center mb-0">
+                          Todo
+                        </h6>
+                      </div>
+                    </Link>
                   </div>
                 </>
               }

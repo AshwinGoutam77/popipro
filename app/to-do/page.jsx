@@ -19,9 +19,6 @@ function Todo() {
     const { token, APIDATA, UserData, TodoData, setTodoData } = useAuthContext();
     const [tasks, setTasks] = useState([]);
 
-    console.log(TodoData);
-    
-
     useEffect(() => {
         APIDATA();
     }, []);

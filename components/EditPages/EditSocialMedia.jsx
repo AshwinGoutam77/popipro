@@ -77,7 +77,7 @@ function EditLinks({
   }, [CardLinks]);
 
   const RepeatData = CardLinks?.map((item) => {
-    console.log('item',item);
+    console.log('item', item);
     return item?.parent?.id;
   });
 
@@ -108,18 +108,18 @@ function EditLinks({
     } else {
       id !== null
         ? (links = [
-            {
-              url: SocialType,
-              type: SelectOption,
-              saved_link: id,
-            },
-          ])
+          {
+            url: SocialType,
+            type: SelectOption,
+            saved_link: id,
+          },
+        ])
         : (links = [
-            {
-              url: SocialType,
-              type: SelectOption,
-            },
-          ]);
+          {
+            url: SocialType,
+            type: SelectOption,
+          },
+        ]);
     }
     if (error) {
       toast.error(mess, {
@@ -471,7 +471,7 @@ function EditLinks({
                     onChange={(e) => setLinksTitle(e.target.value)}
                     defaultValue={
                       TitleData &&
-                      TitleData.card_social_links?.visible_name ==
+                        TitleData.card_social_links?.visible_name ==
                         "card_social_links"
                         ? "card_social_links"
                         : TitleData?.card_social_links?.visible_name
@@ -488,7 +488,7 @@ function EditLinks({
                 )}
               </div>
 
-              {TitleData?.card_social_links.source !== 1 ? (
+              {TitleData?.card_social_links.source == 2 && TitleData?.card_social_links?.in_subscription ? (
                 <>
                   <div className="web-edit-icons">
                     <div className="d-flex align-items-center">
@@ -730,7 +730,7 @@ function EditLinks({
 
             {(MainData?.plan?.subscription !== null &&
               MainData?.plan?.subscription?.plan_id !== null) ||
-            MainData?.plan?.subscription?.plan_id == 2 ? (
+              MainData?.plan?.subscription?.plan_id == 2 ? (
               <>
                 <div className="mt-3 d-flex align-items-center">
                   <input

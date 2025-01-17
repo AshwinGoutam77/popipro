@@ -250,7 +250,7 @@ export default function EditDoing({
     setModalId(id);
     setServicesName(name);
     setServicesDescription(description);
-    setImage(image)
+    // setImage(image)
     handleEditShow();
   };
   const handleChnageTitle = async () => {
