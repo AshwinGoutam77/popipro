@@ -12,7 +12,7 @@ export default function EmbedPost({ card, Titles, PlanData, MainData }) {
   return SocailLinks?.length !== 0 &&
     Titles?.card_social_links?.source !== 0 &&
     Titles?.card_social_links?.is_active !== 0 &&
-    Titles?.card_social_links?.in_subscription ? (
+    Titles?.card_social_links?.in_subscription && MainData?.company_setting?.insta_feed_url !== null ? (
     <>
       <div className="box-content boxxx">
         <div>

@@ -474,7 +474,7 @@ export default function EditContact({
                   {/* <label className="ml-2 font-weight-normal">Meeting Date</label> */}
                   <input
                     type="date"
-                    className="form-control"
+                    className="form-control  min-width-95 "
                     placeholder="Date"
                     required="required"
                     autoComplete="on"
@@ -486,7 +486,7 @@ export default function EditContact({
                   {/* <label className="ml-2 font-weight-normal">Meeting Time</label> */}
                   <input
                     type="time"
-                    className="form-control"
+                    className="form-control  min-width-95 "
                     placeholder="time"
                     required="required"
                     autoComplete="on"

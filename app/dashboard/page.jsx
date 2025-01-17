@@ -329,7 +329,7 @@ export default function Dashboard() {
   }, []);
 
   let in_Subscription = (PlanData?.current_plan?.plan_name === "Premium" || PlanData?.current_plan?.plan_name === "Platinum") && (PlanData?.is_trial_taken !== 0)
-  let in_Plan = PlanData?.current_plan?.plan_name !== "Premium" && PlanData?.current_plan?.plan_name !== "Basic" && PlanData?.current_plan?.plan_name !== "Platinum"
+  let in_Plan = PlanData?.current_plan?.plan_name == "Basic"
 
   return Data ? (
     <>

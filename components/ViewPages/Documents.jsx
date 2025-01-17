@@ -1,11 +1,11 @@
 import React from 'react'
 
 export default function Documents({ Titles, card }) {
-    return (card?.card_description !== null &&
-        Titles?.card_description?.is_active !== 0 && card?.card_documents?.length !== 0 && <div className="box-content boxxx">
+    return (card?.card_documents !== null &&
+        Titles?.card_documents?.is_active !== 0 && card?.card_documents?.length !== 0 && <div className="box-content boxxx">
             <div className="flex-header">
                 <h2 className="title title--h1 first-title title__separate">
-                    Important Documents
+                    {Titles?.card_documents?.visible_name}
                 </h2>
             </div>
 
