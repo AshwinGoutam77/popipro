@@ -92,13 +92,19 @@ export default function EditBlogs({
     setShowLoader(true);
     let data = [];
     let error = false;
+    const validExtensions = ["png", "jpeg", "jpg"];
+    const fileExtension = Image && Image?.name.split(".").pop().toLowerCase();
     let mess = "";
-    if (ServicesName == "" || ServicesDescription == "") {
+    if (ServicesName === "" || ServicesDescription === "") {
       error = true;
       mess =
-        ServicesName == ""
+        ServicesName === ""
           ? "Heading field is required"
           : "Description is required";
+    }
+    else if (Image && !validExtensions.includes(fileExtension)) {
+      error = true;
+      mess = "Image should be in PNG, JPEG, or JPG format";
     } else {
       id !== null
         ? (data = [
@@ -1053,7 +1059,7 @@ export default function EditBlogs({
                                   <img
                                     className="coverr lazyload"
                                     src={Data?.base_url + item?.image?.path}
-                                    alt="blogs"
+                                    alt="user blogs"
                                   />
                                 ) : (
                                   <img
