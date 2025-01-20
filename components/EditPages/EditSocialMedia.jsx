@@ -77,11 +77,11 @@ function EditLinks({
   }, [CardLinks]);
 
   const RepeatData = CardLinks?.map((item) => {
-    console.log('item', item);
+    // console.log('item', item);
     return item?.parent?.id;
   });
 
-  console.log(RepeatData, AddLinks);
+  // console.log(RepeatData, AddLinks);
 
   const handleEditLinks = async () => {
     const response = await Api(socialMedia, {});
@@ -122,6 +122,7 @@ function EditLinks({
         ]);
     }
     if (error) {
+      console.log('prere',mess);
       toast.error(mess, {
         position: "top-right",
         autoClose: 2000,

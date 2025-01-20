@@ -253,7 +253,7 @@ div:where(.swal2-icon).swal2-info {
   color: white;
   height: 140px;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
