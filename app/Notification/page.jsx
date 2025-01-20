@@ -31,7 +31,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { showToast } from "@components/Dashboard/Toast";
 
 export default function Page() {
-  const { APIDATA } = useAuthContext();
+  const { APIDATA, UserData } = useAuthContext();
   const [Title, setTitle] = useState("");
   const [Message, setMessage] = useState("");
   const [Data, setData] = useState("");
@@ -181,6 +181,11 @@ export default function Page() {
       showToast(error.response.data.message)
     }
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
 
   return (
     <>

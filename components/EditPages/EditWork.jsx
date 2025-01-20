@@ -184,7 +184,7 @@ export default function EditWorks({
     let error = false;
     let mess = "";
 
-    if (ModalVideos === "" && CustomVideo === "") {
+    if (ModalVideos === "" || CustomVideo === "") {
       error = true;
       mess = ModalVideos === "" ? selectedOption === VideoOption.ViaLink ? "URL field is required" : "Video is requried" : "";
     } else {
@@ -214,11 +214,10 @@ export default function EditWorks({
         setPage(2);
         setCustomVideo("")
         showToast(response.data.message, "success");
+        handleCanclebtn();
       }
     } catch (error) {
-      console.log()
-      console.log(error);
-
+      // console.log(error);
       if (error.request.status === 401) {
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -227,13 +226,6 @@ export default function EditWorks({
     }
 
     setShowLoader(false);
-    handleCanclebtn();
-
-    // Scroll to the card_photos element
-    const elem = document.getElementById("card_photos");
-    if (elem) {
-      elem.scrollIntoView();
-    }
   };
 
 
