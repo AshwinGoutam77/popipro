@@ -9,6 +9,7 @@ import localforage from "localforage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import LoadingText from "./LoadingText";
+import { showToast } from "@components/Dashboard/Toast";
 
 if (typeof window !== "undefined") {
   window.jQuery = $; //JQuery alias
@@ -55,31 +56,17 @@ function Builder({ JsonData, card_url }) {
         fb_token: await localforage.getItem("fcm_token"),
       };
       const res = await Api(CustomForm, payload, card_url);
-      if (res.status) {
+      if (res.status == true) {
         setShowLoader(false);
-        toast.success(res.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(res.data.message, "success")
+        document.getElementById("form-builder-popipro").reset();
+      } else {
+        setShowLoader(false);
+        showToast(res.data.message, "error")
         document.getElementById("form-builder-popipro").reset();
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(error?.response?.data?.message, "error")
     }
   };
   return (

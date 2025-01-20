@@ -538,7 +538,7 @@ export default function EditDoing({
                             style={{ border: "1px solid #ccc" }}
                             onChange={(e) => setImage(e.target.files[0])}
                           />
-                          <img src={Image} alt="uplaoded-img" className="edit-real-estate-images mt-2" />
+                          {/* <img src={Image} alt="uplaoded-img" className="edit-real-estate-images mt-2" /> */}
                         </div>
                         <label className="modalFormLable">Heading*</label>
                         <input
