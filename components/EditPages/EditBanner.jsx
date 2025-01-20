@@ -39,10 +39,11 @@ const EditBanner = ({ Permission, card, subscription, Data, card_url, PlanData }
       )}
       {PlanData?.current_plan?.plan_name !== "basic" && !PlanData?.is_expired
         ? [
-          renderIconLink(Data?.card_google_review, "../static/img/google.png", { background: "white", bottom: "190px" }),
+          renderIconLink(Data?.card_google_review, "../static/img/google.png", { background: "white", bottom: "190px", borderRadius: "50%", padding: "4px" }),
           renderIconLink(Data?.card_trustpilot, "../static/img/trustpilot.png", {
             background: "white",
             borderRadius: "50%",
+            padding: '4px'
           }),
         ]
         : null}
