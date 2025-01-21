@@ -150,6 +150,7 @@ export default function EditRealEstate({
     setPropertyType(items?.property_type?.id);
     setLocality(items?.street_address);
     setBhkValue(items?.bhk);
+    setGalleryImages(items?.gallery)
     setBathroomValue(items?.bathroom);
     setFurnishType(items?.furnish_type);
     setPrice(items?.price);
@@ -172,9 +173,6 @@ export default function EditRealEstate({
         category: item?.category
       }))
     );
-
-    console.clear()
-    console.log('==', inputList);
     setInputList2(
       items?.amenities.map((item) => ({
         amenities_id: item?.pivot?.amenities_id,
@@ -1066,7 +1064,7 @@ export default function EditRealEstate({
                   style={{ border: "1px solid #ccc" }}
                   multiple
                   onChange={(e) => setGalleryImages(e.target.files)}
-                  disabled={GalleryImages?.length === 3 ? true : false}
+                  disabled={GalleryImages?.length > 2}
                 />
                 {Data?.card_realestates &&
                   Data?.card_realestates?.map((items, index) => {

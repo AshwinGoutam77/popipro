@@ -264,6 +264,7 @@ export default function EditBlogs({
   };
   const HandleEmptyFeilds = () => {
     // aRef.current.value = null;
+    setImage("")
     setServicesName("");
     setServicesDescription("");
     setBlogUrl("");
