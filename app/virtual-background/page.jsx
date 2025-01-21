@@ -16,8 +16,10 @@ import { EditData, GetVirtualBackground, HitClickApi } from "@services/Routes";
 import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import html2canvas from "html2canvas";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function page() {
+  const { token, UserData } = useAuthContext();
   const canvasRef = useRef(null);
   const [ShowLoader, setShowLoader] = useState(false);
   const [Data, setData] = useState();
@@ -108,6 +110,11 @@ export default function page() {
     if (response.data.status) {
     }
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
   return Data ? (
     <>
       <div

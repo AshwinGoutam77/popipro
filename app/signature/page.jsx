@@ -44,6 +44,11 @@ export default function Signature() {
       });
     }
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
   return (
     <>
       <ToastContainer
@@ -1006,9 +1011,9 @@ export default function Signature() {
                       src={
                         process.env.NEXT_PUBLIC_MODE == "development"
                           ? "https://dev.popipro.com/" +
-                            UserData?.card?.profile_picture?.path
+                          UserData?.card?.profile_picture?.path
                           : "https://admin.popipro.com/" +
-                            UserData?.card?.profile_picture?.path
+                          UserData?.card?.profile_picture?.path
                       }
                       alt="photograph"
                       style={{
@@ -1159,9 +1164,9 @@ export default function Signature() {
                       src={
                         process.env.NEXT_PUBLIC_MODE == "development"
                           ? "https://dev.popipro.com/" +
-                            UserData?.card?.profile_picture?.path
+                          UserData?.card?.profile_picture?.path
                           : "https://admin.popipro.com/" +
-                            UserData?.card?.profile_picture?.path
+                          UserData?.card?.profile_picture?.path
                       }
                       alt="photograph"
                       style={{

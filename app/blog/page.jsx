@@ -228,6 +228,12 @@ export default function DashboardBlogs() {
     setShowModal(true);
     setModalId(name);
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     <>
       {Data ? (

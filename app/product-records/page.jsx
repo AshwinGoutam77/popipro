@@ -9,8 +9,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
 import { showToast } from '@components/Dashboard/Toast';
+import { useAuthContext } from '@context/AuthContext';
 
 export default function OrderRecord() {
+    const { UserData } = useAuthContext();
     const [OrderData, setOrderData] = useState("");
     let d = new Date();
     const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -61,6 +63,11 @@ export default function OrderRecord() {
             setShowLoader(false);
         }
     };
+
+    if (UserData?.plan?.is_expired == true) {
+        window.location.href = '/'
+        return
+    }
 
     return (
         <>

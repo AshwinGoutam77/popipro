@@ -88,11 +88,11 @@ export default function ProductEnquiry() {
         GetRealEstateLeads,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -206,6 +206,12 @@ export default function ProductEnquiry() {
       },
     },
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     <>
       {Data ? (
@@ -264,10 +270,10 @@ export default function ProductEnquiry() {
                           <p className="w-100">
                             {item.detail?.state
                               ? item.detail?.city +
-                                ", " +
-                                item.detail?.state +
-                                ", " +
-                                item.detail?.country
+                              ", " +
+                              item.detail?.state +
+                              ", " +
+                              item.detail?.country
                               : item.detail?.city + ", " + item.detail?.country}
                           </p>
                         ) : (
@@ -402,7 +408,7 @@ export default function ProductEnquiry() {
                         </Thead>
                         <Tbody>
                           {Data?.realestate_enquiries?.length === 0 ||
-                          Data?.leads_permissions?.product_enquiry == 0 ? (
+                            Data?.leads_permissions?.product_enquiry == 0 ? (
                             <Tr>
                               <Td className="p-3 color-black" colspan="5">
                                 {Data?.leads_permissions?.product_enquiry !== 0
@@ -430,13 +436,13 @@ export default function ProductEnquiry() {
                                     <Td data-column="created date">
                                       {item.detail?.state
                                         ? item.detail?.city +
-                                          ", " +
-                                          item.detail?.state +
-                                          ", " +
-                                          item.detail?.country
+                                        ", " +
+                                        item.detail?.state +
+                                        ", " +
+                                        item.detail?.country
                                         : item.detail?.city +
-                                          ", " +
-                                          item.detail?.country}
+                                        ", " +
+                                        item.detail?.country}
                                     </Td>
                                   ) : (
                                     <Td>---</Td>

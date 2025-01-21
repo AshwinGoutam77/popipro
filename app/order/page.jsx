@@ -141,6 +141,11 @@ const Order = () => {
     }
   };
 
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return (
     <>
       <div

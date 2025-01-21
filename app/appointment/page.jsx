@@ -26,7 +26,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function AppointmentLead() {
-  const { token, APIDATA } = useAuthContext();
+  const { token, APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -162,11 +162,11 @@ export default function AppointmentLead() {
         GetAppointmentLeads ? GetAppointmentLeads : GetInshights,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e
       );
       if (response.data.status) {
         setData(response.data.data);
@@ -191,6 +191,11 @@ export default function AppointmentLead() {
       });
     }
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
 
   return token ? (
     Data ? (
@@ -252,10 +257,10 @@ export default function AppointmentLead() {
                         <p className="w-100">
                           {item.detail?.state
                             ? item.detail?.city +
-                              ", " +
-                              item.detail?.state +
-                              ", " +
-                              item.detail?.country
+                            ", " +
+                            item.detail?.state +
+                            ", " +
+                            item.detail?.country
                             : item.detail?.city + ", " + item.detail?.country}
                         </p>
                       ) : (
@@ -390,7 +395,7 @@ export default function AppointmentLead() {
                       </Thead>
                       <Tbody>
                         {Data?.bookings?.length === 0 ||
-                        Data?.leads_permissions?.appointment == 0 ? (
+                          Data?.leads_permissions?.appointment == 0 ? (
                           <Tr>
                             <Td className="p-3 color-black" colspan="5">
                               {Data?.leads_permissions?.appointment !== 0
@@ -420,13 +425,13 @@ export default function AppointmentLead() {
                                   <Td data-column="created date">
                                     {item.detail?.state
                                       ? item.detail?.city +
-                                        ", " +
-                                        item.detail?.state +
-                                        ", " +
-                                        item.detail?.country
+                                      ", " +
+                                      item.detail?.state +
+                                      ", " +
+                                      item.detail?.country
                                       : item.detail?.city +
-                                        ", " +
-                                        item.detail?.country}
+                                      ", " +
+                                      item.detail?.country}
                                   </Td>
                                 ) : (
                                   <Td>---</Td>

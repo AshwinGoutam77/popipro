@@ -77,7 +77,7 @@ function Todo() {
             if (response.data.status) {
                 setTodoData(response?.data?.data?.next_page_data?.data);
                 console.log(response?.data?.data?.next_page_data?.data);
-                
+
             }
         } catch (error) {
             console.log(error);
@@ -89,6 +89,11 @@ function Todo() {
             showToast(error.response.data.message, 'error')
         }
     };
+
+    if (UserData?.plan?.is_expired == true) {
+        window.location.href = '/'
+        return
+    }
 
     return (
         <>

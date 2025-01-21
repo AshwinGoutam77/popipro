@@ -32,6 +32,12 @@ const PlanManagment = () => {
     setData(response.data);
   };
 
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return Data ? (
     <div>
       <div

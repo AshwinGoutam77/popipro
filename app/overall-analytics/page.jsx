@@ -541,6 +541,11 @@ const Page = () => {
     return words.length > 50 ? words.slice(0, 50).join(" ") + "..." : text;
   };
 
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     <>
       {ShowLoader ? (

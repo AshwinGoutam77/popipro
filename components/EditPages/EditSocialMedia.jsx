@@ -26,6 +26,7 @@ import Modal from "react-bootstrap/Modal";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
 import { handleActive } from "./EditFunctions";
+import EditPlan from "./EditPlan";
 
 function EditLinks({
   Data,
@@ -122,7 +123,7 @@ function EditLinks({
         ]);
     }
     if (error) {
-      console.log('prere',mess);
+      console.log('prere', mess);
       toast.error(mess, {
         position: "top-right",
         autoClose: 2000,
@@ -458,324 +459,337 @@ function EditLinks({
         </Modal.Body>
       </Modal>
 
+
+
       {TitleData?.card_social_links?.source !== 0 ? (
-        <div className="box-content boxxx" id="about">
-          <>
-            <div className="flex-header">
-              <div className="d-flex align-items-baseline">
-                {EditFields ? (
-                  <input
-                    name="years"
-                    rows="4"
-                    cols="50"
-                    className="title-section-input"
-                    onChange={(e) => setLinksTitle(e.target.value)}
-                    defaultValue={
-                      TitleData &&
-                        TitleData.card_social_links?.visible_name ==
-                        "card_social_links"
-                        ? "card_social_links"
-                        : TitleData?.card_social_links?.visible_name
-                    }
-                    placeholder="Title"
-                    maxLength="20"
-                  ></input>
-                ) : (
+        <div className="position-relative">
+          {Data && (
+            <EditPlan
+              Data={Data}
+              PlanData={PlanData}
+              APIDATA={APIDATA}
+              MainData={MainData}
+              in_subscription={TitleData?.card_social_links?.in_subscription}
+            />
+          )}
+          <div className="box-content boxxx" id="about">
+            <>
+              <div className="flex-header">
+                <div className="d-flex align-items-baseline">
+                  {EditFields ? (
+                    <input
+                      name="years"
+                      rows="4"
+                      cols="50"
+                      className="title-section-input"
+                      onChange={(e) => setLinksTitle(e.target.value)}
+                      defaultValue={
+                        TitleData &&
+                          TitleData.card_social_links?.visible_name ==
+                          "card_social_links"
+                          ? "card_social_links"
+                          : TitleData?.card_social_links?.visible_name
+                      }
+                      placeholder="Title"
+                      maxLength="20"
+                    ></input>
+                  ) : (
+                    <>
+                      <h1 className="title title--h1 first-title title__separate">
+                        {LinksTitle}
+                      </h1>
+                    </>
+                  )}
+                </div>
+
+                {TitleData?.card_social_links.source == 2 && TitleData?.card_social_links?.in_subscription ? (
                   <>
-                    <h1 className="title title--h1 first-title title__separate">
-                      {LinksTitle}
-                    </h1>
+                    <div className="web-edit-icons">
+                      <div className="d-flex align-items-center">
+                        <div class="wrapper">
+                          <div class="tooltip">
+                            Link Your Social Media Handles. Please Fill The
+                            Complete URL of your Profile.
+                          </div>
+                          <img
+                            src="../static/img/info.svg"
+                            alt="image"
+                            width={18}
+                            className="mr-2 cursor-pointer"
+                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                          />
+                        </div>
+
+                        <div className="edit-pencile-div">
+                          {EditFields ? (
+                            <FontAwesomeIcon
+                              icon={faFloppyDisk}
+                              className="ml-3 pe-auto floopySave-icon"
+                              onClick={() => handleChnageTitle()}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              className="ml-3 pe-auto Iconcolor-black"
+                              onClick={() => setEditFields(true)}
+                            />
+                          )}
+                        </div>
+
+                        {TitleData?.card_social_links.source !== 1 && (
+                          <button
+                            className="addmore"
+                            onClick={() => handleShow()}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </button>
+                        )}
+
+                        <div>
+                          <label className="switch">
+                            <input
+                              data-status={
+                                TitleData.card_alternate_phone?.is_active
+                              }
+                              data-active={Active}
+                              checked={Active}
+                              type="checkbox"
+                              onChange={() =>
+                                handleActive({
+                                  section_name: "card_social_links",
+                                  Visible_name: LinksTitle,
+                                  Active,
+                                  setActive,
+                                })
+                              }
+                            />
+                            <span className="slider round"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mobile-edit-icons">
+                      {EditFields ? (
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
+                            onClick={() => handleChnageTitle()}
+                          />
+                        </div>
+                      ) : (
+                        <EditDropdown
+                          TitleData={TitleData}
+                          setEditFields={setEditFields}
+                          AddTitle={
+                            "Add " + TitleData?.card_social_links?.visible_name
+                          }
+                          handleShowAddModal={handleShow}
+                          setTooltipIsOpen={setTooltipIsOpen}
+                          message="Link Your Social Media Handles. Please Fill The Complete URL
+                        of your Profile."
+                          tooltipIsOpen={tooltipIsOpen}
+                        />
+                      )}
+                    </div>
                   </>
+                ) : (
+                  ""
                 )}
               </div>
 
-              {TitleData?.card_social_links.source == 2 && TitleData?.card_social_links?.in_subscription ? (
-                <>
-                  <div className="web-edit-icons">
-                    <div className="d-flex align-items-center">
-                      <div class="wrapper">
-                        <div class="tooltip">
-                          Link Your Social Media Handles. Please Fill The
-                          Complete URL of your Profile.
-                        </div>
-                        <img
-                          src="../static/img/info.svg"
-                          alt="image"
-                          width={18}
-                          className="mr-2 cursor-pointer"
-                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                        />
-                      </div>
-
-                      <div className="edit-pencile-div">
-                        {EditFields ? (
-                          <FontAwesomeIcon
-                            icon={faFloppyDisk}
-                            className="ml-3 pe-auto floopySave-icon"
-                            onClick={() => handleChnageTitle()}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            className="ml-3 pe-auto Iconcolor-black"
-                            onClick={() => setEditFields(true)}
-                          />
-                        )}
-                      </div>
-
-                      {TitleData?.card_social_links.source !== 1 && (
-                        <button
-                          className="addmore"
-                          onClick={() => handleShow()}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                      )}
-
-                      <div>
-                        <label className="switch">
-                          <input
-                            data-status={
-                              TitleData.card_alternate_phone?.is_active
-                            }
-                            data-active={Active}
-                            checked={Active}
-                            type="checkbox"
-                            onChange={() =>
-                              handleActive({
-                                section_name: "card_social_links",
-                                Visible_name: LinksTitle,
-                                Active,
-                                setActive,
-                              })
-                            }
-                          />
-                          <span className="slider round"></span>
-                        </label>
-                      </div>
+              {Links ? (
+                <div>
+                  <>
+                    {AddLinks &&
+                      AddLinks?.map((item, index) => {
+                        return (
+                          <div
+                            className="d-flex align-items-center socail-media-add-div"
+                            key={index}
+                          >
+                            <div>
+                              <img
+                                src={
+                                  "../public/static/img/" +
+                                  item.platform_name.toLowerCase() +
+                                  ".png"
+                                }
+                                alt={item.platform_name}
+                                style={{
+                                  width: "32px",
+                                  borderRadius: "100%",
+                                }}
+                              />
+                            </div>
+                            <input
+                              type="text"
+                              name={`${item.platform_name.toLowerCase()}_url`}
+                              className="border-none w-100"
+                              placeholder={`Enter your ${item.platform_name.toLowerCase()} url`}
+                            />
+                          </div>
+                        );
+                      })}
+                    <div
+                      className="d-flex align-items-center mt-3"
+                      style={{ gap: "10px" }}
+                    >
+                      <button
+                        className="send-btnn"
+                        onClick={handleSaveLinkDetail}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="delete-button m-0"
+                        onClick={handleCancle}
+                      >
+                        Cancel
+                      </button>
                     </div>
-                  </div>
+                  </>
+                </div>
+              ) : (
+                <div
+                  className="d-flex flex-wrap align-items-center"
+                  style={{ gap: "15px" }}
+                >
+                  {CardLinks?.length == 0 ? (
+                    <p>
+                      Social links are empty, to add links click on the plus icon
+                    </p>
+                  ) : (
+                    <div
+                      className="d-flex flex-wrap align-items-center w-100"
+                      style={{ gap: "15px" }}
+                    >
+                      {CardLinks &&
+                        CardLinks.map((item, i) => {
+                          return (
+                            <>
+                              <div className="position-relative w-100" key={i}>
+                                {TitleData.card_social_links?.source !== 1 ? (
+                                  <FontAwesomeIcon
+                                    data-toggle="modal"
+                                    data-target="#SocialLinksModalEdit"
+                                    icon={faPencil}
+                                    className="pe-auto cursor-pointer"
+                                    style={{
+                                      fontSize: "15px",
+                                      color: "var(--color)",
+                                      position: "absolute",
+                                      right: "0px",
+                                      top: "16px",
+                                      background: "white",
+                                      width: "21px",
+                                      paddingRight: "24px",
+                                    }}
+                                    onClick={() =>
+                                      handleSetId(
+                                        item.id,
+                                        item.parent.id,
+                                        item.link
+                                      )
+                                    }
+                                  />
+                                ) : (
+                                  ""
+                                )}
+                                {TitleData.card_social_links?.source !== 1 ? (
+                                  <FontAwesomeIcon
+                                    icon={faXmarkCircle}
+                                    className="user-select-auto position-absolute top-0 end-0 link-minus-icon"
+                                    style={{
+                                      right: "-7",
+                                      cursor: "pointer",
+                                      color: "var(--color)",
+                                      fontSize: "20px",
+                                    }}
+                                    onClick={() =>
+                                      handleDelteServices(item.id, 7, Data?.id)
+                                    }
+                                  />
+                                ) : (
+                                  ""
+                                )}
+                                <div className="d-flex align-items-center socail-media-add-div">
+                                  <div>
+                                    <img
+                                      src={
+                                        "../static/img/" +
+                                        item.parent.platform_name.toLowerCase() +
+                                        ".png"
+                                      }
+                                      alt={item.parent.platform_name}
+                                      style={{
+                                        width: "32px",
+                                        borderRadius: "100%",
+                                      }}
+                                    />
+                                  </div>
+                                  <p className="ml-2 text-black font-weight-bold">
+                                    {item.parent.platform_name}
+                                  </p>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
+                    </div>
+                  )}
+                </div>
+              )}
 
-                  <div className="mobile-edit-icons">
-                    {EditFields ? (
-                      <div>
-                        <FontAwesomeIcon
-                          icon={faCheckCircle}
-                          className="ml-2 VarColor w-auto cursor-pointer CheckTitle"
-                          onClick={() => handleChnageTitle()}
-                        />
-                      </div>
-                    ) : (
-                      <EditDropdown
-                        TitleData={TitleData}
-                        setEditFields={setEditFields}
-                        AddTitle={
-                          "Add " + TitleData?.card_social_links?.visible_name
-                        }
-                        handleShowAddModal={handleShow}
-                        setTooltipIsOpen={setTooltipIsOpen}
-                        message="Link Your Social Media Handles. Please Fill The Complete URL
-                        of your Profile."
-                        tooltipIsOpen={tooltipIsOpen}
-                      />
-                    )}
+              {(MainData?.plan?.subscription !== null &&
+                MainData?.plan?.subscription?.plan_id !== null) ||
+                MainData?.plan?.subscription?.plan_id == 2 ? (
+                <>
+                  <div className="mt-3 d-flex align-items-center">
+                    <input
+                      type="checkbox"
+                      id="insta"
+                      value={
+                        MainData?.company_setting?.show_insta_feed !== 0
+                          ? true
+                          : false
+                      }
+                      checked={
+                        MainData?.company_setting?.show_insta_feed !== 0
+                          ? true
+                          : false
+                      }
+                      onChange={() => handleToogleFeed()}
+                    />
+                    <label
+                      className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
+                      htmlFor="insta"
+                    >
+                      Would you like to display the Instagram feeds as well?
+                    </label>
                   </div>
+                  <p className="VarColor font-weight-bold cursor-pointer m-0">
+                    <span className="color-black">Note:</span> Only public profile
+                    will be visible.
+                  </p>
                 </>
               ) : (
                 ""
               )}
-            </div>
-
-            {Links ? (
-              <div>
-                <>
-                  {AddLinks &&
-                    AddLinks?.map((item, index) => {
-                      return (
-                        <div
-                          className="d-flex align-items-center socail-media-add-div"
-                          key={index}
-                        >
-                          <div>
-                            <img
-                              src={
-                                "../public/static/img/" +
-                                item.platform_name.toLowerCase() +
-                                ".png"
-                              }
-                              alt={item.platform_name}
-                              style={{
-                                width: "32px",
-                                borderRadius: "100%",
-                              }}
-                            />
-                          </div>
-                          <input
-                            type="text"
-                            name={`${item.platform_name.toLowerCase()}_url`}
-                            className="border-none w-100"
-                            placeholder={`Enter your ${item.platform_name.toLowerCase()} url`}
-                          />
-                        </div>
-                      );
-                    })}
-                  <div
-                    className="d-flex align-items-center mt-3"
-                    style={{ gap: "10px" }}
-                  >
-                    <button
-                      className="send-btnn"
-                      onClick={handleSaveLinkDetail}
-                    >
-                      Save
-                    </button>
-                    <button
-                      className="delete-button m-0"
-                      onClick={handleCancle}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              </div>
-            ) : (
-              <div
-                className="d-flex flex-wrap align-items-center"
-                style={{ gap: "15px" }}
-              >
-                {CardLinks?.length == 0 ? (
-                  <p>
-                    Social links are empty, to add links click on the plus icon
-                  </p>
-                ) : (
-                  <div
-                    className="d-flex flex-wrap align-items-center w-100"
-                    style={{ gap: "15px" }}
-                  >
-                    {CardLinks &&
-                      CardLinks.map((item, i) => {
-                        return (
-                          <>
-                            <div className="position-relative w-100" key={i}>
-                              {TitleData.card_social_links?.source !== 1 ? (
-                                <FontAwesomeIcon
-                                  data-toggle="modal"
-                                  data-target="#SocialLinksModalEdit"
-                                  icon={faPencil}
-                                  className="pe-auto cursor-pointer"
-                                  style={{
-                                    fontSize: "15px",
-                                    color: "var(--color)",
-                                    position: "absolute",
-                                    right: "0px",
-                                    top: "16px",
-                                    background: "white",
-                                    width: "21px",
-                                    paddingRight: "24px",
-                                  }}
-                                  onClick={() =>
-                                    handleSetId(
-                                      item.id,
-                                      item.parent.id,
-                                      item.link
-                                    )
-                                  }
-                                />
-                              ) : (
-                                ""
-                              )}
-                              {TitleData.card_social_links?.source !== 1 ? (
-                                <FontAwesomeIcon
-                                  icon={faXmarkCircle}
-                                  className="user-select-auto position-absolute top-0 end-0 link-minus-icon"
-                                  style={{
-                                    right: "-7",
-                                    cursor: "pointer",
-                                    color: "var(--color)",
-                                    fontSize: "20px",
-                                  }}
-                                  onClick={() =>
-                                    handleDelteServices(item.id, 7, Data?.id)
-                                  }
-                                />
-                              ) : (
-                                ""
-                              )}
-                              <div className="d-flex align-items-center socail-media-add-div">
-                                <div>
-                                  <img
-                                    src={
-                                      "../static/img/" +
-                                      item.parent.platform_name.toLowerCase() +
-                                      ".png"
-                                    }
-                                    alt={item.parent.platform_name}
-                                    style={{
-                                      width: "32px",
-                                      borderRadius: "100%",
-                                    }}
-                                  />
-                                </div>
-                                <p className="ml-2 text-black font-weight-bold">
-                                  {item.parent.platform_name}
-                                </p>
-                              </div>
-                            </div>
-                          </>
-                        );
-                      })}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {(MainData?.plan?.subscription !== null &&
-              MainData?.plan?.subscription?.plan_id !== null) ||
-              MainData?.plan?.subscription?.plan_id == 2 ? (
-              <>
-                <div className="mt-3 d-flex align-items-center">
+              <div className="mt-4">
+                <label htmlFor="social-password">
                   <input
                     type="checkbox"
-                    id="insta"
-                    value={
-                      MainData?.company_setting?.show_insta_feed !== 0
-                        ? true
-                        : false
-                    }
-                    checked={
-                      MainData?.company_setting?.show_insta_feed !== 0
-                        ? true
-                        : false
-                    }
-                    onChange={() => handleToogleFeed()}
-                  />
-                  <label
-                    className="VarColor font-weight-bold ml-2 cursor-pointer m-0"
-                    htmlFor="insta"
-                  >
-                    Would you like to display the Instagram feeds as well?
-                  </label>
-                </div>
-                <p className="VarColor font-weight-bold cursor-pointer m-0">
-                  <span className="color-black">Note:</span> Only public profile
-                  will be visible.
-                </p>
-              </>
-            ) : (
-              ""
-            )}
-            <div className="mt-4">
-              <label htmlFor="social-password">
-                <input
-                  type="checkbox"
-                  id="social-password"
-                  checked={isLocked}
-                  onChange={handleShowSection}
-                />{" "}
-                Private the section
-              </label>
-            </div>
-          </>
+                    id="social-password"
+                    checked={isLocked}
+                    onChange={handleShowSection}
+                  />{" "}
+                  Private the section
+                </label>
+              </div>
+            </>
+          </div>
         </div>
       ) : (
         ""

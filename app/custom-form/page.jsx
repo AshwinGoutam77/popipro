@@ -29,8 +29,10 @@ import { ToastContainer, toast } from "react-toastify";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function Page() {
+  const { token, UserData } = useAuthContext();
   const [Show, setShow] = useState(false);
   const [CustomFormData, setCustomFormData] = useState("");
   const [FormsData, setFormsData] = useState();
@@ -127,13 +129,13 @@ export default function Page() {
         GetCustomFormData,
         {},
         "?start_date=" +
-          startDt +
-          "&end_date=" +
-          endDt +
-          "&location_filter=" +
-          e +
-          "&form_id=" +
-          SelectId
+        startDt +
+        "&end_date=" +
+        endDt +
+        "&location_filter=" +
+        e +
+        "&form_id=" +
+        SelectId
       );
       if (response.data.status) {
         setCustomFormData(response.data.data?.customForms);
@@ -263,6 +265,11 @@ export default function Page() {
       },
     },
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
 
   return FormsData ? (
     <>
@@ -487,13 +494,13 @@ export default function Page() {
                                 <Td data-column="created date">
                                   {items.detail?.state
                                     ? items.detail?.city +
-                                      ", " +
-                                      items.detail?.state +
-                                      ", " +
-                                      items.detail?.country
+                                    ", " +
+                                    items.detail?.state +
+                                    ", " +
+                                    items.detail?.country
                                     : items.detail?.city +
-                                      ", " +
-                                      items.detail?.country}
+                                    ", " +
+                                    items.detail?.country}
                                 </Td>
                               ) : (
                                 <Td>---</Td>

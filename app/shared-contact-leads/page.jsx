@@ -26,7 +26,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CSVLink } from "react-csv";
 
 const Leads = () => {
-  const { token, APIDATA, data } = useAuthContext();
+  const { token, APIDATA, data, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   let d = new Date();
@@ -232,6 +232,11 @@ const Leads = () => {
     { label: "Created Date", key: "created_at" },
     { label: "Message     ", key: "message" },
   ];
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
 
   return token ? (
     <>

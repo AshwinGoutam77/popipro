@@ -30,7 +30,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export default function TestimonialsLeads() {
-  const { APIDATA } = useAuthContext();
+  const { APIDATA, UserData } = useAuthContext();
   const [Data, setData] = useState("");
   const [ModalId, setModalId] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -187,6 +187,11 @@ export default function TestimonialsLeads() {
     }
   };
 
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     Data ? (
       <div>
@@ -245,10 +250,10 @@ export default function TestimonialsLeads() {
                         <p className="w-100 ml-5">
                           {item.detail?.state
                             ? item.detail?.city +
-                              ", " +
-                              item.detail?.state +
-                              ", " +
-                              item.detail?.country
+                            ", " +
+                            item.detail?.state +
+                            ", " +
+                            item.detail?.country
                             : item.detail?.city + ", " + item.detail?.country}
                         </p>
                       ) : (
@@ -387,13 +392,13 @@ export default function TestimonialsLeads() {
                                   <Td data-column="created date">
                                     {item.detail?.state
                                       ? item.detail?.city +
-                                        ", " +
-                                        item.detail?.state +
-                                        ", " +
-                                        item.detail?.country
+                                      ", " +
+                                      item.detail?.state +
+                                      ", " +
+                                      item.detail?.country
                                       : item.detail?.city +
-                                        ", " +
-                                        item.detail?.country}
+                                      ", " +
+                                      item.detail?.country}
                                   </Td>
                                 ) : (
                                   <Td>---</Td>

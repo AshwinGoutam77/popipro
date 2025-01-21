@@ -12,8 +12,10 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "../../styles/edit.css";
+import { useAuthContext } from "@context/AuthContext";
 
 export default function Page() {
+  const { token, APIDATA, UserData } = useAuthContext();
   const [show, setShow] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [ShowContactsModal, setShowContactsModal] = useState(false);
@@ -71,6 +73,11 @@ export default function Page() {
     setAddressBookRadio(false);
     setAddBook(true);
   };
+
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
   return (
     <>
       <Modal

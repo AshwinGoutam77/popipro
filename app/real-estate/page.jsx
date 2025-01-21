@@ -83,19 +83,19 @@ export default function DashboardProducts({ TitleData }) {
         {},
         FilterRealEstate !== ""
           ? "?start_date=" +
-              startDt +
-              "&end_date=" +
-              endDt +
-              "&realestates_id=" +
-              FilterRealEstate?.target?.value +
-              "&type=" +
-              FilterRealEstate?.target[
-                FilterRealEstate.target.selectedIndex
-              ].getAttribute("datatype") +
-              "&location_filter=" +
-              e
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&realestates_id=" +
+          FilterRealEstate?.target?.value +
+          "&type=" +
+          FilterRealEstate?.target[
+            FilterRealEstate.target.selectedIndex
+          ].getAttribute("datatype") +
+          "&location_filter=" +
+          e
           : FilterRealEstate?.target?.value
-          ? "?start_date=" +
+            ? "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -105,7 +105,7 @@ export default function DashboardProducts({ TitleData }) {
             "card" +
             "&location_filter=" +
             e
-          : "?start_date=" +
+            : "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -237,6 +237,11 @@ export default function DashboardProducts({ TitleData }) {
     setModalId(name);
   };
 
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     <>
       {Data ? (
@@ -287,28 +292,28 @@ export default function DashboardProducts({ TitleData }) {
                     {Data?.realestate_stats?.map((item, index) => {
                       return item.name == ModalId
                         ? item?.data?.map((i, o) => {
-                            return (
-                              <tr key={o} className="cursor-pointer">
-                                <td data-column="Name">
-                                  {i?.state !== "" ||
+                          return (
+                            <tr key={o} className="cursor-pointer">
+                              <td data-column="Name">
+                                {i?.state !== "" ||
                                   i?.city !== "" ||
                                   i?.country !== ""
-                                    ? i?.state
-                                      ? i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.state +
-                                        `${i?.state ? ", " : ""}` +
-                                        i?.country
-                                      : i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.country
-                                    : "---"}
-                                </td>
-                                <td data-column="Email">{i?.created_at}</td>
-                                <td className="">{i?.name}</td>
-                              </tr>
-                            );
-                          })
+                                  ? i?.state
+                                    ? i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.state +
+                                    `${i?.state ? ", " : ""}` +
+                                    i?.country
+                                    : i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.country
+                                  : "---"}
+                              </td>
+                              <td data-column="Email">{i?.created_at}</td>
+                              <td className="">{i?.name}</td>
+                            </tr>
+                          );
+                        })
                         : "";
                     })}
                   </tbody>

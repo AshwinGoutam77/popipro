@@ -78,19 +78,19 @@ export default function DashboardProducts({ TitleData }) {
         {},
         FilterProducts !== ""
           ? "?start_date=" +
-              startDt +
-              "&end_date=" +
-              endDt +
-              "&product_id=" +
-              FilterProducts?.target?.value +
-              "&type=" +
-              FilterProducts?.target[
-                FilterProducts.target.selectedIndex
-              ].getAttribute("datatype") +
-              "&location_filter=" +
-              e
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&product_id=" +
+          FilterProducts?.target?.value +
+          "&type=" +
+          FilterProducts?.target[
+            FilterProducts.target.selectedIndex
+          ].getAttribute("datatype") +
+          "&location_filter=" +
+          e
           : FilterProducts?.target?.value
-          ? "?start_date=" +
+            ? "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -100,7 +100,7 @@ export default function DashboardProducts({ TitleData }) {
             "card" +
             "&location_filter=" +
             e
-          : "?start_date=" +
+            : "?start_date=" +
             startDt +
             "&end_date=" +
             endDt +
@@ -232,6 +232,11 @@ export default function DashboardProducts({ TitleData }) {
     setModalId(name);
   };
 
+  if (UserData?.plan?.is_expired == true) {
+    window.location.href = '/'
+    return
+  }
+
   return token ? (
     <>
       {Data ? (
@@ -282,28 +287,28 @@ export default function DashboardProducts({ TitleData }) {
                     {Data?.product_stats?.map((item, index) => {
                       return item.name == ModalId
                         ? item?.data?.map((i, o) => {
-                            return (
-                              <tr key={o} className="cursor-pointer">
-                                <td>
-                                  {i?.state !== "" ||
+                          return (
+                            <tr key={o} className="cursor-pointer">
+                              <td>
+                                {i?.state !== "" ||
                                   i?.city !== "" ||
                                   i?.country !== ""
-                                    ? i?.state
-                                      ? i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.state +
-                                        `${i?.state ? ", " : ""}` +
-                                        i?.country
-                                      : i?.city +
-                                        `${i?.city ? ", " : ""}` +
-                                        i?.country
-                                    : "---"}
-                                </td>
-                                <td>{i?.created_at}</td>
-                                <td>{i?.name}</td>
-                              </tr>
-                            );
-                          })
+                                  ? i?.state
+                                    ? i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.state +
+                                    `${i?.state ? ", " : ""}` +
+                                    i?.country
+                                    : i?.city +
+                                    `${i?.city ? ", " : ""}` +
+                                    i?.country
+                                  : "---"}
+                              </td>
+                              <td>{i?.created_at}</td>
+                              <td>{i?.name}</td>
+                            </tr>
+                          );
+                        })
                         : "";
                     })}
                   </tbody>
