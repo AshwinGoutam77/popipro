@@ -414,6 +414,7 @@ function EditLinks({
                               selected={
                                 item.parent.platform_name === obj.platform_name
                               }
+                              disabled
                             >
                               {obj.platform_name}
                             </option>
