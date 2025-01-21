@@ -713,14 +713,14 @@ const Header = ({
             <h2 className="title titl--h4">
               {card.first_name == null ? "Name" : card.first_name}
             </h2>
-            <div className="status">
+            {MainData?.titles?.card_profession?.is_active == 1 && <div className="status">
               <p>
                 {" "}
                 {card.card_profession == null
                   ? "Profession"
                   : card.card_profession}
               </p>
-            </div>
+            </div>}
             <div className="d-flex sm-class header-btn-gap">
               <button
                 className="contact-btn web-contact-btn"
@@ -809,7 +809,7 @@ const Header = ({
         </div>
         <div className="header__right">
           <ul className="header__contact row">
-            {card.card_email ? (
+            {card.card_email && MainData?.titles?.card_email?.is_active == 1 ? (
               <li className="col-sm-6 col-12">
                 <a
                   href={"mailto:" + card.card_email}
@@ -842,7 +842,7 @@ const Header = ({
             ) : (
               ""
             )}
-            {card.card_contact !== null ? (
+            {card.card_contact !== null && MainData?.titles?.card_contact?.is_active == 1 ? (
               <>
                 <li className="col-sm-6 col-12">
                   <a
@@ -893,7 +893,7 @@ const Header = ({
             ) : (
               ""
             )}
-            {card.card_address !== null ? (
+            {card.card_address !== null && MainData?.titles?.card_address?.is_active == 1 ? (
               <li className="col-sm-6 col-12">
                 <a
                   href={
@@ -932,7 +932,7 @@ const Header = ({
             ) : (
               ""
             )}
-            {Titles?.card_name?.source == 1 ? (
+            {Titles?.card_name?.source == 1 && MainData?.titles?.card_name?.is_active == 1 ? (
               <li className="web-li d-flex align-items-center justify-content-between col-sm-6 col-12">
                 <div>
                   <FontAwesomeIcon
@@ -949,7 +949,7 @@ const Header = ({
             ) : (
               ""
             )}
-            {card.card_website !== null ? (
+            {card.card_website !== null  && MainData?.titles?.card_website?.is_active == 1 ? (
               <li className="col-sm-6 col-12">
                 <a
                   href={

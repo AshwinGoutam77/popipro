@@ -94,16 +94,7 @@ export default function EditCustomLink({
     // });
     if (error) {
       // setShowLoader(false);
-      toast.error(mess, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(mess, 'error')
       return;
     }
 
@@ -113,16 +104,7 @@ export default function EditCustomLink({
         APIDATA();
         handleClose();
         handleEditClose();
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        showToast(response.data.message, 'success')
       }
     } catch (error) {
       if (error?.request?.status == "401") {

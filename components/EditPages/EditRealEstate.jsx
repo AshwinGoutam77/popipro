@@ -1973,6 +1973,29 @@ export default function EditRealEstate({
               })
             )}
 
+
+
+            {PaginationData?.total_realestate ==
+              Data?.card_realestates?.length &&
+              LoadMoreData !== null &&
+              Data?.card_realestates?.length !== 0 ? (
+              <div className="mx-auto text-center pt-2">
+                <a
+                  className="text-center cursor-pointer mx-auto"
+                  style={{
+                    textDecoration: "underline",
+                    fontSize: "16px",
+                    color: "var(--color)",
+                  }}
+                  onClick={() => incrementCount()}
+                >
+                  Load More
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
+
             <div className="mt-4">
               <h6 className="font-weight-bold">
                 How you want to receive inquiry:
@@ -2028,27 +2051,6 @@ export default function EditRealEstate({
                 </label>
               </div>
             </div>
-
-            {PaginationData?.total_realestate ==
-              Data?.card_realestates?.length &&
-              LoadMoreData !== null &&
-              Data?.card_realestates?.length !== 0 ? (
-              <div className="mx-auto text-center pt-2">
-                <a
-                  className="text-center cursor-pointer mx-auto"
-                  style={{
-                    textDecoration: "underline",
-                    fontSize: "16px",
-                    color: "var(--color)",
-                  }}
-                  onClick={() => incrementCount()}
-                >
-                  Load More
-                </a>
-              </div>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>

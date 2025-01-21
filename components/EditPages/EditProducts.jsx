@@ -1960,63 +1960,7 @@ export default function EditProducts({
                         </div>
                       );
                     })}
-                  <div className="mt-4">
-                    <h6 className="font-weight-bold">
-                      How you want to receive inquiry:
-                    </h6>
-                    <div className="d-flex align-items-start">
-                      <input
-                        type="checkbox"
-                        id="product-whatsaap"
-                        className="mt-1"
-                        value={
-                          MainData?.company_setting?.show_product_wp_button !==
-                            0
-                            ? true
-                            : false
-                        }
-                        onChange={() => handleProductsbtn("wp")}
-                        checked={
-                          MainData?.company_setting?.show_product_wp_button !==
-                            0
-                            ? true
-                            : false
-                        }
-                      />
-                      <label
-                        for="product-whatsaap"
-                        className="ml-2 Varcolor font-weight-bold"
-                      >
-                        Via whatsaap only?
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-start">
-                      <input
-                        type="checkbox"
-                        id="product-enq"
-                        className="mt-1"
-                        value={
-                          MainData?.company_setting
-                            ?.show_product_enquiry_button !== 0
-                            ? true
-                            : false
-                        }
-                        onChange={() => handleProductsbtn("enq")}
-                        checked={
-                          MainData?.company_setting
-                            ?.show_product_enquiry_button !== 0
-                            ? true
-                            : false
-                        }
-                      />
-                      <label
-                        for="product-enq"
-                        className="ml-2 Varcolor font-weight-bold mb-0"
-                      >
-                        Via enquiry form?
-                      </label>
-                    </div>
-                  </div>
+
                 </div>
               )}
               {PaginationData?.total_card_products !==
@@ -2037,6 +1981,64 @@ export default function EditProducts({
               ) : (
                 ""
               )}
+
+              <div className="mt-4">
+                <h6 className="font-weight-bold">
+                  How you want to receive inquiry:
+                </h6>
+                <div className="d-flex align-items-start">
+                  <input
+                    type="checkbox"
+                    id="product-whatsaap"
+                    className="mt-1"
+                    value={
+                      MainData?.company_setting?.show_product_wp_button !==
+                        0
+                        ? true
+                        : false
+                    }
+                    onChange={() => handleProductsbtn("wp")}
+                    checked={
+                      MainData?.company_setting?.show_product_wp_button !==
+                        0
+                        ? true
+                        : false
+                    }
+                  />
+                  <label
+                    for="product-whatsaap"
+                    className="ml-2 Varcolor font-weight-bold"
+                  >
+                    Via whatsaap only?
+                  </label>
+                </div>
+                <div className="d-flex align-items-start">
+                  <input
+                    type="checkbox"
+                    id="product-enq"
+                    className="mt-1"
+                    value={
+                      MainData?.company_setting
+                        ?.show_product_enquiry_button !== 0
+                        ? true
+                        : false
+                    }
+                    onChange={() => handleProductsbtn("enq")}
+                    checked={
+                      MainData?.company_setting
+                        ?.show_product_enquiry_button !== 0
+                        ? true
+                        : false
+                    }
+                  />
+                  <label
+                    for="product-enq"
+                    className="ml-2 Varcolor font-weight-bold mb-0"
+                  >
+                    Via enquiry form?
+                  </label>
+                </div>
+              </div>
 
               <div className="mt-4">
                 <label htmlFor="product-password">
