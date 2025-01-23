@@ -28,6 +28,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function TestimonialsLeads() {
   const { APIDATA, UserData } = useAuthContext();
@@ -187,14 +188,11 @@ export default function TestimonialsLeads() {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
 
   return token ? (
     Data ? (
       <div>
+        <RedirectComponent />
         <SimpleBackdrop visible={ShowLoader} />
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header>

@@ -24,6 +24,7 @@ import dynamic from "next/dynamic";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function AppointmentLead() {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -103,6 +104,7 @@ export default function AppointmentLead() {
         data: item?.value,
       };
     });
+
   const chartData6 = {
     series: dSet || [],
     options: {
@@ -192,14 +194,10 @@ export default function AppointmentLead() {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return token ? (
     Data ? (
       <div>
+        <RedirectComponent />
         <SimpleBackdrop visible={ShowLoader} />
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header>

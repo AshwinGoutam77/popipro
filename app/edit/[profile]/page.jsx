@@ -34,6 +34,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import EditDocument from "@components/EditPages/EditDocument";
+import EditEvents from "@components/EditPages/EditEvents";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -107,7 +108,7 @@ const Page = () => {
   }
   return token ? (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -118,7 +119,7 @@ const Page = () => {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       {cardData ? (
         <>
           <EditBanner
@@ -156,6 +157,13 @@ const Page = () => {
                     TitleData={cardData?.titles}
                     APIDATA={getProfileData}
                   />{" "}
+                  <EditEvents
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    TitleData={cardData?.titles}
+                    PlanData={cardData?.plan}
+                    APIDATA={getProfileData}
+                  />
                   <EditLinks
                     Data={cardData?.card}
                     MainData={cardData}

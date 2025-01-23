@@ -13,6 +13,7 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "../../styles/edit.css";
 import { useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function Page() {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -74,12 +75,9 @@ export default function Page() {
     setAddBook(true);
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
   return (
     <>
+      <RedirectComponent />
       <Modal
         show={ShowContactsModal}
         onHide={() => setShowContactsModal(false)}

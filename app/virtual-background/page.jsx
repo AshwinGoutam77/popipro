@@ -17,6 +17,7 @@ import Api from "@services/Api";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import html2canvas from "html2canvas";
 import { useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function page() {
   const { token, UserData } = useAuthContext();
@@ -111,12 +112,9 @@ export default function page() {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
   return Data ? (
     <>
+      <RedirectComponent />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}

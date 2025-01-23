@@ -108,6 +108,7 @@ export default function Dashboard() {
           document.documentElement.style.setProperty("--header-color", "#24b1e6");
           document.documentElement.style.setProperty("--themecolor", "#dfeef8");
           document.documentElement.style.setProperty("--text-color", "#ffffff");
+          localStorage.setItem("is_expried", JSON.stringify(response?.data?.data?.plan?.is_expired));
         } else {
           localStorage.removeItem("token");
           localStorage.removeItem("url");
@@ -126,6 +127,8 @@ export default function Dashboard() {
       window.location.href = "/login";
     }
   };
+
+ 
 
   useEffect(() => {
     APIDATA();
@@ -981,7 +984,6 @@ export default function Dashboard() {
                   </div>
 
                   {/* Real Estate */}
-
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
@@ -1131,7 +1133,6 @@ export default function Dashboard() {
                   </div>
 
                   {/* real estate enquiry */}
-
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
@@ -1249,7 +1250,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                      onClick={() => in_Subscription && setModalShow("digitalCard")}
+                      onClick={() => !in_Plan && setModalShow("digitalCard")}
                     >
                       {Data && (
                         <DashboardPlan
@@ -1272,11 +1273,10 @@ export default function Dashboard() {
                   </div>
 
                   {/* Signature */}
-
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        !in_Subscription
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/signature"
                       }
@@ -1316,7 +1316,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        !in_Subscription
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/virtual-background"
                       }
@@ -1355,7 +1355,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        !in_Subscription
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/contacts"
                       }
@@ -1389,7 +1389,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <div
                       className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                      onClick={() => in_Subscription && setModalShow("selfBranding")}
+                      onClick={() => !in_Plan && setModalShow("selfBranding")}
                     >
                       {Data && (
                         <DashboardPlan
@@ -1415,7 +1415,7 @@ export default function Dashboard() {
                   <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                     <Link
                       href={
-                        !in_Subscription
+                        in_Plan
                           ? "https://www.popipro.com/order"
                           : "/to-do"
                       }

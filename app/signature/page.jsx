@@ -10,6 +10,7 @@ import React, { useEffect, useRef } from "react";
 import "../../styles/about.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function Signature() {
   const { APIDATA, UserData } = useAuthContext();
@@ -45,10 +46,6 @@ export default function Signature() {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
   return (
     <>
       <ToastContainer
@@ -63,6 +60,7 @@ export default function Signature() {
         pauseOnHover
         theme="light"
       />
+      <RedirectComponent />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}

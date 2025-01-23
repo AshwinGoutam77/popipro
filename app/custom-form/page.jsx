@@ -30,6 +30,7 @@ const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function Page() {
   const { token, UserData } = useAuthContext();
@@ -266,11 +267,6 @@ export default function Page() {
     },
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return FormsData ? (
     <>
       <ToastContainer
@@ -285,6 +281,7 @@ export default function Page() {
         pauseOnHover
         theme="light"
       />
+      <RedirectComponent />
       <SimpleBackdrop visible={ShowLoader} />
       <Modal show={Show} onHide={() => setShow(false)} centered size="">
         <Modal.Header>

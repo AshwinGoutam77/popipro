@@ -25,6 +25,7 @@ import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function DashboardBlogs() {
   const { token, APIDATA, UserData } = useAuthContext();
@@ -229,13 +230,9 @@ export default function DashboardBlogs() {
     setModalId(name);
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return token ? (
     <>
+      <RedirectComponent />
       {Data ? (
         <>
           <SimpleBackdrop visible={ShowLoader} />

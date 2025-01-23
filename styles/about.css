@@ -614,6 +614,17 @@ select:focus,
   color: white !important;
 }
 
+.events-section {
+  row-gap: 40px;
+}
+
+.events-section .col-sm-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
 @media (max-width: 767px) {
   .subscrition-p {
     width: 97%;

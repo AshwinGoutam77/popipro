@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/about.css";
 import { showToast } from '@components/Dashboard/Toast';
 import { useAuthContext } from '@context/AuthContext';
+import RedirectComponent from '@app/RedirectComponent/page';
 
 export default function OrderRecord() {
     const { UserData } = useAuthContext();
@@ -64,13 +65,9 @@ export default function OrderRecord() {
         }
     };
 
-    if (UserData?.plan?.is_expired == true) {
-        window.location.href = '/'
-        return
-    }
-
     return (
         <>
+            <RedirectComponent />
             <div className="bg-lightGrey">
                 <div
                     className="login-header p-3 text-center d-flex align-items-center justify-content-between"

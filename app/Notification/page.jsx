@@ -29,6 +29,7 @@ import Notification from "@components/Dashboard/Notification";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { showToast } from "@components/Dashboard/Toast";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function Page() {
   const { APIDATA, UserData } = useAuthContext();
@@ -182,11 +183,6 @@ export default function Page() {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return (
     <>
       <ToastContainer
@@ -201,6 +197,7 @@ export default function Page() {
         pauseOnHover
         theme="light"
       />
+      <RedirectComponent />
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
       <Modal show={Show} onHide={() => setShow(false)} centered>
         <Modal.Header>

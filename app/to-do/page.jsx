@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { showToast } from '@components/Dashboard/Toast';
+import RedirectComponent from '@app/RedirectComponent/page';
 
 function Todo() {
     const { token, APIDATA, UserData, TodoData, setTodoData } = useAuthContext();
@@ -90,11 +91,6 @@ function Todo() {
         }
     };
 
-    if (UserData?.plan?.is_expired == true) {
-        window.location.href = '/'
-        return
-    }
-
     return (
         <>
             <ToastContainer
@@ -109,6 +105,7 @@ function Todo() {
                 pauseOnHover
                 theme="light"
             />
+            <RedirectComponent />
             <Modal show={Show} onHide={() => setShow(false)} centered>
                 <Modal.Header>
                     <Modal.Title>

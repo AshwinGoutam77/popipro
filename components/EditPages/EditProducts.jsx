@@ -53,11 +53,11 @@ import { Tooltip } from "@mui/material";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
+import { handleDraft } from "./EditFunctions";
 
 export default function EditProducts({
   APIDATA,
   setData,
-  card_url,
   TitleData,
   Data,
   Currency,
@@ -130,7 +130,7 @@ export default function EditProducts({
   }, [TitleData]);
   const aRef = useRef(null);
 
-  const handleSaveProductDetail = async (id = null) => {
+  const handleSaveProductDetail = async (id = null, status) => {
     setShowLoader(true);
     let data = [];
     let error = false;
@@ -160,6 +160,7 @@ export default function EditProducts({
           youtube_link: ProductVideo,
           payment_link: PaymentLink,
           show_payment_link: GeneralLinkBtn ? 0 : 1,
+          status: status,
           saved_products: id !== null ? id : "",
         },
       ]
@@ -1106,12 +1107,20 @@ export default function EditProducts({
                 style={{ gap: "10px" }}
               >
                 {!ShowLoader ? (
-                  <button
-                    className="send-btnn"
-                    onClick={() => handleSaveProductDetail()}
-                  >
-                    Save
-                  </button>
+                  <>
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveProductDetail(1)}
+                    >
+                      Save and Publish
+                    </button>
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveProductDetail(0)}
+                    >
+                      Save and Draft
+                    </button>
+                  </>
                 ) : (
                   <button class="send-btnn" disabled>
                     <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
@@ -1793,16 +1802,19 @@ export default function EditProducts({
                               }
                               style={{ textAlign: "initial" }}
                             >
-                              <p
-                                style={{ fontSize: "26px" }}
-                                className={
-                                  items?.description?.length <= "0"
-                                    ? "title title--h5 font-weight-bolder product-heading2 m-0 mt-3"
-                                    : "title title--h5 font-weight-bolder product-heading m-0 mt-3"
-                                }
-                              >
-                                {items.name}
-                              </p>
+                              <div className="d-flex align-items-center justify-content-between w-100 my-2">
+                                <p
+                                  style={{ fontSize: "26px" }}
+                                  className={
+                                    items?.description?.length <= "0"
+                                      ? "title title--h5 font-weight-bolder product-heading2 m-0"
+                                      : "title title--h5 font-weight-bolder product-heading m-0"
+                                  }
+                                >
+                                  {items.name}
+                                </p>
+                                <p className="badge">{items?.status == 0 ? "Draft" : "Published"}</p>
+                              </div>
                               <p
                                 id="p_wrap"
                                 className="review-item__caption text-left products-review mt-1 content_description"
@@ -1944,6 +1956,12 @@ export default function EditProducts({
                                 }
                               >
                                 Edit
+                              </button>
+                              <button
+                                className="send-btnn m-0"
+                                onClick={() => handleDraft({ card_url: card, status: items?.status == 1 ? 0 : 1, product_id: items.id, APIDATA, item_name: items?.name })}
+                              >
+                                {items?.status == 1 ? "Draft" : "Publish"}
                               </button>
                               <button
                                 className="delete-button m-0"

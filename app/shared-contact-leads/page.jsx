@@ -24,6 +24,7 @@ const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CSVLink } from "react-csv";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 const Leads = () => {
   const { token, APIDATA, data, UserData } = useAuthContext();
@@ -233,13 +234,9 @@ const Leads = () => {
     { label: "Message     ", key: "message" },
   ];
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return token ? (
     <>
+      <RedirectComponent />
       {Data ? (
         <>
           <SimpleBackdrop visible={ShowLoader} />

@@ -268,18 +268,13 @@ export default function Realestate({
     // setActiveFilter([...ActiveFilter, ProductCategory]);
     const response = await fetch(
       process.env.NEXT_PUBLIC_MODE == "development"
-        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
-            Page && Page
-          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
-            ProductSearching ? "&realestate_search=" + ProductSearching : ""
-          }${ProductCategory ? "&amenities[]=" + ProductCategory : ""}${
-            LookingFor ? "&property_type[]=" + LookingFor : ""
-          }`
-        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${
-            Page && Page
-          }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${
-            ProductSearching ? "&realestate_search=" + ProductSearching : ""
-          }`,
+        ? `https://dev.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${Page && Page
+        }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${ProductSearching ? "&realestate_search=" + ProductSearching : ""
+        }${ProductCategory ? "&amenities[]=" + ProductCategory : ""}${LookingFor ? "&property_type[]=" + LookingFor : ""
+        }`
+        : `https://admin.popipro.com/api/get-more-items/?card_url=${card_url}&type=card_realestates&current_page=${Page && Page
+        }${HighlightSort ? "&sortBy=" + HighlightSort : ""}${ProductSearching ? "&realestate_search=" + ProductSearching : ""
+        }`,
       {
         method: "GET",
         cache: "no-cache",
@@ -293,9 +288,9 @@ export default function Realestate({
         ? ProductCategory
           ? setEstateData(() => data?.data?.next_page_data?.data)
           : setEstateData((prevData) => [
-              ...prevData,
-              ...data?.data?.next_page_data?.data,
-            ])
+            ...prevData,
+            ...data?.data?.next_page_data?.data,
+          ])
         : setEstateData(() => data?.data?.next_page_data?.data);
     }
   };
@@ -519,7 +514,7 @@ export default function Realestate({
                               items?.google_address_link?.includes(
                                 "https://"
                               ) ||
-                              items?.google_address_link?.includes("http://")
+                                items?.google_address_link?.includes("http://")
                                 ? "https://" + items?.google_address_link
                                 : items?.google_address_link
                             }
@@ -563,31 +558,33 @@ export default function Realestate({
                             </a>
                           )}
                         <button className="contact-btn w-30px m-0">
-                          <img
-                            src="../static/img/phone.svg"
-                            alt="image"
-                            width={14}
-                            className="mr-1"
-                          />
-                          Contact Agent
-                        </button>
-                        {MainData?.company_setting
-                          ?.show_realestate_enquiry_button !== 0 && (
-                          <button
-                            className="contact-btn w-30px m-0"
-                            onClick={() =>
-                              handleShowModalEnquiry(items?.heading)
-                            }
-                          >
+                          <a href={'tel:' + MainData?.card?.card_contact}>
                             <img
-                              src="../static/img/mail.svg"
+                              src="../static/img/phone.svg"
                               alt="image"
                               width={14}
                               className="mr-1"
                             />
-                            Email
-                          </button>
-                        )}
+                            Contact Agent
+                          </a>
+                        </button>
+                        {MainData?.company_setting
+                          ?.show_realestate_enquiry_button !== 0 && (
+                            <button
+                              className="contact-btn w-30px m-0"
+                              onClick={() =>
+                                handleShowModalEnquiry(items?.heading)
+                              }
+                            >
+                              <img
+                                src="../static/img/mail.svg"
+                                alt="image"
+                                width={14}
+                                className="mr-1"
+                              />
+                              Email
+                            </button>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -691,10 +688,10 @@ export default function Realestate({
       </Modal>
 
       {Titles &&
-      Titles?.card_realestates?.is_active &&
-      Titles?.card_realestates?.in_subscription ? (
+        Titles?.card_realestates?.is_active &&
+        Titles?.card_realestates?.in_subscription ? (
         Data?.card_realestates?.length !== 0 &&
-        Titles?.card_realestates?.is_active !== 0 ? (
+          Titles?.card_realestates?.is_active !== 0 ? (
           <div className="box-content boxxx" id="card_realestates">
             <div className="mt-0 product-section-div">
               {Search ? (
@@ -725,7 +722,7 @@ export default function Realestate({
                 <div className="d-flex align-items-start justify-content-between">
                   <h3 className="title title--h1 first-title title__separate">
                     {Titles &&
-                    Titles.card_realestates?.visible_name === "card_products"
+                      Titles.card_realestates?.visible_name === "card_products"
                       ? "card_products"
                       : Titles?.card_realestates?.visible_name}
                   </h3>
@@ -1137,20 +1134,20 @@ export default function Realestate({
                               )}
                             {MainData?.company_setting
                               ?.show_realestate_enquiry_button !== 0 && (
-                              <span
-                                data-toggle="modal"
-                                data-target="#ProductEnquireModal"
-                                className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
-                                onClick={() =>
-                                  handleShowEnquiry(items?.id, items?.heading)
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={faEnvelope}
-                                  className="user-select-auto"
-                                />
-                              </span>
-                            )}
+                                <span
+                                  data-toggle="modal"
+                                  data-target="#ProductEnquireModal"
+                                  className="whatsap-enquiry-view d-flex align-items-center justify-content-center cursor-pointer"
+                                  onClick={() =>
+                                    handleShowEnquiry(items?.id, items?.heading)
+                                  }
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faEnvelope}
+                                    className="user-select-auto"
+                                  />
+                                </span>
+                              )}
                             {items?.google_address_link !== null ? (
                               <a
                                 href={items?.google_address_link}

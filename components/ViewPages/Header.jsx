@@ -949,7 +949,7 @@ const Header = ({
             ) : (
               ""
             )}
-            {card.card_website !== null  && MainData?.titles?.card_website?.is_active == 1 ? (
+            {card.card_website !== null && MainData?.titles?.card_website?.is_active == 1 ? (
               <li className="col-sm-6 col-12">
                 <a
                   href={

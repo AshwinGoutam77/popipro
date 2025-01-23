@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/about.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import { useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 const PlanManagment = () => {
   const { APIDATA, UserData } = useAuthContext();
@@ -31,15 +32,9 @@ const PlanManagment = () => {
     const response = await Api(Subscription, {});
     setData(response.data);
   };
-
-
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return Data ? (
     <div>
+      <RedirectComponent />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}

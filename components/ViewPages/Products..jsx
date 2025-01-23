@@ -964,6 +964,7 @@ export default function Product({
                     Products &&
                     Products?.map((items, index, { length }) => {
                       return (
+                        items?.status == 1 &&
                         <div key={index}>
                           <div
                             className={

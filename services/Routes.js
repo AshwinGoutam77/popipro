@@ -174,3 +174,7 @@ export const GetAiSuggestions = {
 export const RephraseFromAi = {
   path: "get-ai-content-parsing", method: "POST"
 }
+
+export const PublishSection = {
+  path: "manage-card-section-publish-status", method: "POST"
+}

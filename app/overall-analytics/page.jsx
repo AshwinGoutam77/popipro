@@ -28,11 +28,10 @@ import { Modal } from "react-bootstrap";
 const Charts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 const Page = () => {
   const { token, APIDATA, UserData } = useAuthContext();
-  console.log(UserData);
-
   const [Data, setData] = useState("");
   let d = new Date();
   const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -541,11 +540,6 @@ const Page = () => {
     return words.length > 50 ? words.slice(0, 50).join(" ") + "..." : text;
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return token ? (
     <>
       {ShowLoader ? (
@@ -557,6 +551,7 @@ const Page = () => {
         </h5>
       ) : (
         <>
+          <RedirectComponent />
           <SimpleBackdrop visible={ShowLoader} />
           <ToastContainer
             position="bottom-right"

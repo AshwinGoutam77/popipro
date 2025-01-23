@@ -682,7 +682,7 @@ function EditHeader({
           </div>
           <div className="header__base-info">
             <h4 className="title">{Data?.first_name || "Name"}</h4>
-            <div className="status">{Data?.card_profession || "Profession"}</div>
+            <div className="status">{Data?.card_profession || ""}</div>
           </div>
         </div>
         <div className="header__right">

@@ -8,65 +8,78 @@ const Events = ({ Titles, card, subscription }) => {
   return (
     <>
       {Titles?.card_services.source !== 0 &&
-      card?.card_services?.length !== 0 &&
-      Titles?.card_services.is_active !== 0 &&
-      Titles?.card_services?.in_subscription ? (
-        <div className="box-content boxxx" id="card_services">
-          {/* <!-- What --> */}
-          {Titles &&
-          Titles?.card_services.is_active &&
-          card?.card_services?.length !== 0 ? (
-            <div className="mt-0">
-              <h2 className="title title--h1 first-title title__separate">
-                Upcoming Events
-              </h2>
-              <div className="row events-section">
-                {/* <!-- Case Item --> */}
-                <SwiperComponent
-                  breakpoints={{
-                    1110: {
-                      slidesPerView:
-                        card?.card_services?.length == 1 ? "1" : "1",
-                    },
-                    768: {
-                      slidesPerView: 1,
-                    },
-                  }}
-                  spaceBetween={20}
-                  className="mySwiper w-100 pb-4 cursor-pointer services-swiper-slider"
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                >
-                  <SwiperSlide>
-                    {" "}
-                    <div className="case-item p-0 border-0">
-                      <div className="w-100">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/2024-04/270424033410AIM-Vienna-Event-Banner-1024x576.png"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="">
-                    {" "}
-                    <div className="case-item p-0 border-0">
-                      <div className="w-100">
-                        <img
-                          src="https://prafullgupta.com/connectwork/assets/chat/groups/2024-04/270424033844artificial-intelligence-and-metaverse-background-banner-showing-ai-technology-generative-ai-photo.jpg"
-                          alt=""
-                        />{" "}
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                </SwiperComponent>
+        card?.card_services?.length !== 0 &&
+        Titles?.card_services.is_active !== 0 ? (
+        <div className="box-content boxxx" id="card_events">
+          <div className="mt-0">
+            <h2 className="title title--h1 first-title title__separate">
+              Upcoming Events
+            </h2>
+            <div className="row events-section">
+              <div className="col-sm-6">
+                <img src="../static/img/picture-1.jpg" alt="banner" />
+                <div>
+                  <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
+                  <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
+                </div>
+                <div>
+                  <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
+                  <button className="contact-btn w-auto">Visit Event</button>
+                </div>
               </div>
+              <div className="col-sm-6">
+                <img src="../static/img/picture-1.jpg" alt="banner" />
+                <div>
+                  <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
+                  <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
+                </div>
+                <div>
+                  <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
+                  <button className="contact-btn w-auto">Visit Event</button>
+                </div>
+              </div>
+              {/* <SwiperComponent
+                breakpoints={{
+                  1110: {
+                    slidesPerView:
+                      card?.card_services?.length == 1 ? "1" : "1",
+                  },
+                  768: {
+                    slidesPerView: 1,
+                  },
+                }}
+                spaceBetween={20}
+                className="mySwiper w-100 pb-4 cursor-pointer services-swiper-slider"
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation]}
+              >
+                <SwiperSlide>
+                  {" "}
+                  <div className="case-item p-0 border-0">
+                    <div className="w-100">
+                      <img
+                        src="../static/img/picture-1.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className="">
+                  {" "}
+                  <div className="case-item p-0 border-0">
+                    <div className="w-100">
+                      <img
+                        src="../static/img/picture-1.jpg"
+                        alt=""
+                      />{" "}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              </SwiperComponent> */}
             </div>
-          ) : (
-            ""
-          )}
+          </div>
         </div>
       ) : (
         ""

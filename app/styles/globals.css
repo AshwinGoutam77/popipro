@@ -950,6 +950,12 @@ input.date-time-input::-webkit-date-and-time-value {
   color: #000 !important;
 }
 
+.review-item .badge{
+  background-color: var(--color);
+  color: var(--text-color);
+  font-size: 12px !important;
+}
+
 .filter-active {
   border: 1px solid transparent;
 }

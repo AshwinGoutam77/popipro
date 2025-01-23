@@ -23,6 +23,7 @@ import EmbedPost from "@components/ViewPages/EmbedPost";
 import Realestate from "@components/ViewPages/Realestate";
 import Video from "@components/ViewPages/Video";
 import Documents from "@components/ViewPages/Documents";
+import Events from "@components/ViewPages/Events";
 
 export default async function Main({ profile, data, id, referer, fetchData }) {
   let card = data?.data?.card || {};
@@ -111,6 +112,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   CardLinks={card?.card_social_links}
                                   profile={profile}
                                 />
+                                <Events />
                                 {MainData?.company_setting?.show_insta_feed ==
                                   1 &&
                                   <EmbedPost

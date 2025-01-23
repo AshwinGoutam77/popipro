@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { AuthContext, useAuthContext } from "@context/AuthContext";
+import RedirectComponent from "@app/RedirectComponent/page";
 
 const grid = 8;
 
@@ -141,13 +142,9 @@ const Order = () => {
     }
   };
 
-  if (UserData?.plan?.is_expired == true) {
-    window.location.href = '/'
-    return
-  }
-
   return (
     <>
+      <RedirectComponent />
       <div
         className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white"
         style={{ height: "calc(100vh - 0px)" }}
