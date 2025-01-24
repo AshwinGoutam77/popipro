@@ -623,6 +623,30 @@ select:focus,
   flex-direction: column;
   align-items: start;
   gap: 8px;
+  position: relative;
+}
+
+.events-section span {
+  color: var(--color);
+  font-weight: 600;
+}
+
+.events-section .events-tags-div {
+  position: absolute;
+  right: 35px;
+  top: 0;
+  background: var(--color);
+  padding: 13px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+  & span {
+    color: white;
+  }
 }
 
 @media (max-width: 767px) {

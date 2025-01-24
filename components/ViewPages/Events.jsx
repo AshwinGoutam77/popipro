@@ -17,10 +17,13 @@ const Events = ({ Titles, card, subscription }) => {
             </h2>
             <div className="row events-section">
               <div className="col-sm-6">
+                <div className="events-tags-div">
+                  <p>23 Jan <span className="d-block">2025</span></p>
+                </div>
                 <img src="../static/img/picture-1.jpg" alt="banner" />
                 <div>
                   <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
-                  <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
+                  <span>1:00 pm | Albert Hall, Jaipur</span>
                 </div>
                 <div>
                   <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
@@ -28,10 +31,13 @@ const Events = ({ Titles, card, subscription }) => {
                 </div>
               </div>
               <div className="col-sm-6">
+                <div className="events-tags-div">
+                  <p>23 Jan <span className="d-block">2025</span></p>
+                </div>
                 <img src="../static/img/picture-1.jpg" alt="banner" />
                 <div>
                   <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
-                  <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
+                  <span>1:00 pm | Albert Hall, Jaipur</span>
                 </div>
                 <div>
                   <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
