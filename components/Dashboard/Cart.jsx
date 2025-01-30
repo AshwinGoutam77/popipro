@@ -41,7 +41,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
     payment_method: "cod",
   });
 
-  const handleRemoveCartItem = (id) => {
+  const handleRemoveCartItem = (id, event) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -52,17 +52,19 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
       confirmButtonText: "Yes, remove it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        event.preventDefault();
         removeFromCart(id);
       }
     });
   };
 
   const handleIncrement = (id, event) => {
-    event.preventDefault(); // Prevents form submission
+    event.preventDefault();
     incrementQuantity(id);
   };
 
-  const handleDecrement = (id) => {
+  const handleDecrement = (id, event) => {
+    event.preventDefault();
     decrementQuantity(id);
   };
 
@@ -186,7 +188,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                           <div className="d-flex align-items-center justify-content-between mt-2">
                             <p
                               className="cursor-pointer"
-                              onClick={() => handleRemoveCartItem(item?.id)}
+                              onClick={(e) => handleRemoveCartItem(item?.id, e)}
                             >
                               <FontAwesomeIcon icon={faTrash} className="" />{" "}
                               Remove
@@ -201,7 +203,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                                 }
                                 width={20}
                                 style={{ fontSize: "25px" }}
-                                onClick={() => handleDecrement(item?.id)}
+                                onClick={(e) => handleDecrement(item?.id, e)}
                               />
                               <p className="mx-2 font-weight-bold color-black">
                                 {item?.quantity}
