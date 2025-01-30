@@ -57,7 +57,8 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
     });
   };
 
-  const handleIncrement = (id) => {
+  const handleIncrement = (id, event) => {
+    event.preventDefault(); // Prevents form submission
     incrementQuantity(id);
   };
 
@@ -210,7 +211,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                                 className="VarColor cursor-pointer"
                                 width={20}
                                 style={{ fontSize: "25px" }}
-                                onClick={() => handleIncrement(item?.id)}
+                                onClick={(e) => handleIncrement(item?.id, e)}
                               />{" "}
                             </div>
                           </div>

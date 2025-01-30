@@ -46,6 +46,7 @@ const Page = () => {
   const [ErrorDataMessage, setErrorDataMessage] = useState("");
   const [ShowLoader, setShowLoader] = useState(false);
   const [AddMoreBlogs, setAddMoreBlogs] = useState([1]);
+  const [AddEvents, setAddEvents] = useState([1])
   const [AddMoreProduct, setAddMoreProduct] = useState([1]);
   const [RealEstateData, setRealEstateData] = useState([1]);
   const [AddMoreVedios, setAddMoreVedios] = useState([1]);
@@ -61,6 +62,7 @@ const Page = () => {
         setShowLoader(false);
         setCardData(response?.data?.data);
         setAddMoreBlogs(response.data.data.card.card_blogs);
+        setAddEvents(response.data.data.card.card_events);
         setAddMoreProduct(response.data.data.card.card_products);
         setAddMoreVedios(response.data.data.card.card_videos);
         setRealEstateData(response.data.data.card.card_realestates);
@@ -89,7 +91,7 @@ const Page = () => {
           style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
         >
           <img
-            src="https://prafullgupta.com/connectwork/assets/chat/groups/290324125550undraw_access_denied_re_awnf.svg"
+            src="https://toolapi.devwings.com/assets/chat/groups/290324125550undraw_access_denied_re_awnf.svg"
             alt="error"
             width={300}
           />
@@ -163,6 +165,10 @@ const Page = () => {
                     TitleData={cardData?.titles}
                     PlanData={cardData?.plan}
                     APIDATA={getProfileData}
+                    card_url={card_url}
+                    PaginationData={cardData?.pagination_data}
+                    AddEvents={AddEvents}
+                    setAddEvents={setAddEvents}
                   />
                   <EditLinks
                     Data={cardData?.card}
@@ -209,6 +215,7 @@ const Page = () => {
                     CardServices={cardData?.card?.card_services}
                     APIDATA={getProfileData}
                     PlanData={cardData?.plan}
+                    card_url={profile}
                   />
                   <EditTestimonials
                     Data={cardData?.card}

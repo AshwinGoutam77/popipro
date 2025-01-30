@@ -112,7 +112,6 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   CardLinks={card?.card_social_links}
                                   profile={profile}
                                 />
-                                <Events />
                                 {MainData?.company_setting?.show_insta_feed ==
                                   1 &&
                                   <EmbedPost
@@ -141,6 +140,12 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                               : items?.status == "card_services" ? (
                                 <Services
                                   subscription={plan}
+                                  card={card}
+                                  Titles={titles}
+                                  profile={profile}
+                                />
+                              ) : items?.status == "card_events" ? (
+                                <Events
                                   card={card}
                                   Titles={titles}
                                   profile={profile}

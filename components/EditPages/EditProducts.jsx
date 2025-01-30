@@ -1813,7 +1813,7 @@ export default function EditProducts({
                                 >
                                   {items.name}
                                 </p>
-                                <p className="badge">{items?.status == 0 ? "Draft" : "Published"}</p>
+                                <p className="badge">{items?.status == 0 ? "Draft" : items?.status == 2 ? "Unpublished" : "Published"}</p>
                               </div>
                               <p
                                 id="p_wrap"
@@ -1959,9 +1959,9 @@ export default function EditProducts({
                               </button>
                               <button
                                 className="send-btnn m-0"
-                                onClick={() => handleDraft({ card_url: card, status: items?.status == 1 ? 0 : 1, product_id: items.id, APIDATA, item_name: items?.name })}
+                                onClick={() => handleDraft({ card_url: card, status: items?.status == 0 ? 1 : items?.status == 2 ? 1 : "2", product_id: items.id, APIDATA, item_name: items?.name, card_section: "card_products" })}
                               >
-                                {items?.status == 1 ? "Draft" : "Publish"}
+                                {items?.status == 0 || items?.status == 2 ? "Publish it" : items?.status == 1 ? "Unpublished" : ""}
                               </button>
                               <button
                                 className="delete-button m-0"

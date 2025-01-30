@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import EditDropdown from './Dropdown';
-import { CardData, deleteFiles, deleteSection } from '@services/Routes';
+import { CardData, deleteFiles, deleteSection, LoadMoreApi } from '@services/Routes';
 import Api from '@services/Api';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCircleXmark, faFloppyDisk, faPencil, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import { handleActive } from './EditFunctions';
+import { handleActive, handleDraft } from './EditFunctions';
 import { Modal } from 'react-bootstrap';
 import { showToast } from '@components/Dashboard/Toast';
 import EditPlan from './EditPlan';
 
-export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanData }) {
+export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanData, card_url,
+    PaginationData, AddEvents, setAddEvents }) {
     const [EditFields, setEditFields] = useState(false);
     const [Active, setActive] = useState("");
     const [EventTitle, setEventTitle] = useState("");
@@ -21,15 +22,41 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
     const handleEditClose = () => setShowEdit(false);
     const handleShow = () => setShow(true);
     const [ShowLoader, setShowLoader] = useState(false);
-    const [DocTitle, setDocTitle] = useState("")
-    const [File, setFile] = useState("")
+    const [LoadMoreData, setLoadMoreData] = useState("");
+    const [formData, setFormData] = useState({
+        banner: null,
+        name: "",
+        date: "",
+        time: "",
+        location: "",
+        venue: "",
+        description: "",
+        saved_events: ""
+    });
+    const [Page, setPage] = useState(2);
+
+    const handleChange = (e) => {
+        const { name, value, files } = e.target;
+
+        if (files) {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: files[0],
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
+    };
 
     useEffect(() => {
-        setActive(TitleData?.card_documents?.is_active == "1" ? true : false);
+        setActive(TitleData?.card_events?.is_active == "1" ? true : false);
     }, [TitleData]);
 
     useEffect(() => {
-        setEventTitle(TitleData?.card_documents?.visible_name);
+        setEventTitle(TitleData?.card_events?.visible_name);
     }, []);
 
     const handleChnageTitle = async () => {
@@ -40,7 +67,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
         setShowLoader(true);
         const titles = [
             {
-                name: "card_documents",
+                name: "card_events",
                 visible_name: EventTitle,
             },
         ];
@@ -50,16 +77,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
             if (response.data.status) {
                 setShowLoader(false);
                 APIDATA();
-                toast.success(response.data.message, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                showToast(response.data.message, 'success')
                 setEditFields(false);
             }
         } catch (error) {
@@ -68,16 +86,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                 window.location.href = "/login";
             }
             setShowLoader(false);
-            toast.error(error.response.data.message, {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            showToast(error.response.data.message, 'error')
         }
     };
 
@@ -93,36 +102,54 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
         });
     };
 
-    const handleSaveDetails = async () => {
-        let data = {
-            title: DocTitle,
-            document: File,
-        };
-        const fileSizeLimit = 10 * 1024 * 1024;
-        if (File.size > fileSizeLimit) {
-            showToast("File size cannot exceed 10 MB.", "error");
-        } else if (DocTitle == "") { showToast("title is requried", "error") }
-        else if (File == "") { showToast("Document is requried", "error") }
-        else if (File && DocTitle) {
+    const handleSave = async () => {
+        const requiredFields = [
+            // { value: formData.banner, message: "Image is required." },
+            { value: formData.name?.trim(), message: "Heading is required." },
+            { value: formData.date, message: "Date is required." },
+            { value: formData.description, message: "Description is required." },
+            { value: formData.time, message: "Time is required." },
             {
-                try {
-                    const response = await Api(CardData, { documents: [data] });
-                    if (response?.data?.status) {
-                        showToast(response?.data?.message, "success");
-                        setDocTitle("")
-                        setFile([])
-                        handleClose();
-                        APIDATA()
-                    } else {
-                        showToast(response?.data?.message || "An error occurred. Please try again.", "error");
-                    }
-                } catch (error) {
-                    console.error("API Error:", error);
-                    showToast("Something went wrong. Please try again later.", "error");
-                }
-            }
+                value: formData.location?.trim(),
+                message: "Please enter a valid URL.",
+                isValid: (value) => /^https?:\/\/[^\s$.?#].[^\s]*$/.test(value)
+            },
+        ];
+
+        const missingField = requiredFields.find(
+            (field) =>
+                !field.value || (field.isValid && !field.isValid(field.value))
+        );
+
+        if (missingField) {
+            showToast(missingField.message, "error");
+            return;
         }
-    }
+
+        try {
+            const response = await Api(CardData, { events: [formData] });
+            if (response?.data?.status) {
+                showToast(response?.data?.message, "success");
+                setPage(2);
+                setFormData({
+                    banner: null,
+                    name: "",
+                    date: "",
+                    time: "",
+                    location: "",
+                    venue: "",
+                    description: "",
+                    saved_events: ""
+                });
+                handleClose();
+                APIDATA();
+            } else {
+                showToast(response?.data?.message, "error");
+            }
+        } catch (err) {
+            showToast("Something went wrong. Please try again later.", "error");
+        }
+    };
 
     const handleDelete = async (id, type, DataId) => {
         let data = {
@@ -143,10 +170,41 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                 const response = await Api(deleteSection, data);
                 if (response.data.status) {
                     Swal.fire("Deleted!", "", "success");
+                    setPage(2);
                     APIDATA();
                 }
             }
         });
+    };
+
+    const handleEditData = (items) => {
+        setShow(true)
+        setFormData({
+            banner: null,
+            name: items?.name,
+            date: items?.date,
+            time: items?.event_time,
+            location: items?.location,
+            venue: items?.venue,
+            description: items?.description,
+            saved_events: items?.id
+        });
+    }
+
+    const LoadMoreFunction = async () => {
+        const response = await Api(
+            LoadMoreApi,
+            {},
+            "?card_url=" + card_url + "&type=card_events" + "&current_page=" + Page + "&is_edit=true"
+        );
+        if (response.data.status) {
+            setLoadMoreData(response?.data?.data?.next_page_data?.next_page_url);
+            setAddEvents((prevData) => [
+                ...prevData,
+                ...response?.data?.data?.next_page_data?.data,
+            ]);
+            setPage((prevPage) => prevPage + 1);
+        }
     };
 
     return (
@@ -154,13 +212,13 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header>
                     <Modal.Title>
-                        <h5 class="title title--h1 first-title title__separate mb-1 mb-0">
+                        <h5 className="title title--h1 first-title title__separate mb-1 mb-0">
                             Add Upcoming Events
                         </h5>
                     </Modal.Title>
-                    <button type="button" class="close" onClick={handleClose}>
+                    <button type="button" className="close" onClick={handleClose}>
                         <span aria-hidden="true">×</span>
-                        <span class="sr-only">Close alert</span>
+                        <span className="sr-only">Close alert</span>
                     </button>
                 </Modal.Header>
                 <Modal.Body>
@@ -170,50 +228,81 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                             type="file"
                             className="form-control mb-4 mt-1"
                             accept=".png, .jpg, .jpeg"
-                            value={DocTitle}
-                            onChange={(e) => setDocTitle(e.target.value)}
-                        ></input>
+                            name="banner"
+                            onChange={handleChange}
+                        />
+
                         <label className="modalFormLable">Heading</label>
                         <input
                             type="text"
-                            placeholder='Enter Your Event Heading'
+                            placeholder="Enter Your Event Heading"
                             className="form-control mb-4 mt-1"
-                            onChange={(e) => setFile(e.target.files[0])}
-                        ></input>
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
 
-                        <div className='d-flex align-items-center justify-content-between gap-4 mb-2'>
-                            <div className='w-100'>
+                        <div className="d-flex align-items-center justify-content-between gap-4 mb-2">
+                            <div className="w-100">
                                 <label className="modalFormLable">Date</label>
                                 <input
                                     type="date"
-                                    placeholder='Enter Your Event Heading'
                                     className="form-control mb-2 mt-1"
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                ></input>
+                                    name="date"
+                                    value={formData.date}
+                                    onChange={handleChange}
+                                />
                             </div>
 
-                            <div className='w-100'>
+                            <div className="w-100">
                                 <label className="modalFormLable">Time</label>
                                 <input
                                     type="time"
-                                    placeholder='Enter Your Event Heading'
                                     className="form-control mb-2 mt-1"
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                ></input>
+                                    name="time"
+                                    value={formData.time}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </div>
 
-                        <label className="modalFormLable">Google Address</label>
-                        <input
-                            type="url"
-                            placeholder='Enter Your Event Location'
+                        <div className='d-flex align-items-center justify-content-between gap-4 mb-2'>
+                            <div>
+                                <label className="modalFormLable">Venue</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Your Event Venue"
+                                    className="form-control mb-2 mt-1"
+                                    name="venue"
+                                    value={formData.venue}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div>
+                                <label className="modalFormLable">Google Address</label>
+                                <input
+                                    type="url"
+                                    placeholder="Enter Your Event Location"
+                                    className="form-control mb-2 mt-1"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+
+                        <label className="modalFormLable">Description</label>
+                        <textarea
+                            placeholder="Enter Your Event Description"
                             className="form-control mb-2 mt-1"
-                            onChange={(e) => setFile(e.target.files[0])}
-                        ></input>
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     <div className="d-flex align-items-center" style={{ gap: "10px" }}>
-                        <button className="send-btnn" onClick={() => handleSaveDetails()}>
+                        <button className="send-btnn" onClick={handleSave}>
                             Save
                         </button>
                         <button className="delete-button m-0" onClick={handleClose}>
@@ -229,7 +318,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                         PlanData={PlanData}
                         APIDATA={APIDATA}
                         MainData={MainData}
-                        in_subscription={TitleData?.card_documents?.in_subscription}
+                        in_subscription={TitleData?.card_events?.in_subscription}
                     />
                 ) : (
                     ""
@@ -255,8 +344,8 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                             )}
                         </div>
                         <div>
-                            {TitleData?.card_documents?.source == "2" &&
-                                TitleData?.card_documents?.in_subscription ? (
+                            {TitleData?.card_events?.source == "2" &&
+                                TitleData?.card_events?.in_subscription ? (
                                 <>
                                     <div className="web-edit-icons">
                                         <div className="d-flex align-items-center">
@@ -312,7 +401,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                                                             data-active={Active}
                                                             checked={Active}
                                                             type="checkbox"
-                                                            onChange={() => handleActive({ section_name: "card_documents", Visible_name: EventTitle, Active, setActive })}
+                                                            onChange={() => handleActive({ section_name: "card_events", Visible_name: EventTitle, Active, setActive })}
                                                         />
                                                         <span className="slider round"></span>
                                                     </label>
@@ -338,7 +427,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                                                 setEditFields={setEditFields}
                                                 AddTitle={
                                                     "Add " +
-                                                    TitleData?.card_documents?.visible_name
+                                                    TitleData?.card_events?.visible_name
                                                 }
                                                 handleShowAddModal={handleShow}
                                                 setTooltipIsOpen={setTooltipIsOpen}
@@ -355,35 +444,54 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                     </div>
 
                     <div className="row events-section">
-                        <div className="col-sm-6">
-                            <img src="../static/img/picture-1.jpg" alt="banner" />
-                            <div>
-                                <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
-                                <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
-                            </div>
-                            <div>
-                                <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
-                                <div className='d-flex align-items-center gap-2 mt-4'>
-                                    <button className="contact-btn w-auto m-0" onClick={() => setShow(true)}>Edit</button>
-                                    <button className="delete-button w-auto m-0">Delete</button>
+
+                        {AddEvents && AddEvents?.map((items, index) => {
+                            return (
+                                <div className="col-sm-6" key={index}>
+                                    <div className="events-tags-div">
+                                        <p>{items?.date}</p>
+                                    </div>
+                                    <img src={items?.banner?.path ? MainData?.card?.base_url + items?.banner?.path : "../static/img/picture-1.jpg"} alt="banner" />
+                                    <div>
+                                        <h3 class="title title--h4 mt-2 m-0">{items?.name}</h3>
+                                        <span> {items?.event_time && items?.event_time + " |"} {items?.venue}</span>
+                                    </div>
+                                    <div>
+                                        <p>{items?.description}</p>
+                                        <div className='d-flex align-items-center gap-2 mt-4'>
+                                            <button className="contact-btn w-auto m-0" onClick={() => handleEditData(items)}>Edit</button>
+                                            <button
+                                                className="send-btnn m-0"
+                                                onClick={() => handleDraft({ card_url: card_url, status: items?.status == 0 ? 1 : items?.status == 2 ? 1 : "2", product_id: items.id, APIDATA, item_name: items?.name, card_section: "card_events" })}
+                                            >
+                                                {items?.status == 0 || items?.status == 2 ? "Publish it" : items?.status == 1 ? "Unpublished" : ""}
+                                            </button>
+                                            <button className="delete-button w-auto m-0" onClick={() => handleDelete(items.id, 13, Data?.id)}>Delete</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-6">
-                            <img src="../static/img/picture-1.jpg" alt="banner" />
-                            <div>
-                                <h3 class="title title--h4 mt-2 m-0">UpComing Event in Jaipur</h3>
-                                <span>23 Jan, 2025 | 1:00 pm | Albert Hall, Jaipur</span>
-                            </div>
-                            <div>
-                                <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.</p>
-                                <div className='d-flex align-items-center gap-2 mt-4'>
-                                    <button className="contact-btn w-auto m-0" onClick={() => setShow(true)}>Edit</button>
-                                    <button className="delete-button w-auto m-0">Delete</button>
-                                </div>
-                            </div>
-                        </div>
+                            )
+                        })}
                     </div>
+
+
+                    {PaginationData?.total_card_events !== AddEvents?.length ? (
+                        <div className="mx-auto text-center mt-4">
+                            <a
+                                className="text-center cursor-pointer mx-auto"
+                                style={{
+                                    textDecoration: "underline",
+                                    fontSize: "16px",
+                                    color: "var(--color)",
+                                }}
+                                onClick={LoadMoreFunction}
+                            >
+                                Load More
+                            </a>
+                        </div>
+                    ) : (
+                        ""
+                    )}
                 </div>
             </div>
         </>

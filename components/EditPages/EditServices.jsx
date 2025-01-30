@@ -35,6 +35,7 @@ import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
 import ChatbotApp from "./Chat";
+import { handleDraft } from "./EditFunctions";
 
 export default function EditDoing({
   TitleData,
@@ -46,6 +47,7 @@ export default function EditDoing({
   MainData,
   PlanData,
   token,
+  card_url
 }) {
   const [WhatIm, setWhatIm] = useState(false);
   const [Active, setActive] = useState(false);
@@ -88,7 +90,7 @@ export default function EditDoing({
     setShowshowChatModal(false)
   };
 
-  const handleEditWhat = async (id = null) => {
+  const handleEditServices = async (id = null, status) => {
     setShowLoader(true);
     let data = [];
     let error = false;
@@ -98,22 +100,16 @@ export default function EditDoing({
       mess =
         ServicesName === "" ? "Heading is required" : "Description is required";
     } else {
-      id !== null
-        ? (data = [
-          {
-            services_image: Image,
-            services_name: ServicesName,
-            services_description: ServicesDescription,
-            saved_services: id,
-          },
-        ])
-        : (data = [
-          {
-            services_image: Image,
-            services_name: ServicesName,
-            services_description: ServicesDescription,
-          },
-        ]);
+      (data = [
+        {
+          services_image: Image,
+          services_name: ServicesName,
+          services_description: ServicesDescription,
+          status: status,
+          saved_services: id !== null ? id : "",
+        },
+      ])
+
     }
     if (error) {
       toast.error(mess, {
@@ -470,9 +466,17 @@ export default function EditDoing({
                 style={{ gap: "10px" }}
               >
                 {!ShowLoader ? (
-                  <button className="send-btnn" onClick={() => handleEditWhat()}>
-                    Save
-                  </button>
+                  <>
+                    <button className="send-btnn" onClick={() => handleEditServices(1)}>
+                      Save
+                    </button>
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleEditServices(0)}
+                    >
+                      Save and Draft
+                    </button>
+                  </>
                 ) : (
                   <button class="send-btnn" disabled>
                     <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
@@ -615,7 +619,7 @@ export default function EditDoing({
                           {!ShowLoader ? (
                             <button
                               className="send-btnn"
-                              onClick={() => handleEditWhat(items.id)}
+                              onClick={() => handleEditServices(items.id)}
                             >
                               Update
                             </button>
@@ -898,6 +902,12 @@ export default function EditDoing({
                                       }
                                     >
                                       Edit
+                                    </button>
+                                    <button
+                                      className="send-btnn m-0"
+                                      onClick={() => handleDraft({ card_url: card_url, status: item?.status == 0 ? 1 : item?.status == 2 ? 1 : "2", product_id: item.id, APIDATA, item_name: item?.name, card_section: "card_services" })}
+                                    >
+                                      {item?.status == 0 || item?.status == 2 ? "Publish it" : item?.status == 1 ? "Unpublished" : ""}
                                     </button>
                                     <button
                                       className="delete-button m-0"

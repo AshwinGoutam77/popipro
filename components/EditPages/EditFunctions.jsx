@@ -42,11 +42,11 @@ export const handleActive = async ({ section_name, Visible_name, Active, setActi
     });
 };
 
-export const handleDraft = async ({ card_url, status, product_id, APIDATA, item_name }) => {
+export const handleDraft = async ({ card_url, status, product_id, APIDATA, item_name, card_section }) => {
     let data = {
         card_id: card_url,
         status: status,
-        target_type: "card_products",
+        target_type: card_section,
         target_id: product_id
     }
     Swal.fire({

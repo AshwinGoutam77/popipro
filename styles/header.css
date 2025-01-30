@@ -187,13 +187,13 @@
 
   .edit-header {
     position: absolute;
-    right: -16px !important;
-    top: 0px;
+    right: 7px !important;
+    top: 25px;
     border-top-right-radius: 10px;
     background: transparent;
     color: white;
     border: none;
-    padding: 20px 20px;
+    padding: 0px;
   }
 
   .btn-mobile-divs {

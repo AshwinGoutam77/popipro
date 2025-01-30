@@ -1034,7 +1034,7 @@ button:focus {
 }
 
 .nav__item span:hover span {
-  background-color: var(--color);
+  background-color: transparent;
   transition: 0.4s;
 }
 
