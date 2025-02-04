@@ -950,7 +950,7 @@ input.date-time-input::-webkit-date-and-time-value {
   color: #000 !important;
 }
 
-.review-item .badge{
+.review-item .badge {
   background-color: var(--color);
   color: var(--text-color);
   font-size: 12px !important;
@@ -960,9 +960,14 @@ input.date-time-input::-webkit-date-and-time-value {
   border: 1px solid transparent;
 }
 
-.filter-btns-active {
+button.filter-btns.bg-varcolor {
+
+  color: var(--text-color) !important;
+}
+
+button.filter-btns-active {
   background-color: var(--color);
-  color: white;
+  color: var(--text-color) !important;
   border: 1px solid transparent;
   padding: 6px 19px;
   font-weight: 600;
@@ -972,7 +977,7 @@ input.date-time-input::-webkit-date-and-time-value {
 
 .filter-btns:hover {
   background-color: var(--color);
-  color: white;
+  color: var(--text-color) !important;
   transition: 0.3s;
   border: 1px solid transparent;
 }

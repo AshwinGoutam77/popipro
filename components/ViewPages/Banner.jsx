@@ -377,8 +377,6 @@ const Banner = ({
     </div>
   );
 
-  console.log("[[", card.card_header?.logo?.path);
-
 
   const renderContent = () => (
     <div className="pt-0 w-45">

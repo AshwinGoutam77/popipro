@@ -467,7 +467,7 @@ export default function EditDoing({
               >
                 {!ShowLoader ? (
                   <>
-                    <button className="send-btnn" onClick={() => handleEditServices(1)}>
+                    <button className="send-btnn" onClick={() => handleEditServices("", 1)}>
                       Save
                     </button>
                     <button

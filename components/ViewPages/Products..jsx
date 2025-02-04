@@ -711,7 +711,7 @@ export default function Product({
       />
 
       {Titles?.card_products?.is_active &&
-        Titles?.card_products?.in_subscription &&
+        Titles?.card_products?.in_subscription ?
         (isLocked ? (
           <LockedSection name="card_products" Title={Titles.card_products?.visible_name}
             profile={card_url} setIsLocked={setIsLocked} />)
@@ -1311,7 +1311,7 @@ export default function Product({
             )
           ) : (
             ""
-          ))}
+          )) : ""}
     </>
   );
 }
