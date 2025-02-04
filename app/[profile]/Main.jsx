@@ -39,8 +39,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
   let RealEstateData = data?.data?.card?.card_realestates;
   let is_onboarding = data?.data?.card?.is_onboarding;
   let Sqdata = data?.data?.sequence;
-
-
+  let EventsData = data?.data?.card?.card_events;
 
   if (profile == "happy-helathy-homes") {
     redirect("happy-healthy-homes");
@@ -149,6 +148,10 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   card={card}
                                   Titles={titles}
                                   profile={profile}
+                                  PaginationData={pagination_data}
+                                  MainData={MainData}
+                                  EventsData={EventsData}
+                                  card_url={profile}
                                 />
                               ) : items?.status == "card_testimonials" ? (
                                 <Testimonials

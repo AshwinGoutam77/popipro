@@ -1,7 +1,34 @@
 "use client";
+import Api from "@services/Api";
+import { LoadMoreApi } from "@services/Routes";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const Events = ({ Titles, card }) => {
+const Events = ({ Titles, card, PaginationData, card_url }) => {
+  const [EventsData, setEventsData] = useState();
+  const [LoadMoreData, setLoadMoreData] = useState("");
+
+  useEffect(() => {
+    setEventsData(card?.card_events);
+  }, []);
+
+  const [Page, setPage] = useState(2);
+
+  const LoadMoreFunction = async () => {
+    const response = await Api(
+      LoadMoreApi,
+      {},
+      "?card_url=" + card_url + "&type=card_events" + "&current_page=" + Page
+    );
+    if (response.data.status) {
+      setLoadMoreData(response?.data?.data?.next_page_data?.next_page_url);
+      setEventsData((prevData) => [
+        ...prevData,
+        ...response?.data?.data?.next_page_data?.data,
+      ]);
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
   return (
     <>
       {
@@ -14,7 +41,7 @@ const Events = ({ Titles, card }) => {
                 {Titles?.card_events?.visible_name}
               </h2>
               <div className="row events-section">
-                {card && card?.card_events?.map((items, index) => {
+                {EventsData && EventsData?.map((items, index) => {
                   return (
                     <div className="col-sm-6" key={index}>
                       <div className="events-tags-div">
@@ -34,6 +61,24 @@ const Events = ({ Titles, card }) => {
                     </div>
                   )
                 })}
+
+                {PaginationData?.total_card_events !== EventsData?.length ? (
+                  <div className="mx-auto text-center mt-4">
+                    <a
+                      className="text-center cursor-pointer mx-auto"
+                      style={{
+                        textDecoration: "underline",
+                        fontSize: "16px",
+                        color: "var(--color)",
+                      }}
+                      onClick={LoadMoreFunction}
+                    >
+                      Load More
+                    </a>
+                  </div>
+                ) : (
+                  ""
+                )}
 
               </div>
             </div>
