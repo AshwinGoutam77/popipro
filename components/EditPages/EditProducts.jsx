@@ -1110,7 +1110,7 @@ export default function EditProducts({
                   <>
                     <button
                       className="send-btnn"
-                      onClick={() => handleSaveProductDetail(1)}
+                      onClick={() => handleSaveProductDetail("", 1)}
                     >
                       Save and Publish
                     </button>
