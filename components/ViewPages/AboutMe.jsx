@@ -7,25 +7,19 @@ import LockedSection from "./LockedSection";
 
 const AboutMe = ({ card, Titles, profile }) => {
   const [isLocked, setIsLocked] = useState(Titles?.card_description?.is_locked !== 0);
-  const HandleReadmore = () => {
-    setReadmore(true);
-    if (Readmore) {
-      setReadmore(false);
-    }
-  };
 
-  const [charLimit, setCharLimit] = useState(480); // Default limit for web
+  const [charLimit, setCharLimit] = useState(480);
   const [Readmore, setReadmore] = useState(false);
 
   useEffect(() => {
     const updateCharLimit = () => {
-      setCharLimit(window.innerWidth <= 460 ? 180 : 480); // Mobile: 180, Web: 480
+      setCharLimit(window.innerWidth <= 460 ? 180 : 370); 
     };
 
-    updateCharLimit(); // Set initial value
-    window.addEventListener("resize", updateCharLimit); // Update on resize
+    updateCharLimit();
+    window.addEventListener("resize", updateCharLimit); 
 
-    return () => window.removeEventListener("resize", updateCharLimit); // Cleanup
+    return () => window.removeEventListener("resize", updateCharLimit); 
   }, []);
 
   const handleReadMore = () => {
