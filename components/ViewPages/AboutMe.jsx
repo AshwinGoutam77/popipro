@@ -6,14 +6,30 @@ import React, { useEffect, useState } from "react";
 import LockedSection from "./LockedSection";
 
 const AboutMe = ({ card, Titles, profile }) => {
-
-  const [Readmore, setReadmore] = useState(false);
   const [isLocked, setIsLocked] = useState(Titles?.card_description?.is_locked !== 0);
   const HandleReadmore = () => {
     setReadmore(true);
     if (Readmore) {
       setReadmore(false);
     }
+  };
+
+  const [charLimit, setCharLimit] = useState(480); // Default limit for web
+  const [Readmore, setReadmore] = useState(false);
+
+  useEffect(() => {
+    const updateCharLimit = () => {
+      setCharLimit(window.innerWidth <= 460 ? 180 : 480); // Mobile: 180, Web: 480
+    };
+
+    updateCharLimit(); // Set initial value
+    window.addEventListener("resize", updateCharLimit); // Update on resize
+
+    return () => window.removeEventListener("resize", updateCharLimit); // Cleanup
+  }, []);
+
+  const handleReadMore = () => {
+    setReadmore((prev) => !prev);
   };
 
   return (
@@ -44,19 +60,12 @@ const AboutMe = ({ card, Titles, profile }) => {
                       __html: card?.card_description,
                     }}
                   ></div>
-                  {card?.card_description?.length > "480" ||
-                    card?.card_description == null ? (
-                    <p
-                      className="read-more text-align-end"
-                      onClick={HandleReadmore}
-                    >
+                  {card?.card_description?.length > charLimit || card?.card_description == null ? (
+                    <p className="read-more text-align-end" onClick={handleReadMore}>
                       {Readmore ? (
                         <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-2" />
                       ) : (
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="mr-2 mt-2"
-                        />
+                        <FontAwesomeIcon icon={faArrowRight} className="mr-2 mt-2" />
                       )}
                     </p>
                   ) : (
