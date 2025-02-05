@@ -2450,7 +2450,7 @@ td {
 }
 
 .document-div {
-  background: aliceblue;
+  background: var(--themecolor);
   padding: 20px;
   border-radius: 16px;
   display: flex;
