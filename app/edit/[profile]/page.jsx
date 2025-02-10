@@ -51,6 +51,7 @@ const Page = () => {
   const [RealEstateData, setRealEstateData] = useState([1]);
   const [AddMoreVedios, setAddMoreVedios] = useState([1]);
   const pathname = usePathname();
+
   let card_url = pathname.split("/").pop();
 
   const getProfileData = async () => {
@@ -110,7 +111,7 @@ const Page = () => {
   }
   return token ? (
     <>
-      <ToastContainer
+      {pathname && pathname.includes(pathname.split("/")[1]) && <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -121,7 +122,7 @@ const Page = () => {
         draggable
         pauseOnHover
         theme="light"
-      />
+      />}
       {cardData ? (
         <>
           <EditBanner
