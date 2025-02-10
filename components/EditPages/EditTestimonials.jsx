@@ -275,8 +275,8 @@ export default function EditTestimonials({
   const HandleEmptyFeilds = () => {
     // aRef.current.value = null;
     setImage("");
-    setServicesName(" ");
-    setServicesDescription(" ");
+    setServicesName("");
+    setServicesDescription("");
     setCompanyName("");
   };
   const handleCanclebtn = () => {
@@ -442,8 +442,6 @@ export default function EditTestimonials({
                 <label className="modalFormLable">Heading*</label>
                 <input
                   name="name"
-                  rows="4"
-                  cols="50"
                   className="form-control mb-4 mt-1"
                   value={ServicesName || ""}
                   placeholder="Heading"

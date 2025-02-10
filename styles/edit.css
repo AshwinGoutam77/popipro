@@ -395,6 +395,9 @@ label {
   color: var(--color) !important;
   right: 0px;
   top: 0px;
+  border: 1px solid black;
+  border-radius: 100px;
+  background: white;
 }
 
 .delete-icon3 {

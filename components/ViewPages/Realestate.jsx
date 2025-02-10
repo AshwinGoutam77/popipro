@@ -1127,7 +1127,7 @@ export default function Realestate({
                                 >
                                   <img
                                     src="../static/img/whatsapp.png"
-                                    alt="whatsaap"
+                                    alt="whatsapp"
                                     className="Whatsaapsvg"
                                   />
                                 </a>

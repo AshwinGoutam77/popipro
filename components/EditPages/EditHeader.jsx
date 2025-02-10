@@ -27,6 +27,7 @@ import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import SimpleBackdrop from "@components/ViewPages/SimpleBackDrop";
 import LoadingText from "@components/ViewPages/LoadingText";
+import { showToast } from "@components/Dashboard/Toast";
 
 function EditHeader({
   Data,
@@ -91,105 +92,79 @@ function EditHeader({
     }
   };
 
+  const [errors, setErrors] = useState({});
+
+  const validateFields = () => {
+    let newErrors = {};
+
+    if (!FirstName) newErrors.first_name = "First name is required";
+    if (!LastName) newErrors.last_name = "Last name is required";
+    if (!Email) newErrors.email = "Email is required";
+    if (!Profession) newErrors.profession = "Profession is required";
+    if (!Phone) newErrors.phone = "Phone number is required";
+    if (!CountryCode) newErrors.contact_country_code = "Country code is required";
+    if (!Address) newErrors.address = "Address is required";
+    // if (!WebUrl) newErrors.website = "Website URL is required";
+    // if (ShowCropper && !cropDataImage) newErrors.image = "Please upload an image";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      // Convert errors to a single message
+      const errorMessage = Object.values(newErrors).join("\n");
+      showToast(errorMessage, "error");
+      return false;
+    }
+
+    return true;
+  };
+
   const getBlobData = async () => {
-    if (ShowCropper) {
-      let info = {
-        first_name: FirstName,
-        last_name: LastName,
-        email: TitleData.card_email?.source == 1 ? "" : Email,
-        profession: Profession,
-        phone: Phone,
-        contact_country_code: CountryCode,
-        address: Address,
-        image: cropDataImage.replace("data:image/png;base64,", ""),
-        color_code: ColorCode,
-        website: WebUrl,
-        google_review_url: GoogleReview,
-        whatsapp_number: WhatsaapNumber,
-        whatsapp_country_code: Whatsapp_code,
-        trustpilot_url: TrustPilot,
-      };
-      setShowLoader(true);
-      try {
-        const response = await Api(CardData, info);
-        setShowLoader(false);
-        if (response.data?.status) {
-          setShowCropper(false);
-          APIDATA();
-          setTime(new Date().getTime() / 1000);
-          setImage([]);
-          handleClose();
-          setShow(true);
-          if (Show) {
-            setShow(false);
-          }
-        }
-      } catch (error) {
-        setShowLoader(false);
-        if (error.request.status == "401") {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
-        }
-        toast(error.response.data.message, {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } else {
-      let info = {
-        first_name: FirstName,
-        last_name: LastName,
-        email: TitleData.card_email?.source == 1 ? "" : Email,
-        profession: Profession,
-        phone: Phone,
-        contact_country_code: CountryCode,
-        contact_extension: Extension,
-        address: Address,
-        image: "",
-        color_code: ColorCode,
-        website: WebUrl,
-        google_review_url: GoogleReview,
-        whatsapp_number: WhatsaapNumber,
-        whatsapp_country_code: Whatsapp_code,
-        trustpilot_url: TrustPilot,
-      };
-      setShowLoader(true);
-      try {
-        const response = await Api(CardData, info);
-        setShowLoader(true);
-        if (response.data?.status) {
-          APIDATA();
-          setTime(new Date().getTime() / 1000);
-          handleClose();
-          setShow(true);
-          if (Show) {
-            setShow(false);
-          }
-        }
-      } catch (error) {
-        setShowLoader(false);
-        if (error.request.status == "401") {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
-        }
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+    if (!validateFields()) return; // Stop execution if validation fails
+
+    let info = {
+      first_name: FirstName,
+      last_name: LastName,
+      email: TitleData.card_email?.source == 1 ? "" : Email,
+      profession: Profession,
+      phone: Phone,
+      contact_country_code: CountryCode,
+      address: Address,
+      image: ShowCropper ? cropDataImage.replace("data:image/png;base64,", "") : "",
+      color_code: ColorCode,
+      website: WebUrl,
+      google_review_url: GoogleReview,
+      whatsapp_number: WhatsaapNumber,
+      whatsapp_country_code: Whatsapp_code,
+      trustpilot_url: TrustPilot,
+    };
+
+    if (!ShowCropper) {
+      info.contact_extension = Extension;
+    }
+
+    setShowLoader(true);
+    try {
+      const response = await Api(CardData, info);
       setShowLoader(false);
+      if (response.data?.status) {
+        setShowCropper(false);
+        APIDATA();
+        setTime(new Date().getTime() / 1000);
+        setImage([]);
+        handleClose();
+        setShow(true);
+        if (Show) {
+          setShow(false);
+        }
+      }
+    } catch (error) {
+      setShowLoader(false);
+      if (error.request?.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+      showToast(error.response?.data?.message || "Something went wrong!", "error");
     }
   };
 

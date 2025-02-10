@@ -543,7 +543,7 @@ export default function Product({
                         ) : (
                           ""
                         )}
-                        {MainData?.company_setting?.show_product_wp_button ==
+                        {MainData?.company_setting?.show_product_wp_button !==
                           0 ? (
                           <a
                             href={
@@ -562,7 +562,7 @@ export default function Product({
                           >
                             <img
                               src="./static/img/whatsapp.png"
-                              alt="whatsaap"
+                              alt="whatsapp"
                               className="w-23px margin-b-1"
                             />
                             Quick Connect
@@ -570,7 +570,7 @@ export default function Product({
                         ) : (
                           ""
                         )}
-                        {item?.payment_link !==
+                        {/* {item?.payment_link !==
                           null ? (
                           <a
                             href={item?.payment_link}
@@ -580,14 +580,14 @@ export default function Product({
                           >
                             <img
                               src="./static/img/pay-icon.png"
-                              alt="whatsaap"
+                              alt="whatsapp"
                               className="w-23px margin-b-1 mr-2"
                             />
                             Pay Now
                           </a>
                         ) : (
                           ""
-                        )}
+                        )} */}
                       </div>
                     </div>
                   ) : (
@@ -1054,7 +1054,7 @@ export default function Product({
                                             />
                                             <img
                                               src="./static/img/whatsapp.png"
-                                              alt="whatsaap"
+                                              alt="whatsapp"
                                               className="Whatsaapsvg"
                                             />
                                           </picture>
@@ -1225,7 +1225,7 @@ export default function Product({
                                             />
                                             <img
                                               src="./static/img/whatsapp.png"
-                                              alt="whatsaap"
+                                              alt="whatsapp"
                                               className="Whatsaapsvg"
                                             />
                                           </picture>

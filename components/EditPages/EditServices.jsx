@@ -61,9 +61,14 @@ export default function EditDoing({
   const [Doing, setDoing] = useState("");
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false)
+    setAiLoader(false)
+  }
   const handleEditClose = () => setShowEdit(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  }
   const handleEditShow = () => setShowEdit(true);
   const [modalShow, setModalShow] = useState("");
   const [showChatModal, setShowshowChatModal] = useState(false);
@@ -92,6 +97,7 @@ export default function EditDoing({
 
   const handleEditServices = async (id = null, status) => {
     setShowLoader(true);
+    setAiLoader(false)
     let data = [];
     let error = false;
     let mess = "";

@@ -1901,7 +1901,7 @@ export default function EditRealEstate({
                               >
                                 <img
                                   src="../static/img/whatsapp.png"
-                                  alt="whatsaap"
+                                  alt="whatsapp"
                                   className="Whatsaapsvg"
                                 />
                               </a>
@@ -2003,7 +2003,7 @@ export default function EditRealEstate({
               <div className="d-flex align-items-start">
                 <input
                   type="checkbox"
-                  id="real-estate-whatsaap"
+                  id="real-estate-whatsapp"
                   className="mt-1"
                   value={
                     MainData?.company_setting?.show_realestate_wp_button !== 0
@@ -2018,10 +2018,10 @@ export default function EditRealEstate({
                   }
                 />
                 <label
-                  for="real-estate-whatsaap"
+                  for="real-estate-whatsapp"
                   className="ml-2 Varcolor font-weight-bold"
                 >
-                  Via whatsaap only?
+                  Via whatsapp only?
                 </label>
               </div>
               <div className="d-flex align-items-start">

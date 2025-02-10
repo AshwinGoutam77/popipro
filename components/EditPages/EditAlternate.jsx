@@ -642,7 +642,7 @@ export default function EditAlternateNo({
             </div>
             {Data?.card_alternate_phone?.length == 0 ? (
               <p>
-                Alternate Numbers are empty, to add numbers click on the add
+                {AlterNumber} are empty, to add {AlterNumber} click on the add
                 icon.
               </p>
             ) : (

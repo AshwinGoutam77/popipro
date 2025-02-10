@@ -61,7 +61,10 @@ export default function EditBlogs({
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [BlogShow, setBlogShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false)
+    setAiLoader(false)
+  }
   const hanldeBlogClose = () => setBlogShow(false);
   const handleEditClose = () => setShowEdit(false);
   const handleShow = () => setShow(true);

@@ -892,8 +892,9 @@ export default function EditProducts({
                         rows="4"
                         cols="50"
                         className="form-control mb-4 mt-1"
-                        value={MainData?.company_setting?.currency?.ecomcurrency}
-                        placeholder="Price"
+                        // value={MainData?.company_setting?.currency?.ecomcurrency}
+                        value={MainData?.company_setting?.currency?.currency}
+                        placeholder="Currency"
                         readOnly
                         maxLength="10"
                       ></input>
@@ -2007,7 +2008,7 @@ export default function EditProducts({
                 <div className="d-flex align-items-start">
                   <input
                     type="checkbox"
-                    id="product-whatsaap"
+                    id="product-whatsapp"
                     className="mt-1"
                     value={
                       MainData?.company_setting?.show_product_wp_button !==
@@ -2024,10 +2025,10 @@ export default function EditProducts({
                     }
                   />
                   <label
-                    for="product-whatsaap"
+                    for="product-whatsapp"
                     className="ml-2 Varcolor font-weight-bold"
                   >
-                    Via whatsaap only?
+                    Via whatsapp only?
                   </label>
                 </div>
                 <div className="d-flex align-items-start">
