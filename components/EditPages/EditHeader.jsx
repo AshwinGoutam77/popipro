@@ -104,20 +104,21 @@ function EditHeader({
     if (!Phone) newErrors.phone = "Phone number is required";
     if (!CountryCode) newErrors.contact_country_code = "Country code is required";
     if (!Address) newErrors.address = "Address is required";
-    // if (!WebUrl) newErrors.website = "Website URL is required";
-    // if (ShowCropper && !cropDataImage) newErrors.image = "Please upload an image";
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      // Convert errors to a single message
-      const errorMessage = Object.values(newErrors).join("\n");
-      showToast(errorMessage, "error");
+      const firstErrorKey = Object.keys(newErrors)[0]; // Get first error field key
+      const firstErrorMessage = newErrors[firstErrorKey];
+      document.getElementById(firstErrorKey)?.focus();
+
+      showToast(firstErrorMessage, "error");
       return false;
     }
 
     return true;
   };
+
 
   const getBlobData = async () => {
     if (!validateFields()) return; // Stop execution if validation fails
