@@ -237,19 +237,17 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
               )}
             </div>
             {TextArea ? (
-              <div className="">
-                <p
-                  onClick={() => setShowshowChatModal(true)}
-                  className="cursor-pointer text-right"
-                >
-                  Use AI{" "}
-                  <img
-                    src="../static/img/ai-stick.png"
-                    alt="stick"
-                    style={{ width: "20%" }}
-                  />
-                </p>
-              </div>
+              <span
+                onClick={() => setShowshowChatModal(true)}
+                className="ai-btn"
+              >
+                Generate from AI
+                <img
+                  src="../static/img/ai.gif"
+                  alt="stick"
+                  style={{ width: "8%" }}
+                />
+              </span>
             ) : (
               <div>
                 {TitleData?.card_description?.source == "2" ? (

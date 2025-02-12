@@ -2358,7 +2358,9 @@ td {
 }
 
 .cart-section img {
-  height: 122px;
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .dashboard-banner h1 span {
@@ -2534,6 +2536,21 @@ td {
 
 .todo-table-row {
   background-color: #a7a6a665;
+}
+
+.ai-btn {
+  cursor: pointer;
+  font-weight: 600;
+  color: black !important;
+  text-align: end;
+  width: auto !important;
+  /* border: 1px solid #ccc; */
+  border-radius: 100px;
+  /* padding: 2px; */
+
+  & img{
+    border-radius: 100px;
+  }
 }
 
 

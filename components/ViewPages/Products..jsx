@@ -332,6 +332,7 @@ export default function Product({
   const { cartItems, addItemToCart } = useContext(AuthContext);
 
   const handleAddToCart = (item) => {
+    handleClose()
     addItemToCart(item);
   };
 
@@ -475,7 +476,7 @@ export default function Product({
                           />
                         </picture>
                       )}
-                      <div className="d-flex align-items-center justify-content-end">
+                      <div className="d-flex align-items-center justify-content-between mt-4">
                         {item.is_label !== 0 ? (
                           <span className="product-price">{item.label}</span>
                         ) : item.price !== 0 &&
@@ -487,6 +488,43 @@ export default function Product({
                         ) : (
                           ""
                         )}
+                        {item?.price &&
+                          (!TotalId.includes(item?.id) ? (
+                            <span
+                              className="VarColor cursor-pointer"
+                              onClick={() =>
+                                handleAddToCart(
+                                  {
+                                    image: MainData?.card?.base_url + item.image.path,
+                                    name: item?.name,
+                                    price: item?.price,
+                                    currency: item.pcurrency?.currency,
+                                    id: item?.id,
+                                    card_id: MainData?.card?.id,
+                                    quantity: 1,
+                                  },
+                                  setCartModal("CartModal")
+                                )
+                              }
+                            >
+                              <FontAwesomeIcon
+                                icon={faBagShopping}
+                                className="mr-1"
+                              />{" "}
+                              Add to cart
+                            </span>
+                          ) : (
+                            <div
+                              onClick={() => { handleClose(); setCartModal("CartModal"); }}
+                              className="VarColor"
+                            >
+                              <FontAwesomeIcon
+                                icon={faBagShopping}
+                                className="mr-1"
+                              />{" "}
+                              Already added
+                            </div>
+                          ))}
                       </div>
                       <p
                         id="p_wrap"

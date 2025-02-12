@@ -15,6 +15,7 @@ import Api from "@services/Api";
 import EditPlan from "./EditPlan";
 import { Modal } from "react-bootstrap";
 import EditDropdown from "./Dropdown";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditContact({
   APIDATA,
@@ -159,16 +160,7 @@ export default function EditContact({
     if (response.data.status) {
       setInputLoader(false);
       APIDATA();
-      toast.success(response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(response.data.message, 'success')
     }
   };
   const handleClose = () => {
@@ -292,7 +284,7 @@ export default function EditContact({
 
               <div>
                 {TitleData?.card_booking?.source == "2" &&
-                TitleData?.card_booking?.in_subscription ? (
+                  TitleData?.card_booking?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -386,13 +378,13 @@ export default function EditContact({
                   name="real-estate-radio"
                   value={
                     MainData?.company_setting?.appointment_enquiry_method ===
-                    "form"
+                      "form"
                       ? true
                       : false
                   }
                   checked={
                     MainData?.company_setting?.appointment_enquiry_method ==
-                    "form"
+                      "form"
                       ? true
                       : false
                   }
@@ -415,14 +407,14 @@ export default function EditContact({
                   name="real-estate-radio"
                   value={
                     MainData?.company_setting?.appointment_enquiry_method ===
-                    "calendly"
+                      "calendly"
                       ? true
                       : false
                   }
                   // onChange={() => handleProductsbtn("wp")}
                   checked={
                     MainData?.company_setting?.appointment_enquiry_method ==
-                    "calendly"
+                      "calendly"
                       ? true
                       : false
                   }
@@ -441,7 +433,7 @@ export default function EditContact({
 
             <div className="row align-items-center justify-content-center mb-3"></div>
             {Show ||
-            MainData?.company_setting?.appointment_enquiry_method ==
+              MainData?.company_setting?.appointment_enquiry_method ==
               "calendly" ? (
               ""
             ) : (

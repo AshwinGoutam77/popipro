@@ -227,7 +227,7 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                             style={{ fontSize: "20px" }}
                         />
                         <h6 className="text-white text-center mb-0">
-                            Change Sequence
+                            Manage Sequence
                         </h6>
                     </div>
                 </Link>

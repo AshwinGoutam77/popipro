@@ -280,7 +280,7 @@ export default function TestimonialsLeads() {
           >
             <h5 className="text-white m-0">
               <FontAwesomeIcon icon={faStar} className="text-white mr-2" />
-              Approve review
+              Approve Review
             </h5>
             <Link href="/dashboard">
               <h6 className="text-white m-0">

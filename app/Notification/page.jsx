@@ -332,7 +332,7 @@ export default function Page() {
       </div>
 
       <div className="container-fluid">
-        <h4 className="color-black px-4 mt-4">Notification History</h4>
+        <h4 className="color-black mt-4">Notification History</h4>
 
         <div className="pt-4">
           <div className="row w-100 m-0 mb-4 align-items-end filter-section-row bg-white">

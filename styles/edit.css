@@ -403,6 +403,8 @@ label {
 .delete-icon3 {
   font-size: 13px;
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 100px;
   position: absolute !important;
   color: var(--color) !important;
   right: 0;

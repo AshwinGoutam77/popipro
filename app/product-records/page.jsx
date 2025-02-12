@@ -159,7 +159,7 @@ export default function OrderRecord() {
                                                             </td>
                                                             <td>{i?.quantity}</td>
                                                             <td>{i?.order_id ? i?.order_id : "--"}</td>
-                                                            <td>{i?.customer_id ? i?.customer_id : "--"}</td>
+                                                            <td>{items?.customer_id ? items?.customer_id : "--"}</td>
                                                             <td
                                                                 className={
                                                                     items?.order_status === "pending" ? 'pending' : 'success'

@@ -97,7 +97,10 @@ export default function EditProducts({
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [ShowProductModal, setShowProductModal] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false),
+      setStep(1)
+  }
   const handleEditClose = () => setShowEdit(false);
   const handleProductClose = () => setShowProductModal(false);
   const handleShow = () => setShow(true);
@@ -188,6 +191,7 @@ export default function EditProducts({
         setProductLabel("");
         setAddLabel("");
         handleCanclebtn();
+        setStep(1)
       }
     } catch (error) {
       error;
@@ -217,6 +221,7 @@ export default function EditProducts({
       base: id,
       id: DataId,
     };
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -227,15 +232,23 @@ export default function EditProducts({
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await Api(deleteSection, data);
-        if (response.data.status) {
-          Swal.fire("Deleted!", "", "success");
-          APIDATA();
-          setPage(2);
+        try {
+          const response = await Api(deleteSection, data);
+          if (response.data.status) {
+            Swal.fire("Deleted!", "", "success");
+            APIDATA();
+            setPage(2);
+          } else {
+            showToast(response.data?.message || "Something went wrong!", "error");
+          }
+        } catch (error) {
+          console.error("Error deleting product:", error);
+          showToast(error.response?.data?.message || "Server error occurred!", "error");
         }
       }
     });
   };
+
   const handleActive = async () => {
     let titles = [
       {
@@ -560,6 +573,28 @@ export default function EditProducts({
     }
   };
 
+  const [Step, setStep] = useState(1);
+  const [errors, setErrors] = useState({})
+
+  const handleNextStep = () => {
+    let newErrors = {};
+
+    if (!ProductHeading) newErrors.heading = "Heading is required";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      const firstErrorKey = Object.keys(newErrors)[0];
+      const firstErrorMessage = newErrors[firstErrorKey];
+      document.getElementById(firstErrorKey)?.focus();
+
+      showToast(firstErrorMessage, "error");
+      return false;
+    } else {
+      setStep(2)
+    }
+  }
+
   return (
     <>
       {/* <SimpleBackdrop visible={ShowLoader} /> */}
@@ -702,13 +737,13 @@ export default function EditProducts({
                     className="d-flex align-items-center justify-content-center mt-3 flex-wrap"
                     style={{ gap: "10px" }}
                   >
-                    {item.url !== "" || item.payment_link !== null ? (
+                    {item.url !== "" ? (
                       <a
                         href={
                           item?.url?.includes("http://") ||
                             item?.url?.includes("https://")
-                            ? (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
-                            : "https://" + (item?.show_payment_link == '1' ? item?.payment_link : item?.url)
+                            ? item?.url
+                            : "https://" + (item?.url)
                         }
                         target="_blank"
                         className="mt-1 send-btnn w-auto mb-0"
@@ -722,6 +757,26 @@ export default function EditProducts({
                           : item.button_placeholder
                             ? item.button_placeholder
                             : "Visit Site"}
+                      </a>
+                    ) : (
+                      ""
+                    )}
+                    {item.payment_link !== null ? (
+                      <a
+                        href={
+                          item?.url?.includes("http://") ||
+                            item?.url?.includes("https://")
+                            ? (item?.payment_link)
+                            : "https://" + (item?.payment_link)
+                        }
+                        target="_blank"
+                        className="mt-1 send-btnn w-auto mb-0"
+                      >
+                        <FontAwesomeIcon
+                          icon={faLink}
+                          className="user-select-auto mr-2"
+                        />
+                        Pay Now
                       </a>
                     ) : (
                       ""
@@ -801,336 +856,335 @@ export default function EditProducts({
           {
             !showChatModal ? <>
               <div className="">
-                <label className="modalFormLable">
-                  Upload Featured Image (*Recommended Size 150*150)
-                </label>
-                <input
-                  type="file"
-                  name="image"
-                  className="form-control mb-4 p-1 mt-1"
-                  accept="image/png, image/gif, image/jpeg"
-                  style={{ border: "1px solid #ccc" }}
-                  ref={aRef}
-                  onChange={(e) => setImage(e.target.files[0])}
-                />
-                <label className="modalFormLable">
-                  Upload Gallery Images (Upto 3 Images only)
-                </label>
-                <input
-                  type="file"
-                  name="image"
-                  className="form-control mb-4 p-1 mt-1"
-                  accept="image/png, image/gif, image/jpeg"
-                  style={{ border: "1px solid #ccc" }}
-                  ref={aRef}
-                  onChange={(e) => setGalleryImages(e.target.files)}
-                  multiple
-                />
-                <label className="modalFormLable">Heading*</label>
-                <input
-                  name="name"
-                  rows="4"
-                  cols="50"
-                  className="form-control mb-4 mt-1"
-                  value={ProductHeading}
-                  placeholder="Heading"
-                  onChange={(e) => setProductHeading(e.target.value)}
-                  maxLength="200"
-                ></input>
 
-                <div className="d-flex align-items-center mb-3 mt-1 ml-2">
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="radio"
-                      id="price"
-                      name="product"
-                      value={0}
-                      checked={PriceRadio}
-                      onChange={(e) => handleRadioBTN(e.target.value)}
-                    />{" "}
-                    <label htmlFor="price" className="ml-2 mb-0">
-                      Show Price
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center ml-3">
-                    <input
-                      type="radio"
-                      id="css"
-                      name="product"
-                      value={1}
-                      onChange={(e) => handleLabelRadio(e.target.value)}
-                    />{" "}
-                    <label htmlFor="css" className="ml-2 mb-0">
-                      Show Text
-                    </label>
-                  </div>
-                </div>
-
-                {PriceRadio ? (
+                {Step === 1 &&
                   <div>
-                    <div className="d-flex align-items-center">
-                      <label className="modalFormLable">Price</label>
-                      <div class="wrapper mb-2 ml-2 product-price-toltip">
-                        <div class="tooltip">
-                          Dashboard <FontAwesomeIcon icon={faChevronRight} /> click
-                          on profile image <FontAwesomeIcon icon={faChevronRight} />{" "}
-                          <br />
-                          <FontAwesomeIcon icon={faGear} /> Setting to change
-                          currency.
-                        </div>
-                        <FontAwesomeIcon
-                          icon={faInfo}
-                          className="pe-auto Iconcolor-black cursor-pointer"
-                          onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                    <h6>Step 1/2</h6>
+                    <div>
+                      <div>
+                        <label className="modalFormLable">
+                          Upload Featured Image (*Recommended Size 150*150)
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          className="form-control mb-4 p-1 mt-1"
+                          accept="image/png, image/gif, image/jpeg"
+                          style={{ border: "1px solid #ccc" }}
+                          ref={aRef}
+                          onChange={(e) => setImage(e.target.files[0])}
+                        />
+                      </div>
+                      <div>
+                        <label className="modalFormLable">
+                          Upload Gallery Images (Upto 3 Images only)
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          className="form-control mb-4 p-1 mt-1"
+                          accept="image/png, image/gif, image/jpeg"
+                          style={{ border: "1px solid #ccc" }}
+                          ref={aRef}
+                          onChange={(e) => setGalleryImages(e.target.files)}
+                          multiple
                         />
                       </div>
                     </div>
-                    <div className="d-flex" style={{ gap: "10px" }}>
-                      <input
-                        type="text"
-                        name="price"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        // value={MainData?.company_setting?.currency?.ecomcurrency}
-                        value={MainData?.company_setting?.currency?.currency}
-                        placeholder="Currency"
-                        readOnly
-                        maxLength="10"
-                      ></input>
-                      <input
-                        type="number"
-                        name="price"
-                        rows="4"
-                        cols="50"
-                        className="form-control mb-4 mt-1"
-                        value={ProductPrice}
-                        placeholder="Price"
-                        onChange={(e) => setProductPrice(e.target.value)}
-                        maxLength="10"
-                      ></input>
+
+                    <label className="modalFormLable">Heading*</label>
+                    <input
+                      name="name"
+                      rows="4"
+                      cols="50"
+                      className="form-control mb-4 mt-1"
+                      value={ProductHeading}
+                      placeholder="Heading"
+                      onChange={(e) => setProductHeading(e.target.value)}
+                      maxLength="200"
+                    ></input>
+
+
+
+                    <label>Price Info</label>
+
+                    <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="radio"
+                          id="price"
+                          name="product"
+                          value={0}
+                          checked={PriceRadio}
+                          onChange={(e) => handleRadioBTN(e.target.value)}
+                        />{" "}
+                        <label htmlFor="price" className="ml-2 mb-0">
+                          Show Price
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center ml-3">
+                        <input
+                          type="radio"
+                          id="css"
+                          name="product"
+                          value={1}
+                          onChange={(e) => handleLabelRadio(e.target.value)}
+                        />{" "}
+                        <label htmlFor="css" className="ml-2 mb-0">
+                          Show Text
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div>
-                    <label className="modalFormLable">Text</label>
-                    <input
-                      type="text"
-                      name="price"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1"
-                      value={ProductLabel}
-                      placeholder="Text"
-                      onChange={(e) => setProductLabel(e.target.value)}
-                      maxLength="12"
-                    ></input>
-                  </div>
-                )}
+                    {PriceRadio ? (
+                      <div>
+                        {/* <div className="d-flex align-items-center">
+                          <label className="modalFormLable">Price</label>
+                        </div> */}
+                        <div className="d-flex" style={{ gap: "10px" }}>
+                          <input
+                            type="text"
+                            name="price"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1"
+                            // value={MainData?.company_setting?.currency?.ecomcurrency}
+                            value={MainData?.company_setting?.ecomcurrency?.currency}
+                            placeholder="Currency"
+                            readOnly
+                            maxLength="10"
+                          ></input>
+                          <input
+                            type="number"
+                            name="price"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1"
+                            value={ProductPrice}
+                            placeholder="Price"
+                            onChange={(e) => setProductPrice(e.target.value)}
+                            maxLength="10"
+                          ></input>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        {/* <label className="modalFormLable">Text</label> */}
+                        <input
+                          type="text"
+                          name="price"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          value={ProductLabel}
+                          placeholder="Text"
+                          onChange={(e) => setProductLabel(e.target.value)}
+                          maxLength="12"
+                        ></input>
+                      </div>
+                    )}
 
+                    <div className="">
+                      <div>
+                        <label className="modalFormLable">Video URL</label>
+                        <input
+                          name="name"
+                          rows="4"
+                          cols="50"
+                          className="form-control mb-4 mt-1"
+                          value={ProductVideo}
+                          placeholder="Video Url"
+                          onChange={(e) => setProductVideo(e.target.value)}
+                        ></input>
+                      </div>
+                      <div className="mb-3">
+                        <div className="d-flex align-items-center">
+                          <label className="modalFormLable ml-0 pl-1">
+                            Category
+                          </label>
+                        </div>
+                        <CreatableSelect
+                          className="w-100"
+                          isClearable
+                          isDisabled={isLoading}
+                          isLoading={isLoading}
+                          onChange={HandleProjectSelect}
+                          onCreateOption={handleCreate}
+                          options={ProjectOptions}
+                          value={CategoryId}
+                        />
+                        <p className="mt-2">* Type category name and press "Enter Button" to create new
+                          category.</p>
+                      </div>
+                    </div>
 
-                <div className="d-flex align-items-center mb-3 mt-1 ml-2">
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="radio"
-                      id="general"
-                      name="link"
-                      value={0}
-                      checked={GeneralLinkBtn}
-                      onChange={(e) => handleGeneralLink(e.target.value)}
-                    />{" "}
-                    <label htmlFor="general" className="ml-2 mb-0">
-                      General Link
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center ml-3">
-                    <input
-                      type="radio"
-                      id="payment"
-                      name="link"
-                      value={1}
-                      onChange={(e) => handlePaymentLink(e.target.value)}
-                    />{" "}
-                    <label htmlFor="payment" className="ml-2 mb-0">
-                      Payment Link
-                    </label>
-                  </div>
-                </div>
+                    <button className="contact-btn w-auto" onClick={() => handleNextStep()}>Next</button>
+                  </div>}
 
+                {Step === 2 && <div>
+                  <h6>Step 2/2</h6>
+                  {/* <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="radio"
+                        id="general"
+                        name="link"
+                        value={0}
+                        checked={GeneralLinkBtn}
+                        onChange={(e) => handleGeneralLink(e.target.value)}
+                      />{" "}
+                      <label htmlFor="general" className="ml-2 mb-0">
+                        General Link
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center ml-3">
+                      <input
+                        type="radio"
+                        id="payment"
+                        name="link"
+                        value={1}
+                        onChange={(e) => handlePaymentLink(e.target.value)}
+                      />{" "}
+                      <label htmlFor="payment" className="ml-2 mb-0">
+                        Payment Link
+                      </label>
+                    </div>
+                  </div> */}
 
-
-
-                <div
-                  className="d-flex align-items-center w-100"
-                  style={{ gap: "10px" }}
-                >
-                  <div className="w-100">
-                    <label className="modalFormLable">Label of URL / link</label>
-                    <input
-                      name="url"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1"
-                      value={AddLabel}
-                      placeholder="URL / link"
-                      onChange={(e) => setAddLabel(e.target.value)}
-                    ></input>
-                  </div>
-                  {GeneralLinkBtn ? <div className="w-100">
-                    <label className="modalFormLable">General Link</label>
-                    <input
-                      name="url"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1 w-100"
-                      value={ProductUrl}
-                      placeholder="Url"
-                      onChange={(e) => setProductUrl(e.target.value)}
-                    ></input>
-                  </div> :
+                  <div
+                    className="d-flex align-items-center w-100"
+                    style={{ gap: "10px" }}
+                  >
                     <div className="w-100">
-                      <label className="modalFormLable">Payment Link</label>
+                      <label className="modalFormLable">Label of URL / link</label>
                       <input
                         name="url"
+                        rows="4"
+                        cols="50"
                         className="form-control mb-4 mt-1"
-                        value={PaymentLink}
-                        placeholder="payment link"
-                        onChange={(e) => setPaymentLink(e.target.value)}
+                        value={AddLabel}
+                        placeholder="Label"
+                        onChange={(e) => setAddLabel(e.target.value)}
                       ></input>
-                    </div>}
-                </div>
-
-                {/* <div>
-              <label className="modalFormLable">Enter Payment Link</label>
-              <input
-                name="url"
-                className="form-control mb-4 mt-1"
-                value={PaymentLink}
-                placeholder="payment link"
-                onChange={(e) => setPaymentLink(e.target.value)}
-              ></input>
-            </div> */}
-
-                <label className="modalFormLable">Enter Video URL</label>
-                <input
-                  name="name"
-                  rows="4"
-                  cols="50"
-                  className="form-control mb-4 mt-1"
-                  value={ProductVideo}
-                  placeholder="Video Url"
-                  onChange={(e) => setProductVideo(e.target.value)}
-                ></input>
-                <div className="">
-                  <div className="d-flex align-items-center">
-                    <label className="modalFormLable ml-0 pl-1">
-                      Select Category
-                    </label>
-                    <div class="wrapper mb-2 ml-2 product-price-toltip">
-                      <div class="tooltip">
-                        Type category name and press "Enter Button" to create new
-                        category.
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faInfo}
-                        className="pe-auto Iconcolor-black cursor-pointer"
-                        onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                      />
                     </div>
+                    {GeneralLinkBtn ? <div className="w-100">
+                      <label className="modalFormLable">General Link</label>
+                      <input
+                        name="url"
+                        rows="4"
+                        cols="50"
+                        className="form-control mb-4 mt-1 w-100"
+                        value={ProductUrl}
+                        placeholder="URL/ Link"
+                        onChange={(e) => setProductUrl(e.target.value)}
+                      ></input>
+                    </div> :
+                      <div className="w-100">
+                        <label className="modalFormLable">Payment Link</label>
+                        <input
+                          name="url"
+                          className="form-control mb-4 mt-1"
+                          value={PaymentLink}
+                          placeholder="Payment Link"
+                          onChange={(e) => setPaymentLink(e.target.value)}
+                        ></input>
+                      </div>}
                   </div>
-                  <CreatableSelect
-                    className="w-100 mb-4 "
-                    isClearable
-                    isDisabled={isLoading}
-                    isLoading={isLoading}
-                    onChange={HandleProjectSelect}
-                    onCreateOption={handleCreate}
-                    options={ProjectOptions}
-                    value={CategoryId}
-                  />
-                </div>
-                <div className="d-flex align-items-center justify-content-between">
-                  <label className="modalFormLable">Description</label>
-                  <p
-                    onClick={() => setShowshowChatModal(true)}
-                    data-toggle={ServicesDescription ? "modal" : ""}
-                    data-target="#chatapimodal"
-                    className="cursor-pointer text-right"
-                  >
-                    Use AI{" "}
-                    <img
-                      src="../static/img/ai-stick.png"
-                      alt="stick"
-                      style={{ width: "20%" }}
-                    />
-                  </p>
-                </div>
-                <CKEditor
-                  editor={ClassicEditor}
-                  config={{
-                    removePlugins: [
-                      "EasyImage",
-                      "ImageUpload",
-                      "MediaEmbed",
-                      "Table",
-                      "TableToolbar",
-                      "Indent",
-                      "BlockQuote",
-                      "Emoji",
-                    ],
-                    placeholder:
-                      "Insert a text and take advantage of AI to enrich the content you've written.",
-                    link: {
-                      decorators: {
-                        addTargetToExternalLinks: {
-                          mode: "automatic",
-                          callback: (url) => /^(https?:)?\/\//.test(url),
-                          attributes: {
-                            target: "_blank",
-                            rel: "noopener noreferrer",
+
+                  <div>
+                    <label className="modalFormLable">Enter Payment Link</label>
+                    <input
+                      name="url"
+                      className="form-control mb-4 mt-1"
+                      value={PaymentLink}
+                      placeholder="Payment Link"
+                      onChange={(e) => setPaymentLink(e.target.value)}
+                    ></input>
+                  </div>
+
+                  <div className="d-flex align-items-center justify-content-between">
+                    <label className="modalFormLable">Description</label>
+                    <span
+                      onClick={() => setShowshowChatModal(true)}
+                      data-toggle={ServicesDescription ? "modal" : ""}
+                      className="ai-btn"
+                    >
+                      Generate from AI
+                      <img
+                        src="../static/img/ai.gif"
+                        alt="stick"
+                        style={{ width: "12%" }}
+                      />
+                    </span>
+                  </div>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      removePlugins: [
+                        "EasyImage",
+                        "ImageUpload",
+                        "MediaEmbed",
+                        "Table",
+                        "TableToolbar",
+                        "Indent",
+                        "BlockQuote",
+                        "Emoji",
+                      ],
+                      placeholder:
+                        "Insert a text and take advantage of AI to enrich the content you've written.",
+                      link: {
+                        decorators: {
+                          addTargetToExternalLinks: {
+                            mode: "automatic",
+                            callback: (url) => /^(https?:)?\/\//.test(url),
+                            attributes: {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                            },
                           },
                         },
                       },
-                    },
-                  }}
-                  data={ServicesDescription || ""}
-                  onReady={(editor) => { }}
-                  onChange={(event, editor) => {
-                    const data = editor.getData();
-                    setServicesDescription(data);
-                  }}
-                  onBlur={(event, editor) => { }}
-                  onFocus={(event, editor) => { }}
-                />
-              </div>
-              <div
-                className="d-flex align-items-center mt-3"
-                style={{ gap: "10px" }}
-              >
-                {!ShowLoader ? (
-                  <>
-                    <button
-                      className="send-btnn"
-                      onClick={() => handleSaveProductDetail("", 1)}
-                    >
-                      Save and Publish
+                    }}
+                    data={ServicesDescription || ""}
+                    onReady={(editor) => { }}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      setServicesDescription(data);
+                    }}
+                    onBlur={(event, editor) => { }}
+                    onFocus={(event, editor) => { }}
+                  />
+                  <div
+                    className="d-flex align-items-center mt-3"
+                    style={{ gap: "10px" }}
+                  >
+                    <button className="send-btnn" onClick={() => setStep(1)}>
+                      Back
                     </button>
-                    <button
-                      className="send-btnn"
-                      onClick={() => handleSaveProductDetail(0)}
-                    >
-                      Save and Draft
-                    </button>
-                  </>
-                ) : (
-                  <button class="send-btnn" disabled>
-                    <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
-                    <LoadingText />
-                  </button>
-                )}
-                <button className="delete-button m-0" onClick={handleCanclebtn}>
-                  Cancel
-                </button>
+                    {!ShowLoader ? (
+                      <>
+                        <button
+                          className="send-btnn"
+                          onClick={() => handleSaveProductDetail("", 1)}
+                        >
+                          Save and Publish
+                        </button>
+                        <button
+                          className="send-btnn"
+                          onClick={() => handleSaveProductDetail(0)}
+                        >
+                          Save and Draft
+                        </button>
+                      </>
+                    ) : (
+                      <button class="send-btnn" disabled>
+                        <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
+                        <LoadingText />
+                      </button>
+                    )}
+
+                  </div>
+                </div>}
+
               </div>
             </> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setServicesDescription}
               description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />}
@@ -1166,359 +1220,363 @@ export default function EditProducts({
               return ProductModalId === items.id ? (
                 !showChatModal ?
                   <div key={i}>
-                    <input
-                      type="hidden"
-                      defaultValue={items.id}
-                      name="hiddenId"
-                      key={i}
-                    />
-                    <label className="modalFormLable">
-                      Update Featured Image (*Recommended Size 150*150)
-                    </label>
 
-                    <input
-                      type="file"
-                      name="image"
-                      className="form-control mb-4 p-1 mt-1"
-                      accept="image/png, image/gif, image/jpeg"
-                      style={{ border: "1px solid #ccc" }}
-                      onChange={(e) => setImage(e.target.files[0])}
-                    />
-                    <label className="modalFormLable">
-                      Update Gallery Images (*Recommended Size 150*150)
-                    </label>
-                    <input
-                      type="file"
-                      name="image"
-                      className="form-control mb-4 p-1 mt-1"
-                      accept="image/png, image/gif, image/jpeg"
-                      style={{ border: "1px solid #ccc" }}
-                      ref={aRef}
-                      onChange={(e) => setGalleryImages(e.target.files)}
-                      multiple
-                      disabled={items?.gallery?.length >= 3 ? true : false}
-                    />
-                    {AddMoreProduct &&
-                      AddMoreProduct?.map((item, index) => {
-                        return ModalId === item?.id ? (
-                          <div
-                            className="d-flex flex-wrap gap-2 px-2"
-                            key={index}
-                          >
-                            {item?.gallery &&
-                              item?.gallery?.map((i, o) => {
-                                return (
-                                  <div
-                                    className="real-estate-edit-modal position-relative mb-4"
-                                    key={o}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faCircleXmark}
-                                      onClick={() =>
-                                        handleDeleteGalleryImages(
-                                          i?.path,
-                                          10,
-                                          items?.id
-                                        )
-                                      }
-                                      style={{
-                                        color: "rgb(213, 51, 51)",
-                                        fontSize: "20px",
-                                      }}
-                                      className="delete-icon3"
-                                    />
-                                    <img
-                                      src={Data?.base_url + i?.path}
-                                      alt="realestate_image"
-                                      className="edit-real-estate-images object-fit-cover"
-                                    />
-                                  </div>
-                                );
-                              })}
+                    {Step === 1 && <div>
+                      <input
+                        type="hidden"
+                        defaultValue={items.id}
+                        name="hiddenId"
+                        key={i}
+                      />
+                      <label className="modalFormLable">
+                        Update Featured Image (*Recommended Size 150*150)
+                      </label>
+
+                      <input
+                        type="file"
+                        name="image"
+                        className="form-control mb-4 p-1 mt-1"
+                        accept="image/png, image/gif, image/jpeg"
+                        style={{ border: "1px solid #ccc" }}
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
+                      <label className="modalFormLable">
+                        Update Gallery Images (*Recommended Size 150*150)
+                      </label>
+                      <input
+                        type="file"
+                        name="image"
+                        className="form-control mb-4 p-1 mt-1"
+                        accept="image/png, image/gif, image/jpeg"
+                        style={{ border: "1px solid #ccc" }}
+                        ref={aRef}
+                        onChange={(e) => setGalleryImages(e.target.files)}
+                        multiple
+                        disabled={items?.gallery?.length >= 3 ? true : false}
+                      />
+                      {AddMoreProduct &&
+                        AddMoreProduct?.map((item, index) => {
+                          return ModalId === item?.id ? (
+                            <div
+                              className="d-flex flex-wrap gap-2 px-2"
+                              key={index}
+                            >
+                              {item?.gallery &&
+                                item?.gallery?.map((i, o) => {
+                                  return (
+                                    <div
+                                      className="real-estate-edit-modal position-relative mb-4"
+                                      key={o}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faCircleXmark}
+                                        onClick={() =>
+                                          handleDeleteGalleryImages(
+                                            i?.path,
+                                            10,
+                                            items?.id
+                                          )
+                                        }
+                                        style={{
+                                          color: "rgb(213, 51, 51)",
+                                          fontSize: "20px",
+                                        }}
+                                        className="delete-icon3"
+                                      />
+                                      <img
+                                        src={Data?.base_url + i?.path}
+                                        alt="realestate_image"
+                                        className="edit-real-estate-images object-fit-cover"
+                                      />
+                                    </div>
+                                  );
+                                })}
+                            </div>
+                          ) : (
+                            ""
+                          );
+                        })}
+
+                      <label className="modalFormLable">Heading*</label>
+                      <input
+                        name="name"
+                        rows="4"
+                        cols="50"
+                        className="form-control mb-4 mt-1"
+                        defaultValue={items.name || ""}
+                        placeholder="Heading"
+                        onChange={(e) => setProductHeading(e.target.value)}
+                        maxLength="200"
+                      ></input>
+
+                      <label>Price Info</label>
+                      <div className="d-flex align-items-center mb-2 mt-1 ml-2">
+                        <div className="d-flex align-items-center">
+                          <input
+                            type="radio"
+                            id="price"
+                            name="product"
+                            value={0}
+                            checked={EditRadioBtn == 0 ? true : false}
+                            onChange={(e) => handleRadioBTN(e.target.value)}
+                          />{" "}
+                          <label htmlFor="price" className="ml-2 mb-0">
+                            Show Price
+                          </label>
+                        </div>
+                        <div className="d-flex align-items-center ml-3">
+                          <input
+                            type="radio"
+                            id="css"
+                            name="product"
+                            value={1}
+                            checked={EditRadioBtn == 1 ? true : false}
+                            onChange={(e) => handleLabelRadio(e.target.value)}
+                          />{" "}
+                          <label htmlFor="css" className="ml-2 mb-0">
+                            Show Text
+                          </label>
+                        </div>
+                      </div>
+
+                      {EditRadioBtn == 0 ? (
+                        <>
+                          <label className="modalFormLable">Price</label>
+                          <div className="d-flex" style={{ gap: "10px" }}>
+                            <input
+                              type="text"
+                              name="price"
+                              rows="4"
+                              cols="50"
+                              className="form-control mb-4 mt-1"
+                              value={MainData?.company_setting?.ecomcurrency?.currency}
+                              placeholder="Currency"
+                              readOnly
+                              maxLength="10"
+                            ></input>
+                            <input
+                              type="number"
+                              name="price"
+                              rows="4"
+                              cols="50"
+                              className="form-control mb-4 mt-1"
+                              defaultValue={items.price}
+                              placeholder="Price"
+                              onChange={(e) => setProductPrice(e.target.value)}
+                            ></input>
                           </div>
-                        ) : (
-                          ""
-                        );
-                      })}
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <label className="modalFormLable">Text</label>
+                            <input
+                              type="text"
+                              name="price"
+                              rows="4"
+                              cols="50"
+                              className="form-control mb-4 mt-1"
+                              value={ProductLabel}
+                              placeholder="Text"
+                              style={{
+                                height: "40px",
+                                border: "1px solid #ccc",
+                              }}
+                              onChange={(e) => setProductLabel(e.target.value)}
+                              maxLength="12"
+                            ></input>
+                          </div>
+                        </>
+                      )}
 
-                    <label className="modalFormLable">Heading*</label>
-                    <input
-                      name="name"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1"
-                      defaultValue={items.name || ""}
-                      placeholder="Heading"
-                      onChange={(e) => setProductHeading(e.target.value)}
-                      maxLength="200"
-                    ></input>
-
-                    <div className="d-flex align-items-center mb-3 mt-1 ml-2">
-                      <div className="d-flex align-items-center">
-                        <input
-                          type="radio"
-                          id="price"
-                          name="product"
-                          value={0}
-                          checked={EditRadioBtn == 0 ? true : false}
-                          onChange={(e) => handleRadioBTN(e.target.value)}
-                        />{" "}
-                        <label htmlFor="price" className="ml-2 mb-0">
-                          Show Price
-                        </label>
-                      </div>
-                      <div className="d-flex align-items-center ml-3">
-                        <input
-                          type="radio"
-                          id="css"
-                          name="product"
-                          value={1}
-                          checked={EditRadioBtn == 1 ? true : false}
-                          onChange={(e) => handleLabelRadio(e.target.value)}
-                        />{" "}
-                        <label htmlFor="css" className="ml-2 mb-0">
-                          Show Text
-                        </label>
-                      </div>
-                    </div>
-
-                    {EditRadioBtn == 0 ? (
-                      <>
-                        <label className="modalFormLable">Price</label>
-                        <div className="d-flex" style={{ gap: "10px" }}>
-                          <input
-                            type="text"
-                            name="price"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1"
-                            value={MainData?.company_setting?.currency?.ecomcurrency}
-                            placeholder="Price"
-                            readOnly
-                            maxLength="10"
-                          ></input>
-                          <input
-                            type="number"
-                            name="price"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1"
-                            defaultValue={items.price}
-                            placeholder="Price"
-                            onChange={(e) => setProductPrice(e.target.value)}
-                          ></input>
+                      <label className="modalFormLable">Enter Video URL</label>
+                      <input
+                        name="name"
+                        rows="4"
+                        cols="50"
+                        className="form-control mb-4 mt-1"
+                        value={ProductVideo}
+                        placeholder="Video Url"
+                        onChange={(e) => setProductVideo(e.target.value)}
+                      ></input>
+                      <div className="">
+                        <div className="d-flex align-items-center">
+                          <label className="modalFormLable ml-0 pl-1">
+                            Select Category
+                          </label>
                         </div>
-                      </>
-                    ) : (
-                      <>
-                        <div>
-                          <label className="modalFormLable">Text</label>
+                        <CreatableSelect
+                          className="w-100 mb-1"
+                          isClearable
+                          isDisabled={isLoading}
+                          isLoading={isLoading}
+                          onChange={HandleProjectSelect}
+                          onCreateOption={handleCreate}
+                          options={ProjectOptions}
+                          value={CategoryId}
+                        />
+                        <p className="mb-2">*Type category name and press "Enter Button" to create
+                          new category.</p>
+                      </div>
+
+                      <button className="contact-btn w-auto" onClick={() => handleNextStep()}>Next</button>
+                    </div>}
+
+
+                    {Step === 2 && <div>
+                      {/* <div className="d-flex align-items-center mb-3 mt-1 ml-2">
+                        <div className="d-flex align-items-center">
                           <input
-                            type="text"
-                            name="price"
-                            rows="4"
-                            cols="50"
-                            className="form-control mb-4 mt-1"
-                            value={ProductLabel}
-                            placeholder="Text"
-                            style={{
-                              height: "40px",
-                              border: "1px solid #ccc",
-                            }}
-                            onChange={(e) => setProductLabel(e.target.value)}
-                            maxLength="12"
-                          ></input>
+                            type="radio"
+                            id="general"
+                            name="payment_link"
+                            value={0}
+                            checked={EditPaymentBtn == 0 ? true : false}
+                            onChange={(e) => handleGeneralLink(e.target.value)}
+                          />{" "}
+                          <label htmlFor="general" className="ml-2 mb-0">
+                            General Link
+                          </label>
                         </div>
-                      </>
-                    )}
+                        <div className="d-flex align-items-center ml-3">
+                          <input
+                            type="radio"
+                            id="payment"
+                            name="payment_link"
+                            value={1}
+                            checked={EditPaymentBtn == 1 ? true : false}
+                            onChange={(e) => handlePaymentLink(e.target.value)}
+                          />{" "}
+                          <label htmlFor="payment" className="ml-2 mb-0">
+                            Payment Link
+                          </label>
+                        </div>
+                      </div> */}
 
-                    <div className="d-flex align-items-center mb-3 mt-1 ml-2">
-                      <div className="d-flex align-items-center">
-                        <input
-                          type="radio"
-                          id="general"
-                          name="payment_link"
-                          value={0}
-                          checked={EditPaymentBtn == 0 ? true : false}
-                          onChange={(e) => handleGeneralLink(e.target.value)}
-                        />{" "}
-                        <label htmlFor="general" className="ml-2 mb-0">
-                          General Link
-                        </label>
-                      </div>
-                      <div className="d-flex align-items-center ml-3">
-                        <input
-                          type="radio"
-                          id="payment"
-                          name="payment_link"
-                          value={1}
-                          checked={EditPaymentBtn == 1 ? true : false}
-                          onChange={(e) => handlePaymentLink(e.target.value)}
-                        />{" "}
-                        <label htmlFor="payment" className="ml-2 mb-0">
-                          Payment Link
-                        </label>
-                      </div>
-                    </div>
-
-                    <div
-                      className="d-flex align-items-center w-100"
-                      style={{ gap: "10px" }}
-                    >
-                      <div className="w-100">
-                        <label className="modalFormLable">Label of URL / link</label>
-                        <input
-                          name="url"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1"
-                          value={AddLabel}
-                          placeholder="URL / link"
-                          onChange={(e) => setAddLabel(e.target.value)}
-                        ></input>
-                      </div>
-                      {EditPaymentBtn == 0 ? <div className="w-100">
-                        <label className="modalFormLable">General Link</label>
-                        <input
-                          name="url"
-                          rows="4"
-                          cols="50"
-                          className="form-control mb-4 mt-1 w-100"
-                          value={ProductUrl}
-                          placeholder="Url"
-                          onChange={(e) => setProductUrl(e.target.value)}
-                        ></input>
-                      </div> :
+                      <div
+                        className="d-flex align-items-center w-100"
+                        style={{ gap: "10px" }}
+                      >
                         <div className="w-100">
-                          <label className="modalFormLable">Payment Link</label>
+                          <label className="modalFormLable">Label of URL / link</label>
                           <input
                             name="url"
+                            rows="4"
+                            cols="50"
                             className="form-control mb-4 mt-1"
-                            value={PaymentLink}
-                            placeholder="payment link"
-                            onChange={(e) => setPaymentLink(e.target.value)}
+                            value={AddLabel}
+                            placeholder="URL / link"
+                            onChange={(e) => setAddLabel(e.target.value)}
                           ></input>
-                        </div>}
-                    </div>
-
-                    <label className="modalFormLable">Enter Video URL</label>
-                    <input
-                      name="name"
-                      rows="4"
-                      cols="50"
-                      className="form-control mb-4 mt-1"
-                      value={ProductVideo}
-                      placeholder="Video Url"
-                      onChange={(e) => setProductVideo(e.target.value)}
-                    ></input>
-                    <div className="">
-                      <div className="d-flex align-items-center">
-                        <label className="modalFormLable ml-0 pl-1">
-                          Select Category
-                        </label>
-                        <div class="wrapper mb-2 ml-2 product-price-toltip">
-                          <div class="tooltip">
-                            Type category name and press "Enter Button" to create
-                            new category.
-                          </div>
-                          <FontAwesomeIcon
-                            icon={faInfo}
-                            className="pe-auto Iconcolor-black cursor-pointer"
-                            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-                          />
+                        </div>
+                        <div className="w-100">
+                          <label className="modalFormLable">General Link</label>
+                          <input
+                            name="url"
+                            rows="4"
+                            cols="50"
+                            className="form-control mb-4 mt-1 w-100"
+                            value={ProductUrl}
+                            placeholder="Url"
+                            onChange={(e) => setProductUrl(e.target.value)}
+                          ></input>
                         </div>
                       </div>
-                      <CreatableSelect
-                        className="w-100 mb-4 "
-                        isClearable
-                        isDisabled={isLoading}
-                        isLoading={isLoading}
-                        onChange={HandleProjectSelect}
-                        onCreateOption={handleCreate}
-                        options={ProjectOptions}
-                        value={CategoryId}
-                      />
-                    </div>
-                    <div className="d-flex align-items-center justify-content-between">
-                      <label className="modalFormLable">Description</label>
-                      <p
-                        onClick={() => setShowshowChatModal(true)}
-                        data-toggle={ServicesDescription ? "modal" : ""}
-                        data-target="#chatapimodal"
-                        className="cursor-pointer text-right"
-                      >
-                        Use AI{" "}
-                        <img
-                          src="../static/img/ai-stick.png"
-                          alt="stick"
-                          style={{ width: "20%" }}
-                        />
-                      </p>
-                    </div>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      config={{
-                        removePlugins: [
-                          "EasyImage",
-                          "ImageUpload",
-                          "MediaEmbed",
-                          "Table",
-                          "TableToolbar",
-                          "Indent",
-                          "BlockQuote",
-                          "Emoji",
-                        ],
-                        placeholder:
-                          "Insert a text and take advantage of AI to enrich the content you've written.",
-                        link: {
-                          decorators: {
-                            addTargetToExternalLinks: {
-                              mode: "automatic",
-                              callback: (url) => /^(https?:)?\/\//.test(url),
-                              attributes: {
-                                target: "_blank",
-                                rel: "noopener noreferrer",
+
+                      <div className="w-100">
+                        <label className="modalFormLable">Payment Link</label>
+                        <input
+                          name="url"
+                          className="form-control mb-4 mt-1"
+                          value={PaymentLink}
+                          placeholder="payment link"
+                          onChange={(e) => setPaymentLink(e.target.value)}
+                        ></input>
+                      </div>
+
+                      <div className="d-flex align-items-center justify-content-between">
+                        <label className="modalFormLable">Description</label>
+                        <span
+                          onClick={() => setShowshowChatModal(true)}
+                          data-toggle={ServicesDescription ? "modal" : ""}
+                          className="ai-btn"
+                        >
+                          Generate from AI
+                          <img
+                            src="../static/img/ai.gif"
+                            alt="stick"
+                            style={{ width: "12%" }}
+                          />
+                        </span>
+                      </div>
+                      <CKEditor
+                        editor={ClassicEditor}
+                        config={{
+                          removePlugins: [
+                            "EasyImage",
+                            "ImageUpload",
+                            "MediaEmbed",
+                            "Table",
+                            "TableToolbar",
+                            "Indent",
+                            "BlockQuote",
+                            "Emoji",
+                          ],
+                          placeholder:
+                            "Insert a text and take advantage of AI to enrich the content you've written.",
+                          link: {
+                            decorators: {
+                              addTargetToExternalLinks: {
+                                mode: "automatic",
+                                callback: (url) => /^(https?:)?\/\//.test(url),
+                                attributes: {
+                                  target: "_blank",
+                                  rel: "noopener noreferrer",
+                                },
                               },
                             },
                           },
-                        },
-                      }}
-                      data={ServicesDescription || ""}
-                      onReady={(editor) => { }}
-                      onChange={(event, editor) => {
-                        const data = editor.getData();
-                        setServicesDescription(data);
-                      }}
-                      onBlur={(event, editor) => { }}
-                      onFocus={(event, editor) => { }}
-                    />
-                    <div
-                      className="d-flex align-items-center mt-3"
-                      style={{ gap: "10px" }}
-                    >
-                      {!ShowLoader ? (
-                        <button
-                          className="send-btnn"
-                          onClick={() => handleSaveProductDetail(items.id)}
-                        >
-                          Update
-                        </button>
-                      ) : (
-                        <button class="send-btnn" disabled>
-                          <FontAwesomeIcon
-                            icon={faSpinner}
-                            className="spinner-fa"
-                          />
-                          <LoadingText />
-                        </button>
-                      )}
-                      <button
-                        className="delete-button m-0"
-                        onClick={handleCanclebtn}
+                        }}
+                        data={ServicesDescription || ""}
+                        onReady={(editor) => { }}
+                        onChange={(event, editor) => {
+                          const data = editor.getData();
+                          setServicesDescription(data);
+                        }}
+                        onBlur={(event, editor) => { }}
+                        onFocus={(event, editor) => { }}
+                      />
+                      <div
+                        className="d-flex align-items-center mt-3"
+                        style={{ gap: "10px" }}
                       >
-                        Cancel
-                      </button>
-                    </div>
+                        <button className="send-btnn" onClick={() => setStep(1)}>
+                          Back
+                        </button>
+                        {!ShowLoader ? (
+                          <button
+                            className="send-btnn"
+                            onClick={() => handleSaveProductDetail(items.id)}
+                          >
+                            Update
+                          </button>
+                        ) : (
+                          <button class="send-btnn" disabled>
+                            <FontAwesomeIcon
+                              icon={faSpinner}
+                              className="spinner-fa"
+                            />
+                            <LoadingText />
+                          </button>
+                        )}
+                        <button
+                          className="delete-button m-0"
+                          onClick={handleCanclebtn}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>}
                   </div> : <ChatbotApp OpenModal={() => setShowshowChatModal(false)} ChangeDescription={setServicesDescription}
                     description={ServicesDescription} setShowshowChatModal={setShowshowChatModal} />
               ) : (

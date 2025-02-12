@@ -39,7 +39,7 @@ export default function SelfBranding({ MainData, handleClose, active }) {
         setCoverLabel(MainData?.card?.cover_label)
     }, [])
     return (
-        <Modal show={active} onHide={() => handleClose("")} centered>
+        <Modal size="md" show={active} onHide={() => handleClose("")} centered>
             <Modal.Header>
                 <Modal.Title>
                     <h5
@@ -63,22 +63,40 @@ export default function SelfBranding({ MainData, handleClose, active }) {
                     {MainData?.permission[0]?.visible_to == '2' &&
                         <>
                             <label>Select profile image </label>
-                            <li className="mt-2 list-style-none d-flex flex-wrap row-gap-4 justify-content-between">
+                            <li className="border-bottom pb-4 mt-2 list-style-none d-flex flex-wrap row-gap-4 justify-content-start gap-4">
                                 {[
-                                    { id: "label", label: "Label", name: "label" },
-                                    { id: "banner", label: "Banner", name: "label" },
-                                    { id: "logo", label: "Logo", name: "label" },
-                                    { id: "banner-logo", label: "Banner + Logo", name: "label" },
-                                    { id: "banner-label", label: "Banner + Label", name: "label" },
-                                ].map(({ id, name, label }) => (
-                                    <div key={id} className="d-flex gap-2 align-items-center">
-                                        <input type="radio" id={id} name={name} value={id} checked={CardCover === id} onChange={(e) => setCardCover(e.target.value)} />
-                                        <label htmlFor={id} className="mb-0">
+                                    { id: "label", label: "Label", name: "cardCover", img: "../../static/img/self-branding-img-1.png" },
+                                    { id: "banner", label: "Banner", name: "cardCover", img: "../../static/img/self-branding-img-2.png" },
+                                    { id: "logo", label: "Logo", name: "cardCover", img: "../../static/img/self-branding-img-3.png" },
+                                    { id: "banner-logo", label: "Banner + Logo", name: "cardCover", img: "../../static/img/self-branding-img-4.png" },
+                                    { id: "banner-label", label: "Banner + Label", name: "cardCover", img: "../../static/img/self-branding-img-5.png" },
+                                ].map(({ id, name, label, img }) => (
+                                    <div key={id} className="d-flex flex-column align-items-center">
+                                        <label htmlFor={id} className="cursor-pointer text-center">
+                                            <img
+                                                src={img}
+                                                alt={label}
+                                                width="130"
+                                                height="130"
+                                                className={`mb-2 rounded border ${CardCover === id ? "border-primary" : ""}`}
+                                            />
+                                            <br />
                                             {label}
                                         </label>
+                                        <input
+                                            type="radio"
+                                            id={id}
+                                            name={name}
+                                            value={id}
+                                            checked={CardCover === id}
+                                            onChange={(e) => setCardCover(e.target.value)}
+                                            className="d-none"
+                                        />
                                     </div>
                                 ))}
                             </li>
+
+
 
                             {(CardCover == "banner" || CardCover == "banner-logo" || CardCover == "banner-label") && <li className="mt-4 list-style-none mb-2">
                                 <div>

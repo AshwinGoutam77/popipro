@@ -460,19 +460,18 @@ export default function EditTestimonials({
                 ></input>
                 <div className="d-flex align-items-center justify-content-between">
                   <label className="modalFormLable">Description*</label>
-                  <p
+                  <span
                     onClick={() => setShowshowChatModal(true)}
                     data-toggle={ServicesDescription ? "modal" : ""}
-                    data-target="#chatapimodal"
-                    className="cursor-pointer text-right"
+                    className="ai-btn"
                   >
-                    Use AI{" "}
+                    Generate from AI
                     <img
-                      src="../static/img/ai-stick.png"
+                      src="../static/img/ai.gif"
                       alt="stick"
-                      style={{ width: "20%" }}
+                      style={{ width: "12%" }}
                     />
-                  </p>
+                  </span>
                 </div>
                 <CKEditor
                   editor={ClassicEditor}
@@ -609,19 +608,18 @@ export default function EditTestimonials({
                         ></input>
                         <div className="d-flex align-items-center justify-content-between">
                           <label className="modalFormLable">Description*</label>
-                          <p
+                          <span
                             onClick={() => setShowshowChatModal(true)}
                             data-toggle={ServicesDescription ? "modal" : ""}
-                            data-target="#chatapimodal"
-                            className="cursor-pointer text-right"
+                            className="ai-btn"
                           >
-                            Use AI{" "}
+                            Generate from AI
                             <img
-                              src="../static/img/ai-stick.png"
+                              src="../static/img/ai.gif"
                               alt="stick"
-                              style={{ width: "20%" }}
+                              style={{ width: "12%" }}
                             />
-                          </p>
+                          </span>
                         </div>
                         <CKEditor
                           editor={ClassicEditor}
@@ -999,7 +997,7 @@ export default function EditTestimonials({
                       for="testimonials"
                       className="ml-2 Varcolor font-weight-bold"
                     >
-                      Click the box to allow clients to leave a review.
+                      Select the checkbox to allow clients to leave a review.
                     </label>
                   </div>
                 )}

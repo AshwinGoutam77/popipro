@@ -159,7 +159,7 @@ const Order = () => {
               className="text-white mr-2"
               width="20"
             />{" "}
-            Order
+            Manage Sequence
           </h5>
           <Link href="/dashboard">
             <h6 className="text-white m-0">

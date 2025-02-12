@@ -524,7 +524,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-4 px-4 d-flex justify-content-center">
+          <div className="container mt-4 d-flex justify-content-center">
             <SwiperComponent
               breakpoints={{
                 1110: {
@@ -578,7 +578,7 @@ export default function Dashboard() {
                     className={AdvanceFeatures ? "filter-btns-active" : "filter-btns"}
                     onClick={handleAdvanceTab}
                   >
-                    Advance Features
+                    Advanced Features
                   </button>
                 </div>
               </SwiperSlide>

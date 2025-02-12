@@ -384,19 +384,18 @@ export default function EditResume({
               ></input>
               <div className="d-flex align-items-center justify-content-between">
                 <label className="modalFormLable">Description*</label>
-                <p
+                <span
                   onClick={() => setShowshowChatModal(true)}
                   data-toggle={ExpDescription ? "modal" : ""}
-                  data-target="#chatapimodal"
-                  className="cursor-pointer text-right"
+                  className="ai-btn"
                 >
-                  Use AI{" "}
+                  Generate from AI
                   <img
-                    src="../static/img/ai-stick.png"
+                    src="../static/img/ai.gif"
                     alt="stick"
-                    style={{ width: "20%" }}
+                    style={{ width: "12%" }}
                   />
-                </p>
+                </span>
               </div>
               <CKEditor
                 editor={ClassicEditor}
@@ -517,19 +516,18 @@ export default function EditResume({
                     ></input>
                     <div className="d-flex align-items-center justify-content-between">
                       <label className="modalFormLable">Description*</label>
-                      <p
+                      <span
                         onClick={() => setShowshowChatModal(true)}
                         data-toggle={ExpDescription ? "modal" : ""}
-                        data-target="#chatapimodal"
-                        className="cursor-pointer text-right"
+                        className="ai-btn"
                       >
-                        Use AI{" "}
+                        Generate from AI
                         <img
-                          src="../static/img/ai-stick.png"
+                          src="../static/img/ai.gif"
                           alt="stick"
-                          style={{ width: "20%" }}
+                          style={{ width: "12%" }}
                         />
-                      </p>
+                      </span>
                     </div>
                     <CKEditor
                       editor={ClassicEditor}

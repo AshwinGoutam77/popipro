@@ -215,7 +215,7 @@ export default function DashboardBlogs() {
         }),
       },
       title: {
-        text: "As per location",
+        text: "As Per Location",
         align: "left",
       },
       tooltip: {
@@ -420,7 +420,7 @@ export default function DashboardBlogs() {
                     <div className="barchart-div">
                       <div className="d-flex align-items-center justify-content-end dashboard-location-select">
                         {/* <p className="ml-4 color-black font-weight-bold">
-                        As per location
+                        As Per Location
                       </p> */}
                         <select
                           className="w-auto location-filter"

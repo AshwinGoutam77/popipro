@@ -108,7 +108,7 @@ function EditHeader({
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      const firstErrorKey = Object.keys(newErrors)[0]; // Get first error field key
+      const firstErrorKey = Object.keys(newErrors)[0];
       const firstErrorMessage = newErrors[firstErrorKey];
       document.getElementById(firstErrorKey)?.focus();
 
@@ -121,7 +121,7 @@ function EditHeader({
 
 
   const getBlobData = async () => {
-    if (!validateFields()) return; // Stop execution if validation fails
+    if (!validateFields()) return;
 
     let info = {
       first_name: FirstName,

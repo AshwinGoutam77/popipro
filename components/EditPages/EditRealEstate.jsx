@@ -3,6 +3,8 @@ import {
   faAngleDoubleRight,
   faArrowRight,
   faCheckCircle,
+  faChevronLeft,
+  faChevronRight,
   faCircleXmark,
   faEnvelope,
   faFloppyDisk,
@@ -975,13 +977,15 @@ export default function EditRealEstate({
                           )}
 
                         <button className="contact-btn w-30px m-0">
-                          <img
-                            src="../static/img/phone.svg"
-                            alt="image"
-                            width={14}
-                            className="mr-1"
-                          />
-                          Contact Agent
+                          <a href={'tel:' + MainData?.card?.card_contact}>
+                            <img
+                              src="../static/img/phone.svg"
+                              alt="image"
+                              width={14}
+                              className="mr-1"
+                            />
+                            Contact Agent
+                          </a>
                         </button>
 
                         {MainData?.company_setting
@@ -1039,7 +1043,7 @@ export default function EditRealEstate({
                   <ProgressBar now={25} />
                 </div>
 
-                <h6 className="mb-2 color-black pl-2">Basic Details</h6>
+                <h6 className="mb-2 color-black">Step 1 of 5: Basic Details</h6>
 
                 <label className="modalFormLable mt-2">
                   Featured Image* (*Recommended Size 347x160)
@@ -1197,7 +1201,7 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings2()}>
-                  Next
+                  Next <span className="ml-2"><FontAwesomeIcon icon={faChevronRight} /></span>
                 </button>
               </div>
             </>
@@ -1212,7 +1216,7 @@ export default function EditRealEstate({
                 <ProgressBar now={50} />;
               </div>
 
-              <h6 className="mb-2 color-black pl-2">Property Details</h6>
+              <h6 className="mb-2 color-black pl-2">Step 2 of 5: Property Details</h6>
 
               <label className="modalFormLable mt-2">Address*</label>
               <input
@@ -1357,7 +1361,7 @@ export default function EditRealEstate({
                 </div>
               </div>
 
-              <label className="modalFormLable">Google Map Address</label>
+              <label className="modalFormLable">Google Map Address/ Link</label>
               <input
                 type="text"
                 name="name"
@@ -1373,10 +1377,10 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings1()}>
-                  Back
+                  <span className="mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span> Back
                 </button>
                 <button className="send-btnn" onClick={() => handleSettings3()}>
-                  Next
+                  Next <span className="ml-2"><FontAwesomeIcon icon={faChevronRight} /></span>
                 </button>
               </div>
             </div>
@@ -1390,7 +1394,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={75} />;
               </div>
-              <h6 className="mb-3 color-black pl-1">Price Details</h6>
+              <h6 className="mb-3 color-black pl-1">Step 3 of 5: Price Details</h6>
               <div className="d-flex align-items-center mb-3 mt-1 ml-2">
                 <div className="d-flex align-items-center">
                   <input
@@ -1468,10 +1472,10 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings2()}>
-                  Back
+                  <span className="mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span>   Back
                 </button>
                 <button className="send-btnn" onClick={() => handleSettings4()}>
-                  Next
+                  Next <span className="ml-2"><FontAwesomeIcon icon={faChevronRight} /></span>
                 </button>
               </div>
             </div>
@@ -1485,7 +1489,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={80} />;
               </div>
-              <h6 className="mb-2 color-black pl-1">Main Amenities</h6>
+              <h6 className="mb-2 color-black pl-1">Step 4 of 5: Main Amenities</h6>
               {inputList && inputList?.map((x, i) => {
                 return (
                   (x?.category == 1 || x?.category == '') &&
@@ -1552,10 +1556,10 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings3()}>
-                  Back
+                  <span className="mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span> Back
                 </button>
                 <button className="send-btnn" onClick={() => handleSettings5()}>
-                  Next
+                  Next <span className="ml-2"><FontAwesomeIcon icon={faChevronRight} /></span>
                 </button>
               </div>
             </div>
@@ -1568,7 +1572,7 @@ export default function EditRealEstate({
               <div className="tab-progress-bar">
                 <ProgressBar now={100} />;
               </div>
-              <h6 className="mb-2 color-black pl-1">Other Amenities</h6>
+              <h6 className="mb-2 color-black pl-1">Step 5 of 5: Other Amenities</h6>
               {inputList2?.map((x, i) => {
                 return (
                   (x?.category == 2 || x?.category == '') &&
@@ -1635,7 +1639,7 @@ export default function EditRealEstate({
                 style={{ gap: "10px" }}
               >
                 <button className="send-btnn" onClick={() => handleSettings4()}>
-                  Back
+                  <span className="mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span> Back
                 </button>
                 {!ShowLoader ? (
                   <button
@@ -1935,6 +1939,16 @@ export default function EditRealEstate({
                             ) : (
                               ""
                             )}
+
+                            <a href={'tel:' + MainData?.card?.card_contact}
+                              className="whatsap-link-view d-flex align-items-center justify-content-center"
+                            >
+                              <FontAwesomeIcon
+                                icon={faPhone}
+                                className="user-select-auto"
+                              />
+                            </a>
+
                           </div>
                           <FontAwesomeIcon
                             icon={faArrowRight}

@@ -311,7 +311,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                                 />
                             </div>
                             <div>
-                                <label className="modalFormLable">Google Address</label>
+                                <label className="modalFormLable">Google Link</label>
                                 <input
                                     type="url"
                                     placeholder="Enter Your Event Location"

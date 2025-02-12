@@ -175,8 +175,10 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                           <img
                             src={item?.image}
                             alt="cart"
+                            onError={(e) => (e.target.src = "./static/img/picture-1.jpg")}
                             style={{ borderRadius: "10px" }}
                           />
+
                         </div>
                         <div className="col-8">
                           <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between">
@@ -228,21 +230,21 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
               <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Sub-total</p>
                 <p>
-                  {MainData?.company_setting?.currency?.currency}
+                  {MainData?.company_setting?.currency?.currency}{" "}
                   {totalPrice}
                 </p>
               </div>
               <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Shipping Charges </p>
                 <p>
-                  {MainData?.company_setting?.currency?.currency}
+                  {MainData?.company_setting?.currency?.currency}{" "}
                   0.00
                 </p>
               </div>
               <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Tax and other charges </p>
                 <p>
-                  {MainData?.company_setting?.currency?.currency}
+                  {MainData?.company_setting?.currency?.currency}{" "}
                   0.00
                 </p>
               </div>
@@ -250,7 +252,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
               <div className="font-weight-bold color-black d-flex justify-content-between w-100">
                 <p>Total price </p>
                 <p>
-                  {MainData?.company_setting?.currency?.currency}
+                  {MainData?.company_setting?.currency?.currency}{" "}
                   {totalPrice}
                 </p>
               </div>
@@ -337,8 +339,7 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                   width='90px'
                 />
                 <p className="my-3 font-weight-bold">
-                  Thank you for your order! To complete it, please make the payment using the Pay Now button.
-                  Share the payment screenshot via WhatsApp or email it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </p>
+                  Your order details have been recorded for processing. To complete your order, please make the payment using the "Pay Now" button and share the payment screenshot via WhatsApp to <a href={"https://api.whatsapp.com/send?phone=" + MainData?.card?.whatsapp_number} target="_blank" className="primary-color">{MainData?.card?.whatsapp_number}</a>  or email it to <a href={"mailto:" + MainData?.card?.card_email} className="primary-color">{MainData?.card?.card_email}</a> </p>
 
                 <p className="font-weight-bold">Your Order ID :{OrderData?.order_id} </p>
                 <p className="font-weight-bold">Your Customer ID :{OrderData?.customer_id} </p>

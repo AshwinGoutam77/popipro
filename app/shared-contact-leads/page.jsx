@@ -215,7 +215,7 @@ const Leads = () => {
         }),
       },
       title: {
-        text: "As per location",
+        text: "As Per Location",
         align: "left",
       },
       tooltip: {
