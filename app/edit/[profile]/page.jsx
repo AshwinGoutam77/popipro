@@ -111,7 +111,7 @@ const Page = () => {
   }
   return token ? (
     <>
-      {/* {pathname && pathname.includes(pathname.split("/")[1]) && <ToastContainer
+      {pathname && pathname.includes(pathname.split("/")[1]) && <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -122,7 +122,7 @@ const Page = () => {
         draggable
         pauseOnHover
         theme="light"
-      />} */}
+      />}
       {cardData ? (
         <>
           <EditBanner
