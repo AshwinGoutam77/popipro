@@ -46,6 +46,7 @@ export default function Page() {
   const [SelectId, setSelectId] = useState("");
   const [form_permissions, setform_permissions] = useState("");
   const [CustomFromGraph, setCustomFromGraph] = useState("");
+  const [FormLoader, setFormLoader] = useState(false);
 
   useEffect(() => {
     handleGetCustomForm();
@@ -97,11 +98,13 @@ export default function Page() {
   };
 
   const handleGetCustomFormData = async (id, name) => {
+    setFormLoader(true);
     setShow(true);
     const res = await Api(GetCustomFormRecords, {}, id);
     if (res.status) {
       setFormHeading(res?.data?.data?.formHeading);
       setRecordsData(res?.data?.data?.recorded_data);
+      setFormLoader(false);
     }
   };
 
@@ -130,13 +133,13 @@ export default function Page() {
         GetCustomFormData,
         {},
         "?start_date=" +
-        startDt +
-        "&end_date=" +
-        endDt +
-        "&location_filter=" +
-        e +
-        "&form_id=" +
-        SelectId
+          startDt +
+          "&end_date=" +
+          endDt +
+          "&location_filter=" +
+          e +
+          "&form_id=" +
+          SelectId
       );
       if (response.data.status) {
         setCustomFormData(response.data.data?.customForms);
@@ -300,7 +303,9 @@ export default function Page() {
           </button>
         </Modal.Header>
         <Modal.Body style={{ padding: "10px" }}>
-          {RecordsData?.length !== 0 ? (
+          {FormLoader ? (
+            <h5>Loading...</h5>
+          ) : RecordsData?.length !== 0 ? (
             RecordsData &&
             RecordsData?.map((items, index) => {
               return (
@@ -491,13 +496,13 @@ export default function Page() {
                                 <Td data-column="created date">
                                   {items.detail?.state
                                     ? items.detail?.city +
-                                    ", " +
-                                    items.detail?.state +
-                                    ", " +
-                                    items.detail?.country
+                                      ", " +
+                                      items.detail?.state +
+                                      ", " +
+                                      items.detail?.country
                                     : items.detail?.city +
-                                    ", " +
-                                    items.detail?.country}
+                                      ", " +
+                                      items.detail?.country}
                                 </Td>
                               ) : (
                                 <Td>---</Td>

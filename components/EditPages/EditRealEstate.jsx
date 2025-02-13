@@ -833,6 +833,7 @@ export default function EditRealEstate({
                                   __html: amenities.icon,
                                 }}
                               ></span>
+                              <p className="font-weight-bold ml-2 text-black">{amenities?.name}:</p>
                               <p className="pl-2 color-black">
                                 {amenities?.pivot?.description}
                               </p>
@@ -905,6 +906,7 @@ export default function EditRealEstate({
                                     __html: amenities.icon,
                                   }}
                                 ></span>
+                                <p className="font-weight-bold ml-2 text-black">{amenities?.name}:</p>
                                 <p className="pl-2 color-black">
                                   {amenities?.pivot?.description}
                                 </p>
@@ -1873,6 +1875,7 @@ export default function EditRealEstate({
                                       __html: amenities.icon,
                                     }}
                                   ></span>
+                                  <p className="font-weight-bold ml-2 text-black">{amenities?.name}:</p>
                                   <p className="pl-2 color-black">
                                     {amenities?.pivot?.description}
                                   </p>

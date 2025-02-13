@@ -32,6 +32,7 @@ export default function EditContact({
   const [AppForm, setAppForm] = useState(true);
   const [CalendlyUrl, setCalendlyUrl] = useState("");
   const [InputLoader, setInputLoader] = useState(false);
+  const [BtnLoading, setBtnLoading] = useState(false);
 
   useEffect(() => {
     setActive(TitleData?.card_booking?.is_active == "1" ? true : false);
@@ -160,7 +161,7 @@ export default function EditContact({
     if (response.data.status) {
       setInputLoader(false);
       APIDATA();
-      showToast(response.data.message, 'success')
+      showToast(response.data.message, "success");
     }
   };
   const handleClose = () => {
@@ -169,6 +170,7 @@ export default function EditContact({
   };
 
   const handleCalendly = async () => {
+    setBtnLoading(true);
     if (CalendlyUrl == "") {
       toast.error("Please enter the calendly URL.", {
         position: "top-right",
@@ -189,6 +191,7 @@ export default function EditContact({
     if (res.status) {
       setShow(false);
       setCalendlyUrl("");
+      setBtnLoading(false);
       APIDATA();
     }
   };
@@ -234,8 +237,12 @@ export default function EditContact({
             style={{ height: "40px", border: "1px solid #ccc" }}
           />
           <div className="mt-3">
-            <button className="contact-btn w-auto" onClick={handleCalendly}>
-              Save Changes
+            <button
+              className="contact-btn w-auto"
+              disabled={BtnLoading}
+              onClick={handleCalendly}
+            >
+              {BtnLoading ? "Processing..." : "Save Changes"}
             </button>
             <button
               className="delete-button w-auto ml-2"
@@ -284,7 +291,7 @@ export default function EditContact({
 
               <div>
                 {TitleData?.card_booking?.source == "2" &&
-                  TitleData?.card_booking?.in_subscription ? (
+                TitleData?.card_booking?.in_subscription ? (
                   <>
                     <div className="web-edit-icons">
                       <div className="d-flex align-items-center">
@@ -378,13 +385,13 @@ export default function EditContact({
                   name="real-estate-radio"
                   value={
                     MainData?.company_setting?.appointment_enquiry_method ===
-                      "form"
+                    "form"
                       ? true
                       : false
                   }
                   checked={
                     MainData?.company_setting?.appointment_enquiry_method ==
-                      "form"
+                    "form"
                       ? true
                       : false
                   }
@@ -407,14 +414,14 @@ export default function EditContact({
                   name="real-estate-radio"
                   value={
                     MainData?.company_setting?.appointment_enquiry_method ===
-                      "calendly"
+                    "calendly"
                       ? true
                       : false
                   }
                   // onChange={() => handleProductsbtn("wp")}
                   checked={
                     MainData?.company_setting?.appointment_enquiry_method ==
-                      "calendly"
+                    "calendly"
                       ? true
                       : false
                   }
@@ -426,14 +433,14 @@ export default function EditContact({
                   for="product-enq3"
                   className="ml-2 Varcolor font-weight-bold"
                 >
-                  Via Calendly?
+                  Via Simple Calendly Integration?
                 </label>
               </div>
             </div>
 
             <div className="row align-items-center justify-content-center mb-3"></div>
             {Show ||
-              MainData?.company_setting?.appointment_enquiry_method ==
+            MainData?.company_setting?.appointment_enquiry_method ==
               "calendly" ? (
               ""
             ) : (
