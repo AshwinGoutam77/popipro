@@ -1055,6 +1055,27 @@ button.filter-btns-active {
   border-radius: 10px;
 }
 
+.virtual-bg-label-box{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+
+  & div{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    & label{
+      margin: 0 !important;
+      line-height: normal;
+      font-weight: bold !important;
+    }
+  }
+}
+
 .virtual-images {
   width: 215px;
   height: 205px;

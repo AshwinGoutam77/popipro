@@ -20,14 +20,26 @@ import { useAuthContext } from "@context/AuthContext";
 import RedirectComponent from "@app/RedirectComponent/page";
 
 export default function page() {
-  const { token, UserData } = useAuthContext();
-  const canvasRef = useRef(null);
   const [ShowLoader, setShowLoader] = useState(false);
   const [Data, setData] = useState();
   const [Image, setImage] = useState("");
   const [imageSrc, setImageSrc] = useState();
   const [MainData, setMainData] = useState("");
   const [VirtualBgId, setVirtualBgId] = useState("");
+  const [Inputs, setInputs] = useState({
+    name: true,
+    email: true,
+    profession: true,
+    location: true
+  })
+
+  const handleChange = (event) => {
+    const { id, checked } = event.target;
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      [id]: checked,
+    }));
+  };
 
   useEffect(() => {
     api();
@@ -146,19 +158,21 @@ export default function page() {
       >
         <div className="col-sm-12 col-lg-6">
           <div className="p-4">
-            <div className="position-relative virtual-bg-div" id="captureDiv">
+            <div className="position-relative virtual-bg-div" id="captureDiv" style={{ backgroundImage: `url(${Image})` }}>
               <img
                 src={Data?.qrcode_generator}
                 className="qr-background-image"
                 alt="qr-code"
                 style={{ width: "100px", height: "100px" }}
               />
-              <img
-                src={Image}
-                alt="image"
-                className="virtal-bg-main-image"
-                id="setImage"
-              />{" "}
+
+              <div>
+                {Inputs.name && <p>{MainData && MainData?.first_name}</p>}
+                {Inputs.profession && <p>{MainData && MainData?.card_profession}</p>}
+                {Inputs.email && <p>{MainData && MainData?.card_email}</p>}
+                {Inputs.location && <p>{MainData && MainData?.card_address}</p>}
+              </div>
+
             </div>
             <button
               onClick={() => capture()}
@@ -173,6 +187,45 @@ export default function page() {
               How do I use my popipro background in Zoom, Google Meet, Microsoft
               Teams, Livestorm, Zoho Meeting, Vowel, GoToMeeting, Skype, Eyeson etc
             </a>
+
+            <div className="virtual-bg-label-box">
+              <div>
+                <input
+                  type="checkbox"
+                  id="name"
+                  checked={Inputs.name}
+                  onChange={handleChange}
+                />
+                <label htmlFor="name">Name</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="profession"
+                  checked={Inputs.profession}
+                  onChange={handleChange}
+                />
+                <label htmlFor="profession">Profession</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="email"
+                  checked={Inputs.email}
+                  onChange={handleChange}
+                />
+                <label htmlFor="email">Email</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="location"
+                  checked={Inputs.location}
+                  onChange={handleChange}
+                />
+                <label htmlFor="location">Location</label>
+              </div>
+            </div>
           </div>
         </div>
 
