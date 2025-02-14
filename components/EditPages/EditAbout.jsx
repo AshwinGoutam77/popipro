@@ -275,16 +275,18 @@ export default function EditAbout({ token, APIDATA, Data, TitleData }) {
 
                         {/* </Tooltip> */}
                         <>
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            onClick={handleEditAboutt}
-                            id="a90832"
-                            className="pe-auto Iconcolor-black"
-                            style={{
-                              cursor: "pointer",
-                              marginRight: "28px",
-                            }}
-                          />
+                          <div
+                            id="a90832">
+                            <FontAwesomeIcon
+                              icon={faPencil}
+                              onClick={handleEditAboutt}
+                              className="pe-auto Iconcolor-black"
+                              style={{
+                                cursor: "pointer",
+                                marginRight: "28px",
+                              }}
+                            />
+                          </div>
                           <label className="switch">
                             <input
                               data-status={
