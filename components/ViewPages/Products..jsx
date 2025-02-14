@@ -608,8 +608,7 @@ export default function Product({
                         ) : (
                           ""
                         )}
-                        {/* {item?.payment_link !==
-                          null ? (
+                        {item?.payment_link !== null ? (
                           <a
                             href={item?.payment_link}
                             target="_blank"
@@ -625,7 +624,7 @@ export default function Product({
                           </a>
                         ) : (
                           ""
-                        )} */}
+                        )}
                       </div>
                     </div>
                   ) : (

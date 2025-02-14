@@ -746,6 +746,7 @@ export default function EditWorks({
                               icon={faPencil}
                               className="ml-3 pe-auto Iconcolor-black"
                               onClick={() => setEditFields(true)}
+                              id="card_photos"
                             />
                           )}
                         </div>
@@ -761,6 +762,7 @@ export default function EditWorks({
                           <button
                             className="addmore"
                             onClick={handleShowSlider}
+                            id="card_photos"
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>
@@ -1070,6 +1072,7 @@ export default function EditWorks({
                               icon={faPencil}
                               className="ml-3 pe-auto Iconcolor-black"
                               onClick={() => setEditVideoFields(true)}
+                              id="card_videos"
                             />
                           )}
                         </div>
@@ -1078,6 +1081,7 @@ export default function EditWorks({
                           <button
                             className="addmore"
                             onClick={handleUpgradePlan}
+                            id="card_videos"
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>
@@ -1087,6 +1091,7 @@ export default function EditWorks({
                             data-toggle="modal"
                             data-target="#AddVideoModal"
                             onClick={() => HandleEmptyFeilds()}
+                            id="card_videos"
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </button>

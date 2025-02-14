@@ -5,6 +5,8 @@ import {
   GlobalPaymentLink,
   HitSuggestion,
   ManageCategory,
+  ProductEnquiryBtns,
+  ToogleRealEstateBtn,
 } from "@services/Routes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +16,7 @@ import { faPencil, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 
-export default function TagsModal({ active, handleClose, Data, APIDATA, TitleData }) {
+export default function TagsModal({ active, handleClose, Data, APIDATA, TitleData, MainData, realEstate, productsModal }) {
   const [EditCategory, setEditCategory] = useState(false);
   const [CategoryId, setCategoryId] = useState("");
   const [UpdateCategory, setUpdateCategory] = useState("");
@@ -31,7 +33,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
       setEditCategory(false);
     }
   };
-  
+
   const handleUpdateCategory = async (id) => {
     if (UpdateCategory == "") {
       toast.error("Category is requied", {
@@ -88,20 +90,71 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
     });
   };
 
+  const handleProductsbtn = async (type) => {
+    try {
+      const response = await Api(ProductEnquiryBtns, {}, "?type=" + type);
+      if (response.data.status) {
+        APIDATA();
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+
+
+  const handleRealEstateBtn = async (type) => {
+    try {
+      const response = await Api(ToogleRealEstateBtn, {}, "?type=" + type);
+      if (response.data.status) {
+        APIDATA();
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <Modal show={active} onHide={() => handleClose("")} centered>
         <Modal.Header>
           <Modal.Title>
@@ -123,7 +176,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
         </Modal.Header>
         <Modal.Body>
           <div>
-            <h6 className="text-dark">Manage Category</h6>
+            {/* <h6 className="text-dark">Manage Category</h6>
             <ul className="m-0 p-0 multimodes-ul px-1">
               {CategoryData
                 ? CategoryData &&
@@ -168,7 +221,121 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
                   );
                 })
                 : "No Category Found"}
-            </ul>
+            </ul> */}
+
+            {productsModal && <div className="">
+              <h6 className="font-weight-bold">
+                How you want to receive inquiry:
+              </h6>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="product-whatsapp"
+                  className="mt-1"
+                  value={
+                    MainData?.company_setting?.show_product_wp_button !==
+                      0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleProductsbtn("wp")}
+                  checked={
+                    MainData?.company_setting?.show_product_wp_button !==
+                      0
+                      ? true
+                      : false
+                  }
+                />
+                <label
+                  for="product-whatsapp"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via whatsapp only?
+                </label>
+              </div>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="product-enq"
+                  className="mt-1"
+                  value={
+                    MainData?.company_setting
+                      ?.show_product_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleProductsbtn("enq")}
+                  checked={
+                    MainData?.company_setting
+                      ?.show_product_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
+                />
+                <label
+                  for="product-enq"
+                  className="ml-2 Varcolor font-weight-bold mb-0"
+                >
+                  Via enquiry form?
+                </label>
+              </div>
+            </div>}
+
+            {realEstate && <div className="">
+              <h6 className="font-weight-bold">
+                How you want to receive inquiry:
+              </h6>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="real-estate-whatsapp"
+                  className="mt-1"
+                  value={
+                    MainData?.company_setting?.show_realestate_wp_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleRealEstateBtn("wp")}
+                  checked={
+                    MainData?.company_setting?.show_realestate_wp_button !== 0
+                      ? true
+                      : false
+                  }
+                />
+                <label
+                  for="real-estate-whatsapp"
+                  className="ml-2 Varcolor font-weight-bold"
+                >
+                  Via whatsapp only?
+                </label>
+              </div>
+              <div className="d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  id="real-estate-enq"
+                  className="mt-1"
+                  value={
+                    MainData?.company_setting
+                      ?.show_realestate_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
+                  onChange={() => handleRealEstateBtn("enq")}
+                  checked={
+                    MainData?.company_setting
+                      ?.show_realestate_enquiry_button !== 0
+                      ? true
+                      : false
+                  }
+                />
+                <label
+                  for="real-estate-enq"
+                  className="ml-2 Varcolor font-weight-bold mb-0"
+                >
+                  Via enquiry form?
+                </label>
+              </div>
+            </div>}
           </div>
         </Modal.Body>
       </Modal>

@@ -261,18 +261,20 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
                                                 )}
                                             </div>
                                             <>
-                                                {TitleData?.card_alternate_phone?.row_limit <=
-                                                    Data?.card_alternate_phone?.length ? (
+                                                {TitleData?.card_documents?.row_limit <=
+                                                    Data?.card_documents?.length ? (
                                                     <button
                                                         className="addmore"
                                                         data-toggle="modal"
                                                         data-target="#AlternateNumberModal"
+                                                        id='card_documents'
                                                         onClick={handleUpgradePlan}
                                                     >
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>
                                                 ) : (
-                                                    <button className="addmore" onClick={handleShow}>
+                                                    <button className="addmore" onClick={handleShow}
+                                                        id='card_documents'>
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>
                                                 )}
@@ -280,7 +282,7 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
                                                     <label className="switch">
                                                         <input
                                                             data-status={
-                                                                TitleData.card_alternate_phone?.is_active
+                                                                TitleData.card_documents?.is_active
                                                             }
                                                             data-active={Active}
                                                             checked={Active}

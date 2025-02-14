@@ -339,7 +339,7 @@ export default function EditAlternateNo({
               cols="50"
               className="form-control mb-4 mt-1"
               value={NumberLabel}
-              placeholder="Enter label for Alternate number"
+              placeholder={"Enter Label For " + AlterNumber}
               onChange={(e) => setNumberLabel(e.target.value)}
               maxLength="50"
             ></input>
@@ -426,7 +426,7 @@ export default function EditAlternateNo({
                     cols="50"
                     className="form-control mb-4 mt-1"
                     value={NumberLabel}
-                    placeholder="Enter label for Alternate number"
+                    placeholder={"Enter Label For " + AlterNumber}
                     style={{
                       height: "40px",
                       border: "1px solid #ccc",
@@ -580,12 +580,14 @@ export default function EditAlternateNo({
                               className="addmore"
                               data-toggle="modal"
                               data-target="#AlternateNumberModal"
+                              id='card_alternate_phone'
                               onClick={handleUpgradePlan}
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
                           ) : (
-                            <button className="addmore" onClick={handleShow}>
+                            <button className="addmore" onClick={handleShow}
+                              id='card_alternate_phone'>
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
                           )}

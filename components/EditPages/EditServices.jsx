@@ -753,6 +753,7 @@ export default function EditDoing({
                               <button
                                 className="addmore"
                                 onClick={handleUpgradePlan}
+                                id="card_services"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -761,6 +762,7 @@ export default function EditDoing({
                                 <button
                                   className="addmore mr-1"
                                   onClick={handleShow}
+                                  id="card_services"
                                 >
                                   <FontAwesomeIcon icon={faPlus} />
                                 </button>

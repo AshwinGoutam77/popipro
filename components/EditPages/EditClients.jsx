@@ -380,6 +380,7 @@ export default function EditClients({
                               <button
                                 className="addmore"
                                 onClick={handleUpgradePlan}
+                                id="card_clients"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -404,6 +405,7 @@ export default function EditClients({
                               <button
                                 className="addmore"
                                 onClick={handleEditClient}
+                                id="card_clients"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>

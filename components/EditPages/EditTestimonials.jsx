@@ -799,6 +799,7 @@ export default function EditTestimonials({
                               <button
                                 className="addmore"
                                 onClick={() => handleUpgradePlan()}
+                                id="card_testimonials"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -806,6 +807,7 @@ export default function EditTestimonials({
                               <button
                                 className="addmore"
                                 onClick={() => handleShow()}
+                                id="card_testimonials"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>

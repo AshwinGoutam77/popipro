@@ -540,6 +540,7 @@ function EditLinks({
                         {TitleData?.card_social_links.source !== 1 && (
                           <button
                             className="addmore"
+                            id="card_socialmedia"
                             onClick={() => handleShow()}
                           >
                             <FontAwesomeIcon icon={faPlus} />

@@ -8,6 +8,7 @@ import {
   faCircleXmark,
   faEnvelope,
   faFloppyDisk,
+  faGear,
   faInfo,
   faLocationDot,
   faPencil,
@@ -45,6 +46,8 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import LoadingText from "@components/ViewPages/LoadingText";
 import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
+import TagsModal from "@components/Dashboard/TagsModal";
+import { Tooltip } from "@mui/material";
 
 export default function EditRealEstate({
   MainData,
@@ -99,6 +102,7 @@ export default function EditRealEstate({
   const [OtherAmenities, setOtherAmenities] = useState(false);
   const [InternalBuildUp, setInternalBuildUp] = useState("");
   const [ExternalBuildUp, setExternalBuildUp] = useState("");
+  const [modalShow, setModalShow] = useState("");
 
   useEffect(() => {
     setRealEstateTitle(TitleData?.card_realestates?.visible_name);
@@ -685,36 +689,6 @@ export default function EditRealEstate({
       const list = [...inputList];
       const remove = list.filter((_, indexFilter) => !(indexFilter === index));
       setInputList(remove);
-    }
-  };
-
-  const handleRealEstateBtn = async (type) => {
-    try {
-      const response = await Api(ToogleRealEstateBtn, {}, "?type=" + type);
-      if (response.data.status) {
-        APIDATA();
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
     }
   };
 
@@ -1730,9 +1704,29 @@ export default function EditRealEstate({
                         )}
                       </div>
 
+                      <Tooltip placement="top" title="Manage Category">
+                        <button
+                          className="addmore mr-0"
+                          onClick={() => setModalShow("TagsModal")}
+                          id="card_realestates"
+                        >
+                          <FontAwesomeIcon icon={faGear} />
+                        </button>
+                      </Tooltip>
+                      <TagsModal
+                        active={modalShow == "TagsModal" ? true : false}
+                        handleClose={setModalShow}
+                        Data={Data}
+                        APIDATA={APIDATA}
+                        TitleData={TitleData}
+                        MainData={MainData}
+                        realEstate
+                      />
+
                       <button
                         className="addmore"
                         onClick={() => handleShowAddModal()}
+                        id="card_realestates"
                       >
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
@@ -2012,62 +2006,6 @@ export default function EditRealEstate({
             ) : (
               ""
             )}
-
-            <div className="mt-4">
-              <h6 className="font-weight-bold">
-                How you want to receive inquiry:
-              </h6>
-              <div className="d-flex align-items-start">
-                <input
-                  type="checkbox"
-                  id="real-estate-whatsapp"
-                  className="mt-1"
-                  value={
-                    MainData?.company_setting?.show_realestate_wp_button !== 0
-                      ? true
-                      : false
-                  }
-                  onChange={() => handleRealEstateBtn("wp")}
-                  checked={
-                    MainData?.company_setting?.show_realestate_wp_button !== 0
-                      ? true
-                      : false
-                  }
-                />
-                <label
-                  for="real-estate-whatsapp"
-                  className="ml-2 Varcolor font-weight-bold"
-                >
-                  Via whatsapp only?
-                </label>
-              </div>
-              <div className="d-flex align-items-start">
-                <input
-                  type="checkbox"
-                  id="real-estate-enq"
-                  className="mt-1"
-                  value={
-                    MainData?.company_setting
-                      ?.show_realestate_enquiry_button !== 0
-                      ? true
-                      : false
-                  }
-                  onChange={() => handleRealEstateBtn("enq")}
-                  checked={
-                    MainData?.company_setting
-                      ?.show_realestate_enquiry_button !== 0
-                      ? true
-                      : false
-                  }
-                />
-                <label
-                  for="real-estate-enq"
-                  className="ml-2 Varcolor font-weight-bold mb-0"
-                >
-                  Via enquiry form?
-                </label>
-              </div>
-            </div>
           </div>
         </div>
       </div>

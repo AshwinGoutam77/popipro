@@ -413,14 +413,14 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                                                     Data?.card_alternate_phone?.length ? (
                                                     <button
                                                         className="addmore"
-                                                        data-toggle="modal"
-                                                        data-target="#AlternateNumberModal"
+                                                        id="card_events"
                                                         onClick={handleUpgradePlan}
                                                     >
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>
                                                 ) : (
-                                                    <button className="addmore" onClick={handleShow}>
+                                                    <button className="addmore" onClick={handleShow}
+                                                        id="card_events">
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>
                                                 )}
@@ -475,55 +475,55 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                         </div>
                     </div>
 
-                    <div className="row events-section">
+                    {AddEvents?.length == 0 ? "Events are empty, to add Events click on the add icon." : <>
+                        <div className="row events-section">
 
-                        {AddEvents && AddEvents?.map((items, index) => {
-                            return (
-                                <div className="col-sm-6" key={index}>
-                                    <div className="events-tags-div">
-                                        <p>{items?.date}</p>
-                                    </div>
-                                    <img src={items?.banner?.path ? MainData?.card?.base_url + items?.banner?.path : "../static/img/picture-1.jpg"} alt="banner" />
-                                    <div>
-                                        <h3 class="title title--h4 mt-2 m-0">{items?.name}</h3>
-                                        <span> {items?.event_time && items?.event_time + " |"} {items?.venue}</span>
-                                    </div>
-                                    <div>
-                                        <p>{items?.description}</p>
-                                        <div className='d-flex align-items-center gap-2 mt-4'>
-                                            <button className="contact-btn w-auto m-0" onClick={() => handleEditData(items)}>Edit</button>
-                                            <button
-                                                className="send-btnn m-0"
-                                                onClick={() => handleDraft({ card_url: card_url, status: items?.status == 0 ? 1 : items?.status == 2 ? 1 : "2", product_id: items.id, APIDATA, item_name: items?.name, card_section: "card_events" })}
-                                            >
-                                                {items?.status == 0 || items?.status == 2 ? "Publish it" : items?.status == 1 ? "Unpublished" : ""}
-                                            </button>
-                                            <button className="delete-button w-auto m-0" onClick={() => handleDelete(items.id, 13, Data?.id)}>Delete</button>
+                            {AddEvents && AddEvents?.map((items, index) => {
+                                return (
+                                    <div className="col-sm-6" key={index}>
+                                        <div className="events-tags-div">
+                                            <p>{items?.date}</p>
+                                        </div>
+                                        <img src={items?.banner?.path ? MainData?.card?.base_url + items?.banner?.path : "../static/img/picture-1.jpg"} alt="banner" />
+                                        <div>
+                                            <h3 class="title title--h4 mt-2 m-0">{items?.name}</h3>
+                                            <span> {items?.event_time && items?.event_time + " |"} {items?.venue}</span>
+                                        </div>
+                                        <div>
+                                            <p>{items?.description}</p>
+                                            <div className='d-flex align-items-center gap-2 mt-4'>
+                                                <button className="contact-btn w-auto m-0" onClick={() => handleEditData(items)}>Edit</button>
+                                                <button
+                                                    className="send-btnn m-0"
+                                                    onClick={() => handleDraft({ card_url: card_url, status: items?.status == 0 ? 1 : items?.status == 2 ? 1 : "2", product_id: items.id, APIDATA, item_name: items?.name, card_section: "card_events" })}
+                                                >
+                                                    {items?.status == 0 || items?.status == 2 ? "Publish it" : items?.status == 1 ? "Unpublished" : ""}
+                                                </button>
+                                                <button className="delete-button w-auto m-0" onClick={() => handleDelete(items.id, 13, Data?.id)}>Delete</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-
-                    {PaginationData?.total_card_events !== AddEvents?.length ? (
-                        <div className="mx-auto text-center mt-4">
-                            <a
-                                className="text-center cursor-pointer mx-auto"
-                                style={{
-                                    textDecoration: "underline",
-                                    fontSize: "16px",
-                                    color: "var(--color)",
-                                }}
-                                onClick={LoadMoreFunction}
-                            >
-                                Load More
-                            </a>
+                                )
+                            })}
                         </div>
-                    ) : (
-                        ""
-                    )}
+                        {PaginationData?.total_card_events !== AddEvents?.length ? (
+                            <div className="mx-auto text-center mt-4">
+                                <a
+                                    className="text-center cursor-pointer mx-auto"
+                                    style={{
+                                        textDecoration: "underline",
+                                        fontSize: "16px",
+                                        color: "var(--color)",
+                                    }}
+                                    onClick={LoadMoreFunction}
+                                >
+                                    Load More
+                                </a>
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                    </>}
                 </div>
             </div>
         </>

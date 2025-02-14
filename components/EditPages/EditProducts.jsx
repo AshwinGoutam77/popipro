@@ -453,35 +453,7 @@ export default function EditProducts({
     }
   };
 
-  const handleProductsbtn = async (type) => {
-    try {
-      const response = await Api(ProductEnquiryBtns, {}, "?type=" + type);
-      if (response.data.status) {
-        APIDATA();
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  };
+
 
   const handleGeneralLink = (e) => {
     setEditPaymentBtn(0)
@@ -1678,6 +1650,7 @@ export default function EditProducts({
                             <button
                               className="addmore"
                               onClick={handleUpgradePlan}
+                              id="card_products"
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
@@ -1686,6 +1659,7 @@ export default function EditProducts({
                               <button
                                 className="addmore"
                                 onClick={() => handleShow()}
+                                id="card_products"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -1695,6 +1669,8 @@ export default function EditProducts({
                                 Data={Data}
                                 APIDATA={APIDATA}
                                 TitleData={TitleData}
+                                MainData={MainData}
+                                productsModal
                               />
                             </>
                           )}
@@ -2058,64 +2034,6 @@ export default function EditProducts({
               ) : (
                 ""
               )}
-
-              <div className="mt-4">
-                <h6 className="font-weight-bold">
-                  How you want to receive inquiry:
-                </h6>
-                <div className="d-flex align-items-start">
-                  <input
-                    type="checkbox"
-                    id="product-whatsapp"
-                    className="mt-1"
-                    value={
-                      MainData?.company_setting?.show_product_wp_button !==
-                        0
-                        ? true
-                        : false
-                    }
-                    onChange={() => handleProductsbtn("wp")}
-                    checked={
-                      MainData?.company_setting?.show_product_wp_button !==
-                        0
-                        ? true
-                        : false
-                    }
-                  />
-                  <label
-                    for="product-whatsapp"
-                    className="ml-2 Varcolor font-weight-bold"
-                  >
-                    Via whatsapp only?
-                  </label>
-                </div>
-                <div className="d-flex align-items-start">
-                  <input
-                    type="checkbox"
-                    id="product-enq"
-                    className="mt-1"
-                    value={
-                      MainData?.company_setting
-                        ?.show_product_enquiry_button !== 0
-                        ? true
-                        : false
-                    }
-                    onChange={() => handleProductsbtn("enq")}
-                    checked={
-                      MainData?.company_setting
-                        ?.show_product_enquiry_button !== 0
-                        ? true
-                        : false
-                    }
-                  />
-                  <label
-                    for="product-enq"
-                    className="ml-2 Varcolor font-weight-bold mb-0"
-                  >
-                    Via enquiry form?
-                  </label>
-                </div>
-              </div>
 
               <div className="mt-4">
                 <label htmlFor="product-password">

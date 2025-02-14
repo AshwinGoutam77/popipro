@@ -529,6 +529,7 @@ export default function EditCustomLink({
                             <button
                               className="addmore"
                               onClick={handleUpgradePlan}
+                              id="card_custom_url"
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
@@ -537,6 +538,7 @@ export default function EditCustomLink({
                               className="addmore"
                               data-toggle="modal"
                               data-target="#CustomLinkModal"
+                              id="card_custom_url"
                               onClick={handleShow}
                             >
                               <FontAwesomeIcon icon={faPlus} />

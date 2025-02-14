@@ -689,7 +689,7 @@ export default function EditResume({
                               <button
                                 className="addmore"
                                 onClick={handleUpgradePlan}
-                              // onClick={() => handleShow()}
+                                id="card_experience"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
@@ -699,6 +699,7 @@ export default function EditResume({
                                 data-toggle="modal"
                                 data-target="#AddMoreExpModal"
                                 onClick={() => handleShow()}
+                                id="card_experience"
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>

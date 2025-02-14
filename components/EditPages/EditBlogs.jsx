@@ -860,6 +860,7 @@ export default function EditBlogs({
                             <button
                               className="addmore mr-1"
                               onClick={handleShow}
+                              id="card_blogs"
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
@@ -870,6 +871,7 @@ export default function EditBlogs({
                               <button
                                 className="addmore ml-0"
                                 onClick={handleGetAiSuggestion}
+                                id="card_blogs"
                               >
                                 <FontAwesomeIcon icon={faWandMagicSparkles} />
                               </button>
@@ -879,6 +881,7 @@ export default function EditBlogs({
                           <button
                             className="addmore"
                             onClick={handleUpgradePlan}
+                            id="card_blogs"
                           >
                             <FontAwesomeIcon icon={faWandMagicSparkles} />
                           </button>
