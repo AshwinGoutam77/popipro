@@ -1633,18 +1633,18 @@ export default function EditProducts({
                               />
                             )}
                           </div>
-                          {Data?.categories?.length !== 0 ? (
-                            <Tooltip placement="top" title="Manage Category">
-                              <button
-                                className="addmore mr-0"
-                                onClick={() => setModalShow("TagsModal")}
-                              >
-                                <FontAwesomeIcon icon={faGear} />
-                              </button>
-                            </Tooltip>
-                          ) : (
+                          {/* {Data?.categories?.length !== 0 ? ( */}
+                          <Tooltip placement="top" title="Manage Category">
+                            <button
+                              className="addmore mr-0"
+                              onClick={() => setModalShow("TagsModal")}
+                            >
+                              <FontAwesomeIcon icon={faGear} />
+                            </button>
+                          </Tooltip>
+                          {/* ) : (
                             ""
-                          )}
+                          )} */}
                           {TitleData?.card_products?.row_limit <=
                             PaginationData?.total_card_products ? (
                             <button
