@@ -155,6 +155,7 @@ function EditHeader({
         setImage([]);
         handleClose();
         setShow(true);
+        // toast message on success
         showToast(response?.data?.message, "success");
         if (Show) {
           setShow(false);
