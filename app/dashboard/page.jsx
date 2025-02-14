@@ -17,6 +17,7 @@ import {
   faNewspaper,
   faPalette,
   faRightFromBracket,
+  faShareSquare,
   faSignal,
   faSliders,
   faStar,
@@ -60,6 +61,7 @@ import ProfileTabData from "./ProfileTab";
 import InsightsTabData from "./InsightsTab";
 import LeadsTabData from "./LeadsTab";
 import AdvanceFeatureData from "./AdvanceFeature";
+import Share from "@components/ViewPages/Share";
 
 export default function Dashboard() {
   const [ShowLoader, setShowLoader] = useState(false);
@@ -340,18 +342,6 @@ export default function Dashboard() {
 
   return Data ? (
     <>
-      {/* <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
       <div className="d-flex align-items-center flex-column justify-content-between h-100vh w-100 bg-white dashboard-section">
         <div
           className="login-header p-2 text-center d-flex align-items-center justify-content-between px-4 w-100"
@@ -501,24 +491,37 @@ export default function Dashboard() {
                         </button>
                       </a>
                     ) : (
-                      <button
-                        className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                        onClick={() =>
-                          MainData?.plan?.subscription_left_days == 0
-                            ? handleFreeTrail()
-                            : ""
-                        }
-                      >
-                        {MainData?.plan?.subscription_left_days !== 0
-                          ? "Your subscription is valid till " +
-                          MainData?.plan?.subscription_left_days +
-                          " days."
-                          : "Upgrade to premium"}
-                      </button>
+                      <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
+                        <button
+                          className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                          onClick={() =>
+                            MainData?.plan?.subscription_left_days == 0
+                              ? handleFreeTrail()
+                              : ""
+                          }
+                        >
+                          {MainData?.plan?.subscription_left_days !== 0
+                            ? "Your subscription is valid till " +
+                            MainData?.plan?.subscription_left_days +
+                            " days."
+                            : "Upgrade to premium"}
+                        </button>
+                      </Link>
                     )
                   ) : (
                     ""
                   )}
+                  <button
+                    className="border-0 bg-transparent ml-2"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                    onClick={() => setModalShow("share")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faShareSquare}
+                      className="user-select-auto mr-2 cursor-pointer fs-18"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
@@ -689,6 +692,13 @@ export default function Dashboard() {
           <p> © 2025. All Rights Reserved By Popipro.</p>
         </div>
       </div >
+
+      <Share
+        Data={Data}
+        card={localStorage.getItem("url")}
+        active={modalShow == "share" ? true : false}
+        handleClose={setModalShow}
+      />
       <Multimodes
         Data={Data}
         APIDATA={APIDATA}

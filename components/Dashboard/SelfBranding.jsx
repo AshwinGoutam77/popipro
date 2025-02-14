@@ -78,7 +78,8 @@ export default function SelfBranding({ MainData, handleClose, active }) {
                                                 alt={label}
                                                 width="130"
                                                 height="130"
-                                                className={`mb-2 rounded border ${CardCover === id ? "border-primary" : ""}`}
+                                                className={`mb-2 border ${CardCover === id ? "border-primary" : ""}`}
+                                                style={{ borderRadius: "16px" }}
                                             />
                                             <br />
                                             {label}

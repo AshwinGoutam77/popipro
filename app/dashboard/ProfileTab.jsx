@@ -166,7 +166,7 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             </div>
 
             {/* Subscription */}
-            <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+            {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
                         in_Plan
@@ -197,7 +197,7 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                         </h6>
                     </span>
                 </Link>
-            </div>
+            </div> */}
 
             {/* Order */}
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">

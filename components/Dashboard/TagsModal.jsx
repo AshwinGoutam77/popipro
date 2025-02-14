@@ -161,7 +161,7 @@ export default function TagsModal({ active, handleClose, Data, APIDATA, TitleDat
             <h5
               className="title title--h1 first-title title__separate mb-0"
             >
-              {TitleData.card_products?.visible_name} Settings
+              Settings
             </h5>
           </Modal.Title>
 
