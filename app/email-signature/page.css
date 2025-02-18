@@ -1,0 +1,18 @@
+input.form-control {
+    background-color: #F7F9FA !important;
+}
+
+.email-ginature-section .row {
+    row-gap: 20px;
+}
+
+.email-ginature-section .container {
+    height: 90vh;
+}
+
+@media(max-width:767px) {
+    .email-ginature-section .container {
+        height: 100%;
+        padding: 20px 0 50px 0;
+    }
+}

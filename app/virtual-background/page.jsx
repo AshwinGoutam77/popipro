@@ -167,10 +167,11 @@ export default function page() {
               />
 
               <div>
-                {Inputs.name && <p>{MainData && MainData?.first_name}</p>}
-                {Inputs.profession && <p>{MainData && MainData?.card_profession}</p>}
-                {Inputs.email && <p>{MainData && MainData?.card_email}</p>}
-                {Inputs.location && <p>{MainData && MainData?.card_address}</p>}
+                <img src="../../static/img/dark-logo.png" alt="logo" width='100' style={{ textAlign: 'center', marginBottom: '10px' }} />
+                {Inputs.name && MainData?.first_name && <p>{MainData && MainData?.first_name}</p>}
+                {Inputs.profession && MainData?.card_profession && <p>{MainData && MainData?.card_profession}</p>}
+                {Inputs.email && MainData?.card_email && <p>{MainData && MainData?.card_email}</p>}
+                {Inputs.location && MainData?.card_address && <p>{MainData && MainData?.card_address}</p>}
               </div>
 
             </div>

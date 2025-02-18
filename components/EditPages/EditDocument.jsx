@@ -98,7 +98,7 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
             title: DocTitle,
             document: File,
         };
-        const fileSizeLimit = 10 * 1024 * 1024;
+        const fileSizeLimit = 12 * 1024 * 1024;
         if (File.size > fileSizeLimit) {
             showToast("File size cannot exceed 10 MB.", "error");
         } else if (DocTitle == "") { showToast("title is requried", "error") }
@@ -176,7 +176,7 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
                             value={DocTitle}
                             onChange={(e) => setDocTitle(e.target.value)}
                         ></input>
-                        <label className="modalFormLable">Upload Document</label>
+                        <label className="modalFormLable">Upload Document (maximum size: 12MB)</label>
                         <input
                             type="file"
                             className="form-control mb-2 mt-1"

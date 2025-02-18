@@ -135,6 +135,10 @@ export default function EditProducts({
 
   const handleSaveProductDetail = async (id = null, status) => {
     setShowLoader(true);
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (Image && Image?.size > MAX_FILE_SIZE) {
+      return showToast("File size must be less than 5MB", "error"), setShowLoader(false);
+    }
     let data = [];
     let error = false;
     let mess = "";
@@ -835,7 +839,7 @@ export default function EditProducts({
                     <div>
                       <div>
                         <label className="modalFormLable">
-                          Upload Featured Image (*Recommended Size 150*150)
+                          Upload Featured Image (maximum size: 5MB)
                         </label>
                         <input
                           type="file"
@@ -1022,8 +1026,21 @@ export default function EditProducts({
                     </div>
                   </div> */}
 
+                  <div className="mt-2">
+                    <label className="modalFormLable">Enter Payment Link</label>
+                    <input
+                      name="url"
+                      className="form-control mb-4 mt-1"
+                      value={PaymentLink}
+                      placeholder="Payment Link"
+                      onChange={(e) => setPaymentLink(e.target.value)}
+                    ></input>
+                  </div>
+
+                  <label>Product Info:</label>
+
                   <div
-                    className="d-flex align-items-center w-100"
+                    className="d-flex align-items-center w-100 mt-2"
                     style={{ gap: "10px" }}
                   >
                     <div className="w-100">
@@ -1062,16 +1079,7 @@ export default function EditProducts({
                       </div>}
                   </div>
 
-                  <div>
-                    <label className="modalFormLable">Enter Payment Link</label>
-                    <input
-                      name="url"
-                      className="form-control mb-4 mt-1"
-                      value={PaymentLink}
-                      placeholder="Payment Link"
-                      onChange={(e) => setPaymentLink(e.target.value)}
-                    ></input>
-                  </div>
+
 
                   <div className="d-flex align-items-center justify-content-between">
                     <label className="modalFormLable">Description</label>
@@ -1201,7 +1209,7 @@ export default function EditProducts({
                         key={i}
                       />
                       <label className="modalFormLable">
-                        Update Featured Image (*Recommended Size 150*150)
+                        Update Featured Image (maximum size: 5MB)
                       </label>
 
                       <input
@@ -1396,6 +1404,7 @@ export default function EditProducts({
 
 
                     {Step === 2 && <div>
+                      <h6>Step 2/2</h6>
                       {/* <div className="d-flex align-items-center mb-3 mt-1 ml-2">
                         <div className="d-flex align-items-center">
                           <input
@@ -1425,8 +1434,22 @@ export default function EditProducts({
                         </div>
                       </div> */}
 
+
+                      <div className="w-100 mt-2">
+                        <label className="modalFormLable">Payment Link</label>
+                        <input
+                          name="url"
+                          className="form-control mb-4 mt-1"
+                          value={PaymentLink}
+                          placeholder="payment link"
+                          onChange={(e) => setPaymentLink(e.target.value)}
+                        ></input>
+                      </div>
+
+                      <label>Product Info:</label>
+
                       <div
-                        className="d-flex align-items-center w-100"
+                        className="d-flex align-items-center w-100 mt-2"
                         style={{ gap: "10px" }}
                       >
                         <div className="w-100">
@@ -1453,17 +1476,6 @@ export default function EditProducts({
                             onChange={(e) => setProductUrl(e.target.value)}
                           ></input>
                         </div>
-                      </div>
-
-                      <div className="w-100">
-                        <label className="modalFormLable">Payment Link</label>
-                        <input
-                          name="url"
-                          className="form-control mb-4 mt-1"
-                          value={PaymentLink}
-                          placeholder="payment link"
-                          onChange={(e) => setPaymentLink(e.target.value)}
-                        ></input>
                       </div>
 
                       <div className="d-flex align-items-center justify-content-between">

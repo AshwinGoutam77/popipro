@@ -202,7 +202,10 @@ export default function EditRealEstate({
     let error = false;
     let mess = "";
     const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (Image && Image?.size > MAX_FILE_SIZE) {
+      return showToast("File size must be less than 5MB", "error"), setShowLoader(false);
+    } else if (
       Title == "" ||
       PropertyType == "" ||
       Description == "" ||
@@ -1022,7 +1025,7 @@ export default function EditRealEstate({
                 <h6 className="mb-2 color-black">Step 1 of 5: Basic Details</h6>
 
                 <label className="modalFormLable mt-2">
-                  Featured Image* (*Recommended Size 347x160)
+                  Featured Image* (maximum size: 5MB)
                 </label>
                 <input
                   type="file"

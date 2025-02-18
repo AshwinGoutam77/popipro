@@ -89,6 +89,10 @@ export default function EditTestimonials({
         visible_name: TestiName,
       },
     ];
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (Image && Image?.size > MAX_FILE_SIZE) {
+      return showToast("File size must be less than 5MB", "error"), setShowLoader(false);
+    }
 
     let data = [];
     let error = false;
@@ -428,7 +432,7 @@ export default function EditTestimonials({
             !showChatModal ? <>
               <div>
                 <label className="modalFormLable">
-                  Upload Image (*Preferred size in ratio of 100x100)
+                  Upload Image (maximum size: 5MB)
                 </label>
                 <input
                   type="file"
@@ -572,7 +576,7 @@ export default function EditTestimonials({
                           key={i}
                         />
                         <label className="modalFormLable">
-                          Upload Image (*Preferred size in ratio of 100x100)
+                          Upload Image (maximum size: 5MB)
                         </label>
                         <div className="mb-3">
                           <input

@@ -47,6 +47,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
             saved_events: ""
         });
     }
+    const [isLocked, setIsLocked] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -66,6 +67,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
 
     useEffect(() => {
         setActive(TitleData?.card_events?.is_active == "1" ? true : false);
+        setIsLocked(TitleData?.card_events?.is_locked == "1" ? true : false);
     }, [TitleData]);
 
     useEffect(() => {
@@ -116,6 +118,10 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
     };
 
     const handleSave = async () => {
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (formData.banner && formData.banner?.size > MAX_FILE_SIZE) {
+            return showToast("File size must be less than 5MB", "error");;
+        }
         const requiredFields = [
             // { value: formData.banner, message: "Image is required." },
             { value: formData.name?.trim(), message: "Heading is required." },
@@ -212,7 +218,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
 
         setShow(true);
         setFormData({
-            banner: items?.banner || null,
+            // banner: items?.banner || null,
             name: items?.name || "",
             date: formattedDate,
             time: cleanTime,
@@ -239,6 +245,22 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
         }
     };
 
+    const handleShowSection = async () => {
+        const newValue = !isLocked;
+        setIsLocked(newValue);
+        let titles = [
+            {
+                name: "card_events",
+                visible_name: TitleData?.card_events?.visible_name,
+                is_locked: newValue ? 1 : 0,
+            },
+        ];
+        const response = await Api(CardData, { titles });
+        if (response?.data?.status) {
+            showToast(response.data?.message, 'success');
+        }
+    };
+
     return (
         <>
             <Modal show={show} onHide={handleClose} centered>
@@ -255,7 +277,7 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <label className="modalFormLable">Upload Image</label>
+                        <label className="modalFormLable">Upload Image (maximum size: 5MB)</label>
                         <input
                             type="file"
                             className="form-control mb-4 mt-1"
@@ -524,6 +546,17 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                             ""
                         )}
                     </>}
+                    <div className="mt-4">
+                        <label htmlFor="product-password">
+                            <input
+                                type="checkbox"
+                                id="product-password"
+                                checked={isLocked}
+                                onChange={handleShowSection}
+                            />{" "}
+                            Private the section
+                        </label>
+                    </div>
                 </div>
             </div>
         </>

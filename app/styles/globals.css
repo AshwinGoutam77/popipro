@@ -1076,6 +1076,10 @@ button.filter-btns-active {
   }
 }
 
+.css-1ji7omv-MuiBackdrop-root{
+  background-color: white;
+}
+
 .virtual-images {
   width: 215px;
   height: 205px;

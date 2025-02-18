@@ -93,6 +93,10 @@ export default function EditBlogs({
 
   const handleSaveBlogDetail = async (id = null) => {
     setShowLoader(true);
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (Image && Image?.size > MAX_FILE_SIZE) {
+      return showToast("File size must be less than 5MB", "error"), setShowLoader(false);
+    }
     let data = [];
     let error = false;
     const validExtensions = ["png", "jpeg", "jpg"];
@@ -431,7 +435,7 @@ export default function EditBlogs({
             !showChatModal ?
               <> <div>
                 <label className="modalFormLable">
-                  Upload Image (*Recommended Size 347x160)
+                  Upload Image (maximum size: 5MB)
                 </label>
                 <input
                   type="file"
@@ -576,7 +580,7 @@ export default function EditBlogs({
                       key={i}
                     />
                     <label className="modalFormLable">
-                      Upload Image (*Recommended Size 347x160)
+                      Upload Image (maximum size: 5MB)
                     </label>
                     <input
                       type="file"

@@ -491,37 +491,41 @@ export default function Dashboard() {
                         </button>
                       </a>
                     ) : (
-                      <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
-                        <button
-                          className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                          onClick={() =>
-                            MainData?.plan?.subscription_left_days == 0
-                              ? handleFreeTrail()
-                              : ""
-                          }
-                        >
-                          {MainData?.plan?.subscription_left_days !== 0
-                            ? "Your subscription is valid till " +
-                            MainData?.plan?.subscription_left_days +
-                            " days."
-                            : "Upgrade to premium"}
-                        </button>
-                      </Link>
+                      <button
+                        className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                        onClick={() =>
+                          MainData?.plan?.subscription_left_days == 0
+                            ? handleFreeTrail()
+                            : ""
+                        }
+                      >
+                        {MainData?.plan?.subscription_left_days !== 0
+                          ? "Your subscription is valid till " +
+                          MainData?.plan?.subscription_left_days +
+                          " days."
+                          : "Upgrade to premium"}
+                      </button>
                     )
                   ) : (
                     ""
                   )}
-                  <button
-                    className="border-0 bg-transparent ml-2"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                    onClick={() => setModalShow("share")}
-                  >
-                    <FontAwesomeIcon
-                      icon={faShareSquare}
-                      className="user-select-auto mr-2 cursor-pointer fs-18"
-                    />
-                  </button>
+
+                  {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-center mt-2">
+                    <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
+                      <button className="contact-btn d-block w-auto text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30 mt-0">
+                        View Subscription
+                      </button>
+                    </Link>
+                    <button
+                      className="border-0 bg-transparent ml-2"
+                      onClick={() => setModalShow("share")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faShareSquare}
+                        className="user-select-auto mr-2 cursor-pointer fs-18"
+                      />
+                    </button>
+                  </div>}
                 </div>
               </div>
             </div>
