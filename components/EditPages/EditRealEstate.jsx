@@ -48,6 +48,7 @@ import EditDropdown from "./Dropdown";
 import { showToast } from "@components/Dashboard/Toast";
 import TagsModal from "@components/Dashboard/TagsModal";
 import { Tooltip } from "@mui/material";
+import { handleDraft } from "./EditFunctions";
 
 export default function EditRealEstate({
   MainData,
@@ -156,7 +157,7 @@ export default function EditRealEstate({
     setPropertyType(items?.property_type?.id);
     setLocality(items?.street_address);
     setBhkValue(items?.bhk);
-    setGalleryImages(items?.gallery)
+    // setGalleryImages(items?.gallery)
     setBathroomValue(items?.bathroom);
     setFurnishType(items?.furnish_type);
     setPrice(items?.price);
@@ -367,7 +368,7 @@ export default function EditRealEstate({
       });
     });
 
-  const handleSaveDetails = async () => {
+  const handleSaveDetails = async (status) => {
     setShowLoader(true);
     let data = [];
     (data = [
@@ -399,6 +400,7 @@ export default function EditRealEstate({
         external_area: ExternalBuildUp,
         internal_area: InternalBuildUp,
         saved_realestates: ContentId !== null ? ContentId : "",
+        status: status,
       },
     ])
     try {
@@ -1621,12 +1623,20 @@ export default function EditRealEstate({
                   <span className="mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span> Back
                 </button>
                 {!ShowLoader ? (
-                  <button
-                    className="send-btnn"
-                    onClick={() => handleSaveDetails()}
-                  >
-                    Save and Published
-                  </button>
+                  <div>
+                    <button
+                      className="send-btnn"
+                      onClick={() => handleSaveDetails(0)}
+                    >
+                      Draft
+                    </button>
+                    <button
+                      className="send-btnn ml-2"
+                      onClick={() => handleSaveDetails(1)}
+                    >
+                      Publish
+                    </button>
+                  </div>
                 ) : (
                   <button class="send-btnn" disabled>
                     <FontAwesomeIcon icon={faSpinner} className="spinner-fa" />
@@ -1826,15 +1836,22 @@ export default function EditRealEstate({
                       </div>
                       <div className="col-lg-8 col-sm-12">
                         <div className="mt-2 cursor-pointer">
-                          <h6
-                            className="mb-0 color-black cursor-pointer d-flex align-items-center justify-content-between real-estate-heading"
-                            onClick={() => handleShowDetailModal(items?.id)}
-                          >
-                            {items?.heading}
-                            <span className="real-estate-badge">
-                              {items?.property_type?.name}
-                            </span>
-                          </h6>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <h6
+                              className="mb-0 color-black cursor-pointer real-estate-heading"
+                              onClick={() => handleShowDetailModal(items?.id)}
+                            >
+                              {items?.heading}
+                            </h6>
+                            <div>
+                              <span className="real-estate-badge">
+                                {items?.property_type?.name}
+                              </span>
+                              <span className="real-estate-badge">
+                                {items?.status == 0 ? "Draft" : items?.status == 2 ? "Unpublished" : "Published"}
+                              </span>
+                            </div>
+                          </div>
                           <p
                             className="color-black cursor-pointer mt-2"
                             onClick={() => handleShowDetailModal(items?.id)}
@@ -1959,7 +1976,8 @@ export default function EditRealEstate({
                       </div>
                     </div>
 
-                    {TitleData?.card_realestates?.source == "2" &&
+                    {
+                      TitleData?.card_realestates?.source == "2" &&
                       TitleData?.card_realestates?.in_subscription && (
                         <div
                           className={
@@ -1975,13 +1993,20 @@ export default function EditRealEstate({
                             Edit
                           </button>
                           <button
+                            className="send-btnn m-0"
+                            onClick={() => handleDraft({ card_url: card, status: items?.status == 0 ? 1 : items?.status == 2 ? 1 : "2", product_id: items.id, APIDATA, item_name: items?.name, card_section: "card_realestates" })}
+                          >
+                            {items?.status == 0 || items?.status == 2 ? "Publish it" : items?.status == 1 ? "Unpublished" : ""}
+                          </button>
+                          <button
                             className="delete-button m-0"
                             onClick={() => handleDelete(items)}
                           >
                             Delete
                           </button>
                         </div>
-                      )}
+                      )
+                    }
                   </div>
                 );
               })
@@ -2011,7 +2036,7 @@ export default function EditRealEstate({
             )}
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }
