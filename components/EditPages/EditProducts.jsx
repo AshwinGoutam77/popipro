@@ -2048,10 +2048,10 @@ export default function EditProducts({
               )}
 
               <div className="mt-4">
-                <label htmlFor="product-password">
+                <label htmlFor="products_lock">
                   <input
                     type="checkbox"
-                    id="product-password"
+                    id="products_lock"
                     checked={isLocked}
                     onChange={handleShowSection}
                   />{" "}
