@@ -7,6 +7,7 @@ import { useState } from "react";
 import SimpleBackdrop from "../ViewPages/Backdrop";
 import { UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
+import { showToast } from "@components/Dashboard/Toast";
 
 export default function EditPlan({
   PlanData,
@@ -14,6 +15,8 @@ export default function EditPlan({
   APIDATA,
   MainData,
   in_subscription,
+  message,
+  trial
 }) {
   const [ShowLoader, setShowLoader] = useState();
   const handleFreeTrail = async () => {
@@ -40,27 +43,9 @@ export default function EditPlan({
           if (response.data.status) {
             Swal.fire("Done", "", "success");
             APIDATA();
-            toast(response.data.message, {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            showToast(response.data.message, 'success')
           } else {
-            toast.error(response.data.message, {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            showToast(response.data.message, 'error')
           }
         }
       });
@@ -70,93 +55,39 @@ export default function EditPlan({
         window.location.href = "/login";
       }
       setShowLoader(false);
-      toast(error.response.data.message, {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      showToast(error.response.data.message, 'error')
     }
   };
   return (
-    <>
-      {/* <SimpleBackdrop visible={ShowLoader} /> */}
-      <div>
-        {Data &&
-        PlanData?.plan_name == "Premium" &&
-        PlanData?.is_trial_taken !== 0 ? (
-          <a
-            href="https://www.popipro.com/order"
-            target="_blank"
-            rel="noreferrer"
-            className="w-100 text-center"
-          >
-            <div className="overlay-div d-flex align-items-start justify-content-end flex-column">
-              <div className="d-flex align-items-center">
-                <FontAwesomeIcon
-                  icon={faLock}
-                  className="text-white mb-2"
-                  style={{ fontSize: "20px" }}
-                />
-                <p className="text-white ml-2 text-left">
-                  Your plan has been expired, Click here to renew plan
-                </p>
-              </div>
+    <div>
+      {
+        in_subscription == false &&
+        <a
+          href={trial ? "#" : "https://www.popipro.com/order"}
+          target="_blank"
+          rel="noreferrer"
+          className="w-100 text-center"
+          onClick={(e) => {
+            if (trial) {
+              e.preventDefault();
+              handleFreeTrail();
+            }
+          }}
+        >
+          <div className="overlay-div d-flex align-items-start justify-content-end flex-column">
+            <div className="d-flex align-items-center">
+              <FontAwesomeIcon
+                icon={faLock}
+                className="text-white mb-2"
+                style={{ fontSize: "20px" }}
+              />
+              <p className="text-white ml-2 text-left">
+                {message}
+              </p>
             </div>
-          </a>
-        ) : PlanData?.subscription?.plan_id == null ||
-          PlanData?.subscription?.plan_id == 0 ? (
-          <>
-            <div
-              className="overlay-div d-flex align-items-start justify-content-end flex-column"
-              onClick={() => handleFreeTrail()}
-            >
-              <div className="d-flex align-items-center">
-                <FontAwesomeIcon
-                  icon={faLock}
-                  className="text-white mb-2"
-                  style={{ fontSize: "20px" }}
-                />
-                <p className="text-white ml-2 text-left">
-                  {MainData?.is_individual == 0
-                    ? "Kindly contact to your company to upgrade the plan"
-                    : "Click here to unlock the 30 days free trial"}
-                </p>
-              </div>
-            </div>
-          </>
-        ) : (
-          in_subscription == false && (
-            <a
-              href="https://www.popipro.com/order"
-              target="_blank"
-              rel="noreferrer"
-              className="w-100 text-center"
-            >
-              <div className="overlay-div d-flex align-items-start justify-content-end flex-column">
-                <div className="d-flex align-items-center">
-                  <FontAwesomeIcon
-                    icon={faLock}
-                    className="text-white mb-2"
-                    style={{ fontSize: "20px" }}
-                  />
-                  <p className="text-white ml-2 text-left">
-                    This section is under the{" "}
-                    <span className="VarColor font-weight-bold">
-                      GOLDEN PLAN
-                    </span>
-                    , Click here to renew plan.
-                  </p>
-                </div>
-              </div>
-            </a>
-          )
-        )}
-      </div>
-    </>
+          </div>
+        </a>
+      }
+    </div>
   );
 }

@@ -1302,7 +1302,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel:focus {
   background: rgba(0, 0, 0, 0.7);
   height: 100%;
   width: 100%;
-  z-index: 8;
+  z-index: 99;
   border-radius: 10px !important;
   padding: 15px 30px;
 }

@@ -1659,6 +1659,8 @@ export default function EditRealEstate({
             APIDATA={APIDATA}
             MainData={MainData}
             in_subscription={TitleData?.card_realestates?.in_subscription}
+            trial={TitleData?.card_realestates?.can_start_trial}
+            message={TitleData?.card_realestates?.message}
           />
         ) : (
           ""
