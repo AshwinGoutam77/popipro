@@ -87,40 +87,48 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const [data, setData] = useState(null);
+  const [ErrorData, setErrorData] = useState("")
   const fetchData = async (profile) => {
-    setLoader(true)
+    setLoader(true);
+
     try {
       const response = await fetch(
         process.env.NEXT_PUBLIC_MODE === "development"
           ? `https://dev.popipro.com/api/get-card-data/?card_url=${profile}`
           : `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
-        { cache: "no-store" }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          cache: "no-store",
+        }
       );
 
-      if (response.status) {
-        const resp = await response.json();
-        setData(resp);
-        setLoader(false)
-        document.documentElement.style.setProperty("--color", resp?.data?.card?.color_code);
-        document.documentElement.style.setProperty(
-          "--header-color",
-          resp?.data?.card?.banner_color
-        );
-        document.documentElement.style.setProperty(
-          "--themecolor",
-          resp?.data?.card?.background_color
-        );
-        document.documentElement.style.setProperty(
-          "--text-color",
-          resp?.data?.card?.text_color
-        );
-      } else {
-        console.error("Failed to fetch data", response.status);
+      const resp = await response.json();
+
+      if (!response.ok) {
+        setErrorData(resp);
+      }
+
+      if (!resp || !resp.data) {
+        throw new Error("Invalid response data. Please try again later.");
+      }
+      setData(resp);
+      if (resp.data.card) {
+        document.documentElement.style.setProperty("--color", resp.data.card.color_code);
+        document.documentElement.style.setProperty("--header-color", resp.data.card.banner_color);
+        document.documentElement.style.setProperty("--themecolor", resp.data.card.background_color);
+        document.documentElement.style.setProperty("--text-color", resp.data.card.text_color);
       }
     } catch (error) {
       console.error("An error occurred while fetching data:", error);
+    } finally {
+      setLoader(false);
     }
   };
+
+
 
   const calculateTotalPrice = (cartItems) => {
     const total = cartItems.reduce((sum, item) => sum + item.total, 0);
@@ -207,7 +215,8 @@ const AuthContextProvider = ({ children }) => {
         setTodoData,
         TodoData,
         setData,
-        CartLoader
+        CartLoader,
+        ErrorData
       }}
     >
       {children}

@@ -373,6 +373,8 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                         APIDATA={APIDATA}
                         MainData={MainData}
                         in_subscription={TitleData?.card_events?.in_subscription}
+                        trial={TitleData?.card_events?.can_start_trial}
+                        message={TitleData?.card_events?.message}
                     />
                 ) : (
                     ""

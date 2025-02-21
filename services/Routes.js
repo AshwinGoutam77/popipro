@@ -178,3 +178,7 @@ export const RephraseFromAi = {
 export const PublishSection = {
   path: "manage-card-section-publish-status", method: "POST"
 }
+
+export const StartTrial = {
+  path: "start-trial-build-next", method: "POST"
+}

@@ -185,7 +185,7 @@ function EditHeader({
     if (Show) {
       setShow(false);
     }
-    const response = await Api(GetCardData, {}, "?card_url=" + card);
+    const response = await Api(GetCardData, {}, "?card_url=" + card + "&is_edit=true",);
     if (response.data.status) {
       setFirstName(response.data.data.card.first_name);
       setLastName(response.data.data.card.last_name);

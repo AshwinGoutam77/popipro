@@ -36,7 +36,9 @@ import { useAuthContext } from "@context/AuthContext";
 // }
 
 const ProfilePage = ({ params }) => {
-  const { fetchData, data } = useAuthContext();
+  const { fetchData, data, ErrorData } = useAuthContext();
+  console.log("error", ErrorData);
+
   // const headersList = headers();
   const referer = null;//headersList.get("referer");
   const { profile } = params;
@@ -76,6 +78,7 @@ const ProfilePage = ({ params }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
+
       <Suspense
         fallback={
           <h5
@@ -86,6 +89,19 @@ const ProfilePage = ({ params }) => {
           </h5>
         }
       >
+        {ErrorData?.status == false && <div
+          className="d-flex align-items-center justify-content-center text-center flex-column"
+          style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
+        >
+          <img
+            src="../../static/img/nodata-img.svg"
+            alt="error"
+            width={300}
+          />
+          <h6 className="mt-4 color-black">
+            {ErrorData && ErrorData?.message}
+          </h6>
+        </div>}
         <Main
           profile={profile}
           data={data}

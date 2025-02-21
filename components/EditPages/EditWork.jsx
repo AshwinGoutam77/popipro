@@ -679,6 +679,8 @@ export default function EditWorks({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_photos?.in_subscription}
+              trial={TitleData?.card_photos?.can_start_trial}
+              message={TitleData?.card_photos?.message}
             />
           ) : (
             ""
@@ -1009,6 +1011,8 @@ export default function EditWorks({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_videos?.in_subscription}
+              trial={TitleData?.card_videos?.can_start_trial}
+              message={TitleData?.card_videos?.message}
             />
           ) : (
             ""

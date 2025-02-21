@@ -139,6 +139,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    z-index: 999;
   }
 
   .sidebarr::-webkit-scrollbar {

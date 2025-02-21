@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import SimpleBackdrop from "../ViewPages/Backdrop";
-import { UpgradePlan } from "@services/Routes";
+import { StartTrial, UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 import { showToast } from "@components/Dashboard/Toast";
 
@@ -22,23 +22,17 @@ export default function EditPlan({
   const handleFreeTrail = async () => {
     try {
       Swal.fire({
-        title: MainData?.is_individual == 0 ? "" : "Are you sure?",
-        text:
-          MainData?.is_individual == 0
-            ? "Kindly contact to your company to upgrade the plan."
-            : "You want to activate 30 days Free trial for Premium Features without paying any money for now? ",
+        title: "Are you sure?",
+        text: "Would you like to activate a 30-day free trial for premium features without any payment required right now?",
         icon: "warning",
-        showCancelButton: MainData?.is_individual == 0 ? false : true,
+        showCancelButton: true,
         confirmButtonColor: "rgb(24 123 249)",
         cancelButtonColor: "#d33",
-        showConfirmButton: MainData?.is_individual == 0 ? false : true,
+        showConfirmButton: true,
         confirmButtonText: "Yes",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await Api(UpgradePlan, {
-            total_month: "1",
-            is_trial: "1",
-          });
+          const response = await Api(StartTrial);
           setShowLoader(false);
           if (response.data.status) {
             Swal.fire("Done", "", "success");

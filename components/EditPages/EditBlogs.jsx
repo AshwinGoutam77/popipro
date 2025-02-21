@@ -791,6 +791,8 @@ export default function EditBlogs({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_blogs?.in_subscription}
+              trial={TitleData?.card_blogs?.can_start_trial}
+              message={TitleData?.card_blogs?.message}
             />
           )}
           <div className="box-content boxxx" id="card_blogs">

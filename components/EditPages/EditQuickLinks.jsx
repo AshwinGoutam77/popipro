@@ -464,6 +464,8 @@ export default function EditCustomLink({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_custom_url?.in_subscription}
+              trial={TitleData?.card_custom_url?.can_start_trial}
+              message={TitleData?.card_custom_url?.message}
             />
           ) : (
             ""

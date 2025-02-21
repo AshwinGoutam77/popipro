@@ -92,7 +92,7 @@ const Page = () => {
           style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
         >
           <img
-            src="https://toolapi.devwings.com/assets/chat/groups/290324125550undraw_access_denied_re_awnf.svg"
+            src="../../static/img/nodata-img.svg"
             alt="error"
             width={300}
           />

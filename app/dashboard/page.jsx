@@ -97,7 +97,7 @@ export default function Dashboard() {
         const response = await Api(
           EditData,
           {},
-          "?card_url=" + localStorage.getItem("url")
+          "?card_url=" + localStorage.getItem("url") + "&is_edit=true",
         );
         if (response.data.status) {
           setShowLoader(false);

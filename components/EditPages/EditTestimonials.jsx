@@ -709,6 +709,8 @@ export default function EditTestimonials({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_testimonials?.in_subscription}
+              trial={TitleData?.card_testimonials?.can_start_trial}
+              message={TitleData?.card_testimonials?.message}
             />
           ) : (
             ""

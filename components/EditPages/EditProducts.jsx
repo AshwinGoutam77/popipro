@@ -1580,6 +1580,8 @@ export default function EditProducts({
                 APIDATA={APIDATA}
                 MainData={MainData}
                 in_subscription={TitleData?.card_products?.in_subscription}
+                trial={TitleData?.card_products?.can_start_trial}
+                message={TitleData?.card_products?.message}
               />
             ) : (
               ""

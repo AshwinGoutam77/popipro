@@ -667,6 +667,8 @@ export default function EditDoing({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_services?.in_subscription}
+              trial={TitleData?.card_services?.can_start_trial}
+              message={TitleData?.card_services?.message}
             />
           ) : (
             ""

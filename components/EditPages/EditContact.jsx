@@ -263,6 +263,8 @@ export default function EditContact({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_booking?.in_subscription}
+              trial={TitleData?.card_booking?.can_start_trial}
+              message={TitleData?.card_booking?.message}
             />
           ) : (
             ""

@@ -306,6 +306,8 @@ export default function EditClients({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_clients?.in_subscription}
+              trial={TitleData?.card_clients?.can_start_trial}
+              message={TitleData?.card_clients?.message}
             />
           ) : (
             ""

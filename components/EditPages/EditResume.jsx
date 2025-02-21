@@ -611,6 +611,8 @@ export default function EditResume({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_experience?.in_subscription}
+              trial={TitleData?.card_experience?.can_start_trial}
+              message={TitleData?.card_experience?.message}
             />
           ) : (
             ""

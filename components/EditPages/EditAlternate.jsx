@@ -514,6 +514,8 @@ export default function EditAlternateNo({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_alternate_phone?.in_subscription}
+              trial={TitleData?.card_alternate_phone?.can_start_trial}
+              message={TitleData?.card_alternate_phone?.message}
             />
           ) : (
             ""

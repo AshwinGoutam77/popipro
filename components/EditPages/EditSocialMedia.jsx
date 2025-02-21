@@ -471,6 +471,8 @@ function EditLinks({
               APIDATA={APIDATA}
               MainData={MainData}
               in_subscription={TitleData?.card_social_links?.in_subscription}
+              trial={TitleData?.card_social_links?.can_start_trial}
+              message={TitleData?.card_social_links?.message}
             />
           )}
           <div className="box-content boxxx" id="about">
@@ -672,7 +674,7 @@ function EditLinks({
                           return (
                             <>
                               <div className="position-relative w-100" key={i}>
-                                {TitleData.card_social_links?.source !== 1 ? (
+                                {TitleData?.card_social_links.source == 2 && TitleData?.card_social_links?.in_subscription ? (
                                   <FontAwesomeIcon
                                     data-toggle="modal"
                                     data-target="#SocialLinksModalEdit"
@@ -699,7 +701,7 @@ function EditLinks({
                                 ) : (
                                   ""
                                 )}
-                                {TitleData.card_social_links?.source !== 1 ? (
+                                {TitleData?.card_social_links.source == 2 && TitleData?.card_social_links?.in_subscription ? (
                                   <FontAwesomeIcon
                                     icon={faXmarkCircle}
                                     className="user-select-auto position-absolute top-0 end-0 link-minus-icon"

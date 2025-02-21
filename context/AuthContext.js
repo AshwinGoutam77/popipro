@@ -12,7 +12,8 @@ export const AuthContext = createContext({
   Loader: null,
   setTodoData: null,
   TodoData: null,
-  CartLoader: null
+  CartLoader: null,
+  ErrorData: null
 });
 
 export const useAuthContext = () => useContext(AuthContext);

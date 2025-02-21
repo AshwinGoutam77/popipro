@@ -203,6 +203,8 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
                         APIDATA={APIDATA}
                         MainData={MainData}
                         in_subscription={TitleData?.card_documents?.in_subscription}
+                        trial={TitleData?.card_documents?.can_start_trial}
+                        message={TitleData?.card_documents?.message}
                     />
                 ) : (
                     ""
