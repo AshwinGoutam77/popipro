@@ -87,7 +87,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const [data, setData] = useState(null);
-  const [ErrorData, setErrorData] = useState("")
+  const [ErrorData, setErrorData] = useState(false)
   const fetchData = async (profile) => {
     setLoader(true);
 
