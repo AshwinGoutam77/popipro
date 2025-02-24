@@ -89,7 +89,7 @@ const ProfilePage = ({ params }) => {
           </h5>
         }
       >
-        {ErrorData?.status == false && <div
+        {ErrorData?.status == false ? <div
           className="d-flex align-items-center justify-content-center text-center flex-column"
           style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
         >
@@ -101,14 +101,14 @@ const ProfilePage = ({ params }) => {
           <h6 className="mt-4 color-black">
             {ErrorData && ErrorData?.message}
           </h6>
-        </div>}
-        <Main
-          profile={profile}
-          data={data}
-          id={data?.data?.card?.id}
-          referer={referer}
-          fetchData={fetchData}
-        />
+        </div> :
+          <Main
+            profile={profile}
+            data={data}
+            id={data?.data?.card?.id}
+            referer={referer}
+            fetchData={fetchData}
+          />}
       </Suspense>
     </>
   );

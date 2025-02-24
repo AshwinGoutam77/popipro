@@ -115,6 +115,7 @@ const AuthContextProvider = ({ children }) => {
         throw new Error("Invalid response data. Please try again later.");
       }
       setData(resp);
+      setErrorData("");
       if (resp.data.card) {
         document.documentElement.style.setProperty("--color", resp.data.card.color_code);
         document.documentElement.style.setProperty("--header-color", resp.data.card.banner_color);

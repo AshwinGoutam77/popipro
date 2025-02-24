@@ -1181,7 +1181,7 @@ export default function Realestate({
                 <p className="mx-2 color-black">No property found</p>
               )}
             </div>
-            {PaginationData?.total_realestate ==
+            {PaginationData?.total_realestate !==
               Data?.card_realestates?.length && LoadMore !== null ? (
               <div className="mx-auto text-center">
                 <span
