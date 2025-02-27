@@ -30,11 +30,15 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() =>
-                        !in_Plan
-                            ? setModalShow("theme")
-                            : ""
-                    }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.edit_theme?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        } else if (MainData?.non_section_feature?.edit_theme?.in_subscription) {
+                            e.preventDefault();
+                            setModalShow("theme");
+                        }
+                    }}
                 >
                     {Data ? (
                         <DashboardPlan
@@ -42,6 +46,8 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.edit_theme?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.edit_theme?.can_start_trial}
                             handleFreeTrail={handleFreeTrail}
                         />
                     ) : (
@@ -64,10 +70,14 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => {
-                        !in_Plan
-                            ? setModalShow("MultimodesModal")
-                            : "";
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.landingmode?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        } else if (MainData?.non_section_feature?.landingmode?.in_subscription) {
+                            e.preventDefault();
+                            setModalShow("MultimodesModal")
+                        }
                     }}
                 >
                     {Data ? (
@@ -76,6 +86,8 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.landingmode?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.landingmode?.can_start_trial}
                             handleFreeTrail={handleFreeTrail}
                         />
                     ) : (
@@ -98,10 +110,16 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/Notification"
+                        MainData?.non_section_feature?.notification?.in_subscription
+                            ? "/Notification"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.notification?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -111,6 +129,8 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.notification?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.notification?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -133,10 +153,16 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/approve-review"
+                        MainData?.titles?.card_testimonials?.in_subscription
+                            ? "/approve-review"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.titles?.card_testimonials?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -146,6 +172,8 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.titles?.card_testimonials?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_testimonials?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -203,10 +231,16 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/order"
+                        MainData?.non_section_feature?.sequence?.in_subscription
+                            ? "/order"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.sequence?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -216,6 +250,8 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.sequence?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.sequence?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (

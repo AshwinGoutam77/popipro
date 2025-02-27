@@ -182,3 +182,7 @@ export const PublishSection = {
 export const StartTrial = {
   path: "start-trial-build-next", method: "POST"
 }
+
+export const StartAddOnTrial = {
+  path: "start-addon-trial", method: "POST"
+}

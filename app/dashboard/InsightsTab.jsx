@@ -11,10 +11,16 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/overall-analytics"
+                        MainData?.non_section_feature?.analytics?.in_subscription
+                            ? "/overall-analytics"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.analytics?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -23,6 +29,8 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.analytics?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.analytics?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -47,10 +55,16 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/product"
+                        MainData?.titles?.card_products?.in_subscription
+                            ? "/product"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.titles?.card_products?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -60,6 +74,8 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.titles?.card_products?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_products?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -84,10 +100,16 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/blog"
+                        MainData?.titles?.card_blogs?.in_subscription
+                            ? "/blog"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.titles?.card_blogs?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <span className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -97,6 +119,8 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.titles?.card_blogs?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_blogs?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -122,10 +146,16 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/real-estate"
+                        MainData?.titles?.card_realestates?.in_subscription
+                            ? "/real-estate"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.titles?.card_realestates?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -135,6 +165,8 @@ export default function InsightsTabData({ setModalShow, Data, PlanData, MainData
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.titles?.card_realestates?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_realestates?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (

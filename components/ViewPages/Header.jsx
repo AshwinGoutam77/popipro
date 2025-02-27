@@ -781,7 +781,7 @@ const Header = ({
             </div>
             <div className="d-flex sm-class header-btn-gap">
               {Titles?.card_testimonial?.is_active !== 0 && company_setting?.show_testimonial_button !== 0 &&
-                PlanData?.current_plan?.is_expired == false &&
+                PlanData?.is_expired == false &&
                 (
                   <button
                     className="delete-button w-100 mt-2"
@@ -791,7 +791,7 @@ const Header = ({
                   </button>
                 )}
               {Titles?.card_booking?.is_active !== 0 &&
-                PlanData?.current_plan?.is_expired == false && (
+                PlanData?.is_expired == false && (
                   <button
                     className="delete-button w-100 mt-2"
                     onClick={

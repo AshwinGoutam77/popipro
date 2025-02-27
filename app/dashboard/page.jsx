@@ -217,7 +217,7 @@ export default function Dashboard() {
 
   const handleFreeTrail = async () => {
     try {
-      in_Subscription && Swal.fire({
+      Swal.fire({
         title: MainData?.is_individual == 0 ? "" : "Are you sure?",
         text:
           MainData?.is_individual == 0
@@ -475,11 +475,11 @@ export default function Dashboard() {
                   )}
                   {Data?.is_onboarding !== "1" ? (
                     Data &&
-                      PlanData?.current_plan?.is_expired !== false &&
+                      PlanData?.is_expired !== false &&
                       PlanData?.is_trial_taken !== 0 ? (
                       <a
                         href={
-                          PlanData?.current_plan?.is_expired !== false &&
+                          PlanData?.is_expired !== false &&
                             PlanData?.is_trial_taken !== 0
                             ? "https://www.popipro.com/order"
                             : ""

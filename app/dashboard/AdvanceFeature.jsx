@@ -11,7 +11,15 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => !in_Plan && setModalShow("digitalCard")}
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.address_book?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        } else if (MainData?.non_section_feature?.address_book?.in_subscription) {
+                            e.preventDefault();
+                            setModalShow("digitalCard")
+                        }
+                    }}
                 >
                     {Data && (
                         <DashboardPlan
@@ -19,6 +27,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.address_book?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.address_book?.can_start_trial}
                             handleFreeTrail={handleFreeTrail}
                         />
                     )}
@@ -37,10 +47,16 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/email-signature"
+                        MainData?.non_section_feature?.email_signature?.in_subscription
+                            ? "/email-signature"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.email_signature?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -50,6 +66,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.email_signature?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.email_signature?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -68,14 +86,19 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             </div>
 
             {/* Background */}
-
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/virtual-background"
+                        MainData?.non_section_feature?.virtual_background?.in_subscription
+                            ? "/virtual-background"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.virtual_background?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -85,6 +108,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.virtual_background?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.virtual_background?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -106,10 +131,16 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/contacts"
+                        MainData?.non_section_feature?.address_book?.in_subscription
+                            ? "/contacts"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.address_book?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -119,6 +150,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.address_book?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.address_book?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
@@ -140,7 +173,16 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
-                    onClick={() => !in_Plan && setModalShow("selfBranding")}
+                    // onClick={() => MainData?.non_section_feature?.self_branding?.in_subscription == true && setModalShow("selfBranding")}
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.self_branding?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        } else if (MainData?.non_section_feature?.self_branding?.in_subscription) {
+                            e.preventDefault();
+                            setModalShow("selfBranding")
+                        }
+                    }}
                 >
                     {Data && (
                         <DashboardPlan
@@ -148,6 +190,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                             PlanData={PlanData}
                             APIDATA={APIDATA}
                             MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.self_branding?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.self_branding?.can_start_trial}
                             handleFreeTrail={handleFreeTrail}
                         />
                     )}
@@ -166,10 +210,16 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        in_Plan
-                            ? "https://www.popipro.com/order"
-                            : "/to-do"
+                        MainData?.non_section_feature?.address_book?.in_subscription
+                            ? "/to-do"
+                            : "https://www.popipro.com/order"
                     }
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.address_book?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        }
+                    }}
                     className="w-100  text-decoration-none"
                 >
                     <div className="dashboard-boxes d-flex justify-content-center align-items-center flex-column">
@@ -179,6 +229,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
+                                in_subscription={MainData?.non_section_feature?.address_book?.in_subscription}
+                                can_start_trial={MainData?.non_section_feature?.address_book?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (

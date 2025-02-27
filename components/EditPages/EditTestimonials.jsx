@@ -46,6 +46,7 @@ export default function EditTestimonials({
   PlanData,
   token,
 }) {
+  console.log(PlanData);
   const [Testimonials, setTestimonials] = useState(false);
   const [Active, setActive] = useState("");
   const [ShowLoader, setShowLoader] = useState("");
@@ -982,8 +983,7 @@ export default function EditTestimonials({
                 </SwiperComponent>
               )}
               {TitleData?.card_testimonials?.source == "2" &&
-                PlanData?.current_plan?.is_expired == false &&
-                PlanData?.subscription?.plan_id !== 1 && (
+                PlanData?.is_expired == false && (
                   <div className="d-flex align-items-start">
                     <input
                       type="checkbox"
