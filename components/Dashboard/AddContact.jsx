@@ -200,7 +200,7 @@ export default function AddContact({ shareContact, src, data, profile, text }) {
       />
 
       <h5 className="color-black">How to create new contact</h5>
-      <img src="https://prafullgupta.com/connectwork/assets/chat/groups/0104240558263f844ca2-4c8b-4027-aec9-29cb5d48f661.png" />
+      <img src="https://toolapi.devwings.com/assets/chat/groups/0104240558263f844ca2-4c8b-4027-aec9-29cb5d48f661.png" />
       {!ShowLoader ? (
         <button
           className="contact-btn w-auto mt-4"
