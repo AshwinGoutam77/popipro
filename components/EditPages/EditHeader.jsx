@@ -630,7 +630,7 @@ function EditHeader({
         </Modal.Body>
       </Modal>
 
-      <header className="header header-box">
+      <header className="header header-box edit-header">
         <button
           className="edit-header"
           data-toggle="modal"

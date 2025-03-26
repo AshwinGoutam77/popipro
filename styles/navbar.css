@@ -90,8 +90,12 @@
     object-fit: fill !important;
   }
 
-  .header-box{
+  .header-box {
     margin-bottom: 0px;
+  }
+
+  .edit-header {
+    margin-bottom: 20px;
   }
 
   .nav__item span:hover svg path {
