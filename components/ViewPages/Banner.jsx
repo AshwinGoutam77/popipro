@@ -382,12 +382,12 @@ const Banner = ({
     <div className="pt-0 w-45">
       {card.card_cover !== "name" && card.card_cover !== "label" ? (
         <picture>
-          <source type="image/png" srcSet={card.card_header?.logo?.path !== undefined ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
-          <img src={card.card_header?.logo?.path !== undefined ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} className="Logo-icon" alt="logo" />
+          <source type="image/png" srcSet={card.card_header?.logo !== null ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} />
+          <img src={card.card_header?.logo !== null ? `${card.base_url}${card.card_header?.logo?.path}` : "https://www.popipro.com/assets/images/whiteLogo.png"} className="Logo-icon" alt="logo" />
         </picture>
       ) : (
         <h1 className="mt-1" style={{ fontSize: "16px", color: card?.card_header?.label_color }}>
-          {card?.card_company_logo}
+          {card?.card_header?.label}
         </h1>
       )}
     </div>
@@ -445,7 +445,8 @@ const Banner = ({
             }
           </div>
           {renderLink()}
-        </div>)
+        </div>
+        )
       }
       {/* LINKS SECTION */}
       <div className="box-content boxxx mb-3 mt-0 d-none">
