@@ -2662,6 +2662,10 @@ td {
     margin-top: 0;
   }
 
+  .user-content-box #card_description {
+    margin-top: 20px;
+  }
+
   .wrapper .tooltip {
     left: auto !important;
     right: -18px !important;

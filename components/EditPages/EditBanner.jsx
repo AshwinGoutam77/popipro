@@ -63,7 +63,7 @@ const EditBanner = ({ Permission, card, subscription, Data, card_url, PlanData }
     if (card_cover === "name" || card_cover === "label") {
       return card_company_logo ? (
         <h5 className="text-white" style={{ fontSize: "16px" }}>
-          {card_company_logo}
+          {card?.card_header?.label}
         </h5>
       ) : null;
     }
@@ -77,7 +77,7 @@ const EditBanner = ({ Permission, card, subscription, Data, card_url, PlanData }
     if (card_cover === "banner-label") {
       return (
         <h5 style={{ fontSize: "16px", color: card_header?.label_color }}>
-          {card_header?.label || "Popipro"}
+          {card?.card_header?.label}
         </h5>
       );
     }
