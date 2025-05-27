@@ -24,6 +24,7 @@ import Realestate from "@components/ViewPages/Realestate";
 import Video from "@components/ViewPages/Video";
 import Documents from "@components/ViewPages/Documents";
 import Events from "@components/ViewPages/Events";
+import BusinessHoursConfig from "@components/ViewPages/BusinessHours";
 
 export default async function Main({ profile, data, id, referer, fetchData }) {
   let card = data?.data?.card || {};
@@ -105,6 +106,8 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                               />
                             ) : items?.status == "card_social_links" ? (
                               <div className="" style={{ gap: '20px' }}>
+                                <BusinessHoursConfig Data={card} card={card}
+                                  Titles={titles} />
                                 <SocialMedia
                                   card={card}
                                   Titles={titles}

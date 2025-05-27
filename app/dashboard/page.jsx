@@ -451,10 +451,9 @@ export default function Dashboard() {
 
         <div className="p-4 dashboard-section w-100">
           <div className="container dashboard-banner-container">
-            <div className="row justify-content-center">
-              <div className="w-100">
-                <div className="dashboard-banner-div">
-                  <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" />
+            <div className="row mx-auto align-items-center dashboard-banner-div">
+                <div className="col-6 text-left">
+                  {/* <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" /> */}
                   <h3 className="text-xl text-white">
                     Welcome Back,{" "}
                     <span className="font-semibold">{Data?.first_name}</span>
@@ -510,7 +509,7 @@ export default function Dashboard() {
                     ""
                   )}
 
-                  {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-center mt-2">
+                  {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-start mt-2">
                     <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
                       <button className="contact-btn d-block w-auto text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30 mt-0">
                         View Subscription
@@ -525,9 +524,12 @@ export default function Dashboard() {
                         className="user-select-auto mr-2 cursor-pointer fs-18"
                       />
                     </button>
-                  </div>}
+                  </div>
+                  }
                 </div>
-              </div>
+                <div className="col-6">
+                  <img src="https://toolapi.devwings.com/assets/chat/chats/2025-05/270525034810dummy-removebg-preview.png" alt="" className="w-75" />
+                </div>
             </div>
           </div>
 

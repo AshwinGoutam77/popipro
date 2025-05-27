@@ -75,7 +75,7 @@ const PlanManagment = () => {
             <div className="d-flex align-items-center justify-content-between mt-3">
               <p>Price</p>
               <p>
-                {UserData?.plan?.subscription?.plan_currency?.currency}
+                {UserData?.company_setting?.currency?.currency}
                 {UserData?.plan?.subscription?.plan_price}
               </p>
             </div>

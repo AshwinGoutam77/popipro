@@ -471,8 +471,8 @@ select:focus {
   line-height: inherit;
 }
 
-@media (max-width:990px){
-  .login-screen-div{
+@media (max-width:990px) {
+  .login-screen-div {
     height: 100% !important;
     margin-bottom: 40px !important;
   }
@@ -3167,4 +3167,9 @@ button:focus {
     /* padding: 10px !important; */
     font-size: 12px !important;
   }
+}
+
+
+.business-hours-section input {
+  padding: 10px 16px;
 }

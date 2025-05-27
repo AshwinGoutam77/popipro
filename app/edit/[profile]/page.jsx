@@ -35,6 +35,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import EditDocument from "@components/EditPages/EditDocument";
 import EditEvents from "@components/EditPages/EditEvents";
+import EditBusinessHoursConfig from "@components/EditPages/EditBusinessHours";
 
 const Page = () => {
   const { token } = useAuthContext();
@@ -160,6 +161,13 @@ const Page = () => {
                     TitleData={cardData?.titles}
                     APIDATA={getProfileData}
                   />{" "}
+                  <EditBusinessHoursConfig
+                    Data={cardData?.card}
+                    MainData={cardData}
+                    Description={cardData?.card?.card_timings}
+                    TitleData={cardData?.titles}
+                    APIDATA={getProfileData}
+                  />
                   <EditEvents
                     Data={cardData?.card}
                     MainData={cardData}

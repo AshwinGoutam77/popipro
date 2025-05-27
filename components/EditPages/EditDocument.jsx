@@ -354,7 +354,7 @@ export default function EditDocument({ TitleData, Data, APIDATA, MainData, PlanD
                                         ""
                                     )}
                                     <img src="../../static/img/document-icon.png" alt="document" />
-                                    <a href={"https://dev.popipro.com/" + item?.details?.path} target='_blank'>{item?.title}</a>
+                                    <a href={"https://dev.popipro.com/" + item?.details?.path}  className='text-center' target='_blank'>{item?.title}</a>
                                 </div>
                             )
                         }) : <p>{DocumentTitle} are empty, to add {DocumentTitle} click on the add icon.</p>}

@@ -2300,8 +2300,17 @@ td {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   text-align: left;
+  gap: 20px;
+  height: 200px;
+  background-color: white;
+  background: white;
+
+  & .media-icon-div{
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .digital-cards-section h5,

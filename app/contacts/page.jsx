@@ -261,7 +261,7 @@ export default function Contact() {
                         setUploadScanner(true);
                     }}>
                         <FontAwesomeIcon icon={faExpand} className="text-dark cursor-pointer" />
-                        <p>Scan Business Card</p>
+                        <p>AI Scan Business Card</p>
                     </div>
                     <CSVLink
                         data={PhoneData}

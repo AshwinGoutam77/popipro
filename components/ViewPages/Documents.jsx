@@ -14,7 +14,7 @@ export default function Documents({ Titles, card }) {
                     return (
                         <div className='document-div' key={index}>
                             <a href={card?.base_url + item?.details?.path}><img src="../../static/img/document-icon.png" alt="document" /></a>
-                            <a href={card?.base_url + item?.details?.path} target='_blank'>{item?.title}</a>
+                            <a href={card?.base_url + item?.details?.path} target='_blank' className='text-center'>{item?.title}</a>
                         </div>
                     )
                 })}

@@ -2,6 +2,7 @@ import QRCode from "qrcode.react";
 import React from "react";
 import { Modal } from "react-bootstrap";
 import html2canvas from "html2canvas";
+import Link from "@node_modules/next/link";
 
 export default function DigitalCard({ active, handleClose, card_url, Data }) {
   function capture() {
@@ -61,18 +62,92 @@ export default function DigitalCard({ active, handleClose, card_url, Data }) {
                 <p className="mt-4">Popipro</p>
                 <p className="">
                   {Data &&
-                  Data.contact_country_code &&
-                  Data.contact_extension !== null
+                    Data.contact_country_code &&
+                    Data.contact_extension !== null
                     ? Data?.contact_country_code +
-                      "-" +
-                      Data?.card_contact +
-                      "-" +
-                      Data?.contact_extension
+                    "-" +
+                    Data?.card_contact +
+                    "-" +
+                    Data?.contact_extension
                     : Data?.contact_country_code
-                    ? Data?.contact_country_code + "-" + Data?.card_contact
-                    : Data?.card_contact}
+                      ? Data?.contact_country_code + "-" + Data?.card_contact
+                      : Data?.card_contact}
                 </p>
                 <p className="">{Data?.card_email}</p>
+                <div className="d-flex flex-wrap align-items-center justify-content-start gap-2 mt-2">
+                  {Data?.card_social_links &&
+                    Data?.card_social_links.map((item, i) => {
+                      return item?.link !== null ? (
+                        <div key={i}>
+                          {!item.link?.includes("https://") ? (
+                            <Link
+                              href={item.parent.target_url + item.link}
+                              target="_blank"
+                              key={i}
+                              onClick={() => HitClick("direct", "social", item.id)}
+                            >
+                              <div className="media-icon-div">
+                                <span className="social-media-icons">
+                                  <picture>
+                                    <source
+                                      type="image/png"
+                                      srcSet={
+                                        "./static/img/" +
+                                        item.parent.platform_name.toLowerCase() +
+                                        ".png"
+                                      }
+                                    />
+                                    <img
+                                      src={
+                                        "./static/img/" +
+                                        item.parent.platform_name.toLowerCase() +
+                                        ".png"
+                                      }
+                                      alt={item.parent.platform_name}
+                                      className="w-25px br-100"
+                                    />
+                                  </picture>
+                                </span>
+                              </div>
+                            </Link>
+                          ) : (
+                            <Link
+                              href={item.link}
+                              target="_blank"
+                              key={i}
+                              onClick={() => HitClick("direct", "social", item.id)}
+                            >
+                              <div className="media-icon-div">
+                                <span className="social-media-icons">
+                                  <picture>
+                                    <source
+                                      type="image/png"
+                                      srcSet={
+                                        "./static/img/" +
+                                        item.parent.platform_name.toLowerCase() +
+                                        ".png"
+                                      }
+                                    />
+                                    <img
+                                      src={
+                                        "./static/img/" +
+                                        item.parent.platform_name.toLowerCase() +
+                                        ".png"
+                                      }
+                                      alt={item.parent.platform_name}
+                                      className="w-25px br-100"
+                                    />
+                                  </picture>
+                                </span>
+                              </div>
+                            </Link>
+                          )}
+                        </div>
+                      ) : (
+                        ""
+                      );
+                    })}
+                </div>
               </div>
             </div>
             <button
