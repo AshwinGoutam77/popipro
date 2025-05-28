@@ -3,6 +3,7 @@ import { useState } from 'react';
 import BusinessDayRow from './BusinessDayRow';
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
 import { faArrowUp } from '@node_modules/@fortawesome/free-solid-svg-icons';
+import LockedSection from "./LockedSection";
 
 export default function BusinessHoursConfig({ Data, Titles, card }) {
     const [isLocked, setIsLocked] = useState(Titles?.card_timings?.is_locked !== 0);

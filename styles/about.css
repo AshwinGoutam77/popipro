@@ -267,6 +267,10 @@ div:where(.swal2-icon).swal2-info {
   padding-top: 5px;
 }
 
+.dashboard-boxes:hover h6{
+  color: black;
+}
+
 .dashboard-boxes img {
   z-index: -1;
 }
