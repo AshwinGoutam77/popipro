@@ -1038,6 +1038,7 @@ const Header = ({
                               alt={item.parent.platform_name}
                             />
                           </span>
+                          
                         </div>
                       </Link>
                     )}
