@@ -452,7 +452,7 @@ export default function Dashboard() {
         <div className="p-4 dashboard-section w-100">
           <div className="container dashboard-banner-container">
             <div className="row mx-auto align-items-center dashboard-banner-div">
-                <div className="col-6 text-left">
+                <div className="col-sm-6 col-md-12 col-lg-6 text-left">
                   {/* <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" /> */}
                   <h3 className="text-xl text-white">
                     Welcome Back,{" "}
@@ -527,7 +527,7 @@ export default function Dashboard() {
                   </div>
                   }
                 </div>
-                <div className="col-6">
+                <div className="col-sm-6 col-md-12 col-lg-6">
                   <img src="https://toolapi.devwings.com/assets/chat/chats/2025-05/270525034810dummy-removebg-preview.png" alt="" className="w-75" />
                 </div>
             </div>
