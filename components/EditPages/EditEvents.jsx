@@ -166,7 +166,9 @@ export default function EditEvents({ TitleData, Data, APIDATA, MainData, PlanDat
                 showToast(response?.data?.message, "error");
             }
         } catch (err) {
-            showToast("Something went wrong. Please try again later.", "error");
+            console.log(err?.response?.data?.message);
+            
+            showToast(err?.response?.data?.message, "error");
         }
     };
 
