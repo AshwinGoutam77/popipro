@@ -230,18 +230,18 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                                             )}
                                         </div>
                                         <>
-                                                <label className="switch">
-                                                    <input
-                                                        data-status={
-                                                            TitleData.card_timings?.is_active
-                                                        }
-                                                        data-active={Active}
-                                                        checked={Active}
-                                                        type="checkbox"
-                                                        onChange={() => handleActive({ section_name: "card_titmings", Visible_name: HoursTitle, Active, setActive })}
-                                                    />
-                                                    <span className="slider round"></span>
-                                                </label>
+                                            <label className="switch">
+                                                <input
+                                                    data-status={
+                                                        TitleData.card_timings?.is_active
+                                                    }
+                                                    data-active={Active}
+                                                    checked={Active}
+                                                    type="checkbox"
+                                                    onChange={() => handleActive({ section_name: "card_timings", Visible_name: HoursTitle, Active, setActive })}
+                                                />
+                                                <span className="slider round"></span>
+                                            </label>
                                         </>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                             <button className="delete-button mr-2" onClick={handleSave}>
                                 Save
                             </button>
-                             <button className="send-btnn" onClick={closeModal}>
+                            <button className="send-btnn" onClick={closeModal}>
                                 Cancel
                             </button>
                         </div>

@@ -452,84 +452,84 @@ export default function Dashboard() {
         <div className="p-4 dashboard-section w-100">
           <div className="container dashboard-banner-container">
             <div className="row mx-auto align-items-center dashboard-banner-div">
-                <div className="col-12 col-sm-6 col-md-12 col-lg-6 text-left">
-                  {/* <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" /> */}
-                  <h3 className="text-xl text-white">
-                    Welcome Back,{" "}
-                    <span className="font-semibold">{Data?.first_name}</span>
-                  </h3>
-                  <p className="mt-2 leading-relaxed">
-                    You can manage all your data and analytics from this dashboard.
+              <div className="col-12 col-sm-6 col-md-12 col-lg-6 text-left">
+                {/* <img src="../../static/img/dark-logo.png" alt="logo" className="banner-logo" /> */}
+                <h3 className="text-xl text-white">
+                  Welcome Back,{" "}
+                  <span className="font-semibold">{Data?.first_name}</span>
+                </h3>
+                <p className="mt-2 leading-relaxed">
+                  You can manage all your data and analytics from this dashboard.
+                </p>
+                {Data?.is_onboarding == "1" ? (
+                  <p
+                    className="mt-2 leading-relaxed font-weight-bold"
+                    onClick={SaveStatusApi}
+                  >
+                    Your profile is in DRAFT MODE, Please click here to make it
+                    public
                   </p>
-                  {Data?.is_onboarding == "1" ? (
-                    <p
-                      className="mt-2 leading-relaxed font-weight-bold"
-                      onClick={SaveStatusApi}
+                ) : (
+                  ""
+                )}
+                {Data?.is_onboarding !== "1" ? (
+                  Data &&
+                    PlanData?.is_expired !== false &&
+                    PlanData?.is_trial_taken !== 0 ? (
+                    <a
+                      href={
+                        PlanData?.is_expired !== false &&
+                          PlanData?.is_trial_taken !== 0
+                          ? "https://www.popipro.com/order"
+                          : ""
+                      }
+                      target="_blank"
                     >
-                      Your profile is in DRAFT MODE, Please click here to make it
-                      public
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  {Data?.is_onboarding !== "1" ? (
-                    Data &&
-                      PlanData?.is_expired !== false &&
-                      PlanData?.is_trial_taken !== 0 ? (
-                      <a
-                        href={
-                          PlanData?.is_expired !== false &&
-                            PlanData?.is_trial_taken !== 0
-                            ? "https://www.popipro.com/order"
-                            : ""
-                        }
-                        target="_blank"
-                      >
-                        <button className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
-                          Your subscription is expired, Click to renew it.
-                        </button>
-                      </a>
-                    ) : (
-                      <button
-                        className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                        onClick={() =>
-                          MainData?.plan?.subscription_left_days == 0
-                            ? handleFreeTrail()
-                            : ""
-                        }
-                      >
-                        {MainData?.plan?.subscription_left_days !== 0
-                          ? "Your subscription is valid till " +
-                          MainData?.plan?.subscription_left_days +
-                          " days."
-                          : "Upgrade to premium"}
+                      <button className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                        Your subscription is expired, Click to renew it.
                       </button>
-                    )
+                    </a>
                   ) : (
-                    ""
-                  )}
-
-                  {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-start mt-2">
-                    <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
-                      <button className="contact-btn d-block w-auto text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30 mt-0">
-                        View Subscription
-                      </button>
-                    </Link>
                     <button
-                      className="border-0 bg-transparent ml-2"
-                      onClick={() => setModalShow("share")}
+                      className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                      onClick={() =>
+                        MainData?.plan?.subscription_left_days == 0
+                          ? handleFreeTrail()
+                          : ""
+                      }
                     >
-                      <FontAwesomeIcon
-                        icon={faShareSquare}
-                        className="user-select-auto mr-2 cursor-pointer fs-18"
-                      />
+                      {MainData?.plan?.subscription_left_days !== 0
+                        ? "Your subscription is valid till " +
+                        MainData?.plan?.subscription_left_days +
+                        " days."
+                        : "Upgrade to premium"}
                     </button>
-                  </div>
-                  }
+                  )
+                ) : (
+                  ""
+                )}
+
+                {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-start mt-2">
+                  <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
+                    <button className="contact-btn d-block w-auto text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30 mt-0">
+                      View Subscription
+                    </button>
+                  </Link>
+                  <button
+                    className="border-0 bg-transparent ml-2"
+                    onClick={() => setModalShow("share")}
+                  >
+                    <FontAwesomeIcon
+                      icon={faShareSquare}
+                      className="user-select-auto mr-2 cursor-pointer fs-18"
+                    />
+                  </button>
                 </div>
-                <div className="col-12 col-sm-6 col-md-12 col-lg-6">
-                  <img src="https://toolapi.devwings.com/assets/chat/chats/2025-05/270525034810dummy-removebg-preview.png" alt="" className="w-75" />
-                </div>
+                }
+              </div>
+              <div className="col-12 col-sm-6 col-md-12 col-lg-6">
+                <img src="https://www.popipro.com/assets/images/card-variants/new-images/1.png" alt="card-image" style={{ transform: 'rotate(-10deg)',width:'65%' }} />
+              </div>
             </div>
           </div>
 
