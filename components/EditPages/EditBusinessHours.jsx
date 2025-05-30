@@ -361,17 +361,17 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                                 checked={isClosed}
                                 onChange={() => setIsClosed(!isClosed)}
                             />
-                            <label className="form-check-label" htmlFor="closedToggle">
+                            <label className="form-check-label mb-0" htmlFor="closedToggle">
                                 Mark as Closed
                             </label>
                         </div>
 
                         <div className="text-end">
-                            <button className="send-btnn mr-2" onClick={closeModal}>
-                                Cancel
-                            </button>
-                            <button className="delete-button" onClick={handleSave}>
+                            <button className="delete-button mr-2" onClick={handleSave}>
                                 Save
+                            </button>
+                             <button className="send-btnn" onClick={closeModal}>
+                                Cancel
                             </button>
                         </div>
                     </Modal.Body>
