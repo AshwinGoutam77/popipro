@@ -107,7 +107,7 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
             </div>
 
             {/* Notification */}
-            <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+            {/* <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
                         MainData?.non_section_feature?.notification?.in_subscription
@@ -147,7 +147,7 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                         </h6>
                     </div>
                 </Link>
-            </div>
+            </div> */}
 
             {/* Approve review */}
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
