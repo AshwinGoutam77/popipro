@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import SimpleBackdrop from "../ViewPages/Backdrop";
-import { StartTrial, UpgradePlan } from "@services/Routes";
+import { StartAddOnTrial, StartTrial, UpgradePlan } from "@services/Routes";
 import Api from "@services/Api";
 import { showToast } from "@components/Dashboard/Toast";
 
@@ -16,10 +16,15 @@ export default function EditPlan({
   MainData,
   in_subscription,
   message,
-  trial
+  trial,
+  addOns,
+  section_name
 }) {
   const [ShowLoader, setShowLoader] = useState();
   const handleFreeTrail = async () => {
+    let data = {
+      addon_name: section_name
+    }
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -32,14 +37,15 @@ export default function EditPlan({
         confirmButtonText: "Yes",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await Api(StartTrial);
+          const response = await addOns ? Api(StartAddOnTrial, data) : Api(StartTrial);
           setShowLoader(false);
+          console.log(response);
+          APIDATA();
           if (response.data.status) {
             Swal.fire("Done", "", "success");
-            APIDATA();
             showToast(response.data.message, 'success')
           } else {
-            showToast(response.data.message, 'error')
+            Swal.fire(response.data.message, "error");
           }
         }
       });

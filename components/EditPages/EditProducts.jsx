@@ -1581,7 +1581,9 @@ export default function EditProducts({
                 MainData={MainData}
                 in_subscription={TitleData?.card_products?.in_subscription}
                 trial={TitleData?.card_products?.can_start_trial}
+                addOns={TitleData?.card_products?.trial_redirect_type}
                 message={TitleData?.card_products?.message}
+                section_name={"card_products"}
               />
             ) : (
               ""

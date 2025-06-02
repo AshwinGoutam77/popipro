@@ -236,9 +236,9 @@ export default function Dashboard() {
             is_trial: "1",
           });
           setShowLoader(false);
+          APIDATA();
           if (response.data.status) {
             Swal.fire("Done", "", "success");
-            APIDATA();
             toast.success(response.data.message, {
               position: "bottom-right",
               autoClose: 2000,
@@ -462,13 +462,13 @@ export default function Dashboard() {
                   You can manage all your data and analytics from this dashboard.
                 </p>
                 {Data?.is_onboarding == "1" ? (
-                  <p
-                    className="mt-2 leading-relaxed font-weight-bold"
+                  <button
+                    className="mt-2 underline bg-transparent border-0 font-weight-bold text-white text-md"
                     onClick={SaveStatusApi}
                   >
                     Your profile is in DRAFT MODE, Please click here to make it
                     public
-                  </p>
+                  </button>
                 ) : (
                   ""
                 )}
@@ -509,26 +509,26 @@ export default function Dashboard() {
                   ""
                 )}
 
-                {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex align-items-center justify-content-start mt-2">
+                {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex flex-wrap align-items-center justify-content-start justify-content-sm-center mt-2">
                   <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
-                    <button className="contact-btn d-block w-auto text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30 mt-0">
+                    <button className="underline bg-transparent border-0 font-weight-bold text-white text-md">
                       View Subscription
                     </button>
                   </Link>
                   <button
-                    className="border-0 bg-transparent ml-2"
+                    className="underline bg-transparent border-0 font-weight-bold text-white text-md"
                     onClick={() => setModalShow("share")}
                   >
-                    <FontAwesomeIcon
+                    Share your profile  <FontAwesomeIcon
                       icon={faShareSquare}
-                      className="user-select-auto mr-2 cursor-pointer fs-18"
+                      className="user-select-auto mr-2 cursor-pointer fs-12 ml-2"
                     />
                   </button>
                 </div>
                 }
               </div>
               <div className="col-12 col-sm-6 col-md-12 col-lg-6">
-                <img src="https://www.popipro.com/assets/images/card-variants/new-images/1.png" alt="card-image" style={{ transform: 'rotate(-10deg)',width:'65%' }} />
+                <img src="https://www.popipro.com/assets/images/card-variants/new-images/1.png" alt="card-image" style={{ transform: 'rotate(-10deg)', width: '65%' }} />
               </div>
             </div>
           </div>

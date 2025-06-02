@@ -98,8 +98,8 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
     const handleSave = async () => {
         const payload = {
             day: selectedDayKey,
-            start_time: isClosed ? null : startHours,
-            end_time: isClosed ? null : endHours,
+            start_time: startHours,
+            end_time: endHours,
             closed: isClosed ? '1' : '0'
         };
 
@@ -336,9 +336,8 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                                 <input
                                     type="time"
                                     className="form-control"
-                                    value={startHours}
+                                    defa={startHours}
                                     onChange={(e) => setStartHours(e.target.value)}
-                                    disabled={isClosed}
                                 />
                             </div>
                             <div className="w-100">
@@ -346,9 +345,8 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                                 <input
                                     type="time"
                                     className="form-control"
-                                    value={endHours}
+                                    defa={endHours}
                                     onChange={(e) => setEndHours(e.target.value)}
-                                    disabled={isClosed}
                                 />
                             </div>
                         </div>

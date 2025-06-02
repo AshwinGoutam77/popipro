@@ -1484,6 +1484,38 @@ button.filter-btns-active {
   row-gap: 20px;
 }
 
+.justify-content-sm-center {
+  justify-content: left !important;
+}
+
+
+@media (max-width:768px) {
+  .dashboard-banner-container .dashboard-banner-div {
+    padding: 26px;
+  }
+
+  .dashboard-banner-container h3 {
+    font-size: 20px !important;
+  }
+
+  .dashboard-banner-container p {
+    font-size: 14px !important;
+  }
+
+  .dashboard-banner-container h3,
+  .dashboard-banner-container p {
+    text-align: center;
+  }
+
+  .justify-content-sm-center {
+    justify-content: center !important;
+  }
+
+  .dashboard-banner-container img {
+    display: none;
+  }
+}
+
 /* .dashboard-banner-container .banner-logo {
   position: absolute;
   left: 0;
@@ -2308,7 +2340,7 @@ td {
   background-color: white;
   background: white;
 
-  & .media-icon-div{
+  & .media-icon-div {
     width: 30px;
     height: 30px;
   }

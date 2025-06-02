@@ -1661,6 +1661,8 @@ export default function EditRealEstate({
             in_subscription={TitleData?.card_realestates?.in_subscription}
             trial={TitleData?.card_realestates?.can_start_trial}
             message={TitleData?.card_realestates?.message}
+            addOns={TitleData?.card_realestates?.trial_redirect_type}
+            section_name={"card_realestates"}
           />
         ) : (
           ""

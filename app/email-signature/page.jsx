@@ -6,11 +6,10 @@ import { useAuthContext } from '@context/AuthContext';
 import { faAngleLeft, faChevronRight, faCopy, faEnvelope } from '@node_modules/@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome'
 import Link from '@node_modules/next/link'
-import { ToastContainer } from '@node_modules/react-toastify/dist';
 import React, { useEffect, useRef, useState } from 'react';
 import "../../styles/about.css";
 import "../styles/style.css";
-import './page.css'
+import './page.css';
 
 export default function EmailSignature() {
     const { APIDATA, UserData } = useAuthContext();
@@ -64,18 +63,6 @@ export default function EmailSignature() {
     return (
         <>
             <RedirectComponent />
-            <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             {UserData ? <div className='email-ginature-section bg-white'>
                 <div
                     className="login-header p-3 text-center d-flex align-items-center justify-content-between"
