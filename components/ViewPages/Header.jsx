@@ -144,20 +144,29 @@ const Header = ({
   const shareContact = async () => {
     let rawHtml = card?.card_description || "";
 
-    // 1. Convert <br> and <p> into newlines
+    // 1. Convert <br> and </p> into newlines, strip <p>
     let textWithLineBreaks = rawHtml
       .replace(/<br\s*\/?>/gi, '\n')
       .replace(/<\/p>/gi, '\n')
       .replace(/<p[^>]*>/gi, '');
 
-    // 2. Strip all other HTML tags
-    let plainText = textWithLineBreaks.replace(/(<([^>]+)>)/gi, "");
+    // 2. Remove &nbsp; and decode basic HTML entities
+    let decoded = textWithLineBreaks
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;/gi, "'");
 
-    // 3. Escape characters that break vCard format
+    // 3. Strip all remaining HTML tags
+    let plainText = decoded.replace(/(<([^>]+)>)/gi, "");
+
+    // 4. Escape characters for vCard
     let escapedText = plainText
-      .replace(/\n/g, "\\n")    // Escape newlines
-      .replace(/,/g, "\\,")     // Escape commas
-      .replace(/;/g, "\\;");    // Escape semicolons
+      .replace(/\n/g, "\\n")
+      .replace(/,/g, "\\,")
+      .replace(/;/g, "\\;");
 
 
     let payload = {
@@ -177,6 +186,8 @@ const Header = ({
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
+      console.log('address', card.card_address);
+
       setProfileImage(response.data.data.base_image);
 
       const contact = {
