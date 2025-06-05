@@ -82,8 +82,31 @@ const Banner = ({
   };
 
   let links = [];
+
   const shareContact = async () => {
-    let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
+    let rawHtml = card?.card_description || "";
+
+    let textWithLineBreaks = rawHtml
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>/gi, '\n')
+      .replace(/<p[^>]*>/gi, '');
+
+    let decoded = textWithLineBreaks
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;/gi, "'");
+
+    let plainText = decoded.replace(/(<([^>]+)>)/gi, "");
+
+    let escapedText = plainText
+      .replace(/\n/g, "\\n")
+      .replace(/,/g, "\\,")
+      .replace(/;/g, "\\;");
+
+
     let payload = {
       card: card?.id,
       type: "card",
@@ -94,14 +117,26 @@ const Banner = ({
       longitude: await localforage.getItem("longitude"),
       fb_token: await localforage.getItem("fcm_token"),
     };
+
     const response = await Api(HitClickApi, payload);
+
     if (
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
+
       setProfileImage(response.data.data.base_image);
 
-      var contact = {
+      const parts = (card?.card_address || "").split(",");
+      const street = parts[0]?.trim() || "";
+      const city = parts[1]?.trim() || "";
+      const stateZip = parts[2]?.trim()?.split(" ") || [];
+      const state = stateZip.length === 2 ? stateZip[0] : "";
+      const zip = stateZip.length === 2 ? stateZip[1] : stateZip[0] || "";
+      const country = parts[3]?.trim() || "";
+
+
+      const contact = {
         website: card?.card_website,
         address: card?.card_address,
         Imagee: response.data.data.base_image?.replace(
@@ -118,79 +153,93 @@ const Banner = ({
         location: card.card_address,
         links: links,
         title: card?.card_profession,
-        about: text,
+        about: escapedText,
         alternate_no: card?.card_alternate_phone?.map((item) => {
           return item.country_code
             ? item.title + item.country_code + " " + item.number
             : item.title + item.number + " ";
         }),
       };
-      //  (contact);
-      // return;
-      // create a vcard file
-      var vcard = "BEGIN:VCARD\nVERSION:3.0\nN:";
-      vcard +=
-        contact.name +
-        "\nTEL;TYPE=work,voice:" +
-        contact.phone +
-        "\nEMAIL;CHARSET=UTF-8;type=Email,INTERNET:" +
-        contact.email +
-        "\nURL;TYPE=Popipro - Digital Business Card:" +
-        contact.url;
 
-      vcard += contact.Imagee
-        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.Imagee
-        : "";
-      vcard += contact.website
-        ? "\nURL;Website URL=UTF-8:" + contact.website
-        : "";
+      // 📱 iOS compatible name formatting
+      const nameParts = contact.name?.split(" ") || [];
+      const first = nameParts[0] || "";
+      const last = nameParts.slice(1).join(" ") || "";
+
+      let vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+      vcard += `N:${last};${first};;;\n`;
+      vcard += `FN:${contact.name}\n`;
+      vcard += `TEL;TYPE=work,voice:${contact.phone}\n`;
+      vcard += `EMAIL;CHARSET=UTF-8;type=Email,INTERNET:${contact.email}\n`;
+      vcard += `URL;TYPE=Popipro - Digital Business Card:${contact.url}\n`;
+
+      if (contact.Imagee) {
+        vcard += `PHOTO;ENCODING=b;TYPE=JPEG:${contact.Imagee}\n`;
+      }
+
+      if (contact.website) {
+        vcard += `URL;Website URL=UTF-8:${contact.website}\n`;
+      }
+
       let alt_str = card?.card_alternate_phone?.map((item) => {
         return item.country_code
-          ? `\nTEL;TYPE=${item.title},voice:` +
-          item.country_code +
-          " " +
-          item.number +
-          ""
-          : `\nTEL;TYPE=${item.title},voice:` + item.number + "";
+          ? `TEL;TYPE=${item.title},voice:${item.country_code} ${item.number}\n`
+          : `TEL;TYPE=${item.title},voice:${item.number}\n`;
       });
-      vcard += alt_str.join("");
-      vcard += contact.address ? "\nADR;CHARSET=UTF-8:" + contact.address : "";
-      vcard += contact.links["Instagram"]
-        ? "\nURL;type=Instagram;Instagram=UTF-8:" + contact.links["Instagram"]
-        : "";
-      vcard += contact.links["Facebook"]
-        ? "\nURL;type=Facebook;Facebook=UTF-8:" + contact.links["Facebook"]
-        : "";
-      vcard += contact.links["Linkedin"]
-        ? "\nURL;type=Linkedin;Linkedin=UTF-8:" + contact.links["Linkedin"]
-        : "";
-      vcard += contact.links["Youtube"]
-        ? "\nURL;type=Youtube;Youtube=UTF-8:" + contact.links["Youtube"]
-        : "";
-      vcard += contact.links["Twitter"]
-        ? "\nURL;type=Twitter;Twitter=UTF-8:" + contact.links["Twitter"]
-        : "";
-      vcard += contact.links["Pinterest"]
-        ? "\nURL;type=Pinterest;Pinterest=UTF-8:" + contact.links["Pinterest"]
-        : "";
-      vcard += contact.title ? "\nTITLE:" + contact.title : "";
+      vcard += alt_str?.join("") || "";
 
-      vcard += contact.about ? "\nNOTE:" + contact.about : "";
-      vcard += "\nEND:VCARD";
-      // console.log(vcard);
-      // return;
+      if (contact.address) {
+        vcard += `ADR;CHARSET=UTF-8:;;${street};${city};${state};${zip};${country}\n`;
+      }
 
-      var blob = new Blob([vcard], { type: "text/vcard" });
-      var url = URL.createObjectURL(blob);
+      if (contact.links["Instagram"]) {
+        vcard += `URL;type=Instagram:${contact.links["Instagram"]}\n`;
+      }
+      if (contact.links["Facebook"]) {
+        vcard += `URL;type=Facebook:${contact.links["Facebook"]}\n`;
+      }
+      if (contact.links["Linkedin"]) {
+        vcard += `URL;type=Linkedin:${contact.links["Linkedin"]}\n`;
+      }
+      if (contact.links["Youtube"]) {
+        vcard += `URL;type=Youtube:${contact.links["Youtube"]}\n`;
+      }
+      if (contact.links["Twitter"]) {
+        vcard += `URL;type=Twitter:${contact.links["Twitter"]}\n`;
+      }
+      if (contact.links["Pinterest"]) {
+        vcard += `URL;type=Pinterest:${contact.links["Pinterest"]}\n`;
+      }
+
+      if (contact.title) {
+        vcard += `TITLE:${contact.title}\n`;
+      }
+
+      if (contact.about) {
+        vcard += `NOTE:${contact.about}\n`;
+      }
+
+      vcard += "END:VCARD";
+
+      // const blob = new Blob([vcard], { type: "text/vcard" });
+      // const url = URL.createObjectURL(blob);
+
+      // const newLink = document.createElement("a");
+      // newLink.download = `${contact.name}.vcf`;
+      // newLink.href = url;
+      // newLink.click();
+      const encodedVcard = encodeURIComponent(vcard);
+      const vcfDataUri = `data:text/vcard;charset=utf-8,${encodedVcard}`;
 
       const newLink = document.createElement("a");
-      newLink.download = contact.name + ".vcf";
-      newLink.textContent = contact.name;
-      newLink.href = url;
-
+      newLink.href = vcfDataUri;
+      newLink.download = `${contact.name}.vcf`;
+      document.body.appendChild(newLink);
       newLink.click();
+      document.body.removeChild(newLink);
 
-      setImageSrc(contact.name + contact.phone);
+
+      // setImageSrc(contact.name + contact.phone);
       setModalShow("ExchangeContact");
     }
   };

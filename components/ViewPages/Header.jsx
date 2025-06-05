@@ -144,13 +144,11 @@ const Header = ({
   const shareContact = async () => {
     let rawHtml = card?.card_description || "";
 
-    // 1. Convert <br> and </p> into newlines, strip <p>
     let textWithLineBreaks = rawHtml
       .replace(/<br\s*\/?>/gi, '\n')
       .replace(/<\/p>/gi, '\n')
       .replace(/<p[^>]*>/gi, '');
 
-    // 2. Remove &nbsp; and decode basic HTML entities
     let decoded = textWithLineBreaks
       .replace(/&nbsp;/gi, ' ')
       .replace(/&amp;/gi, '&')
@@ -159,10 +157,8 @@ const Header = ({
       .replace(/&quot;/gi, '"')
       .replace(/&#39;/gi, "'");
 
-    // 3. Strip all remaining HTML tags
     let plainText = decoded.replace(/(<([^>]+)>)/gi, "");
 
-    // 4. Escape characters for vCard
     let escapedText = plainText
       .replace(/\n/g, "\\n")
       .replace(/,/g, "\\,")
@@ -186,17 +182,16 @@ const Header = ({
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
-      console.log('address', card.card_address);
 
       setProfileImage(response.data.data.base_image);
 
       const parts = (card?.card_address || "").split(",");
-      const street = parts[0]?.trim() || "";          // e.g., "71 Amy Street"
-      const city = parts[1]?.trim() || "";            // e.g., "Morayfield"
-      const stateZip = parts[2]?.trim()?.split(" ") || []; // e.g., ["4506"] or ["QLD", "4506"]
-      const state = stateZip.length === 2 ? stateZip[0] : ""; // optional
+      const street = parts[0]?.trim() || "";
+      const city = parts[1]?.trim() || "";
+      const stateZip = parts[2]?.trim()?.split(" ") || [];
+      const state = stateZip.length === 2 ? stateZip[0] : "";
       const zip = stateZip.length === 2 ? stateZip[1] : stateZip[0] || "";
-      const country = parts[3]?.trim() || ""; // fallback if missing
+      const country = parts[3]?.trim() || "";
 
 
       const contact = {
