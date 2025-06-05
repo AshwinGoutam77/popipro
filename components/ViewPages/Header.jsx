@@ -142,7 +142,23 @@ const Header = ({
   let links = [];
 
   const shareContact = async () => {
-    let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
+    let rawHtml = card?.card_description || "";
+
+    // 1. Convert <br> and <p> into newlines
+    let textWithLineBreaks = rawHtml
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>/gi, '\n')
+      .replace(/<p[^>]*>/gi, '');
+
+    // 2. Strip all other HTML tags
+    let plainText = textWithLineBreaks.replace(/(<([^>]+)>)/gi, "");
+
+    // 3. Escape characters that break vCard format
+    let escapedText = plainText
+      .replace(/\n/g, "\\n")    // Escape newlines
+      .replace(/,/g, "\\,")     // Escape commas
+      .replace(/;/g, "\\;");    // Escape semicolons
+
 
     let payload = {
       card: card?.id,
@@ -180,7 +196,7 @@ const Header = ({
         location: card.card_address,
         links: links,
         title: card?.card_profession,
-        about: text,
+        about: escapedText,
         alternate_no: card?.card_alternate_phone?.map((item) => {
           return item.country_code
             ? item.title + item.country_code + " " + item.number
