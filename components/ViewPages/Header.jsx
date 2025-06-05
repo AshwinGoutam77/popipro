@@ -190,6 +190,18 @@ const Header = ({
 
       setProfileImage(response.data.data.base_image);
 
+      const parts = (card?.card_address || "").split(",");
+      const street = parts[0]?.trim() || "";          // e.g., "71 Amy Street"
+      const city = parts[1]?.trim() || "";            // e.g., "Morayfield"
+      const stateZip = parts[2]?.trim()?.split(" ") || []; // e.g., ["4506"] or ["QLD", "4506"]
+      const state = stateZip.length === 2 ? stateZip[0] : ""; // optional
+      const zip = stateZip.length === 2 ? stateZip[1] : stateZip[0] || "";
+      const country = parts[3]?.trim() || "Australia"; // fallback if missing
+
+      // Final vCard-compliant address string
+      vcard += `ADR;CHARSET=UTF-8:;;${street};${city};${state};${zip};${country}\n`;
+
+
       const contact = {
         website: card?.card_website,
         address: card?.card_address,
@@ -243,7 +255,7 @@ const Header = ({
       vcard += alt_str?.join("") || "";
 
       if (contact.address) {
-        vcard += `ADR;CHARSET=UTF-8:${contact.address}\n`;
+        vcard += `ADR;CHARSET=UTF-8:;;${street};${city};${state};${zip};${country}\n`;
       }
 
       if (contact.links["Instagram"]) {
@@ -275,13 +287,23 @@ const Header = ({
 
       vcard += "END:VCARD";
 
-      const blob = new Blob([vcard], { type: "text/vcard" });
-      const url = URL.createObjectURL(blob);
+      // const blob = new Blob([vcard], { type: "text/vcard" });
+      // const url = URL.createObjectURL(blob);
+
+      // const newLink = document.createElement("a");
+      // newLink.download = `${contact.name}.vcf`;
+      // newLink.href = url;
+      // newLink.click();
+      const encodedVcard = encodeURIComponent(vcard);
+      const vcfDataUri = `data:text/vcard;charset=utf-8,${encodedVcard}`;
 
       const newLink = document.createElement("a");
+      newLink.href = vcfDataUri;
       newLink.download = `${contact.name}.vcf`;
-      newLink.href = url;
+      document.body.appendChild(newLink);
       newLink.click();
+      document.body.removeChild(newLink);
+
 
       setImageSrc(contact.name + contact.phone);
       setModalShow("ExchangeContact");
