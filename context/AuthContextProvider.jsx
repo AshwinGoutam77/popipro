@@ -90,7 +90,6 @@ const AuthContextProvider = ({ children }) => {
   const [ErrorData, setErrorData] = useState(false)
   const fetchData = async (profile) => {
     setLoader(true);
-
     try {
       const response = await fetch(
         process.env.NEXT_PUBLIC_MODE === "development"

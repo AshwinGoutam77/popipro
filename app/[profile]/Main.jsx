@@ -108,7 +108,7 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                               <div className="" style={{ gap: '20px' }}>
                                 <BusinessHoursConfig Data={card} card={card}
                                   Titles={titles} />
-                                  
+
                                 <SocialMedia
                                   card={card}
                                   Titles={titles}

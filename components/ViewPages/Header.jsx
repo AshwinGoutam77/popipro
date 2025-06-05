@@ -140,9 +140,10 @@ const Header = ({
   };
 
   let links = [];
+
   const shareContact = async () => {
-    setDownloading(true);
     let text = card?.card_description?.replace(/(<([^>]+)>)/gi, "");
+
     let payload = {
       card: card?.id,
       type: "card",
@@ -153,15 +154,16 @@ const Header = ({
       longitude: await localforage.getItem("longitude"),
       fb_token: await localforage.getItem("fcm_token"),
     };
+
     const response = await Api(HitClickApi, payload);
+
     if (
       response.data.status ||
       response?.data?.message == "Can not count this hit."
     ) {
       setProfileImage(response.data.data.base_image);
-      setDownloading(false);
 
-      var contact = {
+      const contact = {
         website: card?.card_website,
         address: card?.card_address,
         Imagee: response.data.data.base_image?.replace(
@@ -185,75 +187,80 @@ const Header = ({
             : item.title + item.number + " ";
         }),
       };
-      //  (contact);
-      // return;
-      // create a vcard file
-      var vcard = "BEGIN:VCARD\nVERSION:3.0\nN:";
-      vcard +=
-        contact.name +
-        "\nTEL;TYPE=work,voice:" +
-        contact.phone +
-        "\nEMAIL;CHARSET=UTF-8;type=Email,INTERNET:" +
-        contact.email +
-        "\nURL;TYPE=Popipro - Digital Business Card:" +
-        contact.url;
 
-      vcard += contact.Imagee
-        ? "\nPHOTO;ENCODING=b;TYPE=JPEG:" + contact.Imagee
-        : "";
-      vcard += contact.website
-        ? "\nURL;Website URL=UTF-8:" + contact.website
-        : "";
+      // 📱 iOS compatible name formatting
+      const nameParts = contact.name?.split(" ") || [];
+      const first = nameParts[0] || "";
+      const last = nameParts.slice(1).join(" ") || "";
+
+      let vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+      vcard += `N:${last};${first};;;\n`; // Correct format for iOS
+      vcard += `FN:${contact.name}\n`;
+      vcard += `TEL;TYPE=work,voice:${contact.phone}\n`;
+      vcard += `EMAIL;CHARSET=UTF-8;type=Email,INTERNET:${contact.email}\n`;
+      vcard += `URL;TYPE=Popipro - Digital Business Card:${contact.url}\n`;
+
+      if (contact.Imagee) {
+        vcard += `PHOTO;ENCODING=b;TYPE=JPEG:${contact.Imagee}\n`;
+      }
+
+      if (contact.website) {
+        vcard += `URL;Website URL=UTF-8:${contact.website}\n`;
+      }
+
       let alt_str = card?.card_alternate_phone?.map((item) => {
         return item.country_code
-          ? `\nTEL;TYPE=${item.title},voice:` +
-          item.country_code +
-          " " +
-          item.number +
-          ""
-          : `\nTEL;TYPE=${item.title},voice:` + item.number + "";
+          ? `TEL;TYPE=${item.title},voice:${item.country_code} ${item.number}\n`
+          : `TEL;TYPE=${item.title},voice:${item.number}\n`;
       });
-      vcard += alt_str.join("");
-      vcard += contact.address ? "\nADR;CHARSET=UTF-8:" + contact.address : "";
-      vcard += contact.links["Instagram"]
-        ? "\nURL;type=Instagram;Instagram=UTF-8:" + contact.links["Instagram"]
-        : "";
-      vcard += contact.links["Facebook"]
-        ? "\nURL;type=Facebook;Facebook=UTF-8:" + contact.links["Facebook"]
-        : "";
-      vcard += contact.links["Linkedin"]
-        ? "\nURL;type=Linkedin;Linkedin=UTF-8:" + contact.links["Linkedin"]
-        : "";
-      vcard += contact.links["Youtube"]
-        ? "\nURL;type=Youtube;Youtube=UTF-8:" + contact.links["Youtube"]
-        : "";
-      vcard += contact.links["Twitter"]
-        ? "\nURL;type=Twitter;Twitter=UTF-8:" + contact.links["Twitter"]
-        : "";
-      vcard += contact.links["Pinterest"]
-        ? "\nURL;type=Pinterest;Pinterest=UTF-8:" + contact.links["Pinterest"]
-        : "";
-      vcard += contact.title ? "\nTITLE:" + contact.title : "";
+      vcard += alt_str?.join("") || "";
 
-      vcard += contact.about ? "\nNOTE:" + contact.about : "";
-      vcard += "\nEND:VCARD";
-      // console.log(vcard);
-      // return;
+      if (contact.address) {
+        vcard += `ADR;CHARSET=UTF-8:${contact.address}\n`;
+      }
 
-      var blob = new Blob([vcard], { type: "text/vcard" });
-      var url = URL.createObjectURL(blob);
+      if (contact.links["Instagram"]) {
+        vcard += `URL;type=Instagram:${contact.links["Instagram"]}\n`;
+      }
+      if (contact.links["Facebook"]) {
+        vcard += `URL;type=Facebook:${contact.links["Facebook"]}\n`;
+      }
+      if (contact.links["Linkedin"]) {
+        vcard += `URL;type=Linkedin:${contact.links["Linkedin"]}\n`;
+      }
+      if (contact.links["Youtube"]) {
+        vcard += `URL;type=Youtube:${contact.links["Youtube"]}\n`;
+      }
+      if (contact.links["Twitter"]) {
+        vcard += `URL;type=Twitter:${contact.links["Twitter"]}\n`;
+      }
+      if (contact.links["Pinterest"]) {
+        vcard += `URL;type=Pinterest:${contact.links["Pinterest"]}\n`;
+      }
+
+      if (contact.title) {
+        vcard += `TITLE:${contact.title}\n`;
+      }
+
+      if (contact.about) {
+        vcard += `NOTE:${contact.about}\n`;
+      }
+
+      vcard += "END:VCARD";
+
+      const blob = new Blob([vcard], { type: "text/vcard" });
+      const url = URL.createObjectURL(blob);
 
       const newLink = document.createElement("a");
-      newLink.download = contact.name + ".vcf";
-      newLink.textContent = contact.name;
+      newLink.download = `${contact.name}.vcf`;
       newLink.href = url;
-
       newLink.click();
 
       setImageSrc(contact.name + contact.phone);
-      // setModalShow("ExchangeContact");
+      setModalShow("ExchangeContact");
     }
   };
+
 
   const handleSaveQr = async () => {
     setShowQr(true);
@@ -721,14 +728,14 @@ const Header = ({
                   : card.card_profession}
               </p>
             </div>}
-            <div className="d-flex sm-class header-btn-gap">
+            <div className="d-flex header-btn-gap">
               <button
-                className="contact-btn web-contact-btn"
+                className="contact-btn"
                 onClick={shareContact}
               >
                 Add Contact
               </button>
-              <AddContact
+              {/* <AddContact
                 shareContact={shareContact}
                 data={card}
                 ShowLoader={Downloading}
@@ -749,7 +756,7 @@ const Header = ({
                 }
                 profile={profile}
                 text="Add Contact"
-              />
+              /> */}
               <button
                 className="contact-btn web-contact-btn"
                 onClick={() => setModalShow("ExchangeContact")}
@@ -1038,7 +1045,7 @@ const Header = ({
                               alt={item.parent.platform_name}
                             />
                           </span>
-                          
+
                         </div>
                       </Link>
                     )}
