@@ -196,10 +196,7 @@ const Header = ({
       const stateZip = parts[2]?.trim()?.split(" ") || []; // e.g., ["4506"] or ["QLD", "4506"]
       const state = stateZip.length === 2 ? stateZip[0] : ""; // optional
       const zip = stateZip.length === 2 ? stateZip[1] : stateZip[0] || "";
-      const country = parts[3]?.trim() || "Australia"; // fallback if missing
-
-      // Final vCard-compliant address string
-      vcard += `ADR;CHARSET=UTF-8:;;${street};${city};${state};${zip};${country}\n`;
+      const country = parts[3]?.trim() || ""; // fallback if missing
 
 
       const contact = {
