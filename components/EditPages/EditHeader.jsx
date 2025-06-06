@@ -495,7 +495,7 @@ function EditHeader({
                 <span className="overhead">Location</span>
                 <input
                   type="text"
-                  placeholder="Address"
+                  placeholder="Street, City, State, ZIP Code, Country"
                   onChange={(e) => setAddress(e.target.value)}
                   defaultValue={Address || ""}
                   className="form-control mt-2"
@@ -506,7 +506,7 @@ function EditHeader({
                 <span className="overhead">Location</span>
                 <input
                   type="text"
-                  placeholder="Address"
+                  placeholder="Street, City, State, ZIP Code, Country"
                   onChange={(e) => setAddress(e.target.value)}
                   defaultValue={Address || ""}
                   className="form-control mt-2"
