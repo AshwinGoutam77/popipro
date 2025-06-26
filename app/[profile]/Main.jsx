@@ -239,25 +239,22 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                   card_url={profile}
                                   MainData={MainData}
                                 />
+                              ) : items?.status == "card_booking" ? (
+                                MainData?.company_setting
+                                  ?.appointment_enquiry_method == "form" ? (
+                                  <ContactForm
+                                    card_url={profile}
+                                    Titles={titles}
+                                    Data={card}
+                                    card={card}
+                                    MainData={MainData}
+                                    PlanData={plan}
+                                  />
+                                ) : (
+                                  ""
+                                )
                               ) : (
                                 ""
-                              )
-                              ) : items?.status == "card_booking" ? (
-                            MainData?.company_setting
-                            ?.appointment_enquiry_method == "form" ? (
-                            <ContactForm
-                              card_url={profile}
-                              Titles={titles}
-                              Data={card}
-                              card={card}
-                              MainData={MainData}
-                              PlanData={plan}
-                            />
-                            ) : (
-                            ""
-                            )
-                            ) : (
-                            ""
                               )}
                           </div>
                         );
