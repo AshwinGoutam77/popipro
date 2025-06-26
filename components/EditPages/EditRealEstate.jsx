@@ -1847,7 +1847,7 @@ export default function EditRealEstate({
                             >
                               {items?.heading}
                             </h6>
-                            <div>
+                            <div className="d-flex flex-wrap- gap-2">
                               <span className="real-estate-badge">
                                 {items?.property_type?.name}
                               </span>
