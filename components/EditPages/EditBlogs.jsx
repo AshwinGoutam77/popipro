@@ -121,6 +121,7 @@ export default function EditBlogs({
             blog_description: ServicesDescription,
             blog_url: BlogUrl,
             saved_blog: id,
+            status: '1'
           },
         ])
         : (data = [
@@ -129,6 +130,7 @@ export default function EditBlogs({
             blog_name: ServicesName,
             blog_description: ServicesDescription,
             blog_url: BlogUrl,
+            status: '1'
           },
         ]);
     }
