@@ -176,7 +176,7 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
             ) : (
                 ""
             )}
-            <div className="box-content boxxx" id="card_blogs">
+            <div className="box-content boxxx" id="card_timings">
                 <div className="flex-header">
                     <div className="d-flex align-items-baseline">
                         {EditFields ? (
