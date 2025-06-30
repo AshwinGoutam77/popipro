@@ -67,8 +67,8 @@ export default function BusinessHoursConfig({ Data, Titles, card }) {
                         <table className="table">
                             <thead className="bg-transparent">
                                 <tr>
-                                    <th className='border-0'>Day of the Week</th>
-                                    <th className='border-0'>Opening Hours</th>
+                                    <th className='border-0'>Day</th>
+                                    <th className='border-0'>Open Times</th>
                                 </tr>
                             </thead>
                             <tbody>
