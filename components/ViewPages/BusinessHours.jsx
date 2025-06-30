@@ -67,8 +67,8 @@ export default function BusinessHoursConfig({ Data, Titles, card }) {
                         <table className="table">
                             <thead className="bg-transparent">
                                 <tr>
-                                    <th className='border-0'>Day</th>
-                                    <th className='border-0'>Open Times</th>
+                                    <th className='border-0 p-1'>Day</th>
+                                    <th className='border-0 p-1'>Open Times</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,9 +77,9 @@ export default function BusinessHoursConfig({ Data, Titles, card }) {
                                     const start = timing?.start_time;
                                     const end = timing?.end_time;
                                     return (
-                                        <tr key={index} className='border-0'>
-                                            <td className='border-0'>{day}</td>
-                                            <td className='border-0'>
+                                        <tr key={index} className='border-0 p-1'>
+                                            <td className='border-0 p-1'>{day}</td>
+                                            <td className='border-0 p-1'>
                                                 {start && end
                                                     ? `${formatTo12Hour(start)} - ${formatTo12Hour(end)}`
                                                     : 'Closed'}
