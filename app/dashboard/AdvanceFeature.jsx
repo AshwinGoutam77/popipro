@@ -210,12 +210,12 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        MainData?.non_section_feature?.address_book?.in_subscription
+                        MainData?.titles?.card_todo?.in_subscription
                             ? "/to-do"
                             : "https://www.popipro.com/order"
                     }
                     onClick={(e) => {
-                        if (MainData?.non_section_feature?.address_book?.can_start_trial) {
+                        if (MainData?.titles?.card_todo?.can_start_trial) {
                             e.preventDefault();
                             handleFreeTrail();
                         }
@@ -229,8 +229,8 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
-                                in_subscription={MainData?.non_section_feature?.address_book?.in_subscription}
-                                can_start_trial={MainData?.non_section_feature?.address_book?.can_start_trial}
+                                in_subscription={MainData?.titles?.card_todo?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_todo?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
