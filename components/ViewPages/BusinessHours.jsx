@@ -32,9 +32,9 @@ export default function BusinessHoursConfig({ Data, Titles, card }) {
     const formatTo12Hour = (time) => {
         if (!time) return '';
         const [hour, minute] = time.split(':').map(Number);
-        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const ampm = hour >= 12 ? 'pm' : 'am';
         const hour12 = hour % 12 || 12;
-        return `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
+        return `${hour12}:${minute.toString().padStart(2, '0')}${ampm}`;
     };
 
     const timingMap = {};
