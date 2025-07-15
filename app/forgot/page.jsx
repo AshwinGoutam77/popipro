@@ -197,7 +197,7 @@ export default function Forgot() {
       <div className="row login-screen-div w-100 m-0 height-100">
         <div className="banner-login-div col-sm-12 col-lg-6 m-0 p-0 position-relative">
           <img
-            src="https://admin.popipro.com/assets/images/system/popi-pro-girl.jpg"
+            src="https://toolapi.devwings.com/assets/chat/chats/2025-07/150725062059popiprologinscreen.jpg"
             alt="logo"
             className="w-100 banner-login-image"
           />
