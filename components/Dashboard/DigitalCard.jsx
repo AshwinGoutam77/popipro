@@ -45,15 +45,15 @@ export default function DigitalCard({ active, handleClose, card_url, Data }) {
           <div className="text-center">
             <div className="digital-cards-section p-4" id="DownloadCard">
               <QRCode
-                value={"front.popipro.com/" + card_url}
+                value={"app.popipro.com/" + card_url}
                 fgColor="#000"
-                imageSettings={{
-                  src: "../../static/img/brand.png",
-                  excavate: true,
-                  height: "30",
-                  width: "30",
-                  borderRadius: "10",
-                }}
+                // imageSettings={{
+                //   src: "../../static/img/brand.png",
+                //   excavate: true,
+                //   height: "30",
+                //   width: "30",
+                //   borderRadius: "10",
+                // }}
               />
               <div>
                 <h6 className="color-black m-0">{Data?.first_name}</h6>
