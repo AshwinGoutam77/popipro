@@ -253,7 +253,7 @@ export default function EditAbout({ token, APIDATA, Data, TitleData, MainData, P
                   )}
                 </div>
                 {TextArea ? (
-                  <span
+                  MainData?.plan?.current_plan?.is_expired == false && <span
                     onClick={() => setShowshowChatModal(true)}
                     className="ai-btn"
                   >

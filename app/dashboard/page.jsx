@@ -115,6 +115,7 @@ export default function Dashboard() {
           document.documentElement.style.setProperty("--themecolor", "#dfeef8");
           document.documentElement.style.setProperty("--text-color", "#ffffff");
           localStorage.setItem("is_expried", JSON.stringify(response?.data?.data?.plan?.is_expired));
+          localStorage.setItem("is_trial_taken", JSON.stringify(response?.data?.data?.plan?.is_trial_taken));
         } else {
           localStorage.removeItem("token");
           localStorage.removeItem("url");
