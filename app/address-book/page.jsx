@@ -77,7 +77,6 @@ export default function Page() {
 
   return (
     <>
-      <RedirectComponent />
       <Modal
         show={ShowContactsModal}
         onHide={() => setShowContactsModal(false)}

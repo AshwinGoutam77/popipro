@@ -62,7 +62,6 @@ export default function EmailSignature() {
 
     return (
         <>
-            <RedirectComponent />
             {UserData ? <div className='email-ginature-section bg-white'>
                 <div
                     className="login-header p-3 text-center d-flex align-items-center justify-content-between"

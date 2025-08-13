@@ -126,7 +126,6 @@ export default function page() {
 
   return Data ? (
     <>
-      <RedirectComponent />
       <div
         className="login-header p-3 text-center d-flex align-items-center justify-content-between"
         style={{ background: "black" }}
