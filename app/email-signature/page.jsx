@@ -175,7 +175,7 @@ export default function EmailSignature() {
                                                 alt="photograph"
                                                 style={{
                                                     border: "1px solid white",
-                                                    height: "auto",
+                                                    height: "100px",
                                                     width: "100px",
                                                     borderRadius: "100%",
                                                     boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
