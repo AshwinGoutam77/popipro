@@ -191,12 +191,12 @@ export default function LeadsTabData({ setModalShow, TitleData, Data, PlanData, 
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
                     href={
-                        MainData?.non_section_feature?.analytics?.in_subscription
+                        MainData?.titles?.card_booking?.in_subscription
                             ? "/appointment"
                             : "https://www.popipro.com/order"
                     }
                     onClick={(e) => {
-                        if (MainData?.non_section_feature?.analytics?.can_start_trial) {
+                        if (MainData?.titles?.card_booking?.can_start_trial) {
                             e.preventDefault();
                             handleFreeTrail();
                         }
