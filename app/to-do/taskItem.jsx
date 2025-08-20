@@ -184,7 +184,7 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                                 return (i.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M' : o
                                             })}</Td> : <Td>---</Td>} */}
                                             <Td>{(task.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M' : ""}</Td>
-                                            <Td>{task?.created_date && task?.created_date}</Td>
+                                            <Td>{task?.initiation_date && task?.initiation_date}</Td>
                                             <Td>
                                                 <p
                                                     className="font-weight-bold cursor-pointer"
