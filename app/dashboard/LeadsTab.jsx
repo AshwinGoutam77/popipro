@@ -186,7 +186,6 @@ export default function LeadsTabData({ setModalShow, TitleData, Data, PlanData, 
                 </Link>
             </div>
 
-
             {/* My appointment */}
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <Link
@@ -210,8 +209,8 @@ export default function LeadsTabData({ setModalShow, TitleData, Data, PlanData, 
                                 PlanData={PlanData}
                                 APIDATA={APIDATA}
                                 MainData={MainData}
-                                in_subscription={MainData?.non_section_feature?.analytics?.in_subscription}
-                                can_start_trial={MainData?.non_section_feature?.analytics?.can_start_trial}
+                                in_subscription={MainData?.titles?.card_booking?.in_subscription}
+                                can_start_trial={MainData?.titles?.card_booking?.can_start_trial}
                                 handleFreeTrail={handleFreeTrail}
                             />
                         ) : (
