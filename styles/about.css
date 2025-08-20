@@ -916,7 +916,7 @@ textarea:invalid {
   height: 400px;
   background-size: cover;
   width: 100%;
-  padding: 10px;
+  padding: 40px;
 
   & p{
     background-color: white;

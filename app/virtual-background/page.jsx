@@ -183,7 +183,7 @@ export default function page() {
             <p className="mt-2 color-black">
               Your custom background will save as a 1920x1080 image.
             </p>
-            <a href="https://www.popipro.com/" className="text-decoration-none color-black ">
+            <a href="https://www.popipro.com/virtual-background" className="primary-color">
               How do I use my popipro background in Zoom, Google Meet, Microsoft
               Teams, Livestorm, Zoho Meeting, Vowel, GoToMeeting, Skype, Eyeson etc
             </a>

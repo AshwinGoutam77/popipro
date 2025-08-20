@@ -2,18 +2,19 @@ let MODE = process.env.NEXT_PUBLIC_MODE;
 export default function robots() {
   let robots_obj;
 
-  if(MODE !== 'production') {
+  if (MODE !== 'production') {
     robots_obj = {
       rules: {
         disallow: '/',
       }
     };
-  }else{
+  } else {
     robots_obj = {
       rules: {
         userAgent: "*",
         disallow: "/",
         disallow: [
+          "https://app.popipro.com/",
           "/login/",
           "/dashboard/",
           "/insights/",

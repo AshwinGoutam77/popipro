@@ -289,11 +289,19 @@ export default function EmailSignature() {
                                             }}
                                         >
                                             <img
-                                                src={
-                                                    process.env.NEXT_PUBLIC_MODE === "development"
-                                                        ? `https://quickchart.io/qr?text=https://front.popipro.com/prafull-gupta&size=160`
-                                                        : 'https://chart.googleapis.com/chart?chs=160x160&cht=qr&chl=https://front.popipro.com/prafull-gupta&choe=UTF-8'
-                                                }
+                                                // src={
+                                                //     process.env.NEXT_PUBLIC_MODE == "development"
+                                                //         ? "https://dev.popipro.com/" +
+                                                //         UserData?.card?.profile_picture?.path
+                                                //         : "https://admin.popipro.com/" +
+                                                //         UserData?.card?.profile_picture?.path
+                                                // }
+                                                // src={
+                                                //     process.env.NEXT_PUBLIC_MODE === "development"
+                                                //         ? `https://quickchart.io/qr?text=https://front.popipro.com/prafull-gupta&size=160`
+                                                //         : 'https://chart.googleapis.com/chart?chs=160x160&cht=qr&chl=https://app.popipro.com/prafull-gupta&choe=UTF-8'
+                                                // }
+                                                src={`https://quickchart.io/qr?text=${UserData?.card?.base_url}${UserData?.card?.vcard_url}&size=160`}
                                                 className="qr-img"
                                                 alt="qr"
                                                 style={{ borderRadius: '20px' }}
@@ -311,7 +319,7 @@ export default function EmailSignature() {
 
                             <div className='d-flex align-items-center justify-content-between mt-2'>
                                 <button className='contact-btn w-auto m-0' onClick={() => copyToClipboard(signatureRef)}><FontAwesomeIcon icon={faCopy} className='mr-2' />Copy to Clipboard</button>
-                                <a href="https://www.popipro.com/" target='_blank' className='font-weight-bold d-flex align-items-center'>How it Works <FontAwesomeIcon icon={faChevronRight} className='mx-2' /></a>
+                                <a href="https://www.popipro.com/email-signature/" target='_blank' className='font-weight-bold d-flex align-items-center'>How it Works <FontAwesomeIcon icon={faChevronRight} className='mx-2' /></a>
                             </div>
                         </div>
                     </div>

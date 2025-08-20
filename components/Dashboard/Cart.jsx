@@ -344,13 +344,13 @@ export default function Cart({ active, handleClose, MainData, cartId, card_url, 
                 <p className="font-weight-bold">Your Order ID :{OrderData?.order_id} </p>
                 <p className="font-weight-bold">Your Customer ID :{OrderData?.customer_id} </p>
                 <h6 className="mt-3">Total Amount: {MainData?.company_setting?.currency?.currency}{OrderData?.total_price}</h6>
-                <div className="">
+                {MainData?.company_setting?.payment_link !== null && <div className="">
                   <button className="contact-btn w-auto">
                     <Link href={MainData?.company_setting?.payment_link ? MainData?.company_setting?.payment_link : ""} target="_blank">Pay Now</Link>
                   </button>
-                </div>
+                </div>}
 
-                {MainData?.company_setting?.payment_qr == null && <div className="mt-2">
+                {MainData?.company_setting?.payment_qr.length !== 0 && <div className="mt-2">
                   <p className="mb-2">Or</p>
                   <img src={"https://dev.popipro.com/" + MainData?.company_setting?.payment_qr.path}
                     alt="qr-image" width={'160px'} />

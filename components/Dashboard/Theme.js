@@ -44,26 +44,26 @@ export default function Theme({
     
     if (response.data.status) {
       window.location.href = "/" + card_url;
-      setColor(Data?.color_code);
-      setBackgroundColor(Data?.background_color);
-      setTextColor(Data?.text_color);
-      document.documentElement.style.setProperty("--color", Color);
-      document.documentElement.style.setProperty("--header-color", HeaderColor);
-      document.documentElement.style.setProperty("--text-color", TextColor);
-      document.documentElement.style.setProperty(
-        "--themecolor",
-        BackgroundColor
-      );
-      const color = getComputedStyle(document.documentElement).getPropertyValue(
-        "--color"
-      );
-      const color2 = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--header-color");
-      const color3 = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--text-color");
-      APIDATA();
+      // setColor(Data?.color_code);
+      // setBackgroundColor(Data?.background_color);
+      // setTextColor(Data?.text_color);
+      // document.documentElement.style.setProperty("--color", Color);
+      // document.documentElement.style.setProperty("--header-color", HeaderColor);
+      // document.documentElement.style.setProperty("--text-color", TextColor);
+      // document.documentElement.style.setProperty(
+      //   "--themecolor",
+      //   BackgroundColor
+      // );
+      // const color = getComputedStyle(document.documentElement).getPropertyValue(
+      //   "--color"
+      // );
+      // const color2 = getComputedStyle(
+      //   document.documentElement
+      // ).getPropertyValue("--header-color");
+      // const color3 = getComputedStyle(
+      //   document.documentElement
+      // ).getPropertyValue("--text-color");
+      // APIDATA();
     }
     handleClose();
   };

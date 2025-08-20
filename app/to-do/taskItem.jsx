@@ -146,6 +146,7 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                 <Th>Status</Th>
                                 <Th>Task</Th>
                                 <Th>Time</Th>
+                                <Th>Created Date</Th>
                                 <Th>Actions</Th>
                             </Tr>
                         </Thead>
@@ -182,7 +183,8 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                                 const minutes = i?.spent_minutes % 60;
                                                 return (i.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M' : o
                                             })}</Td> : <Td>---</Td>} */}
-                                            <Td>{(task.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M':""}</Td>
+                                            <Td>{(task.spent_minutes > 0) ? hours + 'H: ' + minutes + 'M' : ""}</Td>
+                                            <Td>{task?.created_date && task?.created_date}</Td>
                                             <Td>
                                                 <p
                                                     className="font-weight-bold cursor-pointer"

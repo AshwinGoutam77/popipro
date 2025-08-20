@@ -1,8 +1,7 @@
 import DashboardPlan from '@components/Dashboard/DashboardPlan'
-import { faAddressBook, faAddressCard, faAward, faTasks } from '@node_modules/@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faAddressCard, faAward, faGear, faTasks } from '@node_modules/@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome'
 import Link from '@node_modules/next/link'
-import React from 'react'
 
 export default function AdvanceFeatureData({ setModalShow, TitleData, Data, PlanData, MainData, handleFreeTrail, in_Plan, APIDATA }) {
     return (
@@ -170,8 +169,7 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             </div>
 
             {/* Self branding */}
-            {/* {MainData?.permission[0]?.visible_to == '2' && */}
-            <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+            {MainData?.permission[0]?.visible_to == '2' && <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     // onClick={() => MainData?.non_section_feature?.self_branding?.in_subscription == true && setModalShow("selfBranding")}
@@ -205,8 +203,7 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                         Self Branding
                     </h6>
                 </div>
-            </div>
-            {/* } */}
+            </div>}
 
             {/* Todo */}
             <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
@@ -249,6 +246,41 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
                     </div>
                 </Link>
             </div>
+
+            {MainData?.permission[0]?.visible_to == '2' && <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+                <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={(e) => {
+                        if (MainData?.non_section_feature?.self_branding?.can_start_trial) {
+                            e.preventDefault();
+                            handleFreeTrail();
+                        } else if (MainData?.non_section_feature?.self_branding?.in_subscription) {
+                            e.preventDefault();
+                            setModalShow("setting")
+                        }
+                    }}
+                >
+                    {Data && (
+                        <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.self_branding?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.self_branding?.can_start_trial}
+                            handleFreeTrail={handleFreeTrail}
+                        />
+                    )}
+                    <FontAwesomeIcon
+                        icon={faGear}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">
+                        Settings
+                    </h6>
+                </div>
+            </div>}
         </>
     )
 }
