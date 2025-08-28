@@ -97,24 +97,29 @@ export default function SettingModal({
   };
 
   const handleSavePayment = async (e) => {
-    e.preventDefault()
-    if (FormData.payment_link == "" && FormData?.payment_qr == "") {
-      handleClose()
-    } else {
-      const res = await Api(GlobalPaymentLink, FormData)
+    e.preventDefault();
+
+    if (FormData.payment_link === "" && FormData.payment_qr === "") {
+      showToast("Please provide at least one field", "error");
+      return;
+    }
+
+    try {
+      const res = await Api(GlobalPaymentLink, FormData);
+
       if (res?.data?.status) {
         showToast(res.data.message, "success");
-        handleClose()
-        setFormData({
-          payment_link: "",
-          payment_qr: ""
-        })
+        setFormData({ payment_link: "", payment_qr: "" });
+        handleClose();
+      } else {
+        showToast(res?.data?.message || "Failed", "error");
       }
-      else {
-        showToast('Failed', "error");
-      }
+    } catch (error) {
+      showToast(error?.response?.data?.message, "error");
+      console.error(error?.response?.data?.message);
     }
-  }
+  };
+
 
   return (
     <>
