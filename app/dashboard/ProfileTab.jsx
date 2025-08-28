@@ -301,6 +301,35 @@ export default function ProfileTabData({ setModalShow, Data, PlanData, MainData,
                     <h6 className="text-white text-center mb-0">Suggestions</h6>
                 </div>
             </div>
+
+            {<div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+                <div
+                    className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
+                    onClick={(e) => {
+                        setModalShow("setting")
+                    }}
+                >
+                    {/* {Data && (
+                        <DashboardPlan
+                            Data={Data}
+                            PlanData={PlanData}
+                            APIDATA={APIDATA}
+                            MainData={MainData}
+                            in_subscription={MainData?.non_section_feature?.self_branding?.in_subscription}
+                            can_start_trial={MainData?.non_section_feature?.self_branding?.can_start_trial}
+                            handleFreeTrail={handleFreeTrail}
+                        />
+                    )} */}
+                    <FontAwesomeIcon
+                        icon={faGear}
+                        className="text-white mb-2"
+                        style={{ fontSize: "20px" }}
+                    />
+                    <h6 className="text-white text-center mb-0">
+                        Settings
+                    </h6>
+                </div>
+            </div>}
         </>
     )
 }

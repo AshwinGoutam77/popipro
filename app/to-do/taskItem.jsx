@@ -145,8 +145,8 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                 <Th><FontAwesomeIcon icon={faExpand} /></Th>
                                 <Th>Status</Th>
                                 <Th>Task</Th>
-                                <Th>Time</Th>
                                 <Th>Created Date</Th>
+                                <Th>Time Took</Th>
                                 <Th>Actions</Th>
                             </Tr>
                         </Thead>

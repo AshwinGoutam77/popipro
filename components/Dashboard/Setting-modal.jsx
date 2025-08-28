@@ -98,17 +98,21 @@ export default function SettingModal({
 
   const handleSavePayment = async (e) => {
     e.preventDefault()
-    const res = await Api(GlobalPaymentLink, FormData)
-    if (res?.data?.status) {
-      showToast(res.data.message, "success");
+    if (FormData.payment_link == "" && FormData?.payment_qr == "") {
       handleClose()
-      setFormData({
-        payment_link: "",
-        payment_qr: ""
-      })
-    }
-    else {
-      showToast('Failed', "error");
+    } else {
+      const res = await Api(GlobalPaymentLink, FormData)
+      if (res?.data?.status) {
+        showToast(res.data.message, "success");
+        handleClose()
+        setFormData({
+          payment_link: "",
+          payment_qr: ""
+        })
+      }
+      else {
+        showToast('Failed', "error");
+      }
     }
   }
 
