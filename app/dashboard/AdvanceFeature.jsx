@@ -169,7 +169,7 @@ export default function AdvanceFeatureData({ setModalShow, TitleData, Data, Plan
             </div>
 
             {/* Self branding */}
-            {MainData?.permission[0]?.visible_to == '2' && <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
+            {MainData?.non_section_feature?.self_branding?.in_subscription && <div className="col-6 col-lg-3 col-md-3 mt-0 d-flex justify-content-center">
                 <div
                     className="dashboard-boxes d-flex justify-content-center align-items-center flex-column"
                     // onClick={() => MainData?.non_section_feature?.self_branding?.in_subscription == true && setModalShow("selfBranding")}
