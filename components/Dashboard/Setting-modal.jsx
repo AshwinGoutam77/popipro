@@ -99,10 +99,10 @@ export default function SettingModal({
   const handleSavePayment = async (e) => {
     e.preventDefault();
 
-    if (FormData.payment_link === "" && FormData.payment_qr === "") {
-      showToast("Please provide at least one field", "error");
-      return;
-    }
+    // if (FormData.payment_link === "" && FormData.payment_qr === "") {
+    //   showToast("Please provide at least one field", "error");
+    //   return;
+    // }
 
     try {
       const res = await Api(GlobalPaymentLink, FormData);
