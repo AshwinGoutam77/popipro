@@ -48,7 +48,7 @@ export default function DashboardProducts({ TitleData }) {
       setShowLoader(false);
       console.log(response.data.data);
       
-      setData(response.data.data);
+      setData(response.data.data?.products);
     }
   };
 
