@@ -15,7 +15,7 @@ import RedirectComponent from '@app/RedirectComponent/page';
 export default function OrderRecord() {
     // const { UserData } = useAuthContext();
     const { token, APIDATA, UserData } = useAuthContext();
-    // console.log('data', UserData);
+    console.log('data', UserData);
 
     const [OrderData, setOrderData] = useState("");
     let d = new Date();
@@ -32,6 +32,7 @@ export default function OrderRecord() {
 
     useEffect(() => {
         handleGetOrderProducts();
+        APIDATA()
     }, []);
 
     function pad(n, width, z) {
