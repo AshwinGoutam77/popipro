@@ -226,7 +226,7 @@ const Order = () => {
 
           <div className="col-sm-12 col-md-6 col-lg-6">
             <div className="w-100 flex-column">
-              <h5 className="my-4 ml-1 color-black">
+              <h5 className="my-4 ml-1 VarColor">
                 Rearrange inner sections through drag and drop.
               </h5>
               <div className="drag-drop-inner-section">
