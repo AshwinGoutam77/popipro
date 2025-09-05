@@ -253,17 +253,20 @@ export default function EditAbout({ token, APIDATA, Data, TitleData, MainData, P
                   )}
                 </div>
                 {TextArea ? (
-                  MainData?.plan?.current_plan?.is_expired == false && <span
-                    onClick={() => setShowshowChatModal(true)}
-                    className="ai-btn"
-                  >
-                    Generate from AI
-                    <img
-                      src="../static/img/ai.gif"
-                      alt="stick"
-                      style={{ width: "8%" }}
-                    />
-                  </span>
+                  MainData?.plan?.current_plan?.is_expired === false &&
+                  (MainData?.plan?.active_addons[4]?.addon_name === "card_ai") && (
+                    <span
+                      onClick={() => setShowshowChatModal(true)}
+                      className="ai-btn"
+                    >
+                      Generate from AI
+                      <img
+                        src="../static/img/ai.gif"
+                        alt="stick"
+                        style={{ width: "8%" }}
+                      />
+                    </span>
+                  )
                 ) : (
                   <div>
                     {TitleData?.card_description?.source == "2" ? (

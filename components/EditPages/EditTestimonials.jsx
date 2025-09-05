@@ -465,7 +465,7 @@ export default function EditTestimonials({
                 ></input>
                 <div className="d-flex align-items-center justify-content-between">
                   <label className="modalFormLable">Description*</label>
-                  <span
+                  {(MainData?.plan?.active_addons[4]?.addon_name === "card_ai") && <span
                     onClick={() => setShowshowChatModal(true)}
                     data-toggle={ServicesDescription ? "modal" : ""}
                     className="ai-btn"
@@ -476,7 +476,7 @@ export default function EditTestimonials({
                       alt="stick"
                       style={{ width: "12%" }}
                     />
-                  </span>
+                  </span>}
                 </div>
                 <CKEditor
                   editor={ClassicEditor}
@@ -613,7 +613,7 @@ export default function EditTestimonials({
                         ></input>
                         <div className="d-flex align-items-center justify-content-between">
                           <label className="modalFormLable">Description*</label>
-                          <span
+                          {(MainData?.plan?.active_addons[4]?.addon_name === "card_ai") && <span
                             onClick={() => setShowshowChatModal(true)}
                             data-toggle={ServicesDescription ? "modal" : ""}
                             className="ai-btn"
@@ -624,7 +624,7 @@ export default function EditTestimonials({
                               alt="stick"
                               style={{ width: "12%" }}
                             />
-                          </span>
+                          </span>}
                         </div>
                         <CKEditor
                           editor={ClassicEditor}

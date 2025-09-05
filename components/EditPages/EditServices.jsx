@@ -417,7 +417,7 @@ export default function EditDoing({
                 ></input>
                 <div className="d-flex align-items-center justify-content-between">
                   <label className="modalFormLable">Description*</label>
-                  <span
+                  {(MainData?.plan?.active_addons[4]?.addon_name === "card_ai") && <span
                     onClick={() => setShowshowChatModal(true)}
                     data-toggle={ServicesDescription ? "modal" : ""}
                     className="ai-btn"
@@ -428,7 +428,7 @@ export default function EditDoing({
                       alt="stick"
                       style={{ width: "12%" }}
                     />
-                  </span>
+                  </span>}
                 </div>
                 <CKEditor
                   editor={ClassicEditor}
@@ -566,7 +566,7 @@ export default function EditDoing({
                         ></input>
                         <div className="d-flex align-items-center justify-content-between">
                           <label className="modalFormLable">Description*</label>
-                          <span
+                          {(MainData?.plan?.active_addons[4]?.addon_name === "card_ai") && <span
                             onClick={() => setShowshowChatModal(true)}
                             data-toggle={ServicesDescription ? "modal" : ""}
                             className="ai-btn"
@@ -577,7 +577,7 @@ export default function EditDoing({
                               alt="stick"
                               style={{ width: "12%" }}
                             />
-                          </span>
+                          </span>}
                         </div>
                         <div className="ck-body-wrapper">
                           <CKEditor
@@ -766,13 +766,13 @@ export default function EditDoing({
                             ) : (
                               <>
                                 <button
-                                  className="addmore mr-1"
+                                  className="addmore mr-4"
                                   onClick={handleShow}
                                   id="card_services"
                                 >
                                   <FontAwesomeIcon icon={faPlus} />
                                 </button>
-                                <div class="wrapper">
+                                {(MainData?.plan?.active_addons[4]?.addon_name == "card_ai") && <div class="wrapper">
                                   <div class="tooltip w-auto" style={{ left: '-62px' }}>
                                     Generate from ai
                                   </div>
@@ -782,7 +782,7 @@ export default function EditDoing({
                                   >
                                     <FontAwesomeIcon icon={faWandMagicSparkles} />
                                   </button>
-                                </div>
+                                </div>}
                               </>
                             )}
                             <label className="switch">

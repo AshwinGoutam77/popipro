@@ -61,7 +61,7 @@ export default function EditFooter({ Data, card_url, APIDATA }) {
           </Link>
         </div>
         <p className="mt-4 mb-4 text-center footer-copyright">
-          Copyright © 2023-2024 All Rights Reserved.
+          Copyright © 2025 All Rights Reserved.
         </p>
       </div>
     </>

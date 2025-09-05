@@ -77,7 +77,7 @@ export default function Footer({ Data, profile, MainData }) {
           </Link>
         </div>
         <p className="m-0 mt-4 pb-3 text-center footer-copyright">
-          Copyright © 2023-2024 All Rights Reserved.
+          Copyright © 2025 All Rights Reserved.
         </p>
       </div>
     </>
