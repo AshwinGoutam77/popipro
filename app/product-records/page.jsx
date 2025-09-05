@@ -13,7 +13,10 @@ import { useAuthContext } from '@context/AuthContext';
 import RedirectComponent from '@app/RedirectComponent/page';
 
 export default function OrderRecord() {
-    const { UserData } = useAuthContext();
+    // const { UserData } = useAuthContext();
+    const { token, APIDATA, UserData } = useAuthContext();
+    console.log(UserData);
+    
     const [OrderData, setOrderData] = useState("");
     let d = new Date();
     const [StartDate, setStartDate] = useState(d.setMonth(d.getMonth() - 1));
@@ -153,7 +156,7 @@ export default function OrderRecord() {
                                                         <tr key={uniqueKey}>
                                                             <td>{i?.productable?.name || "----"}</td>
                                                             <td>
-                                                                {i?.productable?.price
+                                                             {UserData?.company_setting?.ecomcurrency?.currency}   {i?.productable?.price
                                                                     ? i?.productable?.price
                                                                     : "-----"}
                                                             </td>

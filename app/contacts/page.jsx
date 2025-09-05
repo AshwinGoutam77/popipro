@@ -331,6 +331,7 @@ export default function Contact() {
                         <Table>
                             <Thead>
                                 <Tr>
+                                    <Th>Date</Th>
                                     <Th>Name</Th>
                                     <Th>Contact</Th>
                                     <Th>Email</Th>
@@ -341,10 +342,12 @@ export default function Contact() {
                             <Tbody>
                                 {PhoneData && PhoneData?.map((item, index) => (
                                     <tr key={index}>
+                                        <td>{item.created_at.split(" ")[0]}</td>
                                         <td>{item.full_name}</td>
                                         <td>{item.contact_number}</td>
                                         <td>{item.email_address ? item.email_address : "---"}</td>
-                                        <td>{item.type}</td>
+                                        <td>{item.type.replace(/_/g, " ")}</td>
+
                                         <td>
                                             <div
                                                 className="d-flex align-items-center justify-content-left"

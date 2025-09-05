@@ -464,7 +464,7 @@ export default function Dashboard() {
                 </p>
                 {Data?.is_onboarding == "1" ? (
                   <button
-                    className="mt-2 underline bg-transparent border-0 font-weight-bold text-white text-md"
+                    className="hover-none mt-2 underline bg-transparent border-0 font-weight-bold text-white text-md"
                     onClick={SaveStatusApi}
                   >
                     Your profile is in DRAFT MODE, Please click here to make it
@@ -486,13 +486,13 @@ export default function Dashboard() {
                       }
                       target="_blank"
                     >
-                      <button className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
+                      <button className="hover-none contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30">
                         Your subscription is expired, Click to renew it.
                       </button>
                     </a>
                   ) : (
                     <button
-                      className="contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                      className="hover-none contact-btn w-auto mt-6 text-transform-none border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
                       onClick={() =>
                         MainData?.plan?.subscription_left_days == 0
                           ? handleFreeTrail()
@@ -510,7 +510,7 @@ export default function Dashboard() {
                   ""
                 )}
 
-                {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex flex-wrap align-items-center justify-content-start justify-content-sm-center mt-2">
+                {MainData?.plan?.subscription_left_days !== 0 && <div className="d-flex flex-wrap align-items-center justify-content-start justify-content-sm-center mt-4">
                   <Link href={MainData?.plan?.subscription_left_days == 0 ? "https://www.popipro.com/order" : "/subscription"}>
                     <button className="underline bg-transparent border-0 font-weight-bold text-white text-md">
                       View Subscription

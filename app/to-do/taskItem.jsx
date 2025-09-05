@@ -7,7 +7,7 @@ import Api from '@services/Api';
 import { deleteSection, LoadMoreApi, UpdateTodoStatus } from '@services/Routes';
 import { showToast } from '@components/Dashboard/Toast';
 import { FontAwesomeIcon } from '@node_modules/@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faExpand } from '@node_modules/@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faExpand, faTrash } from '@node_modules/@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, data }) => {
@@ -197,7 +197,7 @@ const TaskItem = ({ tasks, onDelete, onEdit, onToggleTimer, userData, APIDATA, d
                                                         )
                                                     }
                                                 >
-                                                    Delete
+                                                    <FontAwesomeIcon icon={faTrash} color='black' />
                                                 </p>
                                             </Td>
                                         </Tr>

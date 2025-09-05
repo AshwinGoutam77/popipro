@@ -1488,6 +1488,10 @@ button.filter-btns-active {
   justify-content: left !important;
 }
 
+.contact-btn.hover-none:hover{
+  background-color: hsl(0deg 0% 100% / 20%) !important;
+} 
+
 
 @media (max-width:768px) {
   .dashboard-banner-container .dashboard-banner-div {
