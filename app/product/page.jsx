@@ -46,9 +46,7 @@ export default function DashboardProducts({ TitleData }) {
     const response = await Api(ProductsInsights, {});
     if (response.data.status) {
       setShowLoader(false);
-      console.log(response.data.data);
-      
-      setData(response.data.data?.products);
+      setData(response.data.data);
     }
   };
 
