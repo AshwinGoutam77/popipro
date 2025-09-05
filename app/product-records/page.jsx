@@ -15,7 +15,7 @@ import RedirectComponent from '@app/RedirectComponent/page';
 export default function OrderRecord() {
     // const { UserData } = useAuthContext();
     const { token, APIDATA, UserData } = useAuthContext();
-    console.log(UserData);
+    console.log('data',UserData);
     
     const [OrderData, setOrderData] = useState("");
     let d = new Date();
