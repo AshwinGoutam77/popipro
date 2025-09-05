@@ -660,7 +660,7 @@ export default function Dashboard() {
               </span>
             </Link>
             <Link
-              href="youtube.com/@popiproofficial"
+              href="https://www.youtube.com/@popiproofficial"
               target="_blank"
             >
               <span className="media-icon-div">
