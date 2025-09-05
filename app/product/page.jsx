@@ -46,7 +46,7 @@ export default function DashboardProducts({ TitleData }) {
     const response = await Api(ProductsInsights, {});
     if (response.data.status) {
       setShowLoader(false);
-      setData(response.data.data);
+      setData(response.data.products);
     }
   };
 
@@ -113,7 +113,7 @@ export default function DashboardProducts({ TitleData }) {
             e
       );
       if (response.data.status) {
-        setData(response.data.data);
+        setData(response.data.products);
         setShowLoader(false);
       }
     } catch (error) {
