@@ -626,7 +626,7 @@ export default function Dashboard() {
             style={{ gap: "10px" }}
           >
             <Link
-              href="https://www.facebook.com/popipro.global"
+              href="https://www.facebook.com/popipro.official/"
               target="_blank"
             >
               <span className="media-icon-div">
@@ -643,7 +643,7 @@ export default function Dashboard() {
               </span>
             </Link>
             <Link
-              href="https://www.instagram.com/popipro.global/"
+              href="https://www.instagram.com/popipro.official/"
               target="_blank"
             >
               <span className="media-icon-div">
@@ -660,7 +660,7 @@ export default function Dashboard() {
               </span>
             </Link>
             <Link
-              href="https://www.youtube.com/@popipro.global"
+              href="youtube.com/@popiproofficial"
               target="_blank"
             >
               <span className="media-icon-div">
@@ -676,7 +676,7 @@ export default function Dashboard() {
                 </span>
               </span>
             </Link>
-            <Link href="https://twitter.com/PopiPro_Global" target="_blank">
+            <Link href="https://x.com/PopiproOfficial" target="_blank">
               <span className="media-icon-div">
                 <span className="social-media-icons">
                   <img
