@@ -88,3 +88,18 @@ const ProfilePage = ({ params }) => {
 };
 
 export default ProfilePage;
+
+const getProfileData = async (profile) => {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MODE == "development"
+      ? `https://dev.popipro.com/api/get-card-data/?card_url=${profile}`
+      : `https://admin.popipro.com/api/get-card-data/?card_url=${profile}`,
+    { cache: "no-store" },
+    { next: { revalidate: 0 } }
+  );
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+  }
+};
