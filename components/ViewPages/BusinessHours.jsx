@@ -80,7 +80,7 @@ export default function BusinessHoursConfig({ Data, Titles, card }) {
                                         <tr key={index} className='border-0 p-1'>
                                             <td className='border-0 p-1'>{day}</td>
                                             <td className='border-0 p-1'>
-                                                {start && end
+                                                {!timing?.closed
                                                     ? `${formatTo12Hour(start)} - ${formatTo12Hour(end)}`
                                                     : 'Closed'}
                                             </td>

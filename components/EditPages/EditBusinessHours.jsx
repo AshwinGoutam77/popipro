@@ -82,18 +82,22 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
         setCurrentDay(dayName);
         setStartHours(timing?.start_time || '');
         setEndHours(timing?.end_time || '');
-        setIsClosed(!timing || (!timing.start_time && !timing.end_time));
+        setIsClosed(
+    timing?.closed === 1 ||
+    timing?.closed === "1" ||
+    timing?.closed === true
+);
         setModalShow(true);
     };
-
-    const closeModal = () => {
-        setModalShow(false);
-        setStartHours('');
-        setEndHours('');
-        setIsClosed(false);
-        setSelectedDayKey('');
-        setCurrentDay('');
-    };
+    
+const closeModal = () => {
+    setModalShow(false);
+    setStartHours('');
+    setEndHours('');
+    setIsClosed(false);
+    setSelectedDayKey('');
+    setCurrentDay('');
+};
 
     const handleSave = async () => {
         const payload = {
@@ -160,6 +164,15 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                 '<a href="https://www.popipro.com/order" class="text-white" target="_blank">Upgrade</a>',
         });
     };
+
+    const handleClosedChange = (checked) => {
+    setIsClosed(checked);
+
+    if (checked) {
+        setStartHours("");
+        setEndHours("");
+    }
+};
 
     return (
         <div className="position-relative">
@@ -298,7 +311,7 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                                     <tr key={index}>
                                         <td>{day}</td>
                                         <td>
-                                            {start && end
+                                            {!timing?.closed
                                                 ? `${formatTo12Hour(start)} - ${formatTo12Hour(end)}`
                                                 : 'Closed'}
                                         </td>
@@ -333,21 +346,23 @@ export default function EditBusinessHoursConfig({ APIDATA, Data, PlanData, MainD
                         <div className="d-flex align-items-center justify-content-between gap-10 mb-4">
                             <div className="w-100">
                                 <label className="form-label">Start Time</label>
-                                <input
-                                    type="time"
-                                    className="form-control"
-                                    defa={startHours}
-                                    onChange={(e) => setStartHours(e.target.value)}
-                                />
+                               <input
+    type="time"
+    className="form-control"
+    value={startHours}
+    onChange={(e) => setStartHours(e.target.value)}
+    disabled={isClosed}
+/>
                             </div>
                             <div className="w-100">
                                 <label className="form-label">End Time</label>
-                                <input
-                                    type="time"
-                                    className="form-control"
-                                    defa={endHours}
-                                    onChange={(e) => setEndHours(e.target.value)}
-                                />
+                               <input
+    type="time"
+    className="form-control"
+    value={endHours}
+    onChange={(e) => setEndHours(e.target.value)}
+    disabled={isClosed}
+/>
                             </div>
                         </div>
 
