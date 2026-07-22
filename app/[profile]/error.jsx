@@ -6,6 +6,7 @@ import React from "react";
 
 export default function Error() {
   return (
+    
     <div
       className="d-flex align-items-center justify-content-center text-center flex-column"
       style={{ height: "100vh", padding: "0px 60px", fontSize: "18px" }}
