@@ -298,7 +298,7 @@ const Header = ({
 
 
       setImageSrc(contact.name + contact.phone);
-      setModalShow("ExchangeContact");
+      // setModalShow("ExchangeContact");
     }
   };
 
