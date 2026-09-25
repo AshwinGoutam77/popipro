@@ -367,25 +367,6 @@ const [enquireDirector, setEnquireDirector] = useState(null);
 
           </div>
 
-          {/* Phase */}
-          <div className="team-directory__phase">
-
-            <span className="team-directory__phase-badge">
-              PHASE 2 · OPTIONAL
-            </span>
-
-            <p>
-              Consent-based inquiries and messaging are shown as an
-              optional second phase.
-            </p>
-
-          </div>
-
-          {/* Notice */}
-          <div className="team-directory__preview-notice">
-            Preview only. The message is simulated and the inquiry is
-            saved in this browser.
-          </div>
 
         </div>
 
