@@ -25,6 +25,7 @@ import Video from "@components/ViewPages/Video";
 import Documents from "@components/ViewPages/Documents";
 import Events from "@components/ViewPages/Events";
 import BusinessHoursConfig from "@components/ViewPages/BusinessHours";
+import TeamDirectory from "@components/ViewPages/TeamDirectory";
 
 export default async function Main({ profile, data, id, referer, fetchData }) {
   let card = data?.data?.card || {};
@@ -137,7 +138,9 @@ export default async function Main({ profile, data, id, referer, fetchData }) {
                                 profile={profile}
                               />
                             ) : items?.status == "card_description" ? (
-                              <AboutMe Titles={titles} card={card} profile={profile} />
+                              <>
+                              <AboutMe Titles={titles} card={card} profile={profile} /> {card?.id == 'T7BG' && <TeamDirectory />}
+                              </>
                             ) : items?.status == "card_documents" ?
                               <Documents Titles={titles} card={card} profile={profile} />
                               : items?.status == "card_services" ? (

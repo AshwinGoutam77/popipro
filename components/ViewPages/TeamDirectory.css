@@ -1,0 +1,1413 @@
+/* =========================================================
+   TEAM DIRECTORY
+   Exact classes used by TeamDirectory.jsx
+   Based on ASP Director Connect styling
+   ========================================================= */
+
+.team-directory {
+    width: 100%;
+    color: #17191d;
+}
+
+.team-directory,
+.team-directory * {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   CONTAINER / BOX
+   ========================================================= */
+
+.team-directory__container {
+    width: 100%;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.team-directory__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 19px;
+}
+
+.team-directory__section-header h2 {
+    margin: 0;
+}
+
+/*
+  Your existing project already provides:
+  .title
+  .title--h1
+  .first-title
+  .title__separate
+
+  So we don't override those heavily here.
+  Only make sure the directory heading behaves correctly.
+*/
+
+.team-directory__section-header .title {
+    color: #17191d;
+}
+
+/* =========================================================
+   SEARCH ROW
+   ========================================================= */
+
+.team-directory__search-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.team-directory__search {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.team-directory__search svg {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    width: 17px;
+    height: 17px;
+
+    transform: translateY(-50%);
+
+    color: #848992;
+
+    pointer-events: none;
+}
+
+.team-directory__search input {
+    width: 100%;
+    min-width: 200px;
+
+    height: 43px;
+
+    padding: 11px 13px 11px 43px;
+
+    border: 1px solid #d8dbe0 !important;
+    border-radius: 8px;
+
+    background: #fff;
+    color: #17191d;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.team-directory__search input::placeholder {
+    color: #69717b;
+}
+
+.team-directory__search input:focus {
+    border-color: #d41c36;
+    outline: 2px solid rgba(212, 28, 54, 0.16);
+    outline-offset: 0;
+}
+
+/* Remove browser search decoration */
+
+.team-directory__search input[type="search"]::-webkit-search-decoration,
+.team-directory__search input[type="search"]::-webkit-search-cancel-button,
+.team-directory__search input[type="search"]::-webkit-search-results-button,
+.team-directory__search input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+.team-directory__filters {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+
+    margin: 16px 0 21px;
+}
+
+.team-directory__chip {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 34px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dfe1e5;
+    border-radius: 30px;
+
+    background: #fff;
+    color: #555c65;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.team-directory__chip:hover {
+    background: #f5f5f6;
+    border-color: #bcbfc5;
+    color: #17191d;
+}
+
+.team-directory__chip.is-active {
+    background: #17191d;
+    border-color: #17191d;
+    color: #fff;
+}
+
+.team-directory__chip.is-active:hover {
+    background: #33363a;
+    border-color: #33363a;
+    color: #fff;
+}
+
+.team-directory__chip:focus-visible {
+    outline: 3px solid rgba(181, 154, 96, 0.5);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   DIRECTORS GRID
+   ========================================================= */
+
+.team-directory__grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+/* =========================================================
+   DIRECTOR CARD
+   ========================================================= */
+
+.team-directory__card {
+    position: relative;
+
+    min-width: 0;
+
+    border: 1px solid #e5e6e9;
+    border-radius: 11px;
+
+    background: #fff;
+
+    padding: 22px;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.team-directory__card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.047);
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.team-directory__card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    min-height: 58px;
+}
+
+/* =========================================================
+   DIRECTOR AVATAR
+   ========================================================= */
+
+.team-directory__avatar {
+    display: block;
+
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    object-fit: cover;
+    object-position: center 22%;
+
+    border-radius: 50%;
+
+    background: #e9e6df;
+
+    color: #69717b;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   ASP SALES TAG
+   ========================================================= */
+
+.team-directory__tag {
+    display: inline-block;
+
+    padding-top: 2px;
+
+    color: #7b828c;
+
+    font-size: 10px;
+    line-height: 1.3;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   DIRECTOR NAME
+   ========================================================= */
+
+.team-directory__card h3 {
+    margin: 14px 0 7px;
+
+    color: #17191d;
+
+    font-size: 17px;
+    line-height: 1.35;
+
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+/* =========================================================
+   DIRECTOR ROLE
+   ========================================================= */
+
+.team-directory__role {
+    margin: 0;
+
+    color: #69717b;
+
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+/* =========================================================
+   TERRITORY
+   ========================================================= */
+
+.team-directory__territory {
+    display: block;
+
+    min-height: 18px;
+
+    margin-top: 9px;
+
+    color: #d41c36;
+
+    font-size: 12px;
+    line-height: 1.55;
+    font-weight: 650;
+}
+
+.team-directory__territory strong {
+    display: inline;
+
+    color: #d41c36;
+
+    font-weight: 650;
+}
+
+.team-directory__territory span {
+    display: inline;
+
+    margin-left: 10px;
+
+    color: #777;
+
+    font-weight: 400;
+}
+
+/* =========================================================
+   VIEW PROFILE
+   ========================================================= */
+
+.team-directory__profile-link {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 4px;
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #d41c36;
+
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 650;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    outline: none;
+}
+
+.team-directory__profile-link span {
+    margin-left: 3px;
+}
+
+.team-directory__profile-link:hover {
+    color: #ae152b;
+    text-decoration: underline;
+}
+
+.team-directory__profile-link:focus-visible {
+    outline: 3px solid rgba(181, 154, 96, 0.45);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.team-directory__actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    margin-top: 19px;
+    padding-top: 16px;
+
+    border-top: 1px solid #f0f0f1;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.team-directory__button {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 34px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #dfe1e5;
+    border-radius: 7px;
+
+    background: #fff;
+    color: #17191d;
+
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.team-directory__button:hover {
+    background: #f5f5f5;
+    border-color: #bcbfc5;
+}
+
+.team-directory__button:focus-visible {
+    outline: 3px solid rgba(181, 154, 96, 0.45);
+    outline-offset: 2px;
+}
+
+/* Make Enquire fill available space */
+
+.team-directory__button--primary {
+    flex: 1;
+
+    background: #d41c36;
+    border-color: #d41c36;
+
+    color: #fff;
+}
+
+.team-directory__button--primary:hover {
+    background: #ae152b;
+    border-color: #ae152b;
+    color: #fff;
+}
+
+/* Share remains compact */
+
+.team-directory__actions .team-directory__button:not(.team-directory__button--primary) {
+    flex: 0 0 auto;
+}
+
+/* FontAwesome icons */
+
+.team-directory__button svg {
+    width: 13px;
+    height: 13px;
+
+    flex: 0 0 13px;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.team-directory__empty {
+    width: 100%;
+
+    padding: 45px 20px;
+
+    border: 1px dashed #d5d7dc;
+    border-radius: 10px;
+
+    background: #fff;
+
+    text-align: center;
+
+    color: #69717b;
+}
+
+.team-directory__empty h3 {
+    margin: 0 0 7px;
+
+    color: #17191d;
+
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.team-directory__empty p {
+    margin: 0 0 18px;
+
+    color: #69717b;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   CLEAR FILTERS
+   ========================================================= */
+
+.team-directory__clear {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #dfe1e5;
+    border-radius: 7px;
+
+    background: #fff;
+    color: #17191d;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.team-directory__clear:hover {
+    background: #f5f5f5;
+    border-color: #bcbfc5;
+}
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.team-directory__note {
+    margin: 14px 0 0;
+
+    color: #858b93;
+
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    .team-directory__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   MOBILE
+   This follows the original HTML:
+   2-column team cards, 10px gap,
+   50px avatars, hidden ASP SALES tag,
+   actions become grid.
+   ========================================================= */
+
+@media (max-width: 760px) {
+    .team-directory__section-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .team-directory__grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .team-directory__card {
+        padding: 18px;
+    }
+
+    .team-directory__avatar {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+
+    .team-directory__tag {
+        display: none;
+    }
+
+    .team-directory__card h3 {
+        font-size: 15px;
+    }
+
+    .team-directory__actions {
+        display: grid;
+        grid-template-columns: 1fr;
+
+        gap: 7px;
+    }
+
+    .team-directory__button,
+    .team-directory__button--primary {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+    .team-directory__grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .team-directory__card {
+        padding: 14px;
+    }
+
+    .team-directory__card h3 {
+        margin-top: 12px;
+
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .team-directory__role {
+        font-size: 11px;
+    }
+
+    .team-directory__territory {
+        font-size: 11px;
+    }
+
+    .team-directory__profile-link {
+        font-size: 11px;
+    }
+
+    .team-directory__button {
+        font-size: 11px;
+        padding: 7px 9px;
+    }
+
+    .team-directory__filters {
+        gap: 6px;
+        flex-wrap: nowrap;
+        overflow: scroll;
+    }
+
+    .team-directory__chip {
+        height: 32px;
+        padding: 0 11px;
+        font-size: 11px;
+    }
+}
+
+/* =========================================================
+   ENQUIRE MODAL
+   ========================================================= */
+
+.team-directory__modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px 18px;
+
+  background: rgba(17, 24, 39, 0.53);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+
+/* ---------------------------------------------------------
+   Modal
+   --------------------------------------------------------- */
+
+.team-directory__modal {
+  width: min(990px, 100%);
+
+  max-height: 92vh;
+
+  overflow: auto;
+
+  background: #fff;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 25px 100px rgba(0, 0, 0, 0.25);
+
+  color: #17191d;
+}
+
+
+/* ---------------------------------------------------------
+   Header
+   --------------------------------------------------------- */
+
+.team-directory__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 22px 26px 15px;
+
+  border-bottom: 1px solid #e5e6e9;
+
+  position: sticky;
+  top: 0;
+
+  background: #fff;
+
+  z-index: 2;
+}
+
+.team-directory__modal-header h2 {
+  margin: 0;
+
+  font-size: 21px;
+  line-height: 1.25;
+
+  font-weight: 700;
+  letter-spacing: -0.3px;
+
+  color: #17191d;
+}
+
+
+/* ---------------------------------------------------------
+   Close
+   --------------------------------------------------------- */
+
+.team-directory__modal-close {
+  appearance: none;
+
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #f0f1f3;
+
+  color: #17191d;
+
+  font-size: 27px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.team-directory__modal-close:hover {
+  background: #e5e6e9;
+  transform: rotate(4deg);
+}
+
+
+/* ---------------------------------------------------------
+   Body
+   --------------------------------------------------------- */
+
+.team-directory__modal-body {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  gap: 22px;
+
+  padding: 25px 26px;
+}
+
+
+/* ---------------------------------------------------------
+   Left
+   --------------------------------------------------------- */
+
+.team-directory__modal-left {
+  min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Director
+   --------------------------------------------------------- */
+
+.team-directory__director-info {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.team-directory__modal-avatar {
+  width: 62px;
+  height: 62px;
+
+  flex: 0 0 62px;
+
+  object-fit: cover;
+  object-position: center 22%;
+
+  border-radius: 50%;
+
+  background: #e9e6df;
+}
+
+.team-directory__director-info h3 {
+  margin: 0 0 5px;
+
+  font-size: 17px;
+  line-height: 1.35;
+
+  font-weight: 700;
+}
+
+.team-directory__director-info p {
+  margin: 0;
+
+  color: #69717b;
+
+  font-size: 13px;
+}
+
+
+/* ---------------------------------------------------------
+   Description
+   --------------------------------------------------------- */
+
+.team-directory__modal-description {
+  margin: 0 0 20px;
+
+  max-width: 470px;
+
+  color: #69717b;
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* ---------------------------------------------------------
+   Connection
+   --------------------------------------------------------- */
+
+.team-directory__connection {
+  padding: 19px;
+
+  border: 1px solid #e5e6e9;
+
+  border-radius: 8px;
+
+  background: #fcfcfc;
+}
+
+.team-directory__connection-title {
+  margin-bottom: 16px;
+
+  color: #d41c36;
+
+  font-size: 10px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+.team-directory__connection-row {
+  display: grid;
+
+  grid-template-columns: 140px minmax(0, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 9px;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.team-directory__connection-row:last-child {
+  margin-bottom: 0;
+}
+
+.team-directory__connection-row span {
+  color: #78808a;
+}
+
+.team-directory__connection-row strong {
+  color: #17191d;
+  font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   Phase
+   --------------------------------------------------------- */
+
+.team-directory__phase {
+  margin-top: 22px;
+
+  padding: 10px 14px;
+
+  border-left: 3px solid #b59a60;
+
+  background: #faf8f3;
+
+  color: #756749;
+}
+
+.team-directory__phase-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 4px 8px;
+
+  border: 1px solid #e9dfc5;
+
+  border-radius: 5px;
+
+  background: #f6f1e6;
+
+  color: #786139;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  letter-spacing: 0.3px;
+}
+
+.team-directory__phase p {
+  margin: 5px 0 0;
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* ---------------------------------------------------------
+   Preview Notice
+   --------------------------------------------------------- */
+
+.team-directory__preview-notice {
+  margin-top: 22px;
+
+  padding: 12px 15px;
+
+  border: 1px solid #ecdfc3;
+
+  border-radius: 8px;
+
+  background: #f8f3e8;
+
+  color: #746039;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+
+/* ---------------------------------------------------------
+   Right / Form
+   --------------------------------------------------------- */
+
+.team-directory__modal-right {
+  min-width: 0;
+}
+
+.team-directory__modal-right form {
+  width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   Fields
+   --------------------------------------------------------- */
+
+.team-directory__field {
+  margin-bottom: 17px;
+}
+
+.team-directory__field--full {
+  width: 100%;
+}
+
+.team-directory__field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #17191d;
+
+  font-size: 12px;
+  line-height: 1.3;
+
+  font-weight: 700;
+}
+
+.team-directory__field input,
+.team-directory__field select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+
+  height: 48px;
+
+  padding: 12px 13px;
+
+  border: 1px solid #d8dbe0 !important;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  color: #17191d;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.team-directory__field input::placeholder {
+  color: #69717b;
+}
+
+.team-directory__field input:focus,
+.team-directory__field select:focus {
+  border-color: #d41c36;
+
+  outline: 2px solid rgba(212, 28, 54, 0.16);
+}
+
+
+/* ---------------------------------------------------------
+   Two Column Fields
+   --------------------------------------------------------- */
+
+.team-directory__form-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 22px;
+}
+
+
+/* ---------------------------------------------------------
+   Additional Details
+   --------------------------------------------------------- */
+
+.team-directory__additional {
+  appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin: -3px 0 20px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #69717b;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.team-directory__additional:hover {
+  color: #17191d;
+}
+
+.team-directory__additional span {
+  font-size: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   Consent
+   --------------------------------------------------------- */
+
+.team-directory__consent {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-top: 3px;
+
+  color: #17191d;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.team-directory__consent input {
+  appearance: auto;
+
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 16px;
+
+  margin: 3px 0 0;
+
+  accent-color: #d41c36;
+}
+
+
+/* ---------------------------------------------------------
+   No Promotional Messages
+   --------------------------------------------------------- */
+
+.team-directory__no-promo {
+  margin: 13px 0 20px;
+
+  color: #69717b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* ---------------------------------------------------------
+   Modal Actions
+   --------------------------------------------------------- */
+
+.team-directory__modal-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+
+/* Sample */
+
+.team-directory__sample-button {
+  appearance: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 47px;
+
+  padding: 10px 14px;
+
+  border: 1px solid #dfe1e5;
+
+  border-radius: 7px;
+
+  background: #fff;
+
+  color: #17191d;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.team-directory__sample-button:hover {
+  background: #f5f5f5;
+
+  border-color: #bcbfc5;
+}
+
+
+/* Submit */
+
+.team-directory__submit-button {
+  appearance: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 47px;
+
+  padding: 10px 17px;
+
+  border: 1px solid #d41c36;
+
+  border-radius: 7px;
+
+  background: #d41c36;
+
+  color: #fff;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.team-directory__submit-button:hover {
+  background: #ae152b;
+
+  border-color: #ae152b;
+}
+
+.team-directory__submit-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  .team-directory__modal-backdrop {
+    align-items: flex-start;
+
+    padding: 10px;
+  }
+
+  .team-directory__modal {
+    max-height: 95vh;
+
+    border-radius: 12px;
+  }
+
+  .team-directory__modal-header {
+    padding: 18px 20px;
+  }
+
+  .team-directory__modal-header h2 {
+    font-size: 19px;
+  }
+
+  .team-directory__modal-body {
+    display: block;
+
+    padding: 20px;
+  }
+
+  .team-directory__modal-right {
+    margin-top: 22px;
+  }
+
+  .team-directory__form-grid {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .team-directory__modal-actions {
+    flex-wrap: wrap;
+  }
+
+  .team-directory__sample-button,
+  .team-directory__submit-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .team-directory__modal-header {
+    padding: 16px;
+  }
+
+  .team-directory__modal-body {
+    padding: 16px;
+  }
+
+  .team-directory__connection-row {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+
+  .team-directory__director-info {
+    gap: 11px;
+  }
+
+  .team-directory__modal-avatar {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+}
